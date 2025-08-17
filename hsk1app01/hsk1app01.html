@@ -12,18 +12,21 @@
   <div class="container">
     <h1>HSK 1 Vocabulary Game</h1>
 
+    <!-- Control Buttons -->
     <div class="controls">
       <button id="newGame">▶ New</button>
       <button id="pauseGame">⏸ Pause</button>
       <button id="endGame">⏹ End</button>
     </div>
 
+    <!-- Mode Selection -->
     <div class="mode-toggle">
       <button class="mode" id="modeChinese">Chinese</button>
       <button class="mode" id="modePinyin">Pinyin</button>
       <button class="mode" id="modeEnglish">English</button>
     </div>
 
+    <!-- Question Settings (visible only before/after game) -->
     <div class="question-settings">
       <label for="questionCount">Questions:</label>
       <div class="stepper">
@@ -33,14 +36,26 @@
       </div>
     </div>
 
+    <!-- Progress Bar -->
     <div class="progress-bar">
       <div id="progressFill"></div>
     </div>
 
+    <!-- Countdown Visual -->
+    <div id="countdownCircles" class="circle-container">
+      <div class="circle" id="c1"></div>
+      <div class="circle" id="c2"></div>
+      <div class="circle" id="c3"></div>
+      <div class="circle" id="c4"></div>
+      <div class="circle" id="c5"></div>
+    </div>
+
+    <!-- Question Display -->
     <div class="question-display">
       <label id="questionLabel">Select a mode to begin</label>
     </div>
 
+    <!-- Answer Options -->
     <div class="options">
       <button class="option" id="opt1"></button>
       <button class="option" id="opt2"></button>
@@ -48,15 +63,13 @@
       <button class="option" id="opt4"></button>
     </div>
 
+    <!-- Feedback Images -->
     <div class="feedback">
       <img id="correctImg" src="correct.png" alt="Correct" hidden />
       <img id="wrongImg" src="wrong.png" alt="Wrong" hidden />
-      <!-- Sonido desactivado temporalmente
-      <audio id="correctSound" src="correct.mp3"></audio>
-      <audio id="wrongSound" src="wrong.mp3"></audio>
-      -->
     </div>
 
+    <!-- Results -->
     <div id="results" class="results" hidden></div>
   </div>
 </body>

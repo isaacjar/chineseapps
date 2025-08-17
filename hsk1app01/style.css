@@ -20,7 +20,11 @@ body {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Botones generales */
+/* Control Buttons */
+.controls {
+  margin-bottom: 15px;
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -29,6 +33,7 @@ button {
   color: white;
   font-size: 16px;
   padding: 10px 15px;
+  margin: 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -42,7 +47,15 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Botones de modo */
+button:disabled {
+  background-color: #ccc !important;
+  color: #777 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Mode Selection */
 .mode-toggle {
   margin: 15px 0;
 }
@@ -57,7 +70,7 @@ button:active {
   color: white;
 }
 
-/* Selector de preguntas */
+/* Question Settings */
 .question-settings {
   margin: 20px 0;
   font-size: 18px;
@@ -101,7 +114,7 @@ button:active {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* Pregunta */
+/* Question Display */
 .question-display {
   margin: 20px 0;
   font-size: 24px;
@@ -109,7 +122,27 @@ button:active {
   color: #444;
 }
 
-/* Opciones de respuesta */
+/* Countdown Circles */
+.circle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.circle.active {
+  background-color: #5ab4f8;
+}
+
+/* Answer Options */
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -136,7 +169,7 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Feedback visual */
+/* Feedback Images */
 .feedback img {
   width: 100px;
   margin-top: 10px;
@@ -150,7 +183,7 @@ button:active {
   display: none;
 }
 
-/* Resultados */
+/* Results */
 .results {
   font-size: 20px;
   font-weight: bold;
@@ -158,7 +191,7 @@ button:active {
   color: #e63946;
 }
 
-/* Colores de respuesta */
+/* Answer States */
 .correct {
   background-color: #4CAF50 !important;
   color: white;
@@ -177,6 +210,12 @@ button:active {
 .wrong {
   background-color: #F44336 !important;
   color: white;
+}
+
+.inactive {
+  background-color: #ddd !important;
+  color: #999 !important;
+  cursor: default;
 }
 
 /* Responsive */
@@ -207,9 +246,14 @@ button:active {
     height: 36px;
     font-size: 18px;
   }
+
+  .circle {
+    width: 16px;
+    height: 16px;
+  }
 }
 
-/* Animaciones */
+/* Animations */
 .question-display.fade {
   animation: fadeQuestion 0.5s ease-in-out;
 }
@@ -228,7 +272,7 @@ button:active {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Barra de progreso */
+/* Progress Bar */
 .progress-bar {
   width: 100%;
   height: 10px;

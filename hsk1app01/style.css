@@ -1,35 +1,65 @@
+/* Fuente base y fondo */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to right, #ffe4e1, #e0f7fa);
   margin: 0;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
+/* Contenedor principal */
 .container {
   max-width: 600px;
   width: 100%;
   background: #fff0f5;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  padding: 20px;
+  padding: 10px;
   text-align: center;
-  animation: fadeIn 1s ease-in-out;
 }
 
-/* Control Buttons */
-.controls {
-  margin-bottom: 15px;
+/* Título con fuente divertida y color fijo */
+h1 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.7em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
+h1 .title-text {
+  color: #ff4081;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+}
+
+h1 .icon {
+  color: initial;
+  font-size: 1.2em;
+}
+
+/* Responsive título */
+@media (max-width: 768px) {
+  h1 { font-size: 1em; gap: 4px; }
+  h1 .icon { font-size: 1em; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 0.9em; flex-direction: column; gap: 2px; }
+  h1 .icon { font-size: 1em; }
+}
+
+/* Botones generales */
 button {
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  background-color: #5ab4f8;
+  background-color: #ff9a8b;
   color: white;
   font-size: 16px;
   padding: 10px 15px;
@@ -39,12 +69,12 @@ button {
 }
 
 button:hover {
-  background-color: #3498db;
-  transform: translateY(-2px);
+  background-color: #ff6a88;
+  transform: translateY(-2px) scale(1.05) rotate(-1deg);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 button:disabled {
@@ -55,22 +85,22 @@ button:disabled {
   transform: none;
 }
 
-/* Mode Selection */
+/* Botones de modo */
 .mode-toggle {
   margin: 15px 0;
 }
 
 .mode-toggle button {
-  background-color: #ffb6c1;
+  background-color: #f6d365;
   color: #333;
 }
 
 .mode-toggle button.active {
-  background-color: #e75480;
+  background-color: #fda085;
   color: white;
 }
 
-/* Question Settings */
+/* Configuración de preguntas */
 .question-settings {
   margin: 20px 0;
   font-size: 18px;
@@ -85,7 +115,7 @@ button:disabled {
 }
 
 .step-btn {
-  background-color: #5ab4f8;
+  background-color: #a1c4fd;
   color: white;
   border: none;
   border-radius: 6px;
@@ -98,7 +128,7 @@ button:disabled {
 }
 
 .step-btn:hover {
-  background-color: #3498db;
+  background-color: #c2e9fb;
   transform: translateY(-1px);
 }
 
@@ -114,7 +144,7 @@ button:disabled {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* Question Display */
+/* Pregunta */
 .question-display {
   margin: 20px 0;
   font-size: 24px;
@@ -122,7 +152,7 @@ button:disabled {
   color: #444;
 }
 
-/* Countdown Circles */
+/* Círculos de cuenta atrás con efecto visual */
 .circle-container {
   display: flex;
   justify-content: center;
@@ -135,14 +165,16 @@ button:disabled {
   height: 20px;
   border-radius: 50%;
   background-color: #ddd;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .circle.active {
   background-color: #5ab4f8;
+  transform: scale(1.2);
 }
 
-/* Answer Options */
+/* Opciones de respuesta */
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -151,7 +183,7 @@ button:disabled {
 }
 
 .option {
-  background-color: #7be0c2;
+  background-color: #84fab0;
   color: #333;
   font-weight: bold;
   font-size: 20px;
@@ -162,15 +194,15 @@ button:disabled {
 }
 
 .option:hover {
-  background-color: #4dd2a7;
-  transform: translateY(-2px);
+  background-color: #8fd3f4;
+  transform: translateY(-2px) scale(1.05);
 }
 
 .option:active {
   transform: scale(0.98);
 }
 
-/* Feedback Images */
+/* Imágenes de feedback */
 .feedback img {
   width: 100px;
   margin-top: 10px;
@@ -179,12 +211,11 @@ button:disabled {
   margin-right: auto;
 }
 
-#correctImg,
-#wrongImg {
+#correctImg, #wrongImg {
   display: none;
 }
 
-/* Results */
+/* Resultados */
 .results {
   font-size: 20px;
   font-weight: bold;
@@ -192,69 +223,25 @@ button:disabled {
   color: #e63946;
 }
 
-/* Answer States */
-.correct {
-  background-color: #4CAF50 !important;
-  color: white;
-}
+/* Estados de respuesta */
+.correct { background-color: #4CAF50 !important; color: white; }
+.incorrect { background-color: #B0BEC5 !important; color: white; }
+.missed { background-color: #FFEB3B !important; color: black; }
+.wrong { background-color: #F44336 !important; color: white; }
+.inactive { background-color: #ddd !important; color: #999 !important; cursor: default; }
 
-.incorrect {
-  background-color: #B0BEC5 !important;
-  color: white;
-}
-
-.missed {
-  background-color: #FFEB3B !important;
-  color: black;
-}
-
-.wrong {
-  background-color: #F44336 !important;
-  color: white;
-}
-
-.inactive {
-  background-color: #ddd !important;
-  color: #999 !important;
-  cursor: default;
-}
-
-/* Responsive */
+/* Responsive general */
 @media (max-width: 600px) {
-  .options {
-    grid-template-columns: 1fr;
-  }
-
-  .container {
-    padding: 15px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  .question-display {
-    font-size: 20px;
-  }
-
-  .step-display {
-    font-size: 18px;
-  }
-
-  .step-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-
-  .circle {
-    width: 16px;
-    height: 16px;
-  }
+  .options { grid-template-columns: 1fr; }
+  .container { padding: 15px; }
+  button { font-size: 14px; padding: 8px 12px; }
+  .question-display { font-size: 20px; }
+  .step-display { font-size: 18px; }
+  .step-btn { width: 36px; height: 36px; font-size: 18px; }
+  .circle { width: 16px; height: 16px; }
 }
 
-/* Animations */
+/* Animaciones */
 .question-display.fade {
   animation: fadeQuestion 0.5s ease-in-out;
 }
@@ -273,7 +260,7 @@ button:disabled {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Progress Bar */
+/* Barra de progreso */
 .progress-bar {
   width: 100%;
   height: 10px;
@@ -290,6 +277,7 @@ button:disabled {
   transition: width 0.5s ease;
 }
 
+/* Resumen y revisión */
 .summary {
   margin-top: 15px;
   font-size: 18px;
@@ -321,7 +309,6 @@ button:disabled {
   white-space: pre-line;
 }
 
-
 .vocab-correct {
   color: green;
   margin: 4px 0;
@@ -332,7 +319,7 @@ button:disabled {
   margin: 4px 0;
 }
 
-/* Status bar */
+/* Barra de estado */
 .status-bar {
   display: flex;
   justify-content: center;
@@ -350,7 +337,7 @@ button:disabled {
   color: #2c3e50;
 }
 
-/* Toast */
+/* Toast de notificación */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -370,17 +357,4 @@ button:disabled {
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(-4px);
-}
-
-/* Review colors (si no los tienes ya) */
-.vocab-correct { color: green; margin: 4px 0; }
-.vocab-wrong { color: red; margin: 4px 0; }
-
-/* Mejor legibilidad del review */
-#vocabReview {
-  margin-top: 20px;
-  font-size: 16px;
-  text-align: left;
-  line-height: 1.8;
-  white-space: pre-line;
 }

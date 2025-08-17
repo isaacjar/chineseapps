@@ -16,6 +16,15 @@ let answeredWords = [];
 let questionStartTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
+  //Title
+  const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
+  const c1 = randomColor();
+  const c2 = randomColor();
+  const c3 = randomColor();
+  document.documentElement.style.setProperty('--color1', c1);
+  document.documentElement.style.setProperty('--color2', c2);
+  document.documentElement.style.setProperty('--color3', c3);
+
   const defaultModeBtn = document.getElementById('modePinyin');
   defaultModeBtn.classList.add('active');
   currentMode = 'Pinyin';

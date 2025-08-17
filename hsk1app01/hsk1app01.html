@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK 1 Vocabulary Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="data.js"></script>
+  <script defer src="code.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>HSK 1 Vocabulary Game</h1>
+
+    <div class="controls">
+      <button id="newGame">▶ New</button>
+      <button id="pauseGame">⏸ Pause</button>
+      <button id="endGame">⏹ End</button>
+    </div>
+
+    <div class="mode-toggle">
+      <button class="mode" id="modeChinese">Chinese</button>
+      <button class="mode" id="modePinyin">Pinyin</button>
+      <button class="mode" id="modeEnglish">English</button>
+    </div>
+
+    <div class="question-settings">
+      <label for="questionCount">Questions:</label>
+      <div class="stepper">
+        <button id="decrease" class="step-btn">−</button>
+        <div id="questionCount" class="step-display">20</div>
+        <button id="increase" class="step-btn">+</button>
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div id="progressFill"></div>
+    </div>
+
+    <div class="question-display">
+      <label id="questionLabel">Select a mode to begin</label>
+    </div>
+
+    <div class="options">
+      <button class="option" id="opt1"></button>
+      <button class="option" id="opt2"></button>
+      <button class="option" id="opt3"></button>
+      <button class="option" id="opt4"></button>
+    </div>
+
+    <div class="feedback">
+      <img id="correctImg" src="correct.png" alt="Correct" hidden />
+      <img id="wrongImg" src="wrong.png" alt="Wrong" hidden />
+      <!-- Sonido desactivado temporalmente
+      <audio id="correctSound" src="correct.mp3"></audio>
+      <audio id="wrongSound" src="wrong.mp3"></audio>
+      -->
+    </div>
+
+    <div id="results" class="results" hidden></div>
+  </div>
+</body>
+</html>

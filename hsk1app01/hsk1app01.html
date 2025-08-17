@@ -17,6 +17,7 @@
       <button id="newGame">▶ New</button>
       <button id="pauseGame">⏸ Pause</button>
       <button id="endGame">⏹ End</button>
+      <div id="questionProgress" class="progress-label" hidden>1/10</div>
     </div>
 
     <!-- Mode Selection -->
@@ -24,6 +25,7 @@
       <button class="mode" id="modeChinese">Chinese</button>
       <button class="mode" id="modePinyin">Pinyin</button>
       <button class="mode" id="modeEnglish">English</button>
+      
     </div>
 
     <!-- Question Settings (visible only before/after game) -->
@@ -49,6 +51,8 @@
       <div class="circle" id="c4"></div>
       <div class="circle" id="c5"></div>
     </div>
+    <div id="summaryMessage" class="summary" hidden></div>
+    <div id="vocabReview" class="summary" hidden></div>
 
     <!-- Question Display -->
     <div class="question-display">

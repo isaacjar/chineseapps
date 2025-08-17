@@ -7,6 +7,7 @@ let currentWord = null;
 let answerTimeout;
 let countdownInterval;
 let isPaused = false;
+let answeredWords = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   const defaultModeBtn = document.getElementById('modePinyin');
@@ -44,6 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
     isPaused = false;
     showGameElements();
     document.querySelector('.question-settings').style.display = 'none';
+    document.querySelector('.mode-toggle').style.display = 'none';
+    document.getElementById('summaryMessage').style.display = 'none';
+    document.getElementById('questionProgress').hidden = false;
     startGame();
     document.getElementById('pauseGame').textContent = '⏸ Pause';
     document.getElementById('pauseGame').disabled = false;
@@ -55,9 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(countdownInterval);
     showResults();
     disableButtons();
+
+    document.querySelector('.question-display').style.display = 'none';
+    document.querySelector('.options').style.display = 'none';
     document.querySelector('.question-settings').style.display = 'block';
+    document.querySelector('.mode-toggle').style.display = 'block';
+
     document.getElementById('pauseGame').disabled = true;
     document.getElementById('endGame').disabled = true;
+    document.getElementById('questionProgress').hidden = true;
   };
 
   document.getElementById('pauseGame').onclick = () => {
@@ -90,6 +100,8 @@ function hideGameElements() {
   document.querySelector('.feedback').style.display = 'none';
   document.getElementById('results').style.display = 'none';
   document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('summaryMessage').style.display = 'none';
+  document.getElementById('questionProgress').hidden = true;
   clearCountdownCircles();
 }
 
@@ -104,6 +116,11 @@ function startGame() {
   currentQuestion = 0;
   correctAnswers = 0;
   wrongAnswers = 0;
+  answeredWords = [];
+
+  document.getElementById('vocabReview').style.display = 'none'; // 👈 Oculta el vocabulario
+  document.getElementById('vocabReview').innerHTML = '';         // 👈 Limpia contenido anterior
+
   nextQuestion();
 }
 
@@ -116,15 +133,39 @@ function showResults() {
   document.getElementById('results').hidden = false;
   document.getElementById('results').textContent =
     `✅ Correct: ${correctAnswers} | ❌ Incorrect: ${wrongAnswers}`;
+
+  // Mostrar el resumen justo debajo de los círculos
+  const summary = document.getElementById('summaryMessage');
+  summary.textContent = `You answered ${questionCount} questions: ${correctAnswers} right, ${wrongAnswers} wrong.`;
+  summary.style.display = 'block';
+
+  // Mostrar los controles de modo y configuración
+  document.querySelector('.mode-toggle').style.display = 'block';
+  document.querySelector('.question-settings').style.display = 'block';
+
+  // Ocultar elementos del juego
+  document.querySelector('.question-display').style.display = 'none';
+  document.querySelector('.options').style.display = 'none';
+
   document.getElementById('pauseGame').disabled = true;
   document.getElementById('endGame').disabled = true;
+  document.getElementById('questionProgress').hidden = true;
+  
+  const vocabReview = document.getElementById('vocabReview');
+  vocabReview.innerHTML = '<strong>Vocabulary Review:</strong><br>';
+
+  answeredWords.forEach(word => {
+    const icon = word.correct ? '✅' : '❌';
+    const line = document.createElement('div');
+    line.className = word.correct ? 'vocab-correct' : 'vocab-wrong';
+    line.innerHTML = `${icon} ${word.ch} [${word.pin}]  <i>${word.en}</i>`;
+    vocabReview.appendChild(line);
+  });
+  vocabReview.style.display = 'block'; 
 }
 
+
 function disableButtons() {
-  document.querySelectorAll('.option').forEach(btn => {
-    btn.disabled = true;
-    btn.classList.add('inactive');
-  });
   clearCountdownCircles();
 }
 
@@ -152,9 +193,12 @@ function nextQuestion() {
   if (currentQuestion >= questionCount) {
     showResults();
     disableButtons();
-    document.querySelector('.question-settings').style.display = 'block';
     return;
   }
+
+  const progressLabel = document.getElementById('questionProgress');
+  progressLabel.textContent = `${currentQuestion + 1}/${questionCount}`;
+  progressLabel.hidden = false;
 
   currentWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
   let correctText, questionText;
@@ -180,6 +224,12 @@ function nextQuestion() {
   label.textContent = questionText;
   label.classList.add('fade');
 
+  if (currentMode === 'Chinese') {
+    label.style.fontSize = '48px';
+  } else {
+    label.style.fontSize = '24px';
+  }
+
   let options = [correctText];
   while (options.length < 4) {
     let rand = vocabulary[Math.floor(Math.random() * vocabulary.length)];
@@ -197,15 +247,12 @@ function nextQuestion() {
   buttons.forEach((btn, i) => {
     btn.textContent = options[i];
     btn.className = 'option fade';
-    btn.disabled = false;
   });
 
-  // Progress bar
   const progress = document.getElementById('progressFill');
   const progressValue = (currentQuestion + 1) / questionCount;
   progress.style.width = `${Math.min(progressValue, 1) * 100}%`;
 
-  // Countdown visual with circles
   let countdown = 0;
   countdownInterval = setInterval(() => {
     if (countdown < 5) {
@@ -217,12 +264,14 @@ function nextQuestion() {
     }
   }, 1000);
 
-  // Timeout for auto-reveal
+  const correctRaw = correctText;
   answerTimeout = setTimeout(() => {
     buttons.forEach(btn => {
-      btn.disabled = true;
-      if (btn.textContent === correctText) {
-        btn.classList.add('missed');
+      const btnText = btn.textContent.trim().toLowerCase();
+      const correctText = correctRaw.trim().toLowerCase();
+
+      if (btnText === correctText) {
+                btn.classList.add('missed');
       } else {
         btn.classList.add('incorrect');
       }
@@ -272,6 +321,13 @@ function checkAnswer(selectedText) {
     wrongAnswers++;
     showFeedback(false);
   }
+  
+  answeredWords.push({
+    correct: selected === correctText,
+    ch: currentWord.ch,
+    pin: currentWord.pin,
+    en: currentWord.en
+  });
 
   setTimeout(() => {
     currentQuestion++;

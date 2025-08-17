@@ -340,3 +340,9 @@ button:disabled {
   opacity: 1;
   transform: translateX(-50%) translateY(-4px);
 }
+
+button:focus,
+.option:focus {
+  outline: none;
+  box-shadow: none;
+}

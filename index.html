@@ -23,7 +23,36 @@
 
       <a href="https://www.youtube.com/@SimpleChinese" class="extra-button">📺 Simple Chinese YouTube</a>
       <a href="https://masteringmandarinchinese.blogspot.com/" class="extra-button">📝 Simple Chinese Blog</a>
+      <div id="comingSoonLabel" class="coming-soon" hidden></div>
     </div>
   </div>
+ 
+ <script>
+  const pastelClasses = ['pastel-1','pastel-2','pastel-3','pastel-4','pastel-5'];
+  const emojis = ['🎯','🚀','🎉','🕹️','✨','💡','🎨','🤖','🔥','🥳'];
+  const label = document.getElementById('comingSoonLabel');
+
+  document.querySelectorAll('.game-button').forEach((btn, index) => {
+    if (index >= 1) { // Botones 2 a 10
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const randomPastel = pastelClasses[Math.floor(Math.random() * pastelClasses.length)];
+        const randomEmojis = Array.from({length:3}, () => emojis[Math.floor(Math.random() * emojis.length)]).join(' ');
+
+        // Asignar estilo y texto
+        label.className = `coming-soon ${randomPastel}`;
+        label.textContent = `${randomEmojis} Coming soon! ${randomEmojis}`;
+        label.hidden = false;
+
+        // ⏳ Ocultar automáticamente a los 3 segundos
+        setTimeout(() => {
+          label.hidden = true;
+        }, 3000);
+      });
+    }
+  });
+</script>
+
 </body>
 </html>

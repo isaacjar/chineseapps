@@ -7,7 +7,13 @@ let currentWord = null;
 let answerTimeout;
 let countdownInterval;
 let isPaused = false;
+
+// Gamificación
+let score = 0;
+let streak = 0;
+let bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
 let answeredWords = [];
+let questionStartTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   const defaultModeBtn = document.getElementById('modePinyin');
@@ -47,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.question-settings').style.display = 'none';
     document.querySelector('.mode-toggle').style.display = 'none';
     document.getElementById('summaryMessage').style.display = 'none';
+    document.getElementById('vocabReview').style.display = 'none';
     document.getElementById('questionProgress').hidden = false;
     startGame();
     document.getElementById('pauseGame').textContent = '⏸ Pause';
@@ -88,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.option').forEach(btn => {
     btn.onclick = () => checkAnswer(btn.textContent);
   });
+
+  updateStatus();
 });
 
 function updateModeLabel() {
@@ -102,6 +111,8 @@ function hideGameElements() {
   document.getElementById('progressFill').style.width = '0%';
   document.getElementById('summaryMessage').style.display = 'none';
   document.getElementById('questionProgress').hidden = true;
+  const review = document.getElementById('vocabReview');
+  if (review) { review.style.display = 'none'; review.innerHTML = ''; }
   clearCountdownCircles();
 }
 
@@ -112,15 +123,51 @@ function showGameElements() {
   document.getElementById('results').style.display = 'none';
 }
 
+function updateStatus() {
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const streakDisplay = document.getElementById('streakDisplay');
+  const bestScoreDisplay = document.getElementById('bestScoreDisplay');
+  if (scoreDisplay) scoreDisplay.textContent = `Score: ${score}`;
+  if (streakDisplay) streakDisplay.textContent = `Streak: ${streak}`;
+  if (bestScoreDisplay) bestScoreDisplay.textContent = `Best: ${bestScore}`;
+}
+
+function showToast(msg, ms = 1200) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.hidden = false;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.hidden = true;
+  }, ms);
+}
+
+function performanceMessage(accuracy) {
+  if (accuracy >= 90) return 'Great job! 🏅';
+  if (accuracy >= 70) return 'Nice work! 💪';
+  if (accuracy >= 50) return 'Keep going! 🚀';
+  return 'Practice makes progress! 🌱';
+}
+
 function startGame() {
   currentQuestion = 0;
   correctAnswers = 0;
   wrongAnswers = 0;
+  score = 0;
+  streak = 0;
   answeredWords = [];
 
-  document.getElementById('vocabReview').style.display = 'none'; // 👈 Oculta el vocabulario
-  document.getElementById('vocabReview').innerHTML = '';         // 👈 Limpia contenido anterior
+  const review = document.getElementById('vocabReview');
+  review.style.display = 'none';
+  review.innerHTML = '';
 
+  const summary = document.getElementById('summaryMessage');
+  summary.style.display = 'none';
+  summary.textContent = '';
+
+  updateStatus();
   nextQuestion();
 }
 
@@ -134,26 +181,31 @@ function showResults() {
   document.getElementById('results').textContent =
     `✅ Correct: ${correctAnswers} | ❌ Incorrect: ${wrongAnswers}`;
 
-  // Mostrar el resumen justo debajo de los círculos
+  const totalAnswered = correctAnswers + wrongAnswers;
+  const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
+  const msg = performanceMessage(accuracy);
+
   const summary = document.getElementById('summaryMessage');
-  summary.textContent = `You answered ${questionCount} questions: ${correctAnswers} right, ${wrongAnswers} wrong.`;
+  summary.textContent = `You answered ${questionCount} questions: ${correctAnswers} right, ${wrongAnswers} wrong. ${msg}`;
   summary.style.display = 'block';
 
-  // Mostrar los controles de modo y configuración
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem('bestScore', bestScore);
+  }
+  updateStatus();
+
   document.querySelector('.mode-toggle').style.display = 'block';
   document.querySelector('.question-settings').style.display = 'block';
-
-  // Ocultar elementos del juego
   document.querySelector('.question-display').style.display = 'none';
   document.querySelector('.options').style.display = 'none';
 
   document.getElementById('pauseGame').disabled = true;
   document.getElementById('endGame').disabled = true;
   document.getElementById('questionProgress').hidden = true;
-  
+
   const vocabReview = document.getElementById('vocabReview');
   vocabReview.innerHTML = '<strong>Vocabulary Review:</strong><br>';
-
   answeredWords.forEach(word => {
     const icon = word.correct ? '✅' : '❌';
     const line = document.createElement('div');
@@ -161,9 +213,8 @@ function showResults() {
     line.innerHTML = `${icon} ${word.ch} [${word.pin}]  <i>${word.en}</i>`;
     vocabReview.appendChild(line);
   });
-  vocabReview.style.display = 'block'; 
+  vocabReview.style.display = 'block';
 }
-
 
 function disableButtons() {
   clearCountdownCircles();
@@ -196,6 +247,8 @@ function nextQuestion() {
     return;
   }
 
+  questionStartTime = Date.now();
+
   const progressLabel = document.getElementById('questionProgress');
   progressLabel.textContent = `${currentQuestion + 1}/${questionCount}`;
   progressLabel.hidden = false;
@@ -224,11 +277,7 @@ function nextQuestion() {
   label.textContent = questionText;
   label.classList.add('fade');
 
-  if (currentMode === 'Chinese') {
-    label.style.fontSize = '48px';
-  } else {
-    label.style.fontSize = '24px';
-  }
+  label.style.fontSize = currentMode === 'Chinese' ? '48px' : '24px';
 
   let options = [correctText];
   while (options.length < 4) {
@@ -268,13 +317,24 @@ function nextQuestion() {
   answerTimeout = setTimeout(() => {
     buttons.forEach(btn => {
       const btnText = btn.textContent.trim().toLowerCase();
-      const correctText = correctRaw.trim().toLowerCase();
-
-      if (btnText === correctText) {
-                btn.classList.add('missed');
+      const correctTxt = correctRaw.trim().toLowerCase();
+      if (btnText === correctTxt) {
+        btn.classList.add('missed');
       } else {
         btn.classList.add('incorrect');
       }
+    });
+
+    wrongAnswers++;
+    streak = 0;
+    score -= 2;
+    updateStatus();
+
+    answeredWords.push({
+      correct: false,
+      ch: currentWord.ch,
+      pin: currentWord.pin,
+      en: currentWord.en
     });
 
     setTimeout(() => {
@@ -302,7 +362,6 @@ function checkAnswer(selectedText) {
 
   document.querySelectorAll('.option').forEach(btn => {
     const btnText = normalize(btn.textContent);
-
     if (btnText === correctText && selected === correctText) {
       btn.classList.add('correct');
     } else if (btnText === correctText && selected !== correctText) {
@@ -314,20 +373,38 @@ function checkAnswer(selectedText) {
     }
   });
 
-  if (selected === correctText) {
+  const isCorrect = (selected === correctText);
+
+  if (isCorrect) {
     correctAnswers++;
+    streak++;
+
+    const base = 10;
+    const elapsed = (Date.now() - questionStartTime) / 1000;
+    const quickBonus = elapsed <= 2 ? 3 : 0;
+    let streakBonus = 0;
+    if (streak > 0 && streak % 3 === 0) {
+      streakBonus = 5;
+      showToast(`🔥 ${streak} in a row! +${streakBonus}`);
+    }
+    score += base + quickBonus + streakBonus;
+
     showFeedback(true);
   } else {
     wrongAnswers++;
+    streak = 0;
+    score -= 2;
     showFeedback(false);
   }
-  
+
   answeredWords.push({
-    correct: selected === correctText,
+    correct: isCorrect,
     ch: currentWord.ch,
     pin: currentWord.pin,
     en: currentWord.en
   });
+
+  updateStatus();
 
   setTimeout(() => {
     currentQuestion++;

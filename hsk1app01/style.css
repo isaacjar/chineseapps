@@ -45,12 +45,12 @@ h1 .icon {
 
 /* Responsive título */
 @media (max-width: 768px) {
-  h1 { font-size: 1em; gap: 4px; }
+  h1 { font-size: 1.4em; gap: 4px; }
   h1 .icon { font-size: 1em; }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 0.9em; flex-direction: column; gap: 2px; }
+  h1 { font-size: 1.1em; flex-direction: column; gap: 2px; }
   h1 .icon { font-size: 1em; }
 }
 
@@ -200,19 +200,6 @@ button:disabled {
 
 .option:active {
   transform: scale(0.98);
-}
-
-/* Imágenes de feedback */
-.feedback img {
-  width: 100px;
-  margin-top: 10px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#correctImg, #wrongImg {
-  display: none;
 }
 
 /* Resultados */

@@ -115,7 +115,6 @@ function updateModeLabel() {
 function hideGameElements() {
   document.querySelector('.question-display').style.display = 'none';
   document.querySelector('.options').style.display = 'none';
-  document.querySelector('.feedback').style.display = 'none';
   document.getElementById('results').style.display = 'none';
   document.getElementById('progressFill').style.width = '0%';
   document.getElementById('summaryMessage').style.display = 'none';
@@ -128,7 +127,6 @@ function hideGameElements() {
 function showGameElements() {
   document.querySelector('.question-display').style.display = 'block';
   document.querySelector('.options').style.display = 'grid';
-  document.querySelector('.feedback').style.display = 'block';
   document.getElementById('results').style.display = 'none';
 }
 
@@ -151,6 +149,13 @@ function showToast(msg, ms = 1200) {
     toast.classList.remove('show');
     toast.hidden = true;
   }, ms);
+}
+
+function showFeedback(isCorrect) {
+  const msg = isCorrect
+    ? '✅ Correct! +10'
+    : '❌ Incorrect! -2';
+  showToast(msg);
 }
 
 function performanceMessage(accuracy) {
@@ -178,11 +183,6 @@ function startGame() {
 
   updateStatus();
   nextQuestion();
-}
-
-function showFeedback(isCorrect) {
-  document.getElementById('correctImg').hidden = !isCorrect;
-  document.getElementById('wrongImg').hidden = isCorrect;
 }
 
 function showResults() {

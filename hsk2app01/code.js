@@ -96,6 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.onclick = () => checkAnswer(btn.textContent);
   });
 
+  // Elimina el foco visual en botones después de pulsarlos (móviles)
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('mouseup', () => btn.blur());
+    btn.addEventListener('touchend', () => btn.blur());
+  });
+
   updateStatus();
 });
 

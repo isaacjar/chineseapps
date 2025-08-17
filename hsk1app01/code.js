@@ -5,6 +5,8 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentWord = null;
 let answerTimeout;
+let countdownInterval;
+let isPaused = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   const defaultModeBtn = document.getElementById('modePinyin');
@@ -13,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
   updateModeLabel();
   document.getElementById('questionCount').textContent = questionCount;
   hideGameElements();
+
+  document.getElementById('pauseGame').disabled = true;
+  document.getElementById('endGame').disabled = true;
 
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -36,11 +41,39 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.getElementById('newGame').onclick = () => {
+    isPaused = false;
     showGameElements();
+    document.querySelector('.question-settings').style.display = 'none';
     startGame();
+    document.getElementById('pauseGame').textContent = '⏸ Pause';
+    document.getElementById('pauseGame').disabled = false;
+    document.getElementById('endGame').disabled = false;
   };
 
-  document.getElementById('endGame').onclick = endGame;
+  document.getElementById('endGame').onclick = () => {
+    clearTimeout(answerTimeout);
+    clearInterval(countdownInterval);
+    showResults();
+    disableButtons();
+    document.querySelector('.question-settings').style.display = 'block';
+    document.getElementById('pauseGame').disabled = true;
+    document.getElementById('endGame').disabled = true;
+  };
+
+  document.getElementById('pauseGame').onclick = () => {
+    const pauseBtn = document.getElementById('pauseGame');
+    if (!isPaused) {
+      isPaused = true;
+      clearTimeout(answerTimeout);
+      clearInterval(countdownInterval);
+      document.getElementById('questionLabel').textContent = '⏸ Game Paused';
+      pauseBtn.textContent = '▶ Resume';
+    } else {
+      isPaused = false;
+      pauseBtn.textContent = '⏸ Pause';
+      nextQuestion();
+    }
+  };
 
   document.querySelectorAll('.option').forEach(btn => {
     btn.onclick = () => checkAnswer(btn.textContent);
@@ -57,6 +90,7 @@ function hideGameElements() {
   document.querySelector('.feedback').style.display = 'none';
   document.getElementById('results').style.display = 'none';
   document.getElementById('progressFill').style.width = '0%';
+  clearCountdownCircles();
 }
 
 function showGameElements() {
@@ -76,18 +110,29 @@ function startGame() {
 function showFeedback(isCorrect) {
   document.getElementById('correctImg').hidden = !isCorrect;
   document.getElementById('wrongImg').hidden = isCorrect;
-  // Sonido desactivado temporalmente
-  // document.getElementById(isCorrect ? 'correctSound' : 'wrongSound').play();
 }
 
 function showResults() {
   document.getElementById('results').hidden = false;
   document.getElementById('results').textContent =
-    `Correct: ${correctAnswers} | Incorrect: ${wrongAnswers}`;
+    `✅ Correct: ${correctAnswers} | ❌ Incorrect: ${wrongAnswers}`;
+  document.getElementById('pauseGame').disabled = true;
+  document.getElementById('endGame').disabled = true;
 }
 
-function endGame() {
-  showResults();
+function disableButtons() {
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.disabled = true;
+    btn.classList.add('inactive');
+  });
+  clearCountdownCircles();
+}
+
+function clearCountdownCircles() {
+  for (let i = 1; i <= 5; i++) {
+    const circle = document.getElementById(`c${i}`);
+    if (circle) circle.classList.remove('active');
+  }
 }
 
 function shuffle(array) {
@@ -99,14 +144,17 @@ function shuffle(array) {
 
 function nextQuestion() {
   clearTimeout(answerTimeout);
+  clearInterval(countdownInterval);
+  clearCountdownCircles();
+
+  if (isPaused) return;
 
   if (currentQuestion >= questionCount) {
     showResults();
+    disableButtons();
+    document.querySelector('.question-settings').style.display = 'block';
     return;
   }
-
-  const progress = document.getElementById('progressFill');
-  progress.style.width = `${(currentQuestion / questionCount) * 100}%`;
 
   currentWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
   let correctText, questionText;
@@ -152,7 +200,24 @@ function nextQuestion() {
     btn.disabled = false;
   });
 
-  // ⏱ Si no responde en 5 segundos, mostrar solución
+  // Progress bar
+  const progress = document.getElementById('progressFill');
+  const progressValue = (currentQuestion + 1) / questionCount;
+  progress.style.width = `${Math.min(progressValue, 1) * 100}%`;
+
+  // Countdown visual with circles
+  let countdown = 0;
+  countdownInterval = setInterval(() => {
+    if (countdown < 5) {
+      const circle = document.getElementById(`c${countdown + 1}`);
+      if (circle) circle.classList.add('active');
+      countdown++;
+    } else {
+      clearInterval(countdownInterval);
+    }
+  }, 1000);
+
+  // Timeout for auto-reveal
   answerTimeout = setTimeout(() => {
     buttons.forEach(btn => {
       btn.disabled = true;
@@ -172,9 +237,8 @@ function nextQuestion() {
 
 function checkAnswer(selectedText) {
   clearTimeout(answerTimeout);
-
-  const buttons = document.querySelectorAll('.option');
-  buttons.forEach(btn => btn.disabled = true);
+  clearInterval(countdownInterval);
+  clearCountdownCircles();
 
   let correct;
   switch (currentMode) {
@@ -183,17 +247,25 @@ function checkAnswer(selectedText) {
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
   }
 
-  buttons.forEach(btn => {
-    if (btn.textContent === correct) {
-      btn.classList.add(selectedText === correct ? 'correct' : 'missed');
-    } else if (btn.textContent === selectedText) {
+  const normalize = str => str.trim().toLowerCase();
+  const selected = normalize(selectedText);
+  const correctText = normalize(correct);
+
+  document.querySelectorAll('.option').forEach(btn => {
+    const btnText = normalize(btn.textContent);
+
+    if (btnText === correctText && selected === correctText) {
+      btn.classList.add('correct');
+    } else if (btnText === correctText && selected !== correctText) {
+      btn.classList.add('missed');
+    } else if (btnText === selected && selected !== correctText) {
       btn.classList.add('wrong');
     } else {
       btn.classList.add('incorrect');
     }
   });
 
-  if (selectedText === correct) {
+  if (selected === correctText) {
     correctAnswers++;
     showFeedback(true);
   } else {

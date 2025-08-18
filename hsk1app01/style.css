@@ -21,235 +21,6 @@ body {
   text-align: center;
 }
 
-/* Título con fuente divertida y color fijo */
-h1 {
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.7em;
-  font-weight: 500;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-h1 .title-text {
-  color: #ff4081;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
-}
-
-h1 .icon {
-  color: initial;
-  font-size: 1.2em;
-}
-
-/* Responsive título */
-@media (max-width: 768px) {
-  h1 { font-size: 1.4em; gap: 4px; }
-  h1 .icon { font-size: 1em; }
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 1.1em; flex-direction: column; gap: 2px; }
-  h1 .icon { font-size: 1em; }
-}
-
-/* Botones generales */
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background-color: #ff9a8b;
-  color: white;
-  font-size: 16px;
-  padding: 10px 15px;
-  margin: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-button:hover {
-  background-color: #ff6a88;
-  transform: translateY(-2px) scale(1.05) rotate(-1deg);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-button:disabled {
-  background-color: #ccc !important;
-  color: #777 !important;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Botones de modo */
-.mode-toggle {
-  margin: 15px 0;
-}
-
-.mode-toggle button {
-  background-color: #f6d365;
-  color: #333;
-}
-
-.mode-toggle button.active {
-  background-color: #fda085;
-  color: white;
-}
-
-/* Configuración de preguntas */
-.question-settings {
-  margin: 20px 0;
-  font-size: 18px;
-  color: #333;
-}
-
-.stepper {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.step-btn {
-  background-color: #a1c4fd;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.step-btn:hover {
-  background-color: #c2e9fb;
-  transform: translateY(-1px);
-}
-
-.step-display {
-  min-width: 50px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #f0f8ff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 12px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Pregunta */
-.question-display {
-  margin: 20px 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: #444;
-}
-
-/* Círculos de cuenta atrás con efecto visual */
-.circle-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.circle.active {
-  background-color: #5ab4f8;
-  transform: scale(1.2);
-}
-
-/* Opciones de respuesta */
-.options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px 10px;
-  margin: 20px 0;
-}
-
-.option {
-  background-color: #84fab0;
-  color: #333;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.option:hover {
-  background-color: #8fd3f4;
-  transform: translateY(-2px) scale(1.05);
-}
-
-.option:active {
-  transform: scale(0.98);
-}
-
-/* Resultados */
-.results {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-  color: #e63946;
-}
-
-/* Estados de respuesta */
-.correct { background-color: #4CAF50 !important; color: white; }
-.incorrect { background-color: #B0BEC5 !important; color: white; }
-.missed { background-color: #FFEB3B !important; color: black; }
-.wrong { background-color: #F44336 !important; color: white; }
-.inactive { background-color: #ddd !important; color: #999 !important; cursor: default; }
-
-/* Responsive general */
-@media (max-width: 600px) {
-  .options { grid-template-columns: 1fr; }
-  .container { padding: 15px; }
-  button { font-size: 14px; padding: 8px 12px; }
-  .question-display { font-size: 20px; }
-  .step-display { font-size: 18px; }
-  .step-btn { width: 36px; height: 36px; font-size: 18px; }
-  .circle { width: 16px; height: 16px; }
-}
-/* Fuente base y fondo */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #ffe4e1, #e0f7fa);
-  margin: 0;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* Contenedor principal */
-.container {
-  max-width: 600px;
-  width: 100%;
-  background: #fff0f5;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  padding: 10px;
-  text-align: center;
-}
-
 /* Título */
 h1 {
   font-family: 'Baloo 2', cursive;
@@ -292,27 +63,26 @@ button {
   font-size: 16px;
   padding: 10px 15px;
   margin: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  outline: none;
 }
 
+button:focus,
+button:active,
 button:hover {
-  background-color: #ff6a88;
-  transform: translateY(-2px) scale(1.05) rotate(-1deg);
-}
-
-button:active {
-  transform: scale(0.97);
   background-color: #ff9a8b;
   color: white;
+  outline: none;
+  box-shadow: none;
+  transform: none;
 }
 
+/* Botones deshabilitados */
 button:disabled {
   background-color: #ccc !important;
   color: #777 !important;
   cursor: not-allowed;
   box-shadow: none;
-  transform: none;
 }
 
 /* Botones de modo */
@@ -354,12 +124,17 @@ button:disabled {
   height: 40px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  outline: none;
 }
 
+.step-btn:focus,
+.step-btn:active,
 .step-btn:hover {
-  background-color: #c2e9fb;
-  transform: translateY(-1px);
+  background-color: #a1c4fd;
+  color: white;
+  outline: none;
+  box-shadow: none;
+  transform: none;
 }
 
 .step-display {
@@ -396,12 +171,10 @@ button:disabled {
   border-radius: 50%;
   background-color: #ddd;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .circle.active {
   background-color: #5ab4f8;
-  transform: scale(1.2);
 }
 
 /* Opciones de respuesta */
@@ -420,18 +193,85 @@ button:disabled {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  outline: none;
 }
 
+.option:focus,
+.option:active,
 .option:hover {
-  background-color: #8fd3f4;
-  transform: translateY(-2px) scale(1.05);
-}
-
-.option:active {
-  transform: scale(0.98);
   background-color: #84fab0;
   color: #333;
+  outline: none;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Resultados */
+.results {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #e63946;
+}
+
+/* Estados de respuesta */
+.correct { background-color: #4CAF50 !important; color: white; }
+.incorrect { background-color: #B0BEC5 !important; color: white; }
+.missed { background-color: #FFEB3B !important; color: black; }
+.wrong { background-color: #F44336 !important; color: white; }
+.inactive { background-color: #ddd !important; color: #999 !important; cursor: default; }
+
+/* Responsive general */
+@media (max-width: 600px) {
+  .options { grid-template-columns: 1fr; }
+  .container { padding: 15px; }
+  button { font-size: 14px; padding: 8px 12px; }
+  .question-display { font-size: 20px; }
+  .step-display { font-size: 18px; }
+  .step-btn { width: 36px; height: 36px; font-size: 18px; }
+  .circle { width: 16px; height: 16px; }
+}
+
+/* Círculos de cuenta atrás */
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
+}
+
+.circle.active {
+  background-color: #5ab4f8;
+}
+
+/* Opciones de respuesta */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px 10px;
+  margin: 20px 0;
+}
+
+.option {
+  background-color: #84fab0;
+  color: #333;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  outline: none;
+}
+
+.option:focus,
+.option:active,
+.option:hover {
+  background-color: #84fab0;
+  color: #333;
+  outline: none;
+  box-shadow: none;
+  transform: none;
 }
 
 /* Resultados */
@@ -460,7 +300,7 @@ button:disabled {
   .circle { width: 16px; height: 16px; }
 }
 
-/* Animaciones */
+/* Animaciones suaves para elementos no interactivos */
 .question-display.fade {
   animation: fadeQuestion 0.5s ease-in-out;
 }
@@ -475,8 +315,8 @@ button:disabled {
 }
 
 @keyframes fadeOption {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Barra de progreso */
@@ -582,33 +422,18 @@ button:disabled {
   color: white;
 }
 
-#moreGames:hover {
-  background-color: #3f51b5;
+#moreGames:focus,
+#moreGames:hover,
+#moreGames:active {
+  background-color: #5c6bc0;
+  color: white;
+  outline: none;
+  box-shadow: none;
+  transform: none;
 }
 
-/* 🔧 Eliminar resaltado táctil azul en móviles */
+/* 🔧 Eliminar resaltado táctil azul en todos los dispositivos */
 button,
 .option {
   -webkit-tap-highlight-color: transparent;
 }
-
-/* 🔧 En móviles: mantener el color original al hacer foco */
-@media (hover: none) {
-  .option:focus {
-    background-color: #84fab0 !important;
-    color: #333 !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-
-  button:focus {
-    background-color: #ff9a8b !important;
-    color: white !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-}
-
-

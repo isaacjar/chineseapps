@@ -372,15 +372,21 @@ button:active,
 
 button:focus,
 button:active,
-button:hover,
 .option:focus,
-.option:active,
-.option:hover {
+.option:active {
   outline: none !important;
   box-shadow: none !important;
-  background-color: inherit !important;
-  color: inherit !important;
 }
+
+/* Hover se mantiene para escritorio */
+@media (hover: none) {
+  button:hover,
+  .option:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+  }
+}
+
 
 /* Elimina el resaltado táctil azul en navegadores móviles */
 button,

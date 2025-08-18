@@ -121,13 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Elimina el foco visual en botones después de pulsarlos (móviles)
-  document.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('mouseup', () => btn.blur());
-    btn.addEventListener('touchend', () => btn.blur());
-  });
   document.querySelectorAll('.option, button').forEach(btn => {
     btn.addEventListener('click', () => {
       setTimeout(() => btn.blur(), 100);
+    });
+    btn.addEventListener('touchstart', () => {
+      btn.blur();
     });
   });
 

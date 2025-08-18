@@ -132,19 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 🔧 Eliminar foco azul persistente en móviles y escritorio
+  const focusTrap = document.getElementById('focusTrap');
   document.querySelectorAll('button, .option').forEach(btn => {
     btn.addEventListener('touchend', () => {
       btn.blur();
-      document.activeElement.blur(); // fuerza pérdida de foco global
+      if (focusTrap) focusTrap.focus(); // redirige el foco
     });
     btn.addEventListener('mouseup', () => {
       btn.blur();
+      if (focusTrap) focusTrap.focus();
     });
   });
 
   updateStatus();
 });
-
 
 function updateModeLabel() {
   document.getElementById('questionLabel').textContent = `Mode: ${currentMode}`;

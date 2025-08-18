@@ -24,7 +24,7 @@ body {
 /* Título */
 h1 {
   font-family: 'Baloo 2', cursive;
-  font-size: 1.7em;
+  font-size: 1.9em;
   font-weight: 500;
   margin-bottom: 10px;
   display: flex;
@@ -44,12 +44,12 @@ h1 .icon {
 
 /* Responsive título */
 @media (max-width: 768px) {
-  h1 { font-size: 1.4em; gap: 4px; }
+  h1 { font-size: 1.6em; gap: 4px; }
   h1 .icon { font-size: 1em; }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.1em; flex-direction: column; gap: 2px; }
+  h1 { font-size: 1.4em; flex-direction: column; gap: 2px; }
   h1 .icon { font-size: 1em; }
 }
 
@@ -323,7 +323,7 @@ button:disabled {
 
 .toast.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%) translateY(4px);
 }
 
 /* Etiqueta de progreso */

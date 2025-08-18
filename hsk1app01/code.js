@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ▶️ Nuevo juego
   document.getElementById('newGame').onclick = () => {
+    isGameEnded = false;
     isPaused = false;
     showGameElements();
     document.querySelector('.question-settings').style.display = 'none';
@@ -134,20 +135,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 🔧 Redirigir el foco a un elemento visible para evitar el efecto azul
-  const scoreDisplay = document.getElementById('scoreDisplay');
+  const focusRedirect = document.getElementById('focusRedirect');
   document.querySelectorAll('button, .option').forEach(btn => {
     btn.addEventListener('touchend', () => {
       btn.blur();
-      if (scoreDisplay) scoreDisplay.focus(); // redirige el foco a un elemento visible
+      if (focusRedirect) focusRedirect.focus();
     });
     btn.addEventListener('mouseup', () => {
       btn.blur();
-      if (scoreDisplay) scoreDisplay.focus();
+      if (focusRedirect) focusRedirect.focus();
     });
   });
 
   updateStatus();
 });
+
 
 
 function updateModeLabel() {
@@ -291,6 +293,7 @@ function nextQuestion() {
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
+  if (focusRedirect) focusRedirect.focus();
 
   if (currentQuestion >= questionCount) {
     showResults();

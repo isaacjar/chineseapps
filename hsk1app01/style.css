@@ -599,6 +599,7 @@ button,
     color: #333 !important;
     outline: none !important;
     box-shadow: none !important;
+    transform: none !important;
   }
 
   button:focus {
@@ -606,5 +607,8 @@ button,
     color: white !important;
     outline: none !important;
     box-shadow: none !important;
+    transform: none !important;
   }
 }
+
+

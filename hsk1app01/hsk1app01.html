@@ -21,9 +21,11 @@
     <div class="controls">
       <button id="newGame">▶ New 🎮</button>
       <button id="pauseGame">⏸ Pause ⏳</button>
-      <button id="endGame">⏹ End 🛑</button>      
+      <button id="endGame">⏹ End 🛑</button>
+      <button id="moreGames">📂 More...</button>
+
       <div id="questionProgress" class="progress-label" hidden>1/10</div>
-       
+
       <div class="status-bar">
         <div id="scoreDisplay" class="stat" tabindex="-1">Score: 0</div>
         <div id="streakDisplay" class="stat">Streak: 0</div>
@@ -31,7 +33,6 @@
       </div>
 
       <div id="toast" class="toast" hidden></div>
-
     </div>
 
     <!-- Mode Selection -->
@@ -39,16 +40,15 @@
       <button class="mode" id="modeChinese">Chinese</button>
       <button class="mode" id="modePinyin">Pinyin</button>
       <button class="mode" id="modeEnglish">English</button>
-      <button id="moreGames">📂 More...</button>      
     </div>
 
-    <!-- Question Settings (visible only before/after game) -->
+    <!-- Question Settings -->
     <div class="question-settings">
       <label for="questionCount">Questions:</label>
       <div class="stepper">
-        <button id="decrease" class="step-btn">−</button>
+        <button id="decrease" class="step-btn" aria-label="Decrease questions">−</button>
         <div id="questionCount" class="step-display">20</div>
-        <button id="increase" class="step-btn">+</button>
+        <button id="increase" class="step-btn" aria-label="Increase questions">+</button>
       </div>
     </div>
 
@@ -65,6 +65,8 @@
       <div class="circle" id="c4"></div>
       <div class="circle" id="c5"></div>
     </div>
+
+    <!-- Summary and Review -->
     <div id="summaryMessage" class="summary" hidden></div>
     <div id="vocabReview" class="summary" hidden></div>
 
@@ -84,6 +86,8 @@
     <!-- Results -->
     <div id="results" class="results" hidden></div>
   </div>
-<div id="focusTrap" tabindex="-1" style="position: absolute; width: 0; height: 0; overflow: hidden;"></div>
+
+  <!-- Foco redirigido para evitar efecto azul en móviles -->
+  <div id="focusRedirect" tabindex="-1" style="height:1px; width:1px; opacity:0;"></div>
 </body>
 </html>

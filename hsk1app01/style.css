@@ -360,3 +360,30 @@ button:active,
   cursor: default;
   pointer-events: none;
 }
+
+#moreGames {
+  background-color: #5c6bc0;
+  color: white;
+}
+
+#moreGames:hover {
+  background-color: #3f51b5;
+}
+
+button:focus,
+button:active,
+button:hover,
+.option:focus,
+.option:active,
+.option:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+/* Elimina el resaltado táctil azul en navegadores móviles */
+button,
+.option {
+  -webkit-tap-highlight-color: transparent;
+}

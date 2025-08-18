@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('pauseGame').disabled = true;
   document.getElementById('endGame').disabled = true;
+  
+  document.getElementById('moreGames').onclick = () => {
+    window.location.href = 'https://isaacjar.github.io/chineseapps/';
+  };
 
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -120,6 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('mouseup', () => btn.blur());
     btn.addEventListener('touchend', () => btn.blur());
+  });
+  document.querySelectorAll('.option, button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => btn.blur(), 100);
+    });
   });
 
   updateStatus();

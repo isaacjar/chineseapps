@@ -49,7 +49,7 @@ h1 .icon {
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.4em; flex-direction: column; gap: 2px; }
+  h1 { font-size: 1.4em; gap: 2px; }
   h1 .icon { font-size: 1em; }
 }
 

@@ -58,8 +58,6 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  background-color: #ff9a8b;
-  color: white;
   font-size: 16px;
   padding: 10px 15px;
   margin: 5px;
@@ -67,36 +65,34 @@ button {
   outline: none;
 }
 
-button:focus,
-button:active,
-button:hover {
+/* Botones de controles */
+.controls button {
   background-color: #ff9a8b;
   color: white;
-  outline: none;
-  box-shadow: none;
-  transform: none;
 }
 
 /* Botones deshabilitados */
 button:disabled {
-  background-color: #ccc !important;
-  color: #777 !important;
+  background-color: #ccc;
+  color: #777;
   cursor: not-allowed;
   box-shadow: none;
 }
 
 /* Botones de modo */
-.mode-toggle {
-  margin: 15px 0;
-}
-
 .mode-toggle button {
-  background-color: #f6d365;
+  background-color: #fbe7a2; /* amarillo pastel claro */
   color: #333;
 }
 
 .mode-toggle button.active {
-  background-color: #fda085;
+  background-color: #b8860b; /* amarillo mostaza más intenso */
+  color: white;
+}
+
+/* Botón More... */
+#moreGames {
+  background-color: #3b5998; /* azul oscuro tipo Facebook */
   color: white;
 }
 
@@ -115,7 +111,7 @@ button:disabled {
 }
 
 .step-btn {
-  background-color: #a1c4fd;
+  background-color: #7b9acc; /* azul bígaro */
   color: white;
   border: none;
   border-radius: 6px;
@@ -125,16 +121,6 @@ button:disabled {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   outline: none;
-}
-
-.step-btn:focus,
-.step-btn:active,
-.step-btn:hover {
-  background-color: #a1c4fd;
-  color: white;
-  outline: none;
-  box-shadow: none;
-  transform: none;
 }
 
 .step-display {
@@ -157,6 +143,60 @@ button:disabled {
   color: #444;
 }
 
+/* Opciones de respuesta (antes de pulsar) */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px 10px;
+  margin: 20px 0;
+}
+
+.option {
+  background-color: #84fab0; /* menta */
+  color: #333;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  outline: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+/* Resultados */
+.results {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #e63946;
+}
+
+/* Estados de respuesta después de pulsar */
+.option.correct {
+  background-color: #32cd32; /* verde lima */
+  color: white;
+}
+
+.option.missed {
+  background-color: #ffeb3b; /* amarillo */
+  color: black;
+}
+
+.option.wrong {
+  background-color: #f44336; /* rojo */
+  color: white;
+}
+
+.option.incorrect {
+  background-color: #d5d5d5; /* gris dove */
+  color: #999;
+}
+
+.option.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* Círculos de cuenta atrás */
 .circle-container {
   display: flex;
@@ -171,136 +211,14 @@ button:disabled {
   border-radius: 50%;
   background-color: #ddd;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
+  transition: background-color 0.3s ease;
 }
 
 .circle.active {
   background-color: #5ab4f8;
 }
 
-/* Opciones de respuesta */
-.options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px 10px;
-  margin: 20px 0;
-}
-
-.option {
-  background-color: #84fab0;
-  color: #333;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  outline: none;
-}
-
-.option:focus,
-.option:active,
-.option:hover {
-  background-color: #84fab0;
-  color: #333;
-  outline: none;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Resultados */
-.results {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-  color: #e63946;
-}
-
-/* Estados de respuesta */
-.correct { background-color: #4CAF50 !important; color: white; }
-.incorrect { background-color: #B0BEC5 !important; color: white; }
-.missed { background-color: #FFEB3B !important; color: black; }
-.wrong { background-color: #F44336 !important; color: white; }
-.inactive { background-color: #ddd !important; color: #999 !important; cursor: default; }
-
-/* Responsive general */
-@media (max-width: 600px) {
-  .options { grid-template-columns: 1fr; }
-  .container { padding: 15px; }
-  button { font-size: 14px; padding: 8px 12px; }
-  .question-display { font-size: 20px; }
-  .step-display { font-size: 18px; }
-  .step-btn { width: 36px; height: 36px; font-size: 18px; }
-  .circle { width: 16px; height: 16px; }
-}
-
-/* Círculos de cuenta atrás */
-.circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.6);
-}
-
-.circle.active {
-  background-color: #5ab4f8;
-}
-
-/* Opciones de respuesta */
-.options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px 10px;
-  margin: 20px 0;
-}
-
-.option {
-  background-color: #84fab0;
-  color: #333;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  outline: none;
-}
-
-.option:focus,
-.option:active,
-.option:hover {
-  background-color: #84fab0;
-  color: #333;
-  outline: none;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Resultados */
-.results {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-  color: #e63946;
-}
-
-/* Estados de respuesta */
-.correct { background-color: #4CAF50 !important; color: white; }
-.incorrect { background-color: #B0BEC5 !important; color: white; }
-.missed { background-color: #FFEB3B !important; color: black; }
-.wrong { background-color: #F44336 !important; color: white; }
-.inactive { opacity: 0.6; cursor: default; pointer-events: none; }
-
-/* Responsive */
-@media (max-width: 600px) {
-  .options { grid-template-columns: 1fr; }
-  .container { padding: 15px; }
-  button { font-size: 14px; padding: 8px 12px; }
-  .question-display { font-size: 20px; }
-  .step-display { font-size: 18px; }
-  .step-btn { width: 36px; height: 36px; font-size: 18px; }
-  .circle { width: 16px; height: 16px; }
-}
-
-/* Animaciones suaves para elementos no interactivos */
+/* Animaciones suaves */
 .question-display.fade {
   animation: fadeQuestion 0.5s ease-in-out;
 }
@@ -346,14 +264,6 @@ button:disabled {
   border-radius: 8px;
   padding: 10px;
   display: none;
-}
-
-.progress-label {
-  font-size: 14px;
-  color: #555;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  font-style: italic;
 }
 
 #summaryMessage { margin-top: 10px; }
@@ -416,28 +326,22 @@ button:disabled {
   transform: translateX(-50%) translateY(-4px);
 }
 
-/* Botón More... */
-#moreGames {
-  background-color: #5c6bc0;
-  color: white;
+/* Etiqueta de progreso */
+.progress-label {
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-style: italic;
 }
 
-#moreGames:focus,
-#moreGames:hover,
-#moreGames:active {
-  background-color: #5c6bc0;
-  color: white;
-  outline: none;
-  box-shadow: none;
-  transform: none;
-}
-
-button {
-  background-color: #ff9a8b !important;
-  color: white !important;
-}
-
-.option {
-  background-color: #84fab0  
-  color: #333  
+/* Responsive general */
+@media (max-width: 600px) {
+  .options { grid-template-columns: 1fr; }
+  .container { padding: 15px; }
+  button { font-size: 14px; padding: 8px 12px; }
+  .question-display { font-size: 20px; }
+  .step-display { font-size: 18px; }
+  .step-btn { width: 36px; height: 36px; font-size: 18px; }
+  .circle { width: 16px; height: 16px; }
 }

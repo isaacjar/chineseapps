@@ -7,6 +7,7 @@ let currentWord = null;
 let answerTimeout;
 let countdownInterval;
 let isPaused = false;
+let isGameEnded = false;
 
 // Gamificación
 let score = 0;
@@ -16,6 +17,16 @@ let answeredWords = [];
 let questionStartTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 🎨 Colores dinámicos
+  const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
+  const c1 = randomColor();
+  const c2 = randomColor();
+  const c3 = randomColor();
+  document.documentElement.style.setProperty('--color1', c1);
+  document.documentElement.style.setProperty('--color2', c2);
+  document.documentElement.style.setProperty('--color3', c3);
+
+  // 🎮 Configuración inicial
   const defaultModeBtn = document.getElementById('modePinyin');
   defaultModeBtn.classList.add('active');
   currentMode = 'Pinyin';
@@ -26,6 +37,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pauseGame').disabled = true;
   document.getElementById('endGame').disabled = true;
 
+  // 🌐 Botón More...
+  const moreBtn = document.getElementById('moreGames');
+  if (moreBtn) {
+    moreBtn.onclick = () => {
+      window.location.href = 'https://isaacjar.github.io/chineseapps/';
+    };
+  }
+
+  // 🎛️ Cambio de modo
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
@@ -35,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ➕➖ Ajuste de número de preguntas
   document.getElementById('increase').onclick = () => {
     questionCount = Math.min(100, questionCount + 1);
     document.getElementById('questionCount').textContent = questionCount;
@@ -47,7 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('questionCount', questionCount);
   };
 
+  // ▶️ Nuevo juego
   document.getElementById('newGame').onclick = () => {
+    isGameEnded = false;
     isPaused = false;
     showGameElements();
     document.querySelector('.question-settings').style.display = 'none';
@@ -61,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('endGame').disabled = false;
   };
 
+  // ⏹ Fin del juego
   document.getElementById('endGame').onclick = () => {
+    isGameEnded = true;
     clearTimeout(answerTimeout);
     clearInterval(countdownInterval);
     showResults();
@@ -77,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('questionProgress').hidden = true;
   };
 
+  // ⏸ Pausar / Reanudar
   document.getElementById('pauseGame').onclick = () => {
     const pauseBtn = document.getElementById('pauseGame');
     if (!isPaused) {
@@ -92,14 +118,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // ✅ Responder pregunta
   document.querySelectorAll('.option').forEach(btn => {
-    btn.onclick = () => checkAnswer(btn.textContent);
+    btn.addEventListener('click', () => {
+      checkAnswer(btn.textContent);
+
+      // Desactiva interacción y aclara visualmente
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.style.pointerEvents = 'none';
+        opt.style.opacity = '0.6';
+      });
+
+      // Elimina el foco visual
+      setTimeout(() => btn.blur(), 100);
+    });
   });
 
-  // Elimina el foco visual en botones después de pulsarlos (móviles)
-  document.querySelectorAll('.option, button').forEach(btn => {
-    btn.addEventListener('mouseup', () => btn.blur());
-    btn.addEventListener('touchend', () => btn.blur());
+  // 🔧 Redirigir el foco a un elemento visible para evitar el efecto azul
+  const focusRedirect = document.getElementById('focusRedirect');
+  document.querySelectorAll('button, .option').forEach(btn => {
+    btn.addEventListener('touchend', () => {
+      btn.blur();
+      if (focusRedirect) focusRedirect.focus();
+    });
+    btn.addEventListener('mouseup', () => {
+      btn.blur();
+      if (focusRedirect) focusRedirect.focus();
+    });
   });
 
   updateStatus();
@@ -222,13 +267,6 @@ function showResults() {
   vocabReview.style.display = 'block';
 }
 
-function disableOptions() {
-  document.querySelectorAll('.option').forEach(btn => {
-    btn.style.pointerEvents = 'none';
-    btn.style.opacity = '0.6';
-  });
-}
-
 function disableButtons() {
   clearCountdownCircles();
 }
@@ -248,17 +286,12 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
-  document.querySelectorAll('.option').forEach(btn => {
-    btn.style.pointerEvents = 'auto';
-    btn.style.opacity = '1';
-    btn.className = 'option fade';
-  });
-  
+  if (isGameEnded || isPaused) return;
+
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
-
-  if (isPaused) return;
+  if (focusRedirect) focusRedirect.focus();
 
   if (currentQuestion >= questionCount) {
     showResults();
@@ -314,6 +347,8 @@ function nextQuestion() {
   buttons.forEach((btn, i) => {
     btn.textContent = options[i];
     btn.className = 'option fade';
+    btn.style.pointerEvents = 'auto';
+    btn.style.opacity = '1';
   });
 
   const progress = document.getElementById('progressFill');
@@ -322,6 +357,10 @@ function nextQuestion() {
 
   let countdown = 0;
   countdownInterval = setInterval(() => {
+    if (isGameEnded) {
+      clearInterval(countdownInterval);
+      return;
+    }
     if (countdown < 5) {
       const circle = document.getElementById(`c${countdown + 1}`);
       if (circle) circle.classList.add('active');
@@ -333,6 +372,8 @@ function nextQuestion() {
 
   const correctRaw = correctText;
   answerTimeout = setTimeout(() => {
+    if (isGameEnded) return;
+
     buttons.forEach(btn => {
       const btnText = btn.textContent.trim().toLowerCase();
       const correctTxt = correctRaw.trim().toLowerCase();
@@ -430,4 +471,11 @@ function checkAnswer(selectedText) {
     currentQuestion++;
     nextQuestion();
   }, 2000);
+}
+
+function disableOptions() {
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.6';
+  });
 }

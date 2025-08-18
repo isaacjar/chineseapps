@@ -307,7 +307,7 @@ button:disabled {
 /* Toast de notificación */
 .toast {
   position: fixed;
-  bottom: 24px;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0,0,0,0.85);

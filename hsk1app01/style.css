@@ -586,16 +586,25 @@ button:disabled {
   background-color: #3f51b5;
 }
 
-/* 🔧 Eliminar borde azul al hacer foco */
-button:focus,
-.option:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 /* 🔧 Eliminar resaltado táctil azul en móviles */
 button,
 .option {
   -webkit-tap-highlight-color: transparent;
 }
- 
+
+/* 🔧 En móviles: mantener el color original al hacer foco */
+@media (hover: none) {
+  .option:focus {
+    background-color: #84fab0 !important;
+    color: #333 !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  button:focus {
+    background-color: #ff9a8b !important;
+    color: white !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}

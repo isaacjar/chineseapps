@@ -7,6 +7,7 @@ let currentWord = null;
 let answerTimeout;
 let countdownInterval;
 let isPaused = false;
+let isGameEnded = false;
 
 // Gamificación
 let score = 0;
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ⏹ Fin del juego
   document.getElementById('endGame').onclick = () => {
+    isGameEnded = true;
     clearTimeout(answerTimeout);
     clearInterval(countdownInterval);
     showResults();
@@ -131,21 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 🔧 Eliminar foco azul persistente en móviles y escritorio
-  const focusTrap = document.getElementById('focusTrap');
+  // 🔧 Redirigir el foco a un elemento visible para evitar el efecto azul
+  const scoreDisplay = document.getElementById('scoreDisplay');
   document.querySelectorAll('button, .option').forEach(btn => {
     btn.addEventListener('touchend', () => {
       btn.blur();
-      if (focusTrap) focusTrap.focus(); // redirige el foco
+      if (scoreDisplay) scoreDisplay.focus(); // redirige el foco a un elemento visible
     });
     btn.addEventListener('mouseup', () => {
       btn.blur();
-      if (focusTrap) focusTrap.focus();
+      if (scoreDisplay) scoreDisplay.focus();
     });
   });
 
   updateStatus();
 });
+
 
 function updateModeLabel() {
   document.getElementById('questionLabel').textContent = `Mode: ${currentMode}`;
@@ -283,18 +286,11 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
+  if (isGameEnded || isPaused) return;
+
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
-
-  // ✅ Reactivar botones sin deshabilitarlos visualmente
-  document.querySelectorAll('.option').forEach(btn => {
-    btn.style.pointerEvents = 'auto';     // Permite clics
-    btn.style.opacity = '1';              // Restaura opacidad
-    btn.className = 'option fade';        // Restaura clases visuales
-  });
-
-  if (isPaused) return;
 
   if (currentQuestion >= questionCount) {
     showResults();
@@ -331,7 +327,6 @@ function nextQuestion() {
   void label.offsetWidth;
   label.textContent = questionText;
   label.classList.add('fade');
-
   label.style.fontSize = currentMode === 'Chinese' ? '48px' : '24px';
 
   let options = [correctText];
@@ -351,6 +346,8 @@ function nextQuestion() {
   buttons.forEach((btn, i) => {
     btn.textContent = options[i];
     btn.className = 'option fade';
+    btn.style.pointerEvents = 'auto';
+    btn.style.opacity = '1';
   });
 
   const progress = document.getElementById('progressFill');
@@ -359,6 +356,10 @@ function nextQuestion() {
 
   let countdown = 0;
   countdownInterval = setInterval(() => {
+    if (isGameEnded) {
+      clearInterval(countdownInterval);
+      return;
+    }
     if (countdown < 5) {
       const circle = document.getElementById(`c${countdown + 1}`);
       if (circle) circle.classList.add('active');
@@ -370,6 +371,8 @@ function nextQuestion() {
 
   const correctRaw = correctText;
   answerTimeout = setTimeout(() => {
+    if (isGameEnded) return;
+
     buttons.forEach(btn => {
       const btnText = btn.textContent.trim().toLowerCase();
       const correctTxt = correctRaw.trim().toLowerCase();

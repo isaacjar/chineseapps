@@ -16,7 +16,7 @@ let answeredWords = [];
 let questionStartTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
-  //Title
+  // 🎨 Colores dinámicos
   const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
   const c1 = randomColor();
   const c2 = randomColor();
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.style.setProperty('--color2', c2);
   document.documentElement.style.setProperty('--color3', c3);
 
+  // 🎮 Configuración inicial
   const defaultModeBtn = document.getElementById('modePinyin');
   defaultModeBtn.classList.add('active');
   currentMode = 'Pinyin';
@@ -34,11 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('pauseGame').disabled = true;
   document.getElementById('endGame').disabled = true;
-  
-  document.getElementById('moreGames').onclick = () => {
-    window.location.href = 'https://isaacjar.github.io/chineseapps/';
-  };
 
+  // 🌐 Botón More...
+  const moreBtn = document.getElementById('moreGames');
+  if (moreBtn) {
+    moreBtn.onclick = () => {
+      window.location.href = 'https://isaacjar.github.io/chineseapps/';
+    };
+  }
+
+  // 🎛️ Cambio de modo
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
@@ -48,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ➕➖ Ajuste de número de preguntas
   document.getElementById('increase').onclick = () => {
     questionCount = Math.min(100, questionCount + 1);
     document.getElementById('questionCount').textContent = questionCount;
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('questionCount', questionCount);
   };
 
+  // ▶️ Nuevo juego
   document.getElementById('newGame').onclick = () => {
     isPaused = false;
     showGameElements();
@@ -74,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('endGame').disabled = false;
   };
 
+  // ⏹ Fin del juego
   document.getElementById('endGame').onclick = () => {
     clearTimeout(answerTimeout);
     clearInterval(countdownInterval);
@@ -90,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('questionProgress').hidden = true;
   };
 
+  // ⏸ Pausar / Reanudar
   document.getElementById('pauseGame').onclick = () => {
     const pauseBtn = document.getElementById('pauseGame');
     if (!isPaused) {
@@ -105,33 +115,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // ✅ Responder pregunta
   document.querySelectorAll('.option').forEach(btn => {
     btn.addEventListener('click', () => {
       checkAnswer(btn.textContent);
- 
-      // Elimina el foco visual
-      setTimeout(() => btn.blur(), 100);
 
       // Desactiva interacción y aclara visualmente
       document.querySelectorAll('.option').forEach(opt => {
         opt.style.pointerEvents = 'none';
         opt.style.opacity = '0.6';
       });
+
+      // Elimina el foco visual
+      setTimeout(() => btn.blur(), 100);
     });
   });
 
-  // Elimina el foco visual en botones después de pulsarlos (móviles)
-  document.querySelectorAll('.option, button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setTimeout(() => btn.blur(), 100);
+  // 🔧 Eliminar foco azul persistente en móviles y escritorio
+  document.querySelectorAll('button, .option').forEach(btn => {
+    btn.addEventListener('touchend', () => {
+      btn.blur();
+      document.activeElement.blur(); // fuerza pérdida de foco global
     });
-    btn.addEventListener('touchstart', () => {
+    btn.addEventListener('mouseup', () => {
       btn.blur();
     });
   });
 
   updateStatus();
 });
+
 
 function updateModeLabel() {
   document.getElementById('questionLabel').textContent = `Mode: ${currentMode}`;

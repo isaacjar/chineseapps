@@ -102,11 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelectorAll('.option').forEach(btn => {
-  btn.addEventListener('click', () => {
-    checkAnswer(btn.textContent);
-    setTimeout(() => btn.blur(), 100);
+    btn.addEventListener('click', () => {
+      checkAnswer(btn.textContent);
+ 
+      // Elimina el foco visual
+      setTimeout(() => btn.blur(), 100);
+
+      // Desactiva interacción y aclara visualmente
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.style.pointerEvents = 'none';
+        opt.style.opacity = '0.6';
+      });
+    });
   });
-});
 
   // Elimina el foco visual en botones después de pulsarlos (móviles)
   document.querySelectorAll('button').forEach(btn => {
@@ -257,6 +265,13 @@ function nextQuestion() {
   clearInterval(countdownInterval);
   clearCountdownCircles();
 
+  // ✅ Reactivar botones sin deshabilitarlos visualmente
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.style.pointerEvents = 'auto';     // Permite clics
+    btn.style.opacity = '1';              // Restaura opacidad
+    btn.className = 'option fade';        // Restaura clases visuales
+  });
+
   if (isPaused) return;
 
   if (currentQuestion >= questionCount) {
@@ -367,6 +382,8 @@ function checkAnswer(selectedText) {
   clearInterval(countdownInterval);
   clearCountdownCircles();
 
+  disableOptions(); //corrige dobles pulsaciones
+
   let correct;
   switch (currentMode) {
     case 'Chinese': correct = currentWord.pin; break;
@@ -428,4 +445,11 @@ function checkAnswer(selectedText) {
     currentQuestion++;
     nextQuestion();
   }, 2000);
+}
+
+function disableOptions() {
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.6';
+  });
 }

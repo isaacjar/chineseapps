@@ -354,3 +354,9 @@ button:active,
   box-shadow: none !important;
   background-color: inherit !important;
 }
+
+.inactive {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

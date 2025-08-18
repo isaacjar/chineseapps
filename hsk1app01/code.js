@@ -145,12 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.blur();
       if (focusRedirect) focusRedirect.focus();
     });
+
+    // 🔧 Forzar que mantenga su color al tocar
+    btn.addEventListener('touchstart', () => {
+      const computed = window.getComputedStyle(btn);
+      btn.style.backgroundColor = computed.backgroundColor;
+      btn.style.color = computed.color;
+    });
   });
 
   updateStatus();
 });
-
-
 
 function updateModeLabel() {
   document.getElementById('questionLabel').textContent = `Mode: ${currentMode}`;

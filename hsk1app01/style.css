@@ -436,4 +436,11 @@ button:disabled {
 button,
 .option {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  background-color: inherit !important;
+  color: inherit !important;
 }

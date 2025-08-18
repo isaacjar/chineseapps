@@ -432,15 +432,12 @@ button:disabled {
   transform: none;
 }
 
-/* 🔧 Eliminar resaltado táctil azul en todos los dispositivos */
-button,
+button {
+  background-color: #ff9a8b !important;
+  color: white !important;
+}
+
 .option {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  user-select: none;
-  outline: none !important;
-  box-shadow: none !important;
-  transform: none !important;
-  background-color: inherit !important;
-  color: inherit !important;
+  background-color: #84fab0  
+  color: #333  
 }

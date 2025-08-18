@@ -370,15 +370,14 @@ button:active,
   background-color: #3f51b5;
 }
 
+/* 🔧 Eliminar borde azul al hacer foco */
 button:focus,
-button:active,
-.option:focus,
-.option:active {
+.option:focus {
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* Hover se mantiene para escritorio */
+/* 🔧 Solo en móviles: neutralizar hover */
 @media (hover: none) {
   button:hover,
   .option:hover {
@@ -387,9 +386,9 @@ button:active,
   }
 }
 
-
-/* Elimina el resaltado táctil azul en navegadores móviles */
+/* 🔧 Eliminar resaltado táctil azul en móviles */
 button,
 .option {
   -webkit-tap-highlight-color: transparent;
 }
+

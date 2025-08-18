@@ -342,7 +342,16 @@ button:disabled {
 }
 
 button:focus,
-.option:focus {
-  outline: none;
-  box-shadow: none;
+button:active,
+.option:focus,
+.option:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: inherit !important;
+}
+
+.inactive {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: default;
 }

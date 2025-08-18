@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Elimina el foco visual en botones después de pulsarlos (móviles)
-  document.querySelectorAll('button').forEach(btn => {
+  document.querySelectorAll('.option, button').forEach(btn => {
     btn.addEventListener('mouseup', () => btn.blur());
     btn.addEventListener('touchend', () => btn.blur());
   });
@@ -222,6 +222,13 @@ function showResults() {
   vocabReview.style.display = 'block';
 }
 
+function disableOptions() {
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.6';
+  });
+}
+
 function disableButtons() {
   clearCountdownCircles();
 }
@@ -241,6 +248,12 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.style.pointerEvents = 'auto';
+    btn.style.opacity = '1';
+    btn.className = 'option fade';
+  });
+  
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
@@ -353,6 +366,8 @@ function checkAnswer(selectedText) {
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
+
+  disableOptions(); //corrige dobles pulsaciones
 
   let correct;
   switch (currentMode) {

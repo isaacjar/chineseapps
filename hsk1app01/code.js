@@ -102,8 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelectorAll('.option').forEach(btn => {
-    btn.onclick = () => checkAnswer(btn.textContent);
+  btn.addEventListener('click', () => {
+    checkAnswer(btn.textContent);
+    setTimeout(() => btn.blur(), 100);
   });
+});
 
   // Elimina el foco visual en botones después de pulsarlos (móviles)
   document.querySelectorAll('button').forEach(btn => {

@@ -23,6 +23,11 @@ function getVoclistParam() {
   return params.get("voclist");
 }
 
+function getTitleParam() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("title");
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 // 🎨 Colores dinámicos
   const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
@@ -155,8 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 	const voclist = getVoclistParam();
+	const voctitle = getTitleParam();
 	if (voclist) {
-	  cargarListado(voclist);
+	  cargarListado(voclist, voctitle);
 	} else {
 	  cargarIndexYMostrarPopup();
 	}
@@ -503,17 +509,22 @@ function disableOptions() {
 
 function cargarListado(nombre, titulo) {
   fetch(`https://isaacjar.github.io/chineseapps/voclists/${nombre}.json`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`Archivo no encontrado: ${nombre}.json`);
+      }
+      return res.json();
+    })
     .then(data => {
       vocabulary = data;
-	  window.vocabularioActual = data;
+      window.vocabularioActual = data;
       nombreListadoActual = titulo;
-	  document.getElementById('title').textContent = `${titulo}`;
-
+      document.getElementById('title').textContent = `${titulo}`;
     })
     .catch(err => {
       console.error("Error al cargar el listado:", err);
       showToast("Error loading vocabulary list");
+      cargarIndexYMostrarPopup(); // ← Aquí se invoca la función alternativa
     });
 }
 

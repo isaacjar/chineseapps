@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>HanShu — 数字 • Números • Numbers</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header / HUD -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo">🐼</div>
+        <div class="title">
+          <h1 id="app-title">HanShu</h1>
+          <p id="app-subtitle">数字 • Números • Numbers</p>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="hud-item" id="hud-language">🌎 EN</div>
+        <div class="hud-item" id="hud-score">🏅 0</div>
+        <div class="hud-item" id="hud-streak">🔥 0</div>
+        <div class="hud-item" id="hud-lives">❤️ 3</div>
+        <button id="btn-open-settings" class="btn btn-accent">⚙️ <span data-i18n="ui.settings">Settings</span></button>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="view" class="view"></main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <small>© HanShu • 🌿🏯🐼 • Made for learning joy</small>
+    </footer>
+  </div>
+
+  <!-- Modal root -->
+  <div id="modal-root"></div>
+
+  <script type="module" src="js/learning.js"></script>
+</body>
+</html>

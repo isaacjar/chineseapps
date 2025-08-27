@@ -5,6 +5,5 @@ const voclists = [
   { filename: "viajes", title: "Viajar en chino", level: "H2", misc: "topics" },
   { filename: "house", title: "La casa en chino", level: "H3", misc: "topics" },
   { filename: "hsk1", title: "HSK 1 full voc", level: "H1", misc: "hsk" },
-  voclists/hsk1.json
   // más listados...
 ];

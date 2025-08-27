@@ -1,0 +1,37 @@
+.menu{
+  display: grid; gap: 16px;
+}
+.menu .hero{
+  display: grid; gap: 8px; text-align: center;
+}
+.menu .actions{
+  display: grid; gap: 12px;
+}
+.menu .actions .btn{
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
+  justify-content: space-between; font-size: 16px;
+}
+
+/* Game container */
+.game{
+  display: grid; gap: 16px;
+}
+.hud-row{
+  display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+}
+.answer-input{
+  display: flex; gap: 8px; align-items: center;
+}
+.answer-input input{
+  flex: 1; padding: 12px 14px; border-radius: 12px; border: 2px solid #e9edf3;
+  font-weight: 800;
+}
+
+/* Badge tones */
+.badge{
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 999px; font-weight: 800;
+  background: #f1f7ff; color: #214b6f; border: 1px solid #dceeff;
+}
+.badge.warn{ background: #fff7f1; color: #6f3c21; border-color: #ffe7d1; }
+.badge.good{ background: #eafff6; color: #1b5c45; border-color: #c9f6e5; }

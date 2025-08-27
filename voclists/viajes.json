@@ -1,0 +1,35 @@
+let title = {
+  title: "Viajar en chino",
+  author: "Isaac",
+  data: "2025-08-27",
+  lang: "en",
+  misc: "Created in Malaga"
+};
+
+let vocabulary = [
+  { ch: '旅行', pin: 'lǚxíng', en: 'travel' },
+  { ch: '机场', pin: 'jīchǎng', en: 'airport' },
+  { ch: '护照', pin: 'hùzhào', en: 'passport' },
+  { ch: '签证', pin: 'qiānzhèng', en: 'visa' },
+  { ch: '行李', pin: 'xíngli', en: 'luggage' },
+  { ch: '地图', pin: 'dìtú', en: 'map' },
+  { ch: '酒店', pin: 'jiǔdiàn', en: 'hotel' },
+  { ch: '预订', pin: 'yùdìng', en: 'reservation' },
+  { ch: '登机口', pin: 'dēngjīkǒu', en: 'boarding gate' },
+  { ch: '登机牌', pin: 'dēngjīpái', en: 'boarding pass' },
+  { ch: '出发', pin: 'chūfā', en: 'departure' },
+  { ch: '到达', pin: 'dàodá', en: 'arrival' },
+  { ch: '旅馆', pin: 'lǚguǎn', en: 'inn' },
+  { ch: '出租车', pin: 'chūzūchē', en: 'taxi' },
+  { ch: '火车站', pin: 'huǒchēzhàn', en: 'train station' },
+  { ch: '地铁', pin: 'dìtiě', en: 'subway' },
+  { ch: '票', pin: 'piào', en: 'ticket' },
+  { ch: '导游', pin: 'dǎoyóu', en: 'tour guide' },
+  { ch: '景点', pin: 'jǐngdiǎn', en: 'scenic spot' },
+  { ch: '相机', pin: 'xiàngjī', en: 'camera' },
+  { ch: '纪念品', pin: 'jìniànpǐn', en: 'souvenir' },
+  { ch: '海关', pin: 'hǎiguān', en: 'customs' },
+  { ch: '安全检查', pin: 'ānquán jiǎnchá', en: 'security check' },
+  { ch: '旅游', pin: 'lǚyóu', en: 'tourism' },
+  { ch: '指南', pin: 'zhǐnán', en: 'guidebook' }
+];

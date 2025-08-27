@@ -1,3 +1,11 @@
+let title = {
+  title: "HSK 1 Vocabulary",
+  author: "Isaac",
+  data: "2025-08-27",
+  lang: "en",
+  misc: "Created in Malaga"
+};
+
 let vocabulary = [
   { ch: '爱', pin: 'ài', en: 'to love' },
   { ch: '八', pin: 'bā', en: 'eight' },
@@ -199,4 +207,5 @@ let vocabulary = [
   { ch: '八', pin: 'bā', en: 'eight' },
   { ch: '九', pin: 'jiǔ', en: 'nine' },
   { ch: '十', pin: 'shí', en: 'ten' }
+
 ];

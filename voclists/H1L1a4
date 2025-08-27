@@ -1,0 +1,20 @@
+[
+  { "ch": "朋友", "pin": "péngyǒu", "en": "friend" },
+  { "ch": "什么", "pin": "shénme", "en": "what" },
+  { "ch": "对不起", "pin": "duìbuqǐ", "en": "sorry" },
+  { "ch": "谢谢", "pin": "xièxie", "en": "thank you" },
+  { "ch": "没关系", "pin": "méi guānxi", "en": "no problem" },
+  { "ch": "你们", "pin": "nǐmen", "en": "you (plural)" },
+  { "ch": "中国人", "pin": "Zhōngguórén", "en": "Chinese person" },
+  { "ch": "再见", "pin": "zài jiàn", "en": "goodbye" },
+  { "ch": "学生", "pin": "xuésheng", "en": "student" },
+  { "ch": "美国", "pin": "Měiguó", "en": "USA" },
+  { "ch": "小", "pin": "xiǎo", "en": "small" },
+  { "ch": "中", "pin": "zhōng", "en": "middle" },
+  { "ch": "十", "pin": "shí", "en": "ten" },
+  { "ch": "儿", "pin": "ér", "en": "son" },
+  { "ch": "不", "pin": "bù", "en": "not" },
+  { "ch": "几", "pin": "jǐ", "en": "several; small table" },
+  { "ch": "月", "pin": "yuè", "en": "moon; month" },
+  { "ch": "心", "pin": "xīn", "en": "heart" }
+]

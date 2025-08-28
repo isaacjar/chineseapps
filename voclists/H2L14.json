@@ -1,0 +1,23 @@
+[
+  { "ch": "电影院", "pin": "diànyǐngyuàn", "en": "cinema" },
+  { "ch": "但是", "pin": "dànshì", "en": "but / however" },
+  { "ch": "玩儿", "pin": "wánr", "en": "to play / to have fun" },
+  { "ch": "打电话", "pin": "dǎ diànhuà", "en": "to make a phone call" },
+  { "ch": "贝", "pin": "bèi", "en": "shell / currency radical" },
+  { "ch": "百", "pin": "bǎi", "en": "hundred" },
+  { "ch": "有意思", "pin": "yǒu yìsi", "en": "interesting" },
+  { "ch": "虽然", "pin": "suīrán", "en": "although / even though" },
+  { "ch": "雨", "pin": "yǔ", "en": "rain" },
+  { "ch": "次", "pin": "cì", "en": "time / occurrence" },
+  { "ch": "等", "pin": "děng", "en": "to wait" },
+  { "ch": "晴", "pin": "qíng", "en": "clear / sunny" },
+
+  { "ch": "来", "pin": "lái", "en": "to come" },
+  { "ch": "飞", "pin": "fēi", "en": "to fly" },
+  { "ch": "有", "pin": "yǒu", "en": "to have / there is" },
+  { "ch": "雪", "pin": "xuě", "en": "snow" },
+  { "ch": "过", "pin": "guò", "en": "to pass / to cross / to experience" },
+  { "ch": "次", "pin": "cì", "en": "time / occurrence" },
+  { "ch": "个", "pin": "ge", "en": "general classifier / individual" },
+  { "ch": "去", "pin": "qù", "en": "to go" }
+]

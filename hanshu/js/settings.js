@@ -1,5 +1,7 @@
 import { getSettings, updateSettings } from './state.js';
 import { t, setLanguage, currentLangCode } from './i18n.js';
+import { navigate } from './router.js';
+import { getSettings, updateSettings, getSession, resetSession } from './state.js';
 
 function renderSettings(){
   const s = getSettings();
@@ -81,18 +83,28 @@ function renderSettings(){
   root.querySelector('#btn-close-modal').addEventListener('click', close);
   root.querySelector('#btn-cancel').addEventListener('click', close);
   root.querySelector('#btn-save').addEventListener('click', async () => {
-    const lang = root.querySelector('#st-lang').value;
-    const pinyinHints = root.querySelector('#st-pinyin').value === 'true';
-    const range = root.querySelector('#st-range').value;
-    const questionCount = clamp(parseInt(root.querySelector('#st-qcount').value || 10), 3, 25);
-    const timePerQuestion = clamp(parseInt(root.querySelector('#st-qtime').value || 10), 1, 20);
-    const allowedFails = clamp(parseInt(root.querySelector('#st-fails').value || 3), 0, questionCount);
+	  const lang = root.querySelector('#st-lang').value;
+	  const pinyinHints = root.querySelector('#st-pinyin').value === 'true';
+	  const range = root.querySelector('#st-range').value;
+	  const questionCount = clamp(parseInt(root.querySelector('#st-qcount').value || 10), 3, 25);
+	  const timePerQuestion = clamp(parseInt(root.querySelector('#st-qtime').value || 10), 1, 20);
+	  const allowedFails = clamp(parseInt(root.querySelector('#st-fails').value || 3), 0, questionCount);
 
-    updateSettings({ pinyinHints, range, questionCount, timePerQuestion, allowedFails });
-    await setLanguage(lang);
-    close();
-    location.hash = '#menu';
-  });
+	  const s = getSettings();
+	  const sess = getSession();
+	  const wasPlaying = sess.current > 0 || sess.correct > 0;
+	  const rangeChanged = range !== s.range;
+	  const countChanged = questionCount !== s.questionCount;
+
+	  if (wasPlaying && (rangeChanged || countChanged)) {
+		resetSession();
+	  }
+
+	  updateSettings({ pinyinHints, range, questionCount, timePerQuestion, allowedFails });
+	  await setLanguage(lang);
+	  close();
+	  navigate('menu');
+	});
 }
 
 function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }

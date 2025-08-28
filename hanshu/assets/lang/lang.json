@@ -8,7 +8,8 @@
 	  "gameOver": "Game Over",
 	  "finalScore": "Final Score",
 	  "correctAnswers": "Correct Answers",
-	  "restart": "Restart"
+	  "restart": "Restart",
+	  "outOfTime": "⏰ Out of time!"
 	},
     "menu": {
       "title": "Main Menu",
@@ -44,7 +45,8 @@
 	  "gameOver": "Fin del juego",
 	  "finalScore": "Puntuación final",
 	  "correctAnswers": "Respuestas correctas",
-	  "restart": "Reiniciar"
+	  "restart": "Reiniciar",
+	  "outOfTime": "⏰ ¡Se acabó el tiempo!"
 	},
     "menu": {
       "title": "Menú Principal",
@@ -80,7 +82,8 @@
 	  "gameOver": "Fin du jeu",
 	  "finalScore": "Score final",
 	  "correctAnswers": "Bonnes réponses",
-	  "restart": "Recommencer"
+	  "restart": "Recommencer",
+	  "outOfTime": "⏰ Temps écoulé!"
 	},
     "menu": {
       "title": "Menu Principal",
@@ -116,7 +119,8 @@
 	  "gameOver": "Spiel beendet",
 	  "finalScore": "Endpunktzahl",
 	  "correctAnswers": "Richtige Antworten",
-	  "restart": "Neu starten"
+	  "restart": "Neu starten",
+	  "outOfTime": "⏰ Zeit abgelaufen!!"
 	},
     "menu": {
       "title": "Hauptmenü",
@@ -152,7 +156,8 @@
 	  "gameOver": "Fim do jogo",
 	  "finalScore": "Pontuação final",
 	  "correctAnswers": "Respostas corretas",
-	  "restart": "Reiniciar"
+	  "restart": "Reiniciar",
+	  "outOfTime": "⏰ Tempo esgotado!"
 	},
     "menu": {
       "title": "Menu Principal",
@@ -188,7 +193,8 @@
 	  "gameOver": "کھیل ختم",
 	  "finalScore": "آخری اسکور",
 	  "correctAnswers": "درست جوابات",
-	  "restart": "دوبارہ شروع کریں"
+	  "restart": "دوبارہ شروع کریں",
+	  "outOfTime": "⏰ وقت ختم ہو گیا!"
 	},
     "menu": {
       "title": "مرکزی مینو",

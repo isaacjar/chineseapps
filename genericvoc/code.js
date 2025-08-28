@@ -195,9 +195,9 @@ function updateStatus() {
   const scoreDisplay = document.getElementById('scoreDisplay');
   const streakDisplay = document.getElementById('streakDisplay');
   const bestScoreDisplay = document.getElementById('bestScoreDisplay');
-  if (scoreDisplay) scoreDisplay.textContent = `Score: ${score}`;
-  if (streakDisplay) streakDisplay.textContent = `Streak: ${streak}`;
-  if (bestScoreDisplay) bestScoreDisplay.textContent = `Best: ${bestScore}`;
+  if (scoreDisplay) scoreDisplay.textContent = `📚 ${score}`;
+  if (streakDisplay) streakDisplay.textContent = `🧠 ${streak}`;
+  if (bestScoreDisplay) bestScoreDisplay.textContent = `🎓 ${bestScore}`;
 }
 
 function showToast(msg, ms = 1200) {

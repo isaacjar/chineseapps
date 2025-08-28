@@ -25,3 +25,4 @@ window.addEventListener('hashchange', ()=>{
   const fn = routes.get(route);
   if(fn) fn(document.getElementById('view'));
 });
+window.navigate = navigate;

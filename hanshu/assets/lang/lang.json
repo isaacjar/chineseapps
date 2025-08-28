@@ -1,1 +1,8 @@
-
+{
+  "en": { "ui": { "settings": "Settings" } },
+  "es": { "ui": { "settings": "Configuración" } },
+  "fr": { "ui": { "settings": "Paramètres" } },
+  "de": { "ui": { "settings": "Einstellungen" } },
+  "ptbr": { "ui": { "settings": "Configurações" } },
+  "pk": { "ui": { "settings": "ترتیبات (Tarteebaat)" } }
+}

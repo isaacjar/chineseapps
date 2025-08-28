@@ -1,0 +1,15 @@
+[
+    { "ch": "北方", "pin": "běifāng", "en": "north" },
+    { "ch": "着急", "pin": "zháojí", "en": "anxious; worried" },
+    { "ch": "打算", "pin": "dǎsuàn", "en": "to plan; to intend" },
+    { "ch": "地图", "pin": "dìtú", "en": "map" },
+    { "ch": "面包", "pin": "miànbāo", "en": "bread" },
+    { "ch": "南方", "pin": "nánfāng", "en": "south" },
+    { "ch": "作业", "pin": "zuòyè", "en": "homework" },
+    { "ch": "电脑游戏", "pin": "diànnǎo yóuxì", "en": "computer game" },
+    { "ch": "复习", "pin": "fùxí", "en": "to review" },
+    { "ch": "周末", "pin": "zhōumò", "en": "weekend" },
+    { "ch": "一直", "pin": "yìzhí", "en": "continuously; always" },
+    { "ch": "跟", "pin": "gēn", "en": "with; to follow" },
+    { "ch": "搬", "pin": "bān", "en": "to move (house or object)" }
+  ]

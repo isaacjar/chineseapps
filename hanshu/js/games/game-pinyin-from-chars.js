@@ -32,7 +32,7 @@ register('game-pinyin-from-chars', (root) => {
     options.forEach(opt => {
       const el = document.createElement('button');
       el.className = 'option';
-      el.innerHTML = `<span>🎐</span><span>${opt}</span>`;
+      el.innerHTML = `<span>${opt}</span>`;
       el.addEventListener('click', ()=> choose(opt, pn));
       elOptions.appendChild(el);
     });

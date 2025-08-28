@@ -32,9 +32,7 @@ register('game-recognition', (root) => {
     options.forEach(opt => {
       const el = document.createElement('button');
       el.className = 'option';
-      el.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <span style="font-size: 2em; font-weight: bold;">${opt}</span>
-    </div>`;
+      el.innerHTML = `<span>${opt}</span>`;
       el.addEventListener('click', ()=> choose(opt, n));
       elOptions.appendChild(el);
     });

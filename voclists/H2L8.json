@@ -1,0 +1,22 @@
+[
+  { "ch": "白", "pin": "bái", "en": "white" },
+  { "ch": "找", "pin": "zhǎo", "en": "to look for" },
+  { "ch": "贵", "pin": "guì", "en": "expensive" },
+  { "ch": "天气", "pin": "tiānqì", "en": "weather" },
+  { "ch": "请", "pin": "qǐng", "en": "please / to invite" },
+  { "ch": "告诉", "pin": "gàosù", "en": "to tell / to inform" },
+  { "ch": "黑", "pin": "hēi", "en": "black" },
+  { "ch": "叫", "pin": "jiào", "en": "to be called / to call" },
+  { "ch": "让", "pin": "ràng", "en": "to let / to allow" },
+  { "ch": "服务员", "pin": "fúwùyuán", "en": "waiter / waitress" },
+  { "ch": "等", "pin": "děng", "en": "to wait" },
+  { "ch": "再", "pin": "zài", "en": "again" },
+  { "ch": "运动", "pin": "yùndòng", "en": "exercise / sports" },
+  { "ch": "事情", "pin": "shìqíng", "en": "matter / thing / affair" },
+  { "ch": "巾", "pin": "jīn", "en": "towel / cloth" },
+  { "ch": "好", "pin": "hǎo", "en": "good" },
+  { "ch": "天", "pin": "tiān", "en": "sky / day" },
+  { "ch": "听", "pin": "tīng", "en": "to listen" },
+  { "ch": "又", "pin": "yòu", "en": "again / also" },
+  { "ch": "说", "pin": "shuō", "en": "to speak / to say" }
+]

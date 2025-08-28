@@ -114,5 +114,11 @@ register('game-recognition', (root) => {
 
   window.addEventListener('go-next', ()=> shell.next());
 
-  //setTimeout(() => shell.next(), 0);
+  requestAnimationFrame(() => {
+  // Solo iniciar si no hay progreso
+	  const sess = getSession();
+	  if (sess.current === 0 && sess.correct === 0) {
+		shell.next();
+	  }
+	});
 });

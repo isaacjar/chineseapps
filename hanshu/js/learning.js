@@ -18,7 +18,7 @@ async function bootstrap(){
   initState();
   initSettings();
 
-  document.getElementById('app-title').textContent = 'HanShu 🌿';
+  document.getElementById('app-title').textContent = 'HanShu🌿';
   document.getElementById('app-subtitle').textContent = '数字 • Numbers';
   elBtnSettings.querySelector('span').textContent = t('ui.settings');
 

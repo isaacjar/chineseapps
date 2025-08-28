@@ -1,7 +1,7 @@
 import { t } from './i18n.js';
 import { navigate } from './router.js';
 
-const emojiTitle = '🌿🐼🏯🪷⛰️🎋';
+const emojiTitle = '🐼⛰️🎋';
 
 export function renderMenu(root){
   root.innerHTML = `

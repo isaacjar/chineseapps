@@ -6,7 +6,13 @@ const voclists = [
   { filename: "H1L7", title: "HSK 1 Lesson 7", level: "H1", misc: "MIT" },
   { filename: "H1L8", title: "HSK 1 Lesson 8", level: "H1", misc: "MIT" },
   { filename: "H1L6a8", title: "HSK 1 Lessons 6 to 8", level: "H1", misc: "MIT" },
+  { filename: "H1L13", title: "HSK 1 Lesson 13", level: "H1", misc: "MIT" },
+  { filename: "H1L14", title: "HSK 1 Lesson 14", level: "H1", misc: "MIT" },
+  { filename: "H1L14a15", title: "HSK 1 Lessons 14 & 15", level: "H1", misc: "MIT" },
   { filename: "hsk1", title: "HSK 1 Vocabulary (full)", level: "H1", misc: "hsk" },
+  { filename: "hsk2", title: "HSK 2 Vocabulary (full)", level: "H2", misc: "hsk" },
+  { filename: "H3L1", title: "HSK 3 Lesson 1", level: "H3", misc: "MIT" },
+  { filename: "hsk3", title: "HSK 3 Vocabulary (full)", level: "H3", misc: "hsk" },
   { filename: "viajes", title: "Viajar en chino", level: "H2", misc: "topics" },
   { filename: "house", title: "La casa en chino", level: "H3", misc: "topics" },
   // más listados...

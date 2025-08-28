@@ -1,0 +1,23 @@
+[
+  { "ch": "阴", "pin": "yīn", "en": "cloudy / overcast" },
+  { "ch": "旅游", "pin": "lǚyóu", "en": "travel / tourism" },
+  { "ch": "更", "pin": "gèng", "en": "even more / further" },
+  { "ch": "都", "pin": "dōu", "en": "all / both" },
+  { "ch": "日", "pin": "rì", "en": "day / sun" },
+  { "ch": "新年", "pin": "xīnnián", "en": "New Year" },
+  { "ch": "火车站", "pin": "huǒchēzhàn", "en": "train station" },
+  { "ch": "山", "pin": "shān", "en": "mountain" },
+  { "ch": "票", "pin": "piào", "en": "ticket" },
+  { "ch": "大家", "pin": "dàjiā", "en": "everyone" },
+  { "ch": "妹妹", "pin": "mèimei", "en": "younger sister" },
+  { "ch": "帮助", "pin": "bāngzhù", "en": "to help / assistance" },
+
+  { "ch": "了", "pin": "le", "en": "completed action particle" },
+  { "ch": "年", "pin": "nián", "en": "year" },
+  { "ch": "大", "pin": "dà", "en": "big / large" },
+  { "ch": "火", "pin": "huǒ", "en": "fire" },
+  { "ch": "都", "pin": "dōu", "en": "all / both" },
+  { "ch": "要", "pin": "yào", "en": "to want / need" },
+  { "ch": "日", "pin": "rì", "en": "day / sun" },
+  { "ch": "山", "pin": "shān", "en": "mountain" }
+]

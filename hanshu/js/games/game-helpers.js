@@ -47,16 +47,16 @@ export function gameShell(root, { title, prompt, onRenderQuestion, onAnswer, onT
   }
 
   function next(){
-    const sess = getSession();
-    if(sess.current >= sess.total || sess.lives <= 0){
-      onRenderQuestion(null);
-      return;
-    }
-    onRenderQuestion(q.index++);
-    incQuestion();
-    renderProgress();
-    updateHUD(sess);
-  }
+	  const sess = getSession();
+	  if(sess.current >= sess.total || sess.lives <= 0){
+		onRenderQuestion(null);
+		return;
+	  }
+
+	  onRenderQuestion(); // 👈 sin índice
+	  renderProgress();
+	  updateHUD(sess);
+	}
 
   return { next, settings: s, root };
 }

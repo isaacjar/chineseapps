@@ -27,10 +27,13 @@ export class GameSession {
   }
 
   next() {
-    if (this.nextInProgress) return;
-    this.nextInProgress = true;
-    this.shell.next();
-  }
+	  if (this.nextInProgress) return;
+	  this.nextInProgress = true;
+
+	  incQuestion(); // 👈 ahora controlado aquí
+	  this.shell.next();
+	}
+
 
   resetTrigger() {
     this.nextInProgress = false;

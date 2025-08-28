@@ -82,6 +82,23 @@ register('game-recognition', (root) => {
     }, 600);
   }
 
+	function showEnd() {
+	  const sess = getSession();
+	  const finalScore = sess.score ?? 0;
+	  const totalQuestions = sess.total ?? 0;
+	  const correctAnswers = sess.correct ?? 0;
+
+	  root.innerHTML = `
+		<div class="game-over" style="text-align: center; padding: 40px;">
+		  <h2 style="font-size: 2em; margin-bottom: 20px;">🎉 ${t('ui.gameOver') || 'Game Over'}</h2>
+		  <p style="font-size: 1.2em;">${t('ui.finalScore') || 'Final Score'}: <strong>${finalScore}</strong></p>
+		  <p>${t('ui.correctAnswers') || 'Correct Answers'}: ${correctAnswers} / ${totalQuestions}</p>
+		  <button style="margin-top: 30px; font-size: 1em;" onclick="location.reload()">🔄 ${t('ui.restart') || 'Restart'}</button>
+		</div>
+	  `;
+}
+
+
   window.addEventListener('go-next', ()=> shell.next());
 
   shell.next();

@@ -24,7 +24,11 @@ register('game-recognition', (root) => {
     const options = shuffle([ n, ...digitDistractors(n, 3) ]);
 
     // Texto en chino centrado
-    root.querySelector('#prompt').innerHTML = `<span class="cn-text">${cn}</span>`;
+    //root.querySelector('#prompt').innerHTML = `<span class="cn-text">${cn}</span>`;
+	const promptEl = root.querySelector('#prompt');
+	if (promptEl) {
+	  promptEl.innerHTML = `<span class="cn-text">${cn}</span>`;
+	}
 
     // Opciones
     const elOptions = root.querySelector('#options');
@@ -105,5 +109,5 @@ register('game-recognition', (root) => {
 
   window.addEventListener('go-next', ()=> shell.next());
 
-  shell.next();
+  setTimeout(() => shell.next(), 0);
 });

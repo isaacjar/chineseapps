@@ -10,7 +10,7 @@ import { t } from '../i18n.js';
 
 register('game-recognition', (root) => {
   const shell = gameShell(root, {
-    title: '🔢 视觉识别 • Visual',
+    title: '视觉识别 • Visual',
     prompt: t('games.recognitionPrompt'),
     onRenderQuestion: renderQuestion
   });
@@ -32,7 +32,9 @@ register('game-recognition', (root) => {
     options.forEach(opt => {
       const el = document.createElement('button');
       el.className = 'option';
-      el.innerHTML = `<span>🔢</span><span>${opt}</span>`;
+      el.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <span style="font-size: 2em; font-weight: bold;">${opt}</span>
+    </div>`;
       el.addEventListener('click', ()=> choose(opt, n));
       elOptions.appendChild(el);
     });

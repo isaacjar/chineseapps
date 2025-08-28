@@ -12,19 +12,22 @@ let settings = { ...DEFAULTS, ...JSON.parse(localStorage.getItem('settings') || 
 let session = {
   score: 0,
   streak: 0,
+  correct: 0,              // contador de respuestas correctas
   lives: settings.allowedFails,
   current: 0,
   total: settings.questionCount
 };
 
 export function initState(){
-  // sync allowedFails cap with questionCount
+  // sincroniza límite de fallos con nº de preguntas
   settings.allowedFails = Math.min(settings.allowedFails, settings.questionCount);
   persistSettings();
   resetSession();
 }
 
-export function getSettings(){ return { ...settings }; }
+export function getSettings(){ 
+  return { ...settings }; 
+}
 
 export function updateSettings(patch){
   settings = { ...settings, ...patch };
@@ -41,15 +44,22 @@ function persistSettings(){
 
 export function resetSession(){
   session = {
-    score: 0, streak: 0,
+    score: 0,
+    streak: 0,
+    correct: 0, // reinicia aciertos
     lives: settings.allowedFails,
-    current: 0, total: settings.questionCount
+    current: 0,
+    total: settings.questionCount
   };
 }
 
-export function getSession(){ return { ...session }; }
+export function getSession(){ 
+  return { ...session }; 
+}
 
-export function setSession(patch){ session = { ...session, ...patch }; }
+export function setSession(patch){ 
+  session = { ...session, ...patch }; 
+}
 
 export function loseLife(){
   session.lives = Math.max(0, session.lives - 1);
@@ -62,6 +72,11 @@ export function addScore(points){
 
 export function addStreak(){
   session.streak += 1;
+}
+
+// 🔹 Nuevo: sumar un acierto
+export function addCorrect(){
+  session.correct += 1;
 }
 
 export function incQuestion(){

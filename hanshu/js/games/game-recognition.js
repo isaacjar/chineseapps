@@ -64,22 +64,28 @@ register('game-recognition', (root) => {
   }
 
   function choose(opt, correct){
-    const s = getSettings();
-    const elOptions = root.querySelectorAll('.option');
-    elOptions.forEach(b => b.disabled = true);
-    if(timer) var timeLeft = timer.timeLeft();
+	  const s = getSettings();
+	  const elOptions = root.querySelectorAll('.option');
+	  elOptions.forEach(b => b.disabled = true);
 
-    if(opt === correct){
-      const pts = scoreCorrect(timeLeft ?? 0, s.timePerQuestion);
-      addCorrect(); // 👈 sumamos acierto
-      toast(`✅ +${pts} 🏅`, 'good');
-    }else{
-      penalize();
-      toast('❌', 'warn');
-    }
-    if(timer) timer.stop();
-    endCheck();
-  }
+	  if (timer) {
+		timer.stop(); // 👈 detener antes de cualquier otra acción
+	  }
+
+	  let timeLeft = timer?.timeLeft();
+
+	  if(opt === correct){
+		const pts = scoreCorrect(timeLeft ?? 0, s.timePerQuestion);
+		addCorrect();
+		toast(`✅ +${pts} 🏅`, 'good');
+	  } else {
+		penalize();
+		toast('❌', 'warn');
+	  }
+
+	  endCheck();
+	}
+
   
   function endCheck(){
 	  if (nextTriggered) return;

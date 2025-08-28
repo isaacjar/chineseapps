@@ -5,11 +5,12 @@ export function register(route, render){
 }
 
 export function navigate(route){
-  if (location.hash === '#' + route) {
+  const hash = '#' + route;
+  if (location.hash === hash) {
     // 👇 fuerza render si ya estás en esa ruta
     render(route);
   } else {
-    location.hash = '#' + route;
+    location.hash = hash;
   }
 }
 
@@ -24,9 +25,17 @@ export function onRouteChange(handler){
   window.addEventListener('route-changed', (e)=> handler(e.detail.route));
 }
 
+// 👇 importante: renderiza cuando cambia el hash
 window.addEventListener('hashchange', ()=>{
   const route = location.hash.slice(1);
-  const fn = routes.get(route);
-  if(fn) fn(document.getElementById('view'));
+  render(route);
 });
+
+// 👇 importante: renderiza al cargar la página
+window.addEventListener('DOMContentLoaded', () => {
+  const route = location.hash.slice(1) || 'menu';
+  render(route);
+});
+
+// 👇 expone navigate globalmente
 window.navigate = navigate;

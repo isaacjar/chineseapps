@@ -1,0 +1,23 @@
+[
+  { "ch": "熊猫", "pin": "xióngmāo", "en": "panda" },
+  { "ch": "洗手间", "pin": "xǐshǒujiān", "en": "bathroom" },
+  { "ch": "电梯", "pin": "diàntī", "en": "elevator" },
+  { "ch": "害怕", "pin": "hàipà", "en": "to be afraid" },
+  { "ch": "健康", "pin": "jiànkāng", "en": "healthy, health" },
+  { "ch": "重要", "pin": "zhòngyào", "en": "important" },
+  { "ch": "马上", "pin": "mǎshàng", "en": "immediately, right away" },
+  { "ch": "先", "pin": "xiān", "en": "first / before" },
+  { "ch": "地方", "pin": "dìfang", "en": "place" },
+  { "ch": "方便", "pin": "fāngbiàn", "en": "convenient" },
+  { "ch": "参加", "pin": "cānjiā", "en": "to participate" },
+  { "ch": "影响", "pin": "yǐngxiǎng", "en": "influence" },
+  { "ch": "自行车", "pin": "zìxíngchē", "en": "bicycle" },
+  { "ch": "最后", "pin": "zuìhòu", "en": "last, finally" },
+
+  { "ch": "车", "pin": "chē", "en": "vehicle, car" },
+  { "ch": "比", "pin": "bǐ", "en": "to compare" },
+  { "ch": "子", "pin": "zi", "en": "child, noun suffix" },
+  { "ch": "个", "pin": "ge", "en": "general classifier" },
+  { "ch": "中", "pin": "zhōng", "en": "middle" },
+  { "ch": "老", "pin": "lǎo", "en": "old" }
+]

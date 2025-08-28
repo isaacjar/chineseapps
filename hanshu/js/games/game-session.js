@@ -30,9 +30,10 @@ export class GameSession {
 	  if (this.nextInProgress) return;
 	  this.nextInProgress = true;
 
-	  incQuestion(); // 👈 ahora controlado aquí
-	  this.shell.next();
+	  incQuestion(); // ✅ control centralizado del avance
+	  this.shell.next(); // solo renderiza la siguiente pregunta
 	}
+
 
 
   resetTrigger() {

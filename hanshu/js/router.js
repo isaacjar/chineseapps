@@ -5,8 +5,12 @@ export function register(route, render){
 }
 
 export function navigate(route){
-  location.hash = '#' + route;
-  render(route);
+  if (location.hash === '#' + route) {
+    // 👇 fuerza render si ya estás en esa ruta
+    render(route);
+  } else {
+    location.hash = '#' + route;
+  }
 }
 
 function render(route){

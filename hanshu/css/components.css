@@ -35,3 +35,16 @@
 }
 .badge.warn{ background: #fff7f1; color: #6f3c21; border-color: #ffe7d1; }
 .badge.good{ background: #eafff6; color: #1b5c45; border-color: #c9f6e5; }
+
+.option {
+  height: 100px;
+  width: 100px;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.8em;
+}

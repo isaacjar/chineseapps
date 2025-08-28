@@ -137,4 +137,66 @@ register('game-memory', (root) => {
     const normPy = (x) => stripDiacritics(x.trim().toLowerCase()).replace(/\s+/g,' ');
     const expectedNorm = expected.map(e => ({
       digits: norm(e.digits),
-      hanzi: norm
+      hanzi: norm(e.hanzi),
+      pinyin: normPy(e.pinyin)
+    }));
+
+    let correct = tokens.length === expectedLen;
+    if (correct) {
+      for (let i = 0; i < expectedLen; i++) {
+        const tok = tokens[i];
+        const t1 = norm(tok);
+        const t2 = normPy(tok);
+        const ok =
+          t1 === expectedNorm[i].digits ||
+          t1 === expectedNorm[i].hanzi ||
+          t2 === expectedNorm[i].pinyin;
+        if (!ok) { correct = false; break; }
+      }
+    }
+
+    if (recallTimer) var timeLeft = recallTimer.timeLeft();
+    if (recallTimer) recallTimer.stop();
+
+    if (correct) {
+      const pts = scoreCorrect(timeLeft ?? 0, s.timePerQuestion);
+      toast(`✅ +${pts} 🏅`, 'good');
+    } else {
+      penalize();
+      const prettyDigits = currentSeq.join(', ');
+      const prettyHanzi = currentSeq.map(numberToChinese).join('、');
+      toast(`❌ → ${prettyHanzi}  (${prettyDigits})`, 'warn');
+    }
+
+    endCheck();
+  }
+
+  function endCheck(){
+    const sess = getSession();
+    updateHUD(sess);
+    setTimeout(() => {
+      if (sess.lives <= 0 || sess.current >= sess.total) {
+        showEnd();
+      } else {
+        window.dispatchEvent(new CustomEvent('go-next'));
+      }
+    }, 600);
+  }
+
+  function showEnd(){
+    root.innerHTML = `
+      <section class="game card">
+        <h2>🏆 ${t('games.finalScore')}</h2>
+        <p>${t('ui.score')}: ${getSession().score}</p>
+        <button class="btn" id="btn-restart">${t('games.playAgain')}</button>
+        <button class="btn btn-secondary" id="btn-menu">${t('ui.backMenu')}</button>
+      </section>
+    `;
+    root.querySelector('#btn-restart').addEventListener('click', ()=> location.hash = '#game-memory');
+    root.querySelector('#btn-menu').addEventListener('click', ()=> location.hash = '#menu');
+  }
+
+  window.addEventListener('go-next', ()=> shell.next());
+
+  shell.next();
+});

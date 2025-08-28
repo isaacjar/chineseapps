@@ -9,6 +9,8 @@ const voclists = [
   { filename: "H1L13", title: "HSK 1 Lesson 13", level: "H1", misc: "MIT" },
   { filename: "H1L14", title: "HSK 1 Lesson 14", level: "H1", misc: "MIT" },
   { filename: "H1L14a15", title: "HSK 1 Lessons 14 & 15", level: "H1", misc: "MIT" },
+  { filename: "H1L16", title: "HSK 1 Lesson 16 Wb", level: "H1", misc: "MIT" },
+  { filename: "H1E110034", title: "HSK 1 H11003/4 Vocabulary", level: "H1", misc: "MIT" },
   { filename: "hsk1", title: "HSK 1 Vocabulary (full)", level: "H1", misc: "hsk" },
   { filename: "hsk2", title: "HSK 2 Vocabulary (full)", level: "H2", misc: "hsk" },
   { filename: "H3L1", title: "HSK 3 Lesson 1", level: "H3", misc: "MIT" },

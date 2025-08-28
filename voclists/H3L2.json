@@ -1,0 +1,19 @@
+[
+  { "ch": "伞", "pin": "sǎn", "en": "umbrella" },
+  { "ch": "经理", "pin": "jīnglǐ", "en": "manager" },
+  { "ch": "办公室", "pin": "bàngōngshì", "en": "office" },
+  { "ch": "起床", "pin": "qǐ chuáng", "en": "to get up" },
+  { "ch": "运动", "pin": "yùndòng", "en": "exercise / sports" },
+  { "ch": "南方", "pin": "nánfāng", "en": "south / southern region" },
+  { "ch": "回家", "pin": "huíjiā", "en": "to return home" },
+  { "ch": "下课", "pin": "xiàkè", "en": "class dismissed / end of class" },
+  { "ch": "写作业", "pin": "xiě zuòyè", "en": "to do homework" },
+  { "ch": "楼", "pin": "lóu", "en": "building / floor" },
+  { "ch": "树", "pin": "shù", "en": "tree" },
+  { "ch": "脚", "pin": "jiǎo", "en": "foot" },
+  { "ch": "瘦", "pin": "shòu", "en": "thin / slim" },
+  { "ch": "容易", "pin": "róngyì", "en": "easy" },
+  { "ch": "难", "pin": "nán", "en": "difficult / hard" },
+  { "ch": "胖", "pin": "pàng", "en": "fat / chubby" },
+  { "ch": "腿", "pin": "tuǐ", "en": "leg" }
+]

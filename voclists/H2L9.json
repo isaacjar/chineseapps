@@ -1,0 +1,21 @@
+[
+  { "ch": "欢迎", "pin": "huānyíng", "en": "welcome" },
+  { "ch": "从", "pin": "cóng", "en": "from / since" },
+  { "ch": "跳舞", "pin": "tiào wǔ", "en": "dance" },
+  { "ch": "错", "pin": "cuò", "en": "wrong / mistake" },
+  { "ch": "唱歌", "pin": "chàng gē", "en": "sing" },
+  { "ch": "洗", "pin": "xǐ", "en": "to wash" },
+  { "ch": "问题", "pin": "wèntí", "en": "question / problem" },
+  { "ch": "对", "pin": "duì", "en": "correct / to" },
+  { "ch": "希望", "pin": "xīwàng", "en": "hope / to wish" },
+  { "ch": "上班", "pin": "shàng bān", "en": "go to work" },
+  { "ch": "对", "pin": "duì", "en": "correct / to" },
+  { "ch": "在", "pin": "zài", "en": "at / in / on" },
+  { "ch": "上", "pin": "shàng", "en": "up / above / attend" },
+  { "ch": "问", "pin": "wèn", "en": "to ask" },
+  { "ch": "好", "pin": "hǎo", "en": "good" },
+  { "ch": "电", "pin": "diàn", "en": "electricity" },
+  { "ch": "看", "pin": "kàn", "en": "to look / to watch" },
+  { "ch": "了", "pin": "le", "en": "completed action particle" },
+  { "ch": "不", "pin": "bù", "en": "not / no" }
+]

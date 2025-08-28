@@ -1,0 +1,19 @@
+[
+  { "ch": "感冒", "pin": "gǎnmào", "en": "to catch a cold" },
+  { "ch": "发烧", "pin": "fāshāo", "en": "to have a fever" },
+  { "ch": "夏天", "pin": "xiàtiān", "en": "summer" },
+  { "ch": "开花", "pin": "kāihuā", "en": "to blossom" },
+  { "ch": "草", "pin": "cǎo", "en": "grass" },
+  { "ch": "裙子", "pin": "qúnzi", "en": "skirt" },
+  { "ch": "春天", "pin": "chūntiān", "en": "spring (season)" },
+  { "ch": "照顾", "pin": "zhàogù", "en": "to take care of" },
+  { "ch": "当然", "pin": "dāngrán", "en": "of course" },
+
+  { "ch": "漂亮", "pin": "piàoliang", "en": "beautiful" },
+  { "ch": "好吃", "pin": "hǎochī", "en": "delicious" },
+  { "ch": "冷", "pin": "lěng", "en": "cold" },
+  { "ch": "绿", "pin": "lǜ", "en": "green" },
+  { "ch": "用", "pin": "yòng", "en": "to use" },
+  { "ch": "为", "pin": "wèi", "en": "for, in order to" },
+  { "ch": "最近", "pin": "zuìjìn", "en": "recently, lately" }
+]

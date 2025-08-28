@@ -7,6 +7,7 @@ import { scoreCorrect, penalize } from '../score.js';
 import { updateHUD, toast } from '../ui.js';
 import { shuffle } from '../rng.js';
 import { t } from '../i18n.js';
+let nextTriggered = false;
 
 register('game-recognition', (root) => {
   const shell = gameShell(root, {
@@ -18,7 +19,8 @@ register('game-recognition', (root) => {
   let timer = null;
 
   function renderQuestion(){
-    const s = getSettings();
+    nextTriggered = false;
+	const s = getSettings();
     const n = randomNumberIn(s.range);
     const cn = numberToChinese(n);
     const options = shuffle([ n, ...digitDistractors(n, 3) ]);
@@ -78,18 +80,21 @@ register('game-recognition', (root) => {
     if(timer) timer.stop();
     endCheck();
   }
-
+  
   function endCheck(){
-    const sess = getSession();
-    updateHUD(sess);
-    setTimeout(() => {
-      if(sess.lives <= 0 || sess.current >= sess.total){
-        showEnd();
-      }else{
-        window.dispatchEvent(new CustomEvent('go-next'));
-      }
-    }, 600);
-  }
+	  if (nextTriggered) return;
+	  nextTriggered = true;
+
+	  const sess = getSession();
+	  updateHUD(sess);
+	  setTimeout(() => {
+		if(sess.lives <= 0 || sess.current >= sess.total){
+		  showEnd();
+		}else{
+		  window.dispatchEvent(new CustomEvent('go-next'));
+		}
+	  }, 600);
+	}
 
   function showEnd() {
     const sess = getSession();
@@ -109,5 +114,5 @@ register('game-recognition', (root) => {
 
   window.addEventListener('go-next', ()=> shell.next());
 
-  setTimeout(() => shell.next(), 0);
+  //setTimeout(() => shell.next(), 0);
 });

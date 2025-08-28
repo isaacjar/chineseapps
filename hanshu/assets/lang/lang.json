@@ -1,8 +1,194 @@
 {
-  "en": { "ui": { "settings": "Settings" } },
-  "es": { "ui": { "settings": "Configuración" } },
-  "fr": { "ui": { "settings": "Paramètres" } },
-  "de": { "ui": { "settings": "Einstellungen" } },
-  "ptbr": { "ui": { "settings": "Configurações" } },
-  "pk": { "ui": { "settings": "ترتیبات (Tarteebaat)" } }
+  "en": {
+    "ui": {
+      "settings": "Settings",
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirm": "Confirm"
+    },
+    "menu": {
+      "title": "Main Menu",
+      "recognition": "Speech Recognition",
+      "start": "Start",
+      "exit": "Exit",
+      "reverse": "Reverse Mode",
+      "pinyinChars": "Pinyin with Characters",
+      "pinyinDigits": "Pinyin with Digits",
+      "memory": "Memory Game",
+      "subtitle": "Choose your game mode"
+    },
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "pinyin": "Pinyin Format",
+      "range": "Vocabulary Range",
+      "qcount": "Number of Questions",
+      "qtime": "Time per Question",
+      "fails": "Allowed Mistakes"
+    },
+    "games": {
+      "memoryShow": "Show Words",
+      "memoryRecall": "Recall Words"
+    }
+  },
+  "es": {
+    "ui": {
+      "settings": "Configuración",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "confirm": "Confirmar"
+    },
+    "menu": {
+      "title": "Menú Principal",
+      "recognition": "Reconocimiento de voz",
+      "start": "Iniciar",
+      "exit": "Salir",
+      "reverse": "Modo inverso",
+      "pinyinChars": "Pinyin con caracteres",
+      "pinyinDigits": "Pinyin con dígitos",
+      "memory": "Juego de memoria",
+      "subtitle": "Elige tu modo de juego"
+    },
+    "settings": {
+      "title": "Configuración",
+      "language": "Idioma",
+      "pinyin": "Formato de Pinyin",
+      "range": "Rango de vocabulario",
+      "qcount": "Número de preguntas",
+      "qtime": "Tiempo por pregunta",
+      "fails": "Errores permitidos"
+    },
+    "games": {
+      "memoryShow": "Mostrar palabras",
+      "memoryRecall": "Recordar palabras"
+    }
+  },
+  "fr": {
+    "ui": {
+      "settings": "Paramètres",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "confirm": "Confirmer"
+    },
+    "menu": {
+      "title": "Menu Principal",
+      "recognition": "Reconnaissance vocale",
+      "start": "Démarrer",
+      "exit": "Quitter",
+      "reverse": "Mode inversé",
+      "pinyinChars": "Pinyin avec caractères",
+      "pinyinDigits": "Pinyin avec chiffres",
+      "memory": "Jeu de mémoire",
+      "subtitle": "Choisissez votre mode de jeu"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "language": "Langue",
+      "pinyin": "Format du Pinyin",
+      "range": "Plage de vocabulaire",
+      "qcount": "Nombre de questions",
+      "qtime": "Temps par question",
+      "fails": "Erreurs autorisées"
+    },
+    "games": {
+      "memoryShow": "Afficher les mots",
+      "memoryRecall": "Rappeler les mots"
+    }
+  },
+  "de": {
+    "ui": {
+      "settings": "Einstellungen",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "confirm": "Bestätigen"
+    },
+    "menu": {
+      "title": "Hauptmenü",
+      "recognition": "Spracherkennung",
+      "start": "Starten",
+      "exit": "Beenden",
+      "reverse": "Umgekehrter Modus",
+      "pinyinChars": "Pinyin mit Zeichen",
+      "pinyinDigits": "Pinyin mit Zahlen",
+      "memory": "Gedächtnisspiel",
+      "subtitle": "Wähle deinen Spielmodus"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "language": "Sprache",
+      "pinyin": "Pinyin-Format",
+      "range": "Wortschatzbereich",
+      "qcount": "Fragenanzahl",
+      "qtime": "Zeit pro Frage",
+      "fails": "Erlaubte Fehler"
+    },
+    "games": {
+      "memoryShow": "Wörter anzeigen",
+      "memoryRecall": "Wörter abrufen"
+    }
+  },
+  "ptbr": {
+    "ui": {
+      "settings": "Configurações",
+      "cancel": "Cancelar",
+      "save": "Salvar",
+      "confirm": "Confirmar"
+    },
+    "menu": {
+      "title": "Menu Principal",
+      "recognition": "Reconhecimento de voz",
+      "start": "Iniciar",
+      "exit": "Sair",
+      "reverse": "Modo reverso",
+      "pinyinChars": "Pinyin com caracteres",
+      "pinyinDigits": "Pinyin com dígitos",
+      "memory": "Jogo da memória",
+      "subtitle": "Escolha seu modo de jogo"
+    },
+    "settings": {
+      "title": "Configurações",
+      "language": "Idioma",
+      "pinyin": "Formato de Pinyin",
+      "range": "Faixa de vocabulário",
+      "qcount": "Número de perguntas",
+      "qtime": "Tempo por pergunta",
+      "fails": "Erros permitidos"
+    },
+    "games": {
+      "memoryShow": "Mostrar palavras",
+      "memoryRecall": "Recordar palavras"
+    }
+  },
+  "pk": {
+    "ui": {
+      "settings": "ترتیبات (Tarteebaat)",
+      "cancel": "منسوخ کریں",
+      "save": "محفوظ کریں",
+      "confirm": "تصدیق کریں"
+    },
+    "menu": {
+      "title": "مرکزی مینو",
+      "recognition": "آواز کی پہچان",
+      "start": "شروع کریں",
+      "exit": "خارج کریں",
+      "reverse": "الٹا موڈ",
+      "pinyinChars": "پینین حروف کے ساتھ",
+      "pinyinDigits": "پینین اعداد کے ساتھ",
+      "memory": "یادداشت کا کھیل",
+      "subtitle": "اپنا کھیل کا موڈ منتخب کریں"
+    },
+    "settings": {
+      "title": "ترتیبات",
+      "language": "زبان",
+      "pinyin": "پینین فارمیٹ",
+      "range": "الفاظ کی حد",
+      "qcount": "سوالات کی تعداد",
+      "qtime": "فی سوال وقت",
+      "fails": "اجازت یافتہ غلطیاں"
+    },
+    "games": {
+      "memoryShow": "الفاظ دکھائیں",
+      "memoryRecall": "الفاظ یاد کریں"
+    }
+  }
 }

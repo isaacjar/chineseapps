@@ -25,6 +25,7 @@ const voclists = [
   { filename: "H2L12a13", title: "HSK 2 Lessons 12 & 13", level: "H2", misc: "MIT" },
   { filename: "H2L14", title: "HSK 2 Lesson 14", level: "H2", misc: "MIT" },
   { filename: "H2L15", title: "HSK 2 Lesson 15", level: "H2", misc: "MIT" },
+   { filename: "H2E210034", title: "HSK 2 H21003/4 Vocabulary", level: "H2", misc: "MIT" },
   { filename: "hsk2", title: "HSK 2 Vocabulary (full)", level: "H2", misc: "hsk" },
   { filename: "H3L1", title: "HSK 3 Lesson 1", level: "H3", misc: "MIT" },
   { filename: "hsk3", title: "HSK 3 Vocabulary (full)", level: "H3", misc: "hsk" },

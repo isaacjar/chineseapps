@@ -1,0 +1,22 @@
+[
+  { "ch": "银行", "pin": "yínháng", "en": "bank" },
+  { "ch": "同事", "pin": "tóngshì", "en": "colleague, workmate" },
+  { "ch": "上网", "pin": "shàngwǎng", "en": "to go online" },
+  { "ch": "结婚", "pin": "jiéhūn", "en": "to get married" },
+  { "ch": "以前", "pin": "yǐqián", "en": "before" },
+  { "ch": "感兴趣", "pin": "gǎn xìngqù", "en": "to be interested in" },
+  { "ch": "刻", "pin": "kè", "en": "quarter (hour)" },
+  { "ch": "十点半", "pin": "shí diǎn bàn", "en": "half past ten" },
+  { "ch": "迟到", "pin": "chídào", "en": "to be late" },
+  { "ch": "睡觉", "pin": "shuìjiào", "en": "to sleep" },
+  { "ch": "小时", "pin": "xiǎoshí", "en": "hour" },
+  { "ch": "欢迎", "pin": "huānyíng", "en": "welcome" },
+
+  { "ch": "十", "pin": "shí", "en": "ten" },
+  { "ch": "半", "pin": "bàn", "en": "half" },
+  { "ch": "上", "pin": "shàng", "en": "up" },
+  { "ch": "网", "pin": "wǎng", "en": "net" },
+  { "ch": "点", "pin": "diǎn", "en": "o'clock, point" },
+  { "ch": "小", "pin": "xiǎo", "en": "small" },
+  { "ch": "时", "pin": "shí", "en": "time" }
+]

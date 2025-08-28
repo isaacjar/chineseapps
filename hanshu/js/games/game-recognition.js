@@ -26,6 +26,7 @@ register('game-recognition', (root) => {
     // UI
     //root.querySelector('#prompt').innerHTML = `${cn}`;
     root.querySelector('#prompt').innerHTML = `<span class="cn-text">${cn}</span>`;
+	
 	const elOptions = root.querySelector('#options');
     elOptions.innerHTML = '';
     root.querySelector('#answer-input').style.display = 'none';

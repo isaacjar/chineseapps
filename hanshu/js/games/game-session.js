@@ -1,4 +1,4 @@
-import { getSession, getSettings, addCorrect } from '../state.js';
+import { getSession, getSettings, addCorrect, incQuestion } from '../state.js';
 import { randomNumberIn, numberToChinese, digitDistractors } from '../chinese.js';
 import { renderTimer, createTimer } from '../timer.js';
 import { scoreCorrect, penalize } from '../score.js';

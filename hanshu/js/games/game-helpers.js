@@ -24,7 +24,19 @@ export function gameShell(root, { title, prompt, onRenderQuestion, onAnswer, onT
     </section>
   `;
 
-  root.querySelector('#btn-back').addEventListener('click', ()=> location.hash = '#menu');
+  //root.querySelector('#btn-back').addEventListener('click', ()=> location.hash = '#menu');
+  //root.querySelector('#btn-back').addEventListener('click', () => navigate('menu'));
+	root.querySelector('#btn-back').addEventListener('click', () => {
+	  const sess = getSession();
+	  const hasProgress = sess.current > 0 || sess.correct > 0;
+
+	  if (hasProgress) {
+		const confirmExit = confirm("⚠️ Has empezado el juego. ¿Seguro que quieres volver al menú?");
+		if (!confirmExit) return;
+	  }
+
+	  navigate('menu');
+	});
 
   const q = { index: 0 };
   const s = getSettings();

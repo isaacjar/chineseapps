@@ -1,0 +1,16 @@
+[
+  { "ch": "生日", "pin": "shēngrì", "en": "birthday" },
+  { "ch": "工作", "pin": "gōngzuò", "en": "work / job" },
+  { "ch": "看书", "pin": "kàn shū", "en": "read a book" },
+  { "ch": "两", "pin": "liǎng", "en": "two (used for counting)" },
+  { "ch": "晚上", "pin": "wǎnshang", "en": "evening" },
+  { "ch": "电话", "pin": "diànhuà", "en": "telephone" },
+  { "ch": "医生", "pin": "yīshēng", "en": "doctor" },
+  { "ch": "朋友", "pin": "péngyou", "en": "friend" },
+  { "ch": "快乐", "pin": "kuàilè", "en": "happy" },
+  { "ch": "给", "pin": "gěi", "en": "to give" },
+  { "ch": "问", "pin": "wèn", "en": "to ask" },
+  { "ch": "非常", "pin": "fēicháng", "en": "very / extremely" },
+  { "ch": "开始", "pin": "kāishǐ", "en": "to start / begin" },
+  { "ch": "介绍", "pin": "jièshào", "en": "to introduce" }
+]

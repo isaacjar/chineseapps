@@ -37,8 +37,8 @@
 .badge.good{ background: #eafff6; color: #1b5c45; border-color: #c9f6e5; }
 
 .option {
-  height: 80px;
-  width: 90%; /* ocupa el 90% del contenedor */
+  height: 65px;
+  width: 60%; /* ocupa el 90% del contenedor */
   margin: 0 auto; /* lo centra horizontalmente */
   padding: 0;
   text-align: center;
@@ -47,8 +47,28 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   background-color: #f8c8dc; /* rosa pastel */
   border: none;
   border-radius: 8px; /* opcional: bordes redondeados */
+}
+
+/* Centrar el contenido del prompt */
+#prompt {
+  display: flex;              /* activa flexbox */
+  justify-content: center;    /* centra horizontalmente */
+  align-items: center;        /* centra verticalmente */
+  min-height: 80px;           /* opcional: altura mínima para que respire */
+}
+
+/* Estilo especial para el texto chino */
+.cn-text {
+  font-size: 2.2rem;          
+  font-weight: 800;           
+  color: #c0392b;             
+  letter-spacing: 4px;        
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  padding: 6px 12px;          /* un poco de aire alrededor */
+  border-radius: 8px;         
+  background-color: #fef6f6;  /* fondo suave pastel */
 }

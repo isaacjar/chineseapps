@@ -1,0 +1,21 @@
+[
+    { "ch": "坐", "pin": "zuò", "en": "to sit" },
+    { "ch": "做", "pin": "zuò", "en": "to do; to make" },
+    { "ch": "看电视", "pin": "kàn diànshì", "en": "to watch TV" },
+    { "ch": "看书", "pin": "kàn shū", "en": "to read a book" },
+    { "ch": "睡觉", "pin": "shuì jiào", "en": "to sleep" },
+    { "ch": "打电话", "pin": "dǎ diànhuà", "en": "to make a phone call" },
+    { "ch": "饭", "pin": "fàn", "en": "meal; rice" },
+    { "ch": "学习", "pin": "xuéxí", "en": "to study; to learn" },
+    { "ch": "也", "pin": "yě", "en": "also; too" },
+    { "ch": "上午", "pin": "shàngwǔ", "en": "morning" },
+    { "ch": "喜欢", "pin": "xǐhuan", "en": "to like" },
+    { "ch": "给", "pin": "gěi", "en": "to give; for" },
+    { "ch": "一", "pin": "yī", "en": "one" },
+    { "ch": "打", "pin": "dǎ", "en": "to hit; to make (a call)" },
+    { "ch": "电", "pin": "diàn", "en": "electricity" },
+    { "ch": "话", "pin": "huà", "en": "speech; word" },
+    { "ch": "上", "pin": "shàng", "en": "up; above" },
+    { "ch": "看", "pin": "kàn", "en": "to look; to watch" },
+    { "ch": "午", "pin": "wǔ", "en": "noon" }
+  ]

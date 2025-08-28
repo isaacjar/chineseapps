@@ -11,7 +11,10 @@ export class GameSession {
     this.root = root;
     this.shell = shell;
     this.timer = null;
-    this.nextTriggered = false;
+
+    // Banderas separadas para evitar conflictos
+    this.nextInProgress = false;
+    this.questionCompleted = false;
 
     window.addEventListener('go-next', () => this.next());
   }
@@ -24,24 +27,28 @@ export class GameSession {
   }
 
   next() {
-    if (this.nextTriggered) return;
-    this.nextTriggered = true;
+    if (this.nextInProgress) return;
+    this.nextInProgress = true;
     this.shell.next();
   }
 
   resetTrigger() {
-    this.nextTriggered = false;
+    this.nextInProgress = false;
+    this.questionCompleted = false;
   }
 
   renderQuestion() {
     this.resetTrigger();
+
     const s = getSettings();
     const n = randomNumberIn(s.range);
     const cn = numberToChinese(n);
     const options = shuffle([n, ...digitDistractors(n, 3)]);
 
     const promptEl = this.root.querySelector('#prompt');
-    if (promptEl) promptEl.innerHTML = `<span class="cn-text">${cn}</span>`;
+    if (promptEl) {
+      promptEl.innerHTML = `<span class="cn-text">${cn}</span>`;
+    }
 
     const elOptions = this.root.querySelector('#options');
     elOptions.innerHTML = '';
@@ -62,13 +69,15 @@ export class GameSession {
     const slot = this.root.querySelector('#timer-slot');
     const paint = renderTimer(slot);
     if (this.timer) this.timer.stop();
-    this.timer = createTimer(s.timePerQuestion, (left, total) => {
-      paint(left, total);
-    }, () => {
-      penalize();
-      toast('⏳ ' + t('ui.outOfTime'), 'warn');
-      this.endCheck();
-    });
+    this.timer = createTimer(
+      s.timePerQuestion,
+      (left, total) => paint(left, total),
+      () => {
+        penalize();
+        toast('⏳ ' + t('ui.outOfTime'), 'warn');
+        this.endCheck();
+      }
+    );
   }
 
   choose(opt, correct) {
@@ -92,11 +101,12 @@ export class GameSession {
   }
 
   endCheck() {
-    if (this.nextTriggered) return;
-    this.nextTriggered = true;
+    if (this.questionCompleted) return;
+    this.questionCompleted = true;
 
     const sess = getSession();
     updateHUD(sess);
+
     setTimeout(() => {
       if (sess.lives <= 0 || sess.current >= sess.total) {
         this.showEnd();
@@ -121,8 +131,8 @@ export class GameSession {
       </div>
     `;
   }
-  
+
   getProgress() {
-	  return getSession();
+    return getSession();
   }
 }

@@ -1,7 +1,6 @@
-import { getSettings, updateSettings } from './state.js';
+import { getSettings, updateSettings, getSession, resetSession } from './state.js';
 import { t, setLanguage, currentLangCode } from './i18n.js';
 import { navigate } from './router.js';
-import { getSettings, updateSettings, getSession, resetSession } from './state.js';
 
 function renderSettings(){
   const s = getSettings();

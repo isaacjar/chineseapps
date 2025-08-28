@@ -37,8 +37,9 @@
 .badge.good{ background: #eafff6; color: #1b5c45; border-color: #c9f6e5; }
 
 .option {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 90%; /* ocupa el 90% del contenedor */
+  margin: 0 auto; /* lo centra horizontalmente */
   padding: 0;
   text-align: center;
   display: flex;
@@ -46,5 +47,8 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 1.8em;
+  font-size: 1.5em;
+  background-color: #f8c8dc; /* rosa pastel */
+  border: none;
+  border-radius: 8px; /* opcional: bordes redondeados */
 }

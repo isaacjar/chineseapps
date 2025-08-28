@@ -1,0 +1,20 @@
+[
+  { "ch": "起床", "pin": "qǐ chuáng", "en": "get up" },
+  { "ch": "游泳", "pin": "yóuyǒng", "en": "swim" },
+  { "ch": "打篮球", "pin": "dǎ lánqiú", "en": "play basketball" },
+  { "ch": "喝牛奶", "pin": "hē niúnǎi", "en": "drink milk" },
+  { "ch": "好吃", "pin": "hǎochī", "en": "delicious" },
+  { "ch": "跑步", "pin": "pǎo bù", "en": "run" },
+  { "ch": "公斤", "pin": "gōngjīn", "en": "kilogram" },
+  { "ch": "面条", "pin": "miàntiáo", "en": "noodles" },
+  { "ch": "自行车", "pin": "zìxíngchē", "en": "bicycle" },
+  { "ch": "经常", "pin": "jīngcháng", "en": "often" },
+  { "ch": "吃药", "pin": "chī yào", "en": "take medicine" },
+  { "ch": "看报纸", "pin": "kàn bàozhǐ", "en": "read newspaper" },
+  { "ch": "外", "pin": "wài", "en": "outside" },
+  { "ch": "门", "pin": "mén", "en": "door" },
+  { "ch": "羊", "pin": "yáng", "en": "sheep" },
+  { "ch": "心", "pin": "xīn", "en": "heart" },
+  { "ch": "犭", "pin": "quǎn", "en": "animal radical" },
+  { "ch": "外", "pin": "wài", "en": "outside" }
+]

@@ -24,8 +24,9 @@ register('game-recognition', (root) => {
     const options = shuffle([ n, ...digitDistractors(n, 3) ]);
 
     // UI
-    root.querySelector('#prompt').innerHTML = `${cn}`;
-    const elOptions = root.querySelector('#options');
+    //root.querySelector('#prompt').innerHTML = `${cn}`;
+    root.querySelector('#prompt').innerHTML = `<span class="cn-text">${cn}</span>`;
+	const elOptions = root.querySelector('#options');
     elOptions.innerHTML = '';
     root.querySelector('#answer-input').style.display = 'none';
 

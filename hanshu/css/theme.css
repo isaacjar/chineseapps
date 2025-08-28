@@ -7,10 +7,10 @@
 }
 .brand{ display: flex; align-items: center; gap: 12px; }
 .logo{
-  width: 48px; height: 48px; border-radius: 50%;
+  width: 64px; height: 64px; border-radius: 50%;
   display: grid; place-items: center;
   background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
-  box-shadow: var(--shadow); font-size: 26px;
+  box-shadow: var(--shadow); font-size: 36px;
 }
 .title h1{ font-weight: 800; letter-spacing: 0.5px; }
 .title p{ font-weight: 600; font-size: 13px; }

@@ -2,7 +2,9 @@ import { initI18n, t, setLanguage, currentLangCode } from './i18n.js';
 import { initState, getSettings } from './state.js';
 import { renderMenu } from './ui.js';
 import { initSettings } from './settings.js';
-import { navigate, onRouteChange } from './router.js';
+import { register, navigate, onRouteChange } from './router.js';
+register('menu', renderMenu);
+
 import './games/game-recognition.js';
 import './games/game-reverse.js';
 import './games/game-pinyin-from-chars.js';

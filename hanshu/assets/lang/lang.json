@@ -1,11 +1,15 @@
 {
   "en": {
     "ui": {
-      "settings": "Settings",
-      "cancel": "Cancel",
-      "save": "Save",
-      "confirm": "Confirm"
-    },
+	  "settings": "Settings",
+	  "cancel": "Cancel",
+	  "save": "Save",
+	  "confirm": "Confirm",
+	  "gameOver": "Game Over",
+	  "finalScore": "Final Score",
+	  "correctAnswers": "Correct Answers",
+	  "restart": "Restart"
+	},
     "menu": {
       "title": "Main Menu",
       "recognition": "Speech Recognition",
@@ -33,11 +37,15 @@
   },
   "es": {
     "ui": {
-      "settings": "Configuración",
-      "cancel": "Cancelar",
-      "save": "Guardar",
-      "confirm": "Confirmar"
-    },
+	  "settings": "Configuración",
+	  "cancel": "Cancelar",
+	  "save": "Guardar",
+	  "confirm": "Confirmar",
+	  "gameOver": "Fin del juego",
+	  "finalScore": "Puntuación final",
+	  "correctAnswers": "Respuestas correctas",
+	  "restart": "Reiniciar"
+	},
     "menu": {
       "title": "Menú Principal",
       "recognition": "Reconocimiento de voz",
@@ -65,11 +73,15 @@
   },
   "fr": {
     "ui": {
-      "settings": "Paramètres",
-      "cancel": "Annuler",
-      "save": "Enregistrer",
-      "confirm": "Confirmer"
-    },
+	  "settings": "Paramètres",
+	  "cancel": "Annuler",
+	  "save": "Enregistrer",
+	  "confirm": "Confirmer",
+	  "gameOver": "Fin du jeu",
+	  "finalScore": "Score final",
+	  "correctAnswers": "Bonnes réponses",
+	  "restart": "Recommencer"
+	},
     "menu": {
       "title": "Menu Principal",
       "recognition": "Reconnaissance vocale",
@@ -97,11 +109,15 @@
   },
   "de": {
     "ui": {
-      "settings": "Einstellungen",
-      "cancel": "Abbrechen",
-      "save": "Speichern",
-      "confirm": "Bestätigen"
-    },
+	  "settings": "Einstellungen",
+	  "cancel": "Abbrechen",
+	  "save": "Speichern",
+	  "confirm": "Bestätigen",
+	  "gameOver": "Spiel beendet",
+	  "finalScore": "Endpunktzahl",
+	  "correctAnswers": "Richtige Antworten",
+	  "restart": "Neu starten"
+	},
     "menu": {
       "title": "Hauptmenü",
       "recognition": "Spracherkennung",
@@ -129,11 +145,15 @@
   },
   "ptbr": {
     "ui": {
-      "settings": "Configurações",
-      "cancel": "Cancelar",
-      "save": "Salvar",
-      "confirm": "Confirmar"
-    },
+	  "settings": "Configurações",
+	  "cancel": "Cancelar",
+	  "save": "Salvar",
+	  "confirm": "Confirmar",
+	  "gameOver": "Fim do jogo",
+	  "finalScore": "Pontuação final",
+	  "correctAnswers": "Respostas corretas",
+	  "restart": "Reiniciar"
+	},
     "menu": {
       "title": "Menu Principal",
       "recognition": "Reconhecimento de voz",
@@ -161,11 +181,15 @@
   },
   "pk": {
     "ui": {
-      "settings": "ترتیبات (Tarteebaat)",
-      "cancel": "منسوخ کریں",
-      "save": "محفوظ کریں",
-      "confirm": "تصدیق کریں"
-    },
+	  "settings": "ترتیبات (Tarteebaat)",
+	  "cancel": "منسوخ کریں",
+	  "save": "محفوظ کریں",
+	  "confirm": "تصدیق کریں",
+	  "gameOver": "کھیل ختم",
+	  "finalScore": "آخری اسکور",
+	  "correctAnswers": "درست جوابات",
+	  "restart": "دوبارہ شروع کریں"
+	},
     "menu": {
       "title": "مرکزی مینو",
       "recognition": "آواز کی پہچان",

@@ -38,7 +38,7 @@
 
 .option {
   height: 65px;
-  width: 60%; /* ocupa el 90% del contenedor */
+  width: 80%; /* ocupa el 90% del contenedor */
   margin: 0 auto; /* lo centra horizontalmente */
   padding: 0;
   text-align: center;
@@ -59,6 +59,7 @@
   justify-content: center;    /* centra horizontalmente */
   align-items: center;        /* centra verticalmente */
   min-height: 80px;           /* opcional: altura mínima para que respire */
+  margin-bottom: 20px; /* 👈 separación extra */
 }
 
 /* Estilo especial para el texto chino */

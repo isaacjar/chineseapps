@@ -9,6 +9,12 @@ import { shuffle } from '../rng.js';
 import { t } from '../i18n.js';
 let nextTriggered = false;
 
+function safeNext() {
+  if (nextTriggered) return;
+  nextTriggered = true;
+  shell.next();
+}
+
 register('game-recognition', (root) => {
   const shell = gameShell(root, {
     title: '视觉识别 • Visual',
@@ -118,13 +124,13 @@ register('game-recognition', (root) => {
     `;
   }
 
-  window.addEventListener('go-next', ()=> shell.next());
+  window.addEventListener('go-next', () => safeNext());
 
   requestAnimationFrame(() => {
-  // Solo iniciar si no hay progreso
 	  const sess = getSession();
 	  if (sess.current === 0 && sess.correct === 0) {
-		shell.next();
+		safeNext();
 	  }
 	});
+
 });

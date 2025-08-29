@@ -1,0 +1,21 @@
+[
+  { "ch": "护照", "pin": "hùzhào", "en": "passport" },
+  { "ch": "黑板", "pin": "hēibǎn", "en": "blackboard" },
+  { "ch": "行李箱", "pin": "xínglǐxiāng", "en": "suitcase" },
+  { "ch": "太阳", "pin": "tàiyáng", "en": "sun" },
+  { "ch": "画儿", "pin": "huàr", "en": "drawing" },
+  { "ch": "包", "pin": "bāo", "en": "bag" },
+  { "ch": "铅笔", "pin": "qiānbǐ", "en": "pencil" },
+  { "ch": "衣服", "pin": "yīfu", "en": "clothes" },
+  { "ch": "照片", "pin": "zhàopiàn", "en": "photo" },
+  { "ch": "钱包", "pin": "qiánbāo", "en": "wallet" },
+  { "ch": "笔记本电脑", "pin": "bǐjìběn diànnǎo", "en": "laptop" },
+  { "ch": "西", "pin": "xī", "en": "west" },
+  { "ch": "生气", "pin": "shēngqì", "en": "angry" },
+  { "ch": "自己", "pin": "zìjǐ", "en": "oneself" },
+  { "ch": "发现", "pin": "fāxiàn", "en": "to discover" },
+  { "ch": "起飞", "pin": "qǐfēi", "en": "to take off (airplane)" },
+  { "ch": "司机", "pin": "sījī", "en": "driver" },
+  { "ch": "脚", "pin": "jiǎo", "en": "foot" },
+  { "ch": "需要", "pin": "xūyào", "en": "to need" }
+]

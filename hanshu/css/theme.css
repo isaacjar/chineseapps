@@ -29,3 +29,21 @@
   max-width: 600px;
   text-align: center;
 }
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.settings-item label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-weight: 600;
+}
+
+.settings-item input,
+.settings-item select {
+  margin-top: 0.3em;
+  font-weight: normal;
+}

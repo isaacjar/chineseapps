@@ -5,6 +5,7 @@ import { startReverse } from './games/game-reverse.js';
 import { startPinyinFromChars } from './games/game-pinyin-from-chars.js';
 import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
 import { openSettings } from './settings.js';
+import { smoothNavigate } from './ui.js';
 
 let currentScreen = null;
 
@@ -38,13 +39,12 @@ function navigateFromHash() {
 }
 
 /**
- * Navegación SPA simple
+ * Navegación SPA con transición suave
  */
 export function navigate(screen) {
   currentScreen = screen;
-  const view = document.querySelector('#view');
-  view.innerHTML = '';
-
   const action = routes[screen] || routes['menu'];
-  action();
+
+  // transición visual con jQuery
+  smoothNavigate(action);
 }

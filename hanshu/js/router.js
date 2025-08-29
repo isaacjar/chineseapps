@@ -19,16 +19,26 @@ const routes = {
 };
 
 /**
- * Inicializa el router mostrando la pantalla según el hash actual
+ * Inicializa el router y escucha cambios de hash
  */
 export function initRouter() {
+  // primera navegación
+  navigateFromHash();
+
+  // re-navegar cuando cambia el hash
+  window.addEventListener('hashchange', navigateFromHash);
+}
+
+/**
+ * Navegar según el hash actual
+ */
+function navigateFromHash() {
   const screen = location.hash.replace('#', '') || 'menu';
   navigate(screen);
 }
 
 /**
  * Navegación SPA simple
- * @param {string} screen - id de la pantalla
  */
 export function navigate(screen) {
   currentScreen = screen;

@@ -1,7 +1,7 @@
 // learning.js
 import { loadState, getSettings, getSession } from './state.js';
 import { setLanguage } from './i18n.js';
-import { initRouter, navigate } from './router.js';
+import { initRouter } from './router.js';
 import { openSettings, initSettingsTrigger } from './settings.js';
 import { renderHUD } from './ui.js';
 
@@ -16,25 +16,23 @@ export function startApp() {
   // aplicar idioma inicial
   setLanguage(s.language);
 
-  // renderizar HUD inicial con sesión actual
+  // renderizar HUD inicial
   renderHUD(getSession());
 
-  // inicializar router
+  // inicializar router (gestiona hash y navegación)
   initRouter();
 
   // botón de settings en header
-  document.querySelector('#btn-open-settings').addEventListener('click', () => {
-    openSettings();
-  });
+  const btnSettings = document.querySelector('#btn-open-settings');
+  if (btnSettings) {
+    btnSettings.addEventListener('click', () => {
+      openSettings();
+    });
+  }
+
+  // activar trigger en HUD (idioma)
+  initSettingsTrigger();
 }
 
 // arranque automático cuando el DOM está listo
-document.addEventListener('DOMContentLoaded', () => {
-  startApp();
-  initSettingsTrigger(); // 👈 aquí enganchas el click al hud-language
-});
-
-window.addEventListener('hashchange', () => {
-  const screen = location.hash.replace('#', '') || 'menu';
-  navigate(screen);
-});
+document.addEventListener('DOMContentLoaded', startApp);

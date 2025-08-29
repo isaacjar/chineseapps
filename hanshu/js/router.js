@@ -1,10 +1,10 @@
 // router.js
-import { renderMenu } from './menu.js';
-import { startRecognition } from './game-recognition.js';
-import { startReverse } from './game-reverse.js';
-import { startPinyinFromChars } from './game-pinyin-from-chars.js';
-import { startPinyinFromDigits } from './game-pinyin-from-digits.js';
-import { startMemory } from './game-memory.js';
+import { renderMenu } from './games/menu.js';
+import { startRecognition } from './games/game-recognition.js';
+import { startReverse } from './games/game-reverse.js';
+import { startPinyinFromChars } from './games/game-pinyin-from-chars.js';
+import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
+import { startMemory } from './games/game-memory.js';
 import { openSettings } from './settings.js';
 
 /**

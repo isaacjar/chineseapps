@@ -1,10 +1,12 @@
 // game-helpers.js
 import { rngSample } from '../rng.js';
 import { getSettings } from '../state.js';
-import { renderHUD } from '../ui.js';
 
 /**
  * Renderiza opciones como botones dentro del contenedor
+ * @param {HTMLElement} container - contenedor donde renderizar
+ * @param {string[]} options - lista de opciones
+ * @param {Function} onSelect - callback con la opción elegida
  */
 export function renderOptions(container, options, onSelect) {
   const wrapper = document.createElement('div');
@@ -26,17 +28,18 @@ export function renderOptions(container, options, onSelect) {
  * @param {string} correct - Respuesta correcta
  * @param {string[]} pool - Pool de posibles respuestas
  * @param {number} [difficulty] - Número de opciones (si no, se usa settings)
+ * @returns {string[]} opciones mezcladas
  */
 export function generateOptions(correct, pool, difficulty) {
   const settings = getSettings();
   const count = difficulty || (settings.difficulty === 2 ? 6 : 4);
 
-  // Filtramos la correcta del pool
+  // filtramos la correcta del pool
   const filtered = pool.filter(x => x !== correct);
 
-  // Tomamos distractores aleatorios
+  // distractores aleatorios
   const distractors = rngSample(filtered, count - 1);
 
-  // Mezclamos y devolvemos
+  // mezclamos y devolvemos
   return rngSample([correct, ...distractors], count);
 }

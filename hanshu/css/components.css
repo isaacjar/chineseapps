@@ -378,3 +378,51 @@ input:checked + .slider:before {
     font-size: 0.8rem;
   }
 }
+
+/* ====== Game Over Screen ====== */
+.game-over-screen {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 3em;
+}
+
+.game-over-screen h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #e63946; /* rojo para énfasis */
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+  margin-bottom: 0.5em;
+  letter-spacing: 1px;
+}
+
+.game-over-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5em;
+}
+
+.game-over-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 1.5em;
+}
+
+.game-over-buttons .btn {
+  min-width: 140px;
+  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+}
+
+/* En pantallas pequeñas, botones apilados */
+@media (max-width: 480px) {
+  .game-over-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

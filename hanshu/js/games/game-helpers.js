@@ -1,48 +1,42 @@
 // game-helpers.js
 import { getSettings } from '../state.js';
-import { rngSample } from '../rng.js';
+import { sample, shuffle } from '../rng.js';
 
 /**
- * Obtiene el número de opciones a mostrar según la dificultad
- * @returns {number}
+ * Renderiza opciones múltiples (4 o 6 botones según dificultad)
+ * @param {string[]} allOptions - lista de posibles respuestas
+ * @param {string} correct - la respuesta correcta
+ * @param {Function} onAnswer - callback con (isCorrect)
  */
-export function getChoicesCount() {
-  const settings = getSettings();
-  switch (settings.difficulty) {
-    case 'hard':
-      return 6;
-    case 'easy':
-    default:
-      return 4;
-  }
-}
+export function renderOptions(allOptions, correct, onAnswer) {
+  const container = document.createElement('div');
+  container.className = 'options';
 
-/**
- * Genera opciones de respuesta (correcta + distractores)
- * @param {*} correct - la respuesta correcta
- * @param {Array} pool - conjunto de posibles respuestas
- * @returns {Array} opciones mezcladas
- */
-export function generateOptions(correct, pool) {
-  const count = getChoicesCount();
-  const distractors = rngSample(pool.filter(x => x !== correct), count - 1);
-  const options = [correct, ...distractors];
-  return rngSample(options, options.length); // mezcla
-}
+  // dificultad => cuántas opciones mostrar
+  const difficulty = getSettings().difficulty || 1;
+  const optionCount = difficulty === 2 ? 6 : 4;
 
-/**
- * Renderiza los botones de opciones dentro de un contenedor
- * @param {HTMLElement} container
- * @param {Array} options
- * @param {Function} onSelect - callback con la opción seleccionada
- */
-export function renderOptions(container, options, onSelect) {
-  container.innerHTML = '';
+  // aseguramos que la correcta siempre esté incluida
+  let options = allOptions.filter(opt => opt !== correct);
+  options = sample(options, optionCount - 1);
+  options.push(correct);
+
+  // mezclar opciones
+  options = shuffle(options);
+
+  // crear botones
   options.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'btn option';
     btn.textContent = opt;
-    btn.addEventListener('click', () => onSelect(opt));
+
+    btn.addEventListener('click', () => {
+      const isCorrect = opt === correct;
+      onAnswer(isCorrect, opt);
+    });
+
     container.appendChild(btn);
   });
+
+  return container;
 }

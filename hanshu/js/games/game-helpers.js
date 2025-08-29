@@ -1,47 +1,48 @@
 // game-helpers.js
-import { getSession, setSession } from '../state.js';
-import { updateHUD } from '../ui.js';
+import { getSettings } from '../state.js';
+import { rngSample } from '../rng.js';
 
 /**
- * Reinicia la sesión de juego (score, streak, lives)
+ * Obtiene el número de opciones a mostrar según la dificultad
+ * @returns {number}
  */
-export function resetGameSession() {
-  const session = getSession();
-  session.score = 0;
-  session.streak = 0;
-  session.lives = 3; // puedes mover este valor a settings si quieres
-  setSession(session);
-  updateHUD(session);
-}
-
-/**
- * Resta una vida y actualiza el HUD
- */
-export function loseLife() {
-  const session = getSession();
-  if (session.lives > 0) {
-    session.lives -= 1;
+export function getChoicesCount() {
+  const settings = getSettings();
+  switch (settings.difficulty) {
+    case 'hard':
+      return 6;
+    case 'easy':
+    default:
+      return 4;
   }
-  session.streak = 0; // romper racha al perder vida
-  setSession(session);
-  updateHUD({ lives: session.lives, streak: session.streak });
-  return session.lives;
 }
 
 /**
- * Suma racha sin aumentar puntuación
+ * Genera opciones de respuesta (correcta + distractores)
+ * @param {*} correct - la respuesta correcta
+ * @param {Array} pool - conjunto de posibles respuestas
+ * @returns {Array} opciones mezcladas
  */
-export function addStreak() {
-  const session = getSession();
-  session.streak += 1;
-  setSession(session);
-  updateHUD({ streak: session.streak });
+export function generateOptions(correct, pool) {
+  const count = getChoicesCount();
+  const distractors = rngSample(pool.filter(x => x !== correct), count - 1);
+  const options = [correct, ...distractors];
+  return rngSample(options, options.length); // mezcla
 }
 
 /**
- * Devuelve true si la partida terminó (vidas agotadas)
+ * Renderiza los botones de opciones dentro de un contenedor
+ * @param {HTMLElement} container
+ * @param {Array} options
+ * @param {Function} onSelect - callback con la opción seleccionada
  */
-export function isGameOver() {
-  const session = getSession();
-  return session.lives <= 0;
+export function renderOptions(container, options, onSelect) {
+  container.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'btn option';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => onSelect(opt));
+    container.appendChild(btn);
+  });
 }

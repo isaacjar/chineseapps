@@ -1,34 +1,37 @@
-// games/game-pinyin-from-digits.js
-import { getSession, setSession } from '../state.js';
-import { updateHUD } from '../ui.js';
-import { addScore, penalize } from '../score.js';
+// game-pinyin-from-digits.js
+import { startGame } from './game-session.js';
+import { generateOptions, renderOptions } from './game-helpers.js';
+import { pinyinFromNumber } from '../chinese.js';
+import { rngSample } from '../rng.js';
 import { t } from '../i18n.js';
 
 export function startPinyinFromDigits() {
-  const view = document.getElementById('view');
-  view.innerHTML = `
-    <div class="game pinyin-digits">
-      <h2>${t('games.pinyinDigitsPrompt')}</h2>
-      <div id="pinyin-digits-question"></div>
-      <input id="pinyin-digits-answer" class="input" />
-      <button id="pinyin-digits-submit" class="btn">${t('ui.confirm')}</button>
-    </div>
-  `;
+  startGame({
+    id: 'pinyinDigits',
+    title: t('menu.pinyinDigits'),
+    onQuestion
+  });
+}
 
-  const number = 1;
-  document.getElementById('pinyin-digits-question').textContent = number;
+function onQuestion(game) {
+  // número correcto
+  const num = rngSample(game.range, 1)[0];
+  const correct = pinyinFromNumber(num);
 
-  document.getElementById('pinyin-digits-submit').addEventListener('click', () => {
-    const answer = document.getElementById('pinyin-digits-answer').value.trim();
-    const session = getSession();
+  // pool de opciones en pinyin
+  const pool = game.range.map(pinyinFromNumber);
+  const options = generateOptions(correct, pool);
 
-    if (answer.toLowerCase() === 'yi') {
-      addScore(20, 0);
-    } else {
-      penalize();
+  game.showQuestion({
+    text: num.toString(), // mostramos el número en dígitos
+    onRender(container) {
+      renderOptions(container, options, choice => {
+        if (choice === correct) {
+          game.correct();
+        } else {
+          game.wrong();
+        }
+      });
     }
-
-    setSession(session);
-    updateHUD(session);
   });
 }

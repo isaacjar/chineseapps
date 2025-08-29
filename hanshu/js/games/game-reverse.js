@@ -1,34 +1,37 @@
-// games/game-reverse.js
-import { getSession, setSession } from '../state.js';
-import { updateHUD } from '../ui.js';
-import { addScore, penalize } from '../score.js';
+// game-reverse.js
+import { startGame } from './game-session.js';
+import { generateOptions, renderOptions } from './game-helpers.js';
+import { chineseFromNumber } from '../chinese.js';
+import { rngSample } from '../rng.js';
 import { t } from '../i18n.js';
 
 export function startReverse() {
-  const view = document.getElementById('view');
-  view.innerHTML = `
-    <div class="game reverse">
-      <h2>${t('games.reversePrompt')}</h2>
-      <div id="reverse-question"></div>
-      <input id="reverse-answer" class="input" />
-      <button id="reverse-submit" class="btn">${t('ui.confirm')}</button>
-    </div>
-  `;
+  startGame({
+    id: 'reverse',
+    title: t('menu.reverse'),
+    onQuestion
+  });
+}
 
-  const number = Math.floor(Math.random() * 99) + 1;
-  document.getElementById('reverse-question').textContent = number;
+function onQuestion(game) {
+  // número correcto
+  const num = rngSample(game.range, 1)[0];
+  const correct = chineseFromNumber(num);
 
-  document.getElementById('reverse-submit').addEventListener('click', () => {
-    const answer = document.getElementById('reverse-answer').value.trim();
-    const session = getSession();
+  // pool de opciones en caracteres chinos
+  const pool = game.range.map(chineseFromNumber);
+  const options = generateOptions(correct, pool);
 
-    if (answer === String(number)) {
-      addScore(15, 0);
-    } else {
-      penalize();
+  game.showQuestion({
+    text: num.toString(), // mostramos el número en dígitos
+    onRender(container) {
+      renderOptions(container, options, choice => {
+        if (choice === correct) {
+          game.correct();
+        } else {
+          game.wrong();
+        }
+      });
     }
-
-    setSession(session);
-    updateHUD(session);
   });
 }

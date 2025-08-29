@@ -1,35 +1,37 @@
-// games/game-recognition.js
-import { getSession, setSession } from '../state.js';
-import { updateHUD } from '../ui.js';
-import { addScore, penalize } from '../score.js';
+// game-recognition.js
+import { startGame } from './game-session.js';
+import { generateOptions, renderOptions } from './game-helpers.js';
+import { chineseFromNumber } from '../chinese.js';
+import { rngSample } from '../rng.js';
 import { t } from '../i18n.js';
 
 export function startRecognition() {
-  const view = document.getElementById('view');
-  view.innerHTML = `
-    <div class="game recognition">
-      <h2>${t('games.recognitionPrompt')}</h2>
-      <div id="recognition-question"></div>
-      <input id="recognition-answer" class="input" />
-      <button id="recognition-submit" class="btn">${t('ui.confirm')}</button>
-    </div>
-  `;
+  startGame({
+    id: 'recognition',
+    title: t('menu.recognition'),
+    onQuestion
+  });
+}
 
-  // Demo: generar número aleatorio
-  const number = Math.floor(Math.random() * 99) + 1;
-  document.getElementById('recognition-question').textContent = number;
+function onQuestion(game) {
+  // número correcto
+  const num = rngSample(game.range, 1)[0];
+  const correct = num.toString();
 
-  document.getElementById('recognition-submit').addEventListener('click', () => {
-    const answer = document.getElementById('recognition-answer').value.trim();
-    const session = getSession();
+  // pool de opciones en dígitos
+  const pool = game.range.map(n => n.toString());
+  const options = generateOptions(correct, pool);
 
-    if (answer === String(number)) {
-      addScore(10, 0);
-    } else {
-      penalize();
+  game.showQuestion({
+    text: chineseFromNumber(num), // mostramos el carácter chino
+    onRender(container) {
+      renderOptions(container, options, choice => {
+        if (choice === correct) {
+          game.correct();
+        } else {
+          game.wrong();
+        }
+      });
     }
-
-    setSession(session);
-    updateHUD(session);
   });
 }

@@ -1,44 +1,44 @@
 // score.js
-import { getSession } from './state.js';
+import { getSession, setSession } from './state.js';
 import { updateHUD } from './ui.js';
 
 /**
- * Se llama cuando el jugador acierta.
- * 
- * @param {number} timeLeft - tiempo restante en segundos
- * @param {number} qtime - tiempo total por pregunta
- * @returns {number} puntos ganados
+ * Incrementa la puntuación en función de rapidez y precisión
+ * @param {number} basePoints - puntos base
+ * @param {number} timeBonus - bonificación por rapidez
  */
-export function scoreCorrect(timeLeft, qtime) {
-  const s = getSession();
-  if (!s) return 0;
+export function addScore(basePoints = 10, timeBonus = 0) {
+  const session = getSession();
+  const totalPoints = basePoints + timeBonus;
 
-  // puntos base
-  let pts = 10;
+  session.score += totalPoints;
+  session.streak += 1; // sumar racha
+  setSession(session);
 
-  // bonus por rapidez (proporcional al tiempo sobrante)
-  const speedBonus = Math.round((timeLeft / qtime) * 10);
-  pts += speedBonus;
-
-  // bonus por racha
-  s.streak++;
-  const streakBonus = Math.max(0, s.streak - 1) * 2;
-  pts += streakBonus;
-
-  // acumular
-  s.score += pts;
-
-  updateHUD();
-  return pts;
+  updateHUD({ score: session.score, streak: session.streak });
 }
 
 /**
- * Se llama cuando el jugador falla.
+ * Penaliza al jugador (resta vida y rompe racha)
  */
-export function scoreWrong() {
-  const s = getSession();
-  if (!s) return;
+export function penalize() {
+  const session = getSession();
+  session.lives -= 1;
+  session.streak = 0;
+  setSession(session);
 
-  s.streak = 0; // reset racha
-  updateHUD();
+  updateHUD({ lives: session.lives, streak: session.streak });
+}
+
+/**
+ * Reinicia el marcador de sesión
+ */
+export function resetScore() {
+  const session = getSession();
+  session.score = 0;
+  session.streak = 0;
+  session.lives = 3; // valor inicial configurable si quieres moverlo a settings
+  setSession(session);
+
+  updateHUD(session);
 }

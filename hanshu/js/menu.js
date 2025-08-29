@@ -19,10 +19,6 @@ export function renderMenu() {
         <a class="btn menu-btn" href="#pinyin-digits">✍️ ${t('menu.pinyinDigits')}</a>
         <a class="btn menu-btn" href="#memory">🧠 ${t('menu.memory')}</a>
       </div>
-
-      <div class="menu-actions">
-        <a id="menu-settings" class="btn btn-secondary" href="#settings">⚙️ ${t('menu.settings')}</a>
-      </div>
     </section>
   `;
 }

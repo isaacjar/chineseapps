@@ -1,13 +1,13 @@
 // game-pinyin-from-chars.js
 import { gameShell } from './game-helpers.js';
-import { newSession, getSession, loseLife, getSettings } from './state.js';
-import { getRandomNumber } from './settings.js';
-import { scoreCorrect, scoreWrong } from './score.js';
-import { updateHUD, toast } from './ui.js';
-import { createTimer } from './timer.js';
-import { chineseChar, chinesePinyin, pinyinDistractors } from './chinese.js';
-import { shuffle } from './rng.js';
-import { t } from './i18n.js';
+import { newSession, getSession, loseLife, getSettings } from '../state.js';
+import { getRandomNumber } from '../settings.js';
+import { scoreCorrect, scoreWrong } from '../score.js';
+import { updateHUD, toast } from '../ui.js';
+import { createTimer } from '../timer.js';
+import { chineseChar, chinesePinyin, pinyinDistractors } from '../chinese.js';
+import { shuffle } from '../rng.js';
+import { t } from '../i18n.js';
 
 export function startPinyinFromChars() {
   const { root, showEnd } = gameShell(t('menu.pinyinChars'));

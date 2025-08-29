@@ -1,11 +1,11 @@
 // game-memory.js
 import { gameShell } from './game-helpers.js';
-import { newSession, getSession, loseLife, getSettings } from './state.js';
-import { scoreCorrect, scoreWrong } from './score.js';
-import { updateHUD, toast } from './ui.js';
-import { chineseChar } from './chinese.js';
-import { randInt } from './rng.js';
-import { t } from './i18n.js';
+import { newSession, getSession, loseLife, getSettings } from '../state.js';
+import { scoreCorrect, scoreWrong } from '../score.js';
+import { updateHUD, toast } from '../ui.js';
+import { chineseChar } from '../chinese.js';
+import { randInt } from '../rng.js';
+import { t } from '../i18n.js';
 
 export function startMemory() {
   const { root, showEnd } = gameShell(t('menu.memory'));

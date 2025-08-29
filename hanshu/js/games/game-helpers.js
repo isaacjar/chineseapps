@@ -1,8 +1,8 @@
 // game-helpers.js
-import { renderHUD } from './ui.js';
-import { getSession } from './state.js';
-import { navigate } from './router.js';
-import { t } from './i18n.js';
+import { renderHUD } from '../ui.js';
+import { getSession } from '../state.js';
+import { navigate } from '../router.js';
+import { t } from '../i18n.js';
 
 /**
  * Prepara layout base de un juego dentro de #view.

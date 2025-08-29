@@ -16,9 +16,9 @@ const units = [
 ];
 
 /**
- * Convierte número a caracteres chinos
+ * Convierte un número a caracteres chinos
  */
-export function chineseFromNumber(n) {
+export function chineseChar(n) {
   if (n === 0) return digits[0];
   let str = "";
   let num = n;
@@ -45,9 +45,9 @@ export function chineseFromNumber(n) {
 }
 
 /**
- * Convierte número a pinyin
+ * Convierte un número a pinyin
  */
-export function pinyinFromNumber(n) {
+export function chinesePinyin(n) {
   if (n === 0) return digitsPinyin[0];
   let str = "";
   let num = n;
@@ -82,7 +82,7 @@ export function chineseDistractors(n, count = 3) {
     if (n - i > 0) pool.push(n - i);
     pool.push(n + i);
   }
-  return sample(pool, count).map(chineseFromNumber);
+  return sample(pool, count).map(chineseChar);
 }
 
 /**
@@ -94,5 +94,5 @@ export function pinyinDistractors(n, count = 3) {
     if (n - i > 0) pool.push(n - i);
     pool.push(n + i);
   }
-  return sample(pool, count).map(pinyinFromNumber);
+  return sample(pool, count).map(chinesePinyin);
 }

@@ -1,42 +1,42 @@
 // game-helpers.js
+import { rngSample } from '../rng.js';
 import { getSettings } from '../state.js';
-import { sample, shuffle } from '../rng.js';
+import { renderHUD } from '../ui.js';
 
 /**
- * Renderiza opciones múltiples (4 o 6 botones según dificultad)
- * @param {string[]} allOptions - lista de posibles respuestas
- * @param {string} correct - la respuesta correcta
- * @param {Function} onAnswer - callback con (isCorrect)
+ * Renderiza opciones como botones dentro del contenedor
  */
-export function renderOptions(allOptions, correct, onAnswer) {
-  const container = document.createElement('div');
-  container.className = 'options';
+export function renderOptions(container, options, onSelect) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'options';
 
-  // dificultad => cuántas opciones mostrar
-  const difficulty = getSettings().difficulty || 1;
-  const optionCount = difficulty === 2 ? 6 : 4;
-
-  // aseguramos que la correcta siempre esté incluida
-  let options = allOptions.filter(opt => opt !== correct);
-  options = sample(options, optionCount - 1);
-  options.push(correct);
-
-  // mezclar opciones
-  options = shuffle(options);
-
-  // crear botones
   options.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'btn option';
     btn.textContent = opt;
-
-    btn.addEventListener('click', () => {
-      const isCorrect = opt === correct;
-      onAnswer(isCorrect, opt);
-    });
-
-    container.appendChild(btn);
+    btn.addEventListener('click', () => onSelect(opt));
+    wrapper.appendChild(btn);
   });
 
-  return container;
+  container.appendChild(wrapper);
+}
+
+/**
+ * Genera opciones con respuesta correcta y distractores
+ * @param {string} correct - Respuesta correcta
+ * @param {string[]} pool - Pool de posibles respuestas
+ * @param {number} [difficulty] - Número de opciones (si no, se usa settings)
+ */
+export function generateOptions(correct, pool, difficulty) {
+  const settings = getSettings();
+  const count = difficulty || (settings.difficulty === 2 ? 6 : 4);
+
+  // Filtramos la correcta del pool
+  const filtered = pool.filter(x => x !== correct);
+
+  // Tomamos distractores aleatorios
+  const distractors = rngSample(filtered, count - 1);
+
+  // Mezclamos y devolvemos
+  return rngSample([correct, ...distractors], count);
 }

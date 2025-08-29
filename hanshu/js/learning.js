@@ -3,7 +3,7 @@ import { loadSettings, getSettings } from './state.js';
 import { setLanguage } from './i18n.js';
 import { initRouter, navigate } from './router.js';
 import { openSettings } from './settings.js';
-import { renderHUD } from './ui.js';
+import { updateHUD } from './ui.js';
 
 /**
  * Punto de entrada de la app

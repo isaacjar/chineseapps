@@ -1,6 +1,6 @@
 // settings.js
 import { getSettings, setSettings } from './state.js';
-import { showModal, closeModal, renderHUD } from './ui.js';
+import { showModal, closeModal, updateHUD } from './ui.js';
 import { setLang, getLang, t } from './i18n.js';
 
 /**

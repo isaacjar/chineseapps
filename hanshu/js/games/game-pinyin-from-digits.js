@@ -14,16 +14,14 @@ export function startPinyinFromDigits() {
 }
 
 function onQuestion(game) {
-  // número correcto
   const num = sample(game.range, 1)[0];
   const correct = chinesePinyin(num);
 
-  // pool de opciones (pinyin)
   const pool = game.range.map(n => chinesePinyin(n));
   const options = generateOptions(correct, pool);
 
   game.showQuestion({
-    text: num.toString(), // mostramos el número en dígitos
+    text: num.toString(),
     onRender(container) {
       renderOptions(container, options, choice => {
         if (choice === correct) {

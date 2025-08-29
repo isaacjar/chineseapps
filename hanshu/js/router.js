@@ -7,32 +7,41 @@ import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
 import { startMemory } from './games/game-memory.js';
 import { openSettings } from './settings.js';
 
-/**
- * Navegación simple SPA por hash
- */
-export function navigate(screen) {
-  window.location.hash = screen;
-  render(screen);
-}
-
+// Enrutador SPA muy simple
 export function initRouter() {
-  window.addEventListener('hashchange', () => {
-    render(window.location.hash.slice(1));
-  });
-
-  // carga inicial
-  render(window.location.hash.slice(1) || 'menu');
+  window.addEventListener('hashchange', handleRoute);
+  handleRoute(); // procesar ruta inicial
 }
 
-function render(screen) {
-  switch (screen) {
-    case 'menu': renderMenu(); break;
-    case 'recognition': startRecognition(); break;
-    case 'reverse': startReverse(); break;
-    case 'pinyinChars': startPinyinFromChars(); break;
-    case 'pinyinDigits': startPinyinFromDigits(); break;
-    case 'memory': startMemory(); break;
-    case 'settings': openSettings(); break;
-    default: renderMenu();
+function handleRoute() {
+  const view = document.querySelector('#view');
+  if (!view) return;
+
+  const route = window.location.hash.replace('#', '') || 'menu';
+
+  switch (route) {
+    case 'menu':
+      renderMenu();
+      break;
+    case 'recognition':
+      startRecognition();
+      break;
+    case 'reverse':
+      startReverse();
+      break;
+    case 'pinyin-chars':
+      startPinyinFromChars();
+      break;
+    case 'pinyin-digits':
+      startPinyinFromDigits();
+      break;
+    case 'memory':
+      startMemory();
+      break;
+    case 'settings':
+      openSettings();
+      break;
+    default:
+      renderMenu(); // fallback al menú
   }
 }

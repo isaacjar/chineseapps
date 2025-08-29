@@ -1,6 +1,6 @@
 // learning.js
 import { loadState, getSettings, getSession } from './state.js';
-import { setLanguage } from './i18n.js';
+import { setLang } from './i18n.js';              // ⬅️ corregido: antes era setLanguage
 import { initRouter } from './router.js';
 import { openSettings } from './settings.js';
 import { updateHUD } from './ui.js';
@@ -14,7 +14,9 @@ export function startApp() {
   const s = getSettings();
 
   // aplicar idioma inicial
-  setLanguage(s.language);
+  if (s.language) {
+    setLang(s.language);   // ⬅️ corregido: antes setLanguage
+  }
 
   // renderizar HUD inicial con sesión actual
   updateHUD(getSession());
@@ -23,9 +25,12 @@ export function startApp() {
   initRouter();
 
   // botón de settings en header
-  document.querySelector('#btn-open-settings').addEventListener('click', () => {
-    openSettings();
-  });
+  const btn = document.querySelector('#btn-open-settings');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      openSettings();
+    });
+  }
 }
 
 // arranque automático cuando el DOM está listo

@@ -1,5 +1,5 @@
 // settings.js
-import { getSettings, setSettings } from './state.js';
+import { getSettings, setSettings, saveState, resetSettings } from './state.js';
 import { t } from './i18n.js';
 import { closeModal } from './ui.js';
 
@@ -68,12 +68,12 @@ export function openSettings() {
 
       <div class="settings-actions">
         <button type="submit" class="btn btn-primary">${t('ui.save')}</button>
+        <button type="button" id="settings-reset" class="btn btn-warn">🔄 ${t('ui.reset')}</button>
         <button type="button" id="settings-cancel" class="btn btn-secondary">${t('ui.cancel')}</button>
       </div>
     </form>
   `;
 
-  // usar showModal del ui.js
   import('./ui.js').then(({ showModal }) => {
     showModal(content, () => {});
     const form = document.querySelector('#settings-form');
@@ -81,6 +81,7 @@ export function openSettings() {
     // valores iniciales
     form.language.value = s.language;
 
+    // Guardar cambios
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -95,10 +96,19 @@ export function openSettings() {
         difficulty: parseInt(data.get('difficulty')) || 1
       });
 
+      saveState(); // 👈 persistir cambios
       closeModal();
-      location.reload(); // refrescar para aplicar idioma
+      location.reload();
     });
 
+    // Resetear ajustes
+    document.querySelector('#settings-reset').addEventListener('click', () => {
+      resetSettings();
+      closeModal();
+      location.reload();
+    });
+
+    // Cancelar
     document.querySelector('#settings-cancel').addEventListener('click', () => {
       closeModal();
     });

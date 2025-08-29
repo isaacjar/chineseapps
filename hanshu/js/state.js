@@ -1,32 +1,39 @@
 // state.js
 
+const STORAGE_KEY = 'hanshu-state';
+
 // Estado de la sesión de juego (score, streak, vidas, etc.)
 let session = {
   score: 0,
   streak: 0,
-  lives: 3, // valor inicial (puede parametrizarse desde settings.js)
+  lives: 3,
 };
 
-// Estado de configuración (settings del jugador)
-let settings = {
+// Valores por defecto de configuración
+const defaultSettings = {
   language: 'en',
   pinyin: true,
   range: 'r1_10',
   qcount: 10,
   qtime: 30,
   fails: 3,
+  difficulty: 1
 };
 
+// Estado de configuración (se carga de localStorage si existe)
+let settings = { ...defaultSettings };
+
+loadState();
+
 /**
- * Devuelve el estado actual de la sesión (inmutable)
+ * Devuelve el estado actual de la sesión
  */
 export function getSession() {
   return { ...session };
 }
 
 /**
- * Reemplaza/actualiza el estado de la sesión
- * @param {object} newSession - propiedades a sobrescribir
+ * Actualiza el estado de la sesión
  */
 export function setSession(newSession) {
   session = { ...session, ...newSession };
@@ -39,34 +46,42 @@ export function resetSession() {
   session = {
     score: 0,
     streak: 0,
-    lives: settings.fails ?? 3, // si hay config de errores permitidos
+    lives: settings.fails ?? 3,
   };
 }
 
 /**
- * Devuelve los ajustes (settings) actuales
+ * Devuelve los ajustes actuales
  */
 export function getSettings() {
   return { ...settings };
 }
 
 /**
- * Reemplaza/actualiza los ajustes
- * @param {object} newSettings - propiedades a sobrescribir
+ * Actualiza los ajustes
  */
 export function setSettings(newSettings) {
   settings = { ...settings, ...newSettings };
 }
 
 /**
- * Inicializa el estado desde almacenamiento local
+ * Resetea ajustes a valores por defecto
+ */
+export function resetSettings() {
+  settings = { ...defaultSettings };
+  saveState();
+  return settings;
+}
+
+/**
+ * Cargar desde localStorage
  */
 export function loadState() {
   try {
-    const saved = localStorage.getItem('hanshu-state');
+    const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (parsed.settings) settings = parsed.settings;
+      if (parsed.settings) settings = { ...defaultSettings, ...parsed.settings };
       if (parsed.session) session = parsed.session;
     }
   } catch (e) {
@@ -75,11 +90,11 @@ export function loadState() {
 }
 
 /**
- * Guarda estado en almacenamiento local
+ * Guardar en localStorage
  */
 export function saveState() {
   try {
-    localStorage.setItem('hanshu-state', JSON.stringify({ session, settings }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ session, settings }));
   } catch (e) {
     console.warn('⚠️ Error al guardar estado:', e);
   }

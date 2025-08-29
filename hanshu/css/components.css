@@ -320,3 +320,61 @@ input:checked + .slider:before {
   min-width: 2rem;
   text-align: right;
 }
+
+/* ===== HUD extra ===== */
+#hud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+#hud-progress {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2c7a7b; /* verde suave */
+}
+
+#hud-timer-knob {
+  width: 80px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+#hud-timer-value {
+  display: block;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 4px;
+  color: #444;
+}
+
+/* Toasts de éxito/fracaso */
+.toast.good {
+  background-color: #38a169; /* verde éxito */
+  color: #fff;
+}
+
+.toast.warn {
+  background-color: #e53e3e; /* rojo advertencia */
+  color: #fff;
+}
+
+/* Ajustar responsividad */
+@media (max-width: 600px) {
+  #hud {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #hud-timer-knob {
+    width: 70px;
+    height: 50px;
+  }
+
+  #hud-timer-value {
+    font-size: 0.8rem;
+  }
+}

@@ -256,3 +256,11 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(30px);
 }
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  color: inherit;
+}

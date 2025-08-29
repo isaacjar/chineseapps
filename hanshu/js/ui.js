@@ -1,60 +1,61 @@
-import { t } from './i18n.js';
-import { navigate } from './router.js';
+// ui.js
+import { getSession, getSettings, setSettings } from './state.js';
+import { t, setLang, getLang } from './i18n.js';
 
-const emojiTitle = '🐼⛰️🎋';
+/**
+ * Actualiza el HUD global en el header
+ */
+export function renderHUD(session = getSession()) {
+  document.querySelector('#hud-score').textContent = `🏅 ${session.score}`;
+  document.querySelector('#hud-streak').textContent = `🔥 ${session.streak}`;
+  document.querySelector('#hud-lives').textContent = `❤️ ${session.lives}`;
+  document.querySelector('#hud-language').textContent = `🌎 ${getLang().toUpperCase()}`;
+}
 
-export function renderMenu(root){
+/**
+ * Toasts (notificaciones cortas)
+ */
+export function toast(message, type = 'info') {
+  const container = document.querySelector('#toast-container');
+  if (!container) return;
+
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = message;
+
+  container.appendChild(el);
+
+  setTimeout(() => {
+    el.classList.add('fade-out');
+    el.addEventListener('transitionend', () => el.remove());
+  }, 2000);
+}
+
+/**
+ * Modal simple
+ * @param {string} content - contenido HTML del modal
+ * @param {Function} onClose - callback al cerrar
+ */
+export function showModal(content, onClose) {
+  const root = document.querySelector('#modal-root');
   root.innerHTML = `
-    <section class="menu">
-      <div class="hero card">
-        <h2>${t('menu.title')} ${emojiTitle}</h2>
-        <p>${t('menu.subtitle')}</p>
+    <div class="modal-overlay">
+      <div class="modal-box">
+        ${content}
+        <div class="modal-actions">
+          <button class="btn btn-exit" id="modal-close">${t('ui.close')}</button>
+        </div>
       </div>
-      <div class="actions grid">
-        <button class="btn" data-route="game-recognition">
-          <span>🔢</span><span>${t('menu.recognition')}</span><span>🍃</span>
-        </button>
-        <button class="btn btn-secondary" data-route="game-reverse">
-          <span>✍️</span><span>${t('menu.reverse')}</span><span>🏯</span>
-        </button>
-        <button class="btn btn-accent" data-route="game-pinyin-from-chars">
-          <span>✍️</span><span>${t('menu.pinyinChars')}</span><span>🎐</span>
-        </button>
-        <button class="btn" data-route="game-pinyin-from-digits">
-          <span>✍️</span><span>${t('menu.pinyinDigits')}</span><span>🎑</span>
-        </button>
-        <button class="btn btn-ghost" data-route="game-memory">
-          <span>🧠</span><span>${t('menu.memory')}</span><span>🌸</span>
-        </button>
-      </div>
-    </section>
+    </div>
   `;
 
-  root.querySelectorAll('button[data-route]').forEach(btn=>{
-    btn.addEventListener('click', () => {
-      const r = btn.getAttribute('data-route');
-      navigate(r);
-    });
+  root.querySelector('#modal-close').addEventListener('click', () => {
+    closeModal();
+    if (onClose) onClose();
   });
 }
 
-// HUD updates
-export function updateHUD({ score, streak, lives }){
-  document.getElementById('hud-score').textContent = `🏅 ${score}`;
-  document.getElementById('hud-streak').textContent = `🔥 ${streak}`;
-  document.getElementById('hud-lives').textContent = `❤️ ${lives}`;
-}
-
-// Notifications (lightweight)
-export function toast(message, tone=''){
-  const el = document.createElement('div');
-  el.className = `badge ${tone}`;
-  el.textContent = message;
-  el.style.position = 'fixed';
-  el.style.bottom = '20px';
-  el.style.left = '50%';
-  el.style.transform = 'translateX(-50%)';
-  el.style.zIndex = '9999';
-  document.body.appendChild(el);
-  setTimeout(()=> el.remove(), 1400);
+export function closeModal() {
+  const root = document.querySelector('#modal-root');
+  root.innerHTML = '';
 }

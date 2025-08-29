@@ -1,16 +1,44 @@
-import { addScore, addStreak, loseLife, getSession } from './state.js';
+// score.js
+import { getSession } from './state.js';
+import { updateHUD } from './ui.js';
 
-export function scoreCorrect(timeLeft, timeTotal){
-  const base = 100;
-  const speedBonus = Math.round((timeLeft/timeTotal) * 50);
-  addStreak();
-  const { streak } = getSession();
-  const streakBonus = (streak >= 3) ? 20 : 0;
-  const points = base + speedBonus + streakBonus;
-  addScore(points);
-  return points;
+/**
+ * Se llama cuando el jugador acierta.
+ * 
+ * @param {number} timeLeft - tiempo restante en segundos
+ * @param {number} qtime - tiempo total por pregunta
+ * @returns {number} puntos ganados
+ */
+export function scoreCorrect(timeLeft, qtime) {
+  const s = getSession();
+  if (!s) return 0;
+
+  // puntos base
+  let pts = 10;
+
+  // bonus por rapidez (proporcional al tiempo sobrante)
+  const speedBonus = Math.round((timeLeft / qtime) * 10);
+  pts += speedBonus;
+
+  // bonus por racha
+  s.streak++;
+  const streakBonus = Math.max(0, s.streak - 1) * 2;
+  pts += streakBonus;
+
+  // acumular
+  s.score += pts;
+
+  updateHUD();
+  return pts;
 }
 
-export function penalize(){
-  loseLife();
+/**
+ * Se llama cuando el jugador falla.
+ */
+export function scoreWrong() {
+  const s = getSession();
+  if (!s) return;
+
+  s.streak = 0; // reset racha
+  updateHUD();
 }

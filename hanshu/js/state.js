@@ -1,96 +1,59 @@
-// ✅ Valores por defecto
-const DEFAULTS = {
-  language: 'en',
-  pinyinHints: true,
-  range: '1-10',           // '1-10' | '11-99' | '100-999' | '1000+'
-  questionCount: 10,       // 3..25
-  timePerQuestion: 10,     // 1..20
-  allowedFails: 3          // 0..questionCount
+// state.js
+
+const SETTINGS_KEY = "cnlearn_settings";
+let settings = {
+  language: "en",
+  range: "r1_99",
+  qtime: 10,
+  qcount: 10,
+  lives: 3
 };
 
-// ✅ Estado de configuración
-let settings = { ...DEFAULTS, ...JSON.parse(localStorage.getItem('settings') || '{}') };
+// sesión actual (no persistente)
+let session = null;
 
-// ✅ Estado de sesión
-let session = {
-  score: 0,
-  streak: 0,
-  correct: 0,
-  wrong: 0,
-  lives: settings.allowedFails,
-  current: 0,
-  total: settings.questionCount
-};
-
-// ✅ Inicializa estado completo
-export function initState() {
-  settings.allowedFails = Math.min(settings.allowedFails, settings.questionCount);
-  persistSettings();
-  resetSession();
-}
-
-// ✅ Configuración
-export function getSettings() {
-  return { ...settings };
-}
-
-export function updateSettings(patch) {
-  settings = { ...settings, ...patch };
-  if ('questionCount' in patch) {
-    settings.allowedFails = Math.min(settings.allowedFails, settings.questionCount);
+/**
+ * ===== SETTINGS =====
+ */
+export function loadSettings() {
+  const raw = localStorage.getItem(SETTINGS_KEY);
+  if (raw) {
+    try {
+      settings = { ...settings, ...JSON.parse(raw) };
+    } catch {
+      console.warn("Invalid settings in localStorage, resetting.");
+    }
   }
-  persistSettings();
-  window.dispatchEvent(new CustomEvent('settings-changed', { detail: { settings } }));
 }
 
-function persistSettings() {
-  localStorage.setItem('settings', JSON.stringify(settings));
+export function getSettings() {
+  return settings;
 }
 
-// ✅ Sesión
-export function resetSession() {
+export function setSettings(newS) {
+  settings = { ...settings, ...newS };
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+/**
+ * ===== SESSION =====
+ */
+export function newSession() {
   session = {
     score: 0,
     streak: 0,
-    correct: 0,
-    wrong: 0,
-    lives: settings.allowedFails,
-    current: 0,
-    total: settings.questionCount
+    lives: settings.lives,
+    question: 0
   };
+  return session;
 }
 
 export function getSession() {
-  return session; // ✅ Devuelve el objeto real (no una copia)
+  return session;
 }
 
-export function setSession(patch) {
-  session = { ...session, ...patch };
-}
-
-// ✅ Mutadores seguros
 export function loseLife() {
-  session.lives = Math.max(0, session.lives - 1);
-  session.streak = 0;
-  session.wrong += 1;
-}
-
-export function addScore(points) {
-  session.score += points;
-}
-
-export function addStreak() {
-  session.streak += 1;
-}
-
-export function addCorrect() {
-  session.correct += 1;
-}
-
-export function addWrong() {
-  session.wrong += 1;
-}
-
-export function incQuestion() {
-  session.current += 1;
+  if (session) {
+    session.lives--;
+  }
 }

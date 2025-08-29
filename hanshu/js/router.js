@@ -1,41 +1,38 @@
-const routes = new Map();
+// router.js
+import { renderMenu } from './menu.js';
+import { startRecognition } from './game-recognition.js';
+import { startReverse } from './game-reverse.js';
+import { startPinyinFromChars } from './game-pinyin-from-chars.js';
+import { startPinyinFromDigits } from './game-pinyin-from-digits.js';
+import { startMemory } from './game-memory.js';
+import { openSettings } from './settings.js';
 
-export function register(route, render){
-  routes.set(route, render);
+/**
+ * Navegación simple SPA por hash
+ */
+export function navigate(screen) {
+  window.location.hash = screen;
+  render(screen);
 }
 
-export function navigate(route){
-  const hash = '#' + route;
-  if (location.hash === hash) {
-    // 👇 fuerza render si ya estás en esa ruta
-    render(route);
-  } else {
-    location.hash = hash;
+export function initRouter() {
+  window.addEventListener('hashchange', () => {
+    render(window.location.hash.slice(1));
+  });
+
+  // carga inicial
+  render(window.location.hash.slice(1) || 'menu');
+}
+
+function render(screen) {
+  switch (screen) {
+    case 'menu': renderMenu(); break;
+    case 'recognition': startRecognition(); break;
+    case 'reverse': startReverse(); break;
+    case 'pinyinChars': startPinyinFromChars(); break;
+    case 'pinyinDigits': startPinyinFromDigits(); break;
+    case 'memory': startMemory(); break;
+    case 'settings': openSettings(); break;
+    default: renderMenu();
   }
 }
-
-function render(route){
-  const el = document.getElementById('view');
-  const fn = routes.get(route);
-  if(fn) fn(el);
-  window.dispatchEvent(new CustomEvent('route-changed', { detail: { route }}));
-}
-
-export function onRouteChange(handler){
-  window.addEventListener('route-changed', (e)=> handler(e.detail.route));
-}
-
-// 👇 importante: renderiza cuando cambia el hash
-window.addEventListener('hashchange', ()=>{
-  const route = location.hash.slice(1);
-  render(route);
-});
-
-// 👇 importante: renderiza al cargar la página
-window.addEventListener('DOMContentLoaded', () => {
-  const route = location.hash.slice(1) || 'menu';
-  render(route);
-});
-
-// 👇 expone navigate globalmente
-window.navigate = navigate;

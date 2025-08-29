@@ -1,5 +1,9 @@
-let LANG = 'en';
-let DICT = {};
+// i18n.js
+const LANG_KEY = "hanshu-lang";
+let currentLang = "en";
+let translations = {};
+
+// fallback mínimo garantizado (en inglés)
 const FALLBACK = {
   ui: {
     settings: "Settings",
@@ -17,21 +21,27 @@ const FALLBACK = {
     yourAnswer: "Your answer",
     correct: "Correct!",
     wrong: "Try again",
-    outOfTime: "Time's up!",
+    outOfTime: "⏰ Out of time!",
+    gameOver: "Game Over",
+    finalScore: "Final Score",
+    correctAnswers: "Correct Answers",
+    restart: "Restart"
   },
   menu: {
-    title: "HanShu 🌿🏯 — Chinese Numbers",
-    subtitle: "Playful practice with characters, digits and pinyin",
+    title: "Main Menu",
+    subtitle: "Choose your game mode",
     recognition: "🔢 Visual recognition",
     reverse: "✍️ Reverse writing",
-    pinyinChars: "✍️ Choose correct pinyin (characters)",
-    pinyinDigits: "✍️ Choose correct pinyin (digits)",
+    pinyinChars: "✍️ Pinyin from characters",
+    pinyinDigits: "✍️ Pinyin from digits",
     memory: "🧠 Memory",
     settings: "⚙️ Settings",
+    start: "Start",
+    exit: "Exit"
   },
   settings: {
-    title: "⚙️ Settings",
-    language: "Language 🌎",
+    title: "Settings",
+    language: "Language",
     pinyin: "Show pinyin hints 🐼",
     range: "Number range 🏔️",
     qcount: "Questions per game 🏅",
@@ -56,35 +66,44 @@ const FALLBACK = {
   }
 };
 
-export async function initI18n() {
-  try{
-    const resp = await fetch('./assets/lang/lang.json');
-    const data = await resp.json();
-    DICT = data;
-    const saved = localStorage.getItem('lang') || 'en';
-    LANG = saved in DICT ? saved : 'en';
-  }catch(e){
-    console.warn('i18n fallback active', e);
-    DICT = { en: FALLBACK, es: FALLBACK, fr: FALLBACK, pt: FALLBACK, de: FALLBACK, ur: FALLBACK };
-    LANG = 'en';
+// ---------------- API ----------------
+
+export async function setLanguage(lang) {
+  currentLang = lang || "en";
+  localStorage.setItem(LANG_KEY, currentLang);
+
+  try {
+    const res = await fetch("assets/lang/lang.json");
+    const data = await res.json();
+    translations = data[currentLang] || {};
+  } catch (e) {
+    console.error("i18n load error:", e);
+    translations = {};
   }
 }
 
-export function t(path){
-  const parts = path.split('.');
-  let obj = DICT[LANG] || FALLBACK;
-  for(const p of parts){
-    if(obj && p in obj) obj = obj[p]; else return path;
-  }
-  return obj;
+export function getLanguage() {
+  return currentLang;
 }
 
-export function currentLangCode(){ return LANG; }
+/**
+ * Traduce clave en notación tipo 'ui.score' o 'menu.title'
+ */
+export function t(key) {
+  const parts = key.split(".");
+  let obj = translations;
+  let fallback = FALLBACK;
 
-export async function setLanguage(code){
-  if(!(code in DICT)) return;
-  LANG = code;
-  localStorage.setItem('lang', code);
-  // Broadcast
-  window.dispatchEvent(new CustomEvent('lang-changed', { detail: { code }}));
+  for (const p of parts) {
+    obj = obj?.[p];
+    fallback = fallback?.[p];
+  }
+  return obj ?? fallback ?? key;
+}
+
+// ---------------- INIT ----------------
+
+const saved = localStorage.getItem(LANG_KEY);
+if (saved) {
+  currentLang = saved;
 }

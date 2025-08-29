@@ -14,20 +14,13 @@ export function openSettings() {
         <label>
           ${t('settings.language')}
           <select name="language">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="pt">Português</option>
-            <option value="ur">اردو</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="pt">🇵🇹 Português</option>
+            <option value="ur">🇵🇰 اردو</option>
           </select>
-        </label>
-      </div>
-
-      <div class="settings-item">
-        <label>
-          <input type="checkbox" name="pinyin" ${s.pinyin ? 'checked' : ''}>
-          ${t('settings.pinyin')}
         </label>
       </div>
 
@@ -41,28 +34,24 @@ export function openSettings() {
       <div class="settings-item">
         <label>
           ${t('settings.qtime')}
-          <input type="number" name="qtime" min="5" max="120" value="${s.qtime}">
+          <input type="number" name="qtime" min="2" max="30" value="${s.qtime}">
         </label>
       </div>
 
       <div class="settings-item">
         <label>
           ${t('settings.fails')}
-          <input type="number" name="fails" min="1" max="10" value="${s.fails}">
+          <input type="number" name="fails" min="0" max="10" value="${s.fails}">
         </label>
       </div>
 
       <div class="settings-item">
         <label>
           ${t('settings.difficulty')}
-          <select name="difficulty">
-            <option value="1" ${s.difficulty === 1 ? 'selected' : ''}>
-              ${t('settings.difficulties.easy')}
-            </option>
-            <option value="2" ${s.difficulty === 2 ? 'selected' : ''}>
-              ${t('settings.difficulties.hard')}
-            </option>
-          </select>
+          <label class="switch">
+            <input type="checkbox" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
+            <span class="slider"></span>
+          </label>
         </label>
       </div>
 
@@ -77,35 +66,34 @@ export function openSettings() {
   import('./ui.js').then(({ showModal }) => {
     showModal(content, () => {});
     const form = document.querySelector('#settings-form');
-
-    // valores iniciales
     form.language.value = s.language;
 
     // Guardar cambios
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-
       const data = new FormData(form);
+
       setSettings({
         ...s,
         language: data.get('language'),
-        pinyin: !!data.get('pinyin'),
         qcount: parseInt(data.get('qcount')),
         qtime: parseInt(data.get('qtime')),
         fails: parseInt(data.get('fails')),
-        difficulty: parseInt(data.get('difficulty')) || 1
+        difficulty: data.get('difficulty') ? 2 : 1
       });
 
-      saveState(); // 👈 persistir cambios
+      saveState();
       closeModal();
       location.reload();
     });
 
-    // Resetear ajustes
+    // Resetear ajustes con confirmación
     document.querySelector('#settings-reset').addEventListener('click', () => {
-      resetSettings();
-      closeModal();
-      location.reload();
+      if (confirm(t('settings.resetConfirm') || 'Are you sure you want to reset to default settings?')) {
+        resetSettings();
+        closeModal();
+        location.reload();
+      }
     });
 
     // Cancelar

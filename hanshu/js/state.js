@@ -12,12 +12,11 @@ let session = {
 // Valores por defecto de configuración
 const defaultSettings = {
   language: 'en',
-  pinyin: true,
   range: 'r1_10',
   qcount: 10,
-  qtime: 30,
+  qtime: 10,   // tiempo por pregunta (s)
   fails: 3,
-  difficulty: 1
+  difficulty: 1 // 1 = fácil, 2 = difícil
 };
 
 // Estado de configuración (se carga de localStorage si existe)

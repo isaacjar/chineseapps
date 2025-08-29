@@ -3,6 +3,15 @@ import { getSettings, setSettings, saveState, resetSettings } from './state.js';
 import { t } from './i18n.js';
 import { closeModal } from './ui.js';
 
+export function initSettingsTrigger() {
+  const langHud = document.getElementById('hud-language');
+  if (langHud) {
+    langHud.addEventListener('click', () => {
+      openSettings();
+    });
+  }
+}
+
 export function openSettings() {
   const s = getSettings();
 

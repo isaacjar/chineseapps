@@ -1,29 +1,72 @@
 // ui.js
 import { t } from './i18n.js';
 
+let timerInterval = null; // referencia para limpiar el contador si cambia de pantalla
+
 // ======= HUD =======
 export function renderHUD(session) {
   const hud = document.querySelector('#hud');
   hud.innerHTML = `
     <div class="hud-item" id="hud-language">${session.language}</div>
+    <div class="hud-item" id="hud-progress">🌱 0/${session.qcount || 0}</div>
     <div class="hud-item">${t('ui.score')}: <span id="hud-score">${session.score}</span></div>
     <div class="hud-item">${t('ui.errors')}: <span id="hud-errors">${session.errors}</span></div>
-    <div class="hud-item">${t('ui.time')}: <span id="hud-time">${session.time}</span></div>
+    <div class="hud-item">
+      <div id="hud-timer-knob"></div>
+      <div><span id="hud-timer-value"></span></div>
+    </div>
     <button id="btn-open-settings" class="btn">⚙️</button>
   `;
 }
 
 // actualizar HUD con animación
-export function updateHUD({ score, errors, time }) {
+export function updateHUD({ score, errors }) {
   if (score !== undefined) {
     $('#hud-score').fadeOut(100).text(score).fadeIn(100);
   }
   if (errors !== undefined) {
     $('#hud-errors').fadeOut(100).text(errors).fadeIn(100);
   }
-  if (time !== undefined) {
-    $('#hud-time').fadeOut(100).text(time).fadeIn(100);
-  }
+}
+
+// ======= Progreso de preguntas =======
+export function updateProgress(current, total) {
+  $('#hud-progress').fadeOut(100).text(`🌱 ${current}/${total}`).fadeIn(100);
+}
+
+// ======= Timer de juego con knob circular =======
+export function initGameTimer(totalSeconds, onTimeUp) {
+  // limpiar cualquier timer anterior
+  if (timerInterval) clearInterval(timerInterval);
+
+  $("#hud-timer-knob").roundSlider({
+    radius: 35,
+    width: 6,
+    handleSize: "+6",
+    min: 0,
+    max: totalSeconds,
+    value: totalSeconds,
+    circleShape: "half-top",
+    sliderType: "min-range",
+    readOnly: true
+  });
+
+  $('#hud-timer-value').text(totalSeconds + 's');
+
+  let remaining = totalSeconds;
+  timerInterval = setInterval(() => {
+    remaining--;
+    $("#hud-timer-knob").roundSlider("setValue", remaining);
+    $('#hud-timer-value').text(remaining + 's');
+
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      if (onTimeUp) onTimeUp();
+    }
+  }, 1000);
+
+  return timerInterval;
 }
 
 // ======= Toasts =======
@@ -44,6 +87,33 @@ export function showToast(msg, type = 'info') {
   $(toast).hide().fadeIn(200).delay(2000).fadeOut(400, function () {
     $(this).remove();
   });
+}
+
+// Mensajes divertidos
+const successMessages = [
+  "🐼 ¡Genial!",
+  "🎉 ¡Correcto!",
+  "🌟 ¡Bien hecho!",
+  "💡 ¡Lo pillaste!",
+  "🥳 ¡Acertaste!"
+];
+
+const failMessages = [
+  "😅 Uy, casi...",
+  "❌ No pasa nada, sigue!",
+  "🙈 ¡Fallaste!",
+  "🍂 ¡Inténtalo otra vez!",
+  "🤔 No era esa..."
+];
+
+export function showSuccessToast() {
+  const msg = successMessages[Math.floor(Math.random() * successMessages.length)];
+  showToast(msg, 'good');
+}
+
+export function showFailToast() {
+  const msg = failMessages[Math.floor(Math.random() * failMessages.length)];
+  showToast(msg, 'warn');
 }
 
 // ======= Modal =======
@@ -74,6 +144,13 @@ export function closeModal() {
 // ======= Navegación suave entre pantallas =======
 export function smoothNavigate(renderFn) {
   const view = $('#view');
+
+  // parar cualquier timer activo al cambiar de pantalla
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
   view.fadeOut(200, () => {
     view.empty();
     renderFn();

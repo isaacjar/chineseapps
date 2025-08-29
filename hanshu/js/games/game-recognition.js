@@ -1,30 +1,30 @@
 // game-recognition.js
 import { startGame } from './game-session.js';
-import { renderOptions, generateOptions } from './game-helpers.js';
-import { chineseChar } from '../chinese.js';
-import { sample } from '../rng.js';
-import { t } from '../i18n.js';
+import { getRandomQuestion } from './game-helpers.js';
 
 export function startRecognition() {
   startGame({
     id: 'recognition',
-    title: t('menu.recognition'),
-    onQuestion
-  });
-}
+    title: 'Reconocimiento',
+    onQuestion: ({ correct, wrong }) => {
+      const question = getRandomQuestion();
+      const view = document.querySelector('#view');
 
-function onQuestion(game) {
-  const num = sample(game.range, 1)[0];
-  const correct = num.toString();
+      view.innerHTML = `
+        <div class="question">${question.prompt}</div>
+        <div class="options">
+          ${question.options.map(opt => `<button class="option">${opt}</button>`).join('')}
+        </div>
+      `;
 
-  const pool = game.range.map(n => n.toString());
-  const options = generateOptions(correct, pool);
-
-  game.showQuestion({
-    text: chineseChar(num),
-    onRender(container) {
-      renderOptions(container, options, choice => {
-        choice === correct ? game.correct() : game.wrong();
+      document.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.textContent === question.answer) {
+            correct();
+          } else {
+            wrong();
+          }
+        });
       });
     }
   });

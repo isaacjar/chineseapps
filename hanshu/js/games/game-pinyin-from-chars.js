@@ -1,30 +1,30 @@
 // game-pinyin-from-chars.js
 import { startGame } from './game-session.js';
-import { renderOptions, generateOptions } from './game-helpers.js';
-import { chineseChar, chinesePinyin } from '../chinese.js';
-import { sample } from '../rng.js';
-import { t } from '../i18n.js';
+import { getRandomPinyinFromCharsQuestion } from './game-helpers.js';
 
 export function startPinyinFromChars() {
   startGame({
     id: 'pinyinChars',
-    title: t('menu.pinyinChars'),
-    onQuestion
-  });
-}
+    title: 'Pinyin desde caracteres',
+    onQuestion: ({ correct, wrong }) => {
+      const question = getRandomPinyinFromCharsQuestion();
+      const view = document.querySelector('#view');
 
-function onQuestion(game) {
-  const num = sample(game.range, 1)[0];
-  const correct = chinesePinyin(num);
+      view.innerHTML = `
+        <div class="question">${question.prompt}</div>
+        <div class="options">
+          ${question.options.map(opt => `<button class="option">${opt}</button>`).join('')}
+        </div>
+      `;
 
-  const pool = game.range.map(n => chinesePinyin(n));
-  const options = generateOptions(correct, pool);
-
-  game.showQuestion({
-    text: chineseChar(num),
-    onRender(container) {
-      renderOptions(container, options, choice => {
-        choice === correct ? game.correct() : game.wrong();
+      document.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.textContent === question.answer) {
+            correct();
+          } else {
+            wrong();
+          }
+        });
       });
     }
   });

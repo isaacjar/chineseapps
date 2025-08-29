@@ -47,3 +47,63 @@
   margin-top: 0.3em;
   font-weight: normal;
 }
+
+/* ====== Header & Brand ====== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6em 1em;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.brand .logo {
+  font-size: 2.2rem; /* tamaño más grande para el panda */
+  line-height: 1;
+}
+
+.brand .title h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.brand .title p {
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  margin: 0;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .brand .logo {
+    font-size: 2.6rem; /* aún más grande en móvil */
+  }
+
+  .brand .title h1 {
+    font-size: 1.2rem;
+  }
+
+  .brand .title p {
+    font-size: 0.8rem;
+  }
+}
+
+/* ====== Footer ====== */
+.app-footer {
+  position: fixed;
+  bottom: 10px;   /* margen inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted, #555);
+  pointer-events: none; /* opcional: evita que tape botones si están debajo */
+}

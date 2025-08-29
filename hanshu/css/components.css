@@ -1,75 +1,147 @@
-.menu{
-  display: grid; gap: 16px;
-}
-.menu .hero{
-  display: grid; gap: 8px; text-align: center;
-}
-.menu .actions{
-  display: grid; gap: 12px;
-}
-.menu .actions .btn{
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
-  justify-content: space-between; font-size: 16px;
-}
+/* components.css */
 
-/* Game container */
-.game{
-  display: grid; gap: 16px;
-}
-.hud-row{
-  display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
-}
-.answer-input{
-  display: flex; gap: 8px; align-items: center;
-}
-.answer-input input{
-  flex: 1; padding: 12px 14px; border-radius: 12px; border: 2px solid #e9edf3;
-  font-weight: 800;
-}
-
-/* Badge tones */
-.badge{
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 10px; border-radius: 999px; font-weight: 800;
-  background: #f1f7ff; color: #214b6f; border: 1px solid #dceeff;
-}
-.badge.warn{ background: #fff7f1; color: #6f3c21; border-color: #ffe7d1; }
-.badge.good{ background: #eafff6; color: #1b5c45; border-color: #c9f6e5; }
-
-.option {
-  height: 65px;
-  width: 80%; /* ocupa el 90% del contenedor */
-  margin: 0 auto; /* lo centra horizontalmente */
-  padding: 0;
-  text-align: center;
+/* ====== HUD ====== */
+.hud {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1em;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+}
+
+.hud-item {
+  min-width: 3em;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ====== Timer ====== */
+.timer-bar {
+  position: relative;
+  width: 100%;
+  height: 1em;
+  background: #eee;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1em 0;
+}
+.timer-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 1s linear;
+}
+.timer-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+/* ====== Toasts ====== */
+#toast-container {
+  position: fixed;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+.toast {
+  background: var(--color-info);
+  padding: 0.6em 1em;
+  border-radius: var(--radius);
+  margin-top: 0.5em;
+  box-shadow: var(--shadow);
+  opacity: 0.95;
+  transition: opacity 0.3s;
+}
+.toast.good { background: var(--color-good); }
+.toast.warn { background: var(--color-warn); }
+.toast.fade-out { opacity: 0; }
+
+/* ====== Modal ====== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
+}
+.modal-box {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5em;
+  max-width: 500px;
+  width: 90%;
+}
+.modal-actions {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+/* ====== Menu ====== */
+.menu {
+  text-align: center;
+  padding: 2em 1em;
+}
+.menu h2 {
+  margin-bottom: 1em;
+  font-size: 1.4em;
+}
+.menu-grid {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 2em;
+}
+.menu-btn {
+  font-size: 1.1em;
+}
+.menu-actions {
+  margin-top: 1em;
+}
+
+/* ====== Game Shell ====== */
+.game-shell {
+  text-align: center;
+  padding: 1em;
+}
+.game-title {
+  margin-bottom: 1em;
+}
+.game-root {
+  margin: 1em 0;
+}
+.game-actions {
+  margin-top: 1.5em;
+}
+.end-screen h2 {
+  margin-bottom: 0.5em;
+}
+
+/* ====== Options (botones de respuesta) ====== */
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8em;
+  margin: 1em 0;
+}
+.option {
+  font-size: 1.1em;
+}
+.question {
+  font-size: 2em;
+  margin: 0.5em 0 1em;
+}
+.question.big {
+  font-size: 3em;
   font-weight: bold;
-  font-size: 1.2em;
-  background-color: #f8c8dc; /* rosa pastel */
-  border: none;
-  border-radius: 8px; /* opcional: bordes redondeados */
-}
-
-/* Centrar el contenido del prompt */
-#prompt {
-  display: flex;              /* activa flexbox */
-  justify-content: center;    /* centra horizontalmente */
-  align-items: center;        /* centra verticalmente */
-  min-height: 80px;           /* opcional: altura mínima para que respire */
-  margin-bottom: 20px; /* 👈 separación extra */
-}
-
-/* Estilo especial para el texto chino */
-.cn-text {
-  font-size: 2.2rem;          
-  font-weight: 800;           
-  color: #c0392b;             
-  letter-spacing: 4px;        
-  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  padding: 6px 12px;          /* un poco de aire alrededor */
-  border-radius: 8px;         
-  background-color: #fef6f6;  /* fondo suave pastel */
 }

@@ -257,10 +257,66 @@ input:checked + .slider:before {
   transform: translateX(30px);
 }
 
+/* ====== Brand link ====== */
 .brand-link {
   display: flex;
   align-items: center;
   gap: 0.5em;
   text-decoration: none;
   color: inherit;
+}
+
+/* ====== Settings ====== */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8em;
+}
+.settings-item label {
+  flex: 1;
+  font-weight: 600;
+}
+.settings-item input[type="range"] {
+  flex: 2;
+}
+.settings-item select {
+  flex: 2;
+}
+
+/* Stepper (para errores) */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.btn-step {
+  background: var(--color-primary);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.btn-step:hover {
+  opacity: 0.8;
+}
+#fails-value {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Ajustes para slider de preguntas */
+#qcount-value {
+  font-weight: bold;
+  min-width: 2rem;
+  text-align: right;
 }

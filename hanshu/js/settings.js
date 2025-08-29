@@ -10,51 +10,55 @@ export function openSettings() {
     <h2>${t('settings.title')}</h2>
     <form id="settings-form" class="settings-form">
       
+      <!-- Idioma -->
       <div class="settings-item">
-        <label>
-          ${t('settings.language')}
-          <select name="language">
-            <option value="en">🇬🇧 English</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="pt">🇵🇹 Português</option>
-            <option value="ur">🇵🇰 اردو</option>
-          </select>
+        <label for="language">${t('settings.language')}</label>
+        <select name="language" id="language">
+          <option value="en">🇬🇧 English</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="pt">🇵🇹 Português</option>
+          <option value="ur">🇵🇰 اردو</option>
+        </select>
+      </div>
+
+      <!-- Preguntas: slider -->
+      <div class="settings-item">
+        <label for="qcount">${t('settings.qcount')}</label>
+        <input type="range" id="qcount" name="qcount" min="5" max="40" step="5" value="${s.qcount}">
+        <span id="qcount-value">${s.qcount}</span>
+      </div>
+
+      <!-- Tiempo: knob circular -->
+      <div class="settings-item">
+        <label>${t('settings.qtime')}</label>
+        <div id="qtime-knob"></div>
+        <span id="qtime-value">${s.qtime}s</span>
+        <input type="hidden" id="qtime" name="qtime" value="${s.qtime}">
+      </div>
+
+      <!-- Errores: stepper -->
+      <div class="settings-item">
+        <label for="fails">${t('settings.fails')}</label>
+        <div class="stepper">
+          <button type="button" class="btn-step" data-action="decrease">–</button>
+          <span id="fails-value">${s.fails}</span>
+          <button type="button" class="btn-step" data-action="increase">+</button>
+        </div>
+        <input type="hidden" id="fails" name="fails" value="${s.fails}">
+      </div>
+
+      <!-- Dificultad: switch -->
+      <div class="settings-item">
+        <label>${t('settings.difficulty')}</label>
+        <label class="switch">
+          <input type="checkbox" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
+          <span class="slider"></span>
         </label>
       </div>
 
-      <div class="settings-item">
-        <label>
-          ${t('settings.qcount')}
-          <input type="number" name="qcount" min="1" max="50" value="${s.qcount}">
-        </label>
-      </div>
-
-      <div class="settings-item">
-        <label>
-          ${t('settings.qtime')}
-          <input type="number" name="qtime" min="2" max="30" value="${s.qtime}">
-        </label>
-      </div>
-
-      <div class="settings-item">
-        <label>
-          ${t('settings.fails')}
-          <input type="number" name="fails" min="0" max="10" value="${s.fails}">
-        </label>
-      </div>
-
-      <div class="settings-item">
-        <label>
-          ${t('settings.difficulty')}
-          <label class="switch">
-            <input type="checkbox" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
-            <span class="slider"></span>
-          </label>
-        </label>
-      </div>
-
+      <!-- Botones -->
       <div class="settings-actions">
         <button type="submit" class="btn btn-primary">${t('ui.save')}</button>
         <button type="button" id="settings-reset" class="btn btn-warn">🔄 ${t('ui.reset')}</button>
@@ -68,7 +72,45 @@ export function openSettings() {
     const form = document.querySelector('#settings-form');
     form.language.value = s.language;
 
-    // Guardar cambios
+    // ===== Preguntas slider =====
+    const qcountInput = form.querySelector('#qcount');
+    const qcountValue = form.querySelector('#qcount-value');
+    qcountInput.addEventListener('input', () => {
+      qcountValue.textContent = qcountInput.value;
+    });
+
+    // ===== Errores stepper =====
+    const failsHidden = form.querySelector('#fails');
+    const failsValue = form.querySelector('#fails-value');
+    form.querySelectorAll('.btn-step').forEach(btn => {
+      btn.addEventListener('click', () => {
+        let val = parseInt(failsHidden.value);
+        if (btn.dataset.action === 'decrease' && val > 0) val--;
+        if (btn.dataset.action === 'increase' && val < 10) val++;
+        failsHidden.value = val;
+        failsValue.textContent = val;
+      });
+    });
+
+    // ===== Tiempo knob circular =====
+    $("#qtime-knob").roundSlider({
+      radius: 60,
+      width: 10,
+      handleSize: "+8",
+      min: 2,
+      max: 30,
+      value: s.qtime,
+      step: 1,
+      circleShape: "pie",
+      startAngle: 315,
+      sliderType: "min-range",
+      change: function (args) {
+        document.querySelector('#qtime').value = args.value;
+        document.querySelector('#qtime-value').textContent = args.value + 's';
+      }
+    });
+
+    // ===== Guardar cambios =====
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const data = new FormData(form);
@@ -87,7 +129,7 @@ export function openSettings() {
       location.reload();
     });
 
-    // Resetear ajustes con confirmación
+    // ===== Reset con confirmación =====
     document.querySelector('#settings-reset').addEventListener('click', () => {
       if (confirm(t('settings.resetConfirm') || 'Are you sure you want to reset to default settings?')) {
         resetSettings();
@@ -96,7 +138,7 @@ export function openSettings() {
       }
     });
 
-    // Cancelar
+    // ===== Cancelar =====
     document.querySelector('#settings-cancel').addEventListener('click', () => {
       closeModal();
     });

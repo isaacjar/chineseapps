@@ -1,5 +1,5 @@
 // game-helpers.js
-import { rngSample } from '../rng.js';
+import { sample } from '../rng.js';
 import { getSettings } from '../state.js';
 
 /**
@@ -38,8 +38,8 @@ export function generateOptions(correct, pool, difficulty) {
   const filtered = pool.filter(x => x !== correct);
 
   // distractores aleatorios
-  const distractors = rngSample(filtered, count - 1);
+  const distractors = sample(filtered, count - 1);
 
   // mezclamos y devolvemos
-  return rngSample([correct, ...distractors], count);
+  return sample([correct, ...distractors], count);
 }

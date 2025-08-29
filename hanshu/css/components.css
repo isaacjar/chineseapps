@@ -155,8 +155,50 @@
 .game-actions {
   margin-top: 1.5em;
 }
+
+/* ====== End Screen ====== */
+.end-screen {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 2em;
+}
+
 .end-screen h2 {
+  font-size: 2.5rem;               
+  font-weight: 900;
+  color: #e63946;                  
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
   margin-bottom: 0.5em;
+  letter-spacing: 1px;
+}
+
+.end-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
+
+.end-screen .game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.end-screen .game-actions .btn {
+  min-width: 140px;
+}
+
+/* En pantallas pequeñas, botones apilados */
+@media (max-width: 480px) {
+  .end-screen .game-actions {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* ====== Options (botones de respuesta) ====== */

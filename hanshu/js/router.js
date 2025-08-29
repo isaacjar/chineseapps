@@ -1,5 +1,5 @@
 // router.js
-import { renderMenu } from './games/menu.js';
+import { renderMenu } from './menu.js';
 import { startRecognition } from './games/game-recognition.js';
 import { startReverse } from './games/game-reverse.js';
 import { startPinyinFromChars } from './games/game-pinyin-from-chars.js';

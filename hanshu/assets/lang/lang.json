@@ -48,7 +48,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "Difficulty",
+	  "difficulties": {
+		"easy": "⭐ 4 options",
+		"hard": "⭐⭐ 6 options"
+	  }
     },
     "games": {
       "recognitionPrompt": "What number is this? 🌸",
@@ -110,7 +115,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "Dificultad",
+	  "difficulties": {
+		"easy": "⭐ 4 opciones",
+		"hard": "⭐⭐ 6 opciones"
+	  }
     },
     "games": {
       "recognitionPrompt": "¿Qué número es este? 🌸",
@@ -172,7 +182,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "Difficulté",
+	  "difficulties": {
+		"easy": "⭐ 4 choix",
+		"hard": "⭐⭐ 6 choix"
+	  }
     },
     "games": {
       "recognitionPrompt": "Quel est ce nombre ? 🌸",
@@ -234,7 +249,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "Schwierigkeitsgrad",
+	  "difficulties": {
+		"easy": "⭐ 4 Optionen",
+		"hard": "⭐⭐ 6 Optionen"
+	  }
     },
     "games": {
       "recognitionPrompt": "Welche Zahl ist das? 🌸",
@@ -296,7 +316,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "Dificuldade",
+	  "difficulties": {
+		"easy": "⭐ 4 opções",
+		"hard": "⭐⭐ 6 opções"
+	  }
     },
     "games": {
       "recognitionPrompt": "Que número é este? 🌸",
@@ -358,7 +383,12 @@
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      }
+      },
+	  "difficulty": "مشکل",
+	  "difficulties": {
+		"easy": "⭐ 4 اختیارات",
+		"hard": "⭐⭐ 6 اختیارات"
+	  }
     },
     "games": {
       "recognitionPrompt": "یہ کون سا نمبر ہے؟ 🌸",

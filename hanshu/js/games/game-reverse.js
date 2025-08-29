@@ -1,73 +1,34 @@
-// game-reverse.js
-import { gameShell } from './game-helpers.js';
-import { newSession, getSession, loseLife, getSettings } from '../state.js';
-import { getRandomNumber } from '../settings.js';
-import { scoreCorrect, scoreWrong } from '../score.js';
-import { updateHUD, toast } from '../ui.js';
-import { createTimer } from '../timer.js';
-import { chineseChar } from '../chinese.js';
-import { randInt, shuffle } from '../rng.js';
+// games/game-reverse.js
+import { getSession, setSession } from '../state.js';
+import { updateHUD } from '../ui.js';
+import { addScore, penalize } from '../score.js';
 import { t } from '../i18n.js';
 
 export function startReverse() {
-  const { root, showEnd } = gameShell(t('menu.reverse'));
-  const s = newSession();
+  const view = document.getElementById('view');
+  view.innerHTML = `
+    <div class="game reverse">
+      <h2>${t('games.reversePrompt')}</h2>
+      <div id="reverse-question"></div>
+      <input id="reverse-answer" class="input" />
+      <button id="reverse-submit" class="btn">${t('ui.confirm')}</button>
+    </div>
+  `;
 
-  nextQuestion();
+  const number = Math.floor(Math.random() * 99) + 1;
+  document.getElementById('reverse-question').textContent = number;
 
-  function nextQuestion() {
-    if (s.lives <= 0 || s.question >= getSettings().qcount) {
-      return showEnd(s);
-    }
+  document.getElementById('reverse-submit').addEventListener('click', () => {
+    const answer = document.getElementById('reverse-answer').value.trim();
+    const session = getSession();
 
-    s.question++;
-    const num = getRandomNumber(getSettings().range);
-    const char = chineseChar(num);
-
-    // generar distractores cercanos
-    const distractors = [];
-    while (distractors.length < 3) {
-      const d = num + randInt(-20, 20);
-      if (d > 0 && d !== num && !distractors.includes(d)) {
-        distractors.push(d);
-      }
-    }
-
-    const options = shuffle([num, ...distractors]);
-
-    root.innerHTML = `
-      <p class="question big">${char}</p>
-      <div class="options">
-        ${options.map(o => `<button class="btn option">${o}</button>`).join('')}
-      </div>
-      <div id="hud-timer"></div>
-    `;
-
-    // iniciar temporizador
-    const timer = createTimer(
-      root.querySelector('#hud-timer'),
-      getSettings().qtime,
-      () => handleAnswer(null, num, timer)
-    );
-
-    root.querySelectorAll('.option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        handleAnswer(parseInt(btn.textContent), num, timer);
-      });
-    });
-  }
-
-  function handleAnswer(choice, correct, timer) {
-    timer.stop();
-    if (choice === correct) {
-      const pts = scoreCorrect(timer.timeLeft, getSettings().qtime);
-      toast(`+${pts} ${t('ui.correct')}`, 'good');
+    if (answer === String(number)) {
+      addScore(15, 0);
     } else {
-      scoreWrong();
-      loseLife();
-      toast(`✘ ${chineseChar(correct)} = ${correct}`, 'warn');
+      penalize();
     }
-    updateHUD();
-    setTimeout(nextQuestion, 1000);
-  }
+
+    setSession(session);
+    updateHUD(session);
+  });
 }

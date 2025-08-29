@@ -1,66 +1,35 @@
-// game-pinyin-from-chars.js
-import { gameShell } from './game-helpers.js';
-import { newSession, getSession, loseLife, getSettings } from '../state.js';
-import { getRandomNumber } from '../settings.js';
-import { scoreCorrect, scoreWrong } from '../score.js';
-import { updateHUD, toast } from '../ui.js';
-import { createTimer } from '../timer.js';
-import { chineseChar, chinesePinyin, pinyinDistractors } from '../chinese.js';
-import { shuffle } from '../rng.js';
+// games/game-pinyin-from-chars.js
+import { getSession, setSession } from '../state.js';
+import { updateHUD } from '../ui.js';
+import { addScore, penalize } from '../score.js';
 import { t } from '../i18n.js';
 
 export function startPinyinFromChars() {
-  const { root, showEnd } = gameShell(t('menu.pinyinChars'));
-  const s = newSession();
+  const view = document.getElementById('view');
+  view.innerHTML = `
+    <div class="game pinyin-chars">
+      <h2>${t('games.pinyinCharsPrompt')}</h2>
+      <div id="pinyin-question"></div>
+      <input id="pinyin-answer" class="input" />
+      <button id="pinyin-submit" class="btn">${t('ui.confirm')}</button>
+    </div>
+  `;
 
-  nextQuestion();
+  // TODO: cargar caracteres reales desde chinese.js
+  const correct = 'yi';
+  document.getElementById('pinyin-question').textContent = '一';
 
-  function nextQuestion() {
-    if (s.lives <= 0 || s.question >= getSettings().qcount) {
-      return showEnd(s);
-    }
+  document.getElementById('pinyin-submit').addEventListener('click', () => {
+    const answer = document.getElementById('pinyin-answer').value.trim();
+    const session = getSession();
 
-    s.question++;
-    const num = getRandomNumber(getSettings().range);
-    const char = chineseChar(num);
-    const correct = chinesePinyin(num);
-
-    const distractors = pinyinDistractors(num, 3);
-    const options = shuffle([correct, ...distractors]);
-
-    root.innerHTML = `
-      <p class="question big">${char}</p>
-      <div class="options">
-        ${options.map(o => `<button class="btn option">${o}</button>`).join('')}
-      </div>
-      <div id="hud-timer"></div>
-    `;
-
-    // iniciar temporizador
-    const timer = createTimer(
-      root.querySelector('#hud-timer'),
-      getSettings().qtime,
-      () => handleAnswer(null, correct, timer)
-    );
-
-    root.querySelectorAll('.option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        handleAnswer(btn.textContent, correct, timer);
-      });
-    });
-  }
-
-  function handleAnswer(choice, correct, timer) {
-    timer.stop();
-    if (choice === correct) {
-      const pts = scoreCorrect(timer.timeLeft, getSettings().qtime);
-      toast(`+${pts} ${t('ui.correct')}`, 'good');
+    if (answer.toLowerCase() === correct) {
+      addScore(20, 0);
     } else {
-      scoreWrong();
-      loseLife();
-      toast(`✘ ${t('ui.correctWas')}: ${correct}`, 'warn');
+      penalize();
     }
-    updateHUD();
-    setTimeout(nextQuestion, 1000);
-  }
+
+    setSession(session);
+    updateHUD(session);
+  });
 }

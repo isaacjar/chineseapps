@@ -1,5 +1,4 @@
 // menu.js
-import { navigate } from './router.js';
 import { t } from './i18n.js';
 
 /**
@@ -7,31 +6,23 @@ import { t } from './i18n.js';
  */
 export function renderMenu() {
   const view = document.querySelector('#view');
+  if (!view) return;
+
   view.innerHTML = `
     <section class="menu">
-      <h2>${t('ui.chooseGame')}</h2>
+      <h2>${t('menu.title')}</h2>
+      <p>${t('menu.subtitle')}</p>
       <div class="menu-grid">
-        <button class="btn menu-btn" data-screen="recognition">🔢 ${t('menu.recognition')}</button>
-        <button class="btn menu-btn" data-screen="reverse">✍️ ${t('menu.reverse')}</button>
-        <button class="btn menu-btn" data-screen="pinyinChars">✍️ ${t('menu.pinyinChars')}</button>
-        <button class="btn menu-btn" data-screen="pinyinDigits">✍️ ${t('menu.pinyinDigits')}</button>
-        <button class="btn menu-btn" data-screen="memory">🧠 ${t('menu.memory')}</button>
+        <a class="btn menu-btn" href="#recognition">🔢 ${t('menu.recognition')}</a>
+        <a class="btn menu-btn" href="#reverse">✍️ ${t('menu.reverse')}</a>
+        <a class="btn menu-btn" href="#pinyin-chars">✍️ ${t('menu.pinyinChars')}</a>
+        <a class="btn menu-btn" href="#pinyin-digits">✍️ ${t('menu.pinyinDigits')}</a>
+        <a class="btn menu-btn" href="#memory">🧠 ${t('menu.memory')}</a>
       </div>
 
       <div class="menu-actions">
-        <button id="menu-settings" class="btn btn-secondary">⚙️ ${t('ui.settings')}</button>
+        <a id="menu-settings" class="btn btn-secondary" href="#settings">⚙️ ${t('menu.settings')}</a>
       </div>
     </section>
   `;
-
-  // listeners de navegación
-  view.querySelectorAll('.menu-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      navigate(btn.dataset.screen);
-    });
-  });
-
-  view.querySelector('#menu-settings').addEventListener('click', () => {
-    navigate('settings');
-  });
 }

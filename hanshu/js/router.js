@@ -19,10 +19,11 @@ const routes = {
 };
 
 /**
- * Inicializa el router mostrando el menú principal
+ * Inicializa el router mostrando la pantalla según el hash actual
  */
 export function initRouter() {
-  navigate('menu');
+  const screen = location.hash.replace('#', '') || 'menu';
+  navigate(screen);
 }
 
 /**

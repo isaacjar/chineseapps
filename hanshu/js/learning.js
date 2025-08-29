@@ -1,6 +1,6 @@
 // learning.js
 import { loadState, getSettings, getSession } from './state.js';
-import { setLanguage } from './i18n.js';
+import { setLang } from './i18n.js';
 import { initRouter } from './router.js';
 import { openSettings, initSettingsTrigger } from './settings.js';
 import { renderHUD } from './ui.js';
@@ -14,7 +14,7 @@ export function startApp() {
   const s = getSettings();
 
   // aplicar idioma inicial
-  setLanguage(s.language);
+  setLang(s.language);
 
   // renderizar HUD inicial
   renderHUD(getSession());

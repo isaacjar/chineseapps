@@ -34,12 +34,12 @@ export function generateOptions(correct, pool, difficulty) {
   const settings = getSettings();
   const count = difficulty || (settings.difficulty === 2 ? 6 : 4);
 
-  // filtramos la correcta del pool
+  // Filtramos la correcta del pool
   const filtered = pool.filter(x => x !== correct);
 
-  // distractores aleatorios
+  // Tomamos distractores aleatorios
   const distractors = sample(filtered, count - 1);
 
-  // mezclamos y devolvemos
+  // Mezclamos y devolvemos
   return sample([correct, ...distractors], count);
 }

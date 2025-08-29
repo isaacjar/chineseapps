@@ -1,95 +1,73 @@
-import { register } from '../router.js';
+// game-reverse.js
 import { gameShell } from './game-helpers.js';
-import { getSession, getSettings } from '../state.js';
-import { randomNumberIn, numberToChinese, chineseDistractors } from '../chinese.js';
-import { renderTimer, createTimer } from '../timer.js';
-import { scoreCorrect, penalize } from '../score.js';
-import { updateHUD, toast } from '../ui.js';
-import { shuffle } from '../rng.js';
-import { t } from '../i18n.js';
+import { newSession, getSession, loseLife, getSettings } from './state.js';
+import { getRandomNumber } from './settings.js';
+import { scoreCorrect, scoreWrong } from './score.js';
+import { updateHUD, toast } from './ui.js';
+import { createTimer } from './timer.js';
+import { chineseChar } from './chinese.js';
+import { randInt, shuffle } from './rng.js';
+import { t } from './i18n.js';
 
-register('game-reverse', (root) => {
-  const shell = gameShell(root, {
-    title: '✍️ Escritura inversa',
-    prompt: t('games.reversePrompt'),
-    onRenderQuestion: renderQuestion
-  });
+export function startReverse() {
+  const { root, showEnd } = gameShell(t('menu.reverse'));
+  const s = newSession();
 
-  let timer = null;
+  nextQuestion();
 
-  function renderQuestion(){
-    const s = getSettings();
-    const n = randomNumberIn(s.range);
-    const cn = numberToChinese(n);
-    const options = shuffle([ cn, ...chineseDistractors(n, 3) ]);
-
-    root.querySelector('#prompt').innerHTML = `${n}`;
-    const elOptions = root.querySelector('#options');
-    elOptions.innerHTML = '';
-    root.querySelector('#answer-input').style.display = 'none';
-
-    options.forEach(opt => {
-      const el = document.createElement('button');
-      el.className = 'option';
-      el.innerHTML = `<span>${opt}</span>`;
-      el.addEventListener('click', ()=> choose(opt, cn));
-      elOptions.appendChild(el);
-    });
-
-    // Timer
-    const slot = root.querySelector('#timer-slot');
-    const paint = renderTimer(slot);
-    if(timer) timer.stop();
-    timer = createTimer(s.timePerQuestion, (left,total)=> paint(left,total), ()=>{
-      penalize(); 
-      toast('⏳ ' + t('ui.outOfTime'),'warn'); 
-      endCheck();
-    });
-  }
-
-  function choose(opt, correct){
-    const s = getSettings();
-    const elOptions = root.querySelectorAll('.option');
-    elOptions.forEach(b => b.disabled = true);
-    if(timer) var timeLeft = timer.timeLeft();
-
-    if(opt === correct){
-      const pts = scoreCorrect(timeLeft ?? 0, s.timePerQuestion);
-      toast(`✅ +${pts} 🏅`, 'good');
-    }else{
-      penalize();
-      toast('❌', 'warn');
+  function nextQuestion() {
+    if (s.lives <= 0 || s.question >= getSettings().qcount) {
+      return showEnd(s);
     }
-    if(timer) timer.stop();
-    endCheck();
-  }
 
-  function endCheck(){
-    const sess = getSession();
-    updateHUD(sess);
-    setTimeout(() => {
-      if(sess.lives <= 0 || sess.current >= sess.total){
-        showEnd();
-      }else{
-        window.dispatchEvent(new CustomEvent('go-next'));
+    s.question++;
+    const num = getRandomNumber(getSettings().range);
+    const char = chineseChar(num);
+
+    // generar distractores cercanos
+    const distractors = [];
+    while (distractors.length < 3) {
+      const d = num + randInt(-20, 20);
+      if (d > 0 && d !== num && !distractors.includes(d)) {
+        distractors.push(d);
       }
-    }, 600);
-  }
+    }
 
-  function showEnd(){
+    const options = shuffle([num, ...distractors]);
+
     root.innerHTML = `
-      <section class="game card">
-        <h2>🏆 ${t('games.finalScore')}</h2>
-        <p>${t('ui.score')}: ${getSession().score}</p>
-        <button class="btn" id="btn-restart">${t('games.playAgain')}</button>
-        <button class="btn btn-secondary" id="btn-menu">${t('ui.backMenu')}</button>
-      </section>
+      <p class="question big">${char}</p>
+      <div class="options">
+        ${options.map(o => `<button class="btn option">${o}</button>`).join('')}
+      </div>
+      <div id="hud-timer"></div>
     `;
-    root.querySelector('#btn-restart').addEventListener('click', ()=> location.hash = '#game-reverse');
-    root.querySelector('#btn-menu').addEventListener('click', ()=> location.hash = '#menu');
+
+    // iniciar temporizador
+    const timer = createTimer(
+      root.querySelector('#hud-timer'),
+      getSettings().qtime,
+      () => handleAnswer(null, num, timer)
+    );
+
+    root.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handleAnswer(parseInt(btn.textContent), num, timer);
+      });
+    });
   }
 
-  window.addEventListener('go-next', ()=> shell.next());
-
-  shell.next();
-});
+  function handleAnswer(choice, correct, timer) {
+    timer.stop();
+    if (choice === correct) {
+      const pts = scoreCorrect(timer.timeLeft, getSettings().qtime);
+      toast(`+${pts} ${t('ui.correct')}`, 'good');
+    } else {
+      scoreWrong();
+      loseLife();
+      toast(`✘ ${chineseChar(correct)} = ${correct}`, 'warn');
+    }
+    updateHUD();
+    setTimeout(nextQuestion, 1000);
+  }
+}

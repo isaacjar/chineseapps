@@ -8,39 +8,32 @@ import { openSettings } from './settings.js';
 
 let currentScreen = null;
 
+// Mapeo de pantallas a funciones
+const routes = {
+  menu: renderMenu,
+  recognition: startRecognition,
+  reverse: startReverse,
+  pinyinChars: startPinyinFromChars,
+  pinyinDigits: startPinyinFromDigits,
+  settings: openSettings
+};
+
 /**
- * Navegación SPA simple
+ * Inicializa el router mostrando el menú principal
  */
 export function initRouter() {
   navigate('menu');
 }
 
+/**
+ * Navegación SPA simple
+ * @param {string} screen - id de la pantalla
+ */
 export function navigate(screen) {
   currentScreen = screen;
   const view = document.querySelector('#view');
   view.innerHTML = '';
 
-  switch (screen) {
-    case 'menu':
-      renderMenu();
-      break;
-    case 'recognition':
-      startRecognition();
-      break;
-    case 'reverse':
-      startReverse();
-      break;
-    case 'pinyinChars':
-      startPinyinFromChars();
-      break;
-    case 'pinyinDigits':
-      startPinyinFromDigits();
-      break;
-    case 'settings':
-      openSettings();
-      break;
-    default:
-      renderMenu();
-      break;
-  }
+  const action = routes[screen] || routes['menu'];
+  action();
 }

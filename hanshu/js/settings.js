@@ -1,75 +1,106 @@
 // settings.js
 import { getSettings, setSettings } from './state.js';
-import { showModal, closeModal, updateHUD } from './ui.js';
-import { setLang, getLang, t } from './i18n.js';
+import { t } from './i18n.js';
+import { closeModal } from './ui.js';
 
-/**
- * Abre panel de configuración en un modal
- */
 export function openSettings() {
   const s = getSettings();
 
   const content = `
-    <h2>${t('ui.settings')}</h2>
+    <h2>${t('settings.title')}</h2>
     <form id="settings-form" class="settings-form">
-      <label>
-        🌎 ${t('ui.language')}
-        <select name="lang">
-          <option value="en" ${getLang() === 'en' ? 'selected' : ''}>English</option>
-          <option value="es" ${getLang() === 'es' ? 'selected' : ''}>Español</option>
-          <option value="zh" ${getLang() === 'zh' ? 'selected' : ''}>中文</option>
-        </select>
-      </label>
+      
+      <div class="settings-item">
+        <label>
+          ${t('settings.language')}
+          <select name="language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="pt">Português</option>
+            <option value="ur">اردو</option>
+          </select>
+        </label>
+      </div>
 
-      <label>
-        🔢 ${t('ui.range')}
-        <select name="range">
-          <option value="1-99" ${s.range === '1-99' ? 'selected' : ''}>1–99</option>
-          <option value="100-999" ${s.range === '100-999' ? 'selected' : ''}>100–999</option>
-          <option value="1000-9999" ${s.range === '1000-9999' ? 'selected' : ''}>1000–9999</option>
-          <option value="10000-9999999" ${s.range === '10000-9999999' ? 'selected' : ''}>10,000–9,999,999</option>
-        </select>
-      </label>
+      <div class="settings-item">
+        <label>
+          <input type="checkbox" name="pinyin" ${s.pinyin ? 'checked' : ''}>
+          ${t('settings.pinyin')}
+        </label>
+      </div>
 
-      <label>
-        ⏱️ ${t('ui.timePerQuestion')}
-        <input type="number" name="qtime" min="3" max="60" value="${s.qtime}">
-      </label>
+      <div class="settings-item">
+        <label>
+          ${t('settings.qcount')}
+          <input type="number" name="qcount" min="1" max="50" value="${s.qcount}">
+        </label>
+      </div>
 
-      <label>
-        ❓ ${t('ui.questionsPerGame')}
-        <input type="number" name="qcount" min="5" max="50" value="${s.qcount}">
-      </label>
+      <div class="settings-item">
+        <label>
+          ${t('settings.qtime')}
+          <input type="number" name="qtime" min="5" max="120" value="${s.qtime}">
+        </label>
+      </div>
 
-      <div class="modal-actions">
-        <button type="submit" class="btn">${t('ui.save')}</button>
+      <div class="settings-item">
+        <label>
+          ${t('settings.fails')}
+          <input type="number" name="fails" min="1" max="10" value="${s.fails}">
+        </label>
+      </div>
+
+      <div class="settings-item">
+        <label>
+          ${t('settings.difficulty')}
+          <select name="difficulty">
+            <option value="1" ${s.difficulty === 1 ? 'selected' : ''}>
+              ${t('settings.difficulties.easy')}
+            </option>
+            <option value="2" ${s.difficulty === 2 ? 'selected' : ''}>
+              ${t('settings.difficulties.hard')}
+            </option>
+          </select>
+        </label>
+      </div>
+
+      <div class="settings-actions">
+        <button type="submit" class="btn btn-primary">${t('ui.save')}</button>
         <button type="button" id="settings-cancel" class="btn btn-secondary">${t('ui.cancel')}</button>
       </div>
     </form>
   `;
 
-  showModal(content);
+  // usar showModal del ui.js
+  import('./ui.js').then(({ showModal }) => {
+    showModal(content, () => {});
+    const form = document.querySelector('#settings-form');
 
-  // listeners
-  const form = document.querySelector('#settings-form');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
+    // valores iniciales
+    form.language.value = s.language;
 
-    const newSettings = {
-      range: data.get('range'),
-      qtime: parseInt(data.get('qtime'), 10),
-      qcount: parseInt(data.get('qcount'), 10)
-    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    setSettings(newSettings);
-    setLang(data.get('lang'));
+      const data = new FormData(form);
+      setSettings({
+        ...s,
+        language: data.get('language'),
+        pinyin: !!data.get('pinyin'),
+        qcount: parseInt(data.get('qcount')),
+        qtime: parseInt(data.get('qtime')),
+        fails: parseInt(data.get('fails')),
+        difficulty: parseInt(data.get('difficulty')) || 1
+      });
 
-    closeModal();
-    renderHUD();
-  });
+      closeModal();
+      location.reload(); // refrescar para aplicar idioma
+    });
 
-  document.querySelector('#settings-cancel').addEventListener('click', () => {
-    closeModal();
+    document.querySelector('#settings-cancel').addEventListener('click', () => {
+      closeModal();
+    });
   });
 }

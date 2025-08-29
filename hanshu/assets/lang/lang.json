@@ -27,9 +27,8 @@
       "subtitle": "Choose your game mode",
       "recognition": "🔢 Visual recognition",
       "reverse": "✍️ Reverse writing",
-      "pinyinChars": "✍️ Pinyin from characters",
-      "pinyinDigits": "✍️ Pinyin from digits",
-      "memory": "🧠 Memory",
+      "pinyinChars": "✍️ Choose correct pinyin (characters)",
+      "pinyinDigits": "✍️ Choose correct pinyin (digits)",
       "settings": "⚙️ Settings",
       "start": "Start",
       "exit": "Exit"
@@ -42,26 +41,20 @@
       "qcount": "Questions per game 🏅",
       "qtime": "Time per question ⏱️",
       "fails": "Allowed mistakes ❤️",
+      "difficulty": "Difficulty 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "Difficulty",
-	  "difficulties": {
-		"easy": "⭐ 4 options",
-		"hard": "⭐⭐ 6 options"
-	  }
+      }
     },
     "games": {
       "recognitionPrompt": "What number is this? 🌸",
       "reversePrompt": "Choose the correct characters 🏯",
       "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
       "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
-      "memoryShow": "Memorize the sequence 🍃",
-      "memoryRecall": "Type the sequence (commas or spaces) 🧠",
       "finalScore": "Final score",
       "playAgain": "Play again"
     }
@@ -82,7 +75,7 @@
       "next": "Siguiente",
       "yourAnswer": "Tu respuesta",
       "correct": "¡Correcto!",
-      "wrong": "Inténtalo de nuevo",
+      "wrong": "Intenta de nuevo",
       "outOfTime": "⏰ ¡Se acabó el tiempo!",
       "gameOver": "Fin del juego",
       "finalScore": "Puntuación final",
@@ -96,7 +89,6 @@
       "reverse": "✍️ Escritura inversa",
       "pinyinChars": "✍️ Pinyin desde caracteres",
       "pinyinDigits": "✍️ Pinyin desde cifras",
-      "memory": "🧠 Memoria",
       "settings": "⚙️ Configuración",
       "start": "Iniciar",
       "exit": "Salir"
@@ -104,31 +96,25 @@
     "settings": {
       "title": "Configuración",
       "language": "Idioma",
-      "pinyin": "Mostrar pistas de pinyin 🐼",
+      "pinyin": "Mostrar ayudas en pinyin 🐼",
       "range": "Rango numérico 🏔️",
       "qcount": "Preguntas por partida 🏅",
       "qtime": "Tiempo por pregunta ⏱️",
       "fails": "Errores permitidos ❤️",
+      "difficulty": "Dificultad 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "Dificultad",
-	  "difficulties": {
-		"easy": "⭐ 4 opciones",
-		"hard": "⭐⭐ 6 opciones"
-	  }
+      }
     },
     "games": {
       "recognitionPrompt": "¿Qué número es este? 🌸",
       "reversePrompt": "Elige los caracteres correctos 🏯",
       "pinyinCharsPrompt": "Elige el pinyin correcto 🎋",
       "pinyinDigitsPrompt": "Elige el pinyin correcto 🎋",
-      "memoryShow": "Memoriza la secuencia 🍃",
-      "memoryRecall": "Escribe la secuencia (comas o espacios) 🧠",
       "finalScore": "Puntuación final",
       "playAgain": "Jugar de nuevo"
     }
@@ -149,7 +135,7 @@
       "next": "Suivant",
       "yourAnswer": "Votre réponse",
       "correct": "Correct !",
-      "wrong": "Réessayez",
+      "wrong": "Réessaie",
       "outOfTime": "⏰ Temps écoulé !",
       "gameOver": "Fin du jeu",
       "finalScore": "Score final",
@@ -161,9 +147,8 @@
       "subtitle": "Choisissez votre mode de jeu",
       "recognition": "🔢 Reconnaissance visuelle",
       "reverse": "✍️ Écriture inversée",
-      "pinyinChars": "✍️ Pinyin (caractères)",
-      "pinyinDigits": "✍️ Pinyin (chiffres)",
-      "memory": "🧠 Mémoire",
+      "pinyinChars": "✍️ Pinyin depuis caractères",
+      "pinyinDigits": "✍️ Pinyin depuis chiffres",
       "settings": "⚙️ Paramètres",
       "start": "Démarrer",
       "exit": "Quitter"
@@ -171,31 +156,25 @@
     "settings": {
       "title": "Paramètres",
       "language": "Langue",
-      "pinyin": "Afficher les indices pinyin 🐼",
-      "range": "Plage de nombres 🏔️",
+      "pinyin": "Afficher les aides pinyin 🐼",
+      "range": "Plage numérique 🏔️",
       "qcount": "Questions par partie 🏅",
       "qtime": "Temps par question ⏱️",
-      "fails": "Erreurs autorisées ❤️",
+      "fails": "Erreurs permises ❤️",
+      "difficulty": "Difficulté 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "Difficulté",
-	  "difficulties": {
-		"easy": "⭐ 4 choix",
-		"hard": "⭐⭐ 6 choix"
-	  }
+      }
     },
     "games": {
-      "recognitionPrompt": "Quel est ce nombre ? 🌸",
+      "recognitionPrompt": "Quel nombre est-ce ? 🌸",
       "reversePrompt": "Choisissez les bons caractères 🏯",
-      "pinyinCharsPrompt": "Choisissez le bon pinyin 🎋",
-      "pinyinDigitsPrompt": "Choisissez le bon pinyin 🎋",
-      "memoryShow": "Mémorisez la séquence 🍃",
-      "memoryRecall": "Saisissez la séquence (virgules ou espaces) 🧠",
+      "pinyinCharsPrompt": "Choisissez le pinyin correct 🎋",
+      "pinyinDigitsPrompt": "Choisissez le pinyin correct 🎋",
       "finalScore": "Score final",
       "playAgain": "Rejouer"
     }
@@ -216,7 +195,7 @@
       "next": "Weiter",
       "yourAnswer": "Deine Antwort",
       "correct": "Richtig!",
-      "wrong": "Versuch es erneut",
+      "wrong": "Versuch's noch einmal",
       "outOfTime": "⏰ Zeit abgelaufen!",
       "gameOver": "Spiel vorbei",
       "finalScore": "Endpunktzahl",
@@ -228,9 +207,8 @@
       "subtitle": "Wähle deinen Spielmodus",
       "recognition": "🔢 Visuelle Erkennung",
       "reverse": "✍️ Umgekehrtes Schreiben",
-      "pinyinChars": "✍️ Pinyin (Zeichen)",
-      "pinyinDigits": "✍️ Pinyin (Zahlen)",
-      "memory": "🧠 Gedächtnis",
+      "pinyinChars": "✍️ Pinyin aus Zeichen",
+      "pinyinDigits": "✍️ Pinyin aus Zahlen",
       "settings": "⚙️ Einstellungen",
       "start": "Starten",
       "exit": "Beenden"
@@ -243,26 +221,20 @@
       "qcount": "Fragen pro Spiel 🏅",
       "qtime": "Zeit pro Frage ⏱️",
       "fails": "Fehler erlaubt ❤️",
+      "difficulty": "Schwierigkeit 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "Schwierigkeitsgrad",
-	  "difficulties": {
-		"easy": "⭐ 4 Optionen",
-		"hard": "⭐⭐ 6 Optionen"
-	  }
+      }
     },
     "games": {
       "recognitionPrompt": "Welche Zahl ist das? 🌸",
       "reversePrompt": "Wähle die richtigen Zeichen 🏯",
       "pinyinCharsPrompt": "Wähle das richtige Pinyin 🎋",
       "pinyinDigitsPrompt": "Wähle das richtige Pinyin 🎋",
-      "memoryShow": "Merke dir die Sequenz 🍃",
-      "memoryRecall": "Gib die Sequenz ein (Kommas oder Leerzeichen) 🧠",
       "finalScore": "Endpunktzahl",
       "playAgain": "Nochmal spielen"
     }
@@ -285,7 +257,7 @@
       "correct": "Correto!",
       "wrong": "Tente novamente",
       "outOfTime": "⏰ Tempo esgotado!",
-      "gameOver": "Fim de jogo",
+      "gameOver": "Fim do jogo",
       "finalScore": "Pontuação final",
       "correctAnswers": "Respostas corretas",
       "restart": "Reiniciar"
@@ -294,10 +266,9 @@
       "title": "Menu Principal",
       "subtitle": "Escolha seu modo de jogo",
       "recognition": "🔢 Reconhecimento visual",
-      "reverse": "✍️ Escrita inversa",
-      "pinyinChars": "✍️ Pinyin (caracteres)",
-      "pinyinDigits": "✍️ Pinyin (dígitos)",
-      "memory": "🧠 Memória",
+      "reverse": "✍️ Escrita reversa",
+      "pinyinChars": "✍️ Pinyin com caracteres",
+      "pinyinDigits": "✍️ Pinyin com dígitos",
       "settings": "⚙️ Configurações",
       "start": "Iniciar",
       "exit": "Sair"
@@ -306,30 +277,24 @@
       "title": "Configurações",
       "language": "Idioma",
       "pinyin": "Mostrar dicas de pinyin 🐼",
-      "range": "Intervalo numérico 🏔️",
+      "range": "Faixa numérica 🏔️",
       "qcount": "Perguntas por jogo 🏅",
       "qtime": "Tempo por pergunta ⏱️",
       "fails": "Erros permitidos ❤️",
+      "difficulty": "Dificuldade 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "Dificuldade",
-	  "difficulties": {
-		"easy": "⭐ 4 opções",
-		"hard": "⭐⭐ 6 opções"
-	  }
+      }
     },
     "games": {
       "recognitionPrompt": "Que número é este? 🌸",
       "reversePrompt": "Escolha os caracteres corretos 🏯",
       "pinyinCharsPrompt": "Escolha o pinyin correto 🎋",
       "pinyinDigitsPrompt": "Escolha o pinyin correto 🎋",
-      "memoryShow": "Memorize a sequência 🍃",
-      "memoryRecall": "Digite a sequência (vírgulas ou espaços) 🧠",
       "finalScore": "Pontuação final",
       "playAgain": "Jogar novamente"
     }
@@ -359,44 +324,37 @@
     },
     "menu": {
       "title": "مرکزی مینو",
-      "subtitle": "اپنا کھیل موڈ منتخب کریں",
-      "recognition": "🔢 بصری شناخت",
+      "subtitle": "اپنا کھیل کا موڈ منتخب کریں",
+      "recognition": "🔢 بصری پہچان",
       "reverse": "✍️ الٹی تحریر",
-      "pinyinChars": "✍️ پینین (حروف)",
-      "pinyinDigits": "✍️ پینین (اعداد)",
-      "memory": "🧠 یادداشت",
+      "pinyinChars": "✍️ حروف سے پینین",
+      "pinyinDigits": "✍️ اعداد سے پینین",
       "settings": "⚙️ ترتیبات",
       "start": "شروع کریں",
-      "exit": "باہر نکلیں"
+      "exit": "خارج کریں"
     },
     "settings": {
       "title": "ترتیبات",
       "language": "زبان",
-      "pinyin": "پینین کے اشارے دکھائیں 🐼",
+      "pinyin": "پینین اشارے دکھائیں 🐼",
       "range": "نمبر کی حد 🏔️",
       "qcount": "فی کھیل سوالات 🏅",
       "qtime": "فی سوال وقت ⏱️",
       "fails": "اجازت یافتہ غلطیاں ❤️",
+      "difficulty": "مشکل 🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
         "r100_999": "100–999",
         "r1000_9999": "1000–9999",
         "r10000_9999999": "10,000–9,999,999"
-      },
-	  "difficulty": "مشکل",
-	  "difficulties": {
-		"easy": "⭐ 4 اختیارات",
-		"hard": "⭐⭐ 6 اختیارات"
-	  }
+      }
     },
     "games": {
       "recognitionPrompt": "یہ کون سا نمبر ہے؟ 🌸",
       "reversePrompt": "صحیح حروف منتخب کریں 🏯",
       "pinyinCharsPrompt": "صحیح پینین منتخب کریں 🎋",
       "pinyinDigitsPrompt": "صحیح پینین منتخب کریں 🎋",
-      "memoryShow": "تسلسل یاد کریں 🍃",
-      "memoryRecall": "تسلسل درج کریں (کاما یا اسپیس) 🧠",
       "finalScore": "آخری اسکور",
       "playAgain": "دوبارہ کھیلیں"
     }

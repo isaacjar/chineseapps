@@ -1,63 +1,99 @@
 {
   "en": {
     "ui": {
-	  "settings": "Settings",
-	  "cancel": "Cancel",
-	  "save": "Save",
-	  "confirm": "Confirm",
-	  "gameOver": "Game Over",
-	  "finalScore": "Final Score",
-	  "correctAnswers": "Correct Answers",
-	  "restart": "Restart",
-	  "outOfTime": "⏰ Out of time!"
-	},
+      "settings": "Settings",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "save": "Save",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ Out of time!",
+      "gameOver": "Game Over",
+      "finalScore": "Final Score",
+      "correctAnswers": "Correct Answers",
+      "restart": "Restart"
+    },
     "menu": {
       "title": "Main Menu",
-      "recognition": "Speech Recognition",
+      "subtitle": "Choose your game mode",
+      "recognition": "🔢 Visual recognition",
+      "reverse": "✍️ Reverse writing",
+      "pinyinChars": "✍️ Choose correct pinyin (characters)",
+      "pinyinDigits": "✍️ Choose correct pinyin (digits)",
+      "memory": "🧠 Memory",
+      "settings": "⚙️ Settings",
       "start": "Start",
-      "exit": "Exit",
-      "reverse": "Reverse Mode",
-      "pinyinChars": "Pinyin with Characters",
-      "pinyinDigits": "Pinyin with Digits",
-      "memory": "Memory Game",
-      "subtitle": "Choose your game mode"
+      "exit": "Exit"
     },
     "settings": {
       "title": "Settings",
       "language": "Language",
-      "pinyin": "Pinyin Format",
-      "range": "Vocabulary Range",
-      "qcount": "Number of Questions",
-      "qtime": "Time per Question",
-      "fails": "Allowed Mistakes"
+      "pinyin": "Show pinyin hints 🐼",
+      "range": "Number range 🏔️",
+      "qcount": "Questions per game 🏅",
+      "qtime": "Time per question ⏱️",
+      "fails": "Allowed mistakes ❤️",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
-      "memoryShow": "Show Words",
-      "memoryRecall": "Recall Words"
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
+      "memoryShow": "Memorize the sequence 🍃",
+      "memoryRecall": "Type the sequence (commas or spaces) 🧠",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   },
   "es": {
     "ui": {
-	  "settings": "Configuración",
-	  "cancel": "Cancelar",
-	  "save": "Guardar",
-	  "confirm": "Confirmar",
-	  "gameOver": "Fin del juego",
-	  "finalScore": "Puntuación final",
-	  "correctAnswers": "Respuestas correctas",
-	  "restart": "Reiniciar",
-	  "outOfTime": "⏰ ¡Se acabó el tiempo!"
-	},
+      "settings": "Configuración",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ ¡Se acabó el tiempo!",
+      "gameOver": "Fin del juego",
+      "finalScore": "Puntuación final",
+      "correctAnswers": "Respuestas correctas",
+      "restart": "Reiniciar"
+    },
     "menu": {
       "title": "Menú Principal",
+      "subtitle": "Elige tu modo de juego",
       "recognition": "Reconocimiento de voz",
-      "start": "Iniciar",
-      "exit": "Salir",
       "reverse": "Modo inverso",
       "pinyinChars": "Pinyin con caracteres",
       "pinyinDigits": "Pinyin con dígitos",
       "memory": "Juego de memoria",
-      "subtitle": "Elige tu modo de juego"
+      "settings": "⚙️ Settings",
+      "start": "Iniciar",
+      "exit": "Salir"
     },
     "settings": {
       "title": "Configuración",
@@ -66,35 +102,59 @@
       "range": "Rango de vocabulario",
       "qcount": "Número de preguntas",
       "qtime": "Tiempo por pregunta",
-      "fails": "Errores permitidos"
+      "fails": "Errores permitidos",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
       "memoryShow": "Mostrar palabras",
-      "memoryRecall": "Recordar palabras"
+      "memoryRecall": "Recordar palabras",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   },
   "fr": {
     "ui": {
-	  "settings": "Paramètres",
-	  "cancel": "Annuler",
-	  "save": "Enregistrer",
-	  "confirm": "Confirmer",
-	  "gameOver": "Fin du jeu",
-	  "finalScore": "Score final",
-	  "correctAnswers": "Bonnes réponses",
-	  "restart": "Recommencer",
-	  "outOfTime": "⏰ Temps écoulé!"
-	},
+      "settings": "Paramètres",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ Temps écoulé!",
+      "gameOver": "Fin du jeu",
+      "finalScore": "Score final",
+      "correctAnswers": "Bonnes réponses",
+      "restart": "Recommencer"
+    },
     "menu": {
       "title": "Menu Principal",
+      "subtitle": "Choisissez votre mode de jeu",
       "recognition": "Reconnaissance vocale",
-      "start": "Démarrer",
-      "exit": "Quitter",
       "reverse": "Mode inversé",
       "pinyinChars": "Pinyin avec caractères",
       "pinyinDigits": "Pinyin avec chiffres",
       "memory": "Jeu de mémoire",
-      "subtitle": "Choisissez votre mode de jeu"
+      "settings": "⚙️ Settings",
+      "start": "Démarrer",
+      "exit": "Quitter"
     },
     "settings": {
       "title": "Paramètres",
@@ -103,35 +163,59 @@
       "range": "Plage de vocabulaire",
       "qcount": "Nombre de questions",
       "qtime": "Temps par question",
-      "fails": "Erreurs autorisées"
+      "fails": "Erreurs autorisées",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
       "memoryShow": "Afficher les mots",
-      "memoryRecall": "Rappeler les mots"
+      "memoryRecall": "Rappeler les mots",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   },
   "de": {
     "ui": {
-	  "settings": "Einstellungen",
-	  "cancel": "Abbrechen",
-	  "save": "Speichern",
-	  "confirm": "Bestätigen",
-	  "gameOver": "Spiel beendet",
-	  "finalScore": "Endpunktzahl",
-	  "correctAnswers": "Richtige Antworten",
-	  "restart": "Neu starten",
-	  "outOfTime": "⏰ Zeit abgelaufen!!"
-	},
+      "settings": "Einstellungen",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ Zeit abgelaufen!!",
+      "gameOver": "Spiel beendet",
+      "finalScore": "Endpunktzahl",
+      "correctAnswers": "Richtige Antworten",
+      "restart": "Neu starten"
+    },
     "menu": {
       "title": "Hauptmenü",
+      "subtitle": "Wähle deinen Spielmodus",
       "recognition": "Spracherkennung",
-      "start": "Starten",
-      "exit": "Beenden",
       "reverse": "Umgekehrter Modus",
       "pinyinChars": "Pinyin mit Zeichen",
       "pinyinDigits": "Pinyin mit Zahlen",
       "memory": "Gedächtnisspiel",
-      "subtitle": "Wähle deinen Spielmodus"
+      "settings": "⚙️ Settings",
+      "start": "Starten",
+      "exit": "Beenden"
     },
     "settings": {
       "title": "Einstellungen",
@@ -140,35 +224,59 @@
       "range": "Wortschatzbereich",
       "qcount": "Fragenanzahl",
       "qtime": "Zeit pro Frage",
-      "fails": "Erlaubte Fehler"
+      "fails": "Erlaubte Fehler",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
       "memoryShow": "Wörter anzeigen",
-      "memoryRecall": "Wörter abrufen"
+      "memoryRecall": "Wörter abrufen",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   },
-  "ptbr": {
+  "pt": {
     "ui": {
-	  "settings": "Configurações",
-	  "cancel": "Cancelar",
-	  "save": "Salvar",
-	  "confirm": "Confirmar",
-	  "gameOver": "Fim do jogo",
-	  "finalScore": "Pontuação final",
-	  "correctAnswers": "Respostas corretas",
-	  "restart": "Reiniciar",
-	  "outOfTime": "⏰ Tempo esgotado!"
-	},
+      "settings": "Configurações",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "save": "Salvar",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ Tempo esgotado!",
+      "gameOver": "Fim do jogo",
+      "finalScore": "Pontuação final",
+      "correctAnswers": "Respostas corretas",
+      "restart": "Reiniciar"
+    },
     "menu": {
       "title": "Menu Principal",
+      "subtitle": "Escolha seu modo de jogo",
       "recognition": "Reconhecimento de voz",
-      "start": "Iniciar",
-      "exit": "Sair",
       "reverse": "Modo reverso",
       "pinyinChars": "Pinyin com caracteres",
       "pinyinDigits": "Pinyin com dígitos",
       "memory": "Jogo da memória",
-      "subtitle": "Escolha seu modo de jogo"
+      "settings": "⚙️ Settings",
+      "start": "Iniciar",
+      "exit": "Sair"
     },
     "settings": {
       "title": "Configurações",
@@ -177,35 +285,59 @@
       "range": "Faixa de vocabulário",
       "qcount": "Número de perguntas",
       "qtime": "Tempo por pergunta",
-      "fails": "Erros permitidos"
+      "fails": "Erros permitidos",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
       "memoryShow": "Mostrar palavras",
-      "memoryRecall": "Recordar palavras"
+      "memoryRecall": "Recordar palavras",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   },
-  "pk": {
+  "ur": {
     "ui": {
-	  "settings": "ترتیبات (Tarteebaat)",
-	  "cancel": "منسوخ کریں",
-	  "save": "محفوظ کریں",
-	  "confirm": "تصدیق کریں",
-	  "gameOver": "کھیل ختم",
-	  "finalScore": "آخری اسکور",
-	  "correctAnswers": "درست جوابات",
-	  "restart": "دوبارہ شروع کریں",
-	  "outOfTime": "⏰ وقت ختم ہو گیا!"
-	},
+      "settings": "ترتیبات",
+      "start": "Start",
+      "backMenu": "Back to menu",
+      "confirm": "تصدیق کریں",
+      "cancel": "منسوخ کریں",
+      "save": "محفوظ کریں",
+      "close": "Close",
+      "lives": "Lives",
+      "score": "Score",
+      "streak": "Streak",
+      "time": "Time",
+      "next": "Next",
+      "yourAnswer": "Your answer",
+      "correct": "Correct!",
+      "wrong": "Try again",
+      "outOfTime": "⏰ وقت ختم ہو گیا!",
+      "gameOver": "کھیل ختم",
+      "finalScore": "آخری اسکور",
+      "correctAnswers": "درست جوابات",
+      "restart": "دوبارہ شروع کریں"
+    },
     "menu": {
       "title": "مرکزی مینو",
+      "subtitle": "اپنا کھیل کا موڈ منتخب کریں",
       "recognition": "آواز کی پہچان",
-      "start": "شروع کریں",
-      "exit": "خارج کریں",
       "reverse": "الٹا موڈ",
       "pinyinChars": "پینین حروف کے ساتھ",
       "pinyinDigits": "پینین اعداد کے ساتھ",
       "memory": "یادداشت کا کھیل",
-      "subtitle": "اپنا کھیل کا موڈ منتخب کریں"
+      "settings": "⚙️ Settings",
+      "start": "شروع کریں",
+      "exit": "خارج کریں"
     },
     "settings": {
       "title": "ترتیبات",
@@ -214,11 +346,23 @@
       "range": "الفاظ کی حد",
       "qcount": "سوالات کی تعداد",
       "qtime": "فی سوال وقت",
-      "fails": "اجازت یافتہ غلطیاں"
+      "fails": "اجازت یافتہ غلطیاں",
+      "ranges": {
+        "r1_10": "1–10",
+        "r11_99": "11–99",
+        "r100_999": "100–999",
+        "r1000p": "1000+"
+      }
     },
     "games": {
+      "recognitionPrompt": "What number is this? 🌸",
+      "reversePrompt": "Choose the correct characters 🏯",
+      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
+      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
       "memoryShow": "الفاظ دکھائیں",
-      "memoryRecall": "الفاظ یاد کریں"
+      "memoryRecall": "الفاظ یاد کریں",
+      "finalScore": "Final score",
+      "playAgain": "Play again"
     }
   }
 }

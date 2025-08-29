@@ -1,0 +1,23 @@
+[
+  { "ch": "打扫", "pin": "dǎsǎo", "en": "to clean" },
+  { "ch": "冰箱", "pin": "bīngxiāng", "en": "refrigerator" },
+  { "ch": "练习", "pin": "liànxí", "en": "to practice" },
+  { "ch": "完成", "pin": "wánchéng", "en": "to complete" },
+  { "ch": "句子", "pin": "jùzi", "en": "sentence" },
+  { "ch": "其它", "pin": "qítā", "en": "other" },
+  { "ch": "节日", "pin": "jiérì", "en": "festival, holiday" },
+  { "ch": "举行", "pin": "jǔxíng", "en": "to hold (an event)" },
+  { "ch": "世界", "pin": "shìjiè", "en": "world" },
+  { "ch": "洗澡", "pin": "xǐ zǎo", "en": "to have a shower" },
+  { "ch": "节目", "pin": "jiémù", "en": "program" },
+  { "ch": "菜单", "pin": "càidān", "en": "menu" },
+  { "ch": "简单", "pin": "jiǎndān", "en": "simple, easy" },
+  { "ch": "香蕉", "pin": "xiāngjiāo", "en": "banana" },
+  { "ch": "故事", "pin": "gùshì", "en": "story, tale" },
+  { "ch": "水平", "pin": "shuǐpíng", "en": "level" },
+  { "ch": "提高", "pin": "tígāo", "en": "to improve" },
+  { "ch": "新闻", "pin": "xīnwén", "en": "news" },
+  { "ch": "文化", "pin": "wénhuà", "en": "culture" },
+  { "ch": "发", "pin": "fā", "en": "to send" },
+  { "ch": "花", "pin": "huā", "en": "flower" }
+]

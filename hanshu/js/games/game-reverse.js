@@ -1,6 +1,6 @@
 // game-reverse.js
 import { startGame } from './game-session.js';
-import { renderOptions, generateOptions } from './game-helpers.js';
+import { renderOptions } from './game-helpers.js';
 import { chineseChar } from '../chinese.js';
 import { sample } from '../rng.js';
 import { t } from '../i18n.js';
@@ -18,18 +18,14 @@ function onQuestion(game) {
   const correct = chineseChar(num);
 
   const pool = game.range.map(n => chineseChar(n));
-  const options = generateOptions(correct, pool);
 
   game.showQuestion({
-    text: num.toString(),
+    text: num.toString(), // mostramos número en dígitos
     onRender(container) {
-      renderOptions(container, options, choice => {
-        if (choice === correct) {
-          game.correct();
-        } else {
-          game.wrong();
-        }
+      const optsEl = renderOptions(pool, correct, (isCorrect) => {
+        isCorrect ? game.correct() : game.wrong();
       });
+      container.appendChild(optsEl);
     }
   });
 }

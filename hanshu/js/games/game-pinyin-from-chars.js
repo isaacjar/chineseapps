@@ -1,6 +1,6 @@
 // game-pinyin-from-chars.js
 import { startGame } from './game-session.js';
-import { renderOptions, generateOptions } from './game-helpers.js';
+import { renderOptions } from './game-helpers.js';
 import { chineseChar, chinesePinyin } from '../chinese.js';
 import { sample } from '../rng.js';
 import { t } from '../i18n.js';
@@ -18,18 +18,14 @@ function onQuestion(game) {
   const correct = chinesePinyin(num);
 
   const pool = game.range.map(n => chinesePinyin(n));
-  const options = generateOptions(correct, pool);
 
   game.showQuestion({
-    text: chineseChar(num),
+    text: chineseChar(num), // mostramos caracteres chinos
     onRender(container) {
-      renderOptions(container, options, choice => {
-        if (choice === correct) {
-          game.correct();
-        } else {
-          game.wrong();
-        }
+      const optsEl = renderOptions(pool, correct, (isCorrect) => {
+        isCorrect ? game.correct() : game.wrong();
       });
+      container.appendChild(optsEl);
     }
   });
 }

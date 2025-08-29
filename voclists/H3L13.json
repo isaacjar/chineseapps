@@ -1,0 +1,27 @@
+[
+  { "ch": "爷爷", "pin": "yéye", "en": "grandfather (paternal)" },
+  { "ch": "一般", "pin": "yìbān", "en": "generally" },
+  { "ch": "起来", "pin": "qǐlai", "en": "to get up" },
+  { "ch": "校长", "pin": "xiàozhǎng", "en": "principal" },
+  { "ch": "奶奶", "pin": "nǎinai", "en": "grandmother (paternal)" },
+  { "ch": "遇到", "pin": "yùdào", "en": "to encounter" },
+  { "ch": "生活", "pin": "shēnghuó", "en": "life" },
+  { "ch": "应该", "pin": "yīnggāi", "en": "should" },
+  { "ch": "过去", "pin": "guòqù", "en": "past, to pass by" },
+  { "ch": "礼物", "pin": "lǐwù", "en": "gift" },
+  { "ch": "坏", "pin": "huài", "en": "bad" },
+  { "ch": "终于", "pin": "zhōngyú", "en": "finally, at last" },
+  { "ch": "经常", "pin": "jīngcháng", "en": "often" },
+  { "ch": "愿意", "pin": "yuànyì", "en": "to be willing" },
+
+  { "ch": "来", "pin": "lái", "en": "to come" },
+  { "ch": "爷", "pin": "yé", "en": "grandfather" },
+  { "ch": "到", "pin": "dào", "en": "to arrive, to reach" },
+  { "ch": "边", "pin": "biān", "en": "side, edge" },
+  { "ch": "过", "pin": "guò", "en": "to pass, to cross, to experience" },
+  { "ch": "常", "pin": "cháng", "en": "often" },
+  { "ch": "奶", "pin": "nǎi", "en": "milk, grandmother" },
+  { "ch": "于", "pin": "yú", "en": "in, at, to, from" },
+  { "ch": "活", "pin": "huó", "en": "to live" },
+  { "ch": "生", "pin": "shēng", "en": "to be born, life" }
+]

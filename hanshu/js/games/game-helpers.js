@@ -1,6 +1,7 @@
 // game-helpers.js
 import { sample } from '../rng.js';
-import { getSettings } from '../state.js';
+import { getSettings, getSession } from '../state.js';
+import { smoothNavigate } from '../ui.js';
 
 // ===== Renderizado genérico de opciones =====
 export function renderOptions(container, options, onSelect) {
@@ -85,4 +86,32 @@ export function getRandomPinyinFromDigitsQuestion() {
   const options = generateOptions(answer, answers);
 
   return { prompt, options, answer };
+}
+
+// ===== Pantalla de Game Over =====
+export function showGameOver() {
+  const session = getSession();
+
+  smoothNavigate(() => {
+    const view = document.querySelector('#view');
+    view.innerHTML = `
+      <div class="game-over-screen">
+        <h2>Game Over</h2>
+        <p>Final Score: <strong>${session.score}</strong></p>
+        <p>Errors: <strong>${(session.fails ?? 0) - (session.lives ?? 0)}</strong></p>
+        <div class="game-over-buttons">
+          <button id="btn-restart" class="btn">🔄 Restart</button>
+          <button id="btn-menu" class="btn">🏠 Back to menu</button>
+        </div>
+      </div>
+    `;
+
+    document.querySelector('#btn-restart').addEventListener('click', () => {
+      window.location.hash = `#${session.id}`;
+    });
+
+    document.querySelector('#btn-menu').addEventListener('click', () => {
+      window.location.hash = '#menu';
+    });
+  });
 }

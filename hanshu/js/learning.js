@@ -1,7 +1,7 @@
 // learning.js
-import { loadSettings, getSettings } from './state.js';
+import { loadState, getSettings, getSession } from './state.js';
 import { setLanguage } from './i18n.js';
-import { initRouter, navigate } from './router.js';
+import { initRouter } from './router.js';
 import { openSettings } from './settings.js';
 import { updateHUD } from './ui.js';
 
@@ -9,15 +9,15 @@ import { updateHUD } from './ui.js';
  * Punto de entrada de la app
  */
 export function startApp() {
-  // cargar settings guardados
-  loadSettings();
+  // cargar estado y settings guardados
+  loadState();
   const s = getSettings();
 
   // aplicar idioma inicial
   setLanguage(s.language);
 
-  // renderizar HUD inicial
-  renderHUD();
+  // renderizar HUD inicial con sesión actual
+  updateHUD(getSession());
 
   // inicializar router
   initRouter();

@@ -1,24 +1,46 @@
-// menu.js
-import { t } from './i18n.js';
+// router.js
+import { renderMenu } from './menu.js';
+import { startRecognition } from './games/game-recognition.js';
+import { startReverse } from './games/game-reverse.js';
+import { startPinyinFromChars } from './games/game-pinyin-from-chars.js';
+import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
+import { openSettings } from './settings.js';
+
+let currentScreen = null;
 
 /**
- * Renderiza el menú principal dentro de #view
+ * Navegación SPA simple
  */
-export function renderMenu() {
-  const view = document.querySelector('#view');
-  if (!view) return;
+export function initRouter() {
+  navigate('menu');
+}
 
-  view.innerHTML = `
-    <section class="menu">
-      <h2>${t('menu.title')}</h2>
-      <p>${t('menu.subtitle')}</p>
-      <div class="menu-grid">
-        <a class="btn menu-btn" href="#recognition">🔢 ${t('menu.recognition')}</a>
-        <a class="btn menu-btn" href="#reverse">✍️ ${t('menu.reverse')}</a>
-        <a class="btn menu-btn" href="#pinyin-chars">✍️ ${t('menu.pinyinChars')}</a>
-        <a class="btn menu-btn" href="#pinyin-digits">✍️ ${t('menu.pinyinDigits')}</a>
-        <a class="btn menu-btn" href="#memory">🧠 ${t('menu.memory')}</a>
-      </div>
-    </section>
-  `;
+export function navigate(screen) {
+  currentScreen = screen;
+  const view = document.querySelector('#view');
+  view.innerHTML = '';
+
+  switch (screen) {
+    case 'menu':
+      renderMenu();
+      break;
+    case 'recognition':
+      startRecognition();
+      break;
+    case 'reverse':
+      startReverse();
+      break;
+    case 'pinyinChars':
+      startPinyinFromChars();
+      break;
+    case 'pinyinDigits':
+      startPinyinFromDigits();
+      break;
+    case 'settings':
+      openSettings();
+      break;
+    default:
+      renderMenu();
+      break;
+  }
 }

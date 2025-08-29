@@ -4,22 +4,23 @@ import { startRecognition } from './games/game-recognition.js';
 import { startReverse } from './games/game-reverse.js';
 import { startPinyinFromChars } from './games/game-pinyin-from-chars.js';
 import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
-import { startMemory } from './games/game-memory.js';
 import { openSettings } from './settings.js';
 
-// Enrutador SPA muy simple
+let currentScreen = null;
+
+/**
+ * Navegación SPA simple
+ */
 export function initRouter() {
-  window.addEventListener('hashchange', handleRoute);
-  handleRoute(); // procesar ruta inicial
+  navigate('menu');
 }
 
-function handleRoute() {
+export function navigate(screen) {
+  currentScreen = screen;
   const view = document.querySelector('#view');
-  if (!view) return;
+  view.innerHTML = '';
 
-  const route = window.location.hash.replace('#', '') || 'menu';
-
-  switch (route) {
+  switch (screen) {
     case 'menu':
       renderMenu();
       break;
@@ -29,19 +30,17 @@ function handleRoute() {
     case 'reverse':
       startReverse();
       break;
-    case 'pinyin-chars':
+    case 'pinyinChars':
       startPinyinFromChars();
       break;
-    case 'pinyin-digits':
+    case 'pinyinDigits':
       startPinyinFromDigits();
-      break;
-    case 'memory':
-      startMemory();
       break;
     case 'settings':
       openSettings();
       break;
     default:
-      renderMenu(); // fallback al menú
+      renderMenu();
+      break;
   }
 }

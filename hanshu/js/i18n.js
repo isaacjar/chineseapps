@@ -1,109 +1,70 @@
 // i18n.js
-const LANG_KEY = "hanshu-lang";
-let currentLang = "en";
+
 let translations = {};
+let currentLang = 'en';
 
-// fallback mínimo garantizado (en inglés)
-const FALLBACK = {
-  ui: {
-    settings: "Settings",
-    start: "Start",
-    backMenu: "Back to menu",
-    confirm: "Confirm",
-    cancel: "Cancel",
-    save: "Save",
-    close: "Close",
-    lives: "Lives",
-    score: "Score",
-    streak: "Streak",
-    time: "Time",
-    next: "Next",
-    yourAnswer: "Your answer",
-    correct: "Correct!",
-    wrong: "Try again",
-    outOfTime: "⏰ Out of time!",
-    gameOver: "Game Over",
-    finalScore: "Final Score",
-    correctAnswers: "Correct Answers",
-    restart: "Restart"
-  },
-  menu: {
-    title: "Main Menu",
-    subtitle: "Choose your game mode",
-    recognition: "🔢 Visual recognition",
-    reverse: "✍️ Reverse writing",
-    pinyinChars: "✍️ Pinyin from characters",
-    pinyinDigits: "✍️ Pinyin from digits",
-    memory: "🧠 Memory",
-    settings: "⚙️ Settings",
-    start: "Start",
-    exit: "Exit"
-  },
-  settings: {
-    title: "Settings",
-    language: "Language",
-    pinyin: "Show pinyin hints 🐼",
-    range: "Number range 🏔️",
-    qcount: "Questions per game 🏅",
-    qtime: "Time per question ⏱️",
-    fails: "Allowed mistakes ❤️",
-    ranges: {
-      r1_10: "1–10",
-      r11_99: "11–99",
-      r100_999: "100–999",
-      r1000p: "1000+"
-    }
-  },
-  games: {
-    recognitionPrompt: "What number is this? 🌸",
-    reversePrompt: "Choose the correct characters 🏯",
-    pinyinCharsPrompt: "Choose the correct pinyin 🎋",
-    pinyinDigitsPrompt: "Choose the correct pinyin 🎋",
-    memoryShow: "Memorize the sequence 🍃",
-    memoryRecall: "Type the sequence (commas or spaces) 🧠",
-    finalScore: "Final score",
-    playAgain: "Play again"
-  }
-};
-
-// ---------------- API ----------------
-
-export async function setLanguage(lang) {
-  currentLang = lang || "en";
-  localStorage.setItem(LANG_KEY, currentLang);
+/**
+ * Carga el archivo de idiomas (lang.json) una sola vez
+ */
+async function loadTranslations() {
+  if (Object.keys(translations).length > 0) return translations;
 
   try {
-    const res = await fetch("assets/lang/lang.json");
-    const data = await res.json();
-    translations = data[currentLang] || {};
-  } catch (e) {
-    console.error("i18n load error:", e);
-    translations = {};
+    const res = await fetch('assets/lang/lang.json');
+    translations = await res.json();
+  } catch (err) {
+    console.error('[i18n] Error loading lang.json', err);
+    translations = { en: {} };
+  }
+  return translations;
+}
+
+/**
+ * Cambia el idioma actual
+ */
+export async function setLang(lang) {
+  await loadTranslations();
+  if (translations[lang]) {
+    currentLang = lang;
+  } else {
+    console.warn(`[i18n] Language ${lang} not found, fallback to en`);
+    currentLang = 'en';
   }
 }
 
-export function getLanguage() {
+/**
+ * Devuelve el idioma actual
+ */
+export function getLang() {
   return currentLang;
 }
 
 /**
- * Traduce clave en notación tipo 'ui.score' o 'menu.title'
+ * Traducción con fallback a inglés
  */
 export function t(key) {
-  const parts = key.split(".");
-  let obj = translations;
-  let fallback = FALLBACK;
+  if (!translations[currentLang]) return key;
 
-  for (const p of parts) {
-    obj = obj?.[p];
-    fallback = fallback?.[p];
-  }
-  return obj ?? fallback ?? key;
+  const value = getNested(translations[currentLang], key);
+  if (value !== undefined) return value;
+
+  // fallback a inglés
+  const fallback = getNested(translations['en'], key);
+  return fallback !== undefined ? fallback : key;
 }
 
-// ---------------- INIT ----------------
+/**
+ * Helper para acceder a claves anidadas con dot notation
+ * ej: "ui.settings"
+ */
+function getNested(obj, path) {
+  return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+}
 
-const saved = localStorage.getItem(LANG_KEY);
-if (saved) {
-  currentLang = saved;
+/**
+ * Inicializa i18n: carga traducciones y asegura que haya inglés por defecto
+ */
+export async function initI18n(defaultLang = 'en') {
+  await loadTranslations();
+  await setLang(defaultLang);
 }

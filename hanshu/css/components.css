@@ -96,7 +96,7 @@
 /* ====== Toasts ====== */
 #toast-container {
   position: fixed;
-  top: 100px;
+  top: 220px;
   left: 100px;
   z-index: 1000;
   display: flex;
@@ -437,7 +437,7 @@ input:checked + .slider:before {
 /* ===== HUD extra ===== */
 #hud {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   gap: 10px;

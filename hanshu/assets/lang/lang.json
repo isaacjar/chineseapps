@@ -26,7 +26,8 @@
       "r10000_9999999": "No. 10,000–9,999,999", 
 	  "save": "Save",
 	  "reset": "Reset", 
-	  "cancel": "Cancel"	  
+	  "cancel": "Cancel",
+	  "resetConfirm": "Reset to default settings?"
       },
 	"successMessages": {
 	  "s1": "🐼 Awesome!",
@@ -89,7 +90,8 @@
     "r10000_9999999": "Nº 10,000–9,999,999",
     "save": "Guardar",
     "reset": "Restablecer",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+	"resetConfirm": "¿Restablecer los valores por defecto?"
   },
   "successMessages": {
     "s1": "🐼 ¡Genial!",
@@ -152,7 +154,8 @@
     "r10000_9999999": "Nº 10 000–9 999 999",
     "save": "Enregistrer",
     "reset": "Réinitialiser",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+	"resetConfirm": "Réinitialiser les paramètres par défaut ?"
   },
   "successMessages": {
     "s1": "🐼 Génial !",
@@ -215,7 +218,8 @@
     "r10000_9999999": "Nr. 10.000–9.999.999",
     "save": "Speichern",
     "reset": "Zurücksetzen",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+	"resetConfirm": "Auf Werkseinstellungen zurücksetzen?"
   },
   "successMessages": {
     "s1": "🐼 Großartig!",
@@ -278,7 +282,8 @@
     "r10000_9999999": "Nº 10.000–9.999.999",
     "save": "Salvar",
     "reset": "Redefinir",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+	"resetConfirm": "Redefinir para os padrões originais?"
   },
   "successMessages": {
     "s1": "🐼 Incrível!",
@@ -341,7 +346,8 @@
     "r10000_9999999": "نمبر 10,000–9,999,999",
     "save": "محفوظ کریں",
     "reset": "ری سیٹ کریں",
-    "cancel": "منسوخ کریں"
+    "cancel": "منسوخ کریں",
+	"resetConfirm": "کیا آپ ڈیفالٹ سیٹنگز بحال کرنا چاہتے ہیں؟"
   },
   "successMessages": {
     "s1": "🐼 زبردست!",

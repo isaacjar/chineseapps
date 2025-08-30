@@ -89,15 +89,15 @@ export function openSettings() {
   `;
   
   // ⚠️ Inserta el HTML en el contenedor
-  document.getElementById('modal-root').innerHTML = content;
+  //document.getElementById('modal-root').innerHTML = content;
   
 // ===== DIFICULTAD =====
-	const diffInput = document.getElementById('difficulty');
+	/*const diffInput = document.getElementById('difficulty');
 	const diffEmoji = document.getElementById('difficulty-emoji');
 
 	diffInput.addEventListener('change', () => {
 		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
-	});
+	});*/
 
   import('./ui.js').then(({ showModal }) => {
     showModal(content, () => {});

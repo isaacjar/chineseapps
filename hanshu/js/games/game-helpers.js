@@ -7,15 +7,10 @@ import { navigate } from '../router.js';   // 👈 Corrige refresco pantalla
 
 // ===== Helpers de rango =====
 function getNumberRange() {
-  const r = getSettings().range || 'r1_10';
-  switch (r) {
-    case 'r1_10': return [1, 10];
-    case 'r11_99': return [11, 99];
-    case 'r100_999': return [100, 999];
-    case 'r1000_9999': return [1000, 9999];
-    case 'r10000_9999999': return [10000, 9999999];
-    default: return [1, 10];
-  }
+  const s = getSettings();
+  const min = s.minValue ?? 1;
+  const max = s.maxValue ?? 10;
+  return [min, max];
 }
 
 function randomInRange() {

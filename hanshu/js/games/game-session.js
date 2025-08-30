@@ -16,7 +16,7 @@ export function startGame(config) {
   const session = {
     id: config.id,
     title: config.title,
-    range: buildRange(settings.range),
+    range: [settings.minValue, settings.maxValue], 
     qcount: settings.qcount,
     qtime: settings.qtime,
     lives: settings.fails,

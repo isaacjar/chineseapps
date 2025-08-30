@@ -1,6 +1,6 @@
 // game-recognition.js
 import { startGame } from './game-session.js';
-import { getRandomQuestion } from './game-helpers.js';
+import { getRandomQuestion, renderOptions } from './game-helpers.js';
 
 export function startRecognition() {
   startGame({
@@ -12,19 +12,17 @@ export function startRecognition() {
 
       view.innerHTML = `
         <div class="question">${question.prompt}</div>
-        <div class="options">
-          ${question.options.map(opt => `<button class="option">${opt}</button>`).join('')}
-        </div>
+        <div id="options-root"></div>
       `;
 
-      document.querySelectorAll('.option').forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (btn.textContent === question.answer) {
-            correct();
-          } else {
-            wrong();
-          }
-        });
+      const container = view.querySelector('#options-root');
+      // usar renderOptions para aplicar .options-container + cols-2/cols-3
+      renderOptions(container, question.options, (opt) => {
+        if (opt === question.answer) {
+          correct();
+        } else {
+          wrong();
+        }
       });
     }
   });

@@ -109,7 +109,7 @@ export function renderOptions(container, options, onSelect) {
 // ===== Generación de opciones con distractores =====
 export function generateOptions(correct, pool, difficulty) {
   const settings = getSettings();
-  const count = difficulty || (settings.difficulty === 'hard' ? 6 : 4);
+  const count = difficulty || (settings.difficulty === 2 ? 6 : 4);
 
   const filtered = pool.filter(x => x !== correct);
   const distractors = sample(filtered, count - 1);

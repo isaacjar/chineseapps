@@ -2,6 +2,7 @@
 import { sample } from '../rng.js';
 import { getSettings, getSession } from '../state.js';
 import { smoothNavigate } from '../ui.js';
+import { t } from './i18n.js';
 import { navigate } from '../router.js';   // 👈 Corrige refresco pantalla 
 
 // ===== Helpers de rango =====
@@ -182,18 +183,19 @@ export function showGameOver() {
   smoothNavigate(() => {
     const view = document.querySelector('#view');
     view.innerHTML = `
-      <div class="game-over-screen">
-        <h2>Game Over</h2>
-        <p>Final Score: <strong>${session.score}</strong></p>        
-		<p><strong>${session.qcount}</strong> questions, <strong>${session.errors ?? 0} errors</strong></p>
-		<p>🔥 Best Streak: ${session.bestStreak ?? 0}</p>
+	  <div class="game-over-screen">
+		<h2>${t('gameOver.legend')}</h2>
+		<p>${t('gameOver.finalScore')}: <strong>${session.score}</strong></p>        
+		<p><strong>${session.qcount}</strong> ${t('gameOver.questions')}, 
+		   <strong>${session.errors ?? 0} ${t('gameOver.errors')}</strong></p>
+		<p>🔥 ${t('gameOver.bestStreak')}: ${session.bestStreak ?? 0}</p>
 		
-        <div class="game-over-buttons">
-          <button id="btn-restart" class="btn">🔄 Restart</button>
-          <button id="btn-menu" class="btn">🏠 Back to menu</button>
-        </div>
-      </div>
-    `;
+		<div class="game-over-buttons">
+		  <button id="btn-restart" class="btn">🔄 ${t('gameOver.restart')}</button>
+		  <button id="btn-menu" class="btn">🏠 ${t('gameOver.back')}</button>
+		</div>
+	  </div>
+	`;
 
     document.querySelector('#btn-restart').addEventListener('click', () => {
       //window.location.hash = `#${session.id}`;

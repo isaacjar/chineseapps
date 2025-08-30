@@ -18,14 +18,21 @@
   color: orange;
 }
 
-.hud-left,
-.hud-right {
-  flex: 1;
+.hud-left {
+  flex: 0; /* ocupa solo lo que necesite (logo y título) */
 }
 
 .hud-center {
-  flex: 2;
+  flex: 0; /* ocupa solo lo que necesite */
   text-align: center;
+}
+
+.hud-right {
+  flex: 1; /* ocupa todo el espacio sobrante */
+  display: flex;
+  justify-content: flex-end; /* alinea ❤️ 🔥 ⏱️ a la derecha */
+  align-items: center;
+  gap: 1em; /* espacio entre los elementos */
 }
 
 .hud-item {

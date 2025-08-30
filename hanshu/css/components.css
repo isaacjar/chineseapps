@@ -61,12 +61,17 @@
     gap: 0.5em;
   }
 
-  .hud-left, .hud-right, .hud-center {
+  .hud-left, .hud-center {
     flex: unset;
     text-align: center;
     width: auto;
   }
 
+  .hud-right {
+    flex: 1;                 /* 👈 ocupa el espacio sobrante */
+    justify-content: flex-end; /* 👈 empuja su contenido a la derecha */
+  }
+  
   #hud .hud-center span {
     display: inline;
     margin: 0 0.3em;

@@ -238,11 +238,20 @@
   }
 }
 
+/* ===== Pregunta principal en juegos ===== */
+.question {
+  text-align: center;
+  font-size: 2.5rem;   /* bien grande */
+  font-weight: bold;
+  margin: 1em 0;
+  color: #222;
+}
+
 /* ====== Options (botones de respuesta) ====== */
 .options-container {
   display: grid;
   gap: 0.8em;
-  margin: 1em 0;
+  margin: 1em auto;
   justify-content: center;
 }
 
@@ -263,7 +272,7 @@
   border: none;
   border-radius: 12px;
   padding: 0.8em 1.2em;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s, transform 0.1s;

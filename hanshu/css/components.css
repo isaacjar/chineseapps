@@ -52,7 +52,7 @@
 /* ===== Responsive HUD ===== */
 @media (max-width: 600px) {
   #hud {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 0.5em;
   }
@@ -60,12 +60,12 @@
   .hud-left, .hud-right, .hud-center {
     flex: unset;
     text-align: center;
-    width: 100%;
+    width: auto;
   }
 
   #hud .hud-center span {
-    display: block;
-    margin: 0.2em 0;
+    display: inline;
+    margin: 0 0.3em;
   }
 }
 

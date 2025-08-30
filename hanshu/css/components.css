@@ -592,8 +592,8 @@ input:checked + .slider:before {
 /* ====== Rango con noUiSlider ====== */
 #range-slider {
   margin: 1em 0;
-  width: 80%;        /* ocupa todo el ancho del contenedor */
-  max-width: 600px;   /* límite para que no se vea demasiado grande en pantallas grandes */
+  width: 100%;        /* ocupa todo el ancho del contenedor */
+  max-width: 900px;   /* límite para que no se vea demasiado grande en pantallas grandes */
 }
 
 .noUi-target {

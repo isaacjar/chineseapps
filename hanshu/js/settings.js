@@ -139,6 +139,7 @@ export function openSettings() {
       setSettings({
         ...s,
         language: data.get('language'),
+		range: data.get('range'),
         qcount: parseInt(data.get('qcount')),
         qtime: parseInt(data.get('qtime')),
         fails: parseInt(data.get('fails')),

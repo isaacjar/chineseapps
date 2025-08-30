@@ -47,9 +47,9 @@ export function openSettings() {
       </div><p></p>
 
       <!-- Tiempo: knob circular -->
-      <div class="settings-item">
+      <div class="settings-item" style="text-align:center">
         <label>${t('settings.qtime')}</label>
-        <span id="qtime-knob"></span>
+        <span id="qtime-knob" style="display:block; margin:0.5em auto;"></span>
         <!--<span id="qtime-value">${s.qtime}s</span>-->
         <input type="hidden" id="qtime" name="qtime" value="${s.qtime}">
       </div>
@@ -68,7 +68,7 @@ export function openSettings() {
       <!-- Dificultad: switch -->
       <!-- <span class="settings-item"> -->
         <!-- <label>${t('settings.difficulty')}</label> -->
-		<span id="difficulty-emoji">  ${s.difficulty === 2 ? '🥵' : '😎'}</span>
+		<span id="difficulty-emoji" style="margin-left:1em;">${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
           <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>
@@ -121,6 +121,13 @@ export function openSettings() {
 	  // 👇 Aseguramos que min nunca sea mayor que max
 	  if (minVal > maxVal) {
 		minVal = maxVal;
+		rangeSlider.noUiSlider.set([minVal, maxVal]);
+	  }
+
+	  // 👇 Nuevo: diferencia mínima de 10 números
+	  if ((maxVal - minVal) < 10) {
+		maxVal = minVal + 10;
+		if (maxVal > 999) maxVal = 999; // límite superior
 		rangeSlider.noUiSlider.set([minVal, maxVal]);
 	  }
 

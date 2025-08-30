@@ -35,7 +35,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end; /* 👈 alinea los hijos a la derecha */
   gap: 1em; /* separa uniformemente cada item */
+  flex: 1;                   /* 👈 ocupa todo el espacio disponible */
 }
 
 .hud-right {

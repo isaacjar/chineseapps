@@ -12,19 +12,16 @@ export function startPinyinFromDigits() {
 
       view.innerHTML = `
         <div class="question">${question.prompt}</div>
-        <div class="options">
-          ${question.options.map(opt => `<button class="option">${opt}</button>`).join('')}
-        </div>
+        <div id="options-root"></div>
       `;
 
-      document.querySelectorAll('.option').forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (btn.textContent === question.answer) {
-            correct();
-          } else {
-            wrong();
-          }
-        });
+      const container = view.querySelector('#options-root');
+      renderOptions(container, question.options, (opt) => {
+        if (opt === question.answer) {
+          correct();
+        } else {
+          wrong();
+        }
       });
     }
   });

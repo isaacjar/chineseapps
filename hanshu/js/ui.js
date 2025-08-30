@@ -1,6 +1,6 @@
 // ui.js
 import { t } from './i18n.js';
-import { currentScreen } from './router.js';
+import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';
 
 let timerInterval = null; // referencia para limpiar el contador si cambia de pantalla

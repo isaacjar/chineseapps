@@ -1,5 +1,5 @@
 // ui.js
-import { t } from './i18n.js';
+import { translations } from './i18n.js';
 import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';
 
@@ -111,16 +111,19 @@ export function showToast(msg, type = 'info') {
 }
 
 // Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
-const successMessages = Object.values(t('successMessages') || {});
-const failMessages = Object.values(t('failMessages') || {});
+const successMessages = Object.values(t('successMessages'));
+const failMessages = Object.values(t('failMessages'));
+function getRandomMessage(messages) {
+  return messages[Math.floor(Math.random() * messages.length)];
+}
 
 export function showSuccessToast() {
-  const msg = successMessages[Math.floor(Math.random() * successMessages.length)];
+  const msg = getRandomMessage(successMessages); 
   showToast(msg, 'good');
 }
 
 export function showFailToast() {
-  const msg = failMessages[Math.floor(Math.random() * failMessages.length)];
+  const msg = getRandomMessage(failMessages); 
   showToast(msg, 'warn');
 }
 

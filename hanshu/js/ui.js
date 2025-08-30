@@ -17,9 +17,7 @@ export function renderHUD() {
       </div>
     `;
 	const btn = document.getElementById('hud-settings');
-	if (btn) {
-	  btn.addEventListener('click', () => navigate('settings'));
-	}
+	if (btn) btn.addEventListener('click', () => navigate('settings'));
     return;
   }
 
@@ -40,12 +38,14 @@ export function renderHUD() {
 }
 
 // actualizar HUD con animación
-export function updateHUD({ score, errors }) {
-  if (score !== undefined) {
-    $('#hud-score').fadeOut(100).text(score).fadeIn(100);
+export function updateHUD({ score, errors, streak, bestStreak, lives }) {
+  
+  if (streak !== undefined) {
+    $('#hud-streak').fadeOut(100).text(`🔥 ${streak}`).fadeIn(100);
   }
-  if (errors !== undefined) {
-    $('#hud-errors').fadeOut(100).text(errors).fadeIn(100);
+  
+  if (lives !== undefined) {
+    $('#hud-lives').fadeOut(100).text(`❤️ ${lives}`).fadeIn(100);
   }
 }
 

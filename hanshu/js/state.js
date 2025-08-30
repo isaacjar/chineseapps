@@ -7,6 +7,8 @@ let session = {
   score: 0,
   streak: 0,
   lives: 3,
+  bestStreak: 0,
+  errors: 0,
 };
 
 // Valores por defecto de configuración
@@ -45,6 +47,8 @@ export function resetSession() {
   session = {
     score: 0,
     streak: 0,
+	bestStreak: 0,
+    errors: 0,
     lives: settings.fails ?? 3,
   };
 }

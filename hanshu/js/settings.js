@@ -219,4 +219,5 @@ export function openSettings() {
       closeModal();
 	  location.reload();
     });
+  });
 }

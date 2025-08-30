@@ -21,7 +21,7 @@ export function startGame(config) {
     qtime: settings.qtime,
     lives: settings.fails,
     score: 0,
-    streak: 0,
+    errors: 0,
 	streak: 0,
 	bestStreak: 0,
     asked: 0,
@@ -75,18 +75,19 @@ function handleAnswer(isCorrect) {
   const session = getSession();
 
   if (isCorrect) {
-    session.score += 10;
+    session.score += 1;
     session.streak++;
+	if (session.streak > (session.bestStreak ?? 0)) {
+      session.bestStreak = session.streak;   
+    }
     setSession(session);
     updateHUD(session);
     updateProgress(session.asked, session.qcount);
-    showSuccessToast();
-	if ((session.streak ?? 0) > (session.bestStreak ?? 0)) {
-		session.bestStreak = session.streak;
-	} 
+    showSuccessToast(); 
   } else {
     session.streak = 0;   
     session.lives--;
+	session.errors = (session.errors ?? 0) + 1;
     setSession(session);
     updateHUD(session);
     updateProgress(session.asked, session.qcount);

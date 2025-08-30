@@ -20,15 +20,19 @@
       "gameOver": "Game Over",
       "finalScore": "Final Score",
       "correctAnswers": "Correct Answers",
-      "restart": "Restart"
+      "restart": "Restart",
+	  "reset": "Reset",
+	  "chooseGame": "Choose game type...",
+	  "score": "🎖️",
+	  "errors": "❌"
     },
     "menu": {
       "title": "Main Menu",
       "subtitle": "Choose your game mode",
-      "recognition": "🔢 Visual recognition",
-      "reverse": "✍️ Reverse writing",
-      "pinyinChars": "✍️ Choose correct pinyin (characters)",
-      "pinyinDigits": "✍️ Choose correct pinyin (digits)",
+      "recognition": "Guess the number (hanzis)",
+      "reverse": "Guess the character",
+      "pinyinChars": "Guess the pronunciation",
+      "pinyinDigits": "Guess the number (pinyin)",
       "settings": "⚙️ Settings",
       "start": "Start",
       "exit": "Exit"
@@ -38,10 +42,10 @@
       "language": "Language",
       "pinyin": "Show pinyin hints 🐼",
       "range": "Number range 🏔️",
-      "qcount": "Questions per game 🏅",
-      "qtime": "Time per question ⏱️",
-      "fails": "Allowed mistakes ❤️",
-      "difficulty": "Difficulty 🎯",
+      "qcount": "Nº Questions 🏅",
+      "qtime": "⏱️",
+      "fails": "❤️",
+      "difficulty": "🎯",
       "ranges": {
         "r1_10": "1–10",
         "r11_99": "11–99",
@@ -85,10 +89,10 @@
     "menu": {
       "title": "Menú Principal",
       "subtitle": "Elige tu modo de juego",
-      "recognition": "🔢 Reconocimiento visual",
-      "reverse": "✍️ Escritura inversa",
-      "pinyinChars": "✍️ Pinyin desde caracteres",
-      "pinyinDigits": "✍️ Pinyin desde cifras",
+      "recognition": "Adivina el número (hanzis)",
+      "reverse": "Adivina el carácter",
+      "pinyinChars": "Adivina la pronunciación",
+      "pinyinDigits": "Adivina el número (pinyin)"
       "settings": "⚙️ Configuración",
       "start": "Iniciar",
       "exit": "Salir"
@@ -145,10 +149,10 @@
     "menu": {
       "title": "Menu Principal",
       "subtitle": "Choisissez votre mode de jeu",
-      "recognition": "🔢 Reconnaissance visuelle",
-      "reverse": "✍️ Écriture inversée",
-      "pinyinChars": "✍️ Pinyin depuis caractères",
-      "pinyinDigits": "✍️ Pinyin depuis chiffres",
+      "recognition": "Devine le nombre (hanzis)",
+      "reverse": "Devine le caractère",
+      "pinyinChars": "Devine la prononciation",
+      "pinyinDigits": "Devine le nombre (pinyin)"
       "settings": "⚙️ Paramètres",
       "start": "Démarrer",
       "exit": "Quitter"
@@ -205,10 +209,10 @@
     "menu": {
       "title": "Hauptmenü",
       "subtitle": "Wähle deinen Spielmodus",
-      "recognition": "🔢 Visuelle Erkennung",
-      "reverse": "✍️ Umgekehrtes Schreiben",
-      "pinyinChars": "✍️ Pinyin aus Zeichen",
-      "pinyinDigits": "✍️ Pinyin aus Zahlen",
+      "recognition": "Errate die Zahl (Hanzis)",
+      "reverse": "Errate das Zeichen",
+      "pinyinChars": "Errate die Aussprache",
+      "pinyinDigits": "Errate die Zahl (Pinyin)"
       "settings": "⚙️ Einstellungen",
       "start": "Starten",
       "exit": "Beenden"
@@ -265,10 +269,10 @@
     "menu": {
       "title": "Menu Principal",
       "subtitle": "Escolha seu modo de jogo",
-      "recognition": "🔢 Reconhecimento visual",
-      "reverse": "✍️ Escrita reversa",
-      "pinyinChars": "✍️ Pinyin com caracteres",
-      "pinyinDigits": "✍️ Pinyin com dígitos",
+      "recognition": "Adivinha o número (hanzis)",
+      "reverse": "Adivinha o caractere",
+      "pinyinChars": "Adivinha a pronúncia",
+      "pinyinDigits": "Adivinha o número (pinyin)"
       "settings": "⚙️ Configurações",
       "start": "Iniciar",
       "exit": "Sair"
@@ -325,10 +329,10 @@
     "menu": {
       "title": "مرکزی مینو",
       "subtitle": "اپنا کھیل کا موڈ منتخب کریں",
-      "recognition": "🔢 بصری پہچان",
-      "reverse": "✍️ الٹی تحریر",
-      "pinyinChars": "✍️ حروف سے پینین",
-      "pinyinDigits": "✍️ اعداد سے پینین",
+      "recognition": "ہنزی میں نمبر پہچانو",
+      "reverse": "کردار پہچانو",
+      "pinyinChars": "ادائیگی پہچانو",
+      "pinyinDigits": "پینین میں نمبر پہچانو"
       "settings": "⚙️ ترتیبات",
       "start": "شروع کریں",
       "exit": "خارج کریں"

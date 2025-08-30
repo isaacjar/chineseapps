@@ -22,8 +22,8 @@ export function startGame(config) {
     lives: settings.fails,
     score: 0,
     streak: 0,
-	streak = 0;
-	bestStreak = 0;
+	streak = 0,
+	bestStreak = 0,
     asked: 0,
     onQuestion: config.onQuestion
   };

@@ -36,7 +36,10 @@ export function openSettings() {
 		  <label>${t('settings.range')}</label>
 		  <div id="range-slider"></div>
 		  <p><span id="range-min-label">${s.minValue ?? 1}</span> - <span id="range-max-label">${s.maxValue ?? 10}</span></p>
+		  <input type="hidden" id="range-min-input" name="minValue" value="${s.minValue ?? 1}">
+		  <input type="hidden" id="range-max-input" name="maxValue" value="${s.maxValue ?? 10}">
 		</div>
+		
 
       <!-- Preguntas: slider -->
       <div class="settings-item">
@@ -86,19 +89,15 @@ export function openSettings() {
   // ⚠️ Inserta el HTML en el contenedor
   //document.getElementById('modal-root').innerHTML = content;
   
-  import('./ui.js').then(({ showModal }) => {
-    showModal(content, () => {});
-    const form = document.querySelector('#settings-form');
-    form.language.value = s.language;
-
-    // ===== noUiSlider para rango =====
+  // ===== noUiSlider para rango =====
+	// ===== noUiSlider para rango =====
 	const rangeSlider = document.getElementById('range-slider');
 	noUiSlider.create(rangeSlider, {
-	  start: [s.minValue ?? 10, s.maxValue ?? 999],
+	  start: [s.minValue ?? 1, s.maxValue ?? 10],
 	  connect: true,
-	  step: 10, 
+	  step: 10,
 	  range: {
-		'min': 10,
+		'min': 1,
 		'max': 999
 	  }
 	});
@@ -107,11 +106,31 @@ export function openSettings() {
 	const maxLabel = document.getElementById('range-max-label');
 
 	rangeSlider.noUiSlider.on('update', (values) => {
-	  const [min, max] = values.map(v => Math.round(v));
-	  minLabel.textContent = min;
-	  maxLabel.textContent = max;
+	  let minVal = Math.round(values[0]);
+	  let maxVal = Math.round(values[1]);
+
+	  // 👇 Aseguramos que max siempre sea al menos 10
+	  if (maxVal < 10) {
+		maxVal = 10;
+		rangeSlider.noUiSlider.set([minVal, maxVal]);
+	  }
+
+	  // 👇 Aseguramos que min nunca sea mayor que max
+	  if (minVal > maxVal) {
+		minVal = maxVal;
+		rangeSlider.noUiSlider.set([minVal, maxVal]);
+	  }
+
+	  // Actualizar etiquetas
+	  minLabel.textContent = minVal;
+	  maxLabel.textContent = maxVal;
+
+	  // Actualizar hidden inputs
+	  document.getElementById('range-min-input').value = minVal;
+	  document.getElementById('range-max-input').value = maxVal;
 	});
-	
+
+
 	// ===== Preguntas slider =====
     const qcountInput = form.querySelector('#qcount');
     const qcountValue = form.querySelector('#qcount-value');

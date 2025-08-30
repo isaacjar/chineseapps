@@ -2,6 +2,7 @@
 import { sample } from '../rng.js';
 import { getSettings, getSession } from '../state.js';
 import { smoothNavigate } from '../ui.js';
+import { navigate } from '../router.js';   // 👈 Corrige refresco pantalla 
 
 // ===== Helpers de rango =====
 function getNumberRange() {
@@ -186,6 +187,7 @@ export function showGameOver() {
 
     document.querySelector('#btn-menu').addEventListener('click', () => {
       window.location.hash = '#menu';
+	  navigate('menu');   // 👈 fuerza refresco del menú
     });
   });
 }

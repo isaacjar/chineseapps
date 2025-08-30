@@ -14,7 +14,7 @@ export function initSettingsTrigger() {
 
 export function openSettings() {
   const s = getSettings();
-
+  const t = i18n.t; 
   const content = `
     <h2 style="margin-bottom: 10px;">${t('settings.title')}</h2>
     <form id="settings-form" class="settings-form">
@@ -88,6 +88,17 @@ export function openSettings() {
       </div>
     </form>
   `;
+  
+  // ⚠️ Inserta el HTML en el contenedor
+  document.getElementById('settings-container').innerHTML = content;
+  
+// ===== DIFICULTAD =====
+	const diffInput = document.getElementById('difficulty');
+	const diffEmoji = document.getElementById('difficulty-emoji');
+
+	diffInput.addEventListener('change', () => {
+		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
+	});
 
   import('./ui.js').then(({ showModal }) => {
     showModal(content, () => {});
@@ -131,14 +142,6 @@ export function openSettings() {
         document.querySelector('#qtime-value').textContent = args.value + 's';
       }
     });
-
-	// ===== DIFICULTAD =====
-	const diffInput = document.getElementById('difficulty');
-	const diffEmoji = document.getElementById('difficulty-emoji');
-
-	diffInput.addEventListener('change', () => {
-		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
-	});
 
     // ===== Guardar cambios =====
     form.addEventListener('submit', (e) => {

@@ -125,8 +125,8 @@ export function openSettings() {
 	  }
 
 	  // 👇 Nuevo: diferencia mínima de 10 números
-	  if ((maxVal - minVal) < 10) {
-		maxVal = minVal + 10;
+	  if ((maxVal - minVal) < 9) {
+		maxVal = minVal + 9;
 		if (maxVal > 999) maxVal = 999; // límite superior
 		rangeSlider.noUiSlider.set([minVal, maxVal]);
 	  }

@@ -1,5 +1,5 @@
 // ui.js
-import { t } from './i18n.js';
+import { t, translations, getCurrentLang } from './i18n.js';
 import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';
 
@@ -111,8 +111,8 @@ export function showToast(msg, type = 'info') {
 }
 
 // Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
-const successMessages = Object.values(t('successMessages'));
-const failMessages = Object.values(t('failMessages'));
+const successMessages = Object.values(translations[getCurrentLang()].successMessages);
+const failMessages = Object.values(translations[getCurrentLang()].failMessages);
 function getRandomMessage(messages) {
   return messages[Math.floor(Math.random() * messages.length)];
 }

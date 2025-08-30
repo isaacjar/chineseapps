@@ -68,3 +68,5 @@ export async function initI18n(defaultLang = 'en') {
   await loadTranslations();
   await setLang(defaultLang);
 }
+
+export { translations };

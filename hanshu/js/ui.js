@@ -28,11 +28,15 @@ export function renderHUD(session) {
     <div class="hud-left">
       <span class="hud-title">🐼 HanShu</span>
     </div>
-    <div class="hud-center">
-      <span id="hud-lives">❤️ ${session.lives ?? 0}</span>
-      <span id="hud-progress">🌱 ${session.answered ?? 0}/${session.total ?? 0}</span>
-      <span id="hud-timer">⏱️</span>
-    </div>
+    <<div class="hud-center">	  
+	  <span id="hud-progress">🌱 ${session.answered ?? 0}/${session.total ?? 0}</span>
+	  <span id="hud-streak">🔥 ${session.streak ?? 0}</span>
+	  <span id="hud-lives">❤️ ${session.lives ?? 0}</span>
+	  <span id="hud-timer">
+		<div id="hud-timer-knob"></div>
+		<div id="hud-timer-value">${session.time ?? ''}</div>
+	  </span>
+	</div>
     <div class="hud-right"></div> <!-- 👈 vacío, sin settings -->
   `;
 }

@@ -33,6 +33,25 @@
   text-align: center;
   font-weight: 600;
 }
+/* ===== Responsive HUD ===== */
+@media (max-width: 600px) {
+  #hud {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .hud-left, .hud-right, .hud-center {
+    flex: unset;
+    text-align: center;
+    width: 100%;
+  }
+
+  #hud .hud-center span {
+    display: block;
+    margin: 0.2em 0;
+  }
+}
 
 /* ====== Timer ====== */
 .timer-bar {
@@ -257,6 +276,20 @@
 
 .option:active {
   transform: scale(0.95);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .options-container {
+    grid-template-columns: 1fr !important; /* siempre una sola columna */
+    max-width: 100% !important;
+  }
+
+  .option {
+    width: 100%;   /* botón ocupa todo el ancho disponible */
+    font-size: 1rem;
+    padding: 0.8em;
+  }
 }
 
 /* Switch para dificultad */

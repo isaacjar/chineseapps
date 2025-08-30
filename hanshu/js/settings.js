@@ -109,7 +109,7 @@ export function openSettings() {
     form.querySelectorAll('.btn-step').forEach(btn => {
       btn.addEventListener('click', () => {
         let val = parseInt(failsHidden.value);
-        if (btn.dataset.action === 'decrease' && val > 0) val--;
+        if (btn.dataset.action === 'decrease' && val > 1) val--;
         if (btn.dataset.action === 'increase' && val < 10) val++;
         failsHidden.value = val;
         failsValue.textContent = val;

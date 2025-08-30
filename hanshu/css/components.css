@@ -536,3 +536,19 @@ input:checked + .slider:before {
 .settings-row > * {
   flex: 0 0 auto; /* evita que los hijos se estiren */
 }
+
+/* Dificultad en settings */
+.difficulty-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.difficulty-item label[for="difficulty"] {
+  flex: 1;
+  font-weight: 600;
+}
+
+#difficulty-emoji {
+  font-size: 1.5rem;
+}

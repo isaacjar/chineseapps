@@ -387,6 +387,7 @@ input:checked + .slider:before {
 }
 .settings-item label {
   font-weight: 600;
+  font-size: 2rem;
   margin-right: 0.5em;
   white-space: nowrap; /* evita que se corte en varias líneas */
 }

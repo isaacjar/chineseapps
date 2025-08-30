@@ -71,7 +71,7 @@ export function openSettings() {
 
       <!-- Dificultad: switch -->
       <span class="settings-item">
-        <label>${t('settings.difficulty')}</label>
+        <!-- <label>${t('settings.difficulty')}</label> -->
 		<span id="difficulty-emoji">${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
           <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>

@@ -61,10 +61,7 @@ function showNextQuestion() {
 
 // Reiniciar temporizador para cada pregunta
 	initGameTimer(session.qtime, () => {
-	  const session = getSession();
-	  session.lives = 0; // o descontar 1 vida si quieres penalizar
-	  setSession(session);
-	  showGameOver();
+	  handleAnswer(false); // 👇 Al acabarse el tiempo, cuenta como respuesta fallida
 	});
 
   // Llamamos al generador de preguntas del juego específico

@@ -7,8 +7,6 @@ import { startPinyinFromDigits } from './games/game-pinyin-from-digits.js';
 import { openSettings } from './settings.js';
 import { smoothNavigate } from './ui.js';
 
-let currentScreen = null;
-
 // Mapeo de pantallas a funciones
 const routes = {
   menu: renderMenu,

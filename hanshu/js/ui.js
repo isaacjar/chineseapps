@@ -1,5 +1,5 @@
 // ui.js
-import { translations } from './i18n.js';
+import { t } from './i18n.js';
 import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';
 

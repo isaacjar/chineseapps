@@ -13,8 +13,7 @@ export function initSettingsTrigger() {
 }
 
 export function openSettings() {
-  const s = getSettings();
-  const t = i18n.t; 
+  const s = getSettings();  
   const content = `
     <h2 style="margin-bottom: 10px;">${t('settings.title')}</h2>
     <form id="settings-form" class="settings-form">

@@ -76,9 +76,9 @@ export function openSettings() {
 
       <!-- Botones -->
       <div class="settings-actions">
-        <button type="submit" class="btn btn-primary">${t('ui.save')}</button>
-        <button type="button" id="settings-reset" class="btn btn-warn">🔄 ${t('ui.reset')}</button>
-        <button type="button" id="settings-cancel" class="btn btn-secondary">${t('ui.cancel')}</button>
+        <button type="submit" class="btn btn-primary">${t('settings.save')}</button>
+        <button type="button" id="settings-reset" class="btn btn-warn">🔄 ${t('settings.reset')}</button>
+        <button type="button" id="settings-cancel" class="btn btn-secondary">${t('settings.cancel')}</button>
       </div>
     </form>
   `;

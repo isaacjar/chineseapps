@@ -266,7 +266,10 @@
 }
 
 .option {
-  display: inline-block;
+  display: block;            /* cada celda del grid ocupa todo */
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
   background-color: var(--color-primary, #4caf50);
   color: #000;
   border: none;

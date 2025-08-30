@@ -100,7 +100,7 @@
 /* ====== Toasts ====== */
 #toast-container {
   position: fixed;
-  top: 200px;
+  top: 180px;
   left: 20px;
   z-index: 1000;
   display: flex;

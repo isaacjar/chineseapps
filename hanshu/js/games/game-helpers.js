@@ -196,7 +196,8 @@ export function showGameOver() {
     `;
 
     document.querySelector('#btn-restart').addEventListener('click', () => {
-      window.location.hash = `#${session.id}`;
+      //window.location.hash = `#${session.id}`;
+	  navigate(session.id);
     });
 
     document.querySelector('#btn-menu').addEventListener('click', () => {

@@ -588,3 +588,50 @@ input:checked + .slider:before {
 #difficulty-emoji {
   font-size: 1.5rem;
 }
+
+/* ====== Rango con noUiSlider ====== */
+#range-slider {
+  margin: 1em 0;
+  width: 100%;        /* ocupa todo el ancho del contenedor */
+  max-width: 400px;   /* límite para que no se vea demasiado grande en pantallas grandes */
+}
+
+.noUi-target {
+  background: #ddd;   /* color base de la pista */
+  border-radius: 10px;
+  height: 8px;        /* grosor de la pista */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.noUi-connect {
+  background: var(--color-primary, #4caf50); /* color de la parte seleccionada */
+}
+
+.noUi-handle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--color-primary, #4caf50);
+  cursor: grab;
+}
+
+.noUi-handle:active {
+  cursor: grabbing;
+}
+
+.noUi-horizontal .noUi-handle {
+  top: -6px;   /* centra el handle verticalmente en la pista */
+}
+
+.settings-item p {
+  margin-top: 0.5em;
+  font-weight: 600;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  #range-slider {
+    max-width: 100%;   /* en móviles usa todo el ancho */
+  }
+}
+

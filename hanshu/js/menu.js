@@ -11,10 +11,10 @@ export function renderMenu() {
     <section class="menu">
       <h2>${t('ui.chooseGame')}</h2>
       <div class="menu-grid">
-        <button class="btn menu-btn" data-screen="recognition">🔢 ${t('menu.recognition')}</button>
-        <button class="btn menu-btn" data-screen="reverse">✍️ ${t('menu.reverse')}</button>
-        <button class="btn menu-btn" data-screen="pinyinChars">✍️ ${t('menu.pinyinChars')}</button>
-        <button class="btn menu-btn" data-screen="pinyinDigits">✍️ ${t('menu.pinyinDigits')}</button>
+        <button class="btn menu-btn" data-screen="recognition">🧮 Guess the number (hanzis)</button>
+        <button class="btn menu-btn" data-screen="pinyinDigits">🔢 Guess the number (pinyin)</button>
+        <button class="btn menu-btn" data-screen="reverse">🀄 Guess the character</button>
+        <button class="btn menu-btn" data-screen="pinyinChars">🗣️ Guess the pronunciation</button>
       </div>
     </section>
   `;

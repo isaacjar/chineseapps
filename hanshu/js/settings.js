@@ -175,6 +175,7 @@ export function openSettings() {
     // ===== Cancelar =====
     document.querySelector('#settings-cancel').addEventListener('click', () => {
       closeModal();
+	  location.reload();
     });
   });
 }

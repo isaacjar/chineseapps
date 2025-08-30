@@ -3,6 +3,85 @@ import { sample } from '../rng.js';
 import { getSettings, getSession } from '../state.js';
 import { smoothNavigate } from '../ui.js';
 
+// ===== Helpers de rango =====
+function getNumberRange() {
+  const r = getSettings().range || 'r1_10';
+  switch (r) {
+    case 'r1_10': return [1, 10];
+    case 'r11_99': return [11, 99];
+    case 'r100_999': return [100, 999];
+    case 'r1000_9999': return [1000, 9999];
+    case 'r10000_9999999': return [10000, 9999999];
+    default: return [1, 10];
+  }
+}
+
+function randomInRange() {
+  const [min, max] = getNumberRange();
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ===== Conversores numéricos =====
+const hanziDigits = ["零","一","二","三","四","五","六","七","八","九"];
+const pinyinDigits = ["líng","yī","èr","sān","sì","wǔ","liù","qī","bā","jiǔ"];
+
+const hanziUnits = ["","十","百","千","万","十万","百万"];
+const pinyinUnits = ["","shí","bǎi","qiān","wàn","shí wàn","bǎi wàn"];
+
+function toChineseNumber(num) {
+  if (num === 0) return hanziDigits[0];
+
+  let str = "";
+  const digits = String(num).split("").map(d => parseInt(d,10));
+  const len = digits.length;
+  let zero = false;
+
+  digits.forEach((d,i) => {
+    const pos = len - i - 1;
+    if (d === 0) {
+      zero = true;
+    } else {
+      if (zero) {
+        str += hanziDigits[0];
+        zero = false;
+      }
+      if (!(d === 1 && pos === 1 && str === "")) {
+        str += hanziDigits[d];
+      }
+      str += hanziUnits[pos];
+    }
+  });
+
+  return str;
+}
+
+function toPinyin(num) {
+  if (num === 0) return pinyinDigits[0];
+
+  let str = "";
+  const digits = String(num).split("").map(d => parseInt(d,10));
+  const len = digits.length;
+  let zero = false;
+
+  digits.forEach((d,i) => {
+    const pos = len - i - 1;
+    if (d === 0) {
+      zero = true;
+    } else {
+      if (zero) {
+        str += pinyinDigits[0] + " ";
+        zero = false;
+      }
+      if (!(d === 1 && pos === 1 && str === "")) {
+        str += pinyinDigits[d] + " ";
+      }
+      str += pinyinUnits[pos] + " ";
+    }
+  });
+
+  return str.trim();
+}
+
 // ===== Renderizado genérico de opciones =====
 export function renderOptions(container, options, onSelect) {
   const wrapper = document.createElement('div');
@@ -24,39 +103,34 @@ export function generateOptions(correct, pool, difficulty) {
   const settings = getSettings();
   const count = difficulty || (settings.difficulty === 'hard' ? 6 : 4);
 
-  // Quitamos la respuesta correcta del pool
   const filtered = pool.filter(x => x !== correct);
-
-  // Distractores aleatorios
   const distractors = sample(filtered, count - 1);
-
-  // Mezclamos y devolvemos
   return sample([correct, ...distractors], count);
 }
 
 // ===== Generadores de preguntas para cada modo =====
 
-// Reconocimiento: dígito → carácter chino
+// Reconocimiento: carácter chino → número
 export function getRandomQuestion() {
-  const pool = ["一","二","三","四","五","六","七","八","九","十"];
-  const answers = ["1","2","3","4","5","6","7","8","9","10"];
-  const idx = Math.floor(Math.random() * pool.length);
+  const num = randomInRange();
+  const prompt = toChineseNumber(num);
+  const answer = String(num);
 
-  const prompt = pool[idx];
-  const answer = answers[idx];
-  const options = generateOptions(answer, answers);
+  const pool = [];
+  for (let i = 1; i <= 10; i++) pool.push(String(i));
+  const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
 }
 
 // Reverse: número → carácter chino
 export function getRandomReverseQuestion() {
-  const pool = ["一","二","三","四","五","六","七","八","九","十"];
-  const answers = ["1","2","3","4","5","6","7","8","9","10"];
-  const idx = Math.floor(Math.random() * answers.length);
+  const num = randomInRange();
+  const prompt = String(num);
+  const answer = toChineseNumber(num);
 
-  const prompt = answers[idx];
-  const answer = pool[idx];
+  const pool = [];
+  for (let i = 1; i <= 10; i++) pool.push(toChineseNumber(i));
   const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
@@ -64,26 +138,26 @@ export function getRandomReverseQuestion() {
 
 // Pinyin desde caracteres
 export function getRandomPinyinFromCharsQuestion() {
-  const pool = ["一","二","三","四","五","六","七","八","九","十"];
-  const answers = ["yī","èr","sān","sì","wǔ","liù","qī","bā","jiǔ","shí"];
-  const idx = Math.floor(Math.random() * pool.length);
+  const num = randomInRange();
+  const prompt = toChineseNumber(num);
+  const answer = toPinyin(num);
 
-  const prompt = pool[idx];
-  const answer = answers[idx];
-  const options = generateOptions(answer, answers);
+  const pool = [];
+  for (let i = 1; i <= 10; i++) pool.push(toPinyin(i));
+  const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
 }
 
 // Pinyin desde dígitos
 export function getRandomPinyinFromDigitsQuestion() {
-  const pool = ["1","2","3","4","5","6","7","8","9","10"];
-  const answers = ["yī","èr","sān","sì","wǔ","liù","qī","bā","jiǔ","shí"];
-  const idx = Math.floor(Math.random() * pool.length);
+  const num = randomInRange();
+  const prompt = String(num);
+  const answer = toPinyin(num);
 
-  const prompt = pool[idx];
-  const answer = answers[idx];
-  const options = generateOptions(answer, answers);
+  const pool = [];
+  for (let i = 1; i <= 10; i++) pool.push(toPinyin(i));
+  const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
 }

@@ -76,13 +76,13 @@ export function openSettings() {
 
       <!-- Botones -->
       <div class="settings-actions">
-        <button type="submit" class="btn btn-primary">${t('settings.save')}</button>
-        <button type="button" id="settings-reset" class="btn btn-warn">🔄 ${t('settings.reset')}</button>
+        <button type="submit" class="btn btn-primary">💾</button>
+        <button type="button" id="settings-reset" class="btn btn-warn">🔄</button>
         <button type="button" id="settings-cancel" class="btn btn-secondary">${t('settings.cancel')}</button>
       </div>
     </form>
   `;
-  
+  // ${t('settings.save')}    ${t('settings.reset')}
   // ⚠️ Inserta el HTML en el contenedor
   //document.getElementById('modal-root').innerHTML = content;
   

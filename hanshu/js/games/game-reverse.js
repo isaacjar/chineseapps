@@ -1,6 +1,6 @@
 // game-reverse.js
 import { startGame } from './game-session.js';
-import { getRandomReverseQuestion } from './game-helpers.js';
+import { getRandomReverseQuestion, renderOptions } from './game-helpers.js';
 
 export function startReverse() {
   startGame({

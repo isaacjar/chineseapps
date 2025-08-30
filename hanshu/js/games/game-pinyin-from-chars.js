@@ -1,6 +1,6 @@
 // game-pinyin-from-chars.js
 import { startGame } from './game-session.js';
-import { getRandomPinyinFromCharsQuestion } from './game-helpers.js';
+import { getRandomPinyinFromCharsQuestion, renderOptions } from './game-helpers.js';
 
 export function startPinyinFromChars() {
   startGame({

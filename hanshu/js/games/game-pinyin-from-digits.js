@@ -1,6 +1,6 @@
 // game-pinyin-from-digits.js
 import { startGame } from './game-session.js';
-import { getRandomPinyinFromDigitsQuestion } from './game-helpers.js';
+import { getRandomPinyinFromDigitsQuestion, renderOptions } from './game-helpers.js';
 
 export function startPinyinFromDigits() {
   startGame({

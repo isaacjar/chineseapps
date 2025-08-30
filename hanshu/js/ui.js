@@ -31,7 +31,7 @@ export function renderHUD() {
 	  <span id="hud-lives">❤️ ${session.lives ?? 0}</span>
 	  <span id="hud-timer">
 		<div id="hud-timer-knob"></div>
-		<div id="hud-timer-value">${session.time ?? ''}</div>
+		<!--<div id="hud-timer-value">${session.time ?? ''}</div> -->
 	  </span>
 	</div>
     <div class="hud-right"></div> <!-- 👈 vacío, sin settings -->

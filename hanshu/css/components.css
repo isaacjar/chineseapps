@@ -259,7 +259,7 @@
 .option {
   display: inline-block;
   background-color: var(--color-primary, #4caf50);
-  color: #fff;
+  color: #000;
   border: none;
   border-radius: 12px;
   padding: 0.8em 1.2em;
@@ -271,7 +271,8 @@
 }
 
 .option:hover {
-  background-color: #45a049;
+  background-color: #7cd87c;
+  border: 1px solid #4caf50;
 }
 
 .option:active {

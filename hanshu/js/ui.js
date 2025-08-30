@@ -1,21 +1,39 @@
 // ui.js
 import { t } from './i18n.js';
+import { currentScreen } from './router.js';
+import { getSession } from './state.js';
 
 let timerInterval = null; // referencia para limpiar el contador si cambia de pantalla
 
 // ======= HUD =======
 export function renderHUD(session) {
   const hud = document.querySelector('#hud');
+  if (!hud) return;
+  // Si estamos en menú o en settings → solo título + botón settings
+  if (currentScreen === 'menu' || currentScreen === 'settings') {
+    hud.innerHTML = `
+      <div class="hud-left">
+        <span class="hud-title">🐼 HanShu</span>
+      </div>
+      <div class="hud-right">
+        <button id="hud-settings" class="btn">⚙️</button>
+      </div>
+    `;
+    return;
+  }
+
+  // Si estamos en un juego → título + HUD (vidas, progreso, timer)
+  const session = getSession();
   hud.innerHTML = `
-    <div class="hud-item" id="hud-language">${session.language}</div>
-    <div class="hud-item" id="hud-progress">🌱 0/${session.qcount || 0}</div>
-    <div class="hud-item">${t('ui.score')}: <span id="hud-score">${session.score}</span></div>
-    <div class="hud-item">${t('ui.errors')}: <span id="hud-errors">${session.errors}</span></div>
-    <div class="hud-item">
-      <div id="hud-timer-knob"></div>
-      <div><span id="hud-timer-value"></span></div>
+    <div class="hud-left">
+      <span class="hud-title">🐼 HanShu</span>
     </div>
-    <button id="btn-open-settings" class="btn">⚙️</button>
+    <div class="hud-center">
+      <span id="hud-lives">❤️ ${session.lives ?? 0}</span>
+      <span id="hud-progress">🌱 ${session.answered ?? 0}/${session.total ?? 0}</span>
+      <span id="hud-timer">⏱️</span>
+    </div>
+    <div class="hud-right"></div> <!-- 👈 vacío, sin settings -->
   `;
 }
 

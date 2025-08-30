@@ -38,13 +38,10 @@ function navigateFromHash() {
   navigate(screen);
 }
 
-/**
- * Navegación SPA con transición suave
- */
+/* Pantallas Menu y Juego */
+export let currentScreen = 'menu';
 export function navigate(screen) {
   currentScreen = screen;
   const action = routes[screen] || routes['menu'];
-
-  // transición visual con jQuery
   smoothNavigate(action);
 }

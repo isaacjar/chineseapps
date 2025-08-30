@@ -6,7 +6,7 @@ import { getSession } from './state.js';
 let timerInterval = null; // referencia para limpiar el contador si cambia de pantalla
 
 // ======= HUD =======
-export function renderHUD(session) {
+export function renderHUD() {
   const hud = document.querySelector('#hud');
   if (!hud) return;
   // Si estamos en menú o en settings → solo título + botón settings

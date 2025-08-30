@@ -98,8 +98,8 @@
 /* ====== Toasts ====== */
 #toast-container {
   position: fixed;
-  top: 220px;
-  left: 100px;
+  top: 200px;
+  left: 20px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -114,9 +114,19 @@
   opacity: 0.95;
   transition: opacity 0.3s;
 }
-.toast.good { background: var(--color-good); }
-.toast.warn { background: var(--color-warn); }
+
 .toast.fade-out { opacity: 0; }
+/* Toasts de éxito/fracaso */
+.toast.good {
+  background-color: #38a169; /* verde éxito */
+  color: #fff;
+}
+
+.toast.warn {
+  background-color: #e53e3e; /* rojo advertencia */
+  color: #fff;
+}
+
 
 /* ====== Modal ====== */
 .modal-overlay {
@@ -271,18 +281,24 @@
 .options-container {
   display: grid;
   gap: 1.5em;
-  margin: 2em 0;
+  margin: 2em auto;
   justify-content: center;
+  align-items: center;   /* 👈 centra también verticalmente si hace falta */
+  text-align: center;    /* 👈 centra el contenido dentro de cada celda */
 }
 
 .options-container.cols-2 {
   grid-template-columns: repeat(2, 1fr);
   max-width: 400px;
+  margin-left: auto;   /* 👈 asegura centrado */
+  margin-right: auto;
 }
 
 .options-container.cols-3 {
   grid-template-columns: repeat(3, 1fr);
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .option {
@@ -465,17 +481,6 @@ input:checked + .slider:before {
   font-weight: bold;
   margin-top: 4px;
   color: #444;
-}
-
-/* Toasts de éxito/fracaso */
-.toast.good {
-  background-color: #38a169; /* verde éxito */
-  color: #fff;
-}
-
-.toast.warn {
-  background-color: #e53e3e; /* rojo advertencia */
-  color: #fff;
 }
 
 /* Ajustar responsividad */

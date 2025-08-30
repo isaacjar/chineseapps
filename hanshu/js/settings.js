@@ -89,7 +89,12 @@ export function openSettings() {
   // ⚠️ Inserta el HTML en el contenedor
   //document.getElementById('modal-root').innerHTML = content;
   
-  // ===== noUiSlider para rango =====
+   
+	import('./ui.js').then(({ showModal }) => {
+	  showModal(content, () => {});
+	  const form = document.querySelector('#settings-form');
+	  form.language.value = s.language;
+	  
 	// ===== noUiSlider para rango =====
 	const rangeSlider = document.getElementById('range-slider');
 	noUiSlider.create(rangeSlider, {
@@ -214,5 +219,4 @@ export function openSettings() {
       closeModal();
 	  location.reload();
     });
-  });
 }

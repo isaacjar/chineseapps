@@ -114,8 +114,11 @@ export function showToast(msg, type = 'info') {
 console.log("Idioma actual:", getLang());
 console.log("Traducciones disponibles:", Object.keys(translations));
 console.log("Objeto en ese idioma:", translations[getLang()]);
-const successMessages = Object.values(translations[getLang()].successMessages);
-const failMessages = Object.values(translations[getLang()].failMessages);
+const current = translations[getLang()] || {};
+const successMessages = Object.values(current.successMessages || {});
+const failMessages = Object.values(current.failMessages || {});
+/*const successMessages = Object.values(translations[getLang()].successMessages);
+const failMessages = Object.values(translations[getLang()].failMessages);*/
 function getRandomMessage(messages) {
   return messages[Math.floor(Math.random() * messages.length)];
 }

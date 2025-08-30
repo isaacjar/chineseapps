@@ -9,6 +9,7 @@ let timerInterval = null; // referencia para limpiar el contador si cambia de pa
 export function renderHUD() {
   const hud = document.querySelector('#hud');
   if (!hud) return;
+  
   // Si estamos en menú o en settings → solo título + botón settings
   if (currentScreen === 'menu' || currentScreen === 'settings') {
     hud.innerHTML = `      
@@ -177,3 +178,8 @@ export function smoothNavigate(renderFn) {
     view.fadeIn(200);
   });
 }
+
+// escucha el evento y repinta el HUD
+window.addEventListener('app:navigated', () => {
+  renderHUD(); // Recalcula el HUD según currentScreen
+});

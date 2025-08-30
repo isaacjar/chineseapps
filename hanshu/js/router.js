@@ -41,5 +41,14 @@ export let currentScreen = 'menu';
 export function navigate(screen) {
   currentScreen = screen;
   const action = routes[screen] || routes['menu'];
-  smoothNavigate(action);
+  const ret = smoothNavigate(action);
+  const notify = () =>
+    window.dispatchEvent(new CustomEvent('app:navigated', { detail: { screen: currentScreen } }));
+
+  if (ret && typeof ret.then === 'function') {
+    ret.then(notify);
+  } else {
+    notify();
+  }
+  return ret;
 }

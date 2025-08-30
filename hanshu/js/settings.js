@@ -42,14 +42,14 @@ export function openSettings() {
       <!-- Preguntas: slider -->
       <div class="settings-item">
         <label for="qcount">${t('settings.qcount')}</label>
-        <input type="range" id="qcount" name="qcount" min="5" max="50" step="5" value="${s.qcount}">
+        <input type="range" id="qcount" name="qcount" min="5" max="50" step="5" value="${s.qcount}" style="width:80%;">
         <span id="qcount-value">${s.qcount}</span>
       </div><p></p>
 
       <!-- Tiempo: knob circular -->
-      <div class="settings-item" style="text-align:center">
+      <div class="settings-item">
         <label>${t('settings.qtime')}</label>
-        <span id="qtime-knob" style="display:block; margin:0.5em auto;"></span>
+        <span id="qtime-knob" style="display:block; margin:0.5em auto; width:120px; height:120px;"></span>
         <!--<span id="qtime-value">${s.qtime}s</span>-->
         <input type="hidden" id="qtime" name="qtime" value="${s.qtime}">
       </div>
@@ -73,7 +73,7 @@ export function openSettings() {
           <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>
         </label>
-      </span>
+      </span><p></p>
 
       <!-- Botones -->
       <div class="settings-actions">

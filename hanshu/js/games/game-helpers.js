@@ -2,7 +2,7 @@
 import { sample } from '../rng.js';
 import { getSettings, getSession } from '../state.js';
 import { smoothNavigate } from '../ui.js';
-import { t } from './i18n.js';
+import { t } from '../i18n.js';
 import { navigate } from '../router.js';   // 👈 Corrige refresco pantalla 
 
 // ===== Helpers de rango =====

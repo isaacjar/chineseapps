@@ -592,14 +592,14 @@ input:checked + .slider:before {
 /* ====== Rango con noUiSlider ====== */
 #range-slider {
   margin: 1em 0;
-  width: 100%;        /* ocupa todo el ancho del contenedor */
-  max-width: 400px;   /* límite para que no se vea demasiado grande en pantallas grandes */
+  width: 80%;        /* ocupa todo el ancho del contenedor */
+  max-width: 600px;   /* límite para que no se vea demasiado grande en pantallas grandes */
 }
 
 .noUi-target {
   background: #ddd;   /* color base de la pista */
   border-radius: 10px;
-  height: 8px;        /* grosor de la pista */
+  height: 10px;        /* grosor de la pista */
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
@@ -608,9 +608,9 @@ input:checked + .slider:before {
 }
 
 .noUi-handle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 80%;
   background: white;
   border: 2px solid var(--color-primary, #4caf50);
   cursor: grab;

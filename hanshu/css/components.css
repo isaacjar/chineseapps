@@ -32,8 +32,10 @@
 }
 
 .hud-center {
-  flex: 0; /* ocupa solo lo que necesite */
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em; /* separa uniformemente cada item */
 }
 
 .hud-right {
@@ -50,7 +52,7 @@
   font-weight: 600;
 }
 /* ===== Responsive HUD ===== */
-@media (max-width: 600px) {
+ @media (max-width: 600px) {
   #hud {
     flex-direction: row;
     align-items: center;
@@ -67,7 +69,7 @@
     display: inline;
     margin: 0 0.3em;
   }
-}
+} 
 
 /* ====== Timer ====== */
 /*.timer-bar {

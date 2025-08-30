@@ -3,7 +3,7 @@ import { loadState, getSettings, getSession } from './state.js';
 import { setLang } from './i18n.js';
 import { initRouter, navigate } from './router.js';
 import { openSettings, initSettingsTrigger } from './settings.js';
-import { renderHUD } from './ui.js';
+import { renderHUD, updateHeaderTexts } from './ui.js';
 
 /**
  * Punto de entrada de la app
@@ -30,7 +30,7 @@ export function startApp() {
 		navigate('menu');   // 👈 fuerza la navegación al menú
 	  });
 	}
-
+    updateHeaderTexts();
   // botón de settings en header
   const btnSettings = document.querySelector('#btn-open-settings');
   if (btnSettings) {
@@ -42,6 +42,10 @@ export function startApp() {
   // activar trigger en HUD (idioma)
   initSettingsTrigger();
 }
+
+window.addEventListener('app:languageChanged', () => {
+  updateHeaderTexts();
+});
 
 // arranque automático cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', startApp);

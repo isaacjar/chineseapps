@@ -14,7 +14,7 @@
     "settings": {
       "title": "Settings",
       "language": "Language",
-      "range": "Numbers range",
+      "range": "Range",
       "qcount": "❓",
       "qtime": "⏱️",
       "fails": "❤️",
@@ -77,7 +77,7 @@
   "settings": {
     "title": "Configuración",
     "language": "Idioma",
-    "range": "Rango de números",
+    "range": "Rango",
     "qcount": "❓",
     "qtime": "⏱️",
     "fails": "❤️",
@@ -140,7 +140,7 @@
   "settings": {
     "title": "Paramètres",
     "language": "Langue",
-    "range": "Plage de nombres",
+    "range": "Plage",
     "qcount": "❓",
     "qtime": "⏱️",
     "fails": "❤️",
@@ -266,7 +266,7 @@
   "settings": {
     "title": "Configurações",
     "language": "Idioma",
-    "range": "Intervalo de números",
+    "range": "Intervalo",
     "qcount": "❓",
     "qtime": "⏱️",
     "fails": "❤️",

@@ -5,23 +5,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1rem;
+  padding: 0.5em 1em;
 }
 
-.hud-left, .hud-right {
+#hud .hud-center span {
+  margin: 0 5px;
+}
+
+#hud-streak {
+  font-weight: bold;
+  color: orange;
+}
+
+.hud-left,
+.hud-right {
   flex: 1;
 }
 
 .hud-center {
   flex: 2;
   text-align: center;
-}
-.hud {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1em;
-  font-size: 1rem;
-  padding: 0.5em 1em;
 }
 
 .hud-item {

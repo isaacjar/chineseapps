@@ -282,8 +282,8 @@
 /* ====== Options (botones de respuesta) ====== */
 .options-container {
   display: grid;
-  gap: 1.5em;
-  margin: 2em auto;
+  gap: 1em;
+  margin: 1.5em auto;
   justify-content: center;
   align-items: center;   /* 👈 centra también verticalmente si hace falta */
   text-align: center;    /* 👈 centra el contenido dentro de cada celda */
@@ -301,6 +301,13 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+/* Layout adaptado a móviles */
+@media (max-width: 600px) {
+  .options-container.cols-3 {
+    grid-template-columns: repeat(2, 1fr); /* 👈 2 columnas en móviles */
+    max-width: 400px; /* ajusta el ancho si quieres */
+  }
 }
 
 .option {

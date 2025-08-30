@@ -1,365 +1,380 @@
 {
   "en": {
     "ui": {
-      "settings": "Settings",
-      "start": "Start",
-      "backMenu": "Back to menu",
-      "confirm": "Confirm",
-      "cancel": "Cancel",
-      "save": "Save",
-      "close": "Close",
-      "lives": "Lives",
-      "streak": "Streak",
-      "time": "Time",
-      "next": "Next",
-      "yourAnswer": "Your answer",
-      "correct": "Correct!",
-      "wrong": "Try again",
-      "outOfTime": "⏰ Out of time!",
-      "gameOver": "Game Over",
-      "finalScore": "Final Score",
-      "correctAnswers": "Correct Answers",
-      "restart": "Restart",
-	  "reset": "Reset",
-	  "chooseGame": "Choose game type...",
-	  "score": "🎖️",
-	  "errors": "❌"
+      "apptitle": "HanShu", 
+	  "appsubtitle": "数字 • Numbers"
     },
     "menu": {
-      "title": "Main Menu",
-      "subtitle": "Choose your game mode",
-      "recognition": "Guess the number (hanzis)",
-      "reverse": "Guess the character",
-      "pinyinChars": "Guess the pronunciation",
-      "pinyinDigits": "Guess the number (pinyin)",
-      "settings": "⚙️ Settings",
-      "start": "Start",
-      "exit": "Exit"
+      "title": "Choose game type...",
+      "recognition": "Guess number (hanzis)",
+      "pinyinDigits": "Guess number (pinyin)",
+	  "reverse": "Guess character",
+      "pinyinChars": "Guess pinyin"      
     },
     "settings": {
       "title": "Settings",
       "language": "Language",
-      "pinyin": "Show pinyin hints 🐼",
-      "range": "Range 💯",
+      "range": "Numbers range",
       "qcount": "❓",
       "qtime": "⏱️",
       "fails": "❤️",
       "difficulty": "",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "What number is this? 🌸",
-      "reversePrompt": "Choose the correct characters 🏯",
-      "pinyinCharsPrompt": "Choose the correct pinyin 🎋",
-      "pinyinDigitsPrompt": "Choose the correct pinyin 🎋",
-      "finalScore": "Final score",
-      "playAgain": "Play again"
-    }
+      "r1_10": "Numbers 1–10",
+      "r11_99": "Numbers 11–99",
+      "r100_999": "No. 100–999",
+      "r1000_9999": "No. 1000–9999",
+      "r10000_9999999": "No. 10,000–9,999,999", 
+	  "save": "Save",
+	  "reset": "Reset", 
+	  "cancel": "Cancel"	  
+      },
+	"successMessages": {
+	  "s1": "🐼 Awesome!",
+	  "s2": "🎉 Correct!",
+	  "s3": "🌟 Well done!",
+	  "s4": "💡 You got it!",
+	  "s5": "🥳 Nailed it!",
+	  "s6": "🐸 Perfect!",
+	  "s7": "🚀 Spot on!",
+	  "s8": "🍀 Nice one!",
+	  "s9": "🦄 Fantastic!",
+	  "s10": "🔥 Unstoppable!"
+	},
+	"failMessages": {
+	  "f1": "😅 Oof, close...",
+	  "f2": "❌ No worries, keep going!",
+	  "f3": "🙈 Missed it!",
+	  "f4": "🍂 Try again!",
+	  "f5": "🤔 Not that one...",
+	  "f6": "🌧️ Bad luck...",
+	  "f7": "🐌 That one slipped!",
+	  "f8": "🙃 Nope!",
+	  "f9": "🍄 Another shot!",
+	  "f10": "🐤 Not quite..."
+	},
+	"gameOver": {
+		"legend": "Game Over",
+		"finalScore": "Final Score", 
+		"questions": "questions", 
+		"errors": "errors",
+		"bestStreak": "Best Streak",
+		"restart": "Restart", 
+		"back": "Back to menu"
+	}
   },
   "es": {
-    "ui": {
-      "settings": "Configuración",
-      "start": "Iniciar",
-      "backMenu": "Volver al menú",
-      "confirm": "Confirmar",
-      "cancel": "Cancelar",
-      "save": "Guardar",
-      "close": "Cerrar",
-      "lives": "Vidas",
-      "score": "Puntuación",
-      "streak": "Racha",
-      "time": "Tiempo",
-      "next": "Siguiente",
-      "yourAnswer": "Tu respuesta",
-      "correct": "¡Correcto!",
-      "wrong": "Intenta de nuevo",
-      "outOfTime": "⏰ ¡Se acabó el tiempo!",
-      "gameOver": "Fin del juego",
-      "finalScore": "Puntuación final",
-      "correctAnswers": "Respuestas correctas",
-      "restart": "Reiniciar"
-    },
-    "menu": {
-      "title": "Menú Principal",
-      "subtitle": "Elige tu modo de juego",
-      "recognition": "Adivina el número (hanzis)",
-      "reverse": "Adivina el carácter",
-      "pinyinChars": "Adivina la pronunciación",
-      "pinyinDigits": "Adivina el número (pinyin)",
-      "settings": "⚙️ Configuración",
-      "start": "Iniciar",
-      "exit": "Salir"
-    },
-    "settings": {
-      "title": "Configuración",
-      "language": "Idioma",
-      "pinyin": "Mostrar ayudas en pinyin 🐼",
-      "range": "Rango numérico 🏔️",
-      "qcount": "Preguntas por partida 🏅",
-      "qtime": "Tiempo por pregunta ⏱️",
-      "fails": "Errores permitidos ❤️",
-      "difficulty": "Dificultad 🎯",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "¿Qué número es este? 🌸",
-      "reversePrompt": "Elige los caracteres correctos 🏯",
-      "pinyinCharsPrompt": "Elige el pinyin correcto 🎋",
-      "pinyinDigitsPrompt": "Elige el pinyin correcto 🎋",
-      "finalScore": "Puntuación final",
-      "playAgain": "Jugar de nuevo"
-    }
+  "ui": {
+    "apptitle": "HanShu",
+    "appsubtitle": "数字 • Números"
   },
-  "fr": {
-    "ui": {
-      "settings": "Paramètres",
-      "start": "Démarrer",
-      "backMenu": "Retour au menu",
-      "confirm": "Confirmer",
-      "cancel": "Annuler",
-      "save": "Enregistrer",
-      "close": "Fermer",
-      "lives": "Vies",
-      "score": "Score",
-      "streak": "Série",
-      "time": "Temps",
-      "next": "Suivant",
-      "yourAnswer": "Votre réponse",
-      "correct": "Correct !",
-      "wrong": "Réessaie",
-      "outOfTime": "⏰ Temps écoulé !",
-      "gameOver": "Fin du jeu",
-      "finalScore": "Score final",
-      "correctAnswers": "Bonnes réponses",
-      "restart": "Recommencer"
-    },
-    "menu": {
-      "title": "Menu Principal",
-      "subtitle": "Choisissez votre mode de jeu",
-      "recognition": "Devine le nombre (hanzis)",
-      "reverse": "Devine le caractère",
-      "pinyinChars": "Devine la prononciation",
-      "pinyinDigits": "Devine le nombre (pinyin)",
-      "settings": "⚙️ Paramètres",
-      "start": "Démarrer",
-      "exit": "Quitter"
-    },
-    "settings": {
-      "title": "Paramètres",
-      "language": "Langue",
-      "pinyin": "Afficher les aides pinyin 🐼",
-      "range": "Plage numérique 🏔️",
-      "qcount": "Questions par partie 🏅",
-      "qtime": "Temps par question ⏱️",
-      "fails": "Erreurs permises ❤️",
-      "difficulty": "Difficulté 🎯",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "Quel nombre est-ce ? 🌸",
-      "reversePrompt": "Choisissez les bons caractères 🏯",
-      "pinyinCharsPrompt": "Choisissez le pinyin correct 🎋",
-      "pinyinDigitsPrompt": "Choisissez le pinyin correct 🎋",
-      "finalScore": "Score final",
-      "playAgain": "Rejouer"
-    }
+  "menu": {
+    "title": "Elige tipo de juego...",
+    "recognition": "Adivina el número (hanzi)",
+    "pinyinDigits": "Adivina el número (pinyin)",
+    "reverse": "Adivina el carácter",
+    "pinyinChars": "Adivina el pinyin"
   },
-  "de": {
-    "ui": {
-      "settings": "Einstellungen",
-      "start": "Starten",
-      "backMenu": "Zurück zum Menü",
-      "confirm": "Bestätigen",
-      "cancel": "Abbrechen",
-      "save": "Speichern",
-      "close": "Schließen",
-      "lives": "Leben",
-      "score": "Punkte",
-      "streak": "Serie",
-      "time": "Zeit",
-      "next": "Weiter",
-      "yourAnswer": "Deine Antwort",
-      "correct": "Richtig!",
-      "wrong": "Versuch's noch einmal",
-      "outOfTime": "⏰ Zeit abgelaufen!",
-      "gameOver": "Spiel vorbei",
-      "finalScore": "Endpunktzahl",
-      "correctAnswers": "Richtige Antworten",
-      "restart": "Neu starten"
-    },
-    "menu": {
-      "title": "Hauptmenü",
-      "subtitle": "Wähle deinen Spielmodus",
-      "recognition": "Errate die Zahl (Hanzis)",
-      "reverse": "Errate das Zeichen",
-      "pinyinChars": "Errate die Aussprache",
-      "pinyinDigits": "Errate die Zahl (Pinyin)",
-      "settings": "⚙️ Einstellungen",
-      "start": "Starten",
-      "exit": "Beenden"
-    },
-    "settings": {
-      "title": "Einstellungen",
-      "language": "Sprache",
-      "pinyin": "Pinyin-Hinweise anzeigen 🐼",
-      "range": "Zahlenbereich 🏔️",
-      "qcount": "Fragen pro Spiel 🏅",
-      "qtime": "Zeit pro Frage ⏱️",
-      "fails": "Fehler erlaubt ❤️",
-      "difficulty": "Schwierigkeit 🎯",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "Welche Zahl ist das? 🌸",
-      "reversePrompt": "Wähle die richtigen Zeichen 🏯",
-      "pinyinCharsPrompt": "Wähle das richtige Pinyin 🎋",
-      "pinyinDigitsPrompt": "Wähle das richtige Pinyin 🎋",
-      "finalScore": "Endpunktzahl",
-      "playAgain": "Nochmal spielen"
-    }
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "range": "Rango de números",
+    "qcount": "❓",
+    "qtime": "⏱️",
+    "fails": "❤️",
+    "difficulty": "",
+    "r1_10": "Números 1–10",
+    "r11_99": "Números 11–99",
+    "r100_999": "Nº 100–999",
+    "r1000_9999": "Nº 1000–9999",
+    "r10000_9999999": "Nº 10,000–9,999,999",
+    "save": "Guardar",
+    "reset": "Restablecer",
+    "cancel": "Cancelar"
   },
-  "pt": {
-    "ui": {
-      "settings": "Configurações",
-      "start": "Iniciar",
-      "backMenu": "Voltar ao menu",
-      "confirm": "Confirmar",
-      "cancel": "Cancelar",
-      "save": "Salvar",
-      "close": "Fechar",
-      "lives": "Vidas",
-      "score": "Pontuação",
-      "streak": "Sequência",
-      "time": "Tempo",
-      "next": "Próximo",
-      "yourAnswer": "Sua resposta",
-      "correct": "Correto!",
-      "wrong": "Tente novamente",
-      "outOfTime": "⏰ Tempo esgotado!",
-      "gameOver": "Fim do jogo",
-      "finalScore": "Pontuação final",
-      "correctAnswers": "Respostas corretas",
-      "restart": "Reiniciar"
-    },
-    "menu": {
-      "title": "Menu Principal",
-      "subtitle": "Escolha seu modo de jogo",
-      "recognition": "Adivinha o número (hanzis)",
-      "reverse": "Adivinha o caractere",
-      "pinyinChars": "Adivinha a pronúncia",
-      "pinyinDigits": "Adivinha o número (pinyin)",
-      "settings": "⚙️ Configurações",
-      "start": "Iniciar",
-      "exit": "Sair"
-    },
-    "settings": {
-      "title": "Configurações",
-      "language": "Idioma",
-      "pinyin": "Mostrar dicas de pinyin 🐼",
-      "range": "Faixa numérica 🏔️",
-      "qcount": "Perguntas por jogo 🏅",
-      "qtime": "Tempo por pergunta ⏱️",
-      "fails": "Erros permitidos ❤️",
-      "difficulty": "Dificuldade 🎯",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "Que número é este? 🌸",
-      "reversePrompt": "Escolha os caracteres corretos 🏯",
-      "pinyinCharsPrompt": "Escolha o pinyin correto 🎋",
-      "pinyinDigitsPrompt": "Escolha o pinyin correto 🎋",
-      "finalScore": "Pontuação final",
-      "playAgain": "Jogar novamente"
-    }
+  "successMessages": {
+    "s1": "🐼 ¡Genial!",
+    "s2": "🎉 ¡Correcto!",
+    "s3": "🌟 ¡Bien hecho!",
+    "s4": "💡 ¡Lo pillaste!",
+    "s5": "🥳 ¡Acertaste!",
+    "s6": "🐸 ¡Perfecto!",
+    "s7": "🚀 ¡Lo clavaste!",
+    "s8": "🍀 ¡De lujo!",
+    "s9": "🦄 ¡Fantástico!",
+    "s10": "🔥 ¡Imparable!"
   },
-  "ur": {
-    "ui": {
-      "settings": "ترتیبات",
-      "start": "شروع کریں",
-      "backMenu": "واپس مینو پر جائیں",
-      "confirm": "تصدیق کریں",
-      "cancel": "منسوخ کریں",
-      "save": "محفوظ کریں",
-      "close": "بند کریں",
-      "lives": "زندگیاں",
-      "score": "اسکور",
-      "streak": "سلسلہ",
-      "time": "وقت",
-      "next": "اگلا",
-      "yourAnswer": "آپ کا جواب",
-      "correct": "صحیح!",
-      "wrong": "دوبارہ کوشش کریں",
-      "outOfTime": "⏰ وقت ختم ہو گیا!",
-      "gameOver": "کھیل ختم",
-      "finalScore": "آخری اسکور",
-      "correctAnswers": "درست جوابات",
-      "restart": "دوبارہ شروع کریں"
-    },
-    "menu": {
-      "title": "مرکزی مینو",
-      "subtitle": "اپنا کھیل کا موڈ منتخب کریں",
-      "recognition": "ہنزی میں نمبر پہچانو",
-      "reverse": "کردار پہچانو",
-      "pinyinChars": "ادائیگی پہچانو",
-      "pinyinDigits": "پینین میں نمبر پہچانو",
-      "settings": "⚙️ ترتیبات",
-      "start": "شروع کریں",
-      "exit": "خارج کریں"
-    },
-    "settings": {
-      "title": "ترتیبات",
-      "language": "زبان",
-      "pinyin": "پینین اشارے دکھائیں 🐼",
-      "range": "نمبر کی حد 🏔️",
-      "qcount": "فی کھیل سوالات 🏅",
-      "qtime": "فی سوال وقت ⏱️",
-      "fails": "اجازت یافتہ غلطیاں ❤️",
-      "difficulty": "مشکل 🎯",
-      "ranges": {
-        "r1_10": "1–10",
-        "r11_99": "11–99",
-        "r100_999": "100–999",
-        "r1000_9999": "1000–9999",
-        "r10000_9999999": "10,000–9,999,999"
-      }
-    },
-    "games": {
-      "recognitionPrompt": "یہ کون سا نمبر ہے؟ 🌸",
-      "reversePrompt": "صحیح حروف منتخب کریں 🏯",
-      "pinyinCharsPrompt": "صحیح پینین منتخب کریں 🎋",
-      "pinyinDigitsPrompt": "صحیح پینین منتخب کریں 🎋",
-      "finalScore": "آخری اسکور",
-      "playAgain": "دوبارہ کھیلیں"
-    }
+  "failMessages": {
+    "f1": "😅 Uy, casi...",
+    "f2": "❌ No pasa nada, ¡sigue!",
+    "f3": "🙈 ¡Fallaste!",
+    "f4": "🍂 ¡Inténtalo otra vez!",
+    "f5": "🤔 No era esa...",
+    "f6": "🌧️ Mala suerte...",
+    "f7": "🐌 ¡Se escapó esa!",
+    "f8": "🙃 Ups, ¡no!",
+    "f9": "🍄 ¡Otra oportunidad!",
+    "f10": "🐤 ¡Esa no era..."
+  },
+  "gameOver": {
+    "legend": "Fin del juego",
+    "finalScore": "Puntuación final",
+    "questions": "preguntas",
+    "errors": "errores",
+    "bestStreak": "Mejor racha",
+    "restart": "Reiniciar",
+    "back": "Volver al menú"
   }
+},
+  "fr": {
+  "ui": {
+    "apptitle": "HanShu",
+    "appsubtitle": "数字 • Nombres"
+  },
+  "menu": {
+    "title": "Choisis le type de jeu...",
+    "recognition": "Devine le nombre (hanzi)",
+    "pinyinDigits": "Devine le nombre (pinyin)",
+    "reverse": "Devine le caractère",
+    "pinyinChars": "Devine le pinyin"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "range": "Plage de nombres",
+    "qcount": "❓",
+    "qtime": "⏱️",
+    "fails": "❤️",
+    "difficulty": "",
+    "r1_10": "Nombres 1–10",
+    "r11_99": "Nombres 11–99",
+    "r100_999": "Nº 100–999",
+    "r1000_9999": "Nº 1000–9999",
+    "r10000_9999999": "Nº 10 000–9 999 999",
+    "save": "Enregistrer",
+    "reset": "Réinitialiser",
+    "cancel": "Annuler"
+  },
+  "successMessages": {
+    "s1": "🐼 Génial !",
+    "s2": "🎉 Correct !",
+    "s3": "🌟 Bien joué !",
+    "s4": "💡 Tu l’as trouvé !",
+    "s5": "🥳 Bravo !",
+    "s6": "🐸 Parfait !",
+    "s7": "🚀 C’est ça !",
+    "s8": "🍀 Bien vu !",
+    "s9": "🦄 Fantastique !",
+    "s10": "🔥 Imbattable !"
+  },
+  "failMessages": {
+    "f1": "😅 Oups, presque...",
+    "f2": "❌ Pas grave, continue !",
+    "f3": "🙈 Raté !",
+    "f4": "🍂 Essaie encore !",
+    "f5": "🤔 Ce n’était pas ça...",
+    "f6": "🌧️ Pas de chance...",
+    "f7": "🐌 Celui-là t’a échappé !",
+    "f8": "🙃 Non, dommage !",
+    "f9": "🍄 Encore une chance !",
+    "f10": "🐤 Ce n’était pas le bon..."
+  },
+  "gameOver": {
+    "legend": "Fin de la partie",
+    "finalScore": "Score final",
+    "questions": "questions",
+    "errors": "erreurs",
+    "bestStreak": "Meilleure série",
+    "restart": "Recommencer",
+    "back": "Retour au menu"
+  }
+},
+  "de": {
+  "ui": {
+    "apptitle": "HanShu",
+    "appsubtitle": "数字 • Zahlen"
+  },
+  "menu": {
+    "title": "Wähle den Spieltyp...",
+    "recognition": "Zahl erraten (Hanzi)",
+    "pinyinDigits": "Zahl erraten (Pinyin)",
+    "reverse": "Zeichen erraten",
+    "pinyinChars": "Pinyin erraten"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "range": "Zahlenbereich",
+    "qcount": "❓",
+    "qtime": "⏱️",
+    "fails": "❤️",
+    "difficulty": "",
+    "r1_10": "Zahlen 1–10",
+    "r11_99": "Zahlen 11–99",
+    "r100_999": "Nr. 100–999",
+    "r1000_9999": "Nr. 1000–9999",
+    "r10000_9999999": "Nr. 10.000–9.999.999",
+    "save": "Speichern",
+    "reset": "Zurücksetzen",
+    "cancel": "Abbrechen"
+  },
+  "successMessages": {
+    "s1": "🐼 Großartig!",
+    "s2": "🎉 Richtig!",
+    "s3": "🌟 Gut gemacht!",
+    "s4": "💡 Du hast es!",
+    "s5": "🥳 Geschafft!",
+    "s6": "🐸 Perfekt!",
+    "s7": "🚀 Volltreffer!",
+    "s8": "🍀 Gut gemacht!",
+    "s9": "🦄 Fantastisch!",
+    "s10": "🔥 Unaufhaltbar!"
+  },
+  "failMessages": {
+    "f1": "😅 Uff, knapp daneben...",
+    "f2": "❌ Kein Problem, weiter geht’s!",
+    "f3": "🙈 Verfehlt!",
+    "f4": "🍂 Versuch’s nochmal!",
+    "f5": "🤔 Das war’s nicht...",
+    "f6": "🌧️ Pech gehabt...",
+    "f7": "🐌 Der ist dir entwischt!",
+    "f8": "🙃 Nope!",
+    "f9": "🍄 Noch eine Chance!",
+    "f10": "🐤 Das war nicht richtig..."
+  },
+  "gameOver": {
+    "legend": "Spiel beendet",
+    "finalScore": "Endpunktzahl",
+    "questions": "Fragen",
+    "errors": "Fehler",
+    "bestStreak": "Beste Serie",
+    "restart": "Neustart",
+    "back": "Zurück zum Menü"
+  }
+},
+  "pt": {
+  "ui": {
+    "apptitle": "HanShu",
+    "appsubtitle": "数字 • Números"
+  },
+  "menu": {
+    "title": "Escolha o tipo de jogo...",
+    "recognition": "Adivinhe o número (hanzi)",
+    "pinyinDigits": "Adivinhe o número (pinyin)",
+    "reverse": "Adivinhe o caractere",
+    "pinyinChars": "Adivinhe o pinyin"
+  },
+  "settings": {
+    "title": "Configurações",
+    "language": "Idioma",
+    "range": "Intervalo de números",
+    "qcount": "❓",
+    "qtime": "⏱️",
+    "fails": "❤️",
+    "difficulty": "",
+    "r1_10": "Números 1–10",
+    "r11_99": "Números 11–99",
+    "r100_999": "Nº 100–999",
+    "r1000_9999": "Nº 1000–9999",
+    "r10000_9999999": "Nº 10.000–9.999.999",
+    "save": "Salvar",
+    "reset": "Redefinir",
+    "cancel": "Cancelar"
+  },
+  "successMessages": {
+    "s1": "🐼 Incrível!",
+    "s2": "🎉 Correto!",
+    "s3": "🌟 Muito bem!",
+    "s4": "💡 Você acertou!",
+    "s5": "🥳 Mandou bem!",
+    "s6": "🐸 Perfeito!",
+    "s7": "🚀 Acertou em cheio!",
+    "s8": "🍀 Boa!",
+    "s9": "🦄 Fantástico!",
+    "s10": "🔥 Imparável!"
+  },
+  "failMessages": {
+    "f1": "😅 Quase lá...",
+    "f2": "❌ Sem problemas, continue!",
+    "f3": "🙈 Errou!",
+    "f4": "🍂 Tente de novo!",
+    "f5": "🤔 Não foi essa...",
+    "f6": "🌧️ Azar...",
+    "f7": "🐌 Essa escapou!",
+    "f8": "🙃 Ops, não!",
+    "f9": "🍄 Mais uma chance!",
+    "f10": "🐤 Essa não era..."
+  },
+  "gameOver": {
+    "legend": "Fim de jogo",
+    "finalScore": "Pontuação final",
+    "questions": "perguntas",
+    "errors": "erros",
+    "bestStreak": "Melhor sequência",
+    "restart": "Reiniciar",
+    "back": "Voltar ao menu"
+  }
+},
+  "ur": {
+  "ui": {
+    "apptitle": "HanShu",
+    "appsubtitle": "数字 • اعداد"
+  },
+  "menu": {
+    "title": "کھیل کی قسم منتخب کریں...",
+    "recognition": "نمبر پہچانیں (ہانزی)",
+    "pinyinDigits": "نمبر پہچانیں (پین یِن)",
+    "reverse": "کردار پہچانیں",
+    "pinyinChars": "پین یِن پہچانیں"
+  },
+  "settings": {
+    "title": "ترتیبات",
+    "language": "زبان",
+    "range": "اعداد کی حد",
+    "qcount": "❓",
+    "qtime": "⏱️",
+    "fails": "❤️",
+    "difficulty": "",
+    "r1_10": "اعداد 1–10",
+    "r11_99": "اعداد 11–99",
+    "r100_999": "نمبر 100–999",
+    "r1000_9999": "نمبر 1000–9999",
+    "r10000_9999999": "نمبر 10,000–9,999,999",
+    "save": "محفوظ کریں",
+    "reset": "ری سیٹ کریں",
+    "cancel": "منسوخ کریں"
+  },
+  "successMessages": {
+    "s1": "🐼 زبردست!",
+    "s2": "🎉 درست!",
+    "s3": "🌟 خوب کیا!",
+    "s4": "💡 تم نے پکڑ لیا!",
+    "s5": "🥳 شاندار!",
+    "s6": "🐸 بہترین!",
+    "s7": "🚀 کمال!",
+    "s8": "🍀 خوبصورت!",
+    "s9": "🦄 لاجواب!",
+    "s10": "🔥 ناقابلِ شکست!"
+  },
+  "failMessages": {
+    "f1": "😅 اوہ، قریب تھا...",
+    "f2": "❌ کوئی بات نہیں، جاری رکھو!",
+    "f3": "🙈 غلطی ہو گئی!",
+    "f4": "🍂 دوبارہ کوشش کرو!",
+    "f5": "🤔 وہ نہیں تھا...",
+    "f6": "🌧️ بدقسمتی...",
+    "f7": "🐌 وہ نکل گیا!",
+    "f8": "🙃 اوپس، نہیں!",
+    "f9": "🍄 ایک اور موقع!",
+    "f10": "🐤 وہ درست نہیں تھا..."
+  },
+  "gameOver": {
+    "legend": "کھیل ختم",
+    "finalScore": "آخری اسکور",
+    "questions": "سوالات",
+    "errors": "غلطیاں",
+    "bestStreak": "بہترین سلسلہ",
+    "restart": "دوبارہ شروع کریں",
+    "back": "مینُو پر واپس جائیں"
+  }
+ }
 }

@@ -1,12 +1,21 @@
 /* components.css */
+/* ===== App Header ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0.5em 1em;s
+}
 
 /* ====== HUD ====== */
 #hud {
+  flex: 1;                /* ocupa todo el espacio sobrante */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   font-size: 1rem;
   padding: 0.5em 1em;
+  gap: 1em;
 }
 
 #hud .hud-center span {

@@ -117,8 +117,9 @@ export function getRandomQuestion() {
   const prompt = toChineseNumber(num);
   const answer = String(num);
 
+  const [min, max] = getNumberRange();
   const pool = [];
-  for (let i = 1; i <= 10; i++) pool.push(String(i));
+  for (let i = min; i <= max; i++) pool.push(String(i));
   const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
@@ -130,8 +131,10 @@ export function getRandomReverseQuestion() {
   const prompt = String(num);
   const answer = toChineseNumber(num);
 
+  const [min, max] = getNumberRange();
   const pool = [];
-  for (let i = 1; i <= 10; i++) pool.push(toChineseNumber(i));
+  for (let i = min; i <= max; i++) pool.push(toChineseNumber(i));
+
   const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
@@ -143,8 +146,9 @@ export function getRandomPinyinFromCharsQuestion() {
   const prompt = toChineseNumber(num);
   const answer = toPinyin(num);
 
+  const [min, max] = getNumberRange();
   const pool = [];
-  for (let i = 1; i <= 10; i++) pool.push(toPinyin(i));
+  for (let i = min; i <= max; i++) pool.push(toPinyin(i));
   const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };
@@ -156,8 +160,9 @@ export function getRandomPinyinFromDigitsQuestion() {
   const prompt = String(num);
   const answer = toPinyin(num);
 
+  const [min, max] = getNumberRange();
   const pool = [];
-  for (let i = 1; i <= 10; i++) pool.push(toPinyin(i));
+  for (let i = min; i <= max; i++) pool.push(toPinyin(i));
   const options = generateOptions(answer, pool);
 
   return { prompt, options, answer };

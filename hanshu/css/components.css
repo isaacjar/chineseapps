@@ -220,22 +220,43 @@
 }
 
 /* ====== Options (botones de respuesta) ====== */
-.options {
+.options-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.8em;
   margin: 1em 0;
+  justify-content: center;
 }
+
+.options-container.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 400px;
+}
+
+.options-container.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 600px;
+}
+
 .option {
-  font-size: 1.1em;
+  display: inline-block;
+  background-color: var(--color-primary, #4caf50);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.8em 1.2em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+  text-align: center;
 }
-.question {
-  font-size: 2em;
-  margin: 0.5em 0 1em;
+
+.option:hover {
+  background-color: #45a049;
 }
-.question.big {
-  font-size: 3em;
-  font-weight: bold;
+
+.option:active {
+  transform: scale(0.95);
 }
 
 /* Switch para dificultad */

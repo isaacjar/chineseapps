@@ -59,7 +59,7 @@ export function openSettings() {
       </div>
 
       <!-- Errores: stepper -->
-      <div class="settings-item">
+      <span class="settings-item">
         <label for="fails">${t('settings.fails')}</label>
         <span class="stepper">
           <button type="button" class="btn-step" data-action="decrease">–</button>
@@ -67,17 +67,17 @@ export function openSettings() {
           <button type="button" class="btn-step" data-action="increase">+</button>
         </span>
         <input type="hidden" id="fails" name="fails" value="${s.fails}">
-      </div>
+      </span>
 
       <!-- Dificultad: switch -->
-      <div class="settings-item">
+      <span class="settings-item">
         <label>${t('settings.difficulty')}</label>
 		<span id="difficulty-emoji">${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
           <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>
         </label>
-      </div>
+      </span>
 
       <!-- Botones -->
       <div class="settings-actions">
@@ -91,14 +91,6 @@ export function openSettings() {
   // ⚠️ Inserta el HTML en el contenedor
   //document.getElementById('modal-root').innerHTML = content;
   
-// ===== DIFICULTAD =====
-	/*const diffInput = document.getElementById('difficulty');
-	const diffEmoji = document.getElementById('difficulty-emoji');
-
-	diffInput.addEventListener('change', () => {
-		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
-	});*/
-
   import('./ui.js').then(({ showModal }) => {
     showModal(content, () => {});
     const form = document.querySelector('#settings-form');
@@ -141,6 +133,15 @@ export function openSettings() {
         document.querySelector('#qtime-value').textContent = args.value + 's';
       }
     });
+
+	// ===== DIFICULTAD =====
+	const diffInput = document.getElementById('difficulty');
+	const diffEmoji = document.getElementById('difficulty-emoji');
+
+	diffInput.addEventListener('change', () => {
+		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
+	});
+
 
     // ===== Guardar cambios =====
     form.addEventListener('submit', (e) => {

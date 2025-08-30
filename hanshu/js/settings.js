@@ -73,6 +73,7 @@ export function openSettings() {
       <!-- Dificultad: switch -->
       <div class="settings-item">
         <label>${t('settings.difficulty')}</label>
+		<span id="difficulty-emoji">${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
           <input type="checkbox" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>
@@ -130,6 +131,14 @@ export function openSettings() {
         document.querySelector('#qtime-value').textContent = args.value + 's';
       }
     });
+
+	// ===== DIFICULTAD =====
+	const diffInput = document.getElementById('difficulty');
+	const diffEmoji = document.getElementById('difficulty-emoji');
+
+	diffInput.addEventListener('change', () => {
+		diffEmoji.textContent = diffInput.checked ? '🥵' : '😎';
+	});
 
     // ===== Guardar cambios =====
     form.addEventListener('submit', (e) => {

@@ -94,13 +94,12 @@ export function openSettings() {
     // ===== noUiSlider para rango =====
 	const rangeSlider = document.getElementById('range-slider');
 	noUiSlider.create(rangeSlider, {
-	  start: [s.minValue ?? 10, s.maxValue ?? 9999],
+	  start: [s.minValue ?? 10, s.maxValue ?? 999],
 	  connect: true,
+	  step: 10, 
 	  range: {
-		'min': [10, 10],        // empieza en 10, pasos de 10
-		'100': [100, 100],      // desde 100 hasta 1000, pasos de 100
-		'1000': [1000, 1000],   // desde 1000 hasta 9999, pasos de 1000
-		'max': [9999]
+		'min': 10,
+		'max': 999
 	  }
 	});
 

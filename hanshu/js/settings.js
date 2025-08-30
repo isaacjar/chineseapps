@@ -31,17 +31,12 @@ export function openSettings() {
         </select>
       </div>
 	
-	<!-- Rango de números -->
-      <div class="settings-item">
-        <label for="range">${t('settings.range')}</label>
-        <select id="range" name="range">
-          <option value="r1_10" ${s.range === 'r1_10' ? 'selected' : ''}>${t('settings.r1_10')}</option>
-          <option value="r11_99" ${s.range === 'r11_99' ? 'selected' : ''}>${t('settings.r11_99')}</option>
-          <option value="r100_999" ${s.range === 'r100_999' ? 'selected' : ''}>${t('settings.r100_999')}</option>
-          <option value="r1000_9999" ${s.range === 'r1000_9999' ? 'selected' : ''}>${t('settings.r1000_9999')}</option>
-          <option value="r10000_9999999" ${s.range === 'r10000_9999999' ? 'selected' : ''}>${t('settings.r10000_9999999')}</option>
-        </select>
-      </div>
+	<!-- Rango de números con noUiSlider -->
+		<div class="settings-item">
+		  <label>${t('settings.range')}</label>
+		  <div id="range-slider"></div>
+		  <p><span id="range-min-label">${s.minValue ?? 1}</span> - <span id="range-max-label">${s.maxValue ?? 10}</span></p>
+		</div>
 
       <!-- Preguntas: slider -->
       <div class="settings-item">
@@ -96,7 +91,28 @@ export function openSettings() {
     const form = document.querySelector('#settings-form');
     form.language.value = s.language;
 
-    // ===== Preguntas slider =====
+    // ===== noUiSlider para rango =====
+	const rangeSlider = document.getElementById('range-slider');
+	noUiSlider.create(rangeSlider, {
+	  start: [s.minValue ?? 1, s.maxValue ?? 10], // valores iniciales
+	  connect: true,
+	  step: 1,
+	  range: {
+		'min': 1,
+		'max': 9999
+	  }
+	});
+
+	const minLabel = document.getElementById('range-min-label');
+	const maxLabel = document.getElementById('range-max-label');
+
+	rangeSlider.noUiSlider.on('update', (values) => {
+	  const [min, max] = values.map(v => Math.round(v));
+	  minLabel.textContent = min;
+	  maxLabel.textContent = max;
+	});
+	
+	// ===== Preguntas slider =====
     const qcountInput = form.querySelector('#qcount');
     const qcountValue = form.querySelector('#qcount-value');
     qcountInput.addEventListener('input', () => {
@@ -147,9 +163,11 @@ export function openSettings() {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const data = new FormData(form);
-
+	  const [minValue, maxValue] = rangeSlider.noUiSlider.get().map(v => Math.round(v));
       setSettings({
         ...s,
+		minValue,
+		maxValue,
         language: data.get('language'),
 		range: data.get('range'),
         qcount: parseInt(data.get('qcount')),

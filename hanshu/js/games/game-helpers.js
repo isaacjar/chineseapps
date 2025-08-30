@@ -86,11 +86,18 @@ function toPinyin(num) {
 // ===== Renderizado genérico de opciones =====
 export function renderOptions(container, options, onSelect) {
   const wrapper = document.createElement('div');
-  wrapper.className = 'options';
+  wrapper.className = 'options-container';
+
+  // añadir clase según cantidad de botones
+  if (options.length === 4) {
+    wrapper.classList.add('cols-2');
+  } else if (options.length === 6) {
+    wrapper.classList.add('cols-3');
+  }
 
   options.forEach(opt => {
     const btn = document.createElement('button');
-    btn.className = 'btn option';
+    btn.className = 'option';
     btn.textContent = opt;
     btn.addEventListener('click', () => onSelect(opt));
     wrapper.appendChild(btn);

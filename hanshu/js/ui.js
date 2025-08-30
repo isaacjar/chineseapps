@@ -11,10 +11,7 @@ export function renderHUD() {
   if (!hud) return;
   // Si estamos en menú o en settings → solo título + botón settings
   if (currentScreen === 'menu' || currentScreen === 'settings') {
-    hud.innerHTML = `
-      <div class="hud-left">
-        <span class="hud-title">🐼 HanShu</span>
-      </div>
+    hud.innerHTML = `      
       <div class="hud-right">
         <button id="hud-settings" class="btn">⚙️</button>
       </div>

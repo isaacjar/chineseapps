@@ -33,7 +33,7 @@ export function startGame(config) {
   updateProgress(0, session.qcount);
 
   // Arrancar temporizador visual del juego
-  initGameTimer(session.qtime, () => showGameOver());
+  //initGameTimer(session.qtime, () => showGameOver());
 
   showNextQuestion();
 }
@@ -56,6 +56,14 @@ function showNextQuestion() {
   setSession(session);
 
   updateProgress(session.asked, session.qcount);
+
+// Reiniciar temporizador para cada pregunta
+	initGameTimer(session.qtime, () => {
+	  const session = getSession();
+	  session.lives = 0; // o descontar 1 vida si quieres penalizar
+	  setSession(session);
+	  showGameOver();
+	});
 
   // Llamamos al generador de preguntas del juego específico
   session.onQuestion({

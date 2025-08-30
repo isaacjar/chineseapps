@@ -185,7 +185,7 @@ export function showGameOver() {
       <div class="game-over-screen">
         <h2>Game Over</h2>
         <p>Final Score: <strong>${session.score}</strong></p>        
-		<p><strong>${session.qcount}</strong> questions, <strong>${session.fails ?? 0} errors</strong></p>
+		<p><strong>${session.qcount}</strong> questions, <strong>${session.errors ?? 0} errors</strong></p>
 		<p>🔥 Best Streak: ${session.bestStreak ?? 0}</p>
 		
         <div class="game-over-buttons">

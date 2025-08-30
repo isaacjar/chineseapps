@@ -31,7 +31,7 @@ export function renderHUD() {
 	  <span id="hud-streak">🔥 ${session.streak ?? 0}</span>
 	  <span id="hud-lives">❤️ ${session.lives ?? 0}</span>
 	  <span id="hud-timer">
-		<div id="hud-timer-knob"></div>
+		<span id="hud-timer-knob"></span>
 		<!--<div id="hud-timer-value">${session.time ?? ''}</div> -->
 	  </span>
 	</div>

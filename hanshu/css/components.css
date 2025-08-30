@@ -269,7 +269,7 @@
 .options-container {
   display: grid;
   gap: 0.8em;
-  margin: 1em auto;
+  margin: 1em 0;
   justify-content: center;
 }
 
@@ -284,8 +284,9 @@
 }
 
 .option {
-  display: block;            /* cada celda del grid ocupa todo */
-  width: 100%;
+  display: block;  
+  width: auto;
+  min-width: 120px;            
   max-width: 200px;
   margin: 0 auto;
   background-color: var(--color-primary, #4caf50);

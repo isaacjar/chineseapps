@@ -75,7 +75,7 @@ export function openSettings() {
         <label>${t('settings.difficulty')}</label>
 		<span id="difficulty-emoji">${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
-          <input type="checkbox" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
+          <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>
         </label>
       </div>

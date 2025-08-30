@@ -16,6 +16,10 @@ export function renderHUD() {
         <button id="hud-settings" class="btn">⚙️</button>
       </div>
     `;
+	const btn = document.getElementById('hud-settings');
+	if (btn) {
+	  btn.addEventListener('click', () => navigate('settings'));
+	}
     return;
   }
 

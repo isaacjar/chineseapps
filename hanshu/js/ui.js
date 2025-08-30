@@ -25,9 +25,6 @@ export function renderHUD() {
   // Si estamos en un juego → título + HUD (vidas, progreso, timer)
   const session = getSession();
   hud.innerHTML = `
-    <div class="hud-left">
-      <span class="hud-title">🐼 HanShu</span>
-    </div>
     <<div class="hud-center">	  
 	  <span id="hud-progress">🌱 ${session.answered ?? 0}/${session.total ?? 0}</span>
 	  <span id="hud-streak">🔥 ${session.streak ?? 0}</span>

@@ -1,7 +1,7 @@
 // learning.js
 import { loadState, getSettings, getSession } from './state.js';
 import { setLang } from './i18n.js';
-import { initRouter } from './router.js';
+import { initRouter, navigate } from './router.js';
 import { openSettings, initSettingsTrigger } from './settings.js';
 import { renderHUD } from './ui.js';
 
@@ -21,6 +21,15 @@ export function startApp() {
 
   // inicializar router (gestiona hash y navegación)
   initRouter();
+
+	// Fuerza menú al pulsar logo
+	const brand = document.querySelector('.brand-link');
+	if (brand) {
+	  brand.addEventListener('click', (e) => {
+		e.preventDefault();
+		navigate('menu');   // 👈 fuerza la navegación al menú
+	  });
+	}
 
   // botón de settings en header
   const btnSettings = document.querySelector('#btn-open-settings');

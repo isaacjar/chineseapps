@@ -33,20 +33,18 @@ export function openSettings() {
 	
 	<!-- Rango de números con noUiSlider -->
 		<div class="settings-item">
-		  <label>${t('settings.range')}</label>
+		  <label>${t('settings.range')}</label>: <span id="range-min-label">${s.minValue ?? 1}</span> - <span id="range-max-label">${s.maxValue ?? 10}</span>
 		  <div id="range-slider"></div>
-		  <p><span id="range-min-label">${s.minValue ?? 1}</span> - <span id="range-max-label">${s.maxValue ?? 10}</span></p>
 		  <input type="hidden" id="range-min-input" name="minValue" value="${s.minValue ?? 1}">
 		  <input type="hidden" id="range-max-input" name="maxValue" value="${s.maxValue ?? 10}">
-		</div>
-		
+		</div>		
 
       <!-- Preguntas: slider -->
       <div class="settings-item">
         <label for="qcount">${t('settings.qcount')}</label>
-        <input type="range" id="qcount" name="qcount" min="5" max="40" step="5" value="${s.qcount}">
+        <input type="range" id="qcount" name="qcount" min="5" max="50" step="5" value="${s.qcount}">
         <span id="qcount-value">${s.qcount}</span>
-      </div>
+      </div><p></p>
 
       <!-- Tiempo: knob circular -->
       <div class="settings-item">
@@ -65,12 +63,12 @@ export function openSettings() {
           <button type="button" class="btn-step" data-action="increase">+</button>
         </span>
         <input type="hidden" id="fails" name="fails" value="${s.fails}">
-      </span>
+      <!-- </span>-->
 
       <!-- Dificultad: switch -->
-      <span class="settings-item">
+      <!-- <span class="settings-item"> -->
         <!-- <label>${t('settings.difficulty')}</label> -->
-		<span id="difficulty-emoji">${s.difficulty === 2 ? '🥵' : '😎'}</span>
+		<span id="difficulty-emoji">  ${s.difficulty === 2 ? '🥵' : '😎'}</span>
         <label class="switch">
           <input type="checkbox" id="difficulty" name="difficulty" ${s.difficulty === 2 ? 'checked' : ''}>
           <span class="slider"></span>

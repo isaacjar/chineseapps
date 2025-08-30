@@ -16,7 +16,7 @@ export function openSettings() {
   const s = getSettings();
 
   const content = `
-    <h2>${t('settings.title')}</h2>
+    <h2 style="margin-bottom: 10px;">${t('settings.title')}</h2>
     <form id="settings-form" class="settings-form">
       
       <!-- Idioma -->
@@ -29,6 +29,18 @@ export function openSettings() {
           <option value="de">🇩🇪 Deutsch</option>
           <option value="pt">🇵🇹 Português</option>
           <option value="ur">🇵🇰 اردو</option>
+        </select>
+      </div>
+	
+	<!-- Rango de números -->
+      <div class="settings-item">
+        <label for="range">${t('settings.range')}</label>
+        <select id="range" name="range">
+          <option value="r1_10" ${s.range === 'r1_10' ? 'selected' : ''}>${t('settings.r1_10')}</option>
+          <option value="r11_99" ${s.range === 'r11_99' ? 'selected' : ''}>${t('settings.r11_99')}</option>
+          <option value="r100_999" ${s.range === 'r100_999' ? 'selected' : ''}>${t('settings.r100_999')}</option>
+          <option value="r1000_9999" ${s.range === 'r1000_9999' ? 'selected' : ''}>${t('settings.r1000_9999')}</option>
+          <option value="r10000_9999999" ${s.range === 'r10000_9999999' ? 'selected' : ''}>${t('settings.r10000_9999999')}</option>
         </select>
       </div>
 

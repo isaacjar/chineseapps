@@ -91,7 +91,7 @@
       "recognition": "Adivina el número (hanzis)",
       "reverse": "Adivina el carácter",
       "pinyinChars": "Adivina la pronunciación",
-      "pinyinDigits": "Adivina el número (pinyin)"
+      "pinyinDigits": "Adivina el número (pinyin)",
       "settings": "⚙️ Configuración",
       "start": "Iniciar",
       "exit": "Salir"
@@ -151,7 +151,7 @@
       "recognition": "Devine le nombre (hanzis)",
       "reverse": "Devine le caractère",
       "pinyinChars": "Devine la prononciation",
-      "pinyinDigits": "Devine le nombre (pinyin)"
+      "pinyinDigits": "Devine le nombre (pinyin)",
       "settings": "⚙️ Paramètres",
       "start": "Démarrer",
       "exit": "Quitter"
@@ -211,7 +211,7 @@
       "recognition": "Errate die Zahl (Hanzis)",
       "reverse": "Errate das Zeichen",
       "pinyinChars": "Errate die Aussprache",
-      "pinyinDigits": "Errate die Zahl (Pinyin)"
+      "pinyinDigits": "Errate die Zahl (Pinyin)",
       "settings": "⚙️ Einstellungen",
       "start": "Starten",
       "exit": "Beenden"
@@ -271,7 +271,7 @@
       "recognition": "Adivinha o número (hanzis)",
       "reverse": "Adivinha o caractere",
       "pinyinChars": "Adivinha a pronúncia",
-      "pinyinDigits": "Adivinha o número (pinyin)"
+      "pinyinDigits": "Adivinha o número (pinyin)",
       "settings": "⚙️ Configurações",
       "start": "Iniciar",
       "exit": "Sair"
@@ -331,7 +331,7 @@
       "recognition": "ہنزی میں نمبر پہچانو",
       "reverse": "کردار پہچانو",
       "pinyinChars": "ادائیگی پہچانو",
-      "pinyinDigits": "پینین میں نمبر پہچانو"
+      "pinyinDigits": "پینین میں نمبر پہچانو",
       "settings": "⚙️ ترتیبات",
       "start": "شروع کریں",
       "exit": "خارج کریں"

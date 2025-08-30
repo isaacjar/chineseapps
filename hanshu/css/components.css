@@ -259,7 +259,7 @@
 /* ===== Pregunta principal en juegos ===== */
 .question {
   text-align: center;
-  font-size: 2.5rem;   /* bien grande */
+  font-size: 3.5rem;   /* bien grande */
   font-weight: bold;
   margin: 1em 0;
   color: #222;
@@ -268,8 +268,8 @@
 /* ====== Options (botones de respuesta) ====== */
 .options-container {
   display: grid;
-  gap: 0.8em;
-  margin: 1em 0;
+  gap: 1.5em;
+  margin: 2em 0;
   justify-content: center;
 }
 
@@ -311,18 +311,18 @@
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
   .options-container {
-    grid-template-columns: 1fr !important; /* siempre una sola columna */
+    grid-template-columns: 1fr !important; // siempre una sola columna
     max-width: 100% !important;
   }
 
   .option {
-    width: 100%;   /* botón ocupa todo el ancho disponible */
+    width: 100%;   // botón ocupa todo el ancho disponible 
     font-size: 1rem;
     padding: 0.8em;
   }
-}
+}*/
 
 /* Switch para dificultad */
 .switch {

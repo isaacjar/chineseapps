@@ -360,7 +360,7 @@ input:checked + .slider:before {
 .settings-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.8em;
 }
 .settings-item label {
@@ -372,6 +372,13 @@ input:checked + .slider:before {
 }
 .settings-item select {
   flex: 2;
+}
+/* ====== Settings Actions (botones guardar/reset/cancel) ====== */
+.settings-actions {
+  display: flex;
+  justify-content: center; /* centra todos los botones */
+  gap: 1em;                /* espacio uniforme entre ellos */
+  margin-top: 1em;
 }
 
 /* Stepper (para errores) */

@@ -110,22 +110,9 @@ export function showToast(msg, type = 'info') {
   });
 }
 
-// Mensajes divertidos
-const successMessages = [
-  "🐼 ¡Genial!",
-  "🎉 ¡Correcto!",
-  "🌟 ¡Bien hecho!",
-  "💡 ¡Lo pillaste!",
-  "🥳 ¡Acertaste!"
-];
-
-const failMessages = [
-  "😅 Uy, casi...",
-  "❌ No pasa nada, sigue!",
-  "🙈 ¡Fallaste!",
-  "🍂 ¡Inténtalo otra vez!",
-  "🤔 No era esa..."
-];
+// Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
+const successMessages = Object.values(t('successMessages') || {});
+const failMessages = Object.values(t('failMessages') || {});
 
 export function showSuccessToast() {
   const msg = successMessages[Math.floor(Math.random() * successMessages.length)];
@@ -183,3 +170,7 @@ export function smoothNavigate(renderFn) {
 window.addEventListener('app:navigated', () => {
   renderHUD(); // Recalcula el HUD según currentScreen
 });
+
+export function updateHeaderTexts() {
+  document.getElementById('app-subtitle').textContent = t('ui.appsubtitle');
+}

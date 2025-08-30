@@ -426,3 +426,14 @@ input:checked + .slider:before {
     align-items: center;
   }
 }
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+.settings-row > * {
+  flex: 0 0 auto; /* evita que los hijos se estiren */
+}

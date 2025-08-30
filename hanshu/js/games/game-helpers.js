@@ -177,8 +177,11 @@ export function showGameOver() {
     view.innerHTML = `
       <div class="game-over-screen">
         <h2>Game Over</h2>
-        <p>Final Score: <strong>${session.score}</strong></p>
-        <p>Errors: <strong>${(session.fails ?? 0) - (session.lives ?? 0)}</strong></p>
+        <p>Final Score: <strong>${session.score}</strong></p>        
+		<p>Errors: <strong>${(session.fails ?? 0) - (session.lives ?? 0)}</strong></p>
+		<p><strong>${session.qcount}</strong> questions</p>
+		<p>🔥 Best Streak: ${session.bestStreak ?? 0}</p>
+		<p>Errors: <strong>${(session.fails ?? 0) - (session.lives ?? 0)}</strong></p>
         <div class="game-over-buttons">
           <button id="btn-restart" class="btn">🔄 Restart</button>
           <button id="btn-menu" class="btn">🏠 Back to menu</button>

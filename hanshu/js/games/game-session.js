@@ -22,6 +22,8 @@ export function startGame(config) {
     lives: settings.fails,
     score: 0,
     streak: 0,
+	streak = 0;
+	bestStreak = 0;
     asked: 0,
     onQuestion: config.onQuestion
   };
@@ -82,8 +84,11 @@ function handleAnswer(isCorrect) {
     updateHUD(session);
     updateProgress(session.asked, session.qcount);
     showSuccessToast();
+	if ((session.streak ?? 0) > (session.bestStreak ?? 0)) {
+		session.bestStreak = session.streak;
+	} 
   } else {
-    session.streak = 0;
+    session.streak = 0;   
     session.lives--;
     setSession(session);
     updateHUD(session);

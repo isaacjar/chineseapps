@@ -54,19 +54,19 @@ export function openSettings() {
       <!-- Tiempo: knob circular -->
       <div class="settings-item">
         <label>${t('settings.qtime')}</label>
-        <div id="qtime-knob"></div>
-        <span id="qtime-value">${s.qtime}s</span>
+        <span id="qtime-knob"></span>
+        <!--<span id="qtime-value">${s.qtime}s</span>-->
         <input type="hidden" id="qtime" name="qtime" value="${s.qtime}">
       </div>
 
       <!-- Errores: stepper -->
       <div class="settings-item">
         <label for="fails">${t('settings.fails')}</label>
-        <div class="stepper">
+        <span class="stepper">
           <button type="button" class="btn-step" data-action="decrease">–</button>
           <span id="fails-value">${s.fails}</span>
           <button type="button" class="btn-step" data-action="increase">+</button>
-        </div>
+        </span>
         <input type="hidden" id="fails" name="fails" value="${s.fails}">
       </div>
 

@@ -89,7 +89,7 @@ export function openSettings() {
   `;
   
   // ⚠️ Inserta el HTML en el contenedor
-  document.getElementById('settings-container').innerHTML = content;
+  document.getElementById('app').innerHTML = content;
   
 // ===== DIFICULTAD =====
 	const diffInput = document.getElementById('difficulty');

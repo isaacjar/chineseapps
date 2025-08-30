@@ -86,7 +86,7 @@ function handleAnswer(isCorrect) {
     showSuccessToast(); 
   } else {
     session.streak = 0;   
-    session.lives--;
+    session.lives = Math.max(0, session.lives - 1);
 	session.errors = (session.errors ?? 0) + 1;
     setSession(session);
     updateHUD(session);

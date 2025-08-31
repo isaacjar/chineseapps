@@ -1,4 +1,5 @@
 // ui.js
+import toastLang from './toast-lang.js';
 import { t, translations, getLang } from './i18n.js';
 import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';
@@ -112,8 +113,8 @@ export function showToast(msg, type = 'info') {
 
 // Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
 const currentLang = getLang();
-const successMessages = Object.values(translations[currentLang].successMessages || {});
-const failMessages = Object.values(translations[currentLang].failMessages || {});
+const successMessages = Object.values(toastLang[currentLang]?.successMessages || {});
+const failMessages = Object.values(toastLang[currentLang]?.failMessages || {});
 
 // Función para mostrar mensajes al azar
 function getRandomMessage(list) {

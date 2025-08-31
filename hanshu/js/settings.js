@@ -101,7 +101,7 @@ export function openSettings() {
 	  step: 9,
 	  range: {
 		'min': 1,
-		'max': 9999
+		'max': 999
 	  }
 	});
 
@@ -127,7 +127,7 @@ export function openSettings() {
 	  // 👇 Nuevo: diferencia mínima de 9 números
 	  if ((maxVal - minVal) < 9) {
 		maxVal = minVal + 9;
-		if (maxVal > 9999) maxVal = 9999; // límite superior
+		if (maxVal > 999) maxVal = 999; // límite superior
 		rangeSlider.noUiSlider.set([minVal, maxVal]);
 	  }
 

@@ -117,23 +117,28 @@ function applyUrlOverrides() {
   if (params.has('rangeMin') && params.has('rangeMax')) {
     overrides.minValue = parseInt(params.get('rangeMin'));
     overrides.maxValue = parseInt(params.get('rangeMax'));
+	console.log("👾 Override rango -> min:", overrides.minValue, "max:", overrides.maxValue);
   }
 
   if (params.has('qcount')) {
     overrides.qcount = parseInt(params.get('qcount'));
+	console.log("👾 Override nº questions: ", overrides.qcount);
   }
 
   if (params.has('qtime')) {
     overrides.qtime = parseInt(params.get('qtime'));
+	console.log("👾 Override time: ", overrides.qtime);
   }
 
   if (params.has('fails')) {
     overrides.fails = Math.max(1, parseInt(params.get('fails'))); // nunca menos de 1
+	console.log("👾 Override fails: ", overrides.fails);
   }
 
   if (params.has('difficulty')) {
     const diff = parseInt(params.get('difficulty'));
     overrides.difficulty = diff === 2 ? 2 : 1;
+	console.log("👾 Override difficulty: ", overrides.difficulty);
   }
 
   // 👇 Si hay overrides, machacamos settings y no respetamos localStorage

@@ -111,14 +111,8 @@ export function showToast(msg, type = 'info') {
 }
 
 // Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
-console.log("Idioma actual:", getLang());
-console.log("Traducciones disponibles:", Object.keys(translations));
-console.log("Objeto en ese idioma:", translations[getLang()]);
-const current = translations[getLang()] || {};
-const successMessages = Object.values(current.successMessages || {});
-const failMessages = Object.values(current.failMessages || {});
-/*const successMessages = Object.values(translations[getLang()].successMessages);
-const failMessages = Object.values(translations[getLang()].failMessages);*/
+let successMessages = Object.values(translations[getLang()].successMessages || {});
+let failMessages = Object.values(translations[getLang()].failMessages || {});
 function getRandomMessage(messages) {
   return messages[Math.floor(Math.random() * messages.length)];
 }

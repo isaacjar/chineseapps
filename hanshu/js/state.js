@@ -25,6 +25,8 @@ const defaultSettings = {
 let settings = { ...defaultSettings };
 
 loadState();
+// ⚡ OVERRIDE CON PARÁMETROS EN URL 
+applyUrlOverrides();
 
 /**
  * Devuelve el estado actual de la sesión
@@ -100,5 +102,42 @@ export function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ session, settings }));
   } catch (e) {
     console.warn('⚠️ Error al guardar estado:', e);
+  }
+}
+
+/**
+ * Sobrescribe settings con parámetros de la URL (si existen)
+ */
+function applyUrlOverrides() {
+  const params = new URLSearchParams(window.location.search);
+
+  // Definimos las claves que aceptamos
+  const overrides = {};
+
+  if (params.has('rangeMin') && params.has('rangeMax')) {
+    overrides.minValue = parseInt(params.get('rangeMin'));
+    overrides.maxValue = parseInt(params.get('rangeMax'));
+  }
+
+  if (params.has('qcount')) {
+    overrides.qcount = parseInt(params.get('qcount'));
+  }
+
+  if (params.has('qtime')) {
+    overrides.qtime = parseInt(params.get('qtime'));
+  }
+
+  if (params.has('fails')) {
+    overrides.fails = Math.max(1, parseInt(params.get('fails'))); // nunca menos de 1
+  }
+
+  if (params.has('difficulty')) {
+    const diff = parseInt(params.get('difficulty'));
+    overrides.difficulty = diff === 2 ? 2 : 1;
+  }
+
+  // 👇 Si hay overrides, machacamos settings y no respetamos localStorage
+  if (Object.keys(overrides).length > 0) {
+    settings = { ...settings, ...overrides };
   }
 }

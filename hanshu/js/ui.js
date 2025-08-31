@@ -1,5 +1,5 @@
 // ui.js
-import toastLang from './toast-lang.js';
+import toastLang from '../assets/lang/toast-lang.js';
 import { t, translations, getLang } from './i18n.js';
 import { currentScreen, navigate } from './router.js';
 import { getSession } from './state.js';

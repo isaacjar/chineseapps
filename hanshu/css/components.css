@@ -78,6 +78,15 @@
   }
 } 
 
+@media (min-width: 601px) {
+  .hud-center {
+    display: flex;
+    justify-content: flex-end !important; /* alinea todo a la derecha */
+    text-align: right;
+    gap: 1em; /* 👈 espacio entre los elementos */
+  }
+}
+
 /* ====== Timer ====== */
 /*.timer-bar {
   position: relative;

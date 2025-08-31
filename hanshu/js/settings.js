@@ -98,7 +98,7 @@ export function openSettings() {
 	noUiSlider.create(rangeSlider, {
 	  start: [s.minValue ?? 1, s.maxValue ?? 10],
 	  connect: true,
-	  step: 9,
+	  //step: 9, daba problemas con el override
 	  range: {
 		'min': 1,
 		'max': 999

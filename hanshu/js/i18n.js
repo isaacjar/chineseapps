@@ -1,6 +1,5 @@
 // i18n.js
 import translations from '../assets/lang/lang.json';
-export { translations };
 let currentLang = localStorage.getItem('lang') || 'en';
 
 /**

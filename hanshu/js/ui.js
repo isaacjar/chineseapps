@@ -111,20 +111,22 @@ export function showToast(msg, type = 'info') {
 }
 
 // Mensajes divertidos desde lang.json (objetos → arrays) 🥳🎉
-let successMessages = Object.values(translations[getLang()].successMessages || {});
-let failMessages = Object.values(translations[getLang()].failMessages || {});
-function getRandomMessage(messages) {
-  return messages[Math.floor(Math.random() * messages.length)];
+const currentLang = getLang();
+const successMessages = Object.values(translations[currentLang].successMessages || {});
+const failMessages = Object.values(translations[currentLang].failMessages || {});
+
+// Función para mostrar mensajes al azar
+function getRandomMessage(list) {
+  if (!list.length) return '';
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 export function showSuccessToast() {
-  const msg = getRandomMessage(successMessages); 
-  showToast(msg, 'good');
+  showToast(getRandomMessage(successMessages), "good");
 }
 
 export function showFailToast() {
-  const msg = getRandomMessage(failMessages); 
-  showToast(msg, 'warn');
+  showToast(getRandomMessage(failMessages), "warn");
 }
 
 // ======= Modal =======

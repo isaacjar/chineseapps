@@ -25,8 +25,6 @@ const defaultSettings = {
 let settings = { ...defaultSettings };
 
 loadState();
-// ⚡ OVERRIDE CON PARÁMETROS EN URL 
-applyUrlOverrides();
 
 /**
  * Devuelve el estado actual de la sesión
@@ -89,6 +87,8 @@ export function loadState() {
       if (parsed.settings) settings = { ...defaultSettings, ...parsed.settings };
       if (parsed.session) session = parsed.session;
     }
+	// ⚡ OVERRIDE CON PARÁMETROS EN URL 
+	      applyUrlOverrides();
   } catch (e) {
     console.warn('⚠️ Error al cargar estado:', e);
   }

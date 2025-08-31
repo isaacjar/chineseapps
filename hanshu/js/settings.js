@@ -173,10 +173,10 @@ export function openSettings() {
       circleShape: "pie",
       startAngle: 315,
       sliderType: "min-range",
-      change: function (args) {
+      /*change: function (args) {
         document.querySelector('#qtime').value = args.value;
         document.querySelector('#qtime-value').textContent = args.value + 's';
-      }
+      }*/
     });
 
 	// ===== DIFICULTAD =====

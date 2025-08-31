@@ -1,17 +1,7 @@
 // i18n.js
-import lang from './lang.json' assert { type: "json" };
-export const translations = lang;
+import translations from '../assets/lang/lang.json';
+export { translations };
 let currentLang = localStorage.getItem('lang') || 'en';
-
-  try {
-    const res = await fetch('assets/lang/lang.json');
-    translations = await res.json();
-  } catch (err) {
-    console.error('[i18n] Error loading lang.json', err);
-    translations = { en: {} };
-  }
-  return translations;
-}
 
 /**
  * Cambia el idioma actual

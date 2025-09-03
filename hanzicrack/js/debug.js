@@ -5,7 +5,7 @@ import { renderOutput } from "./ui.js";
 
 let debugNewChars = {}; // aquí guardamos lo que falta
 
-/**
+/** 
  * Analiza texto solo contra archivo local.
  * Los caracteres no encontrados se marcan como "not found"
  * y se guardan en memoria con la plantilla JSON.

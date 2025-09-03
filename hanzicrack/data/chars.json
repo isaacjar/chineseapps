@@ -1,4 +1,4 @@
-{
+export const data = {
   "华": {
     "pinyin": "huá",
     "meaning_en": "flower / China",
@@ -44,4 +44,4 @@
     "frequency": 77,
     "components": []
   }
-}
+};

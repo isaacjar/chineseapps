@@ -104,8 +104,10 @@ export function downloadUpdatedJson() {
 async function fetchCharacterFromAPI(char) {
   try {
     // MakeMeAHanzi usa archivos con el codepoint en hexadecimal
-    const codePointHex = char.codePointAt(0).toString(16).toLowerCase();
-    const url = `${API_BASE}/${codePointHex}.json`;
+    const codePoint = char.codePointAt(0).toString(10); // decimal
+    const url = `${API_BASE}/${codePoint}.json`;
+    /*const codePointHex = char.codePointAt(0).toString(16).toLowerCase();
+    const url = `${API_BASE}/${codePointHex}.json`;*/
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -117,7 +119,7 @@ async function fetchCharacterFromAPI(char) {
     // Normalización de la respuesta
     return {
       pinyin: data.pinyin || "",
-      meaning_en: data.definition || "MakeMeAHanzi",
+      meaning_en: data.definition || "ENGLISH error",
       meaning_es: "MakeMeAHanzi", // No disponible en la API
       radical: data.radical || "",
       strokes: data.strokes || (data.stroke_count || 0),

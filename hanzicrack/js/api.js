@@ -40,6 +40,13 @@ export async function getCharacterData(char) {
 }
 
 /**
+ * Devuelve TODOS los caracteres (locales + nuevos).
+ */
+export function getCharsData() {
+  return { ...localChars, ...newChars };
+}
+
+/**
  * Devuelve los nuevos caracteres obtenidos desde la API.
  */
 export function getNewChars() {
@@ -47,7 +54,7 @@ export function getNewChars() {
 }
 
 /**
- * Descarga un JSON con los nuevos caracteres.
+ * Descarga un JSON SOLO con los nuevos caracteres.
  */
 export function downloadNewCharsJSON() {
   if (Object.keys(newChars).length === 0) {
@@ -70,12 +77,33 @@ export function downloadNewCharsJSON() {
 }
 
 /**
+ * Descarga un JSON con TODOS los caracteres (locales + nuevos).
+ */
+export function downloadUpdatedJson() {
+  const allData = getCharsData();
+
+  const blob = new Blob([JSON.stringify(allData, null, 2)], {
+    type: "application/json",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "chars_updated.json";
+  a.click();
+  URL.revokeObjectURL(url);
+
+  console.log("⬇️ chars_updated.json descargado");
+}
+
+/**
  * Llama a MakeMeAHanzi para obtener datos de un carácter.
  * @param {string} char
  * @returns {Promise<object|null>}
  */
 async function fetchCharacterFromAPI(char) {
   try {
+    // MakeMeAHanzi usa archivos con el codepoint en hexadecimal
     const codePointHex = char.codePointAt(0).toString(16).toLowerCase();
     const url = `${API_BASE}/${codePointHex}.json`;
 

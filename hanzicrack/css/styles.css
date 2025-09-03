@@ -243,7 +243,7 @@ main {
   transform: translateY(-2px);
 }
 
-/* Botón azul: descarga completa */
+/* Botón azul: descarga completa 
 #btnDownloadFull {
   background: #007bff;
 }
@@ -251,10 +251,10 @@ main {
   background: #0056b3;
 }
 
-/* Botón verde: descarga nuevos */
+// Botón verde: descarga nuevos 
 #btnDownloadNew {
   background: #28a745;
 }
 #btnDownloadNew:hover {
   background: #1e7e34;
-}
+} */

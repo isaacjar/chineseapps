@@ -136,7 +136,7 @@ main {
 }
 
 .switch input:checked + .slider {
-  background: #0077cc;
+  background: #28a745; /* verde */
 }
 
 /* ====== Output ====== */

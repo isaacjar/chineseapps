@@ -11,10 +11,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   // 1. Inicializar configuración
   initSettings();
 
-  // 2. Cargar diccionario de caracteres
-  await loadCharsJson();
-
-  // 3. Conectar eventos
+  // 2. Conectar eventos
   setupEventListeners();
 
   setMsg("Listo para analizar 🚀");

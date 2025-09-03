@@ -25,6 +25,39 @@ btnAnalyze.addEventListener("click", () => {
   }
 });
 
+/* === Descargar JSON actualizado === */
+btnDownload.addEventListener("click", () => {
+    if (Object.keys(newChars).length === 0) {
+      alert("⚠️ No hay caracteres nuevos para descargar.");
+      return;
+    }
+  
+    // Crear objeto con SOLO los nuevos caracteres
+    const blob = new Blob(
+      [JSON.stringify(newChars, null, 2)], 
+      { type: "application/json" }
+    );
+  
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "new_chars.json";
+    a.click();
+  
+    URL.revokeObjectURL(url);
+  });
+
+/* === Leer parámetros URL === */
+function checkDevMode() {
+  const params = new URLSearchParams(location.search);
+  if (params.has("Isaac120")) {
+    document.getElementById("downloadBtn")?.classList.remove("hidden");
+    document.getElementById("radicalBtn")?.classList.remove("hidden");
+    document.getElementById("modeSwitch")?.classList.remove("hidden");
+    document.getElementById("modeLabel")?.classList.remove("hidden");
+  }
+}
+
 /* === Analizar carácter === */
 function analyzeChar(ch, lang = "en", full = false) {
   const dict = data[ch];

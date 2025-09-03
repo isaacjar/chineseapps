@@ -5,6 +5,7 @@ import { initSettings, getSettings } from "./settings.js";
 import { loadCharsJson, saveCharsJson, downloadUpdatedJson } from "./storage.js";
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
+import { downloadNewCharsJSON } from "./api.js";
 
 // ========= INICIO =========
 window.addEventListener("DOMContentLoaded", async () => {

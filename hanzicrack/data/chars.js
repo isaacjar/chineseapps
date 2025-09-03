@@ -6,7 +6,7 @@ export const data = {
     "radical": "十",
     "strokes": 6,
     "frequency": 33,
-    "components": ["亻", "匕"]
+    "components": ["亻", "匕", "十"]
   },
   "亻": {
     "pinyin": "rén",
@@ -45,13 +45,13 @@ export const data = {
     "components": []
   },
   "你": {
-    "pinyin": "nǚ",
-    "meaning_en": "woman",
-    "meaning_es": "mujer",
-    "radical": "女",
-    "strokes": 3,
-    "frequency": 88,
-    "components": ["亻", "匕"]
+    "pinyin": "nǐ",
+    "meaning_en": "you",
+    "meaning_es": "tú",
+    "radical": "亻",
+    "strokes": 7,
+    "frequency": 24,
+    "components": ["亻", "尔"]
   },
   "好": {
     "pinyin": "nǚ",
@@ -60,7 +60,7 @@ export const data = {
     "radical": "女",
     "strokes": 3,
     "frequency": 88,
-    "components": ["女", "匕"]
+    "components": ["女", "子"]
   },
   "尔": {
     "pinyin": "ěr",
@@ -78,6 +78,15 @@ export const data = {
     "radical": "子",
     "strokes": 3,
     "frequency": 22,
+    "components": []
+  },
+  "十": {
+    "pinyin": "shí",
+    "meaning_en": "ten",
+    "meaning_es": "diez",
+    "radical": "十",
+    "strokes": 2,
+    "frequency": 78,
     "components": []
   }
 };

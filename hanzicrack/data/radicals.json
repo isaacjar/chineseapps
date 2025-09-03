@@ -1,0 +1,42 @@
+[
+  {
+    "radical": "亻",
+    "pinyin": "rén",
+    "meaning_en": "person",
+    "meaning_es": "persona",
+    "strokes": 2,
+    "frequency": 120
+  },
+  {
+    "radical": "匕",
+    "pinyin": "bǐ",
+    "meaning_en": "spoon",
+    "meaning_es": "cuchara",
+    "strokes": 2,
+    "frequency": 98
+  },
+  {
+    "radical": "女",
+    "pinyin": "nǚ",
+    "meaning_en": "woman",
+    "meaning_es": "mujer",
+    "strokes": 3,
+    "frequency": 88
+  },
+  {
+    "radical": "米",
+    "pinyin": "mǐ",
+    "meaning_en": "rice",
+    "meaning_es": "arroz",
+    "strokes": 6,
+    "frequency": 77
+  },
+  {
+    "radical": "十",
+    "pinyin": "shí",
+    "meaning_en": "ten",
+    "meaning_es": "diez",
+    "strokes": 2,
+    "frequency": 200
+  }
+]

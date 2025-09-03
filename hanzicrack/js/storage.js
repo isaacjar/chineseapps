@@ -1,16 +1,33 @@
 // storage.js
-import { getCharsData, downloadUpdatedJson } from "./api.js";
+import { data as localChars } from "../data/chars.js";
+import { getNewChars } from "./api.js";
+
+let charsData = { ...localChars };
 
 /**
- * Obtiene TODOS los caracteres (locales + nuevos).
+ * Devuelve todos los caracteres (locales + nuevos).
  */
-export function loadChars() {
-  return getCharsData();
+export function getCharsData() {
+  return { ...charsData, ...getNewChars() };
 }
 
 /**
- * Descarga el JSON actualizado (local + nuevos).
+ * Descarga un JSON con todos los caracteres (locales + nuevos).
  */
-export function saveChars() {
-  downloadUpdatedJson();
+export function saveCharsJson() {
+  const allChars = getCharsData();
+
+  const blob = new Blob([JSON.stringify(allChars, null, 2)], {
+    type: "application/json",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "chars_updated.json";
+  a.click();
+  URL.revokeObjectURL(url);
+
+  console.log("⬇️ chars_updated.json descargado");
 }
+

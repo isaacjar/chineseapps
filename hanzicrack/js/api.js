@@ -1,4 +1,4 @@
-import { data as localChars } from "../data/chars.js";
+import { data as localChars } from "../data/chars.json";
 
 const API_BASE = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/data";
 

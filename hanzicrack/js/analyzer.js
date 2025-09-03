@@ -1,41 +1,100 @@
+// analyzer.js
 import { getCharacterData } from "./api.js";
-import { renderOutput, highlightCharacters } from "./ui.js";
 
 /**
- * Analiza el texto carácter por carácter.
- * @param {string} text - Texto en chino.
- * @param {string} lang - Idioma de salida ("es" | "en").
+ * Devuelve líneas formateadas:
+ * "字 [pinyin] ➜ comp [pinyin] meaning, comp [pinyin] meaning"
+ * @param {string} text
+ * @param {'simple'|'full'} mode
+ * @param {'es'|'en'} lang
+ * @returns {Promise<string[]>}
  */
-export async function analyzeText(text, lang = "es") {
-  const results = [];
-  const charsToHighlight = new Set();
+export async function analyzeText(text, mode = "simple", lang = "en") {
+  const lines = [];
 
   for (const ch of text) {
-    if (!/\p{Script=Han}/u.test(ch)) {
-      // No es un carácter chino → lo añadimos tal cual
-      results.push(ch);
+    // Solo tratamos caracteres Han; ignoramos espacios/puntuación/latinos
+    if (!/\p{Script=Han}/u.test(ch)) continue;
+
+    const data = await getCharacterData(ch);
+    if (!data) {
+      lines.push(`${ch} ➜ (sin datos)`);
       continue;
     }
 
-    // Llamamos siempre a getCharacterData (cache + local + API)
-    const data = await getCharacterData(ch);
+    // 1) Obtener componentes finales según modo
+    const finalComponents = await expandComponentsList(data.components, mode);
 
-    if (data) {
-      results.push(
-        `${ch} (${data.pinyin}) → ${lang === "es" ? data.meaning_es : data.meaning_en}`
-      );
-
-      if (data.radical) {
-        charsToHighlight.add(ch);
-      }
-    } else {
-      results.push(`${ch} (sin datos)`);
+    // 2) Formatear "comp [pinyin] meaning"
+    const parts = [];
+    for (const c of finalComponents) {
+      const cd = await getCharacterData(c);
+      const cpinyin = cd?.pinyin || "";
+      const cmeaning =
+        cd ? (lang === "es" ? cd.meaning_es : cd.meaning_en) : "";
+      parts.push(`${c} [${cpinyin}] ${cmeaning}`.trim());
     }
+
+    // 3) Línea final
+    const pinyin = data.pinyin || "";
+    const right = parts.join(", ");
+    lines.push(`${ch} [${pinyin}] ➜ ${right}`);
   }
 
-  // Mostrar resultados en pantalla
-  renderOutput(results);
+  return lines;
+}
 
-  // Resaltar caracteres que tienen radical
-  highlightCharacters(text, charsToHighlight);
+/**
+ * Según el modo, devuelve:
+ * - simple: los componentes de primer nivel tal cual
+ * - full: descompone recursivamente cada componente en átomos
+ */
+async function expandComponentsList(firstLevel, mode) {
+  if (!Array.isArray(firstLevel) || firstLevel.length === 0) return [];
+
+  if (mode === "simple") {
+    // Primer nivel sin profundizar
+    return firstLevel;
+  }
+
+  // FULL: expandir recursivamente hasta átomos, deduplicando en orden
+  const out = [];
+  const seen = new Set();
+  for (const comp of firstLevel) {
+    const atoms = await explodeToAtoms(comp, new Set());
+    for (const a of atoms) {
+      if (!seen.has(a)) {
+        seen.add(a);
+        out.push(a);
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Devuelve los átomos de un componente.
+ * Si el componente tiene subcomponentes → expandir recursivamente;
+ * si no, devolver [componente].
+ */
+async function explodeToAtoms(char, visiting) {
+  if (visiting.has(char)) return []; // evita bucles raros
+  visiting.add(char);
+
+  const d = await getCharacterData(char);
+  const subs = d?.components;
+
+  if (Array.isArray(subs) && subs.length > 0) {
+    const acc = [];
+    for (const s of subs) {
+      const atoms = await explodeToAtoms(s, visiting);
+      acc.push(...atoms);
+    }
+    visiting.delete(char);
+    // dedup preservando orden
+    return [...new Set(acc)];
+  } else {
+    visiting.delete(char);
+    return [char];
+  }
 }

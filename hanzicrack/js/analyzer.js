@@ -1,7 +1,7 @@
 // analyzer.js
 // Núcleo de la lógica de análisis de caracteres
 
-import { fetchCharacterFromAPI } from "./api.js";
+import { getCharacterData } from "./api.js";
 import { setMsg } from "./ui.js";
 
 let charsData = {};   // Se cargará desde chars.json
@@ -51,7 +51,7 @@ async function analyzeCharacter(char, mode) {
 
   // Si no está en el diccionario, lo buscamos en API
   if (!charObj) {
-    const apiData = await fetchCharacterFromAPI(char);
+    const apiData = await getCharacterData(char);
     if (!apiData) return `${char} ➜ [No encontrado]`;
 
     charObj = apiData;
@@ -88,7 +88,7 @@ async function expandComponentsRecursive(charObj) {
     let compObj = charsData[comp];
 
     if (!compObj) {
-      compObj = await fetchCharacterFromAPI(comp);
+      compObj = await getCharacterData(comp);
       if (compObj) charsData[comp] = compObj;
     }
 

@@ -26,7 +26,7 @@ function setupEventListeners() {
   const btnRadical = document.getElementById("btnRadical");
   const btnDownload = document.getElementById("btnDownload");
   const btnSettings = document.getElementById("btnSettings");
-  const closeSettings = document.getElementById("closeSettings");
+  const btnCloseSettings = document.getElementById("closeSettings");
   const btnCloseRadical = document.getElementById("closeModal");
 
   // Analizar texto
@@ -82,7 +82,7 @@ function setupEventListeners() {
   });
 
   // Cerrar configuración
-  closeSettings?.addEventListener("click", () => {
+  btnCloseSettings?.addEventListener("click", () => {
     closeModal("settingsModal");
   });
 

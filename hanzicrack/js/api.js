@@ -2,11 +2,14 @@ import { data as localChars } from "../data/chars.js";
 
 const API_BASE = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/data";
 
-// Aquí guardaremos los nuevos caracteres obtenidos de la API
+// Aquí guardamos los nuevos caracteres obtenidos de la API
 let newChars = {};
 
 /**
- * Busca primero en cache/local, luego en la API si no existe.
+ * Obtiene datos de un carácter chino.
+ * 1. Busca en localStorage (cache).
+ * 2. Busca en el JSON local.
+ * 3. Si no existe, lo pide a la API.
  * @param {string} char - Carácter chino.
  * @returns {Promise<object|null>}
  */
@@ -62,10 +65,14 @@ export function downloadNewCharsJSON() {
   a.download = "new_chars.json";
   a.click();
   URL.revokeObjectURL(url);
+
+  console.log("⬇️ new_chars.json descargado");
 }
 
 /**
  * Llama a MakeMeAHanzi para obtener datos de un carácter.
+ * @param {string} char
+ * @returns {Promise<object|null>}
  */
 async function fetchCharacterFromAPI(char) {
   try {
@@ -79,18 +86,16 @@ async function fetchCharacterFromAPI(char) {
 
     const data = await response.json();
 
-    // Normalización
-    const normalized = {
+    // Normalización de la respuesta
+    return {
       pinyin: data.pinyin || "",
       meaning_en: data.definition || "MakeMeAHanzi",
-      meaning_es: "MakeMeAHanzi", // no disponible en la API
+      meaning_es: "MakeMeAHanzi", // No disponible en la API
       radical: data.radical || "",
       strokes: data.strokes || (data.stroke_count || 0),
       frequency: data.frequency || 0,
       components: data.components || []
     };
-
-    return normalized;
   } catch (err) {
     console.error("❌ Error en fetchCharacterFromAPI:", err);
     return null;

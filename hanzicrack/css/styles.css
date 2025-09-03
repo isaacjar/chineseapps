@@ -245,19 +245,10 @@ main {
   transform: translateY(-2px);
 }
 
-.from-local {
-  color: black;
-}
-
-.from-api {
-  color: #a61403; /* rojo */
-  font-weight: bold;
-}
-
-.notfound {
-  color: gray;
-  font-style: italic;
-}
+/* 🎨 color para líneas de análisis */
+.from-local { color: #222; }
+.from-api   { color: #a61403; font-weight: 600; }
+.notfound   { color: #a61403; font-style: italic; }
 
 /* Botón azul: descarga completa 
 #btnDownloadFull {

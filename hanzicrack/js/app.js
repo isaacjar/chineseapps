@@ -24,13 +24,13 @@ window.addEventListener("DOMContentLoaded", async () => {
 function setupEventListeners() {
   const btnAnalyze = document.getElementById("btnAnalyze");
   const btnRadical = document.getElementById("btnRadical");
-  //const btnDownload = document.getElementById("btnDownload");
   const btnDownloadFull = document.getElementById("btnDownloadFull");
   const btnDownloadNew = document.getElementById("btnDownloadNew");
   const btnSettings = document.getElementById("btnSettings");
   const btnCloseSettings = document.getElementById("btnCloseSettings");
   const btnCloseRadical = document.getElementById("btnCloseRadical");
-
+  const btnValidate = document.getElementById("btnValidate");
+  
   // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {
     const input = document.getElementById("inputText").value.trim();
@@ -110,5 +110,53 @@ function setupEventListeners() {
     closeModal("radicalModal");
   });
 
+    // Validar JSON de caracteres
+    btnValidate?.addEventListener("click", () => {
+        
+      const dict = getCharsData(); // 🔹 tu acceso central a data (local + memoria)
+  
+      console.log("🔎 Validando diccionario...");
+  
+      const keys = Object.keys(dict);
+      const seen = new Set();
+      const duplicates = [];
+      const missingComponents = [];
+  
+      // 1. Buscar duplicados
+      for (const k of keys) {
+        if (seen.has(k)) {
+          duplicates.push(k);
+        } else {
+          seen.add(k);
+        }
+      }
+  
+      // 2. Verificar que todos los componentes existan
+      for (const [char, data] of Object.entries(dict)) {
+        if (Array.isArray(data.components)) {
+          for (const comp of data.components) {
+            if (!dict[comp]) {
+              missingComponents.push({ char, comp });
+            }
+          }
+        }
+      }
+  
+      // 3. Mostrar resultados
+      if (duplicates.length === 0 && missingComponents.length === 0) {
+        console.log("✅ Validación completada: sin problemas.");
+        alert("✅ Diccionario validado: todo correcto.");
+      } else {
+        if (duplicates.length > 0) {
+          console.error("⚠️ Claves duplicadas:", duplicates);
+        }
+        if (missingComponents.length > 0) {
+          console.error("⚠️ Componentes no encontrados:", missingComponents);
+        }
+        alert(`⚠️ Errores detectados: 
+  - Duplicados: ${duplicates.length} 
+  - Componentes faltantes: ${missingComponents.length}`);
+      }
+    });
   
 }

@@ -1,54 +1,93 @@
 // app.js
-import { data } from "./data/chars.js";      // tu JSON principal
-import { Settings } from "./settings.js";
-import { initUI } from "./ui.js";
-import { analyzeChar, fetchFromAPI, newChars } from "./analyzer.js";
+// Punto de entrada de la aplicación
 
-window.data = data;      // para debug en consola
-window.Settings = Settings;
+import { initSettings, getSettings } from "./settings.js";
+import { loadCharsJson, saveCharsJson, downloadUpdatedJson } from "./storage.js";
+import { analyzeText } from "./analyzer.js";
+import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 
-// === Inicialización al cargar ===
-window.addEventListener("DOMContentLoaded", () => {
-  Settings.load();
-  initUI();
+// ========= INICIO =========
+window.addEventListener("DOMContentLoaded", async () => {
+  // 1. Inicializar configuración
+  initSettings();
 
-  // Botón analizar
-  const btnAnalyze = document.getElementById("analyzeBtn");
-  btnAnalyze?.addEventListener("click", () => {
+  // 2. Cargar diccionario de caracteres
+  await loadCharsJson();
+
+  // 3. Conectar eventos
+  setupEventListeners();
+
+  setMsg("Listo para analizar 🚀");
+});
+
+// ========= EVENTOS =========
+function setupEventListeners() {
+  const btnAnalyze = document.getElementById("btnAnalyze");
+  const btnRadical = document.getElementById("btnRadical");
+  const btnDownload = document.getElementById("btnDownload");
+  const btnSettings = document.getElementById("btnSettings");
+  const closeSettings = document.getElementById("closeSettings");
+  const closeModal = document.getElementById("closeModal");
+
+  // Analizar texto
+  btnAnalyze?.addEventListener("click", async () => {
     const input = document.getElementById("inputText").value.trim();
-    if (!input) return;
-
-    const output = document.getElementById("outputBox");
-    output.innerHTML = ""; // limpiar salida
-
-    for (const char of input) {
-      if (/\s/.test(char)) continue; // saltar espacios
-
-      const line = analyzeChar(char, Settings.data.lang, Settings.data.mode);
-      const div = document.createElement("div");
-      div.innerHTML = line;
-      output.appendChild(div);
-    }
-  });
-
-  // Botón descargar JSON nuevo
-  const downloadBtn = document.getElementById("downloadBtn");
-  downloadBtn?.addEventListener("click", () => {
-    if (Object.keys(newChars).length === 0) {
-      alert("⚠️ No hay caracteres nuevos para descargar.");
+    if (!input) {
+      setMsg("Introduce algún carácter para analizar");
       return;
     }
 
-    const blob = new Blob(
-      [JSON.stringify(newChars, null, 2)],
-      { type: "application/json" }
-    );
+    const { mode } = getSettings();
+    const lines = await analyzeText(input, mode);
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "new_chars.json";
-    a.click();
-    URL.revokeObjectURL(url);
+    renderOutput(lines);
+    saveCharsJson(); // Guardamos por si hubo caracteres nuevos
   });
-});
+
+  // Buscar radical (abre modal)
+  btnRadical?.addEventListener("click", () => {
+    fetch("./data/radicals.json")
+      .then(r => r.json())
+      .then(radicals => {
+        const { lang } = getSettings();
+        showModalRadicals(radicals, lang, radical => {
+          const text = document.getElementById("inputText").value;
+          if (!text) return;
+
+          // Encontramos caracteres con ese radical
+          const charsToHighlight = new Set();
+          for (const ch of text) {
+            // Chequeo simple: si el char contiene el radical en su JSON
+            // (en versión extendida se haría recursivo con analyzer)
+            // Aquí solo simulamos el resaltado
+            if (radical && ch.includes(radical.radical)) {
+              charsToHighlight.add(ch);
+            }
+          }
+
+          highlightCharacters(text, charsToHighlight);
+          setMsg(`Radical ${radical.radical} encontrado en ${charsToHighlight.size} caracteres`);
+        });
+      });
+  });
+
+  // Descargar JSON actualizado
+  btnDownload?.addEventListener("click", () => {
+    downloadUpdatedJson();
+  });
+
+  // Abrir configuración
+  btnSettings?.addEventListener("click", () => {
+    openModal("settingsModal");
+  });
+
+  // Cerrar configuración
+  closeSettings?.addEventListener("click", () => {
+    closeModal("settingsModal");
+  });
+
+  // Cerrar modal radical
+  closeModal?.addEventListener("click", () => {
+    closeModal("radicalModal");
+  });
+}

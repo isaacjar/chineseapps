@@ -8,29 +8,19 @@ let newChars = {};
 let dictMap = null;          // Map<char, entry>
 let dictMapPromise = null;   // para evitar descargas duplicadas
 
-/**
- * Obtiene datos de un carácter:
- * 1) cache localStorage → 2) JSON local → 3) MakeMeAHanzi + HanziWriter
- */
+// BUSCA DATOS DEL CARACTER: 1. Local  2.MakeMeAHanzi
 export async function getCharacterData(char) {
-  // 1) cache
-  const cached = localStorage.getItem(`char_${char}`);
-  if (cached) {
-    return { ...JSON.parse(cached), source: "cache" };
-  }
-
-  // 2) local
-  if (localChars[char]) return localChars[char];
+  
+  // 1) Buscar en JSON local
   if (localChars[char]) {
     return { ...localChars[char], source: "local" };
   }
 
-  // 3) remoto
+  // 2) Buscar remoto (MakeMeAHanzi + hanzi-writer-data)
   const apiData = await fetchFromSources(char);
   if (apiData) {
     const enriched = { ...apiData, source: "api" };
-    localStorage.setItem(`char_${char}`, JSON.stringify(enriched));
-    newChars[char] = enriched;
+    newChars[char] = enriched;         // solo memoria RAM de esta sesión
     return enriched;
   }
   return null;

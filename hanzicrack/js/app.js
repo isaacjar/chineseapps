@@ -25,7 +25,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 function setupEventListeners() {
   const btnAnalyze = document.getElementById("btnAnalyze");
   const btnRadical = document.getElementById("btnRadical");
-  const btnDownload = document.getElementById("btnDownload");
+  //const btnDownload = document.getElementById("btnDownload");
+  const btnDownloadFull = document.getElementById("btnDownloadFull");
+  const btnDownloadNew = document.getElementById("btnDownloadNew");
   const btnSettings = document.getElementById("btnSettings");
   const btnCloseSettings = document.getElementById("btnCloseSettings");
   const btnCloseRadical = document.getElementById("btnCloseRadical");
@@ -72,9 +74,13 @@ function setupEventListeners() {
       });
   });
 
-  // Descargar JSON actualizado
-  btnDownload?.addEventListener("click", () => {
-    //downloadUpdatedJson();
+  // Descargar JSON completo (local + nuevos)
+  btnDownloadFull?.addEventListener("click", () => {
+    downloadUpdatedJson();
+  });
+  
+  // Descargar solo los nuevos caracteres
+  btnDownloadNew?.addEventListener("click", () => {
     downloadNewCharsJSON();
   });
 

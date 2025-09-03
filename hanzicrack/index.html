@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>HanziCrack 💥</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #fafafa;
+    }
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1.2em;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #4caf50;
+      color: white;
+    }
+    pre {
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      font-size: 1.2em;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>HanziCrack 💥</h1>
+  <textarea id="inputText" placeholder="Escribe aquí caracteres chinos...">数华</textarea>
+  <br>
+  <button onclick="analyzeText()">Analizar</button>
+  <h2>Resultado:</h2>
+  <pre id="output"></pre>
+
+  <script>
+    // Mini base de datos de ejemplo
+    const data = {
+      "数": {
+        "pinyin": "shù",
+        "components": ["米","女","攵"]
+      },
+      "米": { "pinyin": "mǐ", "meaning": "arroz", "components": [] },
+      "女": { "pinyin": "nǚ", "meaning": "mujer", "components": [] },
+      "攵": { "pinyin": "pū", "meaning": "golpear", "components": [] },
+      "华": {
+        "pinyin": "huá",
+        "components": ["亻","匕"]
+      },
+      "亻": { "pinyin": "rén", "meaning": "persona", "components": [] },
+      "匕": { "pinyin": "bǐ", "meaning": "cuchara", "components": [] }
+    };
+
+    function analyze(text) {
+      let output = "";
+      for (const ch of text) {
+        if (data[ch]) {
+          const entry = data[ch];
+          const parts = entry.components.map(c => {
+            const d = data[c];
+            return `${c} [${d?.pinyin||"?"}] ${d?.meaning||""}`;
+          }).join(", ");
+          output += `${ch} [${entry.pinyin}] ➜ ${parts}\n`;
+        } else {
+          output += `${ch} ➜ (sin datos)\n`;
+        }
+      }
+      return output;
+    }
+
+    function analyzeText() {
+      const text = document.getElementById("inputText").value.trim();
+      const result = analyze(text);
+      document.getElementById("output").textContent = result;
+    }
+
+    // Autoanaliza al cargar
+    window.onload = analyzeText;
+  </script>
+</body>
+</html>

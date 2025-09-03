@@ -73,7 +73,8 @@ function setupEventListeners() {
 
   // Descargar JSON actualizado
   btnDownload?.addEventListener("click", () => {
-    downloadUpdatedJson();
+    //downloadUpdatedJson();
+    downloadNewCharsJSON();
   });
 
   // Abrir configuración

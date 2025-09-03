@@ -1,13 +1,14 @@
 // ✅ app.js
 // Punto de entrada de la aplicación
 import { initSettings, getSettings } from "./settings.js";
-import { saveCharsJson } from "./storage.js";  //import { getCharsData, saveCharsJson } from "./storage.js";  //import { loadCharsJson, saveCharsJson } from "./storage.js";
+import { saveCharsJson } from "./storage.js";  
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";
 
 // ========= INICIO =========
 window.addEventListener("DOMContentLoaded", async () => {
+
   // 1. Inicializar configuración
   initSettings();
 
@@ -15,6 +16,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   setupEventListeners();
 
   setMsg("Ready 🚀");
+  
 });
 
 // ========= EVENTOS =========
@@ -40,7 +42,6 @@ function setupEventListeners() {
     const lines = await analyzeText(input, mode, lang);
     renderOutput(lines);
     
-    saveCharsJson(); // Guardamos por si hubo caracteres nuevos
   });
 
   // Buscar radical (abre modal)

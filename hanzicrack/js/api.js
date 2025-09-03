@@ -15,18 +15,25 @@ let dictMapPromise = null;   // para evitar descargas duplicadas
 export async function getCharacterData(char) {
   // 1) cache
   const cached = localStorage.getItem(`char_${char}`);
-  if (cached) return JSON.parse(cached);
+  if (cached) {
+    return { ...JSON.parse(cached), source: "cache" };
+  }
 
   // 2) local
   if (localChars[char]) return localChars[char];
+  if (localChars[char]) {
+    return { ...localChars[char], source: "local" };
+  }
 
   // 3) remoto
   const apiData = await fetchFromSources(char);
   if (apiData) {
-    localStorage.setItem(`char_${char}`, JSON.stringify(apiData));
-    newChars[char] = apiData;
+    const enriched = { ...apiData, source: "api" };
+    localStorage.setItem(`char_${char}`, JSON.stringify(enriched));
+    newChars[char] = enriched;
+    return enriched;
   }
-  return apiData;
+  return null;
 }
 
 /** Devuelve el diccionario de nuevos caracteres obtenidos en esta sesión */

@@ -43,5 +43,41 @@ export const data = {
     "strokes": 6,
     "frequency": 77,
     "components": []
+  },
+  "你": {
+    "pinyin": "nǚ",
+    "meaning_en": "woman",
+    "meaning_es": "mujer",
+    "radical": "女",
+    "strokes": 3,
+    "frequency": 88,
+    "components": ["亻", "匕"]
+  },
+  "好": {
+    "pinyin": "nǚ",
+    "meaning_en": "woman",
+    "meaning_es": "mujer",
+    "radical": "女",
+    "strokes": 3,
+    "frequency": 88,
+    "components": ["女", "匕"]
+  },
+  "尔": {
+    "pinyin": "ěr",
+    "meaning_en": "you",
+    "meaning_es": "usted",
+    "radical": "尔",
+    "strokes": 5,
+    "frequency": 88,
+    "components": []
+  },
+  "子": {
+    "pinyin": "zi",
+    "meaning_en": "son",
+    "meaning_es": "hijo",
+    "radical": "子",
+    "strokes": 3,
+    "frequency": 22,
+    "components": []
   }
 };

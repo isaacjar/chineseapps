@@ -217,3 +217,44 @@ main {
     font-size: 1.1rem;
   }
 }
+
+/* BOTONES */
+/* Contenedor opcional para alinear */
+.download-buttons {
+  display: flex;
+  gap: 10px; /* separación entre botones */
+  margin-top: 15px;
+}
+
+/* Estilo base */
+.download-buttons button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  transition: transform 0.15s ease, background 0.3s ease;
+}
+
+/* Hover efecto */
+.download-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+/* Botón azul: descarga completa */
+#btnDownloadFull {
+  background: #007bff;
+}
+#btnDownloadFull:hover {
+  background: #0056b3;
+}
+
+/* Botón verde: descarga nuevos */
+#btnDownloadNew {
+  background: #28a745;
+}
+#btnDownloadNew:hover {
+  background: #1e7e34;
+}

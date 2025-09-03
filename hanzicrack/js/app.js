@@ -45,25 +45,15 @@ function setupEventListeners() {
     
   });
 
-  document.getElementById("btnDebug").addEventListener("click", async () => {
-    const input = document.getElementById("inputText").value.trim();
-    if (!input) return;
-  
-    const missing = await debugText(input, "es");
-  
-    // Opcional: descarga automática del JSON con los que faltan
-    if (Object.keys(missing).length > 0) {
-      const blob = new Blob([JSON.stringify(missing, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "missing_chars.json";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-  });
+    document.getElementById("btnDebug").addEventListener("click", async () => {
+      const input = document.getElementById("inputText").value.trim();
+      if (!input) return;
+    
+      await debugText(input, "simple", "es");
+    
+      setMsg("Debug analysis done. Missing chars stored in memory ⚡");
+    });
+      
   // Buscar radical (abre modal)
   btnRadical?.addEventListener("click", () => {
     fetch("./data/radicals.json")

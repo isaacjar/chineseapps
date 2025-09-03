@@ -7,6 +7,7 @@
  */
 export function renderOutput(lines) {
   const output = document.getElementById("outputText");
+  if (!output) return;
   output.innerHTML = lines.join("<br>");
 }
 
@@ -15,8 +16,9 @@ export function renderOutput(lines) {
  * @param {string} message
  */
 export function setMsg(message) {
-  const msg = document.getElementById("msg");
-  msg.textContent = message;
+  const lblMsg = document.getElementById("msg");
+  if (!lblMsg) return;
+  lblMsg.textContent = message;
 }
 
 /**
@@ -24,7 +26,8 @@ export function setMsg(message) {
  * @param {string} modalId - id del modal (ej: "radicalModal")
  */
 export function openModal(modalId) {
-  document.getElementById(modalId).classList.remove("hidden");
+  const modal = document.getElementById(modalId);
+  modal?.classList.remove("hidden");
 }
 
 /**
@@ -32,7 +35,8 @@ export function openModal(modalId) {
  * @param {string} modalId - id del modal
  */
 export function closeModal(modalId) {
-  document.getElementById(modalId).classList.add("hidden");
+  const modal = document.getElementById(modalId);
+  modal?.classList.add("hidden");
 }
 
 /**
@@ -43,16 +47,20 @@ export function closeModal(modalId) {
  */
 export function showModalRadicals(radicals, lang, onSelect) {
   const container = document.getElementById("radicalList");
+  if (!container) return;
+
   container.innerHTML = "";
 
   radicals.forEach(r => {
-    const btn = document.createElement("button");
-    btn.textContent = `${r.radical} [${r.pinyin}] ${lang === "es" ? r.meaning_es : r.meaning_en}`;
-    btn.addEventListener("click", () => {
+    const btnRadical = document.createElement("button");
+    btnRadical.textContent = `${r.radical} [${r.pinyin}] ${
+      lang === "es" ? r.meaning_es : r.meaning_en
+    }`;
+    btnRadical.addEventListener("click", () => {
       onSelect(r);
       closeModal("radicalModal");
     });
-    container.appendChild(btn);
+    container.appendChild(btnRadical);
   });
 
   openModal("radicalModal");
@@ -65,15 +73,13 @@ export function showModalRadicals(radicals, lang, onSelect) {
  */
 export function highlightCharacters(originalText, charsToHighlight) {
   const output = document.getElementById("outputText");
+  if (!output) return;
 
-  // Recorremos el texto y resaltamos los caracteres encontrados
   let highlighted = "";
   for (const ch of originalText) {
-    if (charsToHighlight.has(ch)) {
-      highlighted += `<span class="highlight">${ch}</span>`;
-    } else {
-      highlighted += ch;
-    }
+    highlighted += charsToHighlight.has(ch)
+      ? `<span class="highlight">${ch}</span>`
+      : ch;
   }
 
   output.innerHTML = highlighted;

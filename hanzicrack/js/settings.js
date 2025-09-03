@@ -77,7 +77,7 @@ function applyUISettings() {
  * Muestra botones ocultos si admin = true.
  */
 function showHiddenControls() {
-  document.getElementById("btnRadical")?.classList.remove("hidden");
-  document.getElementById("btnDownload")?.classList.remove("hidden");
-  document.querySelector(".switch")?.classList.remove("hidden");
+  document.getElementById("btnDownloadFull")?.classList.remove("hidden");
+  document.getElementById("btnDownloadNew")?.classList.remove("hidden");
+  document.getElementById("btnDebug")?.classList.remove("hidden");
 }

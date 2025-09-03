@@ -36,10 +36,10 @@ function setupEventListeners() {
       return;
     }
 
-    const { mode } = getSettings();
-    const lines = await analyzeText(input, mode);
-
+    const { mode, lang } = getSettings();
+    const lines = await analyzeText(input, mode, lang);
     renderOutput(lines);
+    
     saveCharsJson(); // Guardamos por si hubo caracteres nuevos
   });
 

@@ -1,7 +1,7 @@
-// app.js
+// ✅ app.js
 // Punto de entrada de la aplicación
 import { initSettings, getSettings } from "./settings.js";
-import { loadCharsJson, saveCharsJson } from "./storage.js";   // ✅ quitamos downloadUpdatedJson
+import { getCharsData, saveCharsJson } from "./storage.js";  //import { loadCharsJson, saveCharsJson } from "./storage.js";
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";

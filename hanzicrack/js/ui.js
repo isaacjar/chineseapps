@@ -5,11 +5,29 @@
  * Muestra las líneas de análisis en el cuadro de salida.
  * @param {string[]} lines - array de strings formateados.
  */
-export function renderOutput(lines) {
-  const output = document.getElementById("outputText");
-  if (!output) return;
-  output.innerHTML = lines.join("<br>");
-}
+  export function renderOutput(lines) {
+    const output = document.getElementById("outputText");
+  
+    if (!lines) {
+      output.innerHTML = "<em>(Sin resultados)</em>";
+      return;
+    }
+  
+    // Si es array → lo unimos con saltos de línea
+    if (Array.isArray(lines)) {
+      output.innerHTML = lines.join("<br>");
+      return;
+    }
+  
+    // Si es objeto → lo mostramos bonito
+    if (typeof lines === "object") {
+      output.innerHTML = `<pre>${JSON.stringify(lines, null, 2)}</pre>`;
+      return;
+    }
+  
+    // Si es string u otro tipo → lo mostramos tal cual
+    output.textContent = lines.toString();
+  }
 
 /**
  * Actualiza el mensaje superior (label msg).

@@ -1,8 +1,7 @@
 // app.js
 // Punto de entrada de la aplicación
-
 import { initSettings, getSettings } from "./settings.js";
-import { loadCharsJson, saveCharsJson, downloadUpdatedJson } from "./storage.js";
+import { loadCharsJson, saveCharsJson } from "./storage.js";   // ✅ quitamos downloadUpdatedJson
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";
@@ -76,7 +75,7 @@ function setupEventListeners() {
 
   // Descargar JSON completo (local + nuevos)
   btnDownloadFull?.addEventListener("click", () => {
-    downloadUpdatedJson();
+    saveCharsJson();
   });
   
   // Descargar solo los nuevos caracteres

@@ -26,8 +26,8 @@ function setupEventListeners() {
   const btnRadical = document.getElementById("btnRadical");
   const btnDownload = document.getElementById("btnDownload");
   const btnSettings = document.getElementById("btnSettings");
-  const btnCloseSettings = document.getElementById("closeSettings");
-  const btnCloseRadical = document.getElementById("closeModal");
+  const btnCloseSettings = document.getElementById("btnCloseSettings");
+  const btnCloseRadical = document.getElementById("btnCloseRadical");
 
   // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {

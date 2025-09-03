@@ -1,91 +1,69 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HanziCrack 💥</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #fafafa;
-    }
-    textarea {
-      width: 100%;
-      min-height: 80px;
-      margin-bottom: 10px;
-      padding: 10px;
-      font-size: 1.2em;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1.1em;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background: #4caf50;
-      color: white;
-    }
-    pre {
-      background: #fff;
-      padding: 15px;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      font-size: 1.2em;
-      white-space: pre-wrap;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <h1>HanziCrack 💥</h1>
-  <textarea id="inputText" placeholder="Escribe aquí caracteres chinos...">数华</textarea>
-  <br>
-  <button onclick="analyzeText()">Analizar</button>
-  <h2>Resultado:</h2>
-  <pre id="output"></pre>
+  <!-- ===== Header ===== -->
+  <header class="app-header">
+    <h1>HanziCrack 💥</h1>
+    <div class="header-right">
+      <label id="msg" class="msg-label">Ready</label>
+      <button id="settingsBtn" class="icon-btn">⚙️</button>
+    </div>
+  </header>
 
-  <script>
-    // Mini base de datos de ejemplo
-    const data = {
-      "数": {
-        "pinyin": "shù",
-        "components": ["米","女","攵"]
-      },
-      "米": { "pinyin": "mǐ", "meaning": "arroz", "components": [] },
-      "女": { "pinyin": "nǚ", "meaning": "mujer", "components": [] },
-      "攵": { "pinyin": "pū", "meaning": "golpear", "components": [] },
-      "华": {
-        "pinyin": "huá",
-        "components": ["亻","匕"]
-      },
-      "亻": { "pinyin": "rén", "meaning": "persona", "components": [] },
-      "匕": { "pinyin": "bǐ", "meaning": "cuchara", "components": [] }
-    };
+  <!-- ===== Main Screen ===== -->
+  <main class="app-main">
+    <!-- Entrada de texto -->
+    <textarea id="inputText" placeholder="Escribe texto en chino aquí..."></textarea>
 
-    function analyze(text) {
-      let output = "";
-      for (const ch of text) {
-        if (data[ch]) {
-          const entry = data[ch];
-          const parts = entry.components.map(c => {
-            const d = data[c];
-            return `${c} [${d?.pinyin||"?"}] ${d?.meaning||""}`;
-          }).join(", ");
-          output += `${ch} [${entry.pinyin}] ➜ ${parts}\n`;
-        } else {
-          output += `${ch} ➜ (sin datos)\n`;
-        }
-      }
-      return output;
-    }
+    <!-- Botones -->
+    <div class="btn-row">
+      <button id="analyzeBtn" class="btn">🔍 Analizar</button>
+      <button id="radicalBtn" class="btn hidden">🔎 Buscar radical</button>
+      <button id="downloadBtn" class="btn hidden">⬇️ Descargar JSON</button>
 
-    function analyzeText() {
-      const text = document.getElementById("inputText").value.trim();
-      const result = analyze(text);
-      document.getElementById("output").textContent = result;
-    }
+      <!-- Switch simple/full -->
+      <label class="switch hidden">
+        <input type="checkbox" id="modeSwitch" />
+        <span class="slider"></span>
+      </label>
+      <span id="modeLabel" class="hidden">Simple</span>
+    </div>
 
-    // Autoanaliza al cargar
-    window.onload = analyzeText;
-  </script>
+    <!-- Salida de texto -->
+    <div id="outputText" class="output-box"></div>
+  </main>
+
+  <!-- ===== Modal de Configuración ===== -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>⚙️ Configuración</h2>
+      
+      <label for="langSelect">Idioma:</label>
+      <select id="langSelect">
+        <option value="en">🇬🇧 English</option>
+        <option value="es">🇪🇸 Español</option>
+      </select>
+
+      <div class="modal-actions">
+        <button id="btnSaveSettings" class="btn">💾 Guardar</button>
+        <button id="btnResetSettings" class="btn">🔄 Reset</button>
+        <button id="btnCloseSettings" class="btn">❌ Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/settings.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/dataManager.js"></script>
+  <script src="js/radicalFinder.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import { saveCharsJson } from "./storage.js";
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";
+import { debugText } from "./debug.js";
 
 // ========= INICIO =========
 window.addEventListener("DOMContentLoaded", async () => {
@@ -44,6 +45,25 @@ function setupEventListeners() {
     
   });
 
+  document.getElementById("btnDebug").addEventListener("click", async () => {
+    const input = document.getElementById("inputText").value.trim();
+    if (!input) return;
+  
+    const missing = await debugText(input, "es");
+  
+    // Opcional: descarga automática del JSON con los que faltan
+    if (Object.keys(missing).length > 0) {
+      const blob = new Blob([JSON.stringify(missing, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "missing_chars.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  });
   // Buscar radical (abre modal)
   btnRadical?.addEventListener("click", () => {
     fetch("./data/radicals.json")
@@ -95,4 +115,6 @@ function setupEventListeners() {
   btnCloseRadical?.addEventListener("click", () => {
     closeModal("radicalModal");
   });
+
+  
 }

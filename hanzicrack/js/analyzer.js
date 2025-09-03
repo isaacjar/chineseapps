@@ -18,7 +18,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
 
     const data = await getCharacterData(ch);
     if (!data) {
-      lines.push(`${ch} ➜ (sin datos)`);
+      lines.push(`<span class="notfound">${ch} ➜ (sin datos)</span>`);
       continue;
     }
 
@@ -38,7 +38,10 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     // 3) Línea final
     const pinyin = data.pinyin || "";
     const right = parts.join(", ");
-    lines.push(`${ch} [${pinyin}] ➜ ${right}`);
+    
+    // Marcar color según source
+    const cssClass = data.source === "api" ? "from-api" : "from-local";
+    lines.push(`<span class="${cssClass}">${ch} [${pinyin}] ➜ ${right}</span>`);
   }
 
   return lines;

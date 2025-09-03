@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   // 2. Conectar eventos
   setupEventListeners();
 
-  setMsg("Listo para analizar 🚀");
+  setMsg("Ready 🚀");
 });
 
 // ========= EVENTOS =========
@@ -32,7 +32,7 @@ function setupEventListeners() {
   btnAnalyze?.addEventListener("click", async () => {
     const input = document.getElementById("inputText").value.trim();
     if (!input) {
-      setMsg("Introduce algún carácter para analizar");
+      setMsg("Type Chinese chars...");
       return;
     }
 
@@ -65,7 +65,7 @@ function setupEventListeners() {
           }
 
           highlightCharacters(text, charsToHighlight);
-          setMsg(`Radical ${radical.radical} encontrado en ${charsToHighlight.size} caracteres`);
+          setMsg(`Radical ${radical.radical} found in ${charsToHighlight.size} chars.`);
         });
       });
   });

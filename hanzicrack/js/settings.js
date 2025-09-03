@@ -1,10 +1,9 @@
 // settings.js
 // Gestión de configuración de la app (idioma, modo, permisos)
-
 let settings = {
-  lang: "en",       // Idioma por defecto: inglés
-  mode: "simple",   // simple | full
-  admin: false      // acceso avanzado con Isaac120
+  lang: "en",       // por defecto inglés
+  mode: "simple",   // NO persistimos este valor
+  admin: false
 };
 
 /**
@@ -19,9 +18,10 @@ export function initSettings() {
     showHiddenControls();
   }
 
-  const saved = localStorage.getItem("hanziSettings");
-  if (saved) {
-    settings = { ...settings, ...JSON.parse(saved) };
+  // ⚙️ Cargar idioma y otros Settings si hay en el futuro
+  const savedLang = localStorage.getItem("hanziLang");
+  if (savedLang) {
+    settings.lang = savedLang;
   }
 
   applyUISettings();
@@ -34,22 +34,15 @@ export function getSettings() {
   return settings;
 }
 
-/**
- * Cambia idioma.
- * @param {string} lang - "en" | "es"
- */
+// setLanguage: al cambiar idioma, SÍ persistimos
 export function setLanguage(lang) {
   settings.lang = lang;
-  saveSettings();
+  localStorage.setItem("hanziLang", lang);
 }
 
-/**
- * Cambia modo simple/full.
- * @param {"simple"|"full"} mode
- */
+// setMode: NO persiste; solo actualiza settings en RAM
 export function setMode(mode) {
   settings.mode = mode;
-  saveSettings();
 }
 
 /**

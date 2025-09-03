@@ -80,4 +80,5 @@ function showHiddenControls() {
   document.getElementById("btnDownloadFull")?.classList.remove("hidden");
   document.getElementById("btnDownloadNew")?.classList.remove("hidden");
   document.getElementById("btnDebug")?.classList.remove("hidden");
+  document.querySelector(".switch")?.classList.remove("hidden");
 }

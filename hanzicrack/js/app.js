@@ -49,8 +49,8 @@ function setupEventListeners() {
       const input = document.getElementById("inputText").value.trim();
       if (!input) return;
     
-      await debugText(input, "simple", "es");
-    
+      const { mode, lang } = getSettings();
+      await debugText(input, mode, lang);
       setMsg("Debug analysis done. Missing chars stored in memory ⚡");
     });
       

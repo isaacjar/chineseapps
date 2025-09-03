@@ -1,7 +1,7 @@
 // ✅ app.js
 // Punto de entrada de la aplicación
 import { initSettings, getSettings } from "./settings.js";
-import { saveCharsJson } from "./storage.js";  
+import { saveCharsJson, getCharsData } from "./storage.js";  
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";
@@ -61,22 +61,26 @@ function setupEventListeners() {
       .then(radicals => {
         const { lang } = getSettings();
         showModalRadicals(radicals, lang, radical => {
-          const text = document.getElementById("inputText").value;
+          const text = document.getElementById("inputText").value || "";
           if (!text) return;
-
-          // Encontramos caracteres con ese radical
+  
+          const dict = getCharsData(); // local + nuevos en memoria
           const charsToHighlight = new Set();
+          const rad = radical.radical;
+  
           for (const ch of text) {
-            // Chequeo simple: si el char contiene el radical en su JSON
-            // (en versión extendida se haría recursivo con analyzer)
-            // Aquí solo simulamos el resaltado
-            if (radical && ch.includes(radical.radical)) {
+            // solo caracteres Han
+            if (!/\p{Script=Han}/u.test(ch)) continue;
+  
+            const d = dict[ch];
+            if (d && Array.isArray(d.components) && d.components.includes(rad)) {
               charsToHighlight.add(ch);
             }
           }
-
+  
+          // pinto el MISMO texto con chars en rojo si contienen el radical
           highlightCharacters(text, charsToHighlight);
-          setMsg(`Radical ${radical.radical} found in ${charsToHighlight.size} chars.`);
+          setMsg(`Radical ${rad} found in ${charsToHighlight.size} chars.`);
         });
       });
   });

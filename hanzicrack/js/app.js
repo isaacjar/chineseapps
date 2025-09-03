@@ -27,7 +27,7 @@ function setupEventListeners() {
   const btnDownload = document.getElementById("btnDownload");
   const btnSettings = document.getElementById("btnSettings");
   const closeSettings = document.getElementById("closeSettings");
-  const closeModal = document.getElementById("closeModal");
+  const btnCloseRadical = document.getElementById("closeModal");
 
   // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {
@@ -87,7 +87,7 @@ function setupEventListeners() {
   });
 
   // Cerrar modal radical
-  closeModal?.addEventListener("click", () => {
+  btnCloseRadical?.addEventListener("click", () => {
     closeModal("radicalModal");
   });
 }

@@ -250,18 +250,53 @@ main {
 .from-api   { color: #a61403; font-weight: 600; }
 .notfound   { color: #a61403; font-style: italic; }
 
-/* Botón azul: descarga completa 
-#btnDownloadFull {
-  background: #007bff;
-}
-#btnDownloadFull:hover {
-  background: #0056b3;
+/* ===== Settings modal ===== */
+.settings-box {
+  min-width: 280px;
 }
 
-// Botón verde: descarga nuevos 
-#btnDownloadNew {
-  background: #28a745;
+.settings-box h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #0077cc;
 }
-#btnDownloadNew:hover {
-  background: #1e7e34;
-} */
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.setting-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.setting-group select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.setting-actions {
+  text-align: center;
+}
+
+.setting-actions .btn-close {
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.setting-actions .btn-close:hover {
+  background: #005fa3;
+}

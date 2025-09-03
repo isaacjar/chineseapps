@@ -1,5 +1,29 @@
 [
   {
+    "radical": "一",
+    "pinyin": "yī",
+    "meaning_en": "one",
+    "meaning_es": "uno",
+    "strokes": 1,
+    "frequency": 300
+  },
+  {
+    "radical": "丨",
+    "pinyin": "gǔn",
+    "meaning_en": "line",
+    "meaning_es": "línea",
+    "strokes": 1,
+    "frequency": 150
+  },
+  {
+    "radical": "丶",
+    "pinyin": "zhǔ",
+    "meaning_en": "dot",
+    "meaning_es": "punto",
+    "strokes": 1,
+    "frequency": 180
+  },
+  {
     "radical": "亻",
     "pinyin": "rén",
     "meaning_en": "person",

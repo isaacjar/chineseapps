@@ -69,13 +69,11 @@ export function downloadNewCharsJSON() {
  */
 async function fetchCharacterFromAPI(char) {
   try {
-    //const codePoint = char.codePointAt(0).toString(10); // ej: 20320
     const codePointHex = char.codePointAt(0).toString(16).toLowerCase();
-    const url = `${API_BASE}/${codePoint}.json`;
+    const url = `${API_BASE}/${codePointHex}.json`;
 
     const response = await fetch(url);
     if (!response.ok) {
-      //throw new Error(`No se pudo obtener datos para ${char} (${codePoint})`);
       throw new Error(`No se pudo obtener datos para ${char} (${url})`);
     }
 
@@ -83,15 +81,16 @@ async function fetchCharacterFromAPI(char) {
 
     // Normalización
     const normalized = {
-      return {
-        pinyin: data.pinyin || "",
-        meaning_en: data.definition || "MakeMeAHanzi",
-        meaning_es: "MakeMeAHanzi",
-        radical: data.radical || "",
-        strokes: data.strokes || (data.stroke_count || 0),
-        frequency: data.frequency || 0,
-        components: data.components || []
-      };
+      pinyin: data.pinyin || "",
+      meaning_en: data.definition || "MakeMeAHanzi",
+      meaning_es: "MakeMeAHanzi", // no disponible en la API
+      radical: data.radical || "",
+      strokes: data.strokes || (data.stroke_count || 0),
+      frequency: data.frequency || 0,
+      components: data.components || []
+    };
+
+    return normalized;
   } catch (err) {
     console.error("❌ Error en fetchCharacterFromAPI:", err);
     return null;

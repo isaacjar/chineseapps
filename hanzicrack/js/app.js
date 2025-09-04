@@ -21,6 +21,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   
 });
 
+// 🔹 Estado de modo (arranca siempre en "simple")
+let currentMode = "simple";
+
 // ========= EVENTOS =========
 function setupEventListeners() {
   const btnAnalyze = document.getElementById("btnAnalyze");
@@ -36,12 +39,12 @@ function setupEventListeners() {
 
   // 🧠 SWITCH BUSQUEDA PROFUNDA
   if (modeSwitch) {
-    // Estado inicial al cargar la app
-    modeSwitch.checked = getSettings().mode === "full";
-  
-    // Al cambiar el switch → actualizar settings en memoria
+    // siempre arranca desactivado → simple
+    modeSwitch.checked = false;
+
     modeSwitch.addEventListener("change", e => {
-      setMode(e.target.checked ? "full" : "simple");
+      currentMode = e.target.checked ? "full" : "simple";
+      console.log("🔄 Mode switched to:", currentMode);
     });
   }
   
@@ -57,8 +60,8 @@ function setupEventListeners() {
     outputDiv.classList.add("loading"); // ⏳ mostrar spinner animado
   
     try {
-      const { mode, lang } = getSettings();
-      const lines = await analyzeText(input, mode, lang);
+      const { lang } = getSettings(); // usamos solo lang de settings
+      const lines = await analyzeText(input, currentMode, lang);
       renderOutput(lines);
     } catch (err) {
       console.error("❌ Error analyzing text:", err);
@@ -68,14 +71,15 @@ function setupEventListeners() {
     }
   });
 
-    document.getElementById("btnDebug").addEventListener("click", async () => {
-      const input = document.getElementById("inputText").value.trim();
-      if (!input) return;
+  // Debug
+  document.getElementById("btnDebug").addEventListener("click", async () => {
+    const input = document.getElementById("inputText").value.trim();
+    if (!input) return;
     
-      const { mode, lang } = getSettings();
-      await debugText(input, mode, lang);
-      setMsg("Debug analysis done. Missing chars stored in memory ⚡");
-    });
+    const { lang } = getSettings();
+    await debugText(input, currentMode, lang);
+    setMsg("Debug analysis done. Missing chars stored in memory ⚡");
+  });
       
   // Buscar radical (abre modal)
   btnRadical?.addEventListener("click", () => {
@@ -143,58 +147,57 @@ function setupEventListeners() {
     closeModal("radicalModal");
   });
 
-    // Validar JSON de caracteres
-    btnValidate?.addEventListener("click", () => {
-        
-      const dict = getCharsData(); // 🔹 tu acceso central a data (local + memoria)
+  // Validar JSON de caracteres
+  btnValidate?.addEventListener("click", () => {
+    const dict = getCharsData(); // 🔹 tu acceso central a data (local + memoria)
   
-      console.log("🔎 Validando diccionario...");
+    console.log("🔎 Validando diccionario...");
   
-      const keys = Object.keys(dict);
-      const seen = new Set();
-      const duplicates = [];
-      const missingComponents = [];
+    const keys = Object.keys(dict);
+    const seen = new Set();
+    const duplicates = [];
+    const missingComponents = [];
   
-      // 1. Buscar duplicados
-      for (const k of keys) {
-        if (seen.has(k)) {
-          duplicates.push(k);
-        } else {
-          seen.add(k);
-        }
+    // 1. Buscar duplicados
+    for (const k of keys) {
+      if (seen.has(k)) {
+        duplicates.push(k);
+      } else {
+        seen.add(k);
       }
+    }
   
-      // 2. Verificar que todos los componentes existan
-      for (const [char, data] of Object.entries(dict)) {
-        if (Array.isArray(data.components)) {
-          for (const comp of data.components) {
-            if (!dict[comp]) {
-              missingComponents.push({ char, comp });
-            }
+    // 2. Verificar que todos los componentes existan
+    for (const [char, data] of Object.entries(dict)) {
+      if (Array.isArray(data.components)) {
+        for (const comp of data.components) {
+          if (!dict[comp]) {
+            missingComponents.push({ char, comp });
           }
         }
       }
+    }
   
-      // 3. Mostrar resultados
-      if (duplicates.length === 0 && missingComponents.length === 0) {
-        console.log("✅ Validación completada: sin problemas.");
-        alert("✅ Diccionario validado: todo correcto.");
-      } else {
-        if (duplicates.length > 0) {
-          console.error("⚠️ Claves duplicadas:", duplicates);
-        }
-        if (missingComponents.length > 0) {
-          console.error("⚠️ Componentes no encontrados:", missingComponents);
-        }
-        alert(`⚠️ Errores detectados: 
+    // 3. Mostrar resultados
+    if (duplicates.length === 0 && missingComponents.length === 0) {
+      console.log("✅ Validación completada: sin problemas.");
+      alert("✅ Diccionario validado: todo correcto.");
+    } else {
+      if (duplicates.length > 0) {
+        console.error("⚠️ Claves duplicadas:", duplicates);
+      }
+      if (missingComponents.length > 0) {
+        console.error("⚠️ Componentes no encontrados:", missingComponents);
+      }
+      alert(`⚠️ Errores detectados: 
   - Duplicados: ${duplicates.length} 
   - Componentes faltantes: ${missingComponents.length}`);
-      }
-    });
+    }
+  });
 
+  // Strokes
   btnStrokes?.addEventListener("click", () => {
     const input = document.getElementById("inputText").value.trim();
     showStrokes(input);
   });
-  
 }

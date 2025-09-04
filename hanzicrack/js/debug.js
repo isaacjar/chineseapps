@@ -1,6 +1,6 @@
 // debug.js
 import { data as localChars } from "../data/chars.js";
-import { renderOutput } from "./ui.js";
+import { renderOutput, setMsg } from "./ui.js";
 
 /** 
  * Analiza texto solo contra archivo local.
@@ -34,6 +34,7 @@ export async function debugText(text, mode = "simple", lang = "en") {
   }
 
   renderOutput(lines);
+  setMsg(`Debug: analizados ${lines.length} caracteres ⚡`);
   return lines;
 }
 
@@ -114,6 +115,7 @@ export function validateChars() {
 
   // Mostrar en pantalla
   renderOutput(issues);
+  setMsg(`Validation: ${issues.length} resultado(s) encontrados 🧪`);
 
   // Descargar JSON con problemas si hay
   if (issues.length > 0 && !issues[0].startsWith("✅")) {

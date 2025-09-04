@@ -288,7 +288,7 @@ const vocabulary = [
   { ch: "有", pin: "yǒu", en: "to have", es: "tener" },
   { ch: "右边", pin: "yòubiān", en: "right side", es: "derecha" },
   { ch: "鱼", pin: "yú", en: "fish", es: "pez" },
-  { ch: "元", pin: "yuán", en: "yuan", es: "moneda china" },
+  { ch: "元", pin: "yuán", en: "Chinese currency", es: "moneda china" },
   { ch: "远", pin: "yuǎn", en: "far", es: "lejos" },
   { ch: "月", pin: "yuè", en: "month", es: "mes" },
   { ch: "运动", pin: "yùndòng", en: "sports", es: "deporte" },
@@ -321,4 +321,5 @@ const vocabulary = [
   { ch: "昨天", pin: "zuótiān", en: "yesterday", es: "ayer" },
   { ch: "坐", pin: "zuò", en: "to sit", es: "sentarse" },
   { ch: "做", pin: "zuò", en: "to do", es: "hacer" }
+
 ];

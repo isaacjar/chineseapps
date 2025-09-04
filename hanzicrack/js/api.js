@@ -55,7 +55,7 @@ async function fetchFromSources(char) {
   if (!entry) return null;
 
   const pinyin = Array.isArray(entry.pinyin) ? entry.pinyin.join(" / ") : (entry.pinyin || "");
-  const meaning_en = entry.definition || "MakeMeAHanzi";
+  const meaning_en = entry.definition || "⚠️";
   const radical = entry.radical || "";
   const components = extractAtomicComponents(entry.decomposition);
   const strokes = await fetchStrokeCount(char);

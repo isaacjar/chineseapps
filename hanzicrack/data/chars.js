@@ -970,7 +970,6 @@ export const data = {
     "frequency": 701,
     "components": []
   },
-  {
   "纟": {
     "pinyin": "sī",
     "meaning_en": "silk (radical form)",

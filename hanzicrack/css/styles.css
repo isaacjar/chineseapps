@@ -300,3 +300,17 @@ main {
 .setting-actions .btn-close:hover {
   background: #005fa3;
 }
+.output.loading::after {
+  content: "⏳ Analizando...";
+  display: block;
+  color: #666;
+  font-style: italic;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+

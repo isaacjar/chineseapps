@@ -11,10 +11,15 @@ import { getCharacterData } from "./api.js";
  */
 export async function analyzeText(text, mode = "simple", lang = "en") {
   const lines = [];
+  const seen = new Set(); // 👈 para no repetir caracteres
 
   for (const ch of text) {
-    // Solo tratamos caracteres Han; ignoramos espacios/puntuación/latinos
+    // Solo tratamos caracteres Han
     if (!/\p{Script=Han}/u.test(ch)) continue;
+
+    // ⚡️ Evitar repetir análisis
+    if (seen.has(ch)) continue;
+    seen.add(ch);
 
     const data = await getCharacterData(ch);
     if (!data) {
@@ -35,7 +40,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         ? cd.pinyin.join(", ")
         : (cd?.pinyin || "");
 
-      // 🔹 Normalizar significado en función del idioma
+      // 🔹 Normalizar significado
       let cmeaning = "";
       if (cd) {
         if (lang === "es") {
@@ -49,23 +54,24 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         }
       }
 
+      // 🔹 Marcar si viene de API
       const cSpan = cd?.source === "api"
         ? `<span class="from-api">${c}</span>`
         : c;
-      parts.push(`${cSpan} [${cpinyin}] ${cmeaning}`.trim());
 
+      parts.push(`${cSpan} [${cpinyin}] ${cmeaning}`.trim());
     }
 
-    // 3) Línea final
+    // 3) Línea final con color si viene de API
     const pinyin = Array.isArray(data.pinyin)
       ? data.pinyin.join(", ")
       : (data.pinyin || "");
     const right = parts.join(", ");
-    // Si viene de API → en rojo
+
     const charSpan = data.source === "api"
       ? `<span class="from-api">${ch}</span>`
       : ch;
-    
+
     lines.push(`${charSpan} [${pinyin}] ➜ ${right}`);
   }
 

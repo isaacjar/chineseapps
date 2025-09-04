@@ -67,7 +67,7 @@ async function fetchFromSources(char) {
   return {
     pinyin,
     meaning_en: meaning,
-    meaning_es: lang === "es" ? meaning : "💃 ES NOT FOUND",  // 👈 fallback
+    meaning_es: lang === "es" ? (entry.meaning_es || meaning_en) : "💃 ES NOT FOUND",
     radical,
     strokes,
     frequency: 0,

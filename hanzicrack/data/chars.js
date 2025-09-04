@@ -1529,7 +1529,6 @@ export const data = {
     "frequency": 30,
     "components": []
   }, 
-  {
   "豸": {
     "pinyin": "zhì",
     "meaning_en": "badger",

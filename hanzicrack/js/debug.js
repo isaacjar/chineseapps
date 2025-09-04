@@ -1,19 +1,10 @@
 // debug.js
 import { data as localChars } from "../data/chars.js";
-import { getNewChars } from "./api.js"; // usamos mismo patrón de memoria
 import { renderOutput } from "./ui.js";
-
-let debugNewChars = {}; // aquí guardamos lo que falta
 
 /** 
  * Analiza texto solo contra archivo local.
  * Los caracteres no encontrados se marcan como "not found"
- * y se guardan en memoria con la plantilla JSON.
- *
- * @param {string} text
- * @param {'simple'|'full'} mode
- * @param {'es'|'en'} lang
- * @returns {Promise<string[]>}
  */
 export async function debugText(text, mode = "simple", lang = "en") {
   const lines = [];
@@ -23,21 +14,10 @@ export async function debugText(text, mode = "simple", lang = "en") {
 
     const data = localChars[ch];
     if (!data) {
-      // no encontrado → guardamos plantilla
       lines.push(`${ch} not found`);
-      debugNewChars[ch] = {
-        pinyin: "XXX",
-        meaning_en: "----",
-        meaning_es: "-----",
-        radical: "X",
-        strokes: 99,
-        frequency: 999,
-        components: ["X", "X"],
-      };
       continue;
     }
 
-    // expandimos componentes según modo
     const finalComponents =
       mode === "simple" ? data.components : await explodeLocalToAtoms(data);
 
@@ -90,8 +70,63 @@ async function explodeLocalToAtoms(data, visiting = new Set()) {
 }
 
 /**
- * Devuelve los nuevos chars generados por debug.
+ * Valida el JSON local:
+ * - Detecta duplicados de claves
+ * - Detecta errores de formato (pinyin, meanings, components)
+ * - Detecta componentes repetidos
+ * - Exporta un JSON descargable con los problemas
  */
-export function getDebugNewChars() {
-  return debugNewChars;
+export function validateChars() {
+  const seen = new Set();
+  const issues = [];
+
+  for (const [char, entry] of Object.entries(localChars)) {
+    if (seen.has(char)) {
+      issues.push(`⚠️ Duplicado en JSON: ${char}`);
+    }
+    seen.add(char);
+
+    if (!entry.pinyin) {
+      issues.push(`❌ ${char} sin pinyin`);
+    }
+    if (!entry.meaning_en) {
+      issues.push(`❌ ${char} sin meaning_en`);
+    }
+    if (!entry.meaning_es) {
+      issues.push(`❌ ${char} sin meaning_es`);
+    }
+    if (!Array.isArray(entry.components)) {
+      issues.push(`❌ ${char} components no es array`);
+    } else {
+      const compSeen = new Set();
+      for (const c of entry.components) {
+        if (compSeen.has(c)) {
+          issues.push(`⚠️ ${char} tiene componente repetido: ${c}`);
+        }
+        compSeen.add(c);
+      }
+    }
+  }
+
+  if (issues.length === 0) {
+    issues.push("✅ Todo correcto. Sin duplicados ni errores de formato.");
+  }
+
+  // Mostrar en pantalla
+  renderOutput(issues);
+
+  // Descargar JSON con problemas si hay
+  if (issues.length > 0 && !issues[0].startsWith("✅")) {
+    const blob = new Blob([JSON.stringify(issues, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "validation_issues.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  return issues;
 }

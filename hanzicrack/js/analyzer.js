@@ -1,4 +1,4 @@
-// analyzer.js
+// ✅ analyzer.js mejorado
 import { getCharacterData } from "./api.js";
 
 /**
@@ -18,7 +18,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
 
     const data = await getCharacterData(ch);
     if (!data) {
-      lines.push(`<span class="notfound">${ch} ➜ (sin datos)</span>`);
+      lines.push(`${ch} ➜ (sin datos)`);
       continue;
     }
 
@@ -29,19 +29,35 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     const parts = [];
     for (const c of finalComponents) {
       const cd = await getCharacterData(c);
-      const cpinyin = cd?.pinyin || "";
-      const cmeaning =
-        cd ? (lang === "es" ? cd.meaning_es : cd.meaning_en) : "";
+
+      // 🔹 Normalizar pinyin
+      const cpinyin = Array.isArray(cd?.pinyin)
+        ? cd.pinyin.join(", ")
+        : (cd?.pinyin || "");
+
+      // 🔹 Normalizar significado en función del idioma
+      let cmeaning = "";
+      if (cd) {
+        if (lang === "es") {
+          cmeaning = Array.isArray(cd.meaning_es)
+            ? cd.meaning_es.join(", ")
+            : cd.meaning_es;
+        } else {
+          cmeaning = Array.isArray(cd.meaning_en)
+            ? cd.meaning_en.join(", ")
+            : cd.meaning_en;
+        }
+      }
+
       parts.push(`${c} [${cpinyin}] ${cmeaning}`.trim());
     }
 
     // 3) Línea final
-    const pinyin = data.pinyin || "";
+    const pinyin = Array.isArray(data.pinyin)
+      ? data.pinyin.join(", ")
+      : (data.pinyin || "");
     const right = parts.join(", ");
-    
-    // Marcar color según source
-    const cssClass = data.source === "api" ? "from-api" : "from-local";
-    lines.push(`<span class="${cssClass}">${ch} [${pinyin}] ➜ ${right}</span>`);
+    lines.push(`${ch} [${pinyin}] ➜ ${right}`);
   }
 
   return lines;
@@ -60,9 +76,10 @@ async function expandComponentsList(firstLevel, mode) {
     return firstLevel;
   }
 
-  // FULL: expandir recursivamente hasta átomos, deduplicando en orden
+  // FULL: expandir recursivamente hasta átomos, preservando orden
   const out = [];
   const seen = new Set();
+
   for (const comp of firstLevel) {
     const atoms = await explodeToAtoms(comp, new Set());
     for (const a of atoms) {
@@ -72,6 +89,7 @@ async function expandComponentsList(firstLevel, mode) {
       }
     }
   }
+
   return out;
 }
 
@@ -94,8 +112,7 @@ async function explodeToAtoms(char, visiting) {
       acc.push(...atoms);
     }
     visiting.delete(char);
-    // dedup preservando orden
-    return [...new Set(acc)];
+    return acc; // devolvemos en orden
   } else {
     visiting.delete(char);
     return [char];

@@ -108,7 +108,7 @@ export const data = {
       "frequency": 0,
       "components": []
     }, 
-      "㇄": 
+      "㇄": {
       "pinyin": "丨㇄shù wān",
       "meaning_en": "vertical bend",
       "meaning_es": "curva vertical",
@@ -117,7 +117,7 @@ export const data = {
       "frequency": 0,
       "components": []
     },
-      "㇅": 
+      "㇅": { 
         "pinyin": "一㇅héng zhé zhé",
         "meaning_en": "horizontal double turn",
         "meaning_es": "doble giro horizontal",
@@ -126,7 +126,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇊": 
+      "㇊": {
         "pinyin": "一㇀héng zhé tí",
         "meaning_en": "horizontal turn with rise",
         "meaning_es": "giro horizontal con ascenso",
@@ -135,7 +135,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇍": 
+      "㇍": {
         "pinyin": "一㇁héng zhé wān",
         "meaning_en": "horizontal turn with curve",
         "meaning_es": "giro horizontal con curva",
@@ -144,7 +144,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇈": 
+      "㇈": {
         "pinyin": "一㇁亅 héng zhé wān gōu",
         "meaning_en": "horizontal turn curve hook",
         "meaning_es": "giro horizontal con curva y gancho",
@@ -153,7 +153,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇌": 
+      "㇌": {
         "pinyin": "一丿㇁亅héng piě wān gōu",
         "meaning_en": "horizontal slant curve hook",
         "meaning_es": "horizontal con cola, curva y gancho",
@@ -162,7 +162,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇋": 
+      "㇋": {
         "pinyin": "一㇅丿héng zhé zhé piě",
         "meaning_en": "horizontal double turn with slant",
         "meaning_es": "doble giro horizontal con cola",
@@ -171,7 +171,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇎": 
+      "㇎": {
         "pinyin": "一㇅㇅héng zhé zhé zhé",
         "meaning_en": "horizontal triple turn",
         "meaning_es": "triple giro horizontal",
@@ -180,7 +180,7 @@ export const data = {
         "frequency": 0,
         "components": []
     },
-      "㇉": 
+      "㇉": {
         "pinyin": "丨㇅亅shù zhé zhé gōu",
         "meaning_en": "vertical double turn with hook",
         "meaning_es": "doble giro vertical con gancho",

@@ -647,7 +647,6 @@ export const data = {
     "frequency": 25,
     "components": []
   },
-{
   "彡": {
     "pinyin": "shān",
     "meaning_en": "bristle / hair",

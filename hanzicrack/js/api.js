@@ -64,15 +64,20 @@ async function fetchFromSources(char) {
   // ⚙️ idioma actual de settings
   const { lang } = getSettings();
 
+  const meaning = lang === "es"  // Si no hay significado en español, le pasa la definicion en inglés a español
+    ? (entry.meaning_es || meaning_en)
+    : meaning_en;
+
   return {
     pinyin,
-    meaning_en: meaning,
-    meaning_es: lang === "es" ? (entry.meaning_es || meaning_en) : "💃 ES NOT FOUND",
+    meaning_en,
+    meaning_es: meaning,
     radical,
     strokes,
     frequency: 0,
     components
   };
+
 }
 
 /** Carga y parsea dictionary.txt una sola vez a Map<char, entry> */

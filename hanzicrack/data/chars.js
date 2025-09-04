@@ -702,6 +702,15 @@ export const data = {
     "frequency": 500,
     "components": []
   },
+  "水": {
+    "pinyin": "shuǐ",
+    "meaning_en": "water",
+    "meaning_es": "agua",
+    "radical": "水",
+    "strokes": 4,
+    "frequency": 450,
+    "components": []
+  },
   "支": {
     "pinyin": "zhī",
     "meaning_en": "branch",
@@ -871,24 +880,6 @@ export const data = {
     "radical": "氏",
     "strokes": 4,
     "frequency": 90,
-    "components": []
-  },
-  "气": {
-    "pinyin": "qì",
-    "meaning_en": "air / steam",
-    "meaning_es": "aire / vapor",
-    "radical": "气",
-    "strokes": 4,
-    "frequency": 300,
-    "components": []
-  },
-  "水": {
-    "pinyin": "shuǐ",
-    "meaning_en": "water",
-    "meaning_es": "agua",
-    "radical": "水",
-    "strokes": 4,
-    "frequency": 450,
     "components": []
   },
   "火": {
@@ -1224,6 +1215,15 @@ export const data = {
     "frequency": 120,
     "components": []
   },
+  "罒": {
+      "pinyin": "wǎng",
+      "meaning_en": "net",
+      "meaning_es": "red",
+      "radical": "网",
+      "strokes": 6,
+      "frequency": 120,
+      "components": []
+    },
   "羊": {
     "pinyin": "yáng",
     "meaning_en": "sheep",
@@ -1381,6 +1381,15 @@ export const data = {
     "pinyin": "cǎo",
     "meaning_en": "grass",
     "meaning_es": "hierba",
+    "radical": "艸",
+    "strokes": 6,
+    "frequency": 160,
+    "components": []
+  },
+  "艹": {
+    "pinyin": "cǎo",
+    "meaning_en": "grass (艸)",
+    "meaning_es": "hierba (艸)",
     "radical": "艸",
     "strokes": 6,
     "frequency": 160,
@@ -2064,8 +2073,8 @@ export const data = {
 }, 
   "亻": {
     "pinyin": "rén",
-    "meaning_en": "person (人 compressed)",
-    "meaning_es": "persona (人 comprimido)",
+    "meaning_en": "person (人)",
+    "meaning_es": "persona (人)",
     "radical": "人",
     "strokes": 2,
     "frequency": 120,
@@ -2593,15 +2602,6 @@ export const data = {
     "frequency": 73,
     "components": ["亠", "口", "冂", "口"]
   },
-  "手": {
-    "pinyin": "shǒu",
-    "meaning_en": "hand",
-    "meaning_es": "mano",
-    "radical": "手",
-    "strokes": 4,
-    "frequency": 78,
-    "components": ["手"]
-  },
   "百": {
     "pinyin": "bǎi",
     "meaning_en": "hundred",
@@ -2631,48 +2631,12 @@ export const data = {
   },
   "气": {
     "pinyin": "qì",
-    "meaning_en": "air / gas / energy",
-    "meaning_es": "aire / gas / energía",
+    "meaning_en": "air",
+    "meaning_es": "aire",
     "radical": "气",
     "strokes": 4,
     "frequency": 83,
     "components": ["气"]
-  },
-  "水": {
-    "pinyin": "shuǐ",
-    "meaning_en": "water",
-    "meaning_es": "agua",
-    "radical": "水",
-    "strokes": 4,
-    "frequency": 84,
-    "components": ["水"]
-  },
-  "火": {
-    "pinyin": "huǒ",
-    "meaning_en": "fire",
-    "meaning_es": "fuego",
-    "radical": "火",
-    "strokes": 4,
-    "frequency": 85,
-    "components": ["火"]
-  },
-  "山": {
-    "pinyin": "shān",
-    "meaning_en": "mountain",
-    "meaning_es": "montaña",
-    "radical": "山",
-    "strokes": 3,
-    "frequency": 86,
-    "components": ["山"]
-  },
-  "土": {
-    "pinyin": "tǔ",
-    "meaning_en": "earth / soil",
-    "meaning_es": "tierra / suelo",
-    "radical": "土",
-    "strokes": 3,
-    "frequency": 87,
-    "components": ["土"]
   },
   "白": {
     "pinyin": "bái",
@@ -2721,8 +2685,8 @@ export const data = {
   },
   "扌": {
     "pinyin": "shǒu",
-    "meaning_en": "hand (compressed)",
-    "meaning_es": "mano (comprimido)",
+    "meaning_en": "hand (手)",
+    "meaning_es": "mano (手)",
     "radical": "手",
     "strokes": 3,
     "frequency": 0,
@@ -2746,6 +2710,87 @@ export const data = {
     "frequency": 206,
     "components": []
   },
+  "彑": {
+  "pinyin": "jì",
+  "meaning_en": "pig’s head",
+  "meaning_es": "cabeza de cerdo",
+  "radical": "彑",
+  "strokes": 3,
+  "frequency": 15,
+  "components": []
+},
+"户": {
+  "pinyin": "hù",
+  "meaning_en": "door / household",
+  "meaning_es": "puerta / hogar",
+  "radical": "户",
+  "strokes": 4,
+  "frequency": 90,
+  "components": []
+},
+"攵": {
+  "pinyin": "pū",
+  "meaning_en": "to strike (攴)",
+  "meaning_es": "golpear (攴)",
+  "radical": "攵",
+  "strokes": 4,
+  "frequency": 40,
+  "components": []
+},
+"氵": {
+  "pinyin": "shuǐ",
+  "meaning_en": "water (水)",
+  "meaning_es": "agua (水)",
+  "radical": "氵",
+  "strokes": 3,
+  "frequency": 200,
+  "components": []
+},
+"灬": {
+  "pinyin": "huǒ",
+  "meaning_en": "fire (火)",
+  "meaning_es": "fuego (火)",
+  "radical": "灬",
+  "strokes": 4,
+  "frequency": 160,
+  "components": []
+},
+"爫": {
+  "pinyin": "zhǎo",
+  "meaning_en": "claw (爪)",
+  "meaning_es": "garra (爪)",
+  "radical": "爫",
+  "strokes": 4,
+  "frequency": 60,
+  "components": []
+},
+"牜": {
+  "pinyin": "niú",
+  "meaning_en": "cow (牛)",
+  "meaning_es": "vaca (牛)",
+  "radical": "牜",
+  "strokes": 4,
+  "frequency": 120,
+  "components": []
+},
+"犭": {
+  "pinyin": "quǎn",
+  "meaning_en": "dog (犬)",
+  "meaning_es": "perro (犬)",
+  "radical": "犭",
+  "strokes": 3,
+  "frequency": 150,
+  "components": []
+},
+"王": {
+  "pinyin": "wáng",
+  "meaning_en": "king",
+  "meaning_es": "rey",
+  "radical": "王",
+  "strokes": 4,
+  "frequency": 170,
+  "components": []
+  },
   "者": {
     "pinyin": "zhě",
     "meaning_en": "person who",
@@ -2757,8 +2802,8 @@ export const data = {
   },
  "耂": {
     "pinyin": "lǎo",
-    "meaning_en": "old (compressed)",
-    "meaning_es": "viejo (comprimido)",
+    "meaning_en": "old (老)",
+    "meaning_es": "viejo (老)",
     "radical": "耂",
     "strokes": 6,
     "frequency": 125,
@@ -2820,8 +2865,8 @@ export const data = {
   },
   "纟": {
     "pinyin": "sī",
-    "meaning_en": "silk (radical form)",
-    "meaning_es": "seda (forma radical)",
+    "meaning_en": "silk (糸 compressed)",
+    "meaning_es": "seda (糸 comprimido)",
     "radical": "纟",
     "strokes": 3,
     "frequency": 42,
@@ -2892,8 +2937,8 @@ export const data = {
   },
   "月": {
     "pinyin": "yuè",
-    "meaning_en": "moon",
-    "meaning_es": "luna",
+    "meaning_en": "moon / flesh",
+    "meaning_es": "luna / carne",
     "radical": "月",
     "strokes": 4,
     "frequency": 0,

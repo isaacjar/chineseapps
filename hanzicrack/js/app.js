@@ -89,21 +89,31 @@ function setupEventListeners() {
   
           const dict = getCharsData(); // local + nuevos en memoria
           const charsToHighlight = new Set();
+          
           const rad = radical.radical;
+          const variants = Array.isArray(radical.variants) && radical.variants.length > 0
+          ? radical.variants
+          : [];
+
+          // conjunto de formas aceptadas (radical + variantes)
+          const allForms = [rad, ...variants];
   
           for (const ch of text) {
             // solo caracteres Han
             if (!/\p{Script=Han}/u.test(ch)) continue;
   
             const d = dict[ch];
-            if (d && Array.isArray(d.components) && d.components.includes(rad)) {
-              charsToHighlight.add(ch);
+            if (d && Array.isArray(d.components)) {
+              // si algún radical o variante está en los componentes → match
+              if (allForms.some(form => d.components.includes(form))) {
+                charsToHighlight.add(ch);
+              }
             }
           }
   
-          // pinto el MISMO texto con chars en rojo si contienen el radical
+          const variantsStr = variants.length > 0 ? ` (${variants.join(", ")})` : "";
           highlightCharacters(text, charsToHighlight);
-          setMsg(`Radical ${rad} found in ${charsToHighlight.size} chars.`);
+          setMsg(`Radical ${rad}${variantsStr} found in ${charsToHighlight.size} chars.`);
         });
       });
   });

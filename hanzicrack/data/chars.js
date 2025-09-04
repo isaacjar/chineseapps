@@ -1,5 +1,4 @@
 export const data = {
-  // Trazos básicos
   "一": {
     "pinyin": "héng",
     "meaning_en": "horizontal stroke",
@@ -207,7 +206,6 @@ export const data = {
     "frequency": 0,
     "components": []
   }
-  // Radicales
   "亻": {
     "pinyin": "rén",
     "meaning_en": "person (人 compressed)",
@@ -236,10 +234,6 @@ export const data = {
     "frequency": 88,
     "components": []
   },
-  
-  
-  
-  // Caracteres  
   "女": {
     "pinyin": "nǚ",
     "meaning_en": "woman",
@@ -355,7 +349,7 @@ export const data = {
     "radical": "戈",
     "strokes": 7,
     "frequency": 6,
-    "components": ["戈", "扌"]
+    "components": ["扌", "戈"]
   },
   "有": {
     "pinyin": "yǒu",
@@ -382,7 +376,7 @@ export const data = {
     "radical": "辶",
     "strokes": 7,
     "frequency": 9,
-    "components": ["文", "辶"]
+    "components": ["辶", "文"]
   },
   "在": {
     "pinyin": "zài",
@@ -1031,32 +1025,80 @@ export const data = {
     "strokes": 3,
     "frequency": 0,
     "components": []
-  },
-  "乚": {
-    "pinyin": "yǐ",
-    "meaning_en": "second / hidden stroke",
-    "meaning_es": "segundo / trazo oculto",
-    "radical": "乙",
-    "strokes": 1,
+  },  
+  "又": {
+    "pinyin": "yòu",
+    "meaning_en": "and, also, again, in addition",
+    "meaning_es": "and, also, again, in addition",
+    "radical": "又",
+    "strokes": 2,
     "frequency": 0,
-    "components": []
+    "components": [],
   },
-  "亅": {
-    "pinyin": "jué",
-    "meaning_en": "hook",
-    "meaning_es": "gancho",
-    "radical": "亅",
-    "strokes": 1,
+  "月": {
+    "pinyin": "yuè",
+    "meaning_en": "moon",
+    "meaning_es": "luna",
+    "radical": "月",
+    "strokes": 4,
     "frequency": 0,
-    "components": ["亅"]
+    "components": ["冂", "二"],
   },
+  "个": {
+    "pinyin": "gè",
+    "meaning_en": "mw",
+    "meaning_es": "clasificador",
+    "radical": "丨",
+    "strokes": 3,
+    "frequency": 0,
+    "components": ["人", "丨"],
+  },
+  "爸": {
+    "pinyin": "bà",
+    "meaning_en": "father, papa",
+    "meaning_es": "father, papa",
+    "radical": "父",
+    "strokes": 8,
+    "frequency": 0,
+    "components": ["父", "巴"    ],
+  },
+  "父": {
+    "pinyin": "fù",
+    "meaning_en": "father, dad",
+    "meaning_es": "father, dad",
+    "radical": "父",
+    "strokes": 4,
+    "frequency": 0,
+    "components": ["八", "乂"],
+  },
+  "巴": {
+    "pinyin": "bā",
+    "meaning_en": "to desire, to wish for",
+    "meaning_es": "to desire, to wish for",
+    "radical": "巳",
+    "strokes": 4,
+    "frequency": 0,
+    "components": ["巳","？"],
+  },
+  "自": {
+    "pinyin": "zì",
+    "meaning_en": "self; private, personal; from",
+    "meaning_es": "self; private, personal; from",
+    "radical": "自",
+    "strokes": 6,
+    "frequency": 0,
+    "components": ["目", "？"],
+  },
+  "目": {
+    "pinyin": "mù",
+    "meaning_en": "eye; to look, to see; division, topic",
+    "meaning_es": "eye; to look, to see; division, topic",
+    "radical": "目",
+    "strokes": 5,
+    "frequency": 0,
+    "components": ["口", "二"],
+  }
   
-  
-  
-  
-
-
-
 
   
 };

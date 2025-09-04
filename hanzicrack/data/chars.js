@@ -205,7 +205,7 @@ export const data = {
     "strokes": 3,
     "frequency": 0,
     "components": []
-  }
+  },
   "亻": {
     "pinyin": "rén",
     "meaning_en": "person (人 compressed)",

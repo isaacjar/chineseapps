@@ -1,6 +1,213 @@
 export const data = {
   // Trazos básicos
-  
+    "一": {
+      "pinyin": "yī",
+      "meaning_en": "one / horizontal stroke",
+      "meaning_es": "uno / trazo horizontal",
+      "radical": "一",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "丨": {
+      "pinyin": "shù",
+      "meaning_en": "vertical stroke",
+      "meaning_es": "trazo vertical",
+      "radical": "丨",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "丿": {
+      "pinyin": "piě",
+      "meaning_en": "left-falling stroke",
+      "meaning_es": "trazo descendente izquierdo",
+      "radical": "丿",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "㇏": {
+      "pinyin": "nà",
+      "meaning_en": "right-falling stroke",
+      "meaning_es": "trazo descendente derecho",
+      "radical": "㇏",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "丶": {
+      "pinyin": "diǎn",
+      "meaning_en": "dot",
+      "meaning_es": "punto",
+      "radical": "丶",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "亅": {
+      "pinyin": "gōu",
+      "meaning_en": "hook",
+      "meaning_es": "gancho",
+      "radical": "亅",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "㇀": {
+      "pinyin": "tí",
+      "meaning_en": "rising stroke",
+      "meaning_es": "trazo ascendente",
+      "radical": "㇀",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "乛": {
+      "pinyin": "一亅héng gōu",
+      "meaning_en": "horizontal with hook",
+      "meaning_es": "horizontal con gancho",
+      "radical": "乙",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "乚": {
+      "pinyin": "yǐ",
+      "meaning_en": "second / hidden stroke",
+      "meaning_es": "segundo / trazo oculto",
+      "radical": "乙",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "㇃": {
+      "pinyin": "㇃wò gōu",
+      "meaning_en": "lying hook",
+      "meaning_es": "gancho acostado",
+      "radical": "㇃",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "㇁": {
+      "pinyin": "㇁wān gōu",
+      "meaning_en": "curved hook",
+      "meaning_es": "gancho curvo",
+      "radical": "㇁",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+    "㇂": {
+      "pinyin": "㇂xié gōu",
+      "meaning_en": "slanted hook",
+      "meaning_es": "gancho inclinado",
+      "radical": "㇂",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    }, 
+      "㇄": 
+      "pinyin": "丨㇄shù wān",
+      "meaning_en": "vertical bend",
+      "meaning_es": "curva vertical",
+      "radical": "㇄",
+      "strokes": 1,
+      "frequency": 0,
+      "components": []
+    },
+      "㇅": 
+        "pinyin": "一㇅héng zhé zhé",
+        "meaning_en": "horizontal double turn",
+        "meaning_es": "doble giro horizontal",
+        "radical": "㇅",
+        "strokes": 2,
+        "frequency": 0,
+        "components": []
+    },
+      "㇊": 
+        "pinyin": "一㇀héng zhé tí",
+        "meaning_en": "horizontal turn with rise",
+        "meaning_es": "giro horizontal con ascenso",
+        "radical": "㇊",
+        "strokes": 2,
+        "frequency": 0,
+        "components": []
+    },
+      "㇍": 
+        "pinyin": "一㇁héng zhé wān",
+        "meaning_en": "horizontal turn with curve",
+        "meaning_es": "giro horizontal con curva",
+        "radical": "㇍",
+        "strokes": 2,
+        "frequency": 0,
+        "components": []
+    },
+      "㇈": 
+        "pinyin": "一㇁亅 héng zhé wān gōu",
+        "meaning_en": "horizontal turn curve hook",
+        "meaning_es": "giro horizontal con curva y gancho",
+        "radical": "㇈",
+        "strokes": 3,
+        "frequency": 0,
+        "components": []
+    },
+      "㇌": 
+        "pinyin": "一丿㇁亅héng piě wān gōu",
+        "meaning_en": "horizontal slant curve hook",
+        "meaning_es": "horizontal con cola, curva y gancho",
+        "radical": "㇌",
+        "strokes": 3,
+        "frequency": 0,
+        "components": []
+    },
+      "㇋": 
+        "pinyin": "一㇅丿héng zhé zhé piě",
+        "meaning_en": "horizontal double turn with slant",
+        "meaning_es": "doble giro horizontal con cola",
+        "radical": "㇋",
+        "strokes": 3,
+        "frequency": 0,
+        "components": []
+    },
+      "㇎": 
+        "pinyin": "一㇅㇅héng zhé zhé zhé",
+        "meaning_en": "horizontal triple turn",
+        "meaning_es": "triple giro horizontal",
+        "radical": "㇎",
+        "strokes": 3,
+        "frequency": 0,
+        "components": []
+    },
+      "㇉": 
+        "pinyin": "丨㇅亅shù zhé zhé gōu",
+        "meaning_en": "vertical double turn with hook",
+        "meaning_es": "doble giro vertical con gancho",
+        "radical": "㇉",
+        "strokes": 3,
+        "frequency": 0,
+        "components": []
+    },
+    "㇇": {
+      "pinyin": "丿㇅piě zhé",
+      "meaning_en": "slant with turn",
+      "meaning_es": "trazo inclinado con giro",
+      "radical": "㇇",
+      "strokes": 2,
+      "frequency": 0,
+      "components": []
+    },
+    "㇆": {
+      "pinyin": "丨亅shù zhé gōu",
+      "meaning_en": "vertical turn with hook",
+      "meaning_es": "giro vertical con gancho",
+      "radical": "㇆",
+      "strokes": 2,
+      "frequency": 0,
+      "components": []
+    },
+          
   // Radicales
   "亻": {
     "pinyin": "rén",
@@ -20,15 +227,7 @@ export const data = {
     "frequency": 98,
     "components": []
   },
-  "女": {
-    "pinyin": "nǚ",
-    "meaning_en": "woman",
-    "meaning_es": "mujer",
-    "radical": "女",
-    "strokes": 3,
-    "frequency": 88,
-    "components": []
-  },
+  
   "尔": {
     "pinyin": "ěr",
     "meaning_en": "you",
@@ -39,19 +238,18 @@ export const data = {
     "components": []
   },
   
+  
+  
   // Caracteres  
-  "华": {
-    "pinyin": "huá",
-    "meaning_en": "flower / China",
-    "meaning_es": "florido / China",
-    "radical": "十",
-    "strokes": 6,
-    "frequency": 33,
-    "components": ["亻", "匕", "十"]
+  "女": {
+    "pinyin": "nǚ",
+    "meaning_en": "woman",
+    "meaning_es": "mujer",
+    "radical": "女",
+    "strokes": 3,
+    "frequency": 88,
+    "components": []
   },
-  
-  
-  
   "米": {
     "pinyin": "mǐ",
     "meaning_en": "rice",
@@ -61,6 +259,15 @@ export const data = {
     "frequency": 77,
     "components": []
   },
+  "华": {
+    "pinyin": "huá",
+    "meaning_en": "flower / China",
+    "meaning_es": "florido / China",
+    "radical": "十",
+    "strokes": 6,
+    "frequency": 33,
+    "components": ["亻", "匕", "十"]
+  },  
   "你": {
     "pinyin": "nǐ",
     "meaning_en": "you",
@@ -78,8 +285,7 @@ export const data = {
     "strokes": 6,
     "frequency": 49,
     "components": ["女", "子"]
-  },
-  
+  },  
   "子": {
     "pinyin": "zi",
     "meaning_en": "son",
@@ -217,12 +423,21 @@ export const data = {
   },
   "想": {
     "pinyin": "xiǎng",
-    "meaning_en": "to think",
-    "meaning_es": "pensar",
+    "meaning_en": "to think / to want / to miss",
+    "meaning_es": "pensar / querer / echar de menos",
     "radical": "心",
     "strokes": 13,
-    "frequency": 29,
-    "components": ["木", "目", "心"]
+    "frequency": 72,
+    "components": ["相", "心"]
+  },
+  "相": {
+    "pinyin": ["xiāng"],
+    "meaning_en": ["mutual"],
+    "meaning_es": ["mutuo"],
+    "radical": "目",
+    "strokes": 9,
+    "frequency": 165,
+    "components": ["木", "目"]
   },
   "看": {
     "pinyin": "kàn",

@@ -59,7 +59,7 @@ export function closeModal(modalId) {
 
 /**
  * Renderiza la lista de radicales en el modal.
- * @param {Array} radicals - lista de objetos radical {radical, pinyin, meaning_es, meaning_en}
+ * @param {Array} radicals - lista de objetos radical {radical, pinyin, meaning_es, meaning_en, variants?}
  * @param {string} lang - idioma seleccionado ("en" | "es")
  * @param {function} onSelect - callback al pulsar un radical
  */
@@ -71,13 +71,24 @@ export function showModalRadicals(radicals, lang, onSelect) {
 
   radicals.forEach(r => {
     const btnRadical = document.createElement("button");
-    btnRadical.textContent = `${r.radical} [${r.pinyin}] ${
-      lang === "es" ? r.meaning_es : r.meaning_en
-    }`;
+    btnRadical.classList.add("radical-btn");
+  
+    const variants = r.variants && r.variants.length
+      ? ` (${r.variants.join(", ")})`
+      : "";
+  
+    btnRadical.innerHTML = `
+      <span class="radical-symbol">${r.radical}</span>
+      <span class="radical-variants">${variants}</span>
+      <span class="radical-pinyin">[${r.pinyin}]</span>
+      <span class="radical-meaning">${lang === "es" ? r.meaning_es : r.meaning_en}</span>
+    `;
+  
     btnRadical.addEventListener("click", () => {
       onSelect(r);
       closeModal("radicalModal");
     });
+  
     container.appendChild(btnRadical);
   });
 

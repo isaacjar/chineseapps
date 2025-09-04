@@ -6,6 +6,7 @@ import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
 import { downloadNewCharsJSON } from "./api.js";
 import { debugText } from "./debug.js"; 
+import { showStrokes } from "./strokes.js";  // 👈 nuevo import
 
 // ========= INICIO =========
 window.addEventListener("DOMContentLoaded", async () => {
@@ -30,6 +31,7 @@ function setupEventListeners() {
   const btnCloseSettings = document.getElementById("btnCloseSettings");
   const btnCloseRadical = document.getElementById("btnCloseRadical");
   const btnValidate = document.getElementById("btnValidate");
+  const btnStrokes = document.getElementById("btnStrokes");
   
   // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {
@@ -158,5 +160,10 @@ function setupEventListeners() {
   - Componentes faltantes: ${missingComponents.length}`);
       }
     });
+
+  btnStrokes?.addEventListener("click", () => {
+    const input = document.getElementById("inputText").value.trim();
+    showStrokes(input);
+  });
   
 }

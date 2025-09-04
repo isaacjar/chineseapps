@@ -1,5 +1,6 @@
 // api.js
 import { data as localChars } from "../data/chars.js";
+import { getSettings } from "./settings.js";    
 
 const MMH_DICT_URL = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt";
 const HW_CDN_BASE  = "https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/";
@@ -55,15 +56,18 @@ async function fetchFromSources(char) {
   if (!entry) return null;
 
   const pinyin = Array.isArray(entry.pinyin) ? entry.pinyin.join(" / ") : (entry.pinyin || "");
-  const meaning_en = entry.definition || "⚠️";
+  const meaning_en = entry.definition || "⚠️ EN NOT FOUND";
   const radical = entry.radical || "";
   const components = extractAtomicComponents(entry.decomposition);
   const strokes = await fetchStrokeCount(char);
 
+  // ⚙️ idioma actual de settings
+  const { lang } = getSettings();
+
   return {
     pinyin,
-    meaning_en,
-    meaning_es: "MakeMeAHanzi", // la API no da español
+    meaning_en: meaning,
+    meaning_es: lang === "es" ? meaning : "💃 ES NOT FOUND",  // 👈 fallback
     radical,
     strokes,
     frequency: 0,

@@ -32,8 +32,19 @@ function setupEventListeners() {
   const btnCloseRadical = document.getElementById("btnCloseRadical");
   const btnValidate = document.getElementById("btnValidate");
   const btnStrokes = document.getElementById("btnStrokes");
+  const modeSwitch = document.getElementById("modeSwitch");
+
+  // 🧠 SWITCH BUSQUEDA PROFUNDA
+  if (modeSwitch) {
+    // Estado inicial al cargar la app
+    modeSwitch.checked = getSettings().mode === "full";
   
-  // Analizar texto
+    // Al cambiar el switch → actualizar settings en memoria
+    modeSwitch.addEventListener("change", e => {
+      setMode(e.target.checked ? "full" : "simple");
+    });
+  }
+  
   // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {
     const input = document.getElementById("inputText").value.trim();

@@ -346,3 +346,36 @@ main {
   background: #218838;   /* verde más oscuro */
 }
 
+.radical-btn {
+  display: block;
+  margin: 4px 0;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  text-align: left;
+  cursor: pointer;
+}
+
+.radical-symbol {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 4px;
+}
+
+.radical-variants {
+  color: #666;
+  font-size: 0.9em;
+  margin-right: 6px;
+}
+
+.radical-pinyin {
+  color: #333;
+  margin-right: 6px;
+}
+
+.radical-meaning {
+  color: #0077cc;
+  font-style: italic;
+}
+

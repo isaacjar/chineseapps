@@ -4,7 +4,6 @@ import { setMsg, closeModal } from "./ui.js";
 
 let settings = {
   lang: "en",       // por defecto inglés
-  mode: "simple",   // NO persistimos este valor
   admin: false
 };
 
@@ -39,11 +38,6 @@ export function getSettings() {
 // setLanguage: actualiza pero NO guarda hasta pulsar Guardar
 export function setLanguage(lang) {
   settings.lang = lang;
-}
-
-// setMode: NO persiste; solo actualiza settings en RAM
-export function setMode(mode) {
-  settings.mode = mode;
 }
 
 /**

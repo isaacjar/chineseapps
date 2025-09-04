@@ -1,13 +1,7 @@
 export const data = {
-  "华": {
-    "pinyin": "huá",
-    "meaning_en": "flower / China",
-    "meaning_es": "florido / China",
-    "radical": "十",
-    "strokes": 6,
-    "frequency": 33,
-    "components": ["亻", "匕", "十"]
-  },
+  // Trazos básicos
+  
+  // Radicales
   "亻": {
     "pinyin": "rén",
     "meaning_en": "person",
@@ -35,6 +29,29 @@ export const data = {
     "frequency": 88,
     "components": []
   },
+  "尔": {
+    "pinyin": "ěr",
+    "meaning_en": "you",
+    "meaning_es": "usted",
+    "radical": "尔",
+    "strokes": 5,
+    "frequency": 88,
+    "components": []
+  },
+  
+  // Caracteres  
+  "华": {
+    "pinyin": "huá",
+    "meaning_en": "flower / China",
+    "meaning_es": "florido / China",
+    "radical": "十",
+    "strokes": 6,
+    "frequency": 33,
+    "components": ["亻", "匕", "十"]
+  },
+  
+  
+  
   "米": {
     "pinyin": "mǐ",
     "meaning_en": "rice",
@@ -62,15 +79,7 @@ export const data = {
     "frequency": 49,
     "components": ["女", "子"]
   },
-  "尔": {
-    "pinyin": "ěr",
-    "meaning_en": "you",
-    "meaning_es": "usted",
-    "radical": "尔",
-    "strokes": 5,
-    "frequency": 88,
-    "components": []
-  },
+  
   "子": {
     "pinyin": "zi",
     "meaning_en": "son",
@@ -213,7 +222,7 @@ export const data = {
     "radical": "心",
     "strokes": 13,
     "frequency": 29,
-    "components": ["相", "心"]
+    "components": ["木", "目", "心"]
   },
   "看": {
     "pinyin": "kàn",
@@ -240,7 +249,7 @@ export const data = {
     "radical": "纟",
     "strokes": 10,
     "frequency": 33,
-    "components": ["纟", "合"]
+    "components": ["纟", "人", "一", "口"]
   },
   "会": {
     "pinyin": "huì",
@@ -691,5 +700,150 @@ export const data = {
     "strokes": 6,
     "frequency": 125,
     "components": []
-  }
+  },
+  "戈": {
+    "pinyin": "gē",
+    "meaning_en": "dagger-axe / weapon",
+    "meaning_es": "alabarda / arma",
+    "radical": "戈",
+    "strokes": 4,
+    "frequency": 62,
+    "components": ["一", "弋"]
+  },
+  "兑": {
+    "pinyin": "duì",
+    "meaning_en": "to exchange / to convert / to cash",
+    "meaning_es": "intercambiar / convertir / cobrar",
+    "radical": "儿",
+    "strokes": 7,
+    "frequency": 280,
+    "components": ["八", "兄"]
+  },
+  "兄": {
+    "pinyin": "xiōng",
+    "meaning_en": "elder brother",
+    "meaning_es": "hermano mayor",
+    "radical": "儿",
+    "strokes": 5,
+    "frequency": 664,
+    "components": ["口", "儿"]
+  },
+  "口": {
+    "pinyin": "kǒu",
+    "meaning_en": "mouth / opening",
+    "meaning_es": "boca / abertura",
+    "radical": "口",
+    "strokes": 3,
+    "frequency": 170,
+    "components": []
+  },
+  "囗": {
+    "pinyin": "wéi",
+    "meaning_en": "enclosure / surrounding",
+    "meaning_es": "cercado / rodear",
+    "radical": "囗",
+    "strokes": 3,
+    "frequency": 123,
+    "components": []
+  },
+  "木": {
+    "pinyin": "mù",
+    "meaning_en": "wood / tree",
+    "meaning_es": "madera / árbol",
+    "radical": "木",
+    "strokes": 4,
+    "frequency": 701,
+    "components": []
+  },
+  {
+  "纟": {
+    "pinyin": "sī",
+    "meaning_en": "silk (radical form)",
+    "meaning_es": "seda (forma radical)",
+    "radical": "纟",
+    "strokes": 3,
+    "frequency": 42,
+    "components": []
+  },
+  "云": {
+    "pinyin": "yún",
+    "meaning_en": "cloud",
+    "meaning_es": "nube",
+    "radical": "二",
+    "strokes": 4,
+    "frequency": 619,
+    "components": ["二", "厶"]
+  },
+  "厶": {
+    "pinyin": "sī",
+    "meaning_en": "private / personal",
+    "meaning_es": "privado / personal",
+    "radical": "厶",
+    "strokes": 2,
+    "frequency": 214,
+    "components": []
+  },
+  "土": {
+    "pinyin": "tǔ",
+    "meaning_en": "earth / soil / ground",
+    "meaning_es": "tierra / suelo / terreno",
+    "radical": "土",
+    "strokes": 3,
+    "frequency": 624,
+    "components": ["一", "丨", "丿"]
+  },
+  "𠂤": {
+    "pinyin": "jiōng",
+    "meaning_en": "downward stroke component",
+    "meaning_es": "componente de trazo descendente",
+    "radical": "𠂤",
+    "strokes": 3,
+    "frequency": 0,
+    "components": ["丿", "㇏"]
+  },
+  "冖": {
+    "pinyin": "mì",
+    "meaning_en": "cover",
+    "meaning_es": "cubrir",
+    "radical": "冖",
+    "strokes": 2,
+    "frequency": 0,
+    "components": ["冖"]
+  },
+  "⺍": {
+    "pinyin": "zhǔ",
+    "meaning_en": "small",
+    "meaning_es": "pequeño",
+    "radical": "⺍",
+    "strokes": 3,
+    "frequency": 0,
+    "components": []
+  },
+  "乚": {
+    "pinyin": "yǐ",
+    "meaning_en": "second / hidden stroke",
+    "meaning_es": "segundo / trazo oculto",
+    "radical": "乙",
+    "strokes": 1,
+    "frequency": 0,
+    "components": []
+  },
+  "亅": {
+    "pinyin": "jué",
+    "meaning_en": "hook",
+    "meaning_es": "gancho",
+    "radical": "亅",
+    "strokes": 1,
+    "frequency": null,
+    "components": ["亅"]
+  },
+  
+  
+  
+  
+
+
+
+
+  
 };

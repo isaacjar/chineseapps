@@ -1,6 +1,6 @@
 // settings.js
 // Gestión de configuración de la app (idioma, modo, permisos)
-import { setMsg } from "./ui.js";
+import { setMsg, closeModal } from "./ui.js";
 
 let settings = {
   lang: "en",       // por defecto inglés
@@ -79,6 +79,7 @@ function applyUISettings() {
       if (langSelect) setLanguage(langSelect.value);
       saveSettings();
       setMsg("✅ Configuración guardada");
+      closeModal("settingsModal");   // 👈 cerrar automáticamente
     });
   }
 }

@@ -16,6 +16,22 @@
     "frequency": 130
   },
   {
+    "radical": "冖",
+    "pinyin": "mì",
+    "meaning_en": "cover",
+    "meaning_es": "cubierta",
+    "strokes": 2,
+    "frequency": 90
+  },
+  {
+    "radical": "宀",
+    "pinyin": "mián",
+    "meaning_en": "roof",
+    "meaning_es": "techo",
+    "strokes": 3,
+    "frequency": 110
+  },
+  {
     "radical": "人",
     "pinyin": "rén",
     "variants": ["亻"],
@@ -43,13 +59,12 @@
     "frequency": 450
   },
   {
-    "radical": "戶",
-    "pinyin": "hù",
-    "variants": ["户","⺁"],
-    "meaning_en": "door",
-    "meaning_es": "puerta",
-    "strokes": 4,
-    "frequency": 65
+    "radical": "几",
+    "pinyin": "jī",
+    "meaning_en": "table",
+    "meaning_es": "mesa pequeña",
+    "strokes": 2,
+    "frequency": 100
   },
   {
     "radical": "手",
@@ -61,15 +76,6 @@
     "frequency": 500
   },
   {
-    "radical": "攴",
-    "pinyin": "pū",
-    "variants": ["攵"],
-    "meaning_en": "tap / knock",
-    "meaning_es": "golpear / tocar",
-    "strokes": 4,
-    "frequency": 40
-  },
-  {
     "radical": "水",
     "pinyin": "shuǐ",
     "variants": ["氵"],
@@ -79,6 +85,14 @@
     "frequency": 450
   },
   {
+    "radical": "冫",
+    "pinyin": "bīng",
+    "meaning_en": "ice",
+    "meaning_es": "hielo",
+    "strokes": 2,
+    "frequency": 120
+  },
+  {
     "radical": "火",
     "pinyin": "huǒ",
     "variants": ["灬"],
@@ -86,6 +100,31 @@
     "meaning_es": "fuego",
     "strokes": 4,
     "frequency": 400
+  },
+  {
+    "radical": "女",
+    "pinyin": "nǚ",
+    "meaning_en": "woman",
+    "meaning_es": "mujer",
+    "strokes": 3,
+    "frequency": 300
+  },
+  {
+    "radical": "子",
+    "pinyin": "zǐ",
+    "meaning_en": "child",
+    "meaning_es": "niño",
+    "strokes": 3,
+    "frequency": 250
+  },
+  {
+    "radical": "攴",
+    "pinyin": "pū",
+    "variants": ["攵"],
+    "meaning_en": "knock",
+    "meaning_es": "golpear",
+    "strokes": 4,
+    "frequency": 40
   },
   {
     "radical": "爪",
@@ -100,8 +139,8 @@
     "radical": "牛",
     "pinyin": "niú",
     "variants": ["牜"],
-    "meaning_en": "cow / ox",
-    "meaning_es": "vaca / buey",
+    "meaning_en": "cow",
+    "meaning_es": "vaca",
     "strokes": 4,
     "frequency": 300
   },
@@ -154,10 +193,26 @@
     "radical": "食",
     "pinyin": "shí",
     "variants": ["飠","饣"],
-    "meaning_en": "eat / food",
-    "meaning_es": "comer / alimento",
+    "meaning_en": "food",
+    "meaning_es": "alimento",
     "strokes": 9,
     "frequency": 220
+  },
+  {
+    "radical": "力",
+    "pinyin": "lì",
+    "meaning_en": "power",
+    "meaning_es": "fuerza",
+    "strokes": 2,
+    "frequency": 210
+  },
+  {
+    "radical": "勹",
+    "pinyin": "bāo",
+    "meaning_en": "wrap",
+    "meaning_es": "envolver",
+    "strokes": 2,
+    "frequency": 85
   },
   {
     "radical": "肉",
@@ -204,14 +259,6 @@
     "frequency": 220
   },
   {
-    "radical": "入",
-    "pinyin": "rù",
-    "meaning_en": "enter",
-    "meaning_es": "entrar",
-    "strokes": 2,
-    "frequency": 210
-  },
-  {
     "radical": "八",
     "pinyin": "bā",
     "meaning_en": "eight",
@@ -220,36 +267,29 @@
     "frequency": 230
   },
   {
-    "radical": "冂",
-    "pinyin": "jiōng",
-    "meaning_en": "down box",
-    "meaning_es": "caja abierta",
+    "radical": "入",
+    "pinyin": "rù",
+    "meaning_en": "enter",
+    "meaning_es": "entrar",
     "strokes": 2,
-    "frequency": 80
+    "frequency": 210
+  },  
+  {
+    "radical": "戶",
+    "pinyin": "hù",
+    "variants": ["户","⺁"],
+    "meaning_en": "door",
+    "meaning_es": "puerta",
+    "strokes": 4,
+    "frequency": 65
   },
   {
-    "radical": "冖",
-    "pinyin": "mì",
-    "meaning_en": "cover",
-    "meaning_es": "cubierta",
-    "strokes": 2,
-    "frequency": 90
-  },
-  {
-    "radical": "冫",
-    "pinyin": "bīng",
-    "meaning_en": "ice",
-    "meaning_es": "hielo",
-    "strokes": 2,
-    "frequency": 120
-  },
-  {
-    "radical": "几",
-    "pinyin": "jī",
-    "meaning_en": "table",
-    "meaning_es": "mesa pequeña",
-    "strokes": 2,
-    "frequency": 100
+    "radical": "尸",
+    "pinyin": "shī",
+    "meaning_en": "corpse",
+    "meaning_es": "cadáver",
+    "strokes": 3,
+    "frequency": 85
   },
   {
     "radical": "凵",
@@ -258,22 +298,6 @@
     "meaning_es": "recipiente",
     "strokes": 2,
     "frequency": 70
-  },
-  {
-    "radical": "力",
-    "pinyin": "lì",
-    "meaning_en": "power",
-    "meaning_es": "fuerza",
-    "strokes": 2,
-    "frequency": 210
-  },
-  {
-    "radical": "勹",
-    "pinyin": "bāo",
-    "meaning_en": "wrap",
-    "meaning_es": "envolver",
-    "strokes": 2,
-    "frequency": 85
   },
   {
     "radical": "匚",
@@ -291,6 +315,14 @@
     "strokes": 2,
     "frequency": 50
   },
+  {
+    "radical": "冂",
+    "pinyin": "jiōng",
+    "meaning_en": "down box",
+    "meaning_es": "caja abierta",
+    "strokes": 2,
+    "frequency": 80
+  },  
   {
     "radical": "十",
     "pinyin": "shí",
@@ -334,8 +366,8 @@
   {
     "radical": "又",
     "pinyin": "yòu",
-    "meaning_en": "again",
-    "meaning_es": "otra vez",
+    "meaning_en": "right hand",
+    "meaning_es": "mano derecha",
     "strokes": 2,
     "frequency": 220
   },
@@ -372,10 +404,27 @@
     "frequency": 75
   },
   {
+    "radical": "寸",
+    "pinyin": "cùn",
+    "meaning_en": "inch",
+    "meaning_es": "pulgada",
+    "strokes": 3,
+    "frequency": 80
+  },
+  {
+    "radical": "小",
+    "pinyin": "xiǎo",
+    "variants": ["⺌", "⺍"],
+    "meaning_en": "small",
+    "meaning_es": "pequeño",
+    "strokes": 3,
+    "frequency": 320
+  },
+  {
     "radical": "夂",
     "pinyin": "zhǐ",
-    "meaning_en": "go slowly",
-    "meaning_es": "ir despacio",
+    "meaning_en": "go after",
+    "meaning_es": "ir detrás",
     "strokes": 3,
     "frequency": 40
   },
@@ -404,60 +453,12 @@
     "frequency": 360
   },
   {
-    "radical": "女",
-    "pinyin": "nǚ",
-    "meaning_en": "woman",
-    "meaning_es": "mujer",
-    "strokes": 3,
-    "frequency": 300
-  },
-  {
-    "radical": "子",
-    "pinyin": "zǐ",
-    "meaning_en": "child",
-    "meaning_es": "niño",
-    "strokes": 3,
-    "frequency": 250
-  },
-  {
-    "radical": "宀",
-    "pinyin": "mián",
-    "meaning_en": "roof",
-    "meaning_es": "techo",
-    "strokes": 3,
-    "frequency": 110
-  },
-  {
-    "radical": "寸",
-    "pinyin": "cùn",
-    "meaning_en": "inch",
-    "meaning_es": "pulgada",
-    "strokes": 3,
-    "frequency": 80
-  },
-  {
-    "radical": "小",
-    "pinyin": "xiǎo",
-    "meaning_en": "small",
-    "meaning_es": "pequeño",
-    "strokes": 3,
-    "frequency": 320
-  },
-  {
     "radical": "尢",
     "pinyin": "wāng",
     "meaning_en": "lame",
     "meaning_es": "cojo",
     "strokes": 3,
     "frequency": 20
-  },
-  {
-    "radical": "尸",
-    "pinyin": "shī",
-    "meaning_en": "corpse",
-    "meaning_es": "cadáver",
-    "strokes": 3,
-    "frequency": 85
   },
   {
     "radical": "屮",
@@ -495,7 +496,7 @@
     "radical": "己",
     "pinyin": "jǐ",
     "meaning_en": "self",
-    "meaning_es": "sí mismo",
+    "meaning_es": "uno mismo",
     "strokes": 3,
     "frequency": 160
   },
@@ -518,8 +519,8 @@
   {
     "radical": "幺",
     "pinyin": "yāo",
-    "meaning_en": "tiny / short thread",
-    "meaning_es": "pequeño / hilo corto",
+    "meaning_en": "short thread",
+    "meaning_es": "hilo corto",
     "strokes": 3,
     "frequency": 70
   },
@@ -527,9 +528,17 @@
     "radical": "广",
     "pinyin": "guǎng",
     "meaning_en": "shelter",
-    "meaning_es": "abrigo / refugio",
+    "meaning_es": "refugio",
     "strokes": 3,
     "frequency": 85
+  },
+  {
+    "radical": "疒",
+    "pinyin": "nè",
+    "meaning_en": "sickness",
+    "meaning_es": "enfermedad",
+    "strokes": 5,
+    "frequency": 150
   },
   {
     "radical": "廴",
@@ -539,6 +548,7 @@
     "strokes": 3,
     "frequency": 20
   },
+  
   {
     "radical": "廾",
     "pinyin": "gǒng",
@@ -550,8 +560,8 @@
   {
     "radical": "弋",
     "pinyin": "yì",
-    "meaning_en": "dart / shoot",
-    "meaning_es": "dardo / disparar",
+    "meaning_en": "dart",
+    "meaning_es": "dardo",
     "strokes": 3,
     "frequency": 35
   },
@@ -574,8 +584,8 @@
   {
     "radical": "彡",
     "pinyin": "shān",
-    "meaning_en": "bristle / hair",
-    "meaning_es": "cerdas / pelo",
+    "meaning_en": "ornament",
+    "meaning_es": "adorno",
     "strokes": 3,
     "frequency": 50
   },
@@ -606,32 +616,32 @@
   {
     "radical": "文",
     "pinyin": "wén",
-    "meaning_en": "script / literature",
-    "meaning_es": "escritura / literatura",
+    "meaning_en": "script",
+    "meaning_es": "escritura",
     "strokes": 4,
     "frequency": 200
   },
   {
     "radical": "斗",
     "pinyin": "dǒu",
-    "meaning_en": "dipper",
-    "meaning_es": "cucharón / medida",
+    "meaning_en": "measuring container",
+    "meaning_es": "vaso medidor",
     "strokes": 4,
     "frequency": 60
   },
   {
     "radical": "斤",
     "pinyin": "jīn",
-    "meaning_en": "axe / catty",
-    "meaning_es": "hacha / jin (unidad de peso)",
+    "meaning_en": "axe",
+    "meaning_es": "hacha",
     "strokes": 4,
     "frequency": 70
   },
   {
     "radical": "方",
     "pinyin": "fāng",
-    "meaning_en": "square / direction",
-    "meaning_es": "cuadrado / dirección",
+    "meaning_en": "square",
+    "meaning_es": "cuadrado",
     "strokes": 4,
     "frequency": 150
   },
@@ -662,24 +672,24 @@
   {
     "radical": "月",
     "pinyin": "yuè",
-    "meaning_en": "moon / month",
-    "meaning_es": "luna / mes",
+    "meaning_en": "moon",
+    "meaning_es": "luna",
     "strokes": 4,
     "frequency": 350
   },
   {
     "radical": "木",
     "pinyin": "mù",
-    "meaning_en": "wood / tree",
-    "meaning_es": "madera / árbol",
+    "meaning_en": "tree",
+    "meaning_es": "árbol",
     "strokes": 4,
     "frequency": 500
   },
   {
     "radical": "欠",
     "pinyin": "qiàn",
-    "meaning_en": "lack / yawn",
-    "meaning_es": "faltar / bostezar",
+    "meaning_en": "yawn",
+    "meaning_es": "bostezar",
     "strokes": 4,
     "frequency": 80
   },
@@ -694,16 +704,16 @@
   {
     "radical": "歹",
     "pinyin": "dǎi",
-    "meaning_en": "death / bad",
-    "meaning_es": "muerte / malo",
+    "meaning_en": "death",
+    "meaning_es": "muerte",
     "strokes": 4,
     "frequency": 100
   },
   {
     "radical": "殳",
     "pinyin": "shū",
-    "meaning_en": "weapon / lance",
-    "meaning_es": "arma / lanza",
+    "meaning_en": "lance",
+    "meaning_es": "lanza",
     "strokes": 4,
     "frequency": 60
   },
@@ -718,32 +728,32 @@
   {
     "radical": "比",
     "pinyin": "bǐ",
-    "meaning_en": "compare",
-    "meaning_es": "comparar",
+    "meaning_en": "compared",
+    "meaning_es": "comparado con",
     "strokes": 4,
     "frequency": 200
   },
   {
     "radical": "毛",
     "pinyin": "máo",
-    "meaning_en": "fur / hair",
-    "meaning_es": "pelo / vello",
+    "meaning_en": "fur",
+    "meaning_es": "pelaje",
     "strokes": 4,
     "frequency": 220
   },
   {
     "radical": "氏",
     "pinyin": "shì",
-    "meaning_en": "clan / surname",
-    "meaning_es": "clan / apellido",
+    "meaning_en": "clan",
+    "meaning_es": "clan",
     "strokes": 4,
     "frequency": 90
   },
   {
     "radical": "气",
     "pinyin": "qì",
-    "meaning_en": "air / steam",
-    "meaning_es": "aire / vapor",
+    "meaning_en": "air",
+    "meaning_es": "aire",
     "strokes": 4,
     "frequency": 300
   },
@@ -758,24 +768,24 @@
   {
     "radical": "爻",
     "pinyin": "yáo",
-    "meaning_en": "trigrams",
-    "meaning_es": "trigramas (Yijing)",
+    "meaning_en": "divination lines",
+    "meaning_es": "líneas de adivinación",
     "strokes": 4,
     "frequency": 30
   },
   {
     "radical": "爿",
     "pinyin": "qiáng",
-    "meaning_en": "half of tree trunk",
-    "meaning_es": "mitad de tronco",
+    "meaning_en": "split trunk",
+    "meaning_es": "tronco partido",
     "strokes": 4,
     "frequency": 20
   },
   {
     "radical": "片",
     "pinyin": "piàn",
-    "meaning_en": "slice / piece",
-    "meaning_es": "rebanada / pedazo",
+    "meaning_en": "slice",
+    "meaning_es": "rebanada",
     "strokes": 4,
     "frequency": 210
   },
@@ -790,8 +800,8 @@
   {
     "radical": "玄",
     "pinyin": "xuán",
-    "meaning_en": "dark / profound",
-    "meaning_es": "oscuro / profundo",
+    "meaning_en": "dark",
+    "meaning_es": "oscuro",
     "strokes": 5,
     "frequency": 60
   },
@@ -822,8 +832,8 @@
   {
     "radical": "生",
     "pinyin": "shēng",
-    "meaning_en": "life / birth",
-    "meaning_es": "vida / nacimiento",
+    "meaning_en": "life",
+    "meaning_es": "vida",
     "strokes": 5,
     "frequency": 500
   },
@@ -846,23 +856,15 @@
   {
     "radical": "疋",
     "pinyin": "pǐ",
-    "meaning_en": "cloth / roll of cloth",
-    "meaning_es": "pieza de tela",
+    "meaning_en": "cloth",
+    "meaning_es": "tela",
     "strokes": 5,
     "frequency": 30
   },
   {
-    "radical": "疒",
-    "pinyin": "nè",
-    "meaning_en": "sickness",
-    "meaning_es": "enfermedad",
-    "strokes": 5,
-    "frequency": 150
-  },
-  {
     "radical": "癶",
     "pinyin": "bō",
-    "meaning_en": "dotted tent / footsteps",
+    "meaning_en": "footsteps",
     "meaning_es": "huellas",
     "strokes": 5,
     "frequency": 20
@@ -1310,8 +1312,9 @@
   {
     "radical": "邑",
     "pinyin": "yì",
-    "meaning_en": "city",
-    "meaning_es": "ciudad",
+    "variants": ["阝", "⻏"],
+    "meaning_en": "city, mound",
+    "meaning_es": "ciudad, montículo",
     "strokes": 7,
     "frequency": 25
   },

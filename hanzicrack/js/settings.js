@@ -63,15 +63,6 @@ function applyUISettings() {
     langSelect.value = settings.lang; 
   }
 
-  // Switch simple/full
-  const modeSwitch = document.getElementById("modeSwitch");
-  if (modeSwitch) {
-    modeSwitch.checked = settings.mode === "full";
-    modeSwitch.addEventListener("change", e => {
-      setMode(e.target.checked ? "full" : "simple");
-    });
-  }
-
   // Botón Guardar
   const btnSave = document.getElementById("btnSaveSettings");
   if (btnSave) {

@@ -173,6 +173,7 @@ main {
 }
 
 .modal-box {
+  position: relative; /* 👈 necesario para el botón X */
   background: #fff;
   border-radius: 12px;
   padding: 1rem;
@@ -180,6 +181,29 @@ main {
   max-height: 80%;
   overflow-y: auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Botón cerrar arriba a la derecha */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d9534f; /* rojo */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: #b52b27;
 }
 
 .radical-list {

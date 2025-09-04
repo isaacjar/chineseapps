@@ -8,94 +8,6 @@
     "frequency": 250
   },
   {
-    "radical": "丨",
-    "pinyin": "gǔn",
-    "meaning_en": "line",
-    "meaning_es": "línea",
-    "strokes": 1,
-    "frequency": 180
-  },
-  {
-    "radical": "丶",
-    "pinyin": "zhǔ",
-    "meaning_en": "dot",
-    "meaning_es": "punto",
-    "strokes": 1,
-    "frequency": 170
-  },
-  {
-    "radical": "丿",
-    "pinyin": "piě",
-    "meaning_en": "slash",
-    "meaning_es": "trazo inclinado",
-    "strokes": 1,
-    "frequency": 160
-  },
-  {
-    "radical": "乙",
-    "pinyin": "yǐ",
-    "meaning_en": "second (cyclical)",
-    "meaning_es": "segundo (cíclico)",
-    "strokes": 1,
-    "frequency": 150
-  },
-  {
-    "radical": "一",
-    "pinyin": "yī",
-    "meaning_en": "one",
-    "meaning_es": "uno",
-    "strokes": 1,
-    "frequency": 250
-  },
-  {
-    "radical": "丨",
-    "pinyin": "gǔn",
-    "meaning_en": "line",
-    "meaning_es": "línea",
-    "strokes": 1,
-    "frequency": 180
-  },
-  {
-    "radical": "丶",
-    "pinyin": "zhǔ",
-    "meaning_en": "dot",
-    "meaning_es": "punto",
-    "strokes": 1,
-    "frequency": 170
-  },
-  {
-    "radical": "丿",
-    "pinyin": "piě",
-    "meaning_en": "slash",
-    "meaning_es": "trazo inclinado",
-    "strokes": 1,
-    "frequency": 160
-  },
-  {
-    "radical": "乙",
-    "pinyin": "yǐ",
-    "meaning_en": "second (cyclical)",
-    "meaning_es": "segundo (cíclico)",
-    "strokes": 1,
-    "frequency": 150
-  },
-  {
-    "radical": "亅",
-    "pinyin": "jué",
-    "meaning_en": "hook",
-    "meaning_es": "gancho",
-    "strokes": 1,
-    "frequency": 140
-  },
-  {
-    "radical": "二",
-    "pinyin": "èr",
-    "meaning_en": "two",
-    "meaning_es": "dos",
-    "strokes": 2,
-    "frequency": 240
-  },
-  {
     "radical": "亠",
     "pinyin": "tóu",
     "meaning_en": "lid",
@@ -106,10 +18,182 @@
   {
     "radical": "人",
     "pinyin": "rén",
+    "variants": ["亻"],
     "meaning_en": "person",
     "meaning_es": "persona",
     "strokes": 2,
     "frequency": 500
+  },
+  {
+    "radical": "刀",
+    "pinyin": "dāo",
+    "variants": ["刂"],
+    "meaning_en": "knife",
+    "meaning_es": "cuchillo",
+    "strokes": 2,
+    "frequency": 200
+  },
+  {
+    "radical": "心",
+    "pinyin": "xīn",
+    "variants": ["忄"],
+    "meaning_en": "heart",
+    "meaning_es": "corazón",
+    "strokes": 4,
+    "frequency": 450
+  },
+  {
+    "radical": "戶",
+    "pinyin": "hù",
+    "variants": ["户","⺁"],
+    "meaning_en": "door",
+    "meaning_es": "puerta",
+    "strokes": 4,
+    "frequency": 65
+  },
+  {
+    "radical": "手",
+    "pinyin": "shǒu",
+    "variants": ["扌","龵"],
+    "meaning_en": "hand",
+    "meaning_es": "mano",
+    "strokes": 4,
+    "frequency": 500
+  },
+  {
+    "radical": "攴",
+    "pinyin": "pū",
+    "variants": ["攵"],
+    "meaning_en": "tap / knock",
+    "meaning_es": "golpear / tocar",
+    "strokes": 4,
+    "frequency": 40
+  },
+  {
+    "radical": "水",
+    "pinyin": "shuǐ",
+    "variants": ["氵"],
+    "meaning_en": "water",
+    "meaning_es": "agua",
+    "strokes": 4,
+    "frequency": 450
+  },
+  {
+    "radical": "火",
+    "pinyin": "huǒ",
+    "variants": ["灬"],
+    "meaning_en": "fire",
+    "meaning_es": "fuego",
+    "strokes": 4,
+    "frequency": 400
+  },
+  {
+    "radical": "爪",
+    "pinyin": "zhǎo",
+    "variants": ["爫"],
+    "meaning_en": "claw",
+    "meaning_es": "garra",
+    "strokes": 4,
+    "frequency": 70
+  },
+  {
+    "radical": "牛",
+    "pinyin": "niú",
+    "variants": ["牜"],
+    "meaning_en": "cow / ox",
+    "meaning_es": "vaca / buey",
+    "strokes": 4,
+    "frequency": 300
+  },
+  {
+    "radical": "犬",
+    "pinyin": "quǎn",
+    "variants": ["犭"],
+    "meaning_en": "dog",
+    "meaning_es": "perro",
+    "strokes": 4,
+    "frequency": 150
+  },
+  {
+    "radical": "玉",
+    "pinyin": "yù",
+    "variants": ["王"],
+    "meaning_en": "jade",
+    "meaning_es": "jade",
+    "strokes": 5,
+    "frequency": 250
+  },
+  {
+    "radical": "糸",
+    "pinyin": "mì",
+    "variants": ["纟"],
+    "meaning_en": "silk",
+    "meaning_es": "seda",
+    "strokes": 6,
+    "frequency": 160
+  },
+  {
+    "radical": "言",
+    "pinyin": "yán",
+    "variants": ["讠"],
+    "meaning_en": "speech",
+    "meaning_es": "habla",
+    "strokes": 7,
+    "frequency": 200
+  },
+  {
+    "radical": "衣",
+    "pinyin": "yī",
+    "variants": ["衤"],
+    "meaning_en": "clothes",
+    "meaning_es": "ropa",
+    "strokes": 6,
+    "frequency": 150
+  },
+  {
+    "radical": "食",
+    "pinyin": "shí",
+    "variants": ["飠","饣"],
+    "meaning_en": "eat / food",
+    "meaning_es": "comer / alimento",
+    "strokes": 9,
+    "frequency": 220
+  },
+  {
+    "radical": "肉",
+    "pinyin": "ròu",
+    "variants": ["月"],
+    "meaning_en": "meat",
+    "meaning_es": "carne",
+    "strokes": 6,
+    "frequency": 110
+  },
+  {
+    "radical": "見",
+    "pinyin": "jiàn",
+    "variants": ["见"],
+    "meaning_en": "see",
+    "meaning_es": "ver",
+    "strokes": 7,
+    "frequency": 140
+  },
+  {
+    "radical": "貝",
+    "pinyin": "bèi",
+    "variants": ["贝"],
+    "meaning_en": "shell",
+    "meaning_es": "concha",
+    "strokes": 7,
+    "frequency": 130
+  },
+  {
+    "radical": "車",
+    "pinyin": "chē",
+    "variants": ["车"],
+    "meaning_en": "cart",
+    "meaning_es": "carro",
+    "strokes": 7,
+    "frequency": 95
   },
   {
     "radical": "儿",
@@ -174,14 +258,6 @@
     "meaning_es": "recipiente",
     "strokes": 2,
     "frequency": 70
-  },
-  {
-    "radical": "刀",
-    "pinyin": "dāo",
-    "meaning_en": "knife",
-    "meaning_es": "cuchillo",
-    "strokes": 2,
-    "frequency": 200
   },
   {
     "radical": "力",
@@ -512,14 +588,6 @@
     "frequency": 75
   },
   {
-    "radical": "心",
-    "pinyin": "xīn",
-    "meaning_en": "heart",
-    "meaning_es": "corazón",
-    "strokes": 4,
-    "frequency": 450
-  },
-  {
     "radical": "戈",
     "pinyin": "gē",
     "meaning_en": "halberd",
@@ -528,36 +596,12 @@
     "frequency": 80
   },
   {
-    "radical": "戶",
-    "pinyin": "hù",
-    "meaning_en": "door",
-    "meaning_es": "puerta",
-    "strokes": 4,
-    "frequency": 65
-  },
-  {
-    "radical": "手",
-    "pinyin": "shǒu",
-    "meaning_en": "hand",
-    "meaning_es": "mano",
-    "strokes": 4,
-    "frequency": 500
-  },
-  {
     "radical": "支",
     "pinyin": "zhī",
     "meaning_en": "branch",
     "meaning_es": "rama",
     "strokes": 4,
     "frequency": 55
-  },
-  {
-    "radical": "攴",
-    "pinyin": "pū",
-    "meaning_en": "tap / knock",
-    "meaning_es": "golpear / tocar",
-    "strokes": 4,
-    "frequency": 40
   },
   {
     "radical": "文",
@@ -704,30 +748,6 @@
     "frequency": 300
   },
   {
-    "radical": "水",
-    "pinyin": "shuǐ",
-    "meaning_en": "water",
-    "meaning_es": "agua",
-    "strokes": 4,
-    "frequency": 450
-  },
-  {
-    "radical": "火",
-    "pinyin": "huǒ",
-    "meaning_en": "fire",
-    "meaning_es": "fuego",
-    "strokes": 4,
-    "frequency": 400
-  },
-  {
-    "radical": "爪",
-    "pinyin": "zhǎo",
-    "meaning_en": "claw",
-    "meaning_es": "garra",
-    "strokes": 4,
-    "frequency": 70
-  },
-  {
     "radical": "父",
     "pinyin": "fù",
     "meaning_en": "father",
@@ -768,36 +788,12 @@
     "frequency": 160
   },
   {
-    "radical": "牛",
-    "pinyin": "niú",
-    "meaning_en": "cow / ox",
-    "meaning_es": "vaca / buey",
-    "strokes": 4,
-    "frequency": 300
-  },
-  {
-    "radical": "犬",
-    "pinyin": "quǎn",
-    "meaning_en": "dog",
-    "meaning_es": "perro",
-    "strokes": 4,
-    "frequency": 150
-  },
-  {
     "radical": "玄",
     "pinyin": "xuán",
     "meaning_en": "dark / profound",
     "meaning_es": "oscuro / profundo",
     "strokes": 5,
     "frequency": 60
-  },
-  {
-    "radical": "玉",
-    "pinyin": "yù",
-    "meaning_en": "jade",
-    "meaning_es": "jade",
-    "strokes": 5,
-    "frequency": 250
   },
   {
     "radical": "瓜",
@@ -984,14 +980,6 @@
     "frequency": 220
   },
   {
-    "radical": "糸",
-    "pinyin": "mì",
-    "meaning_en": "silk",
-    "meaning_es": "seda",
-    "strokes": 6,
-    "frequency": 160
-  },
-  {
     "radical": "缶",
     "pinyin": "fǒu",
     "meaning_en": "jar / pottery",
@@ -1062,14 +1050,6 @@
     "meaning_es": "pincel",
     "strokes": 6,
     "frequency": 20
-  },
-  {
-    "radical": "肉",
-    "pinyin": "ròu",
-    "meaning_en": "meat",
-    "meaning_es": "carne",
-    "strokes": 6,
-    "frequency": 110
   },
   {
     "radical": "臣",
@@ -1750,5 +1730,53 @@
     "meaning_es": "segunda forma del radical 2",
     "strokes": 2,
     "frequency": 1
+  },
+  {
+    "radical": "丨",
+    "pinyin": "gǔn",
+    "meaning_en": "line",
+    "meaning_es": "línea",
+    "strokes": 1,
+    "frequency": 180
+  },
+  {
+    "radical": "丶",
+    "pinyin": "zhǔ",
+    "meaning_en": "dot",
+    "meaning_es": "punto",
+    "strokes": 1,
+    "frequency": 170
+  },
+  {
+    "radical": "丿",
+    "pinyin": "piě",
+    "meaning_en": "slash",
+    "meaning_es": "trazo inclinado",
+    "strokes": 1,
+    "frequency": 160
+  },
+  {
+    "radical": "乙",
+    "pinyin": "yǐ",
+    "meaning_en": "second",
+    "meaning_es": "segundo",
+    "strokes": 1,
+    "frequency": 150
+  },
+  {
+    "radical": "亅",
+    "pinyin": "jué",
+    "meaning_en": "hook",
+    "meaning_es": "gancho",
+    "strokes": 1,
+    "frequency": 140
+  },
+  {
+    "radical": "二",
+    "pinyin": "èr",
+    "meaning_en": "two",
+    "meaning_es": "dos",
+    "strokes": 2,
+    "frequency": 240
   }
 ]

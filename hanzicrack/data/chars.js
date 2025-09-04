@@ -169,7 +169,7 @@ export const data = {
   "strokes": 3,
   "frequency": 65,
   "components": []
-}
+},
 "㇉": {
   "pinyin": "shù zhé zhé gōu",
   "meaning_en": "vertical double turn with hook",

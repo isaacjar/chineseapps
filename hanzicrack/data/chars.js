@@ -1097,8 +1097,96 @@ export const data = {
     "strokes": 5,
     "frequency": 0,
     "components": ["口", "二"],
+  },
+  "马": {
+    "pinyin": "mǎ",
+    "meaning_en": "horse",
+    "meaning_es": "caballo",
+    "radical": "马",
+    "strokes": 3,
+    "frequency": 45,
+    "components": []
+  },
+  "妈": {
+    "pinyin": "mā",
+    "meaning_en": "mom",
+    "meaning_es": "mamá",
+    "radical": "女",
+    "strokes": 6,
+    "frequency": 112,
+    "components": ["女", "马"]
+  },
+  "和": {
+    "pinyin": "hé",
+    "meaning_en": "and",
+    "meaning_es": "y",
+    "radical": "口",
+    "strokes": 8,
+    "frequency": 76,
+    "components": ["禾", "口"]
+  },
+  "哥": {
+    "pinyin": "gē",
+    "meaning_en": "elder brother",
+    "meaning_es": "hermano mayor",
+    "radical": "口",
+    "strokes": 10,
+    "frequency": 180,
+    "components": ["可"]
+  },
+  "可": {
+    "pinyin": "kě",
+    "meaning_en": "can",
+    "meaning_es": "poder",
+    "radical": "口",
+    "strokes": 5,
+    "frequency": 68,
+    "components": ["丁", "口"]
+  },
+  "们": {
+    "pinyin": "men",
+    "meaning_en": "plural for pronouns",
+    "meaning_es": "plural para pronombres",
+    "radical": "亻",
+    "strokes": 5,
+    "frequency": 60,
+    "components": ["亻", "门"]
+  },
+  "门": {
+    "pinyin": "mén",
+    "meaning_en": "door",
+    "meaning_es": "puerta",
+    "radical": "门",
+    "strokes": 3,
+    "frequency": 50,
+    "components": []
+  },
+  "主": {
+    "pinyin": "zhǔ",
+    "meaning_en": "lord",
+    "meaning_es": "señor",
+    "radical": "丶",
+    "strokes": 5,
+    "frequency": 40,
+    "components": ["丶", "王"]
+  },
+  "北": {
+    "pinyin": "běi",
+    "meaning_en": "north",
+    "meaning_es": "norte",
+    "radical": "匕",
+    "strokes": 5,
+    "frequency": 70,
+    "components": ["⺈", "匕"]
+  },
+  "京": {
+    "pinyin": "jīng",
+    "meaning_en": "capital (city)",
+    "meaning_es": "capital (ciudad)",
+    "radical": "亠",
+    "strokes": 8,
+    "frequency": 95,
+    "components": ["亠", "口", "小"]
   }
-  
-
   
 };

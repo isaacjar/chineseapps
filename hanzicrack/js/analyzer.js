@@ -49,7 +49,11 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         }
       }
 
-      parts.push(`${c} [${cpinyin}] ${cmeaning}`.trim());
+      const cSpan = cd?.source === "api"
+        ? `<span class="from-api">${c}</span>`
+        : c;
+      parts.push(`${cSpan} [${cpinyin}] ${cmeaning}`.trim());
+
     }
 
     // 3) Línea final
@@ -57,7 +61,12 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       ? data.pinyin.join(", ")
       : (data.pinyin || "");
     const right = parts.join(", ");
-    lines.push(`${ch} [${pinyin}] ➜ ${right}`);
+    // Si viene de API → en rojo
+    const charSpan = data.source === "api"
+      ? `<span class="from-api">${ch}</span>`
+      : ch;
+    
+    lines.push(`${charSpan} [${pinyin}] ➜ ${right}`);
   }
 
   return lines;

@@ -1,5 +1,7 @@
 // settings.js
 // Gestión de configuración de la app (idioma, modo, permisos)
+import { setMsg } from "./ui.js";
+
 let settings = {
   lang: "en",       // por defecto inglés
   mode: "simple",   // NO persistimos este valor
@@ -19,9 +21,9 @@ export function initSettings() {
   }
 
   // ⚙️ Cargar idioma y otros Settings si hay en el futuro
-  const savedLang = localStorage.getItem("hanziLang");
-  if (savedLang) {
-    settings.lang = savedLang;
+  const savedSettings = localStorage.getItem("hanziSettings");
+  if (savedSettings) {
+    settings = JSON.parse(savedSettings);
   }
 
   applyUISettings();
@@ -34,10 +36,9 @@ export function getSettings() {
   return settings;
 }
 
-// setLanguage: al cambiar idioma, SÍ persistimos
+// setLanguage: actualiza pero NO guarda hasta pulsar Guardar
 export function setLanguage(lang) {
   settings.lang = lang;
-  localStorage.setItem("hanziLang", lang);
 }
 
 // setMode: NO persiste; solo actualiza settings en RAM
@@ -59,8 +60,7 @@ function applyUISettings() {
   // Select idioma
   const langSelect = document.getElementById("langSelect");
   if (langSelect) {
-    langSelect.value = settings.lang;
-    langSelect.addEventListener("change", e => setLanguage(e.target.value));
+    langSelect.value = settings.lang; 
   }
 
   // Switch simple/full
@@ -69,6 +69,16 @@ function applyUISettings() {
     modeSwitch.checked = settings.mode === "full";
     modeSwitch.addEventListener("change", e => {
       setMode(e.target.checked ? "full" : "simple");
+    });
+  }
+
+  // Botón Guardar
+  const btnSave = document.getElementById("btnSaveSettings");
+  if (btnSave) {
+    btnSave.addEventListener("click", () => {
+      if (langSelect) setLanguage(langSelect.value);
+      saveSettings();
+      setMsg("✅ Configuración guardada");
     });
   }
 }
@@ -81,5 +91,6 @@ function showHiddenControls() {
   document.getElementById("btnDownloadNew")?.classList.remove("hidden");
   document.getElementById("btnDebug")?.classList.remove("hidden");
   document.querySelector(".btnValidate")?.classList.remove("hidden");
-  document.querySelector(".switch")?.classList.remove("hidden");  
+  document.querySelector(".switch")?.classList.remove("hidden");
+  setMsg("🐛 Debug mode on");
 }

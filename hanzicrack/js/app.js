@@ -34,17 +34,27 @@ function setupEventListeners() {
   const btnStrokes = document.getElementById("btnStrokes");
   
   // Analizar texto
+  // Analizar texto
   btnAnalyze?.addEventListener("click", async () => {
     const input = document.getElementById("inputText").value.trim();
     if (!input) {
       setMsg("Type Chinese chars...");
       return;
     }
-
-    const { mode, lang } = getSettings();
-    const lines = await analyzeText(input, mode, lang);
-    renderOutput(lines);
-    
+  
+    const outputDiv = document.getElementById("outputText");
+    outputDiv.classList.add("loading"); // ⏳ mostrar spinner animado
+  
+    try {
+      const { mode, lang } = getSettings();
+      const lines = await analyzeText(input, mode, lang);
+      renderOutput(lines);
+    } catch (err) {
+      console.error("❌ Error analyzing text:", err);
+      setMsg("Error during analysis");
+    } finally {
+      outputDiv.classList.remove("loading"); // ✅ quitar spinner
+    }
   });
 
     document.getElementById("btnDebug").addEventListener("click", async () => {

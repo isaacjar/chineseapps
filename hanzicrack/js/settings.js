@@ -78,8 +78,8 @@ function applyUISettings() {
     btnSave.addEventListener("click", () => {
       if (langSelect) setLanguage(langSelect.value);
       saveSettings();
-      setMsg("✅ Configuración guardada");
       closeModal("settingsModal");   // 👈 cerrar automáticamente
+      location.reload();
     });
   }
 }

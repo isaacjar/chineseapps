@@ -1430,10 +1430,28 @@ export const data = {
     "frequency": 200,
     "components": []
   },
+  "彳": {
+    "pinyin": "xíng",
+    "meaning_en": "walk (行)",
+    "meaning_es": "caminar (行)",
+    "radical": "行",
+    "strokes": 6,
+    "frequency": 200,
+    "components": []
+  },
   "衣": {
     "pinyin": "yī",
     "meaning_en": "clothes",
     "meaning_es": "ropa",
+    "radical": "衣",
+    "strokes": 6,
+    "frequency": 150,
+    "components": []
+  },
+  "⻂": {
+    "pinyin": "yī",
+    "meaning_en": "clothes (衣)",
+    "meaning_es": "ropa (衣)",
     "radical": "衣",
     "strokes": 6,
     "frequency": 150,
@@ -1470,6 +1488,15 @@ export const data = {
     "pinyin": "yán",
     "meaning_en": "speech",
     "meaning_es": "habla",
+    "radical": "言",
+    "strokes": 7,
+    "frequency": 200,
+    "components": []
+  },
+  "讠": {
+    "pinyin": "yán",
+    "meaning_en": "word (言)",
+    "meaning_es": "palabra (言)",
     "radical": "言",
     "strokes": 7,
     "frequency": 200,
@@ -1566,6 +1593,15 @@ export const data = {
     "frequency": 95,
     "components": []
   },
+  "车": {
+    "pinyin": "chē",
+    "meaning_en": "car (車)",
+    "meaning_es": "vehículo (車)",
+    "radical": "車",
+    "strokes": 7,
+    "frequency": 95,
+    "components": []
+  },
   "辛": {
     "pinyin": "xīn",
     "meaning_en": "bitter",
@@ -1633,6 +1669,15 @@ export const data = {
     "pinyin": "jīn",
     "meaning_en": "metal",
     "meaning_es": "metal",
+    "radical": "金",
+    "strokes": 8,
+    "frequency": 150,
+    "components": []
+  },
+  "钅": {
+    "pinyin": "jīn",
+    "meaning_en": "metal (金)",
+    "meaning_es": "metal (金)",
     "radical": "金",
     "strokes": 8,
     "frequency": 150,
@@ -1784,8 +1829,17 @@ export const data = {
   },
   "食": {
     "pinyin": "shí",
-    "meaning_en": "eat",
-    "meaning_es": "comer",
+    "meaning_en": "food",
+    "meaning_es": "comida",
+    "radical": "食",
+    "strokes": 9,
+    "frequency": 85,
+    "components": []
+  },
+  "饣": {
+    "pinyin": "shí",
+    "meaning_en": "food (食)",
+    "meaning_es": "comida (食)",
     "radical": "食",
     "strokes": 9,
     "frequency": 85,
@@ -1890,11 +1944,29 @@ export const data = {
     "frequency": 70,
     "components": []
   },
+  "鱼": {
+    "pinyin": "yú",
+    "meaning_en": "fish",
+    "meaning_es": "pez",
+    "radical": "鱼",
+    "strokes": 11,
+    "frequency": 70,
+    "components": []
+  },
   "鳥": {
     "pinyin": "niǎo",
     "meaning_en": "bird",
     "meaning_es": "pájaro",
     "radical": "鳥",
+    "strokes": 11,
+    "frequency": 60,
+    "components": []
+  }, 
+  "鸟": {
+    "pinyin": "niǎo",
+    "meaning_en": "bird",
+    "meaning_es": "pájaro",
+    "radical": "鸟",
     "strokes": 11,
     "frequency": 60,
     "components": []

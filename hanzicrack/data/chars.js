@@ -448,7 +448,7 @@ export const data = {
     "strokes": 5,
     "frequency": 50,
     "components": ["一", "止"]
-  }
+  },
   "夕": {
     "pinyin": "xī",
     "meaning_en": "evening",

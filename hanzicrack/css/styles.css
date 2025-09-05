@@ -279,16 +279,22 @@ main {
     font-size: 1.1rem;
   }
 }
-@media (min-aspect-ratio: 9/16) { /* En pantallas alargadas, cada radical en una linea */
-  .radical-list {
-    flex-direction: column;
-    gap: 0.3rem;
+/* En pantallas más altas que anchas (móvil en vertical): 
+   los radicales en columna, un botón por línea */
+@media (max-aspect-ratio: 9/16) {
+    .radical-list {
+      flex-direction: column;
+      align-items: center;   /* 👈 centra horizontalmente los botones */
+      gap: 0.3rem;
+    }
+  
+    .radical-list button {
+      width: 90%;            /* 👈 ocupa el 90% */
+      font-size: 0.9rem;
+      padding: 0.4rem 0.6rem;
+    }
   }
 
-  .radical-list button {
-    width: 100%;
-  }
-}
 
 /* BOTONES */
 /* Contenedor opcional para alinear */

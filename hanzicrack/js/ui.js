@@ -121,8 +121,6 @@ export function showModalRadicals(radicals, lang, onSelect) {
   const btnMore = document.createElement("button");
   btnMore.textContent = "➕";
   btnMore.classList.add("controls", "button");
-  btnMore.style.backgroundColor = "blue";
-  btnMore.style.color = "white";
   btnMore.addEventListener("click", renderRange);
 
   container.appendChild(btnMore);

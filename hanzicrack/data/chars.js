@@ -2554,7 +2554,7 @@ export const data = {
     "strokes": 2,
     "frequency": 0,
     "components": ["一", "丿"]
-  }
+  },
   "都": {
     "pinyin": "dōu",
     "meaning_en": "all",

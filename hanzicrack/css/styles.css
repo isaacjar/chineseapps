@@ -181,6 +181,7 @@ main {
   background: #fff;
   border-radius: 12px;
   padding: 1rem;
+  min-width: 500px;
   max-width: 95%;
   max-height: 80%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);

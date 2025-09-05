@@ -1,4 +1,4 @@
-// analyzer.js - Corrección de la lógica de descomposición
+// analyzer.js - Con límite de 3 subniveles
 import { getCharacterData } from "./api.js";
 
 /**
@@ -105,11 +105,11 @@ async function expandComponentsList(firstLevel, mode) {
     return firstLevel;
   }
 
-  // FULL: expandir recursivamente hasta componentes atómicos
+  // FULL: expandir recursivamente hasta componentes atómicos con límite de 3 niveles
   const atomicComponents = [];
   
   for (const comp of firstLevel) {
-    const atoms = await explodeToAtoms(comp);
+    const atoms = await explodeToAtoms(comp, 0, 3); // Nivel inicial 0, máximo 3
     atomicComponents.push(...atoms);
   }
 
@@ -118,8 +118,16 @@ async function expandComponentsList(firstLevel, mode) {
 
 /**
  * Devuelve los componentes atómicos (sin subcomponentes)
+ * @param {string} char - Carácter a descomponer
+ * @param {number} currentLevel - Nivel actual de recursión
+ * @param {number} maxLevel - Nivel máximo de recursión permitido
  */
-async function explodeToAtoms(char) {
+async function explodeToAtoms(char, currentLevel = 0, maxLevel = 3) {
+  // Mecanismo de seguridad: no superar el máximo de niveles
+  if (currentLevel >= maxLevel) {
+    return [char];
+  }
+
   const data = await getCharacterData(char);
   
   // Si no tiene datos o no tiene componentes, es atómico
@@ -127,10 +135,10 @@ async function explodeToAtoms(char) {
     return [char];
   }
 
-  // Si tiene componentes, expandir recursivamente
+  // Si tiene componentes, expandir recursivamente (aumentando el nivel)
   const atoms = [];
   for (const subComp of data.components) {
-    const subAtoms = await explodeToAtoms(subComp);
+    const subAtoms = await explodeToAtoms(subComp, currentLevel + 1, maxLevel);
     atoms.push(...subAtoms);
   }
   

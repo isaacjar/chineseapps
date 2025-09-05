@@ -183,8 +183,12 @@ main {
   padding: 1rem;
   max-width: 90%;
   max-height: 80%;
-  overflow-y: auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+
+  /* estructura flexible */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 👈 ya no scrollea todo el box */
 }
 
 /* Cabecera del modal (título + botón cerrar) */
@@ -192,7 +196,15 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+
+  /* 👇 se queda fija arriba */
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
 }
 
 .modal-header h2 {
@@ -220,12 +232,20 @@ main {
   background: #b52b27;
 }
 
+/* Contenedor con scroll para la lista */
+.modal-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0; /* 👈 necesario para que el flex haga scroll */
+  padding-top: 0.5rem;
+}
+
 /* Lista de radicales */
 .radical-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 1rem 0;
+  margin: 0; /* ya controlamos en .modal-content */
 }
 
 .radical-list button {

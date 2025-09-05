@@ -2879,15 +2879,6 @@ export const data = {
     "frequency": 83,
     "components": ["气"]
   },
-  "白": {
-    "pinyin": "bái",
-    "meaning_en": "white",
-    "meaning_es": "blanco",
-    "radical": "白",
-    "strokes": 5,
-    "frequency": 88,
-    "components": ["日", "㇀"]
-  },
   "红": {
     "pinyin": "hóng",
     "meaning_en": "red",

@@ -423,8 +423,8 @@
   {
     "radical": "夂",
     "pinyin": "zhǐ",
-    "meaning_en": "go after",
-    "meaning_es": "ir detrás",
+    "meaning_en": "right hand with a stick",
+    "meaning_es": "mano derecha con palo",
     "strokes": 3,
     "frequency": 40
   },
@@ -648,16 +648,16 @@
   {
     "radical": "无",
     "pinyin": "wú",
-    "meaning_en": "nothing / not",
-    "meaning_es": "nada / no",
+    "meaning_en": "not",
+    "meaning_es": "no",
     "strokes": 4,
     "frequency": 90
   },
   {
     "radical": "日",
     "pinyin": "rì",
-    "meaning_en": "sun / day",
-    "meaning_es": "sol / día",
+    "meaning_en": "sun",
+    "meaning_es": "sol",
     "strokes": 4,
     "frequency": 400
   },
@@ -880,16 +880,16 @@
   {
     "radical": "皮",
     "pinyin": "pí",
-    "meaning_en": "skin / hide",
-    "meaning_es": "piel / cuero",
+    "meaning_en": "skin",
+    "meaning_es": "piel",
     "strokes": 5,
     "frequency": 200
   },
   {
     "radical": "皿",
     "pinyin": "mǐn",
-    "meaning_en": "dish / vessel",
-    "meaning_es": "plato / recipiente",
+    "meaning_en": "dish",
+    "meaning_es": "plato",
     "strokes": 5,
     "frequency": 90
   },
@@ -928,16 +928,17 @@
   {
     "radical": "示",
     "pinyin": "shì",
-    "meaning_en": "spirit / show",
-    "meaning_es": "espíritu / mostrar",
+    "variants": ["礻"],
+    "meaning_en": "altar",
+    "meaning_es": "altar",
     "strokes": 5,
     "frequency": 210
   },
   {
     "radical": "禸",
     "pinyin": "róu",
-    "meaning_en": "track / rump",
-    "meaning_es": "huella / grupa",
+    "meaning_en": "track",
+    "meaning_es": "rastro",
     "strokes": 5,
     "frequency": 15
   },
@@ -984,8 +985,8 @@
   {
     "radical": "缶",
     "pinyin": "fǒu",
-    "meaning_en": "jar / pottery",
-    "meaning_es": "cántaro / vasija",
+    "meaning_en": "pottery",
+    "meaning_es": "vasija",
     "strokes": 6,
     "frequency": 35
   },
@@ -1024,8 +1025,8 @@
   {
     "radical": "而",
     "pinyin": "ér",
-    "meaning_en": "and / beard",
-    "meaning_es": "y / barba",
+    "meaning_en": "and",
+    "meaning_es": "y",
     "strokes": 6,
     "frequency": 80
   },
@@ -1056,8 +1057,8 @@
   {
     "radical": "臣",
     "pinyin": "chén",
-    "meaning_en": "minister",
-    "meaning_es": "ministro / súbdito",
+    "meaning_en": "official",
+    "meaning_es": "funcionario",
     "strokes": 6,
     "frequency": 45
   },
@@ -1217,7 +1218,7 @@
     "radical": "豆",
     "pinyin": "dòu",
     "meaning_en": "bean",
-    "meaning_es": "frijol",
+    "meaning_es": "haba",
     "strokes": 7,
     "frequency": 45
   },
@@ -1385,8 +1386,8 @@
   {
     "radical": "隹",
     "pinyin": "zhuī",
-    "meaning_en": "short-tailed bird",
-    "meaning_es": "ave de cola corta",
+    "meaning_en": "pigeon house",
+    "meaning_es": "palomar",
     "strokes": 8,
     "frequency": 50
   },
@@ -1401,8 +1402,8 @@
   {
     "radical": "青",
     "pinyin": "qīng",
-    "meaning_en": "blue/green",
-    "meaning_es": "azul/verde",
+    "meaning_en": "green",
+    "meaning_es": "verde",
     "strokes": 8,
     "frequency": 65
   },
@@ -1655,7 +1656,7 @@
     "frequency": 2
   },
   {
-    "radical": "鼎",
+      "radical": "鼎",
     "pinyin": "dǐng",
     "meaning_en": "tripod cauldron",
     "meaning_es": "caldero trípode",
@@ -1689,7 +1690,7 @@
   {
     "radical": "齊",
     "pinyin": "qí",
-    "meaning_en": "even, uniform",
+    "meaning_en": "even",
     "meaning_es": "uniforme",
     "strokes": 14,
     "frequency": 5
@@ -1729,8 +1730,8 @@
   {
     "radical": "𠂉",
     "pinyin": "gǔn",
-    "meaning_en": "second form of radical 2",
-    "meaning_es": "segunda forma del radical 2",
+    "meaning_en": "person",
+    "meaning_es": "persona",
     "strokes": 2,
     "frequency": 1
   },

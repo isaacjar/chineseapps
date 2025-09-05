@@ -443,3 +443,29 @@ main {
   font-size: 0.9em;
   font-style: italic;
 }
+
+/* Estilo para el texto de copyright */
+.brand-footer {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.brand-text {
+  font-size: 0.9rem;
+  color: #7f8c8d; /* Gris medio */
+  font-weight: 500;
+}
+
+.brand-text .panda {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-5px); 
+  }
+}

@@ -66,7 +66,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     const pinyin = Array.isArray(data.pinyin)
       ? data.pinyin.join(", ")
       : (data.pinyin || "");
-    const right = parts.join(", ");
+    const right = parts.map(p => p.trim()).join(" + ");
 
     const charSpan = data.source === "api"
       ? `<span class="from-api">${ch}</span>`

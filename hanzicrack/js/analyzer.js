@@ -24,10 +24,10 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       continue;
     }
 
-    // Verificar si el carácter es un radical
+    // Verificar si el carácter es un radical o si no tiene componentes
     const isRadical = data.radical === ch;
     
-    if (isRadical) {
+    if (isRadical || !data.components || data.components.length === 0) {
       const pinyin = Array.isArray(data.pinyin)
         ? data.pinyin.join(", ")
         : (data.pinyin || "");

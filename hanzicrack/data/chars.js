@@ -406,8 +406,8 @@ export const data = {
   },
   "土": {
     "pinyin": "tǔ",
-    "meaning_en": "earth",
-    "meaning_es": "tierra",
+    "meaning_en": "soil",
+    "meaning_es": "suelo",
     "radical": "土",
     "strokes": 3,
     "frequency": 380,
@@ -442,8 +442,8 @@ export const data = {
   },
   "正": {
     "pinyin": "zhèng",
-    "meaning_en": "correct, upright",
-    "meaning_es": "correcto, recto",
+    "meaning_en": "upright",
+    "meaning_es": "recto",
     "radical": "止",
     "strokes": 5,
     "frequency": 50,
@@ -820,8 +820,8 @@ export const data = {
   },
   "月": {
     "pinyin": "yuè",
-    "meaning_en": "moon, flesh",
-    "meaning_es": "luna, flesh",
+    "meaning_en": "moon",
+    "meaning_es": "luna",
     "radical": "月",
     "strokes": 4,
     "frequency": 350,
@@ -2420,6 +2420,123 @@ export const data = {
     "frequency": 9,
     "components": ["辶", "文"]
   },
+  "辶": {
+    "pinyin": "chuò",
+    "meaning_en": "walk",
+    "meaning_es": "caminar",
+    "radical": "辵",
+    "strokes": 4,
+    "frequency": 45,
+    "components": []
+  },
+  "对": {
+    "pinyin": "duì",
+    "meaning_en": "correct",
+    "meaning_es": "correcto",
+    "radical": "寸",
+    "strokes": 5,
+    "frequency": 25,
+    "components": ["又", "寸"]
+  },
+  "期": {
+    "pinyin": "qī",
+    "meaning_en": "period",
+    "meaning_es": "periodo",
+    "radical": "月",
+    "strokes": 12,
+    "frequency": 85,
+    "components": ["其", "月"]
+  },
+  "其": {
+    "pinyin": "qí",
+    "meaning_en": "his",
+    "meaning_es": "su",
+    "radical": "八",
+    "strokes": 8,
+    "frequency": 75,
+    "components": ["甘", "一", "八"]
+  },
+  "能": {
+    "pinyin": "néng",
+    "meaning_en": "can",
+    "meaning_es": "poder",
+    "radical": "月",
+    "strokes": 10,
+    "frequency": 65,
+    "components": ["厶", "月", "匕", "匕"]
+  },
+  "本": {
+    "pinyin": "běn",
+    "meaning_en": "root",
+    "meaning_es": "raíz",
+    "radical": "木",
+    "strokes": 5,
+    "frequency": 95,
+    "components": ["木", "一"]
+  },
+  "现": {
+    "pinyin": "xiàn",
+    "meaning_en": "now",
+    "meaning_es": "ahora",
+    "radical": "王",
+    "strokes": 8,
+    "frequency": 70,
+    "components": ["王", "见"]
+  },
+  "前": {
+    "pinyin": "qián",
+    "meaning_en": "front",
+    "meaning_es": "frente",
+    "radical": "刂",
+    "strokes": 9,
+    "frequency": 80,
+    "components": ["丷", "一", "月", "刂"]
+  },
+  "刂": {
+    "pinyin": "dāo",
+    "meaning_en": "knife",
+    "meaning_es": "cuchillo",
+    "radical": "刀",
+    "strokes": 2,
+    "frequency": 200,
+    "components": []
+  },
+  "机": {
+    "pinyin": "jī",
+    "meaning_en": "machine",
+    "meaning_es": "máquina",
+    "radical": "木",
+    "strokes": 6,
+    "frequency": 88,
+    "components": ["木", "几"]
+  },
+  "同": {
+    "pinyin": "tóng",
+    "meaning_en": "same",
+    "meaning_es": "similar",
+    "radical": "口",
+    "strokes": 6,
+    "frequency": 92,
+    "components": ["冂", "一", "口"]
+  },
+  "关": {
+    "pinyin": "guān",
+    "meaning_en": "close",
+    "meaning_es": "cerrar",
+    "radical": "丷",
+    "strokes": 6,
+    "frequency": 78,
+    "components": ["丷", "天"]
+  },
+  "名": {
+    "pinyin": "míng",
+    "meaning_en": "name",
+    "meaning_es": "nombre",
+    "radical": "口",
+    "strokes": 6,
+    "frequency": 85,
+    "components": ["夕", "口"]
+  }, 
   "在": {
     "pinyin": "zài",
     "meaning_en": "at",
@@ -2960,14 +3077,104 @@ export const data = {
     "frequency": 150,
     "components": []
   },
-  "土": {
-    "pinyin": "tǔ",
-    "meaning_en": "earth / soil / ground",
-    "meaning_es": "tierra / suelo / terreno",
-    "radical": "土",
+  "明": {
+    "pinyin": "míng",
+    "meaning_en": "bright",
+    "meaning_es": "brillante",
+    "radical": "日",
+    "strokes": 8,
+    "frequency": 95,
+    "components": ["日", "月"]
+  },
+  "点": {
+    "pinyin": "diǎn",
+    "meaning_en": "point",
+    "meaning_es": "punto",
+    "radical": "灬",
+    "strokes": 9,
+    "frequency": 82,
+    "components": ["占", "灬"]
+  },
+  "起": {
+    "pinyin": "qǐ",
+    "meaning_en": "rise",
+    "meaning_es": "levantarse",
+    "radical": "走",
+    "strokes": 10,
+    "frequency": 75,
+    "components": ["走", "己"]
+  },
+  "星": {
+    "pinyin": "xīng",
+    "meaning_en": "star",
+    "meaning_es": "estrella",
+    "radical": "日",
+    "strokes": 9,
+    "frequency": 68,
+    "components": ["日", "生"]
+  },
+  "些": {
+    "pinyin": "xiē",
+    "meaning_en": "some",
+    "meaning_es": "algunos",
+    "radical": "二",
+    "strokes": 8,
+    "frequency": 72,
+    "components": ["此", "二"]
+  },
+  "此": {
+    "pinyin": "cǐ",
+    "meaning_en": "this",
+    "meaning_es": "este",
+    "radical": "止",
+    "strokes": 6,
+    "frequency": 65,
+    "components": ["止", "匕"]
+  },
+  "三": {
+    "pinyin": "sān",
+    "meaning_en": "three",
+    "meaning_es": "tres",
+    "radical": "一",
     "strokes": 3,
-    "frequency": 624,
-    "components": ["一", "丨", "丿"]
+    "frequency": 99,
+    "components": ["一", "一", "一"]
+  },
+  "很": {
+    "pinyin": "hěn",
+    "meaning_en": "very",
+    "meaning_es": "muy",
+    "radical": "彳",
+    "strokes": 9,
+    "frequency": 88,
+    "components": ["彳", "艮"]
+  },
+  "商": {
+    "pinyin": "shāng",
+    "meaning_en": "to negociate",
+    "meaning_es": "negociar",
+    "radical": "口",
+    "strokes": 11,
+    "frequency": 60,
+    "components": ["亠", "冏", "八", "口"]
+  },
+  "冏": {
+    "pinyin": "jiǒng",
+    "meaning_en": "embarrassed",
+    "meaning_es": "avergonzado",
+    "radical": "冂",
+    "strokes": 7,
+    "frequency": 15,
+    "components": ["冂", "口", "八"]
+  },
+  "今": {
+    "pinyin": "jīn",
+    "meaning_en": "present",
+    "meaning_es": "presente",
+    "radical": "人",
+    "strokes": 4,
+    "frequency": 90,
+    "components": ["人", "丶", "一"]
   },
   "𠂤": {
     "pinyin": "jiōng",

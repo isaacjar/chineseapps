@@ -701,6 +701,15 @@ export const data = {
     "frequency": 450,
     "components": []
   },
+  "忄": {
+    "pinyin": "xīn",
+    "meaning_en": "heart (心)",
+    "meaning_es": "corazón (心)",
+    "radical": "心",
+    "strokes": 3,
+    "frequency": 0,
+    "components": ["心"]
+  },
   "戈": {
     "pinyin": "gē",
     "meaning_en": "halberd",
@@ -1045,7 +1054,7 @@ export const data = {
   },
   "用": {
     "pinyin": "yòng",
-    "meaning_en": "use",
+    "meaning_en": "to use",
     "meaning_es": "usar",
     "radical": "用",
     "strokes": 5,
@@ -2400,7 +2409,7 @@ export const data = {
     "radical": "月",
     "strokes": 6,
     "frequency": 7,
-    "components": ["又", "月"]
+    "components": ["ナ", "月"]
   },
   "他": {
     "pinyin": "tā",
@@ -3754,8 +3763,8 @@ export const data = {
 },
 "ナ": {
   "pinyin": "nà",
-  "meaning_en": "katakana",
-  "meaning_es": "katakana",
+  "meaning_en": "katana",
+  "meaning_es": "catana",
   "radical": "十",
   "strokes": 2,
   "frequency": 0,
@@ -3788,6 +3797,114 @@ export const data = {
   "frequency": 95,
   "components": ["讠", "五", "口"]
 },
+"要": {
+    "pinyin": "yào",
+    "meaning_en": "to want",
+    "meaning_es": "querer",
+    "radical": "西",
+    "strokes": 9,
+    "frequency": 21,
+    "components": ["西", "女"]
+  },
+  "覀": {
+    "pinyin": "yà",
+    "meaning_en": "west (西)",
+    "meaning_es": "oeste (西)",
+    "radical": "西",
+    "strokes": 6,
+    "frequency": 0,
+    "components": [""]
+  },
+  "解": {
+    "pinyin": "jiě",
+    "meaning_en": "to divide",
+    "meaning_es": "separar",
+    "radical": "角",
+    "strokes": 13,
+    "frequency": 232,
+    "components": ["角", "刀", "牛"]
+  },
+  "角": {
+    "pinyin": "jiǎo",
+    "meaning_en": "horn",
+    "meaning_es": "cuerno",
+    "radical": "角",
+    "strokes": 7,
+    "frequency": 296,
+    "components": ["⺈", "用"]
+  },
+  "吗": {
+    "pinyin": "ma",
+    "meaning_en": "yes/no question",
+    "meaning_es": "preguntas sí/no",
+    "radical": "口",
+    "strokes": 6,
+    "frequency": 99,
+    "components": ["口", "马"]
+  },
+  "情": {
+    "pinyin": "qíng",
+    "meaning_en": "feeling",
+    "meaning_es": "sentimiento",
+    "radical": "忄",
+    "strokes": 11,
+    "frequency": 278,
+    "components": ["忄", "青"]
+  },
+  "界": {
+    "pinyin": "jiè",
+    "meaning_en": "boundary",
+    "meaning_es": "frontera",
+    "radical": "田",
+    "strokes": 9,
+    "frequency": 177,
+    "components": ["田", "介"]
+  },
+  "介": {
+    "pinyin": "jiè",
+    "meaning_en": "to mediate",
+    "meaning_es": "intermediar",
+    "radical": "人",
+    "strokes": 4,
+    "frequency": 792,
+    "components": ["人", "丿", "丨"]
+  },
+  "廿": {
+    "pinyin": "niàn",
+    "meaning_en": "twenty",
+    "meaning_es": "veinte",
+    "radical": "廾",
+    "strokes": 4,
+    "frequency": 1458,
+    "components": ["卄"]
+  },
+  "卄": {
+    "pinyin": "niàn",
+    "meaning_en": "clapping hands (20 fingers)",
+    "meaning_es": "veinte (forma antigua)",
+    "radical": "廾",
+    "strokes": 4,
+    "frequency": 0,
+    "components": []
+  },
+  "世": {
+    "pinyin": "shì",
+    "meaning_en": "world",
+    "meaning_es": "mundo",
+    "radical": "一",
+    "strokes": 5,
+    "frequency": 254,
+    "components": ["廿", "一"]
+  },
+  "否": {
+    "pinyin": "fǒu",
+    "meaning_en": "to deny",
+    "meaning_es": "negar",
+    "radical": "口",
+    "strokes": 7,
+    "frequency": 1072,
+    "components": ["不", "口"]
+  }
 
 
   

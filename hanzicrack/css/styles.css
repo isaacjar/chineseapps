@@ -432,3 +432,14 @@ main {
   font-style: italic;
 }
 
+/* styles.css - Agregar estas clases */
+.pinyin {
+  color: #555;
+  font-size: 0.95em;
+}
+
+.meaning {
+  color: #00b8cc;
+  font-size: 0.9em;
+  font-style: italic;
+}

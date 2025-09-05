@@ -69,57 +69,66 @@ export function showModalRadicals(radicals, lang, onSelect) {
 
   container.innerHTML = "";
 
-  // función interna para renderizar un rango
-  function renderRange(start, end) {
-    for (let i = start; i < end && i < radicals.length; i++) {
+  function createRadicalButton(r) {
+    const btnRadical = document.createElement("button");
+    btnRadical.classList.add("radical-btn");
+
+    const variants = r.variants && r.variants.length
+      ? ` (${r.variants.join(", ")})`
+      : "";
+
+    btnRadical.innerHTML = `
+      <span class="radical-symbol">${r.radical}</span>
+      <span class="radical-variants">${variants}</span>
+      <span class="radical-pinyin">[${r.pinyin}]</span>
+      <span class="radical-meaning"><em style="color:blue">${lang === "es" ? r.meaning_es : r.meaning_en}</em></span>
+    `;
+
+    btnRadical.addEventListener("click", () => {
+      onSelect(r);
+      closeModal("radicalModal");
+    });
+
+    return btnRadical;
+  }
+
+  let shown = 0;
+  const batchSize = 100;
+
+  function renderRange() {
+    const next = Math.min(shown + batchSize, radicals.length);
+
+    for (let i = shown; i < next; i++) {
       const r = radicals[i];
-      const btnRadical = document.createElement("button");
-      btnRadical.classList.add("radical-btn");
+      const btnRadical = createRadicalButton(r);
+      // insertar ANTES del botón ➕ si existe
+      if (btnMore.parentNode) {
+        container.insertBefore(btnRadical, btnMore);
+      } else {
+        container.appendChild(btnRadical);
+      }
+    }
 
-      const variants = r.variants && r.variants.length
-        ? ` (${r.variants.join(", ")})`
-        : "";
+    shown = next;
 
-      btnRadical.innerHTML = `
-        <span class="radical-symbol">${r.radical}</span>
-        <span class="radical-variants">${variants}</span>
-        <span class="radical-pinyin">[${r.pinyin}]</span>
-        <span class="radical-meaning"><em style="color:blue">${lang === "es" ? r.meaning_es : r.meaning_en}</em></span>
-      `;
-
-      btnRadical.addEventListener("click", () => {
-        onSelect(r);
-        closeModal("radicalModal");
-      });
-
-      container.appendChild(btnRadical);
+    // si ya hemos mostrado todos, eliminar botón
+    if (shown >= radicals.length) {
+      btnMore.remove();
     }
   }
 
-  // mostrar primeros 100
-  renderRange(0, 100);
+  // Botón ➕
+  const btnMore = document.createElement("button");
+  btnMore.textContent = "➕";
+  btnMore.classList.add("controls", "button");
+  btnMore.style.backgroundColor = "blue";
+  btnMore.style.color = "white";
+  btnMore.addEventListener("click", renderRange);
 
-  // si hay más de 100 → botón ➕
-  if (radicals.length > 100) {
-    const btnMore = document.createElement("button");
-    btnMore.textContent = "➕";
-    btnMore.classList.add("controls", "button"); // 👈 ya usas esta clase
-    btnMore.style.backgroundColor = "blue";      // azul
-    btnMore.style.color = "white";               // texto blanco
+  container.appendChild(btnMore);
 
-    let shown = 100;
-    btnMore.addEventListener("click", () => {
-      const next = Math.min(shown + 100, radicals.length);
-      renderRange(shown, next);
-      shown = next;
-
-      if (shown >= radicals.length) {
-        btnMore.remove(); // quitar botón al llegar al final
-      }
-    });
-
-    container.appendChild(btnMore);
-  }
+  // inicial → los primeros 100
+  renderRange();
 
   openModal("radicalModal");
 }

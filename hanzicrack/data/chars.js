@@ -1095,7 +1095,7 @@ export const data = {
     "radical": "白",
     "strokes": 5,
     "frequency": 300,
-    "components": []
+    "components": ["丿", "日"]
   },
   "皮": {
     "pinyin": "pí",
@@ -2373,7 +2373,7 @@ export const data = {
     "radical": "一",
     "strokes": 4,
     "frequency": 4,
-    "components": ["一", "丿", "丨"]
+    "components": []
   },
   "了": {
     "pinyin": "le",
@@ -2382,7 +2382,7 @@ export const data = {
     "radical": "亅",
     "strokes": 2,
     "frequency": 5,
-    "components": ["亅"]
+    "components": []
   },
   "我": {
     "pinyin": "wǒ",
@@ -2886,7 +2886,7 @@ export const data = {
     "radical": "白",
     "strokes": 5,
     "frequency": 88,
-    "components": ["白"]
+    "components": ["日", "㇀"]
   },
   "红": {
     "pinyin": "hóng",
@@ -3778,7 +3778,16 @@ export const data = {
   "strokes": 9,
   "frequency": 75,
   "components": ["禾", "火"]
-}
+},
+  "语": {
+  "pinyin": "yǔ",
+  "meaning_en": "language",
+  "meaning_es": "lenguaje",
+  "radical": "讠",
+  "strokes": 9,
+  "frequency": 95,
+  "components": ["讠", "五", "口"]
+},
 
 
   

@@ -329,14 +329,20 @@ main {
 
 /* ===== Settings modal ===== */
 .settings-box {
-  min-width: 280px;
+  min-width: 400px;
+  max-width: 700px; 
+  width: 80%;
 }
 
 .settings-box h2 {
-  text-align: left;
-  margin-bottom: 1rem;
+  margin: 0;
   font-size: 1.2rem;
   color: #0077cc;
+}
+ 
+.settings-box .modal-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
 }
 
 .setting-group {
@@ -361,6 +367,7 @@ main {
 
 .setting-actions {
   text-align: center;
+  margin-top: 1rem;
 }
 
 .output.loading::after {

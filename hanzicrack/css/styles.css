@@ -217,8 +217,6 @@ main {
 .close-btn {
   background: #d9534f; /* rojo */
   color: white;
-  filter: brightness(0) invert(1); /* fuerza que se vea blanco */
-  border: none;
   border-radius: 6px;
   width: 32px;
   height: 32px;

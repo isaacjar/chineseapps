@@ -44,7 +44,7 @@ function setupEventListeners() {
 
     modeSwitch.addEventListener("change", e => {
       currentMode = e.target.checked ? "full" : "simple";
-      console.log("🔄 Mode switched to:", currentMode);
+      //console.log("🔄 Mode switched to:", currentMode);
     });
   }
   

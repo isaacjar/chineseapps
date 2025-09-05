@@ -3625,6 +3625,161 @@ export const data = {
   "strokes": 8,
   "frequency": 85,
   "components": ["月", "卩", "又"]
+},
+"屯": {
+  "pinyin": "tún",
+  "meaning_en": "village",
+  "meaning_es": "aldea",
+  "radical": "屮",
+  "strokes": 4,
+  "frequency": 45,
+  "components": ["屮", "一", "乚"]
+},
+"页": {
+  "pinyin": "yè",
+  "meaning_en": "page",
+  "meaning_es": "página",
+  "radical": "页",
+  "strokes": 6,
+  "frequency": 45,
+  "components": ["丆", "贝"]
+},
+"丆": {
+  "pinyin": "hǎn",
+  "meaning_en": "cliff (厂)",
+  "meaning_es": "acantilado (厂)",
+  "radical": "厂",
+  "strokes": 2,
+  "frequency": 0,
+  "components": []
+},
+"贝": {
+  "pinyin": "bèi",
+  "meaning_en": "shell",
+  "meaning_es": "concha",
+  "radical": "贝",
+  "strokes": 4,
+  "frequency": 130,
+  "components": ["冂", "人"]
+},
+"反": {
+  "pinyin": "fǎn",
+  "meaning_en": "reverse, opposite, against, anti-",
+  "meaning_es": "reverso, opuesto, en contra, anti-",
+  "radical": "又",
+  "strokes": 4,
+  "frequency": 85,
+  "components": ["厂", "又"]
+},
+"饭": {
+  "pinyin": "fàn",
+  "meaning_en": "cooked rice, food",
+  "meaning_es": "arroz cocido, comida",
+  "radical": "饣",
+  "strokes": 7,
+  "frequency": 90,
+  "components": ["饣", "反"]
+},
+"反": {
+  "pinyin": "fǎn",
+  "meaning_en": "reverse",
+  "meaning_es": "reverso",
+  "radical": "又",
+  "strokes": 4,
+  "frequency": 85,
+  "components": ["厂", "又"]
+},
+"海": {
+  "pinyin": "hǎi",
+  "meaning_en": "sea",
+  "meaning_es": "mar",
+  "radical": "氵",
+  "strokes": 10,
+  "frequency": 95,
+  "components": ["氵", "每"]
+},
+"每": {
+  "pinyin": "měi",
+  "meaning_en": "every",
+  "meaning_es": "cada",
+  "radical": "毋",
+  "strokes": 7,
+  "frequency": 95,
+  "components": ["𠂉", "母"]
+},
+"湾": {
+  "pinyin": "wān",
+  "meaning_en": "bay",
+  "meaning_es": "bahía",
+  "radical": "氵",
+  "strokes": 12,
+  "frequency": 65,
+  "components": ["氵", "弯"]
+},
+"弯": {
+  "pinyin": "wān",
+  "meaning_en": "bend",
+  "meaning_es": "curvar",
+  "radical": "弓",
+  "strokes": 9,
+  "frequency": 70,
+  "components": ["亦", "弓"]
+},
+"亦": {
+  "pinyin": "yì",
+  "meaning_en": "also",
+  "meaning_es": "también",
+  "radical": "亠",
+  "strokes": 6,
+  "frequency": 40,
+  "components": ["亠", "丿", "亅", "八"]
+},
+"发": {
+  "pinyin": "fā",
+  "meaning_en": "to send",
+  "meaning_es": "enviar",
+  "radical": "又",
+  "strokes": 5,
+  "frequency": 99,
+  "components": ["丿", "友"]
+},
+"友": {
+  "pinyin": "yǒu",
+  "meaning_en": "friend",
+  "meaning_es": "amigo",
+  "radical": "又",
+  "strokes": 4,
+  "frequency": 120,
+  "components": ["ナ", "又"]
+},
+"ナ": {
+  "pinyin": "nà",
+  "meaning_en": "katakana",
+  "meaning_es": "katakana",
+  "radical": "十",
+  "strokes": 2,
+  "frequency": 0,
+  "components": []
+},
+"愁": {
+  "pinyin": "chóu",
+  "meaning_en": "worry, anxiety, sorrow",
+  "meaning_es": "preocupación, ansiedad, pena",
+  "radical": "心",
+  "strokes": 13,
+  "frequency": 65,
+  "components": ["秋", "心"]
+},
+"秋": {
+  "pinyin": "qiū",
+  "meaning_en": "autumn",
+  "meaning_es": "otoño",
+  "radical": "禾",
+  "strokes": 9,
+  "frequency": 75,
+  "components": ["禾", "火"]
 }
+
+
   
 };

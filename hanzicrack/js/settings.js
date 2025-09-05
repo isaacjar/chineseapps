@@ -5,7 +5,7 @@ import { setMsg, closeModal } from "./ui.js";
 let settings = {
   lang: "en",       // por defecto inglés
   admin: false,
-  fontSize: 24      // tamaño de fuente por defecto
+  fontSize: 16      // tamaño de fuente por defecto
 };
 
 /**

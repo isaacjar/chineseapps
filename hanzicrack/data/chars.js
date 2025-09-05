@@ -3130,6 +3130,15 @@ export const data = {
     "strokes": 8,
     "frequency": 95,
     "components": ["亠", "口", "小"]
-  }
+  },
+  "国": {
+  "pinyin": "guó",
+  "meaning_en": "country",
+  "meaning_es": "país",
+  "radical": "囗",
+  "strokes": 8,
+  "frequency": 50,
+  "components": ["囗", "玉"]
+}
   
 };

@@ -249,6 +249,16 @@ main {
     font-size: 1.1rem;
   }
 }
+@media (min-aspect-ratio: 9/16) { /* En pantallas alargadas, cada radical en una linea */
+  .radical-list {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .radical-list button {
+    width: 100%;
+  }
+}
 
 /* BOTONES */
 /* Contenedor opcional para alinear */

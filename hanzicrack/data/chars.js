@@ -2546,6 +2546,15 @@ export const data = {
     "frequency": 10,
     "components": ["𠂇", "丨", "土"]
   },
+  "𠂇": {
+    "pinyin": "zuǒ",
+    "meaning_en": "left (左)",
+    "meaning_es": "izquierda (左)",
+    "radical": "左",
+    "strokes": 2,
+    "frequency": 0,
+    "components": ["一", "丿"]
+  }
   "都": {
     "pinyin": "dōu",
     "meaning_en": "all",

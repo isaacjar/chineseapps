@@ -3346,6 +3346,132 @@ export const data = {
   "strokes": 8,
   "frequency": 50,
   "components": ["囗", "玉"]
-}
+  },
+  "么": {
+    "pinyin": "me",
+    "meaning_en": "(suffix)",
+    "meaning_es": "(sufijo)",
+    "radical": "丿",
+    "strokes": 3,
+    "frequency": 92,
+    "components": ["丿", "厶"]
+  },
+  "样": {
+    "pinyin": "yàng",
+    "meaning_en": "appearance",
+    "meaning_es": "apariencia",
+    "radical": "木",
+    "strokes": 10,
+    "frequency": 85,
+    "components": ["木", "羊"]
+  },
+  "那": {
+    "pinyin": "nà",
+    "meaning_en": "that",
+    "meaning_es": "ese",
+    "radical": "阝",
+    "strokes": 6,
+    "frequency": 88,
+    "components": ["冄", "阝"]
+  },
+  "东": {
+    "pinyin": "dōng",
+    "meaning_en": "east",
+    "meaning_es": "este",
+    "radical": "一",
+    "strokes": 5,
+    "frequency": 90,
+    "components": ["一", "小"]
+  },
+  "西": {
+    "pinyin": "xī",
+    "meaning_en": "west",
+    "meaning_es": "oeste",
+    "radical": "西",
+    "strokes": 6,
+    "frequency": 95,
+    "components": ["一", "儿", "口"]
+  },
+  "影": {
+    "pinyin": "yǐng",
+    "meaning_en": "shadow",
+    "meaning_es": "sombra",
+    "radical": "彡",
+    "strokes": 15,
+    "frequency": 70,
+    "components": ["景", "彡"]
+  },
+  "景": {
+    "pinyin": "jǐng",
+    "meaning_en": "scenery",
+    "meaning_es": "paisaje",
+    "radical": "日",
+    "strokes": 12,
+    "frequency": 65,
+    "components": ["日", "京"]
+  },
+  "视": {
+    "pinyin": "shì",
+    "meaning_en": "vision",
+    "meaning_es": "visión",
+    "radical": "见",
+    "strokes": 8,
+    "frequency": 75,
+    "components": ["礻", "见"]
+  },
+  "果": {
+    "pinyin": "guǒ",
+    "meaning_en": "fruit",
+    "meaning_es": "fruto",
+    "radical": "木",
+    "strokes": 8,
+    "frequency": 82,
+    "components": ["田", "木"]
+  },
+  "冄": {
+    "pinyin": "rǎn",
+    "meaning_en": "gradually",
+    "meaning_es": "gradualmente",
+    "radical": "冂",
+    "strokes": 4,
+    "frequency": 15,
+    "components": ["冂", "二"]
+  },
+  "啤": {
+    "pinyin": "pí",
+    "meaning_en": "beer",
+    "meaning_es": "cerveza",
+    "radical": "口",
+    "strokes": 11,
+    "frequency": 45,
+    "components": ["口", "卑"]
+  },
+  "卑": {
+    "pinyin": "bēi",
+    "meaning_en": "humble",
+    "meaning_es": "humilde",
+    "radical": "十",
+    "strokes": 8,
+    "frequency": 35,
+    "components": ["丶", "田", "十"]
+  },
+  "酒": {
+    "pinyin": "jiǔ",
+    "meaning_en": "alcohol",
+    "meaning_es": "alcohol",
+    "radical": "酉",
+    "strokes": 10,
+    "frequency": 85,
+    "components": ["氵", "酉"]
+  },
+  "酉": {
+    "pinyin": "yǒu",
+    "meaning_en": "wine, alcohol, tenth earthly branch",
+    "meaning_es": "vino, alcohol, décima rama terrestre",
+    "radical": "酉",
+    "strokes": 7,
+    "frequency": 30,
+    "components": ["西", "一"]
+  }
   
 };

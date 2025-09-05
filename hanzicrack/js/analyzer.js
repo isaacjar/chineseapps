@@ -30,7 +30,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     // 1) Obtener componentes finales según modo
     const finalComponents = await expandComponentsList(data.components, mode);
 
-    // 2) Formatear "comp [pinyin] meaning"
+    // 2) Formatear "comp [pinyin] meaning" con clases CSS
     const parts = [];
     for (const c of finalComponents) {
       const cd = await getCharacterData(c);
@@ -59,7 +59,10 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         ? `<span class="from-api">${c}</span>`
         : c;
 
-      parts.push(`${cSpan} [${cpinyin}] ${cmeaning}`.trim());
+      // 🔹 MODIFICADO: Usar clases CSS en lugar de estilos en línea
+      parts.push(
+        `${cSpan} <span class="pinyin">[${cpinyin}]</span> <span class="meaning">${cmeaning}</span>`.trim()
+      );
     }
 
     // 3) Línea final con color si viene de API

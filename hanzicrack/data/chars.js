@@ -217,8 +217,8 @@ export const data = {
   },
   "儿": {
     "pinyin": "ér",
-    "meaning_en": "child, legs",
-    "meaning_es": "niño, piernas",
+    "meaning_en": "son",
+    "meaning_es": "hijo",
     "radical": "儿",
     "strokes": 2,
     "frequency": 220,
@@ -520,7 +520,7 @@ export const data = {
     "strokes": 3,
     "frequency": 65,
     "components": []
-  }
+  },
   "小": {
     "pinyin": "xiǎo",
     "meaning_en": "small",
@@ -820,8 +820,8 @@ export const data = {
   },
   "月": {
     "pinyin": "yuè",
-    "meaning_en": "moon",
-    "meaning_es": "luna",
+    "meaning_en": "moon, flesh",
+    "meaning_es": "luna, flesh",
     "radical": "月",
     "strokes": 4,
     "frequency": 350,
@@ -2312,15 +2312,6 @@ export const data = {
     "frequency": 88,
     "components": []
   },
-  "女": {
-    "pinyin": "nǚ",
-    "meaning_en": "woman",
-    "meaning_es": "mujer",
-    "radical": "女",
-    "strokes": 3,
-    "frequency": 88,
-    "components": []
-  },
   "米": {
     "pinyin": "mǐ",
     "meaning_en": "rice",
@@ -2357,24 +2348,6 @@ export const data = {
     "frequency": 49,
     "components": ["女", "子"]
   },  
-  "子": {
-    "pinyin": "zi",
-    "meaning_en": "son",
-    "meaning_es": "hijo",
-    "radical": "子",
-    "strokes": 3,
-    "frequency": 22,
-    "components": []
-  },
-  "十": {
-    "pinyin": "shí",
-    "meaning_en": "ten",
-    "meaning_es": "diez",
-    "radical": "十",
-    "strokes": 2,
-    "frequency": 78,
-    "components": []
-  }, 
   "的": {
     "pinyin": "de",
     "meaning_en": "of",
@@ -2383,15 +2356,6 @@ export const data = {
     "strokes": 8,
     "frequency": 1,
     "components": ["白", "勺"]
-  },
-  "一": {
-    "pinyin": "yī",
-    "meaning_en": "one",
-    "meaning_es": "uno",
-    "radical": "一",
-    "strokes": 1,
-    "frequency": 2,
-    "components": ["一"]
   },
   "是": {
     "pinyin": "shì",
@@ -2465,15 +2429,6 @@ export const data = {
     "frequency": 10,
     "components": ["土", "才"]
   },
-  "人": {
-    "pinyin": "rén",
-    "meaning_en": "person",
-    "meaning_es": "persona",
-    "radical": "人",
-    "strokes": 2,
-    "frequency": 26,
-    "components": ["人"]
-  },
   "都": {
     "pinyin": "dōu",
     "meaning_en": "all",
@@ -2502,9 +2457,9 @@ export const data = {
     "components": ["相", "心"]
   },
   "相": {
-    "pinyin": ["xiāng"],
-    "meaning_en": ["mutual"],
-    "meaning_es": ["mutuo"],
+    "pinyin": "xiāng",
+    "meaning_en": "mutual",
+    "meaning_es": "mutuo",
     "radical": "目",
     "strokes": 9,
     "frequency": 165,
@@ -2573,15 +2528,6 @@ export const data = {
     "frequency": 38,
     "components": ["一", "卜"]
   },
-  "大": {
-    "pinyin": "dà",
-    "meaning_en": "big",
-    "meaning_es": "grande",
-    "radical": "大",
-    "strokes": 3,
-    "frequency": 39,
-    "components": ["一", "人"]
-  },
   "为": {
     "pinyin": "wèi",
     "meaning_en": "for",
@@ -2599,15 +2545,6 @@ export const data = {
     "strokes": 4,
     "frequency": 41,
     "components": ["丨", "口"]
-  },
-  "小": {
-    "pinyin": "xiǎo",
-    "meaning_en": "small",
-    "meaning_es": "pequeño",
-    "radical": "小",
-    "strokes": 3,
-    "frequency": 42,
-    "components": ["小"]
   },
   "天": {
     "pinyin": "tiān",
@@ -2627,19 +2564,10 @@ export const data = {
     "frequency": 44,
     "components": ["干", "丿"]
   },
-  "日": {
-    "pinyin": "rì",
-    "meaning_en": "sun / day",
-    "meaning_es": "sol / día",
-    "radical": "日",
-    "strokes": 4,
-    "frequency": 45,
-    "components": ["日"]
-  },
   "时": {
     "pinyin": "shí",
-    "meaning_en": "time / hour",
-    "meaning_es": "hora / tiempo",
+    "meaning_en": "time",
+    "meaning_es": "tiempo",
     "radical": "日",
     "strokes": 7,
     "frequency": 46,
@@ -2647,8 +2575,8 @@ export const data = {
   },
   "多": {
     "pinyin": "duō",
-    "meaning_en": "many / much",
-    "meaning_es": "mucho / muchos",
+    "meaning_en": "many",
+    "meaning_es": "mucho/s",
     "radical": "夕",
     "strokes": 6,
     "frequency": 48,
@@ -2680,15 +2608,6 @@ export const data = {
     "strokes": 5,
     "frequency": 53,
     "components": ["凵", "山"]
-  },
-  "生": {
-    "pinyin": "shēng",
-    "meaning_en": "to be born / life",
-    "meaning_es": "nacer / vida",
-    "radical": "生",
-    "strokes": 5,
-    "frequency": 54,
-    "components": ["生"]
   },
   "用": {
     "pinyin": "yòng",
@@ -2834,15 +2753,6 @@ export const data = {
     "frequency": 81,
     "components": ["十", "丿"]
   },
-  "儿": {
-    "pinyin": "ér",
-    "meaning_en": "child / son",
-    "meaning_es": "niño / hijo",
-    "radical": "儿",
-    "strokes": 2,
-    "frequency": 82,
-    "components": ["儿"]
-  },
   "气": {
     "pinyin": "qì",
     "meaning_en": "air",
@@ -2860,15 +2770,6 @@ export const data = {
     "strokes": 5,
     "frequency": 88,
     "components": ["白"]
-  },
-  "黑": {
-    "pinyin": "hēi",
-    "meaning_en": "black",
-    "meaning_es": "negro",
-    "radical": "黑",
-    "strokes": 12,
-    "frequency": 89,
-    "components": ["黑"]
   },
   "红": {
     "pinyin": "hóng",
@@ -2906,15 +2807,6 @@ export const data = {
     "frequency": 0,
     "components": []
   },
-  "文": {
-    "pinyin": "wén",
-    "meaning_en": "writing",
-    "meaning_es": "escritura",
-    "radical": "文",
-    "strokes": 4,
-    "frequency": 80,
-    "components": []
-  },
   "才": {
     "pinyin": "cái",
     "meaning_en": "talent",
@@ -2935,8 +2827,8 @@ export const data = {
 },
 "户": {
   "pinyin": "hù",
-  "meaning_en": "door / household",
-  "meaning_es": "puerta / hogar",
+  "meaning_en": "door",
+  "meaning_es": "puerta",
   "radical": "户",
   "strokes": 4,
   "frequency": 90,
@@ -3022,15 +2914,6 @@ export const data = {
     "strokes": 6,
     "frequency": 125,
     "components": []
-  },
-  "戈": {
-    "pinyin": "gē",
-    "meaning_en": "halberd",
-    "meaning_es": "alabarda",
-    "radical": "戈",
-    "strokes": 4,
-    "frequency": 62,
-    "components": ["一", "弋"]
   },
     "兑": {
     "pinyin": "duì",
@@ -3122,15 +3005,6 @@ export const data = {
     "frequency": 0,
     "components": [],
   },
-  "月": {
-    "pinyin": "yuè",
-    "meaning_en": "moon, flesh",
-    "meaning_es": "luna, carne",
-    "radical": "月",
-    "strokes": 4,
-    "frequency": 0,
-    "components": ["冂", "二"],
-  },
   "个": {
     "pinyin": "gè",
     "meaning_en": "mw",
@@ -3142,17 +3016,17 @@ export const data = {
   },
   "爸": {
     "pinyin": "bà",
-    "meaning_en": "father, papa",
-    "meaning_es": "father, papa",
+    "meaning_en": "dad",
+    "meaning_es": "papá",
     "radical": "父",
     "strokes": 8,
     "frequency": 0,
-    "components": ["父", "巴"    ],
+    "components": ["父", "巴"],
   },
   "父": {
     "pinyin": "fù",
-    "meaning_en": "father, dad",
-    "meaning_es": "father, dad",
+    "meaning_en": "father",
+    "meaning_es": "padre",
     "radical": "父",
     "strokes": 4,
     "frequency": 0,
@@ -3160,8 +3034,8 @@ export const data = {
   },
   "巴": {
     "pinyin": "bā",
-    "meaning_en": "to desire, to wish for",
-    "meaning_es": "to desire, to wish for",
+    "meaning_en": "to cling",
+    "meaning_es": "aferrarse",
     "radical": "巳",
     "strokes": 4,
     "frequency": 0,

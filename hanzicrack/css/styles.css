@@ -178,7 +178,6 @@ main {
 }
 
 .modal-box {
-  position: relative; /* 👈 necesario para el botón X */
   background: #fff;
   border-radius: 12px;
   padding: 1rem;
@@ -188,11 +187,21 @@ main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Botón cerrar arriba a la derecha */
+/* Cabecera del modal (título + botón cerrar) */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Botón cerrar */
 .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: #d9534f; /* rojo */
   color: white;
   border: none;
@@ -211,6 +220,7 @@ main {
   background: #b52b27;
 }
 
+/* Lista de radicales */
 .radical-list {
   display: flex;
   flex-wrap: wrap;

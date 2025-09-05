@@ -2544,7 +2544,7 @@ export const data = {
     "radical": "土",
     "strokes": 6,
     "frequency": 10,
-    "components": ["土", "才"]
+    "components": ["𠂇", "丨", "土"]
   },
   "都": {
     "pinyin": "dōu",

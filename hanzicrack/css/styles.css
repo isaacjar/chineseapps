@@ -434,12 +434,12 @@ main {
 
 /* styles.css - Agregar estas clases */
 .pinyin {
-  color: #555;
+  color: #615959;
   font-size: 0.95em;
 }
 
 .meaning {
-  color: #00b8cc;
+  color: #008c9c;
   font-size: 0.9em;
   font-style: italic;
 }

@@ -1916,6 +1916,78 @@ export const data = {
     "frequency": 85,
     "components": []
   },
+  "乚": {
+    "pinyin": "yǐ",
+    "meaning_en": "hook",
+    "meaning_es": "gancho",
+    "radical": "乚",
+    "strokes": 2,
+    "frequency": 300,
+    "components": []
+  },
+  "乍": {
+    "pinyin": "zhà",
+    "meaning_en": "suddenly",
+    "meaning_es": "de repente",
+    "radical": "乍",
+    "strokes": 7,
+    "frequency": 400,
+    "components": ["乍"]
+  },
+  "也": {
+    "pinyin": "yě",
+    "meaning_en": "also",
+    "meaning_es": "también",
+    "radical": "也",
+    "strokes": 3,
+    "frequency": 150,
+    "components": []
+  },
+  "凡": {
+    "pinyin": "fán",
+    "meaning_en": "ordinary",
+    "meaning_es": "común",
+    "radical": "凡",
+    "strokes": 3,
+    "frequency": 180,
+    "components": []
+  },
+  "丷": {
+    "pinyin": "bā",
+    "meaning_en": "divided (八)",
+    "meaning_es": "dividido (八)",
+    "radical": "八",
+    "strokes": 2,
+    "frequency": 600,
+    "components": []
+  },
+  "占": {
+    "pinyin": "zhān",
+    "meaning_en": "occupy, divine",
+    "meaning_es": "ocupar, adivinar",
+    "radical": "卜",
+    "strokes": 5,
+    "frequency": 250,
+    "components": ["卜","口"]
+  },
+  "七": {
+    "pinyin": "qī",
+    "meaning_en": "seven",
+    "meaning_es": "siete",
+    "radical": "七",
+    "strokes": 2,
+    "frequency": 100,
+    "components": []
+  },
+  "兀": {
+    "pinyin": "wù",
+    "meaning_en": "high",
+    "meaning_es": "alto",
+    "radical": "兀",
+    "strokes": 4,
+    "frequency": 500,
+    "components": []
+  },
   "首": {
     "pinyin": "shǒu",
     "meaning_en": "head",

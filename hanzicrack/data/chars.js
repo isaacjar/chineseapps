@@ -28,8 +28,8 @@ export const data = {
 },
 "丿": {
   "pinyin": "piě",
-  "meaning_en": "slash",
-  "meaning_es": "trazo inclinado",
+  "meaning_en": "(slash)",
+  "meaning_es": "(trazo inclinado)",
   "radical": "丿",
   "strokes": 1,
   "frequency": 160,
@@ -343,8 +343,8 @@ export const data = {
   },
   "卜": {
     "pinyin": "bǔ",
-    "meaning_en": "divination",
-    "meaning_es": "adivinación",
+    "meaning_en": "magic",
+    "meaning_es": "magia",
     "radical": "卜",
     "strokes": 2,
     "frequency": 110,
@@ -3466,12 +3466,165 @@ export const data = {
   },
   "酉": {
     "pinyin": "yǒu",
-    "meaning_en": "wine, alcohol, tenth earthly branch",
-    "meaning_es": "vino, alcohol, décima rama terrestre",
+    "meaning_en": "wine",
+    "meaning_es": "vino",
     "radical": "酉",
     "strokes": 7,
     "frequency": 30,
     "components": ["西", "一"]
+  },
+  "盐": {
+    "pinyin": "yán",
+    "meaning_en": "salt",
+    "meaning_es": "sal",
+    "radical": "卜",
+    "strokes": 7,
+    "frequency": 250  ,
+    "components": ["圤", "皿"],
+  },
+  圤": {
+    "pinyin": "pú",
+    "meaning_en": "clod",
+    "meaning_es": "terrón",
+    "radical": "土",
+    "strokes": 6,
+    "frequency": 5,
+    "components": ["土", "卜"]
+  },
+  "院": {
+    "pinyin": "yuàn",
+    "meaning_en": "courtyard",
+    "meaning_es": "patio",
+    "radical": "阝",
+    "strokes": 9,
+    "frequency": 65,
+    "components": ["阝", "完"]
+  },
+  "完": {
+    "pinyin": "wán",
+    "meaning_en": "to complete",
+    "meaning_es": "completar",
+    "radical": "宀",
+    "strokes": 7,
+    "frequency": 195,
+    "components": ["宀", "元"]
+  },
+  "元": {
+    "pinyin": "yuán",
+    "meaning_en": "Chinese currency",
+    "meaning_es": "moneda china",
+    "radical": "儿",
+    "strokes": 4,
+    "frequency": 210,
+    "components": ["二", "儿"]
   }
+"她": {
+  "pinyin": "tā",
+  "meaning_en": "she",
+  "meaning_es": "ella",
+  "radical": "女",
+  "strokes": 6,
+  "frequency": 95,
+  "components": ["女", "也"]
+},
+"认": {
+  "pinyin": "rèn",
+  "meaning_en": "recognize",
+  "meaning_es": "reconocer",
+  "radical": "讠",
+  "strokes": 4,
+  "frequency": 85,
+  "components": ["讠", "人"]
+},
+"打": {
+  "pinyin": "dǎ",
+  "meaning_en": "to hit",
+  "meaning_es": "golpear",
+  "radical": "扌",
+  "strokes": 5,
+  "frequency": 90,
+  "components": ["扌", "丁"]
+},
+"丁": {
+  "pinyin": "dīng",
+  "meaning_en": "nail",
+  "meaning_es": "clavo",
+  "radical": "一",
+  "strokes": 2,
+  "frequency": 185,
+  "components": ["一", "亅"]
+}
+"做": {
+  "pinyin": "zuò",
+  "meaning_en": "do",
+  "meaning_es": "hacer",
+  "radical": "亻",
+  "strokes": 11,
+  "frequency": 88,
+  "components": ["亻", "故"]
+},
+"故": {
+  "pinyin": "gù",
+  "meaning_en": "reason",
+  "meaning_es": "razón",
+  "radical": "攵",
+  "strokes": 9,
+  "frequency": 280,
+  "components": ["古", "攵"]
+}
+"先": {
+  "pinyin": "xiān",
+  "meaning_en": "first",
+  "meaning_es": "primero",
+  "radical": "儿",
+  "strokes": 6,
+  "frequency": 82,
+  "components": ["止", "儿"]
+},
+"少": {
+  "pinyin": "shǎo",
+  "meaning_en": "a few",
+  "meaning_es": "pocos",
+  "radical": "小",
+  "strokes": 4,
+  "frequency": 92,
+  "components": ["小", "丿"]
+},
+"回": {
+  "pinyin": "huí",
+  "meaning_en": "return",
+  "meaning_es": "volver",
+  "radical": "囗",
+  "strokes": 6,
+  "frequency": 95,
+  "components": ["囗", "口"]
+},
+"系": {
+  "pinyin": "xì",
+  "meaning_en": "connect",
+  "meaning_es": "conectar",
+  "radical": "糸",
+  "strokes": 7,
+  "frequency": 78,
+  "components": ["丿", "糸"]
+},
+"四": {
+  "pinyin": "sì",
+  "meaning_en": "four",
+  "meaning_es": "cuatro",
+  "radical": "囗",
+  "strokes": 5,
+  "frequency": 98,
+  "components": ["囗", "儿"]
+},
+"服": {
+  "pinyin": "fú",
+  "meaning_en": "to  serve",
+  "meaning_es": "servir",
+  "radical": "月",
+  "strokes": 8,
+  "frequency": 85,
+  "components": ["月", "卩", "又"]
+}
   
 };

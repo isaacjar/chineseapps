@@ -69,28 +69,57 @@ export function showModalRadicals(radicals, lang, onSelect) {
 
   container.innerHTML = "";
 
-  radicals.forEach(r => {
-    const btnRadical = document.createElement("button");
-    btnRadical.classList.add("radical-btn");
-  
-    const variants = r.variants && r.variants.length
-      ? ` (${r.variants.join(", ")})`
-      : "";
-  
-    btnRadical.innerHTML = `
-      <span class="radical-symbol">${r.radical}</span>
-      <span class="radical-variants">${variants}</span>
-      <span class="radical-pinyin">[${r.pinyin}]</span>
-      <span class="radical-meaning">${lang === "es" ? r.meaning_es : r.meaning_en}</span>
-    `;
-  
-    btnRadical.addEventListener("click", () => {
-      onSelect(r);
-      closeModal("radicalModal");
+  // función interna para renderizar un rango
+  function renderRange(start, end) {
+    for (let i = start; i < end && i < radicals.length; i++) {
+      const r = radicals[i];
+      const btnRadical = document.createElement("button");
+      btnRadical.classList.add("radical-btn");
+
+      const variants = r.variants && r.variants.length
+        ? ` (${r.variants.join(", ")})`
+        : "";
+
+      btnRadical.innerHTML = `
+        <span class="radical-symbol">${r.radical}</span>
+        <span class="radical-variants">${variants}</span>
+        <span class="radical-pinyin">[${r.pinyin}]</span>
+        <span class="radical-meaning"><em style="color:blue">${lang === "es" ? r.meaning_es : r.meaning_en}</em></span>
+      `;
+
+      btnRadical.addEventListener("click", () => {
+        onSelect(r);
+        closeModal("radicalModal");
+      });
+
+      container.appendChild(btnRadical);
+    }
+  }
+
+  // mostrar primeros 100
+  renderRange(0, 100);
+
+  // si hay más de 100 → botón ➕
+  if (radicals.length > 100) {
+    const btnMore = document.createElement("button");
+    btnMore.textContent = "➕";
+    btnMore.classList.add("controls", "button"); // 👈 ya usas esta clase
+    btnMore.style.backgroundColor = "blue";      // azul
+    btnMore.style.color = "white";               // texto blanco
+
+    let shown = 100;
+    btnMore.addEventListener("click", () => {
+      const next = Math.min(shown + 100, radicals.length);
+      renderRange(shown, next);
+      shown = next;
+
+      if (shown >= radicals.length) {
+        btnMore.remove(); // quitar botón al llegar al final
+      }
     });
-  
-    container.appendChild(btnRadical);
-  });
+
+    container.appendChild(btnMore);
+  }
 
   openModal("radicalModal");
 }

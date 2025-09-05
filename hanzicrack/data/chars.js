@@ -37,8 +37,8 @@ export const data = {
 },
 "乙": {
   "pinyin": "yǐ",
-  "meaning_en": "second (cyclical)",
-  "meaning_es": "segundo (cíclico)",
+  "meaning_en": "second",
+  "meaning_es": "segundo",
   "radical": "乙",
   "strokes": 1,
   "frequency": 150,
@@ -370,8 +370,8 @@ export const data = {
   },
   "厶": {
     "pinyin": "sī",
-    "meaning_en": "private",
-    "meaning_es": "privado",
+    "meaning_en": "private, cocoon",
+    "meaning_es": "privado, capullo",
     "radical": "厶",
     "strokes": 2,
     "frequency": 100,
@@ -424,8 +424,8 @@ export const data = {
   },
   "夂": {
     "pinyin": "zhǐ",
-    "meaning_en": "go slowly",
-    "meaning_es": "ir despacio",
+    "meaning_en": "right hand with a stick",
+    "meaning_es": "mano derecha con palo",
     "radical": "夂",
     "strokes": 3,
     "frequency": 40,
@@ -440,6 +440,15 @@ export const data = {
     "frequency": 25,
     "components": []
   },
+  "正": {
+    "pinyin": "zhèng",
+    "meaning_en": "correct, upright",
+    "meaning_es": "correcto, recto",
+    "radical": "止",
+    "strokes": 5,
+    "frequency": 50,
+    "components": ["一", "止"]
+  }
   "夕": {
     "pinyin": "xī",
     "meaning_en": "evening",
@@ -494,6 +503,24 @@ export const data = {
     "frequency": 80,
     "components": []
   },
+  "阝": {
+    "pinyin": "fù",
+    "meaning_en": "mound",
+    "meaning_es": "montículo",
+    "radical": "邑",
+    "strokes": 2,
+    "frequency": 70,
+    "components": []
+  },
+  "⻏": {
+    "pinyin": "yì",
+    "meaning_en": "city",
+    "meaning_es": "ciudad",
+    "radical": "邑",
+    "strokes": 3,
+    "frequency": 65,
+    "components": []
+  }
   "小": {
     "pinyin": "xiǎo",
     "meaning_en": "small",
@@ -829,8 +856,8 @@ export const data = {
   },
   "歹": {
     "pinyin": "dǎi",
-    "meaning_en": "death / bad",
-    "meaning_es": "muerte / malo",
+    "meaning_en": "death",
+    "meaning_es": "muerte",
     "radical": "歹",
     "strokes": 4,
     "frequency": 100,
@@ -838,8 +865,8 @@ export const data = {
   },
   "殳": {
     "pinyin": "shū",
-    "meaning_en": "weapon / lance",
-    "meaning_es": "arma / lanza",
+    "meaning_en": "lance",
+    "meaning_es": "lanza",
     "radical": "殳",
     "strokes": 4,
     "frequency": 60,
@@ -865,8 +892,8 @@ export const data = {
   },
   "毛": {
     "pinyin": "máo",
-    "meaning_en": "fur / hair",
-    "meaning_es": "pelo / vello",
+    "meaning_en": "fur",
+    "meaning_es": "pelaje",
     "radical": "毛",
     "strokes": 4,
     "frequency": 220,
@@ -874,8 +901,8 @@ export const data = {
   },
   "氏": {
     "pinyin": "shì",
-    "meaning_en": "clan / surname",
-    "meaning_es": "clan / apellido",
+    "meaning_en": "clan",
+    "meaning_es": "clan",
     "radical": "氏",
     "strokes": 4,
     "frequency": 90,
@@ -910,8 +937,8 @@ export const data = {
   },
   "爻": {
     "pinyin": "yáo",
-    "meaning_en": "trigrams",
-    "meaning_es": "trigramas (Yijing)",
+    "meaning_en": "divination lines",
+    "meaning_es": "líneas de adivinación",
     "radical": "爻",
     "strokes": 4,
     "frequency": 30,
@@ -919,8 +946,8 @@ export const data = {
   },
   "爿": {
     "pinyin": "qiáng",
-    "meaning_en": "half of tree trunk",
-    "meaning_es": "mitad de tronco",
+    "meaning_en": "split trunk",
+    "meaning_es": "tronco partido",
     "radical": "爿",
     "strokes": 4,
     "frequency": 20,
@@ -928,8 +955,8 @@ export const data = {
   },
   "片": {
     "pinyin": "piàn",
-    "meaning_en": "slice / piece",
-    "meaning_es": "rebanada / pedazo",
+    "meaning_en": "slice",
+    "meaning_es": "rebanada",
     "radical": "片",
     "strokes": 4,
     "frequency": 210,
@@ -946,8 +973,8 @@ export const data = {
   },
   "牛": {
     "pinyin": "niú",
-    "meaning_en": "cow / ox",
-    "meaning_es": "vaca / buey",
+    "meaning_en": "cow",
+    "meaning_es": "vaca",
     "radical": "牛",
     "strokes": 4,
     "frequency": 300,
@@ -964,8 +991,8 @@ export const data = {
   },
   "玄": {
     "pinyin": "xuán",
-    "meaning_en": "dark / profound",
-    "meaning_es": "oscuro / profundo",
+    "meaning_en": "dark",
+    "meaning_es": "oscuro",
     "radical": "玄",
     "strokes": 5,
     "frequency": 60,
@@ -1009,8 +1036,8 @@ export const data = {
   },
   "生": {
     "pinyin": "shēng",
-    "meaning_en": "life / birth",
-    "meaning_es": "vida / nacimiento",
+    "meaning_en": "life",
+    "meaning_es": "vida",
     "radical": "生",
     "strokes": 5,
     "frequency": 500,
@@ -1036,8 +1063,8 @@ export const data = {
   },
   "疋": {
     "pinyin": "pǐ",
-    "meaning_en": "cloth / roll of cloth",
-    "meaning_es": "pieza de tela",
+    "meaning_en": "cloth",
+    "meaning_es": "tela",
     "radical": "疋",
     "strokes": 5,
     "frequency": 30,
@@ -1054,7 +1081,7 @@ export const data = {
   },
   "癶": {
     "pinyin": "bō",
-    "meaning_en": "dotted tent / footsteps",
+    "meaning_en": "footsteps",
     "meaning_es": "huellas",
     "radical": "癶",
     "strokes": 5,
@@ -1072,8 +1099,8 @@ export const data = {
   },
   "皮": {
     "pinyin": "pí",
-    "meaning_en": "skin / hide",
-    "meaning_es": "piel / cuero",
+    "meaning_en": "skin",
+    "meaning_es": "piel",
     "radical": "皮",
     "strokes": 5,
     "frequency": 200,
@@ -1081,8 +1108,8 @@ export const data = {
   },
   "皿": {
     "pinyin": "mǐn",
-    "meaning_en": "dish / vessel",
-    "meaning_es": "plato / recipiente",
+    "meaning_en": "dish",
+    "meaning_es": "plato",
     "radical": "皿",
     "strokes": 5,
     "frequency": 90,
@@ -1126,8 +1153,17 @@ export const data = {
   },
   "示": {
     "pinyin": "shì",
-    "meaning_en": "spirit / show",
-    "meaning_es": "espíritu / mostrar",
+    "meaning_en": "altar (示)",
+    "meaning_es": "altar (示)",
+    "radical": "示",
+    "strokes": 5,
+    "frequency": 210,
+    "components": []
+  },
+  "礻": {
+    "pinyin": "shì",
+    "meaning_en": "altar (示)",
+    "meaning_es": "altar (示)",
     "radical": "示",
     "strokes": 5,
     "frequency": 210,
@@ -1135,11 +1171,20 @@ export const data = {
   },
   "禸": {
     "pinyin": "róu",
-    "meaning_en": "track / rump",
-    "meaning_es": "huella / grupa",
+    "meaning_en": "track",
+    "meaning_es": "rastro",
     "radical": "禸",
     "strokes": 5,
     "frequency": 15,
+    "components": []
+  },
+  "勺": {
+    "pinyin": "sháo",
+    "meaning_en": "spoon",
+    "meaning_es": "cuchara",
+    "radical": "勺",
+    "strokes": 3,
+    "frequency": 200,
     "components": []
   },
   "禾": {
@@ -1178,6 +1223,15 @@ export const data = {
     "frequency": 190,
     "components": []
   },
+  "⺮": {
+    "pinyin": "zhú",
+    "meaning_en": "bamboo (竹)",
+    "meaning_es": "bambú (竹)",
+    "radical": "竹",
+    "strokes": 6,
+    "frequency": 190,
+    "components": []
+  },
   "米": {
     "pinyin": "mǐ",
     "meaning_en": "rice",
@@ -1198,8 +1252,8 @@ export const data = {
   },
   "缶": {
     "pinyin": "fǒu",
-    "meaning_en": "jar / pottery",
-    "meaning_es": "cántaro / vasija",
+    "meaning_en": "pottery",
+    "meaning_es": "vasija",
     "radical": "缶",
     "strokes": 6,
     "frequency": 35,
@@ -1216,8 +1270,8 @@ export const data = {
   },
   "罒": {
       "pinyin": "wǎng",
-      "meaning_en": "net",
-      "meaning_es": "red",
+      "meaning_en": "net (网)",
+      "meaning_es": "red (网)",
       "radical": "网",
       "strokes": 6,
       "frequency": 120,
@@ -1241,6 +1295,15 @@ export const data = {
     "frequency": 55,
     "components": []
   },
+  "⺪": {
+    "pinyin": "yǔ",
+    "meaning_en": "feather (羽)",
+    "meaning_es": "pluma (羽)",
+    "radical": "羽",
+    "strokes": 6,
+    "frequency": 55,
+    "components": []
+  },
   "老": {
     "pinyin": "lǎo",
     "meaning_en": "old",
@@ -1252,8 +1315,8 @@ export const data = {
   },
   "而": {
     "pinyin": "ér",
-    "meaning_en": "and / beard",
-    "meaning_es": "y / barba",
+    "meaning_en": "and",
+    "meaning_es": "y",
     "radical": "而",
     "strokes": 6,
     "frequency": 80,
@@ -1297,8 +1360,8 @@ export const data = {
   },
   "臣": {
     "pinyin": "chén",
-    "meaning_en": "minister",
-    "meaning_es": "ministro / súbdito",
+    "meaning_en": "official",
+    "meaning_es": "funcionario",
     "radical": "臣",
     "strokes": 6,
     "frequency": 45,
@@ -1511,10 +1574,19 @@ export const data = {
     "frequency": 55,
     "components": []
   },
+  "⺈": {
+    "pinyin": "gǔ",
+    "meaning_en": "valley (谷)",
+    "meaning_es": "valle (谷)",
+    "radical": "谷",
+    "strokes": 7,
+    "frequency": 55,
+    "components": []
+  },
   "豆": {
     "pinyin": "dòu",
     "meaning_en": "bean",
-    "meaning_es": "frijol",
+    "meaning_es": "haba",
     "radical": "豆",
     "strokes": 7,
     "frequency": 45,
@@ -1720,8 +1792,8 @@ export const data = {
   },
   "隹": {
     "pinyin": "zhuī",
-    "meaning_en": "short-tailed bird",
-    "meaning_es": "ave de cola corta",
+    "meaning_en": "pigeon house",
+    "meaning_es": "palomar",
     "radical": "隹",
     "strokes": 8,
     "frequency": 50,
@@ -1738,8 +1810,8 @@ export const data = {
   },
   "青": {
     "pinyin": "qīng",
-    "meaning_en": "blue/green",
-    "meaning_es": "azul/verde",
+    "meaning_en": "green",
+    "meaning_es": "verde",
     "radical": "青",
     "strokes": 8,
     "frequency": 65,
@@ -2089,7 +2161,7 @@ export const data = {
 },
 "齊": {
   "pinyin": "qí",
-  "meaning_en": "even, uniform",
+  "meaning_en": "even",
   "meaning_es": "uniforme",
   "radical": "齊",
   "strokes": 14,
@@ -2131,17 +2203,17 @@ export const data = {
   "strokes": 17,
   "frequency": 2,
   "components": []
-},
-"𠂉": {
-  "pinyin": "gǔn",
-  "meaning_en": "second form of radical 2",
-  "meaning_es": "segunda forma del radical 2",
-  "radical": "𠂉",
-  "strokes": 2,
-  "frequency": 1,
-  "components": []
 }, 
   "亻": {
+    "pinyin": "rén",
+    "meaning_en": "person (人)",
+    "meaning_es": "persona (人)",
+    "radical": "人",
+    "strokes": 2,
+    "frequency": 120,
+    "components": []
+  },
+"𠂉": {
     "pinyin": "rén",
     "meaning_en": "person (人)",
     "meaning_es": "persona (人)",
@@ -2188,8 +2260,8 @@ export const data = {
   },
   "华": {
     "pinyin": "huá",
-    "meaning_en": "flower / China",
-    "meaning_es": "florido / China",
+    "meaning_en": "flower",
+    "meaning_es": "florido",
     "radical": "十",
     "strokes": 6,
     "frequency": 33,
@@ -2350,8 +2422,8 @@ export const data = {
   },
   "想": {
     "pinyin": "xiǎng",
-    "meaning_en": "to think / to want / to miss",
-    "meaning_es": "pensar / querer / echar de menos",
+    "meaning_en": "to want",
+    "meaning_es": "querer",
     "radical": "心",
     "strokes": 13,
     "frequency": 72,
@@ -2811,7 +2883,7 @@ export const data = {
   "pinyin": "shuǐ",
   "meaning_en": "water (水)",
   "meaning_es": "agua (水)",
-  "radical": "氵",
+  "radical": "水",
   "strokes": 3,
   "frequency": 200,
   "components": []
@@ -2881,17 +2953,17 @@ export const data = {
   },
   "戈": {
     "pinyin": "gē",
-    "meaning_en": "dagger-axe / weapon",
-    "meaning_es": "alabarda / arma",
+    "meaning_en": "halberd",
+    "meaning_es": "alabarda",
     "radical": "戈",
     "strokes": 4,
     "frequency": 62,
     "components": ["一", "弋"]
   },
-  "兑": {
+    "兑": {
     "pinyin": "duì",
-    "meaning_en": "to exchange / to convert / to cash",
-    "meaning_es": "intercambiar / convertir / cobrar",
+    "meaning_en": "exchange",
+    "meaning_es": "intercambio",
     "radical": "儿",
     "strokes": 7,
     "frequency": 280,
@@ -2905,33 +2977,6 @@ export const data = {
     "strokes": 5,
     "frequency": 664,
     "components": ["口", "儿"]
-  },
-  "口": {
-    "pinyin": "kǒu",
-    "meaning_en": "mouth / opening",
-    "meaning_es": "boca / abertura",
-    "radical": "口",
-    "strokes": 3,
-    "frequency": 170,
-    "components": []
-  },
-  "囗": {
-    "pinyin": "wéi",
-    "meaning_en": "enclosure / surrounding",
-    "meaning_es": "cercado / rodear",
-    "radical": "囗",
-    "strokes": 3,
-    "frequency": 123,
-    "components": []
-  },
-  "木": {
-    "pinyin": "mù",
-    "meaning_en": "wood / tree",
-    "meaning_es": "madera / árbol",
-    "radical": "木",
-    "strokes": 4,
-    "frequency": 701,
-    "components": []
   },
   "纟": {
     "pinyin": "sī",
@@ -2951,13 +2996,13 @@ export const data = {
     "frequency": 619,
     "components": ["二", "厶"]
   },
-  "厶": {
-    "pinyin": "sī",
-    "meaning_en": "private / personal",
-    "meaning_es": "privado / personal",
-    "radical": "厶",
-    "strokes": 2,
-    "frequency": 214,
+  "⺼": {
+    "pinyin": "ròu",
+    "meaning_en": "flesh (肉)",
+    "meaning_es": "carne (肉)",
+    "radical": "肉",
+    "strokes": 6,
+    "frequency": 150,
     "components": []
   },
   "土": {
@@ -2998,8 +3043,8 @@ export const data = {
   },  
   "又": {
     "pinyin": "yòu",
-    "meaning_en": "and, also, again, in addition",
-    "meaning_es": "and, also, again, in addition",
+    "meaning_en": "again",
+    "meaning_es": "otra vez",
     "radical": "又",
     "strokes": 2,
     "frequency": 0,
@@ -3007,8 +3052,8 @@ export const data = {
   },
   "月": {
     "pinyin": "yuè",
-    "meaning_en": "moon / flesh",
-    "meaning_es": "luna / carne",
+    "meaning_en": "moon, flesh",
+    "meaning_es": "luna, carne",
     "radical": "月",
     "strokes": 4,
     "frequency": 0,
@@ -3049,24 +3094,6 @@ export const data = {
     "strokes": 4,
     "frequency": 0,
     "components": ["巳","？"],
-  },
-  "自": {
-    "pinyin": "zì",
-    "meaning_en": "self; private, personal; from",
-    "meaning_es": "self; private, personal; from",
-    "radical": "自",
-    "strokes": 6,
-    "frequency": 0,
-    "components": ["目", "？"],
-  },
-  "目": {
-    "pinyin": "mù",
-    "meaning_en": "eye; to look, to see; division, topic",
-    "meaning_es": "eye; to look, to see; division, topic",
-    "radical": "目",
-    "strokes": 5,
-    "frequency": 0,
-    "components": ["口", "二"],
   },
   "马": {
     "pinyin": "mǎ",
@@ -3115,8 +3142,8 @@ export const data = {
   },
   "们": {
     "pinyin": "men",
-    "meaning_en": "plural for pronouns",
-    "meaning_es": "plural para pronombres",
+    "meaning_en": "plural",
+    "meaning_es": "plural",
     "radical": "亻",
     "strokes": 5,
     "frequency": 60,
@@ -3151,8 +3178,8 @@ export const data = {
   },
   "京": {
     "pinyin": "jīng",
-    "meaning_en": "capital (city)",
-    "meaning_es": "capital (ciudad)",
+    "meaning_en": "capital",
+    "meaning_es": "capital",
     "radical": "亠",
     "strokes": 8,
     "frequency": 95,

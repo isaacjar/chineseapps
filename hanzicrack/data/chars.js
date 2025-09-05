@@ -3482,7 +3482,7 @@ export const data = {
     "frequency": 250  ,
     "components": ["圤", "皿"],
   },
-  圤": {
+  "圤": {
     "pinyin": "pú",
     "meaning_en": "clod",
     "meaning_es": "terrón",

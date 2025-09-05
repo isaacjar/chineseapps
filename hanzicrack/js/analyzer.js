@@ -1,4 +1,4 @@
-// analyzer.js - Modificación en la función analyzeText
+// analyzer.js - Corrección de la lógica de descomposición
 import { getCharacterData } from "./api.js";
 
 /**
@@ -11,13 +11,10 @@ import { getCharacterData } from "./api.js";
  */
 export async function analyzeText(text, mode = "simple", lang = "en") {
   const lines = [];
-  const seen = new Set(); // 👈 para no repetir caracteres
+  const seen = new Set();
 
   for (const ch of text) {
-    // Solo tratamos caracteres Han
     if (!/\p{Script=Han}/u.test(ch)) continue;
-
-    // ⚡️ Evitar repetir análisis
     if (seen.has(ch)) continue;
     seen.add(ch);
 
@@ -27,11 +24,10 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       continue;
     }
 
-    // 🔹 NUEVO: Verificar si el carácter es un radical (coincide con su propio campo radical)
+    // Verificar si el carácter es un radical
     const isRadical = data.radical === ch;
     
     if (isRadical) {
-      // 🔹 Si es radical, mostrar directamente su significado
       const pinyin = Array.isArray(data.pinyin)
         ? data.pinyin.join(", ")
         : (data.pinyin || "");
@@ -48,20 +44,18 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       continue;
     }
 
-    // 1) Obtener componentes finales según modo
+    // Obtener componentes finales según modo
     const finalComponents = await expandComponentsList(data.components, mode);
 
-    // 2) Formatear "comp [pinyin] meaning" con clases CSS
+    // Formatear "comp [pinyin] meaning" con clases CSS
     const parts = [];
     for (const c of finalComponents) {
       const cd = await getCharacterData(c);
 
-      // 🔹 Normalizar pinyin
       const cpinyin = Array.isArray(cd?.pinyin)
         ? cd.pinyin.join(", ")
         : (cd?.pinyin || "");
 
-      // 🔹 Normalizar significado
       let cmeaning = "";
       if (cd) {
         if (lang === "es") {
@@ -75,18 +69,15 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         }
       }
 
-      // 🔹 Marcar si viene de API
       const cSpan = cd?.source === "api"
         ? `<span class="from-api">${c}</span>`
         : c;
 
-      // 🔹 Usar clases CSS
       parts.push(
         `${cSpan} <span class="pinyin">[${cpinyin}]</span> <span class="meaning">${cmeaning}</span>`.trim()
       );
     }
 
-    // 3) Línea final con color si viene de API
     const pinyin = Array.isArray(data.pinyin)
       ? data.pinyin.join(", ")
       : (data.pinyin || "");
@@ -105,55 +96,43 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
 /**
  * Según el modo, devuelve:
  * - simple: los componentes de primer nivel tal cual
- * - full: descompone recursivamente cada componente en átomos
+ * - full: descompone recursivamente hasta componentes atómicos (sin subcomponentes)
  */
 async function expandComponentsList(firstLevel, mode) {
   if (!Array.isArray(firstLevel) || firstLevel.length === 0) return [];
 
   if (mode === "simple") {
-    // Primer nivel sin profundizar
     return firstLevel;
   }
 
-  // FULL: expandir recursivamente hasta átomos, preservando orden
-  const out = [];
-  const seen = new Set();
-
+  // FULL: expandir recursivamente hasta componentes atómicos
+  const atomicComponents = [];
+  
   for (const comp of firstLevel) {
-    const atoms = await explodeToAtoms(comp, new Set());
-    for (const a of atoms) {
-      if (!seen.has(a)) {
-        seen.add(a);
-        out.push(a);
-      }
-    }
+    const atoms = await explodeToAtoms(comp);
+    atomicComponents.push(...atoms);
   }
 
-  return out;
+  return [...new Set(atomicComponents)]; // Eliminar duplicados
 }
 
 /**
- * Devuelve los átomos de un componente.
- * Si el componente tiene subcomponentes → expandir recursivamente;
- * si no, devolver [componente].
+ * Devuelve los componentes atómicos (sin subcomponentes)
  */
-async function explodeToAtoms(char, visiting) {
-  if (visiting.has(char)) return []; // evita bucles raros
-  visiting.add(char);
-
-  const d = await getCharacterData(char);
-  const subs = d?.components;
-
-  if (Array.isArray(subs) && subs.length > 0) {
-    const acc = [];
-    for (const s of subs) {
-      const atoms = await explodeToAtoms(s, visiting);
-      acc.push(...atoms);
-    }
-    visiting.delete(char);
-    return acc; // devolvemos en orden
-  } else {
-    visiting.delete(char);
+async function explodeToAtoms(char) {
+  const data = await getCharacterData(char);
+  
+  // Si no tiene datos o no tiene componentes, es atómico
+  if (!data || !Array.isArray(data.components) || data.components.length === 0) {
     return [char];
   }
+
+  // Si tiene componentes, expandir recursivamente
+  const atoms = [];
+  for (const subComp of data.components) {
+    const subAtoms = await explodeToAtoms(subComp);
+    atoms.push(...subAtoms);
+  }
+  
+  return atoms;
 }

@@ -3517,7 +3517,7 @@ export const data = {
     "strokes": 4,
     "frequency": 210,
     "components": ["二", "儿"]
-  }
+  },
 "她": {
   "pinyin": "tā",
   "meaning_en": "she",
@@ -3553,7 +3553,7 @@ export const data = {
   "strokes": 2,
   "frequency": 185,
   "components": ["一", "亅"]
-}
+},
 "做": {
   "pinyin": "zuò",
   "meaning_en": "do",
@@ -3571,7 +3571,7 @@ export const data = {
   "strokes": 9,
   "frequency": 280,
   "components": ["古", "攵"]
-}
+},
 "先": {
   "pinyin": "xiān",
   "meaning_en": "first",

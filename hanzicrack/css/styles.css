@@ -183,7 +183,7 @@ main {
   padding: 1rem;
   min-width: 300px;
   max-width: 85%;
-  max-height: 80%;
+  max-height: 90%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 
   /* estructura flexible */

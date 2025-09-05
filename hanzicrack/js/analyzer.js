@@ -1,4 +1,4 @@
-// ✅ analyzer.js mejorado
+// analyzer.js - Modificación en la función analyzeText
 import { getCharacterData } from "./api.js";
 
 /**
@@ -24,6 +24,27 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     const data = await getCharacterData(ch);
     if (!data) {
       lines.push(`${ch} ➜ (sin datos)`);
+      continue;
+    }
+
+    // 🔹 NUEVO: Verificar si el carácter es un radical (coincide con su propio campo radical)
+    const isRadical = data.radical === ch;
+    
+    if (isRadical) {
+      // 🔹 Si es radical, mostrar directamente su significado
+      const pinyin = Array.isArray(data.pinyin)
+        ? data.pinyin.join(", ")
+        : (data.pinyin || "");
+      
+      const meaning = lang === "es" 
+        ? (Array.isArray(data.meaning_es) ? data.meaning_es.join(", ") : data.meaning_es)
+        : (Array.isArray(data.meaning_en) ? data.meaning_en.join(", ") : data.meaning_en);
+      
+      const charSpan = data.source === "api"
+        ? `<span class="from-api">${ch}</span>`
+        : ch;
+      
+      lines.push(`${charSpan} [${pinyin}] <span class="meaning">${meaning}</span>`);
       continue;
     }
 
@@ -59,7 +80,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         ? `<span class="from-api">${c}</span>`
         : c;
 
-      // 🔹 MODIFICADO: Usar clases CSS en lugar de estilos en línea
+      // 🔹 Usar clases CSS
       parts.push(
         `${cSpan} <span class="pinyin">[${cpinyin}]</span> <span class="meaning">${cmeaning}</span>`.trim()
       );

@@ -5,7 +5,7 @@ import { setMsg, closeModal } from "./ui.js";
 let settings = {
   lang: "en",       // por defecto inglés
   admin: false,
-  fontSize: 16      // tamaño de fuente por defecto
+  fontSize: 24      // tamaño de fuente por defecto
 };
 
 /**
@@ -25,6 +25,9 @@ export function initSettings() {
   const savedSettings = localStorage.getItem("hanziSettings");
   if (savedSettings) {
     settings = JSON.parse(savedSettings);
+  } else {
+    // Si no hay settings guardados, aseguramos tamaño por defecto
+    settings.fontSize = 24;
   }
 
   applyUISettings();

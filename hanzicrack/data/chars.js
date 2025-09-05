@@ -188,6 +188,15 @@ export const data = {
   "frequency": 55,
   "components": []
 },  
+"乛": {
+  "pinyin": "hénggōu zhé",
+  "meaning_en": "horizontal bend stroke",
+  "meaning_es": "trazo curvo horizontal",
+  "radical": "乛",
+  "strokes": 1,
+  "frequency": 0,
+  "components": []
+},
 "二": {
     "pinyin": "èr",
     "meaning_en": "two",

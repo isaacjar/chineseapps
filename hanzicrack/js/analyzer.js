@@ -25,17 +25,17 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     }
 
     // Verificar si el carácter es un radical, si no tiene componentes, o si es lv1 en modo simple
-    const isRadical = data.radical === ch;
-    const isAtomicInSimple = mode === "simple" && data.lv1 === true;
+    const isRadical = data.r === ch;
+    const isAtomicInSimple = mode === "simple" && data.l1 === true;
     
-    if (isRadical || !data.components || data.components.length === 0 || isAtomicInSimple) {
-      const pinyin = Array.isArray(data.pinyin)
-        ? data.pinyin.join(", ")
-        : (data.pinyin || "");
+    if (isRadical || !data.c || data.c.length === 0 || isAtomicInSimple) {
+      const pinyin = Array.isArray(data.p)
+        ? data.p.join(", ")
+        : (data.p || "");
       
       const meaning = lang === "es" 
-        ? (Array.isArray(data.meaning_es) ? data.meaning_es.join(", ") : data.meaning_es)
-        : (Array.isArray(data.meaning_en) ? data.meaning_en.join(", ") : data.meaning_en);
+        ? (Array.isArray(data.es) ? data.es.join(", ") : data.es)
+        : (Array.isArray(data.en) ? data.en.join(", ") : data.en);
       
       const charSpan = data.source === "api"
         ? `<span class="from-api">${ch}</span>`
@@ -49,27 +49,27 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     }
 
     // Obtener componentes finales según modo
-    const finalComponents = await expandComponentsList(data.components, mode);
+    const finalComponents = await expandComponentsList(data.c, mode);
 
     // Formatear "comp [pinyin] meaning" con clases CSS
     const parts = [];
     for (const c of finalComponents) {
       const cd = await getCharacterData(c);
 
-      const cpinyin = Array.isArray(cd?.pinyin)
-        ? cd.pinyin.join(", ")
-        : (cd?.pinyin || "");
+      const cpinyin = Array.isArray(cd?.p)
+        ? cd.p.join(", ")
+        : (cd?.p || "");
 
       let cmeaning = "";
       if (cd) {
         if (lang === "es") {
-          cmeaning = Array.isArray(cd.meaning_es)
-            ? cd.meaning_es.join(", ")
-            : cd.meaning_es;
+          cmeaning = Array.isArray(cd.es)
+            ? cd.es.join(", ")
+            : cd.es;
         } else {
-          cmeaning = Array.isArray(cd.meaning_en)
-            ? cd.meaning_en.join(", ")
-            : cd.meaning_en;
+          cmeaning = Array.isArray(cd.en)
+            ? cd.en.join(", ")
+            : cd.en;
         }
       }
 
@@ -82,9 +82,9 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       );
     }
 
-    const pinyin = Array.isArray(data.pinyin)
-      ? data.pinyin.join(", ")
-      : (data.pinyin || "");
+    const pinyin = Array.isArray(data.p)
+      ? data.p.join(", ")
+      : (data.p || "");
     const right = parts.map(p => p.trim()).join(" + ");
 
     const charSpan = data.source === "api"
@@ -135,13 +135,13 @@ async function explodeToAtoms(char, currentLevel = 0, maxLevel = 3) {
   const data = await getCharacterData(char);
   
   // Si no tiene datos, no tiene componentes, o es lv1 → es atómico
-  if (!data || !Array.isArray(data.components) || data.components.length === 0 || data.lv1 === true) {
+  if (!data || !Array.isArray(data.c) || data.c.length === 0 || data.l1 === true) {
     return [char];
   }
 
   // Si tiene componentes, expandir recursivamente (aumentando el nivel)
   const atoms = [];
-  for (const subComp of data.components) {
+  for (const subComp of data.c) {
     const subAtoms = await explodeToAtoms(subComp, currentLevel + 1, maxLevel);
     atoms.push(...subAtoms);
   }

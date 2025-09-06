@@ -2409,7 +2409,8 @@ export const data = {
     "radical": "亅",
     "strokes": 2,
     "frequency": 5,
-    "components": []
+    "components": ["乛", "亅"],
+    "lv1": true
   },
   "我": {
     "pinyin": "wǒ",
@@ -4219,6 +4220,24 @@ export const data = {
   "strokes": 9,
   "frequency": 360,
   "components": ["禾", "中"]
+},
+"苹": {
+  "pinyin": "píng",
+  "meaning_en": "apple",
+  "meaning_es": "manzana",
+  "radical": "艹",
+  "strokes": 8,
+  "frequency": 400,
+  "components": ["艹", "平"]
+},
+"平": {
+  "pinyin": "píng",
+  "meaning_en": "flat",
+  "meaning_es": "plano",
+  "radical": "干",
+  "strokes": 5,
+  "frequency": 500,
+  "components": ["干", "丷"]
 }
   
 };

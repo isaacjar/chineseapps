@@ -34,7 +34,6 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     const isAtomicInSimple = mode === "simple" && data.l1 === true;
     
     if (isRadical || !data.c || data.c.length === 0 || isAtomicInSimple) {
-      console.log(ch & " es Atomic in Simple");
       const pinyin = Array.isArray(data.p)
         ? data.p.join(", ")
         : (data.p || "");

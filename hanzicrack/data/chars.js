@@ -592,7 +592,7 @@ export const data = {
     "s": 5,
     "f": 300,
     "c": []
-  }
+  },
   "山": {
     "p": "shān",
     "en": "mountain",

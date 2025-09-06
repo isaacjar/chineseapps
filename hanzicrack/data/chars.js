@@ -134,7 +134,7 @@ export const data = {
   "frequency": 85,
   "components": []
 },
-  "㇌": {
+"㇌": {
   "pinyin": "héng piě wān gōu",
   "meaning_en": "horizontal slant curve hook",
   "meaning_es": "horizontal con cola, curva y gancho",
@@ -242,6 +242,15 @@ export const data = {
     "frequency": 210,
     "components": []
   },
+  "𠃊": {
+    "pinyin": "zhé", 
+    "meaning_en": "right-falling hook (㇂)",
+    "meaning_es": "gancho hacia la derecha (㇂)",
+    "radical": "𠃊",
+    "strokes": 2,
+    "frequency": 0,
+    "components": []
+  }
   "八": {
     "pinyin": "bā",
     "meaning_en": "eight",
@@ -1212,7 +1221,7 @@ export const data = {
     "radical": "禾",
     "strokes": 5,
     "frequency": 170,
-    "components": []
+    "components": ["丿", "木"]
   },
   "穴": {
     "pinyin": "xué",
@@ -1401,7 +1410,7 @@ export const data = {
     "radical": "至",
     "strokes": 6,
     "frequency": 85,
-    "components": []
+    "components": ["一", "厶", "土"]
   },
   "臼": {
     "pinyin": "jiù",
@@ -3913,8 +3922,294 @@ export const data = {
     "strokes": 7,
     "frequency": 1072,
     "components": ["不", "口"]
+  },
+  "pinyin": "rǎn",
+  "meaning_en": "slowly",
+  "meaning_es": "lentamente",
+  "radical": "冂",
+  "strokes": 5,
+  "frequency": 1953,
+  "components": ["冂", "土"]
+},
+"住": {
+  "pinyin": "zhù",
+  "meaning_en": "to live",
+  "meaning_es": "vivir",
+  "radical": "亻",
+  "strokes": 7,
+  "frequency": 276,
+  "components": ["亻", "主"]
+},
+"什": {
+  "pinyin": "shén",
+  "meaning_en": "what",
+  "meaning_es": "qué",
+  "radical": "亻",
+  "strokes": 4,
+  "frequency": 424,
+  "components": ["亻", "十"]
+},
+"书": {
+  "pinyin": "shū",
+  "meaning_en": "book (聿 simplified)",
+  "meaning_es": "libro (聿 simplificado)",
+  "radical": "乙",
+  "strokes": 4,
+  "frequency": 187,
+  "components": ["聿"]
+},
+"聿": {
+  "pinyin": "yù",
+  "meaning_en": "writing brush (old for 书)",
+  "meaning_es": "pincel de escritura (antiguo 书)",
+  "radical": "聿",
+  "strokes": 6,
+  "frequency": 1487,
+  "components": ["⺻", "丨"]
+},
+"⺻": {
+  "pinyin": "yù",
+  "meaning_en": "writing brush",
+  "meaning_es": "pincel de escritura",
+  "radical": "聿",
+  "strokes": 5,
+  "frequency": 0,
+  "components": []
+}
+
+"师": {
+  "pinyin": "shī",
+  "meaning_en": "teacher",
+  "meaning_es": "maestro",
+  "radical": "巾",
+  "strokes": 6,
+  "frequency": 259,
+  "components": ["刂", "帀"]
+},
+"帀": {
+  "pinyin": "zā",
+  "meaning_en": "circulate",
+  "meaning_es": "circular",
+  "radical": "巾",
+  "strokes": 5,
+  "frequency": 1800,
+  "components": []
+},
+"五": {
+  "pinyin": "wǔ",
+  "meaning_en": "five",
+  "meaning_es": "cinco",
+  "radical": "二",
+  "strokes": 4,
+  "frequency": 64,
+  "components": []
+},
+"客": {
+  "pinyin": "kè",
+  "meaning_en": "guest",
+  "meaning_es": "huésped",
+  "radical": "宀",
+  "strokes": 10,
+  "frequency": 290,
+  "components": ["宀", "各"]
+},
+"各": {
+  "pinyin": "gè",
+  "meaning_en": "each",
+  "meaning_es": "cada",
+  "radical": "口",
+  "strokes": 6,
+  "frequency": 550,
+  "components": ["口", "夂"]
+},
+"热": {
+  "pinyin": "rè",
+  "meaning_en": "hot",
+  "meaning_es": "caliente",
+  "radical": "灬",
+  "strokes": 10,
+  "frequency": 210,
+  "components": ["执", "灬"]
+},
+"执": {
+  "pinyin": "zhí",
+  "meaning_en": "to hold",
+  "meaning_es": "sostener",
+  "radical": "扌",
+  "strokes": 5,
+  "frequency": 340,
+  "components": ["扌", "丸"]
+},
+"丸": {
+  "pinyin": "wán",
+  "meaning_en": "round",
+  "meaning_es": "redondo",
+  "radical": "丸",
+  "strokes": 3,
+  "frequency": 1340,
+  "components": []
+},
+"买": {
+  "pinyin": "mǎi",
+  "meaning_en": "to buy",
+  "meaning_es": "comprar",
+  "radical": "⺈",
+  "strokes": 4,
+  "frequency": 320,
+  "components": ["⺈", "头"]
+},
+"头": {
+  "pinyin": "tóu",
+  "meaning_en": "head",
+  "meaning_es": "cabeza",
+  "radical": "大",
+  "strokes": 5,
+  "frequency": 400,
+  "components": ["⺈", "大"]
+},
+"爱": {
+  "pinyin": "ài",
+  "meaning_en": "love",
+  "meaning_es": "amor",
+  "radical": "爫",
+  "strokes": 10,
+  "frequency": 120,
+  "components": ["爫", "冖", "友"]
+},
+"愛": {
+  "pinyin": "ài",
+  "meaning_en": "love",
+  "meaning_es": "amor",
+  "radical": "爫",
+  "strokes": 13,
+  "frequency": 120,
+  "components": ["爫", "冖", "心", "友"]
+},
+"太": {
+  "pinyin": "tài",
+  "meaning_en": "too",
+  "meaning_es": "demasiado",
+  "radical": "大",
+  "strokes": 4,
+  "frequency": 330,
+  "components": ["大", "丶"]
+},
+"轻": {
+  "pinyin": "qīng",
+  "meaning_en": "light (not heavy)",
+  "meaning_es": "ligero",
+  "radical": "车",
+  "strokes": 7,
+  "frequency": 320,
+  "components": ["车", "𢀖", "工"]
+},
+"𢀖": {
+    "pinyin": "yǐn",
+    "meaning_en": "move",
+    "meaning_es": "moverse",
+    "radical": "𢀖",
+    "strokes": 6,
+    "frequency": 0,
+    "components": ["𢀖"]
   }
-
-
+"弟": {
+  "pinyin": "dì",
+  "meaning_en": "younger brother",
+  "meaning_es": "hermano menor",
+  "radical": "弓",
+  "strokes": 7,
+  "frequency": 400,
+  "components": ["丷", "弓", "丨", "丿"]
+},
+"驱": {
+  "pinyin": "qū",
+  "meaning_en": "gallop",
+  "meaning_es": "galopar",
+  "radical": "马",
+  "strokes": 7,
+  "frequency": 550,
+  "components": ["马", "区"]
+},
+"屰": {
+    "pinyin": "yì",
+    "meaning_en": "peak",
+    "meaning_es": "cima",
+    "radical": "尸",
+    "strokes": 7,
+    "frequency": 0,
+    "components": [""]
+},
+"区": {
+  "pinyin": "qū",
+  "meaning_en": "area",
+  "meaning_es": "región",
+  "radical": "匚",
+  "strokes": 4,
+  "frequency": 600,
+  "components": ["匚", "乂"]
+},
+"乂": {
+    "pinyin": "yì",
+    "meaning_en": "to control",
+    "meaning_es": "controlar",
+    "radical": "乂",
+    "strokes": 2,
+    "frequency": 200,
+    "components": []
+},
+"后": {
+  "pinyin": "hòu",
+  "meaning_en": "behind, after",
+  "meaning_es": "detrás, después",
+  "radical": "口",
+  "strokes": 6,
+  "frequency": 450,
+  "components": ["⺁", "口"]
+},
+"⺁": {
+    "pinyin": "sī",
+    "meaning_en": "private (厶)",
+    "meaning_es": "privado (厶)",
+    "radical": "厶",
+    "strokes": 2,
+    "frequency": 0,
+    "components": []
+  },
+"到": {
+  "pinyin": "dào",
+  "meaning_en": "to arrive",
+  "meaning_es": "llegar",
+  "radical": "刂",
+  "strokes": 8,
+  "frequency": 280,
+  "components": ["至", "刂"]
+},
+"怎": {
+  "pinyin": "zěn",
+  "meaning_en": "how",
+  "meaning_es": "cómo",
+  "radical": "心",
+  "strokes": 10,
+  "frequency": 360,
+  "components": ["乍", "心"]
+},
+"跟": {
+  "pinyin": "gēn",
+  "meaning_en": "to follow",
+  "meaning_es": "seguir",
+  "radical": "足",
+  "strokes": 10,
+  "frequency": 410,
+  "components": ["足", "艮"]
+},
+"种": {
+  "pinyin": "zhǒng",
+  "meaning_en": "type, seed",
+  "meaning_es": "clase, semilla",
+  "radical": "禾",
+  "strokes": 9,
+  "frequency": 360,
+  "components": ["禾", "中"]
+}
   
 };

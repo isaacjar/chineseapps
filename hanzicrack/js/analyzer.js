@@ -94,7 +94,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       ? `<span class="from-api">${ch}</span>`
       : ch;
 
-    lines.push(`${charSpan} [${pinyin}] ➜ ${right}`);
+    lines.push(`${charSpan} [<span class="mainCharPinyin">${pinyin}</span>] ➜ ${right}`);
   }
 
   return lines;

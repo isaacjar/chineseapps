@@ -60,6 +60,7 @@ async function fetchFromSources(char) {
   const radical = entry.radical || "";
   const components = extractAtomicComponents(entry.decomposition);
   const strokes = await fetchStrokeCount(char);
+  const lv1 = entry.lv1 || false; // ← Preservar el campo lv1 si existe
 
   // ⚙️ idioma actual de settings
   const { lang } = getSettings();
@@ -75,7 +76,8 @@ async function fetchFromSources(char) {
     radical,
     strokes,
     frequency: 0,
-    components
+    components,
+    lv1  
   };
 
 }

@@ -4246,7 +4246,7 @@ export const data = {
   "r": "口",
   "s": 9,
   "f": 600,
-  "c": ["口", "胃"]
+  "c": ["口", "畏"]
 },
 "畏": {
   "p": "wèi",
@@ -4292,6 +4292,15 @@ export const data = {
   "s": 7,
   "f": 600,
   "c": ["田", "土"]
+},
+"思": {
+  "p": "sī",
+  "en": "to think; to consider; thought",
+  "es": "pensar; considerar; pensamiento",
+  "r": "心",
+  "s": 9,
+  "f": 700,
+  "c": ["田", "心"]
 }
   
 };

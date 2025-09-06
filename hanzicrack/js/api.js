@@ -70,14 +70,14 @@ async function fetchFromSources(char) {
     : meaning_en;
 
   return {
-    pinyin,
-    meaning_en,
-    meaning_es: meaning,
-    radical,
-    strokes,
-    frequency: 0,
-    components,
-    lv1  
+    p: pinyin,
+    en: meaning_en,
+    es: meaning,
+    r: radical,
+    s: strokes,
+    f: 0,
+    c: components,
+    l1: l1  
   };
 
 }

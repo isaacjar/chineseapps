@@ -4751,7 +4751,7 @@ export const data = {
   "s": 3,
   "f": 700,
   "c": ["一", "ㄅ", "一"]
-}
+},
 "喜": {
   "p": "xǐ",
   "en": "joy",
@@ -4796,7 +4796,7 @@ export const data = {
   "s": 4,
   "f": 200,
   "c": []
-}
+},
 "习": {
   "p": "xí",
   "en": "to practice",

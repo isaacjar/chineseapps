@@ -117,6 +117,15 @@
     "strokes": 3,
     "frequency": 250
   },
+   "⺈": {
+    "pinyin": "gǔ",
+    "meaning_en": "valley (谷)",
+    "meaning_es": "valle (谷)",
+    "radical": "谷",
+    "strokes": 7,
+    "frequency": 55,
+    "components": []
+  },
   {
     "radical": "攴",
     "pinyin": "pū",

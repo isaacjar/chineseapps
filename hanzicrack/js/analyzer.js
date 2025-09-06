@@ -24,10 +24,11 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       continue;
     }
 
-    // Verificar si el carácter es un radical o si no tiene componentes
+    // Verificar si el carácter es un radical, si no tiene componentes, o si es lv1 en modo simple
     const isRadical = data.radical === ch;
+    const isAtomicInSimple = mode === "simple" && data.lv1 === true;
     
-    if (isRadical || !data.components || data.components.length === 0) {
+    if (isRadical || !data.components || data.components.length === 0 || isAtomicInSimple) {
       const pinyin = Array.isArray(data.pinyin)
         ? data.pinyin.join(", ")
         : (data.pinyin || "");
@@ -40,7 +41,10 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         ? `<span class="from-api">${ch}</span>`
         : ch;
       
-      lines.push(`${charSpan} [${pinyin}] <span class="meaning">${meaning}</span>`);
+      // Añadir indicador si es tratado como atómico por ser lv1
+      const lv1Indicator = isAtomicInSimple ? " (átomico)" : "";
+      
+      lines.push(`${charSpan} [${pinyin}]${lv1Indicator} <span class="meaning">${meaning}</span>`);
       continue;
     }
 
@@ -95,7 +99,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
 
 /**
  * Según el modo, devuelve:
- * - simple: los componentes de primer nivel tal cual
+ * - simple: los componentes de primer nivel tal cual (a menos que sean lv1)
  * - full: descompone recursivamente hasta componentes atómicos (sin subcomponentes)
  */
 async function expandComponentsList(firstLevel, mode) {
@@ -130,8 +134,8 @@ async function explodeToAtoms(char, currentLevel = 0, maxLevel = 3) {
 
   const data = await getCharacterData(char);
   
-  // Si no tiene datos o no tiene componentes, es atómico
-  if (!data || !Array.isArray(data.components) || data.components.length === 0) {
+  // Si no tiene datos, no tiene componentes, o es lv1 → es atómico
+  if (!data || !Array.isArray(data.components) || data.components.length === 0 || data.lv1 === true) {
     return [char];
   }
 

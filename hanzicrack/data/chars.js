@@ -2069,15 +2069,6 @@ export const data = {
     "f": 25,
     "c": []
   },
-  "高": {
-    "p": "gāo",
-    "en": "tall",
-    "es": "alto",
-    "r": "高",
-    "s": 10,
-    "f": 50,
-    "c": []
-  },
   "髟": {
     "p": "biāo",
     "en": "long hair",
@@ -2418,7 +2409,7 @@ export const data = {
     "r": "一",
     "s": 4,
     "f": 4,
-    "c": ["一", "丿", "|", "丶"]
+    "c": ["一", "丿", "丨", "丶"]
   },
   "了": {
     "p": "le",
@@ -2792,7 +2783,7 @@ export const data = {
   },
   "作": {
     "p": "zuò",
-    "en": "to do / to make",
+    "en": "to do",
     "es": "hacer",
     "r": "亻",
     "s": 7,
@@ -2801,12 +2792,12 @@ export const data = {
   },
   "事": {
     "p": "shì",
-    "en": "matter / affair",
-    "es": "asunto / cosa",
+    "en": "matter, affair",
+    "es": "asunto, cosa",
     "r": "亅",
     "s": 8,
     "f": 57,
-    "c": ["口", "亅", "一"]
+    "c": ["一", "口", "彐", "亅"]
   },
   "里": {
     "p": "lǐ",
@@ -2819,8 +2810,8 @@ export const data = {
   },
   "家": {
     "p": "jiā",
-    "en": "home / family",
-    "es": "hogar / familia",
+    "en": "home, family",
+    "es": "hogar, familia",
     "r": "宀",
     "s": 10,
     "f": 59,
@@ -2828,12 +2819,12 @@ export const data = {
   },
   "学": {
     "p": "xué",
-    "en": "to study / to learn",
-    "es": "estudiar / aprender",
+    "en": "to study, to learn",
+    "es": "estudiar, aprender",
     "r": "子",
     "s": 8,
     "f": 60,
-    "c": ["冖", "子", "⺍"]
+    "c": ["⺍", "冖", "子"]
   },
   "开": {
     "p": "kāi",
@@ -2846,8 +2837,8 @@ export const data = {
   },
   "电": {
     "p": "diàn",
-    "en": "electric / electricity",
-    "es": "eléctrico / electricidad",
+    "en": "electricity",
+    "es": "electricidad",
     "r": "雨",
     "s": 5,
     "f": 63,
@@ -2855,8 +2846,8 @@ export const data = {
   },
   "话": {
     "p": "huà",
-    "en": "speech / talk",
-    "es": "habla / conversación",
+    "en": "words, talk",
+    "es": "palabras, conversación",
     "r": "讠",
     "s": 8,
     "f": 64,
@@ -2873,8 +2864,8 @@ export const data = {
   },
   "没": {
     "p": "méi",
-    "en": "not / none",
-    "es": "no / ninguno",
+    "en": "not have",
+    "es": "no haber, no tener",
     "r": "氵",
     "s": 7,
     "f": 66,
@@ -2882,17 +2873,17 @@ export const data = {
   },
   "走": {
     "p": "zǒu",
-    "en": "to walk / to go",
-    "es": "caminar / ir",
+    "en": "to walk",
+    "es": "caminar",
     "r": "走",
     "s": 7,
     "f": 68,
-    "c": ["止", "𠂤"]
+    "c": ["土", "止"]
   },
   "知": {
     "p": "zhī",
     "en": "to know",
-    "es": "saber / conocer",
+    "es": "saber",
     "r": "矢",
     "s": 8,
     "f": 69,
@@ -2900,7 +2891,7 @@ export const data = {
   },
   "高": {
     "p": "gāo",
-    "en": "tall / high",
+    "en": "tall",
     "es": "alto",
     "r": "高",
     "s": 10,
@@ -3708,15 +3699,6 @@ export const data = {
   "f": 130,
   "c": ["冂", "人"]
 },
-"反": {
-  "p": "fǎn",
-  "en": "reverse, opposite, against, anti-",
-  "es": "reverso, opuesto, en contra, anti-",
-  "r": "又",
-  "s": 4,
-  "f": 85,
-  "c": ["厂", "又"]
-},
 "饭": {
   "p": "fàn",
   "en": "cooked rice, food",
@@ -3809,8 +3791,8 @@ export const data = {
 },
 "愁": {
   "p": "chóu",
-  "en": "worry, anxiety, sorrow",
-  "es": "preocupación, ansiedad, pena",
+  "en": "anxiety",
+  "es": "ansiedad",
   "r": "心",
   "s": 13,
   "f": 65,
@@ -4841,6 +4823,150 @@ export const data = {
   "s": 8,
   "f": 900,
   "c": ["宀", "头"]
+},
+"分": {
+  "p": "fēn",
+  "en": "to divide, minute",
+  "es": "dividir, minuto",
+  "r": "刀",
+  "s": 4,
+  "f": 900,
+  "c": ["八", "刀"]
+},
+"再": {
+  "p": "zài",
+  "en": "again",
+  "es": "de nuevo; otra vez",
+  "r": "冂",
+  "s": 6,
+  "f": 850,
+  "c": []
+},
+"医": {
+  "p": "yī",
+  "en": "doctor; medicine",
+  "es": "médico; medicina",
+  "r": "匚",
+  "s": 7,
+  "f": 800,
+  "c": ["匚", "矢"]
+},
+"校": {
+  "p": "xiào",
+  "en": "school; proofread",
+  "es": "escuela; corregir",
+  "r": "木",
+  "s": 10,
+  "f": 800,
+  "c": ["木", "交"]
+},
+"昨": {
+  "p": "zuó",
+  "en": "yesterday",
+  "es": "ayer",
+  "r": "日",
+  "s": 8,
+  "f": 850,
+  "c": ["日", "乍"]
+},
+"站": {
+  "p": "zhàn",
+  "en": "to stand",
+  "es": "estar de pie",
+  "r": "立",
+  "s": 10,
+  "f": 800,
+  "c": ["立", "占"]
+},
+"觉": {
+  "p": "jué, jiào",
+  "en": "to feel, to sleep",
+  "es": "sentir, dormir",
+  "r": "见",
+  "s": 8,
+  "f": 900,
+  "c": ["⺍", "冖", "见"]
+},
+"候": {
+  "p": "hòu",
+  "en": "moment",
+  "es": "moment",
+  "r": "亻",
+  "s": 10,
+  "f": 800,
+  "c": ["亻", "ユ", "矢"]
+},
+"飞": {
+  "p": "fēi",
+  "en": "to fly",
+  "es": "volar",
+  "r": "飞",
+  "s": 3,
+  "f": 900,
+  "c": []
+},
+"钱": {
+  "p": "qián",
+  "en": "money",
+  "es": "dinero",
+  "r": "钅",
+  "s": 10,
+  "f": 900,
+  "c": ["钅", "戋"]
+},
+"字": {
+  "p": "zì",
+  "en": "character",
+  "es": "carácter",
+  "r": "宀",
+  "s": 6,
+  "f": 900,
+  "c": ["宀", "子"]
+},
+"岁": {
+  "p": "suì",
+  "en": "years old",
+  "es": "años de edad",
+  "r": "止",
+  "s": 7,
+  "f": 800,
+  "c": ["山", "夕"]
+},
+"请": {
+  "p": "qǐng",
+  "en": "please, to ask",
+  "es": "por favor, preguntar",
+  "r": "讠",
+  "s": 10,
+  "f": 900,
+  "c": ["讠", "青"]
+},
+"识": {
+  "p": "shí",
+  "en": "to know",
+  "es": "saber",
+  "r": "讠",
+  "s": 8,
+  "f": 900,
+  "c": ["讠", "只"]
+},
+"听": {
+  "p": "tīng",
+  "en": "to listen",
+  "es": "escuchar",
+  "r": "耳",
+  "s": 7,
+  "f": 900,
+  "c": ["口", "斤"]
+},
+"只": {
+  "p": "zhī, zhǐ",
+  "en": "only, mw animals",
+  "es": "solo, clasif. animales",
+  "r": "口",
+  "s": 5,
+  "f": 900,
+  "c": ["口", "八"]
 }
  
 };

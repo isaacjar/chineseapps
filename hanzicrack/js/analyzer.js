@@ -50,7 +50,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       /*const lv1Indicator = isAtomicInSimple ? " (átomico)" : "";
       
       lines.push(`${charSpan} [${pinyin}]${lv1Indicator} <span class="meaning">${meaning}</span>`);*/
-      lines.push(`${charSpan} [${pinyin}]} <span class="meaning">${meaning}</span>`);*/
+      lines.push(`${charSpan} [${pinyin}]} <span class="meaning">${meaning}</span>`);
       
       continue;
     }

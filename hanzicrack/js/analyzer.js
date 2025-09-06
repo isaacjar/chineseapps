@@ -38,10 +38,6 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
         ? data.p.join(", ")
         : (data.p || "");
       
-      /*const meaning = lang === "es" 
-        ? (Array.isArray(data.es) ? data.es.join(", ") : data.es)
-        : (Array.isArray(data.en) ? data.en.join(", ") : data.en);*/
-      
       const charSpan = data.source === "api"
         ? `<span class="from-api">${ch}</span>`
         : ch;
@@ -50,7 +46,7 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       /*const lv1Indicator = isAtomicInSimple ? " (átomico)" : "";
       
       lines.push(`${charSpan} [${pinyin}]${lv1Indicator} <span class="meaning">${meaning}</span>`);*/
-      lines.push(`${charSpan} [${pinyin}]} <span class="meaning">${meaning}</span>`);
+      lines.push(`${charSpan} [${p}]} <span class="meaning">${mainCharMeaning}</span>`);
       
       continue;
     }

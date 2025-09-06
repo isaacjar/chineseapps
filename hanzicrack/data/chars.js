@@ -250,7 +250,7 @@ export const data = {
     "strokes": 2,
     "frequency": 0,
     "components": []
-  }
+  },
   "八": {
     "pinyin": "bā",
     "meaning_en": "eight",

@@ -2400,7 +2400,7 @@ export const data = {
     "radical": "一",
     "strokes": 4,
     "frequency": 4,
-    "components": []
+    "components": ["一", "丿", "|", "丶"]
   },
   "了": {
     "pinyin": "le",

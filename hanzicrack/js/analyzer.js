@@ -93,8 +93,8 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
     const charSpan = data.source === "api"
       ? `<span class="from-api">${ch}</span>`
       : ch;
-
-    lines.push(`${charSpan} [<span class="mainCharPinyin">${pinyin}</span>] ➜ ${right}`);
+ 
+    lines.push(`${charSpan} [<span class="mainCharPinyin">${pinyin}</span>] <span class="meaning">${mainCharMeaning}</span> ➜ ${right}`);
   }
 
   return lines;

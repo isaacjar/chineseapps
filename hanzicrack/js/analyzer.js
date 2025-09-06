@@ -24,28 +24,35 @@ export async function analyzeText(text, mode = "simple", lang = "en") {
       continue;
     }
 
+    // Obtener significado del carácter principal
+    const mainCharMeaning = lang === "es" 
+      ? (Array.isArray(data.es) ? data.es.join(", ") : data.es)
+      : (Array.isArray(data.en) ? data.en.join(", ") : data.en);
+    
     // Verificar si el carácter es un radical, si no tiene componentes, o si es lv1 en modo simple
     const isRadical = data.r === ch;
     const isAtomicInSimple = mode === "simple" && data.l1 === true;
     
     if (isRadical || !data.c || data.c.length === 0 || isAtomicInSimple) {
-      console.log(" es Atomic in Simple");
+      console.log(ch & " es Atomic in Simple");
       const pinyin = Array.isArray(data.p)
         ? data.p.join(", ")
         : (data.p || "");
       
-      const meaning = lang === "es" 
+      /*const meaning = lang === "es" 
         ? (Array.isArray(data.es) ? data.es.join(", ") : data.es)
-        : (Array.isArray(data.en) ? data.en.join(", ") : data.en);
+        : (Array.isArray(data.en) ? data.en.join(", ") : data.en);*/
       
       const charSpan = data.source === "api"
         ? `<span class="from-api">${ch}</span>`
         : ch;
       
       // Añadir indicador si es tratado como atómico por ser lv1
-      const lv1Indicator = isAtomicInSimple ? " (átomico)" : "";
+      /*const lv1Indicator = isAtomicInSimple ? " (átomico)" : "";
       
-      lines.push(`${charSpan} [${pinyin}]${lv1Indicator} <span class="meaning">${meaning}</span>`);
+      lines.push(`${charSpan} [${pinyin}]${lv1Indicator} <span class="meaning">${meaning}</span>`);*/
+      lines.push(`${charSpan} [${pinyin}]} <span class="meaning">${meaning}</span>`);*/
+      
       continue;
     }
 

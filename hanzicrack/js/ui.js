@@ -78,9 +78,9 @@ export function showModalRadicals(radicals, lang, onSelect) {
       : "";
 
     btnRadical.innerHTML = `
-      <span class="radical-symbol">${r.radical}</span>
+      <span class="radical-symbol">${r.r}</span>
       <span class="radical-variants">${variants}</span>      
-      <span class="radical-meaning"><em class="radical-meaning">${lang === "es" ? r.meaning_es : r.meaning_en}</em></span>
+      <span class="radical-meaning"><em class="radical-meaning">${lang === "es" ? r.es : r.en}</em></span>
     `;
     //✅️ Le quito pinyin para que sea mas liviano <span class="radical-pinyin">[${r.pinyin}]</span>
     

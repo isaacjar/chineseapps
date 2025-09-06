@@ -4121,7 +4121,7 @@ export const data = {
     "s": 6,
     "f": 0,
     "c": ["ス", "工"]
-  }
+  },
 "弟": {
   "p": "dì",
   "en": "younger brother",
@@ -4177,14 +4177,14 @@ export const data = {
   "c": ["⺁", "口"]
 },
 "⺁": {
-    "p": "sī",
-    "en": "private (厶)",
-    "es": "privado (厶)",
-    "r": "厶",
-    "s": 2,
-    "f": 0,
-    "c": []
-  },
+  "p": "sī",
+  "en": "private (厶)",
+  "es": "privado (厶)",
+  "r": "厶",
+  "s": 2,
+  "f": 0,
+  "c": []
+},
 "到": {
   "p": "dào",
   "en": "to arrive",
@@ -4238,6 +4238,60 @@ export const data = {
   "s": 5,
   "f": 500,
   "c": ["干", "丷"]
+},
+"喂": {
+  "p": "wéi",
+  "en": "hello (on the phone)",
+  "es": "hola (al teléfono)",
+  "r": "口",
+  "s": 9,
+  "f": 600,
+  "c": ["口", "胃"]
+},
+"畏": {
+  "p": "wèi",
+  "en": "fear",
+  "es": "miedo",
+  "r": "田",
+  "s": 6,
+  "f": 450,
+  "c": ["田", "爪"]
+},
+"胃": {
+  "p": "wèi",
+  "en": "stomach",
+  "es": "estómago",
+  "r": "月",
+  "s": 9,
+  "f": 500,
+  "c": ["田", "⺼",]
+},
+"丌": {
+  "p": "jī",
+  "en": "pedestal",
+  "es": "pedestal",
+  "r": "一",
+  "s": 2,
+  "f": 0,
+  "c": ["一", "丿", "丨"]
+},
+"李": {
+  "p": "lǐ",
+  "en": "plum tree",
+  "es": "ciruelo",
+  "r": "木",
+  "s": 7,
+  "f": 800,
+  "c": ["木", "子"]
+},
+"里": {
+  "p": "lǐ",
+  "en": "inside, village",
+  "es": "interior, aldea",
+  "r": "里",
+  "s": 7,
+  "f": 600,
+  "c": ["田", "土"]
 }
   
 };

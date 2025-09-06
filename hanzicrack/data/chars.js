@@ -2410,7 +2410,7 @@ export const data = {
     "s": 2,
     "f": 5,
     "c": ["乛", "亅"],
-    "lv1": true
+    "l1": true
   },
   "我": {
     "p": "wǒ",

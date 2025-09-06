@@ -4101,7 +4101,16 @@ export const data = {
   "radical": "车",
   "strokes": 7,
   "frequency": 320,
-  "components": ["车", "𢀖", "工"]
+  "components": ["车", "ス", "工"]
+},
+"ス": {
+    "pinyin": "su",
+    "meaning_en": "river (巛)",
+    "meaning_es": "río (巛)",
+    "radical": "巛",
+    "strokes": 2,
+    "frequency": 0,
+    "components": []
 },
 "𢀖": {
     "pinyin": "yǐn",
@@ -4110,7 +4119,7 @@ export const data = {
     "radical": "𢀖",
     "strokes": 6,
     "frequency": 0,
-    "components": ["𢀖"]
+    "components": ["ス", "工"]
   }
 "弟": {
   "pinyin": "dì",

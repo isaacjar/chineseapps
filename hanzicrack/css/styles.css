@@ -432,7 +432,7 @@ main {
   font-style: italic;
 }
 
-/* styles.css - Agregar estas clases */
+/* LINEA DE ANALISIS */
 .pinyin {
   color: #615959;
   font-size: 0.95em;
@@ -442,6 +442,19 @@ main {
   color: #008c9c;
   font-size: 0.9em;
   font-style: italic;
+}
+
+/* Opcional: si quieres que se vea mejor en modo oscuro */
+.mainCharPinyin {
+  color: #550000; /* Color granate */
+  font-weight: bold;
+}
+
+/* Opcional: si quieres que se vea mejor en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .mainCharMeaning {
+    color: #ff6b6b; /* Un rojo más claro para modo oscuro */
+  }
 }
 
 /* Estilo para el texto de copyright */

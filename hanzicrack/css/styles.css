@@ -447,7 +447,7 @@ main {
 /* Opcional: si quieres que se vea mejor en modo oscuro */
 .mainCharPinyin {
   color: #550000; /* Color granate */
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 /* Opcional: si quieres que se vea mejor en modo oscuro */

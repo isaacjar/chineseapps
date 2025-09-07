@@ -57,6 +57,7 @@ function setupEventListeners() {
     }
   
     const outputDiv = document.getElementById("outputText");
+    outputDiv.innerHTML = ""; // Limpio contenido previo
     outputDiv.classList.add("loading"); // ⏳ mostrar spinner animado
   
     try {

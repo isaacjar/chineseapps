@@ -7,15 +7,27 @@
  */
   export function renderOutput(lines) {
     const output = document.getElementById("outputText");
-  
+    const fontSize = getSettings().fontSize || 16;
+
+    // Aplicar el tamaño de fuente actual
+    output.style.fontSize = `${fontSize}px`;
+    
     if (!lines) {
       output.innerHTML = "<em>(Sin resultados)</em>";
       return;
     }
   
     // Si es array → lo unimos con saltos de línea
-    if (Array.isArray(lines)) {
+    /*if (Array.isArray(lines)) {
       output.innerHTML = lines.join("<br>");
+      return;
+    }*/
+
+    // Si es array → crear líneas con separación
+    if (Array.isArray(lines)) {
+      output.innerHTML = lines.map(line => 
+        `<div class="output-line">${line}</div>`
+      ).join('');
       return;
     }
   

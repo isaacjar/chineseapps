@@ -1,5 +1,6 @@
 // ui.js
 // Funciones relacionadas con la interfaz de usuario
+import { getSettings } from "./settings.js"; // 👈 Añadir esta importación
 
 /**
  * Muestra las líneas de análisis en el cuadro de salida.

@@ -5210,6 +5210,60 @@ export const data = {
   "s": 8,
   "f": 900,
   "c": ["女", "台"]
+},
+"经": {
+  "p": "jīng ",
+  "en": "sacred scripture",
+  "es": "escritura sagrada",
+  "r": "纟",
+  "s": 7,
+  "f": 900,
+  "c": ["纟", "ス", "工"]
+},
+"新": {
+  "p": "xīn",
+  "en": "new",
+  "es": "nuevo",
+  "r": "斤",
+  "s": 13,
+  "f": 900,
+  "c": ["亲", "斤"]
+},
+"场": {
+  "p": "chǎng",
+  "en": "field",
+  "es": "campo",
+  "r": "土",
+  "s": 6,
+  "f": 850,
+  "c": ["土", "𠃓"]
+},
+"第": {
+  "p": "dì",
+  "en": "ordinal prefix",
+  "es": "prefijo ordinal",
+  "r": "竹",
+  "s": 11,
+  "f": 900,
+  "c": ["⺮", "弟"]
+},
+"𠃓": {
+  "p": "qiāo",
+  "en": "to rise, to shine (昜)",
+  "es": "elevarse, brillar (昜)",
+  "r": "昜",
+  "s": 1,
+  "f": 200,
+  "c": []
+},
+"昜": {
+  "p": "yáng",
+  "en": "to rise, to shine",
+  "es": "elevarse, brillar",
+  "r": "日",
+  "s": 8,
+  "f": 400,
+  "c": ["日", "勺"]
 }
  
 };

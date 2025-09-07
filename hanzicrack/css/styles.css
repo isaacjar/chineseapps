@@ -80,10 +80,10 @@ main {
 }
 
 .controls button {
-  padding: 0.6rem 0.9rem;
-  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   background: #0077cc;
   color: white;
@@ -102,9 +102,9 @@ main {
 .switch {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.7rem 1.2rem;   /* igual que los botones */
-  border-radius: 10px;      /* mismo redondeado */
+  gap: 0.1rem;
+  padding: 0.4rem 0.8rem;   /* igual que los botones */
+  border-radius: 5px;      /* mismo redondeado */
   background: transparent;  /* fondo limpio */
   color: #333;
 }

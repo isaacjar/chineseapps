@@ -98,7 +98,7 @@ function setupEventListeners() {
           if (!text) return;
   
           // 👇 Verificar que el radical tiene la estructura esperada
-          if (!radical || (!radical.radical && !radical.r)) {
+          if (!radical || !radical.r) {
             setMsg("Error: estructura de radical inválida");
             return;
           }
@@ -107,7 +107,7 @@ function setupEventListeners() {
           const charsToHighlight = new Set();
           
           // 👇 Usar radical.r como fallback si radical.radical no existe
-          const rad = radical.radical || radical.r;
+          const rad = radical.r;
           const variants = Array.isArray(radical.variants) && radical.variants.length > 0
             ? radical.variants
             : [];
@@ -125,15 +125,15 @@ function setupEventListeners() {
               const isRadicalItself = allForms.includes(ch);
               
               // 2. Buscar en el campo "radical" (si existe)
-              const hasInRadicalField = d.radical && allForms.includes(d.radical);
+              const hasInRadicalField = d.r && allForms.includes(d.r);
               
               // 3. Buscar en el campo "variants" (si existe y es array)
-              const hasInVariants = Array.isArray(d.variants) && 
-                                   allForms.some(form => d.variants.includes(form));
+              const hasInVariants = Array.isArray(d.v) && 
+                                   allForms.some(form => d.v.includes(form));
               
               // 4. Buscar en el campo "components" (si existe y es array)
-              const hasInComponents = Array.isArray(d.components) && 
-                                     allForms.some(form => d.components.includes(form));
+              const hasInComponents = Array.isArray(d.c) && 
+                                     allForms.some(form => d.c.includes(form));
               
               // Si se encuentra en CUALQUIERA de estos campos, añadir a resaltar
               if (isRadicalItself || hasInRadicalField || hasInVariants || hasInComponents) {

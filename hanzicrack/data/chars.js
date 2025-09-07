@@ -1,5 +1,5 @@
 export const data = {
-  "一": {
+"一": {
   "p": "yī",
   "en": "one",
   "es": "uno",
@@ -4994,6 +4994,60 @@ export const data = {
   "s": 6,
   "f": 850,
   "c": ["亠", "父"]
+},
+"已": {
+  "p": "yǐ",
+  "en": "already, to stop",
+  "es": "ya, detenerse",
+  "r": "己",
+  "s": 3,
+  "f": 900,
+  "c": []
+},
+"尤": {
+  "p": "yóu",
+  "en": "especially",
+  "es": "especialmente",
+  "r": "尢",
+  "s": 4,
+  "f": 600,
+  "c": []
+},
+"亲": {
+  "p": "qīn",
+  "en": "relative",
+  "es": "pariente",
+  "r": "见",
+  "s": 9,
+  "f": 900,
+  "c": ["立", "木", "见"]
+},
+"勿": {
+  "p": "wù",
+  "en": "not, must not",
+  "es": "no, prohibido",
+  "r": "勹",
+  "s": 4,
+  "f": 700,
+  "c": ["勹", "丿", "丿"]
+},
+"旦": {
+  "p": "dàn",
+  "en": "dawn",
+  "es": "amanecer",
+  "r": "日",
+  "s": 5,
+  "f": 750,
+  "c": ["日", "一"]
+},
+"井": {
+  "p": "jǐng",
+  "en": "well (for water)",
+  "es": "pozo",
+  "r": "二",
+  "s": 4,
+  "f": 700,
+  "c": ["二", "丨", "丿", "一"]
 }
  
 };

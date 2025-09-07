@@ -162,7 +162,7 @@ main {
 
 /* Separación entre líneas de análisis */
 .output-line {
-  margin-bottom: 0.5em; /* Mitad del tamaño de fuente actual */
+  margin-bottom: 0.25em; /* Mitad del tamaño de fuente actual */
   line-height: 1.4;
   padding: 2px 0;
 }

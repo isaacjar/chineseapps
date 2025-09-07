@@ -4967,6 +4967,33 @@ export const data = {
   "s": 5,
   "f": 900,
   "c": ["口", "八"]
+},
+"菜": {
+  "p": "cài",
+  "en": "dish, vegetable",
+  "es": "plato, verdura",
+  "r": "艹",
+  "s": 11,
+  "f": 900,
+  "c": ["艹", "采"]
+},
+"戋": {
+  "p": "jiān",
+  "en": "narrow, shallow",
+  "es": "estrecho, superficial",
+  "r": "戈",
+  "s": 5,
+  "f": 300,
+  "c": ["一", "戈"]
+},
+"交": {
+  "p": "jiāo",
+  "en": "to exchange",
+  "es": "intercambiar",
+  "r": "亠",
+  "s": 6,
+  "f": 850,
+  "c": ["亠", "父"]
 }
  
 };

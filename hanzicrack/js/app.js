@@ -91,16 +91,26 @@ function setupEventListeners() {
       .then(radicals => {
         const { lang } = getSettings();
         showModalRadicals(radicals, lang, radical => {
+          // 👇 Añadir debug para ver la estructura del radical
+          console.log("Radical seleccionado:", radical);
+          
           const text = document.getElementById("inputText").value || "";
           if (!text) return;
   
-          const dict = getCharsData(); // local + nuevos en memoria
+          // 👇 Verificar que el radical tiene la estructura esperada
+          if (!radical || (!radical.radical && !radical.r)) {
+            setMsg("Error: estructura de radical inválida");
+            return;
+          }
+  
+          const dict = getCharsData();
           const charsToHighlight = new Set();
           
-          const rad = radical.radical;
+          // 👇 Usar radical.r como fallback si radical.radical no existe
+          const rad = radical.radical || radical.r;
           const variants = Array.isArray(radical.variants) && radical.variants.length > 0
-          ? radical.variants
-          : [];
+            ? radical.variants
+            : [];
   
           // conjunto de formas aceptadas (radical + variantes)
           const allForms = [rad, ...variants];
@@ -111,7 +121,6 @@ function setupEventListeners() {
   
             const d = dict[ch];
             if (d) {
-
               // 1. Buscar en el carácter mismo (si es igual al radical buscado)
               const isRadicalItself = allForms.includes(ch);
               
@@ -129,7 +138,6 @@ function setupEventListeners() {
               // Si se encuentra en CUALQUIERA de estos campos, añadir a resaltar
               if (isRadicalItself || hasInRadicalField || hasInVariants || hasInComponents) {
                 charsToHighlight.add(ch);
-                
               }
             }
           }
@@ -138,6 +146,10 @@ function setupEventListeners() {
           highlightCharacters(text, charsToHighlight);
           setMsg(`Radical ${rad}${variantsStr} found in ${charsToHighlight.size} chars.`);
         });
+      })
+      .catch(error => {
+        console.error("Error loading radicals:", error);
+        setMsg("Error loading radicals data");
       });
   });
   

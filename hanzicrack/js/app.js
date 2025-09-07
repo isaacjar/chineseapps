@@ -92,7 +92,7 @@ function setupEventListeners() {
         const { lang } = getSettings();
         showModalRadicals(radicals, lang, radical => {
           // 👇 Añadir debug para ver la estructura del radical
-          console.log("Radical seleccionado:", radical);
+          //console.log("Radical seleccionado:", radical);
           
           const text = document.getElementById("inputText").value || "";
           if (!text) return;

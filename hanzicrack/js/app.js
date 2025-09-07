@@ -85,83 +85,95 @@ function setupEventListeners() {
   });
       
   // Buscar radical (abre modal)
-btnRadical?.addEventListener("click", () => {
-fetch("./data/radicals.json")
-  .then(r => r.json())
-  .then(radicals => {
-    const { lang } = getSettings();
-    showModalRadicals(radicals, lang, radical => {
-      const text = document.getElementById("inputText").value || "";
-      if (!text) return;
-
-      if (!radical || !radical.r) {
-        setMsg("Error: estructura de radical inválida");
-        return;
-      }
-
-      const dict = getCharsData();
-      const charsToHighlight = new Set();
-      
-      const rad = radical.r;
-      const variants = Array.isArray(radical.variants) && radical.variants.length > 0
-        ? radical.variants
-        : [];
-
-      // conjunto de formas aceptadas (radical + variantes)
-      const allForms = [rad, ...variants];
-
-      for (const ch of text) {
-        // solo caracteres Han
-        if (!/\p{Script=Han}/u.test(ch)) continue;
-
-        const d = dict[ch];
-        if (d) {
-          // 1. Buscar en el carácter mismo (si es igual al radical buscado)
-          const isRadicalItself = allForms.includes(ch);
+  btnRadical?.addEventListener("click", () => {
+    fetch("./data/radicals.json")
+      .then(r => r.json())
+      .then(radicals => {
+        const { lang } = getSettings();
+        showModalRadicals(radicals, lang, async (radical) => {
+          const text = document.getElementById("inputText").value || "";
+          if (!text) return;
+  
+          if (!radical || !radical.r) {
+            setMsg("Error: estructura de radical inválida");
+            return;
+          }
+  
+          const outputDiv = document.getElementById("outputText");
+          outputDiv.innerHTML = ""; // 👈 Limpiar contenido previo
+          outputDiv.classList.add("loading"); // 👈 Mostrar spinner animado
+  
+          const charsToHighlight = new Set();
           
-          // 2. Buscar en el campo "radical" (si existe)
-          const hasInRadicalField = d.r && allForms.includes(d.r);
-          
-          // 3. Buscar en el campo "variants" (si existe y es array)
-          const hasInVariants = Array.isArray(d.v) && 
-                               allForms.some(form => d.v.includes(form));
-          
-          // 4. Buscar en el campo "components" (si existe y es array)
-          const hasInComponents = Array.isArray(d.c) && 
-                                 allForms.some(form => d.c.includes(form));
-          
-          // 5. 🔍 NUEVO: Buscar en subcomponentes (1 nivel de profundidad)
-          let hasInSubcomponents = false;
-          if (Array.isArray(d.c)) {
-            for (const comp of d.c) {
-              const compData = dict[comp];
-              if (compData && Array.isArray(compData.c)) {
-                // Buscar en los componentes del componente (solo 1 nivel adicional)
-                if (compData.c.some(subComp => allForms.includes(subComp))) {
-                  hasInSubcomponents = true;
-                  break;
+          const rad = radical.r;
+          const variants = Array.isArray(radical.variants) && radical.variants.length > 0
+            ? radical.variants
+            : [];
+  
+          // conjunto de formas aceptadas (radical + variantes)
+          const allForms = [rad, ...variants];
+  
+          try {
+            for (const ch of text) {
+              // solo caracteres Han
+              if (!/\p{Script=Han}/u.test(ch)) continue;
+  
+              // 👇 Usar getCharacterData() que busca en local + API
+              const d = await getCharacterData(ch);
+              if (d) {
+                // 1. Buscar en el carácter mismo (si es igual al radical buscado)
+                const isRadicalItself = allForms.includes(ch);
+                
+                // 2. Buscar en el campo "radical" (si existe)
+                const hasInRadicalField = d.r && allForms.includes(d.r);
+                
+                // 3. Buscar en el campo "variants" (si existe y es array)
+                const hasInVariants = Array.isArray(d.v) && 
+                                    allForms.some(form => d.v.includes(form));
+                
+                // 4. Buscar en el campo "components" (si existe y es array)
+                const hasInComponents = Array.isArray(d.c) && 
+                                      allForms.some(form => d.c.includes(form));
+                
+                // 5. 🔍 Buscar en subcomponentes (1 nivel de profundidad)
+                let hasInSubcomponents = false;
+                if (Array.isArray(d.c)) {
+                  for (const comp of d.c) {
+                    // 👇 También buscar datos del componente en API si es necesario
+                    const compData = await getCharacterData(comp);
+                    if (compData && Array.isArray(compData.c)) {
+                      // Buscar en los componentes del componente (solo 1 nivel adicional)
+                      if (compData.c.some(subComp => allForms.includes(subComp))) {
+                        hasInSubcomponents = true;
+                        break;
+                      }
+                    }
+                  }
+                }
+                
+                // Si se encuentra en CUALQUIERA de estos campos, añadir a resaltar
+                if (isRadicalItself || hasInRadicalField || hasInVariants || hasInComponents || hasInSubcomponents) {
+                  charsToHighlight.add(ch);
                 }
               }
             }
+  
+            const variantsStr = variants.length > 0 ? ` (${variants.join(", ")})` : "";
+            highlightCharacters(text, charsToHighlight);
+            setMsg(`Radical ${rad}${variantsStr} found in ${charsToHighlight.size} chars.`);
+          } catch (err) {
+            console.error("❌ Error en búsqueda de radicales:", err);
+            setMsg("Error durante la búsqueda de radicales");
+          } finally {
+            outputDiv.classList.remove("loading"); // 👈 Quitar spinner animado
           }
-          
-          // Si se encuentra en CUALQUIERA de estos campos, añadir a resaltar
-          if (isRadicalItself || hasInRadicalField || hasInVariants || hasInComponents || hasInSubcomponents) {
-            charsToHighlight.add(ch);
-          }
-        }
-      }
-
-      const variantsStr = variants.length > 0 ? ` (${variants.join(", ")})` : "";
-      highlightCharacters(text, charsToHighlight);
-      setMsg(`Radical ${rad}${variantsStr} found in ${charsToHighlight.size} chars.`);
-    });
-  })
-  .catch(error => {
-    console.error("Error loading radicals:", error);
-    setMsg("Error loading radicals data");
+        });
+      })
+      .catch(error => {
+        console.error("Error loading radicals:", error);
+        setMsg("Error loading radicals data");
+      });
   });
-});
   
   // Descargar JSON completo (local + nuevos)
   btnDownloadFull?.addEventListener("click", () => {

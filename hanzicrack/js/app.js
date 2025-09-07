@@ -111,16 +111,25 @@ function setupEventListeners() {
   
             const d = dict[ch];
             if (d) {
-              // Buscar en el campo "radical" (si existe)
-              const hasRadicalField = d.radical && allForms.includes(d.radical);
+
+              // 1. Buscar en el carácter mismo (si es igual al radical buscado)
+              const isRadicalItself = allForms.includes(ch);
               
-              // Buscar en el campo "components" (si existe y es array)
+              // 2. Buscar en el campo "radical" (si existe)
+              const hasInRadicalField = d.radical && allForms.includes(d.radical);
+              
+              // 3. Buscar en el campo "variants" (si existe y es array)
+              const hasInVariants = Array.isArray(d.variants) && 
+                                   allForms.some(form => d.variants.includes(form));
+              
+              // 4. Buscar en el campo "components" (si existe y es array)
               const hasInComponents = Array.isArray(d.components) && 
                                      allForms.some(form => d.components.includes(form));
               
-              // Si se encuentra en cualquiera de los dos campos, añadir a resaltar
-              if (hasRadicalField || hasInComponents) {
+              // Si se encuentra en CUALQUIERA de estos campos, añadir a resaltar
+              if (isRadicalItself || hasInRadicalField || hasInVariants || hasInComponents) {
                 charsToHighlight.add(ch);
+                
               }
             }
           }

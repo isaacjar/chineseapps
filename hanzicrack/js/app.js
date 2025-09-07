@@ -4,7 +4,7 @@ import { initSettings, getSettings } from "./settings.js";
 import { saveCharsJson, getCharsData } from "./storage.js";  
 import { analyzeText } from "./analyzer.js";
 import { renderOutput, setMsg, openModal, closeModal, showModalRadicals, highlightCharacters } from "./ui.js";
-import { downloadNewCharsJSON } from "./api.js";
+import { downloadNewCharsJSON, getCharacterData } from "./api.js";
 import { debugText } from "./debug.js"; 
 import { showStrokes } from "./strokes.js";  // 👈 nuevo import
 

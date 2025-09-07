@@ -28,6 +28,9 @@ let currentMode = "simple";
 function setupEventListeners() {
   const btnAnalyze = document.getElementById("btnAnalyze");
   const btnRadical = document.getElementById("btnRadical");
+  const modeSwitch = document.getElementById("modeSwitch"); // 
+  const btnClear = document.getElementById("btnClear"); // 🧹
+  
   const btnDownloadFull = document.getElementById("btnDownloadFull");
   const btnDownloadNew = document.getElementById("btnDownloadNew");
   const btnSettings = document.getElementById("btnSettings");
@@ -35,7 +38,6 @@ function setupEventListeners() {
   const btnCloseRadical = document.getElementById("btnCloseRadical");
   const btnValidate = document.getElementById("btnValidate");
   const btnStrokes = document.getElementById("btnStrokes");
-  const modeSwitch = document.getElementById("modeSwitch");
 
   // 🧠 SWITCH BUSQUEDA PROFUNDA
   if (modeSwitch) {
@@ -129,7 +131,12 @@ function setupEventListeners() {
         });
       });
   });
-
+  
+  // 🧹 Limpiar áreas de texto
+  btnClear?.addEventListener("click", () => {
+    clearAllTextAreas();
+  });
+  
   // Descargar JSON completo (local + nuevos)
   btnDownloadFull?.addEventListener("click", () => {
     saveCharsJson();
@@ -208,4 +215,17 @@ function setupEventListeners() {
     const input = document.getElementById("inputText").value.trim();
     showStrokes(input);
   });
+}
+
+/**
+ * 🧹 Limpia todas las áreas de texto (input y output)
+ */
+function clearAllTextAreas() {
+  const inputText = document.getElementById("inputText");
+  const outputText = document.getElementById("outputText");
+  
+  if (inputText) inputText.value = "";
+  if (outputText) outputText.innerHTML = "";
+  
+  setMsg("Cleared 🧹");
 }

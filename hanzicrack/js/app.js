@@ -99,7 +99,7 @@ function setupEventListeners() {
           const variants = Array.isArray(radical.variants) && radical.variants.length > 0
           ? radical.variants
           : [];
-
+  
           // conjunto de formas aceptadas (radical + variantes)
           const allForms = [rad, ...variants];
   
@@ -108,9 +108,16 @@ function setupEventListeners() {
             if (!/\p{Script=Han}/u.test(ch)) continue;
   
             const d = dict[ch];
-            if (d && Array.isArray(d.components)) {
-              // si algún radical o variante está en los componentes → match
-              if (allForms.some(form => d.components.includes(form))) {
+            if (d) {
+              // Buscar en el campo "radical" (si existe)
+              const hasRadicalField = d.radical && allForms.includes(d.radical);
+              
+              // Buscar en el campo "components" (si existe y es array)
+              const hasInComponents = Array.isArray(d.components) && 
+                                     allForms.some(form => d.components.includes(form));
+              
+              // Si se encuentra en cualquiera de los dos campos, añadir a resaltar
+              if (hasRadicalField || hasInComponents) {
                 charsToHighlight.add(ch);
               }
             }

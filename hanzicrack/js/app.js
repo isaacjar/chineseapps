@@ -185,6 +185,11 @@ function setupEventListeners() {
     downloadNewCharsJSON();
   });
 
+  // Descargar JSON completo (local + nuevos)
+  btnClear?.addEventListener("click", () => {
+    clearAllTextAreas();
+  });
+
   // Abrir configuración
   btnSettings?.addEventListener("click", () => {
     openModal("settingsModal");

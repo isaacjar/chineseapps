@@ -62,6 +62,24 @@ export const data = {
   "f": 130,
   "c": []
 },
+"㇙": {
+  "p": "héng zhè",
+  "en": "horizontal bend stroke",
+  "es": "trazo horizontal con quiebre",
+  "r": "",
+  "s": 1,
+  "f": 0,
+  "c": []
+},  
+"㇗": {
+  "p": "héng gōu",
+  "en": "horizontal hook stroke",
+  "es": "trazo horizontal con gancho",
+  "r": "",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
 "㇁": {
   "p": "wān gōu",
   "en": "curved hook",
@@ -861,7 +879,7 @@ export const data = {
   "r": "无",
   "s": 4,
   "f": 90,
-  "c": []
+  "c": ["二","丿","乚"]
 },
 "日": {
   "p": "rì",
@@ -978,6 +996,15 @@ export const data = {
   "r": "火",
   "s": 4,
   "f": 400,
+  "c": []
+},
+"灬": {
+  "p": "huǒ",
+  "en": "fire (火)",
+  "es": "fuego (火)",
+  "r": "灬",
+  "s": 4,
+  "f": 160,
   "c": []
 },
 "爪": {
@@ -1261,8 +1288,8 @@ export const data = {
 },
 "立": {
   "p": "lì",
-  "en": "stand",
-  "es": "estar de pie",
+  "en": "stand, position",
+  "es": "estar de pie, posición",
   "r": "立",
   "s": 5,
   "f": 250,
@@ -3015,15 +3042,6 @@ export const data = {
   "f": 200,
   "c": []
 },
-"灬": {
-  "p": "huǒ",
-  "en": "fire (火)",
-  "es": "fuego (火)",
-  "r": "灬",
-  "s": 4,
-  "f": 160,
-  "c": []
-},
 "爫": {
   "p": "zhǎo",
   "en": "claw (爪)",
@@ -3292,8 +3310,17 @@ export const data = {
     "r": "巳",
     "s": 4,
     "f": 0,
-    "c": ["巳","？"],
-  },
+    "c": ["巳","丨"],
+},
+"巳": {
+  "p": "sì",
+  "en": "6th Earthly Branch (snake)",
+  "es": "sexta rama terrestre (serpiente)",
+  "r": "巳",
+  "s": 3,
+  "f": 500,
+  "c": []
+},
   "马": {
     "p": "mǎ",
     "en": "horse",
@@ -3437,8 +3464,17 @@ export const data = {
     "s": 6,
     "f": 95,
     "c": ["一", "儿", "口"]
-  },
-  "影": {
+},
+"覀": {
+  "p": "yà",
+  "en": "west (西)",
+  "es": "oeste (西)",
+  "r": "西",
+  "s": 6,
+  "f": 0,
+  "c": [""]
+},
+"影": {
     "p": "yǐng",
     "en": "shadow",
     "es": "sombra",
@@ -3834,15 +3870,6 @@ export const data = {
     "f": 21,
     "c": ["西", "女"]
   },
-  "覀": {
-    "p": "yà",
-    "en": "west (西)",
-    "es": "oeste (西)",
-    "r": "西",
-    "s": 6,
-    "f": 0,
-    "c": [""]
-  },
   "解": {
     "p": "jiě",
     "en": "to divide",
@@ -3909,7 +3936,7 @@ export const data = {
   "卄": {
     "p": "niàn",
     "en": "clapping hands (20 fingers)",
-    "es": "veinte (forma antigua)",
+    "es": "manos aplaudiendo (20 dedos)",
     "r": "廾",
     "s": 4,
     "f": 0,
@@ -5417,6 +5444,213 @@ export const data = {
   "s": 6,
   "f": 500,
   "c": ["人", "一", "口"]
+},
+"夭": {
+  "p": "yāo",
+  "en": "die young",
+  "es": "morir joven",
+  "r": "大",
+  "s": 6,
+  "f": 500,
+  "c": ["丿", "大"]
+},
+"昔": {
+  "p": "xī",
+  "en": "former",
+  "es": "anterior",
+  "r": "日",
+  "s": 6,
+  "f": 500,
+  "c": ["土", "土", "日"]
+},
+"昌": {
+  "p": "chāng",
+  "en": "prosperous",
+  "es": "próspero",
+  "r": "日",
+  "s": 8,
+  "f": 500,
+  "c": ["日", "日"]
+},
+"卬": {
+  "p": "áng",
+  "en": "to raise",
+  "es": "elevar",
+  "r": "卩",
+  "s": 6,
+  "f": 500,
+  "c": ["丿", "㇙", "卩"]
+},
+"邦": {
+  "p": "bāng",
+  "en": "state, nation",
+  "es": "estado, nación",
+  "r": "阝",
+  "s": 8,
+  "f": 500,
+  "c": ["阝", "丰"]
+},
+"丰": {
+  "p": "fēng",
+  "en": "abundant",
+  "es": "abundante",
+  "r": "一",
+  "s": 4,
+  "f": 500,
+  "c": ["三", "丨"]
+},
+"無": {
+  "p": "wú",
+  "en": "none, nothing",
+  "es": "ninguno, nada",
+  "r": "灬",
+  "s": 12,
+  "f": 500,
+  "c": ["𠂉", "卌", 一", "灬"]
+},
+"卌": {
+  "p": "xì",
+  "en": "forty",
+  "es": "cuarenta",
+  "r": "卜",
+  "s": 4,
+  "f": 100,
+  "c": ["卄", "卄"]
+},
+"包": {
+  "p": "bāo",
+  "en": "to wrap",
+  "es": "envolver",
+  "r": "勹",
+  "s": 5,
+  "f": 500,
+  "c": ["勹", "巳"]
+},
+"兆": {
+  "p": "zhào",
+  "en": "omen, trillion",
+  "es": "presagio, señal, billón",
+  "r": "儿",
+  "s": 6,
+  "f": 500,
+  "c": ["儿", "冫", "丿", "丶"]
+},
+"曼": {
+  "p": "màn",
+  "en": "extended",
+  "es": "extendido",
+  "r": "又",
+  "s": 10,
+  "f": 500,
+  "c": ["日", "罒", "又"]
+},
+"监": {
+  "p": "jiān",
+  "en": "to supervise",
+  "es": "supervisar",
+  "r": "皿",
+  "s": 11,
+  "f": 500,
+  "c": ["𰀢", "皿"]
+},
+"𰀢": {
+  "p": "chén",
+  "en": "official (臣)",
+  "es": "funcionario (臣)",
+  "r": "臣",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
+"员": {
+  "p": "yuán",
+  "en": "member",
+  "es": "miembro",
+  "r": "口",
+  "s": 7,
+  "f": 500,
+  "c": ["口", "贝"]
+},
+"乃": {
+  "p": "nǎi",
+  "en": "your, therefore",
+  "es": "tu, por lo tanto",
+  "r": "乃",
+  "s": 2,
+  "f": 500,
+  "c": []
+},
+"𠄎": {
+  "p": "héng zhè",
+  "en": "horizontal bend stroke (乃)",
+  "es": "trazo horizontal con doblez (乃)",
+  "r": "乃",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
+"未": {
+  "p": "wèi",
+  "en": "not yet",
+  "es": "aún no",
+  "r": "木",
+  "s": 5,
+  "f": 500,
+  "c": ["一", "木"]
+},
+"永": {
+  "p": "yǒng",
+  "en": "eternal",
+  "es": "eterno",
+  "r": "水",
+  "s": 5,
+  "f": 500,
+  "c": ["丶", "水"]
+},
+"董": {
+  "p": "dǒng",
+  "en": "supervise",
+  "es": "supervisar",
+  "r": "艹",
+  "s": 12,
+  "f": 500,
+  "c": ["艹", "重"]
+},
+"重": {
+  "p": "zhòng",
+  "en": "heavy",
+  "es": "pesado",
+  "r": "里",
+  "s": 9,
+  "f": 500,
+  "c": ["千", "里"]
+},
+"彦": {
+  "p": "yàn",
+  "en": "talented person",
+  "es": "persona talentosa",
+  "r": "彡",
+  "s": 9,
+  "f": 500,
+  "c": ["立", "厂", "彡"]
+},
+"易": {
+  "p": "yì",
+  "en": "easy",
+  "es": "fácil",
+  "r": "日",
+  "s": 8,
+  "f": 500,
+  "c": ["日", "勿"]
+},
+"加": {
+  "p": "jiā",
+  "en": "to add",
+  "es": "añadir",
+  "r": "力",
+  "s": 5,
+  "f": 500,
+  "c": ["力", "口"]
 }
  
 };

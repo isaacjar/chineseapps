@@ -106,7 +106,7 @@ export const data = {
   "s": 2,
   "f": 0,
   "c": ["丨", "㇒"]
-}
+},
 "㇗": {
   "p": "héng gōu",
   "en": "horizontal hook stroke",

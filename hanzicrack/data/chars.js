@@ -5660,6 +5660,168 @@ export const data = {
   "s": 5,
   "f": 500,
   "c": ["丿", "夫"]
+},
+"步": {
+  "p": "bù",
+  "en": "step",
+  "es": "paso",
+  "r": "止",
+  "s": 7,
+  "f": 500,
+  "c": ["止", "𣥂"]
+},
+"𣥂": {
+  "p": "bù",
+  "en": "step (止)",
+  "es": "paso (止)",
+  "r": "止",
+  "s": 4,
+  "f": 0,
+  "c": []
+},
+"乐": {
+  "p": ["lè, yuè"],
+  "en": ["happy, music"],
+  "es": ["feliz, música"],
+  "r": "丿",
+  "s": 5,
+  "f": 500,
+  "c": []
+},
+"左": {
+  "p": "zuǒ",
+  "en": "left",
+  "es": "izquierda",
+  "r": "工",
+  "s": 5,
+  "f": 500,
+  "c": ["𠂇", "工"]
+},
+"右": {
+  "p": "yòu",
+  "en": "right",
+  "es": "derecha",
+  "r": "口",
+  "s": 5,
+  "f": 500,
+  "c": ["𠂇", "口"]
+},
+"业": {
+  "p": "yè",
+  "en": "profession",
+  "es": "profesión",
+  "r": "丵",
+  "s": 5,
+  "f": 500,
+  "c": ["丨", "丨", "丷", "一"]
+},
+"通": {
+  "p": "tōng",
+  "en": "to go through",
+  "es": "atravesar",
+  "r": "辵",
+  "s": 10,
+  "f": 500,
+  "c": ["甬", "辶"]
+},
+"甬": {
+  "p": "yǒng",
+  "en": "path",
+  "es": "camino",
+  "r": "用",
+  "s": 9,
+  "f": 2000,
+  "c": ["龴", "用"]
+},
+"龴": {
+  "p": "-",
+  "en": "(auxiliar component)",
+  "es": "(componente auxiliar)",
+  "r": "",
+  "s": 2,
+  "f": 0,
+  "c": ["乛", "丶"]
+},
+"万": {
+  "p": "wàn",
+  "en": "ten thousand",
+  "es": "diez mil",
+  "r": "一",
+  "s": 3,
+  "f": 500,
+  "c": ["一", "丿", "𠃌"]
+},
+"赛": {
+  "p": "sài",
+  "en": "competition",
+  "es": "competición",
+  "r": "宀",
+  "s": 14,
+  "f": 500,
+  "c": ["宀", "共", "贝"]
+},
+"共": {
+  "p": "gòng",
+  "en": "common",
+  "es": "común",
+  "r": "八",
+  "s": 6,
+  "f": 500,
+  "c": ["龷", "八"]
+},
+"龷": {
+  "p": "-",
+  "en": "(auxiliary component)",
+  "es": "(componente auxiliar)",
+  "r": "",
+  "s": 3,
+  "f": 0,
+  "c": []
+},
+"向": {
+  "p": "xiàng",
+  "en": "towards",
+  "es": "hacia",
+  "r": "口",
+  "s": 6,
+  "f": 500,
+  "c": ["𰃦", "口"]
+},
+"𰃦": {
+  "p": "(componente auxiliar)",
+  "en": "auxiliary component",
+  "es": "componente auxiliar",
+  "r": "",
+  "s": 3,
+  "f": 0,
+  "c": ["冂", "㇀"]
+},
+"节": {
+  "p": "jié",
+  "en": "festival",
+  "es": "fiesta",
+  "r": "艸",
+  "s": 5,
+  "f": 500,
+  "c": ["艹", "𰆊"]
+},
+"单": {
+  "p": "dān",
+  "en": "single",
+  "es": "simple",
+  "r": "口",
+  "s": 8,
+  "f": 500,
+  "c": ["丷", "田", "十"]
+}, 
+"𰆊": {
+  "p": "jié",
+  "en": "seal (卩)",
+  "es": "sello (卩)",
+  "r": "",
+  "s": 3,
+  "f": 0,
+  "c": []
 }
- 
+  
 };

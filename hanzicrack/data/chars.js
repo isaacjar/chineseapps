@@ -106,7 +106,7 @@ export const data = {
   "s": 1,
   "f": 0,
   "c": []
-}
+},
 "㇃": {
   "p": "wò gōu",
   "en": "lying hook",

@@ -35,6 +35,24 @@ export const data = {
   "f": 160,
   "c": []
 },
+"乀": {
+  "p": "fú",
+  "en": "left-falling stroke",
+  "es": "trazo descendente a la izquierda",
+  "r": "",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
+"㇏": {
+  "p": "gōu",
+  "en": "hook stroke",
+  "es": "trazo con gancho",
+  "r": "",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
 "乙": {
   "p": "yǐ",
   "en": "second",
@@ -42,6 +60,15 @@ export const data = {
   "r": "乙",
   "s": 1,
   "f": 150,
+  "c": []
+},
+"𠃌": {
+  "p": "gǔn",
+  "en": "backward tip of a hook",
+  "es": "gancho doblado",
+  "r": "",
+  "s": 1,
+  "f": 0,
   "c": []
 },
 "亅": {
@@ -71,6 +98,15 @@ export const data = {
   "f": 0,
   "c": []
 },  
+"𠄌": {
+  "p": "jué",
+  "en": "hook",
+  "es": "gancho",
+  "r": "",
+  "s": 2,
+  "f": 0,
+  "c": ["丨", "㇒"]
+}
 "㇗": {
   "p": "héng gōu",
   "en": "horizontal hook stroke",
@@ -224,6 +260,15 @@ export const data = {
   "f": 0,
   "c": []
 },
+"𠂊": {
+  "p": "(componente auxiliar)",
+  "en": "auxiliary component (basic stroke)",
+  "es": "componente auxiliar (trazo básico)",
+  "r": "",
+  "s": 1,
+  "f": 0,
+  "c": ["丿", "㇇")]
+},
 "二": {
     "p": "èr",
     "en": "two",
@@ -323,6 +368,15 @@ export const data = {
   "f": 120,
   "c": []
 },
+"⺀": {
+  "p": "bīng",
+  "en": "ice (冫)",
+  "es": "hielo (冫)",
+  "r": "冫",
+  "s": 2,
+  "f": 0,
+  "c": ["丶", "丶"]
+}, 
 "几": {
   "p": "jī",
   "en": "table",
@@ -350,6 +404,24 @@ export const data = {
   "f": 200,
   "c": []
 },
+"刂": {
+    "p": "dāo",
+    "en": "knife (刀)",
+    "es": "cuchillo (刀)",
+    "r": "刀",
+    "s": 2,
+    "f": 200,
+    "c": []
+  },
+"⺈": {
+    "p": "dāo",
+    "en": "knife (刀)",
+    "es": "cuchillo (刀)",
+    "r": "刀",
+    "s": 7,
+    "f": 55,
+    "c": []
+  },
 "力": {
   "p": "lì",
   "en": "power",
@@ -411,6 +483,15 @@ export const data = {
   "r": "卩",
   "s": 2,
   "f": 90,
+  "c": []
+},
+"㔾": {
+  "p": "xiān",
+  "en": "seal (卩)",
+  "es": "sello (卩)",
+  "r": "卩",
+  "s": 5,
+  "f": 0,
   "c": []
 },
 "厂": {
@@ -609,6 +690,15 @@ export const data = {
   "r": "尸",
   "s": 3,
   "f": 85,
+  "c": []
+},
+"𠃜": {
+  "p": "shī",
+  "en": "corpse (尸)",
+  "es": "cadáver (尸)",
+  "r":  "尸",
+  "s": 1,
+  "f": 0,
   "c": []
 },
 "屮": {
@@ -1123,6 +1213,15 @@ export const data = {
   "s": 5,
   "f": 500,
   "c": []
+},
+"龶": {
+  "p": "shēng",
+  "en": "life (生)",
+  "es": "vida (生)",
+  "r": "生",
+  "s": 5,
+  "f": 0,
+  "c": ["三", "丨"]
 },
 "用": {
   "p": "yòng",
@@ -1655,15 +1754,6 @@ export const data = {
   "f": 55,
   "c": []
 },
-  "⺈": {
-    "p": "gǔ",
-    "en": "valley (谷)",
-    "es": "valle (谷)",
-    "r": "谷",
-    "s": 7,
-    "f": 55,
-    "c": []
-  },
   "豆": {
     "p": "dòu",
     "en": "bean",
@@ -2564,15 +2654,6 @@ export const data = {
     "s": 9,
     "f": 80,
     "c": ["丷", "一", "月", "刂"]
-  },
-  "刂": {
-    "p": "dāo",
-    "en": "knife",
-    "es": "cuchillo",
-    "r": "刀",
-    "s": 2,
-    "f": 200,
-    "c": []
   },
   "机": {
     "p": "jī",
@@ -5822,6 +5903,204 @@ export const data = {
   "s": 3,
   "f": 0,
   "c": []
+},
+"级": {
+  "p": "jí",
+  "en": "level, grade",
+  "es": "nivel, grado",
+  "r": "纟",
+  "s": 7,
+  "f": 500,
+  "c": ["纟", "及"]
+},
+"越": {
+  "p": "yuè",
+  "en": "to exceed",
+  "es": "sobrepasar",
+  "r": "走",
+  "s": 12,
+  "f": 500,
+  "c": ["戉", "走"]
+},
+"及": {
+  "p": "jí",
+  "en": "to reach; and; as well as",
+  "es": "alcanzar; y; así como",
+  "r": "又",
+  "s": 3,
+  "f": 500,
+  "c": ["㇋", "丿", "乀"]
+},
+"戉": {
+  "p": "yuè",
+  "en": "ancient battle-axe",
+  "es": "hacha antigua",
+  "r": "戈",
+  "s": 4,
+  "f": 200,
+  "c": ["一", "𠄌", "戈"]
+},
+"图": {
+  "p": "tú",
+  "en": "picture",
+  "es": "imagen",
+  "r": "囗",
+  "s": 8,
+  "f": 500,
+  "c": ["囗", "冬"]
+},
+"冬": {
+  "p": "dōng",
+  "en": "winter",
+  "es": "invierno",
+  "r": "冫",
+  "s": 5,
+  "f": 500,
+  "c": ["夂", "⺀"]
+},
+"段": {
+  "p": "duàn",
+  "en": "section",
+  "es": "sección",
+  "r": "殳",
+  "s": 9,
+  "f": 500,
+  "c": []
+},
+"殳": {
+  "p": "shū",
+  "en": "weapon, hammer",
+  "es": "arma, martillo",
+  "r": "殳",
+  "s": 4,
+  "f": 500,
+  "c": ["几", "又"]
+},
+"声": {
+  "p": "shēng",
+  "en": "sound, voice",
+  "es": "sonido, voz",
+  "r": "士",
+  "s": 7,
+  "f": 500,
+  "c": ["士", "𠃜"]
+},
+"极": {
+  "p": "jí",
+  "en": "extreme",
+  "es": "extremo",
+  "r": "木",
+  "s": 7,
+  "f": 500,
+  "c": ["木", "及"]
+},
+"普": {
+  "p": "pǔ",
+  "en": "common, universal",
+  "es": "común, universal",
+  "r": "日",
+  "s": 12,
+  "f": 500,
+  "c": ["並", "日"]
+}, 
+"並": {
+  "p": "bìng",
+  "en": "to combine",
+  "es": "combinar",
+  "r": "一",
+  "s": 8,
+  "f": 500,
+  "c": ["䒑", "业"]
+},
+"春": {
+  "p": "chūn",
+  "en": "spring (season)",
+  "es": "primavera",
+  "r": "日",
+  "s": 9,
+  "f": 500,
+  "c": ["𡗗", "日"]
+},
+"𡗗": {
+  "p": "pěng",
+  "en": "three men",
+  "es": "tres hombres",
+  "r": "",
+  "s": 8,
+  "f": 0,
+  "c": ["三", "丿", "㇏"]
+},
+"乎": {
+  "p": "hū",
+  "en": "exclamatory particle",
+  "es": "partícula exclamativa",
+  "r": "𠂌",
+  "s": 5,
+  "f": 500,
+  "c": ["于", "丷"]
+},
+"于": {
+  "p": "yú",
+  "en": "in, at, to, from",
+  "es": "en, a, hacia, de",
+  "r": "二",
+  "s": 3,
+  "f": 500,
+  "c": ["二", "丿"]
+},
+"𠂌": {
+  "p": "(componente auxiliar)",
+  "en": "auxiliary component (basic stroke)",
+  "es": "componente auxiliar (trazo básico)",
+  "r": "于",
+  "s": 1,
+  "f": 0,
+  "c": []
+},
+"久": {
+  "p": "jiǔ",
+  "en": "long (time)",
+  "es": "largo (tiempo)",
+  "r": "丿",
+  "s": 3,
+  "f": 500,
+  "c": ["𠂊", "㇏"]
+},
+"顾": {
+  "p": "gù",
+  "en": "to look back; to take into consideration",
+  "es": "mirar atrás; considerar",
+  "r": "頁",
+  "s": 10,
+  "f": 500,
+  "c": ["厄", "页"]
+},
+"厄": {
+  "p": "è",
+  "en": "misfortune, adversity",
+  "es": "desgracia, adversidad",
+  "r": "厂",
+  "s": 4,
+  "f": 500,
+  "c": ["厂", "卩"]
+},
+"绩": {
+  "p": "jì",
+  "en": "achievement",
+  "es": "logro",
+  "r": "纟",
+  "s": 11,
+  "f": 500,
+  "c": ["纟", "责"]
+},
+"责": {
+  "p": "zé",
+  "en": "duty",
+  "es": "deber",
+  "r": "贝",
+  "s": 8,
+  "f": 500,
+  "c": ["龶", "贝"]
 }
-  
+ 
 };

@@ -26,8 +26,8 @@
     }
     
     .container {
-      width: 600px;
-      height: 800px;
+      width: 500px;
+      height: 600px;
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -46,7 +46,7 @@
     }
     
     .header h1 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
     }
     
@@ -85,7 +85,7 @@
       border-radius: 8px;
       font-size: 1rem;
       resize: none;
-      height: 60px;
+      height: 80px;
       font-family: inherit;
     }
     
@@ -132,18 +132,18 @@
     <!-- Header -->
     <header class="header">
       <h1>HanziCrack 💥</h1>
-      <span id="msg">Bienvenido a HanziCrack</span>
+      <span id="msg">Welcome to HanziCrack</span>
       <div>
         <button id="btnClear" class="icon-btn">🧹</button>
-        <button id="btnSettings" class="icon-btn">⚙️</button>
+        <button id="btnSettings" class="icon-btn hidden">⚙️</button>
       </div>
     </header>
 
     <!-- Main Content -->
     <main>
       <div class="input-row">
-        <textarea id="inputText" placeholder="✍️ Escribe o pega caracteres chinos... (máx. 100 chars.)" maxlength="200"></textarea>
-        <button id="btnAnalyze">🤔 Analizar</button>
+        <textarea id="inputText" placeholder="✍️ Write Chinese characters..." maxlength="10"></textarea>
+        <button id="btnAnalyze">🤔</button>
       </div>
 
       <!-- Controles ocultos (necesarios para JS) -->

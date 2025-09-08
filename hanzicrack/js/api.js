@@ -17,7 +17,7 @@ export async function getCharacterData(char) {
     return { ...localChars[char], source: "local" };
   }
 
-  // 2) Buscar remoto (MakeMeAHanzi + hanzi-writer-data)
+  // 2) Buscar remoto (MakeMeAHanzi + hanzi-writer-data) LIMITAMOS A 2 ACEPCIONES 
   const apiData = await fetchFromSources(char);
   if (apiData) {
     const enriched = { ...apiData, source: "api" };
@@ -56,7 +56,7 @@ async function fetchFromSources(char) {
   if (!entry) return null;
 
   const pinyin = Array.isArray(entry.pinyin) ? entry.pinyin.join(" / ") : (entry.pinyin || "");
-  const meaning_en = entry.definition || "⚠️ EN NOT FOUND";
+  //const meaning_en = entry.definition || "⚠️ EN NOT FOUND";
   const radical = entry.radical || "";
   const components = extractAtomicComponents(entry.decomposition);
   const strokes = await fetchStrokeCount(char);
@@ -65,21 +65,38 @@ async function fetchFromSources(char) {
   // ⚙️ idioma actual de settings
   const { lang } = getSettings();
 
-  const meaning = lang === "es"  // Si no hay significado en español, le pasa la definicion en inglés a español
-    ? (entry.meaning_es || meaning_en)
+  // Función para limitar a las dos primeras acepciones (SOLO para API)
+  const limitMeanings = (meaningStr, maxMeanings = 2) => {
+    if (!meaningStr) return "";
+    
+    // Dividir por comas, puntos y coma, o "and"
+    const meanings = meaningStr.split(/[,;]|\sand\s/).map(m => m.trim()).filter(m => m);
+    
+    // Tomar solo las primeras 'maxMeanings' acepciones
+    return meanings.slice(0, maxMeanings).join(", ");
+  };
+
+  // Obtener significado en inglés y limitar a 2 acepciones
+  const meaning_en = limitMeanings(entry.definition || "⚠️ EN NOT FOUND");
+  
+  // Obtener significado en español (si existe) y limitar a 2 acepciones
+  const meaning_es_limited = limitMeanings(entry.meaning_es || "");
+
+  // Determinar el significado final según el idioma seleccionado
+  const meaning = lang === "es" 
+    ? (meaning_es_limited || meaning_en) // Si no hay ES, usar EN limitado
     : meaning_en;
 
   return {
     p: pinyin,
     en: meaning_en,
-    es: meaning,
+    es: meaning_es_limited || meaning_en, // Guardamos ambos por separado
     r: radical,
     s: strokes,
     f: 0,
     c: components,
     l1: l1  
   };
-
 }
 
 /** Carga y parsea dictionary.txt una sola vez a Map<char, entry> */

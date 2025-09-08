@@ -71,6 +71,7 @@ function setupEventListeners() {
       setMsg("Error during analysis");
     } finally {
       outputDiv.classList.remove("loading"); // ✅ quitar spinner
+      setMsg("✅ Análisis completado");
     }
   });
 

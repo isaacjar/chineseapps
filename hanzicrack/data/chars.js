@@ -6798,11 +6798,101 @@ export const data = {
 "罙": {
   "p": "shēn",
   "en": "chimney",
-  "es": "chiminea",
+  "es": "chimenea",
   "r": "网",
   "s": 13,
   "f": 0,
   "c": ["㓁", "木"]
+},
+"夅": {
+  "p": "kēng",
+  "en": "rare character; ancient variant",
+  "es": "carácter raro; variante antigua",
+  "r": "大",
+  "s": 6,
+  "f": 0,
+  "c": ["夂", "㐄"]
+},
+"㐄": {
+  "p": "kuà",
+  "en": "to step across, to stride(跨)",
+  "es": "cruzar, dar zancadas (跨)",
+  "r": "㐄",
+  "s": 4,
+  "f": 0,
+  "c": []
+},
+"攸": {
+  "p": "yōu",
+  "en": "place where",
+  "es": "lugar donde...",
+  "r": "攵",
+  "s": 8,
+  "f": 500,
+  "c": ["亻", "丨", "攵"]
+},
+"氐": {
+  "p": "dǐ",
+  "en": "base; bottom; surname Di",
+  "es": "base; fondo; apellido Di",
+  "r": "氏",
+  "s": 6,
+  "f": 500,
+  "c": ["氏", "一", "丶"]
+},
+"氏": {
+  "p": "shì",
+  "en": "lineage",
+  "es": "linaje",
+  "r": "氏",
+  "s": 4,
+  "f": 500,
+  "c": []
+},
+"亚": {
+  "p": "yà",
+  "en": "second; inferior; Asia",
+  "es": "segundo; inferior; Asia",
+  "r": "二",
+  "s": 7,
+  "f": 500,
+  "c": ["一", "业"]
+},
+"尺": {
+  "p": "chǐ",
+  "en": "unit of distance",
+  "es": "unidad de longitud",
+  "r": "尺",
+  "s": 4,
+  "f": 500,
+  "c": ["尸", "㇏"]
+},
+"卯": {
+  "p": "mǎo",
+  "en": "fourth of the twelve earthly branches; rabbit",
+  "es": "cuarto de los doce troncos terrestres; conejo",
+  "r": "卩",
+  "s": 4,
+  "f": 500,
+  "c": ["𠂎", "卩"]
+},
+"𠂎": {
+  "p": "(component)",
+  "en": "that (pronoun) (𧘇)",
+  "es": "ese (pronombre) (𧘇)",
+  "r": "𧘇",
+  "s": 3,
+  "f": 0,
+  "c": []
+},
+"畐": {
+  "p": "fú",
+  "en": "full, abundant (富)",
+  "es": "lleno, abundante (富)",
+  "r": "田",
+  "s": 12,
+  "f": 500,
+  "c": ["一", "口", "田"]
 }
   
 };

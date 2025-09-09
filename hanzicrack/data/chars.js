@@ -1151,6 +1151,15 @@ export const data = {
   "f": 20,
   "c": []
 },
+"丬": {
+  "p": "qiáng",
+  "en": "split trunk (爿)",
+  "es": "tronco partido (爿)",
+  "r": "丬",
+  "s": 4,
+  "f": 0,
+  "c": []
+},
 "片": {
   "p": "piàn",
   "en": "slice",
@@ -6452,7 +6461,7 @@ export const data = {
   "s": 11,
   "f": 500,
   "c": ["⻂", "库"]
-},,
+},
 "库": {
   "p": "kù",
   "en": "warehouse",
@@ -6515,6 +6524,34 @@ export const data = {
   "s": 5,
   "f": 500,
   "c": ["コ", "𠂇"]
-}
+},
+"咅": {
+  "p": "pǒu",
+  "en": "to strike",
+  "es": "golpear",
+  "r": "口",
+  "s": 6,
+  "f": 0,
+  "c": ["立", "口"]
+},
+"次": {
+  "p": "cì",
+  "en": "time, sequence",
+  "es": "vez",
+  "r": "冫",
+  "s": 6,
+  "f": 500,
+  "c": ["冫", "欠"]
+},
+"之": {
+  "p": "zhī",
+  "en": "this, that, possessive particle",
+  "es": "de, eso",
+  "r": "丶",
+  "s": 3,
+  "f": 500,
+  "c": []
+} 
+  
   
 };

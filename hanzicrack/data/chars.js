@@ -854,6 +854,15 @@ export const data = {
   "f": 25,
   "c": []
 },
+"コ": {
+"p": "jì",
+"en": "snout (彐)",
+"es": "hocico (彐)",
+"r": "彐",
+"s": 2,
+"f": 500,
+"c": []
+},
 "彡": {
   "p": "shān",
   "en": "ornament",
@@ -1945,7 +1954,7 @@ export const data = {
   },
   "釆": {
     "p": "biàn",
-    "en": "distinguish",
+    "en": "to distinguish",
     "es": "distinguir",
     "r": "釆",
     "s": 7,
@@ -4673,12 +4682,21 @@ export const data = {
 },
 "且": {
   "p": "qiě",
-  "en": "moreover; also; and",
-  "es": "además; también; y",
+  "en": "moreover, also, and",
+  "es": "además, también, y",
   "r": "一",
   "s": 5,
   "f": 600,
   "c": ["目", "一"]
+},
+"𠀃": {
+  "p": "qiě",
+  "en": "moreover, also, and (且)",
+  "es": "además, también, y (且)",
+  "r": "且",
+  "s": 2,
+  "f": 0,
+  "c": []
 },
 "冷": {
   "p": "lěng",
@@ -6893,6 +6911,384 @@ export const data = {
   "s": 12,
   "f": 500,
   "c": ["一", "口", "田"]
+},
+"亢": {
+  "p": "kàng",
+  "en": "stubborn, arrogant",
+  "es": "terco, arrogante",
+  "r": "亠",
+  "s": 4,
+  "f": 500,
+  "c": ["亠", "几"]
+},
+"炎": {
+  "p": "yán",
+  "en": "flame",
+  "es": "llama",
+  "r": "火",
+  "s": 8,
+  "f": 500,
+  "c": ["火", "火"]
+},
+"氾": {
+  "p": "fàn",
+  "en": "to spread, to overflow",
+  "es": "extenderse, desbordarse",
+  "r": "水",
+  "s": 5,
+  "f": 500,
+  "c": ["氵", "㔾"]
+},
+"韦": {
+  "p": "wéi",
+  "en": "tanned leather (韋)",
+  "es": "cuero curtido (韋)",
+  "r": "韋",
+  "s": 4,
+  "f": 500,
+  "c": ["二", "丨", "𠃌"]
+},
+"半": {
+  "p": "bàn",
+  "en": "half",
+  "es": "mitad",
+  "r": "十",
+  "s": 5,
+  "f": 500,
+  "c": ["丷", "𰀁"]
+},
+"番": {
+  "p": "fān",
+  "en": "turn",
+  "es": "turno",
+  "r": "田",
+  "s": 12,
+  "f": 500,
+  "c": ["釆", "田"]
+},
+"叚": {
+  "p": "jiǎ",
+  "en": "false",
+  "es": "falso",
+  "r": "又",
+  "s": 9,
+  "f": 500,
+  "c": ["丨", "コ", "𠄠", "コ", "又"]
+},
+"列": {
+  "p": "liè",
+  "en": "row, to arrange",
+  "es": "fila, ordenar",
+  "r": "刂",
+  "s": 6,
+  "f": 500,
+  "c": ["歹", "刂"]
+},
+"祭": {
+  "p": "jì",
+  "en": "to offer sacrifices",
+  "es": "ofrecer sacrificios",
+  "r": "示",
+  "s": 11,
+  "f": 450,
+  "c": ["𱼀", "㇏", "㇇", "示"]
+},
+"𱼀": {
+  "p": "ròu",
+  "en": "flesh (⺼ twisted)",
+  "es": "carne (⺼ girada)",
+  "r": "⺼",
+  "s": 4,
+  "f": 0,
+  "c": ["夕", "丶"]
+},
+"亭": {
+  "p": "tíng",
+  "en": "pavilion",
+  "es": "pabellón",
+  "r": "亠",
+  "s": 9,
+  "f": 430,
+  "c": ["亠", "口", "冖", "丁"]
+},
+"印": {
+  "p": "yìn",
+  "en": "seal, stamp, mark",
+  "es": "sello, estampa, marca",
+  "r": "卩",
+  "s": 6,
+  "f": 350,
+  "c": ["卬", "一"]
+},
+"紧": {  
+  "p": "jǐn",
+  "en": "tight; urgent",
+  "es": "apretado; urgente",
+  "r": "糸",
+  "s": 10,
+  "f": 380,
+  "c": ["𰀡", "糸"]
+},
+"𰀡": {
+  "p": "qiān",
+  "en": "solid, rigid (臤)",
+  "es": "sólido, rígido (臤)",
+  "r": "臤",
+  "s": 3,
+  "f": 0,
+  "c": ["丨", "丨", "又"]
+},
+"咸": {
+  "p": "xián",
+  "en": "salty",
+  "es": "salado",
+  "r": "口",
+  "s": 9,
+  "f": 360,
+  "c": ["戊", "口"]
+},
+"戊": {
+  "p": "wù",
+  "en": "5th Heavenly Stem",
+  "es": "quinto Tronco Celestial",
+  "r": "戈",
+  "s": 5,
+  "f": 300,
+  "c": ["丿", "戈"]
+},
+"宓": {
+  "p": "mì",
+  "en": "quiet, calm",
+  "es": "tranquilo, calmado",
+  "r": "宀",
+  "s": 8,
+  "f": 250,
+  "c": ["宀", "必"]
+},
+"必": {
+  "p": "bì",
+  "en": "necessary",
+  "es": "necesario",
+  "r": "心",
+  "s": 5,
+  "f": 500,
+  "c": ["心", "丿"]
+},
+"敫": {
+  "p": "jiǎo",
+  "en": "bright",
+  "es": "brillante",
+  "r": "白",
+  "s": 13,
+  "f": 200,
+  "c": ["白", "方", "攵"]
+},
+"互": {
+  "p": "hù",
+  "en": "mutual, each other",
+  "es": "mutuo, el uno al otro",
+  "r": "二",
+  "s": 4,
+  "f": 500,
+  "c": ["一", "彑"]
+},
+"昷": {
+  "p": "wēn",
+  "en": "kind, benevolent",
+  "es": "amable, benévolo",
+  "r": "日",
+  "s": 9,
+  "f": 50,
+  "c": ["日", "皿"]
+},
+"匹": {
+  "p": "pǐ",
+  "en": "classifier for horses, donkeys...",
+  "es": "clasificador de caballos, burros...",
+  "r": "匚",
+  "s": 4,
+  "f": 400,
+  "c": ["匚", "儿"]
+},
+"疑": {
+  "p": "yí",
+  "en": "doubt, suspect",
+  "es": "duda, sospecha",
+  "r": "疋",
+  "s": 14,
+  "f": 350,
+  "c": ["匕", "矢", "龴", "疋"]
+},
+"族": {
+  "p": "zú",
+  "en": "clan, race",
+  "es": "raza, etnia",
+  "r": "方",
+  "s": 11,
+  "f": 420,
+  "c": ["方", "𠂉", "矢"]
+},
+"乔": {
+  "p": "qiáo",
+  "en": "tall, lofty",
+  "es": "alto, elevado",
+  "r": "夭",
+  "s": 6,
+  "f": 500,
+  "c": ["夭", "丿", "丨"]
+},
+"受": {
+  "p": "shòu",
+  "en": "to receive, to accept",
+  "es": "recibir, aceptar",
+  "r": "又",
+  "s": 8,
+  "f": 500,
+  "c": ["爫", "冖", "又"]
+},
+"坚": {
+  "p": "jiān",
+  "en": "firm, strong",
+  "es": "firme, fuerte",
+  "r": "土",
+  "s": 7,
+  "f": 500,
+  "c": ["𰀡", "土"]
+},
+"厃": {
+  "p": "wěi",
+  "en": "rare, dangerous",
+  "es": "raro, peligroso",
+  "r": "厂",
+  "s": 7,
+  "f": 0,
+  "c": ["⺈", "厂"]
+},
+"巩": {
+  "p": "gǒng",
+  "en": "consolidate",
+  "es": "afianzar, consolidar",
+  "r": "巾",
+  "s": 6,
+  "f": 500,
+  "c": ["工", "凡"]
+},
+"央": {
+  "p": "yāng",
+  "en": "center",
+  "es": "centro",
+  "r": "大",
+  "s": 5,
+  "f": 500,
+  "c": ["𠀃", "人"]
+},
+"氿": {
+  "p": "jiǔ",
+  "en": "water-related, lakes",
+  "es": "relacionado con agua, lagos",
+  "r": "氵",
+  "s": 5,
+  "f": 0,
+  "c": ["氵", "九"]
+},
+"闰": {
+  "p": "rùn",
+  "en": "leap",
+  "es": "intercalar, saltar",
+  "r": "门",
+  "s": 7,
+  "f": 500,
+  "c": ["门", "王"]
+},
+"孰": {
+  "p": "shú",
+  "en": "who; which; expert",
+  "es": "quién; cuál; experto",
+  "r": "子",
+  "s": 10,
+  "f": 500,
+  "c": ["享", "丸"]
+},
+ "享": {
+  "p": "xiǎng",
+  "en": "to enjoy",
+  "es": "disfrutar",
+  "r": "亠",
+  "s": 8,
+  "f": 500,
+  "c": ["亠", "口", "子"]
+},
+"俞": {
+  "p": "yú",
+  "en": "acupuncture point",
+  "es": "punto de acupuntura",
+  "r": "亻",
+  "s": 10,
+  "f": 400,
+  "c": ["人", "一", "月", "⺉"]
+},
+"旡": {
+  "p": "jì",
+  "en": "not have (无)",
+  "es": "no tener (无)",
+  "r": "无",
+  "s": 5,
+  "f": 0,
+  "c": []
+},
+"既": {
+  "p": "jì",
+  "en": "already, since",
+  "es": "ya, desde",
+  "r": "日",
+  "s": 8,
+  "f": 500,
+  "c": ["𠄌", "𫜹", "丶", "旡"]
+},
+"良": {
+  "p": "liáng",
+  "en": "good, fine",
+  "es": "bueno, excelente",
+  "r": "艮",
+  "s": 7,
+  "f": 500,
+  "c": ["艮", "丶"]
+},
+"林": {
+  "p": "lín",
+  "en": "forest, woods",
+  "es": "bosque, arboleda",
+  "r": "木",
+  "s": 8,
+  "f": 500,
+  "c": ["木", "木"]
+},
+"吴": {
+  "p": "wú",
+  "en": "to shout",
+  "es": "gritar",
+  "r": "口",
+  "s": 7,
+  "f": 500,
+  "c": ["口", "天"]
+},
+"释": {
+  "p": "shì",
+  "en": "to explain; to release; Buddhism",
+  "es": "explicar; liberar; budismo",
+  "r": "言",
+  "s": 13,
+  "f": 500,
+  "c": ["釆", "𠬤"]
+},
+"苋": {
+  "p": "xiàn",
+  "en": "amaranth (plant)",
+  "es": "amaranto (planta)",
+  "r": "艹",
+  "s": 7,
+  "f": 400,
+  "c": ["艹", "见"]
 }
   
 };

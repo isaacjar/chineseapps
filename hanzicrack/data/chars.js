@@ -1438,7 +1438,7 @@ export const data = {
   "s": 6,
   "f": 0,
   "c": []
-}
+},
 "立": {
   "p": "lì",
   "en": "stand, position",

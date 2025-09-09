@@ -1430,6 +1430,15 @@ export const data = {
   "f": 140,
   "c": []
 },
+"㓁": {
+  "p": "xué",
+  "en": "cave (穴)",
+  "es": "cueva (穴)",
+  "r": "穴",
+  "s": 6,
+  "f": 0,
+  "c": []
+}
 "立": {
   "p": "lì",
   "en": "stand, position",
@@ -6785,6 +6794,15 @@ export const data = {
   "s": 7,
   "f": 500,
   "c": ["彳", "主"]
+},
+"罙": {
+  "p": "shēn",
+  "en": "chimney",
+  "es": "chiminea",
+  "r": "网",
+  "s": 13,
+  "f": 0,
+  "c": ["㓁", "木"]
 }
   
 };

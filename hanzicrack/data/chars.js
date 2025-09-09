@@ -6551,7 +6551,114 @@ export const data = {
   "s": 3,
   "f": 500,
   "c": []
-} 
-  
+},
+"展": {
+  "p": "zhǎn",
+  "en": "to develope, to display",
+  "es": "desarrollar, mostrar",
+  "r": "尸",
+  "s": 10,
+  "f": 500,
+  "c": ["尸", "龷", "衣"]
+},
+"呆": {
+  "p": "dāi",
+  "en": "stupid",
+  "es": "tonto",
+  "r": "口",
+  "s": 7,
+  "f": 500,
+  "c": ["口", "木"]
+},
+"保": {
+  "p": "bǎo",
+  "en": "to protect",
+  "es": "proteger",
+  "r": "亻",
+  "s": 7,
+  "f": 500,
+  "c": ["亻", "呆"]
+},
+"制": {
+  "p": "zhì",
+  "en": "to control",
+  "es": "controlar",
+  "r": "制",
+  "s": 8,
+  "f": 500,
+  "c": ["牛", "冂", "刂"]
+},
+"弗": {
+  "p": "fú",
+  "en": "not",
+  "es": "no, negar",
+  "r": "弗",
+  "s": 5,
+  "f": 500,
+  "c": ["弓", "丿", "丨"]
+},
+"费": {
+  "p": "fèi",
+  "en": "expense",
+  "es": "gasto",
+  "r": "贝",
+  "s": 10,
+  "f": 500,
+  "c": ["弗", "贝"]
+},
+"夫": {
+  "p": "fū",
+  "en": "husband",
+  "es": "marido",
+  "r": "大",
+  "s": 4,
+  "f": 500,
+  "c": ["大", "一"]
+},
+"专": {
+  "p": "zhuān",
+  "en": "specialized, concentrated",
+  "es": "especializado, concentrado",
+  "r": "专",
+  "s": 5,
+  "f": 500,
+  "c": ["二", "ㄣ", "丶"]
+},
+"呈": {
+  "p": "chéng",
+  "en": "to submit, to display",
+  "es": "presentar, mostrar",
+  "r": "口",
+  "s": 6,
+  "f": 500,
+  "c": ["口", "王"]
+},
+"壬": {
+  "p": "rén",
+  "en": "9th heavenly stem",
+  "es": "noveno tallo celestial",
+  "r": "士",
+  "s": 4,
+  "f": 500,
+  "c": ["丿", "士"]
+},
+"居": {
+  "p": "jū",
+  "en": "to live",
+  "es": "vivir",
+  "r": "尸",
+  "s": 8,
+  "f": 500,
+  "c": ["尸", "古"]
+},
+"古": {
+  "p": "gǔ",
+  "en": "ancient, old",
+  "es": "antiguo, viejo",
+  "r": "口",
+  "s": 5,
+  "f": 500,
+  "c": ["十", "口"]
+}
   
 };

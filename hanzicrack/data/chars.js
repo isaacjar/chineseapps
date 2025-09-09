@@ -485,6 +485,15 @@ export const data = {
   "f": 110,
   "c": []
 },
+"⺊": {
+  "p": "bǔ",
+  "en": "magic (卜)",
+  "es": "magia (卜)",
+  "r": "卜",
+  "s": 2,
+  "f": 0,
+  "c": []
+},
 "卩": {
   "p": "jié",
   "en": "seal",
@@ -933,7 +942,7 @@ export const data = {
   "r": "攴",
   "s": 4,
   "f": 40,
-  "c": []
+  "c": ["⺊", "又"]
 },
 "文": {
   "p": "wén",
@@ -1185,6 +1194,15 @@ export const data = {
   "r": "牛",
   "s": 4,
   "f": 300,
+  "c": []
+},
+"𠂒": {
+  "p": "niú",
+  "en": "cow (牛)",
+  "es": "vaca (牛)",
+  "r": "牛",
+  "s": 4,
+  "f": 0,
   "c": []
 },
 "犬": {
@@ -6470,7 +6488,7 @@ export const data = {
   "s": 7,
   "f": 500,
   "c": ["广", "车"]
-}
+},
 "衫": {
   "p": "shān",
   "en": "shirt",
@@ -6659,6 +6677,114 @@ export const data = {
   "s": 5,
   "f": 500,
   "c": ["十", "口"]
+},
+"肖": {
+  "p": "xiào",
+  "en": "resemble, similar",
+  "es": "parecer, similar",
+  "r": "月",
+  "s": 6,
+  "f": 500,
+  "c": ["⺌", "月"]
+},
+"旨": {
+  "p": "zhǐ",
+  "en": "purpose, will",
+  "es": "propósito, voluntad",
+  "r": "日",
+  "s": 6,
+  "f": 500,
+  "c": ["匕", "日"]
+},
+"齐": {
+  "p": "qí",
+  "en": "even, uniform",
+  "es": "uniforme, igual",
+  "r": "齊",
+  "s": 6,
+  "f": 500,
+  "c": ["文", "丿", "丨"]
+},
+"安": {
+  "p": "ān",
+  "en": "peace, safe",
+  "es": "paz, seguro",
+  "r": "宀",
+  "s": 6,
+  "f": 500,
+  "c": ["宀", "女"]
+},
+"告": {
+  "p": "gào",
+  "en": "to tell; to announce",
+  "es": "decir; anunciar",
+  "r": "口",
+  "s": 7,
+  "f": 500,
+  "c": ["𠂒", "口"]
+},
+"曾": {
+  "p": "céng",
+  "en": "once, formerly",
+  "es": "una vez, anteriormente",
+  "r": "曰",
+  "s": 12,
+  "f": 500,
+  "c": ["丷", "田", "日"]
+},
+"敕": {
+  "p": "chì",
+  "en": "imperial edict, to command",
+  "es": "decreto imperial, ordenar",
+  "r": "攴",
+  "s": 10,
+  "f": 500,
+  "c": ["攴", "束"]
+},
+"㐬": {
+  "p": "(rare/archaic)",
+  "en": "rare/archaic character",
+  "es": "carácter raro/arcaico",
+  "r": "口",
+  "s": 7,
+  "f": 0,
+  "c": ["亠", "𠫝"]
+},
+"𠫝": {
+  "p": "-",
+  "en": "a newborn baby",
+  "es": "bebé recién nacido",
+  "r": "厶",
+  "s": 5,
+  "f": 0,
+  "c": ["厶", "ノ", "丨", "乚"]
+},
+"犾": {
+  "p": "yín",
+  "en": "dogs barking (犬)",
+  "es": "perros ladrando (犬)",
+  "r": "犭",
+  "s": 7,
+  "f": 0,
+  "c": ["犭", "犬"]
+},
+"即": {
+  "p": "jí",
+  "en": "to approach",
+  "es": "acercarse",
+  "r": "卩",
+  "s": 7,
+  "f": 500,
+  "c": ["𠄌", "丶", "𫜹", "卩"]
+},
+"往": {
+  "p": "wǎng",
+  "en": "to head for",
+  "es": "dirigirse hacia",
+  "r": "彳",
+  "s": 7,
+  "f": 500,
+  "c": ["彳", "主"]
 }
   
 };

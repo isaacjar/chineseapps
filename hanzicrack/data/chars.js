@@ -6371,6 +6371,150 @@ export const data = {
   "s": 6,
   "f": 500,
   "c": ["口", "口", "丨"]
+},
+"争": {
+  "p": "zhēng",
+  "en": "to contend",
+  "es": "luchar",
+  "r": "爪",
+  "s": 6,
+  "f": 500,
+  "c": ["⺈", "⺕", "亅"]
+},
+"却": {
+  "p": "què",
+  "en": "but, to retreat",
+  "es": "pero, retroceder",
+  "r": "卩",
+  "s": 7,
+  "f": 500,
+  "c": ["去", "卩"]
+},
+"早": {
+  "p": "zǎo",
+  "en": "early",
+  "es": "temprano",
+  "r": "日",
+  "s": 6,
+  "f": 500,
+  "c": ["日", "十"]
+},
+"奴": {
+  "p": "nú",
+  "en": "slave",
+  "es": "esclavo",
+  "r": "女",
+  "s": 7,
+  "f": 500,
+  "c": ["女", "又"]
+},
+"惯": {
+  "p": "guàn",
+  "en": "habit",
+  "es": "hábito, costumbre",
+  "r": "忄",
+  "s": 10,
+  "f": 500,
+  "c": ["忄", "贯"]
+},
+"贯": {
+  "p": "guàn",
+  "en": "to pierce, to pass through",
+  "es": "atar, pasar a través",
+  "r": "贝",
+  "s": 9,
+  "f": 500,
+  "c": ["毌", "贝"]
+}, 
+"毌": {
+  "p": "guàn",
+  "en": "pierce",
+  "es": "agujerear",
+  "r": "毌",
+  "s": 4,
+  "f": 0,
+  "c": []
+},
+"敢": {
+  "p": "gǎn",
+  "en": "to dare",
+  "es": "atreverse",
+  "r": "攵",
+  "s": 10,
+  "f": 500,
+  "c": ["乛", "耳", "攵"]
+},
+"裤": {
+  "p": "kù",
+  "en": "trousers",
+  "es": "pantalones",
+  "r": "衣",
+  "s": 11,
+  "f": 500,
+  "c": ["⻂", "库"]
+},,
+"库": {
+  "p": "kù",
+  "en": "warehouse",
+  "es": "almacén",
+  "r": "广",
+  "s": 7,
+  "f": 500,
+  "c": ["广", "车"]
+}
+"衫": {
+  "p": "shān",
+  "en": "shirt",
+  "es": "camisa",
+  "r": "衤",
+  "s": 8,
+  "f": 500,
+  "c": ["⻂", "彡"]
+},
+"伞": {
+  "p": "sǎn",
+  "en": "umbrella",
+  "es": "paraguas; sombrilla",
+  "r": "人",
+  "s": 6,
+  "f": 500,
+  "c": ["人", "丷", "十"]
+},
+"衬": {
+  "p": "chèn",
+  "en": "lining",
+  "es": "forro, recubrimiento",
+  "r": "衤",
+  "s": 9,
+  "f": 500,
+  "c": ["⻂", "寸"]
+},
+"裙": {
+  "p": "qún",
+  "en": "skirt; dress",
+  "es": "falda; vestido",
+  "r": "衤",
+  "s": 12,
+  "f": 500,
+  "c": ["⻂", "君"]
+},
+"君": {
+  "p": "jūn",
+  "en": "lord, monarch",
+  "es": "señor, monarca",
+  "r": "口",
+  "s": 7,
+  "f": 500,
+  "c": ["尹", "口"]
+},
+"尹": {
+  "p": "yǐn",
+  "en": "to govern",
+  "es": "gobernar",
+  "r": "尸",
+  "s": 5,
+  "f": 500,
+  "c": ["コ", "𠂇"]
 }
   
 };

@@ -901,8 +901,8 @@ export const data = {
 },
 "戈": {
   "p": "gē",
-  "en": "halberd",
-  "es": "alabarda",
+  "en": "halberd (weapon)",
+  "es": "alabarda (arma)",
   "r": "戈",
   "s": 4,
   "f": 80,
@@ -4012,7 +4012,7 @@ export const data = {
     "r": "西",
     "s": 9,
     "f": 21,
-    "c": ["西", "女"]
+    "c": ["覀", "女"]
   },
   "解": {
     "p": "jiě",

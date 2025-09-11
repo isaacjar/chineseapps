@@ -50,7 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentMode = btn.textContent;
+      // Usamos el ID para determinar el modo en lugar del texto del botón
+      if (btn.id === 'modeChinese') currentMode = 'Chinese';
+      else if (btn.id === 'modePinyin') currentMode = 'Pinyin';
+      else if (btn.id === 'modeEnglish') currentMode = 'English';
+      else if (btn.id === 'modeEnglishNoPinyin') currentMode = 'EnglishOnly';
       updateModeLabel();
     });
   });
@@ -151,7 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateModeLabel() {
-  document.getElementById('questionLabel').textContent = `Mode: ${currentMode}`;
+  let modeText;
+  switch (currentMode) {
+    case 'Chinese': modeText = 'Chinese'; break;
+    case 'Pinyin': modeText = 'Pinyin'; break;
+    case 'English': modeText = 'English'; break;
+    case 'EnglishOnly': modeText = 'English Only'; break;
+    default: modeText = currentMode;
+  }
+  document.getElementById('questionLabel').textContent = `Mode: ${modeText}`;
 }
 
 function hideGameElements() {
@@ -321,6 +333,10 @@ function nextQuestion() {
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
       break;
+    case 'EnglishOnly':
+      questionText = currentWord.en;
+      correctText = currentWord.ch;  // Solo el carácter chino, sin pinyin
+      break;
   }
 
   const label = document.getElementById('questionLabel');
@@ -328,8 +344,8 @@ function nextQuestion() {
   void label.offsetWidth;
   label.textContent = questionText;
   label.classList.add('fade');
-  label.style.fontSize = currentMode === 'Chinese' ? '48px' : '24px';
-
+  label.style.fontSize = (currentMode === 'Chinese' || currentMode === 'EnglishOnly') ? '48px' : '24px';
+  
   let options = [correctText];
   while (options.length < 4) {
     let rand = vocabulary[Math.floor(Math.random() * vocabulary.length)];
@@ -338,6 +354,7 @@ function nextQuestion() {
       case 'Chinese': distractor = rand.pin; break;
       case 'Pinyin': distractor = rand.en; break;
       case 'English': distractor = `${rand.ch} [${rand.pin}]`; break;
+      case 'EnglishOnly': distractor = rand.ch; break;  // Solo el carácter chino
     }
     if (!options.includes(distractor)) options.push(distractor);
   }
@@ -415,6 +432,7 @@ function checkAnswer(selectedText) {
     case 'Chinese': correct = currentWord.pin; break;
     case 'Pinyin': correct = currentWord.en; break;
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
+    case 'EnglishOnly': correct = currentWord.ch; break;  // Solo el carácter chino
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -480,3 +498,4 @@ function disableOptions() {
   });
 
 }
+

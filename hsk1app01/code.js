@@ -272,7 +272,7 @@ function disableButtons() {
 }
 
 function clearCountdownCircles() {
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 10; i++) {
     const circle = document.getElementById(`c${i}`);
     if (circle) circle.classList.remove('active');
   }
@@ -361,7 +361,7 @@ function nextQuestion() {
       clearInterval(countdownInterval);
       return;
     }
-    if (countdown < 5) {
+    if (countdown < 10) {
       const circle = document.getElementById(`c${countdown + 1}`);
       if (circle) circle.classList.add('active');
       countdown++;
@@ -400,7 +400,7 @@ function nextQuestion() {
       currentQuestion++;
       nextQuestion();
     }, 2000);
-  }, 5000);
+  }, 10000);
 }
 
 function checkAnswer(selectedText) {
@@ -478,4 +478,5 @@ function disableOptions() {
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.6';
   });
+
 }

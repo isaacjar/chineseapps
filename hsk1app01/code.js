@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateModeLabel() {
   let modeText;
   switch (currentMode) {
-    case 'Chinese': modeText = 'Chinese'; break;
+    case 'Chinese': modeText = '🀄'; break;
     case 'Pinyin': modeText = 'Pinyin'; break;
-    case 'English': modeText = 'English'; break;
-    case 'EnglishOnly': modeText = 'English Only'; break;
+    case 'English': modeText = 'EN'; break;
+    case 'EnglishOnly': modeText = '字符 → EN'; break;
     default: modeText = currentMode;
   }
   document.getElementById('questionLabel').textContent = `Mode: ${modeText}`;
@@ -333,9 +333,9 @@ function nextQuestion() {
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
       break;
-    case 'EnglishOnly':
-      questionText = currentWord.en;
-      correctText = currentWord.ch;  // Solo el carácter chino, sin pinyin
+    case 'EnglishOnly':   // Solo el carácter chino, sin pinyin
+      questionText = currentWord.ch;
+      correctText = currentWord.en;  
       break;
   }
 
@@ -354,7 +354,7 @@ function nextQuestion() {
       case 'Chinese': distractor = rand.pin; break;
       case 'Pinyin': distractor = rand.en; break;
       case 'English': distractor = `${rand.ch} [${rand.pin}]`; break;
-      case 'EnglishOnly': distractor = rand.ch; break;  // Solo el carácter chino
+      case 'EnglishOnly': distractor = rand.en; break;  // Solo el carácter chino
     }
     if (!options.includes(distractor)) options.push(distractor);
   }
@@ -432,7 +432,7 @@ function checkAnswer(selectedText) {
     case 'Chinese': correct = currentWord.pin; break;
     case 'Pinyin': correct = currentWord.en; break;
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
-    case 'EnglishOnly': correct = currentWord.ch; break;  // Solo el carácter chino
+    case 'EnglishOnly': correct = currentWord.en; break;  // Solo el carácter chino
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -498,4 +498,5 @@ function disableOptions() {
   });
 
 }
+
 

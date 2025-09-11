@@ -336,17 +336,21 @@ function nextQuestion() {
   let correctText, questionText;
 
   switch (currentMode) {
-    case 'Chinese':
+    case '🈶':
       questionText = currentWord.ch;
       correctText = currentWord.pin;
       break;
-    case 'Pinyin':
+    case '🔤':
       questionText = `${currentWord.ch} [${currentWord.pin}]`;
       correctText = currentWord.en;
       break;
-    case 'English':
+    case '🇬🇧':
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
+      break;
+	case '🌐':  // Nuevo modo
+      questionText = currentWord.ch;
+      correctText = currentWord.en;
       break;
   }
 
@@ -439,9 +443,10 @@ function checkAnswer(selectedText) {
 
   let correct;
   switch (currentMode) {
-    case 'Chinese': correct = currentWord.pin; break;
-    case 'Pinyin': correct = currentWord.en; break;
-    case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
+    case '🈶': correct = currentWord.pin; break;
+    case '🔤': correct = currentWord.en; break;
+    case '🇬🇧': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
+	case '🌐': distractor = rand.en; break;
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -567,3 +572,4 @@ function mostrarPopup(listados) {
   document.body.appendChild(popup);
 
 }
+

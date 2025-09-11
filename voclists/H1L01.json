@@ -1,0 +1,13 @@
+[
+  { "ch": "你好", "pin": "nǐ hǎo", "en": "hello" },
+  { "ch": "你", "pin": "nǐ", "en": "you" },
+  { "ch": "您", "pin": "nín", "en": "you (formal)" },
+  { "ch": "你们", "pin": "nǐmen", "en": "you (plural)" },
+  { "ch": "好", "pin": "hǎo", "en": "good" },
+  { "ch": "心", "pin": "xīn", "en": "heart" },
+  { "ch": "对不起", "pin": "duì bu qǐ", "en": "sorry" },
+  { "ch": "没关系", "pin": "méi guānxi", "en": "it doesn't matter" },
+  { "ch": "我", "pin": "wǒ", "en": "I" },
+  { "ch": "他", "pin": "tā", "en": "he" },
+  { "ch": "她", "pin": "tā", "en": "she" }
+]

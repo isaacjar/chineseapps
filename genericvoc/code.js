@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🎮 Configuración inicial
   const defaultModeBtn = document.getElementById('modePinyin');
   defaultModeBtn.classList.add('active');
-  currentMode = 'Pinyin';
+  currentMode = defaultModeBtn.dataset.mode;
   updateModeLabel();
   document.getElementById('questionCount').textContent = questionCount;
   hideGameElements();
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentMode = btn.textContent;
+      currentMode = btn.dataset.mode;
       updateModeLabel();
     });
   });
@@ -336,19 +336,19 @@ function nextQuestion() {
   let correctText, questionText;
 
   switch (currentMode) {
-    case '🈶':
+    case 'Chinese':
       questionText = currentWord.ch;
       correctText = currentWord.pin;
       break;
-    case '🔤':
+    case 'Pinyin':
       questionText = `${currentWord.ch} [${currentWord.pin}]`;
       correctText = currentWord.en;
       break;
-    case '🇬🇧':
+    case 'English':
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
       break;
-	case '🌐':  // Nuevo modo
+	case 'Ch-En':  // Nuevo modo
       questionText = currentWord.ch;
       correctText = currentWord.en;
       break;
@@ -443,10 +443,10 @@ function checkAnswer(selectedText) {
 
   let correct;
   switch (currentMode) {
-    case '🈶': correct = currentWord.pin; break;
-    case '🔤': correct = currentWord.en; break;
-    case '🇬🇧': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
-	case '🌐': distractor = rand.en; break;
+    case 'Chinese': correct = currentWord.pin; break;
+    case 'Pinyin': correct = currentWord.en; break;
+    case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
+	case 'Ch-En': distractor = rand.en; break;
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -572,4 +572,5 @@ function mostrarPopup(listados) {
   document.body.appendChild(popup);
 
 }
+
 

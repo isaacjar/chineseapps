@@ -261,7 +261,7 @@ class HSKBambooApp {
         UI.showScreen('menu');
         
         // Mostrar mensaje de confirmación
-        UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
+        //UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
     }
 }
 // Iniciar la aplicación cuando el DOM esté listo

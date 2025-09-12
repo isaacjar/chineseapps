@@ -45,8 +45,13 @@ class Game {
     }
     
     static prepareQuestions(gameType, count, vocabulary, settings) {
-        // Mezclar vocabulario
-        const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
+        // Filtrar vocabulario por niveles HSK seleccionados
+        const filteredVocabulary = vocabulary.filter(word => 
+            settings.hskLevels.includes(word.level)
+        );
+        
+        // Mezclar vocabulario filtrado
+        const shuffled = [...filteredVocabulary].sort(() => Math.random() - 0.5);
         
         // Seleccionar las primeras 'count' palabras
         return shuffled.slice(0, count).map(word => ({

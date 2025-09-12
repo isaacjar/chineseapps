@@ -41,6 +41,19 @@ class HSKBambooApp {
             const vocabResponse = await fetch('js/voclist.json');
             this.vocabulary = await vocabResponse.json();
             
+            // Cargar estadísticas si existen
+            const savedStats = localStorage.getItem('hskBambooStats');
+            if (savedStats) {
+                const statsData = JSON.parse(savedStats);
+                this.vocabulary.forEach((word, index) => {
+                    const savedWord = statsData.find(w => w.ch === word.ch);
+                    if (savedWord) {
+                        word.s = savedWord.s || 0;
+                        word.e = savedWord.e || 0;
+                    }
+                });
+            }
+                
             // Cargar datos de idioma
             const langResponse = await fetch('js/lang.json');
             this.languageData = await langResponse.json();

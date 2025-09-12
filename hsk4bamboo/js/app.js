@@ -128,6 +128,10 @@ class HSKBambooApp {
             const emoji = e.target.value == 1 ? '😎' : '🥵';
             document.getElementById('difficulty-emoji').textContent = emoji;
         });
+
+        document.getElementById('lives-slider').addEventListener('input', (e) => {
+            document.getElementById('lives-value').textContent = e.target.value;
+        });
     }
     
     initGame() {

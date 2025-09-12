@@ -259,6 +259,34 @@ body {
     color: #666;
     font-size: 0.9rem;
 }
+/* Estilos para los filtros */
+.review-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.toggle-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--bamboo-medium);
+    background-color: white;
+    color: var(--bamboo-dark);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.toggle-btn.active {
+    background-color: var(--bamboo-medium);
+    color: white;
+}
+
+.toggle-btn:hover {
+    background-color: var(--bamboo-light);
+    color: white;
+}
 
 /* Pantalla de Estadísticas */
 .stats-container {

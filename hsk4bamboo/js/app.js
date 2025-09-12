@@ -124,8 +124,8 @@ class HSKBambooApp {
             document.getElementById('time-value').textContent = e.target.value;
         });
         
-        document.getElementById('difficulty-slider').addEventListener('input', (e) => {
-            const emoji = e.target.value == 1 ? '😎' : '🥵';
+        document.getElementById('difficulty-switch').addEventListener('change', (e) => {
+            const emoji = e.target.checked ? '🥵' : '😎';
             document.getElementById('difficulty-emoji').textContent = emoji;
         });
 

@@ -572,3 +572,23 @@ input:checked + .ios-switch-slider:before {
 input:checked + .ios-switch-slider {
     box-shadow: 0 0 1px var(--bamboo-medium);
 }
+/* Estilos para los niveles HSK */
+.hsk-levels {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .hsk-levels {
+        gap: 0.5rem;
+    }
+}

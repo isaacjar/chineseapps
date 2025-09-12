@@ -1,6 +1,20 @@
 // game.js - Lógica de juegos
 class Game {
     static init(vocabulary, languageData) {
+        // Cargar estadísticas guardadas si existen
+        const savedStats = localStorage.getItem('hskBambooStats');
+        if (savedStats) {
+            const statsData = JSON.parse(savedStats);
+            // Combinar con el vocabulario actual
+            vocabulary.forEach((word, index) => {
+                const savedWord = statsData.find(w => w.ch === word.ch);
+                if (savedWord) {
+                    word.s = savedWord.s || 0;
+                    word.e = savedWord.e || 0;
+                }
+            });
+        }    
+        
         this.vocabulary = vocabulary;
         this.languageData = languageData;
         this.currentGame = null;
@@ -125,6 +139,7 @@ class Game {
         // Incrementar contador de veces mostrada
         const currentWord = this.currentGame.questions[this.currentGame.currentQuestion].word;
         currentWord.s = (currentWord.s || 0) + 1;
+        this.saveUserStats();
         
         // Mostrar mensaje de tiempo agotado
         UI.showToast(this.languageData[this.currentGame.settings.language].timeOut || '¡Tiempo agotado!');
@@ -204,6 +219,7 @@ class Game {
         // Incrementar contador de errores
         const currentWord = this.currentGame.questions[this.currentGame.currentQuestion].word;
         currentWord.e = (currentWord.e || 0) + 1;
+        this.saveUserStats();
         
         // Reiniciar racha
         this.currentGame.streak = 0;
@@ -288,4 +304,8 @@ class Game {
             this.currentGame = null;
         }, 2500);
     }
+}
+
+static saveUserStats() {
+    localStorage.setItem('hskBambooStats', JSON.stringify(this.vocabulary));
 }

@@ -739,3 +739,38 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
     border: none;
 }
+
+/* Estilo para mostrar marcas en el slider */
+#questions-slider {
+    background-size: 11.11% 100%; /* Para 9 segmentos (50-5)/5+1 = 10 segmentos */
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to right, 
+        #ccc 1px, 
+        transparent 1px
+    );
+}
+
+#questions-slider::-webkit-slider-thumb {
+    /* Hacer el thumb un poco más grande para mejor usabilidad */
+    width: 22px;
+    height: 22px;
+}
+
+#questions-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+}
+
+/* Para navegadores que soportan datalist (marcas visuales) */
+#questions-slider {
+    /* Añadir marcas cada 5 unidades */
+    background-image: linear-gradient(to right, 
+        #ccc 1px, 
+        transparent 1px,
+        transparent calc(11.11% - 1px),
+        #ccc calc(11.11% - 1px),
+        #ccc calc(11.11% + 1px),
+        transparent calc(11.11% + 1px)
+    );
+    background-size: 11.11% 100%;
+}

@@ -592,3 +592,45 @@ input:checked + .ios-switch-slider {
         gap: 0.5rem;
     }
 }
+
+/* Estilos específicos para Juego 1 */
+.game-type-1 .question-text {
+    font-size: 2.8rem; /* Más grande para caracteres chinos */
+}
+
+.game-type-1 .option-btn {
+    font-size: 1.3rem; /* Opciones más grandes */
+    padding: 1.5rem;
+}
+
+/* Estilos específicos para Juego 2 */
+.game-type-2 .question-text {
+    font-size: 2.2rem; /* Más pequeño para texto occidental */
+}
+
+.game-type-2 .option-btn {
+    font-size: 1.8rem; /* Opciones más grandes para caracteres chinos */
+    padding: 1.8rem;
+    line-height: 1.4; /* Mejor espaciado para pinyin */
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .game-type-1 .question-text {
+        font-size: 2.2rem;
+    }
+    
+    .game-type-1 .option-btn {
+        font-size: 1.1rem;
+        padding: 1.2rem;
+    }
+    
+    .game-type-2 .question-text {
+        font-size: 1.8rem;
+    }
+    
+    .game-type-2 .option-btn {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+    }
+}

@@ -132,16 +132,27 @@ class Game {
     }
     
     static startTimer() {
-        if (this.timer) clearInterval(this.timer);
+        // Limpiar temporizador anterior si existe
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
         
         const timerBar = document.getElementById('timer-bar');
         const timePerQuestion = this.currentGame.settings.time * 1000; // convertir a ms
-        let timeLeft = timePerQuestion;
         
+        // Reiniciar la barra de tiempo
+        timerBar.style.transition = 'none';
         timerBar.style.width = '100%';
+        
+        // Forzar reflow para que la transición se reinicie correctamente
+        timerBar.offsetHeight;
+        
+        // Iniciar la animación de la barra
         timerBar.style.transition = `width ${timePerQuestion}ms linear`;
         timerBar.style.width = '0%';
         
+        // Configurar el temporizador para tiempo agotado
         this.timer = setTimeout(() => {
             this.handleTimeOut();
         }, timePerQuestion);
@@ -307,7 +318,10 @@ class Game {
     
     static endGame() {
         // Limpiar temporizador
-        clearTimeout(this.timer);
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
         
         // Mostrar mensaje final
         let message;

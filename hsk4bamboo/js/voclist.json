@@ -1,0 +1,137 @@
+[
+  {
+    "level": 2,
+    "ch": "爱情",
+    "pin": "àiqíng",
+    "en": "romance",
+    "sp": "amor romántico",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 1,
+    "ch": "安排",
+    "pin": "ānpái",
+    "en": "to arrange",
+    "sp": "organizar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "安全",
+    "pin": "ānquán",
+    "en": "safe",
+    "sp": "seguro",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "暗",
+    "pin": "àn",
+    "en": "dark",
+    "sp": "oscuro",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "ch": "按时",
+    "pin": "ànshí",
+    "en": "on time",
+    "sp": "a tiempo",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 5,
+    "ch": "按照",
+    "pin": "ànzhào",
+    "en": "according to",
+    "sp": "según",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "包括",
+    "pin": "bāokuò",
+    "en": "to include",
+    "sp": "incluir",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "保护",
+    "pin": "bǎohù",
+    "en": "to protect",
+    "sp": "proteger",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "保证",
+    "pin": "bǎozhèng",
+    "en": "to guarantee",
+    "sp": "garantizar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "抱",
+    "pin": "bào",
+    "en": "to hug",
+    "sp": "abrazar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "抱歉",
+    "pin": "bàoqiàn",
+    "en": "sorry",
+    "sp": "disculpas",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "背景",
+    "pin": "bèijǐng",
+    "en": "background",
+    "sp": "fondo",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "被子",
+    "pin": "bèizi",
+    "en": "quilt",
+    "sp": "edredón",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "本科",
+    "pin": "běnkē",
+    "en": "undergraduate",
+    "sp": "pregrado",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "ch": "鼻子",
+    "pin": "bízi",
+    "en": "nose",
+    "sp": "nariz",
+    "s": 0,
+    "e": 0
+  }
+]

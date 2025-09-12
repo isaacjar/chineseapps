@@ -9,6 +9,7 @@ class HSKBambooApp {
             questions: 15,
             time: 10,
             lives: 3,
+            showPinyin: false,
             difficulty: 1
         };
         

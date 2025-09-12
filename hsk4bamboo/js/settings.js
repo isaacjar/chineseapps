@@ -9,7 +9,8 @@ class SettingsUI {
         document.getElementById('lives-slider').value = settings.lives;
         document.getElementById('lives-value').textContent = settings.lives;
         
-        const emoji = settings.difficulty == 1 ? '😎' : '🥵';
+        document.getElementById('difficulty-switch').checked = settings.difficulty === 2;
+        const emoji = settings.difficulty === 2 ? '🥵' : '😎';
         document.getElementById('difficulty-emoji').textContent = emoji;
     }
     
@@ -31,7 +32,7 @@ class SettingsUI {
             questions: parseInt(document.getElementById('questions-slider').value),
             time: parseInt(document.getElementById('time-slider').value),
             lives: parseInt(document.getElementById('lives-slider').value),
-            difficulty: parseInt(document.getElementById('difficulty-slider').value)
+            difficulty: document.getElementById('difficulty-switch').checked ? 2 : 1
         };
     }
 }

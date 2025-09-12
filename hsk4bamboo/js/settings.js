@@ -19,6 +19,9 @@ class SettingsUI {
         document.getElementById('difficulty-switch').checked = settings.difficulty === 2;
         const emoji = settings.difficulty === 2 ? '🥵' : '😎';
         document.getElementById('difficulty-emoji').textContent = emoji;
+        
+        // Asegurar que el valor de questions es múltiplo de 5
+        this.updateQuestionsValue();
     }
     
     static resetSettings() {
@@ -52,4 +55,32 @@ class SettingsUI {
             difficulty: document.getElementById('difficulty-switch').checked ? 2 : 1
         };
     }
+    
+    // Función para actualizar el valor del slider de preguntas (múltiplos de 5)
+    static updateQuestionsValue() {
+        const slider = document.getElementById('questions-slider');
+        const valueDisplay = document.getElementById('questions-value');
+        
+        if (slider && valueDisplay) {
+            // Asegurarse de que el valor es múltiplo de 5
+            const value = parseInt(slider.value);
+            const roundedValue = Math.round(value / 5) * 5;
+            
+            // Actualizar el valor del slider y la visualización
+            slider.value = roundedValue;
+            valueDisplay.textContent = roundedValue;
+        }
+    }
 }
+
+// Inicializar event listeners cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar el event listener para el slider de preguntas
+    const questionsSlider = document.getElementById('questions-slider');
+    if (questionsSlider) {
+        questionsSlider.addEventListener('input', SettingsUI.updateQuestionsValue);
+    }
+    
+    // También asegurar el valor correcto al cargar la página
+    SettingsUI.updateQuestionsValue();
+});

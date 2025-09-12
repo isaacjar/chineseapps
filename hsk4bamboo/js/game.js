@@ -216,7 +216,7 @@ class Game {
         
         if (isCorrect) {
             // Respuesta correcta
-            this.handleCorrectAnswer();
+            this.handleCorrectAnswer(correctWord);
         } else {
             // Respuesta incorrecta
             this.handleIncorrectAnswer(selectedOption, correctButton);
@@ -231,7 +231,7 @@ class Game {
         }, 2000);
     }
     
-    static handleCorrectAnswer() {
+    static handleCorrectAnswer(correctWord) {
         // Incrementar puntuación y racha
         this.currentGame.score += 10;
         this.currentGame.streak += 1;
@@ -242,10 +242,21 @@ class Game {
         const randomKey = 's' + (Math.floor(Math.random() * 10) + 1);
         UI.showToast(successMessages[randomKey]);
         
-        // Efecto visual en el botón correcto
-        const correctButton = [...document.querySelectorAll('.option-btn')].find(btn => 
-            !btn.classList.contains('incorrect')
-        );
+        // Efecto visual en el botón correcto - encontrar el botón que coincide con la respuesta correcta
+        const lang = this.currentGame.settings.language;
+        const correctContent = this.currentGame.type === 1 ? 
+            (correctWord[lang] || correctWord.en || correctWord.sp) : 
+            correctWord.ch;
+        
+        const correctButton = [...document.querySelectorAll('.option-btn')].find(btn => {
+            if (this.currentGame.type === 1) {
+                return btn.textContent === correctContent;
+            } else {
+                // Para juego 2, comparar solo los caracteres chinos (ignorar pinyin)
+                return btn.textContent.split('\n')[0] === correctContent;
+            }
+        });
+        
         if (correctButton) {
             correctButton.classList.add('correct');
             correctButton.classList.add('blink');

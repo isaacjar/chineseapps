@@ -179,8 +179,8 @@ class HSKBambooApp {
         this.settings.language = document.getElementById('language-select').value;
         this.settings.questions = parseInt(document.getElementById('questions-slider').value);
         this.settings.time = parseInt(document.getElementById('time-slider').value);
-        this.settings.lives = parseInt(document.getElementById('lives-input').value);
-        this.settings.difficulty = parseInt(document.getElementById('difficulty-slider').value);
+        this.settings.lives = parseInt(document.getElementById('lives-slider').value);
+       this.settings.difficulty = document.getElementById('difficulty-switch').checked ? 2 : 1;
         
         // Guardar en localStorage
         localStorage.setItem('hskBambooSettings', JSON.stringify(this.settings));

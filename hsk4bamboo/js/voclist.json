@@ -639,5 +639,167 @@
     "pin": "búdàn",
     "en": "not only",
     "sp": "no sólo (no sólo…sino)"
-  }
+  },
+  {
+"level": 4,
+"sil": 3,
+"ch": "不得不",
+"pin": "bùdebù",
+"en": "can't help but",
+"sp": "no tener más remedio que"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "部分",
+"pin": "bùfèn",
+"en": "part",
+"sp": "parte"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "不管",
+"pin": "bùguǎn",
+"en": "no matter",
+"sp": "aunque"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "不仅",
+"pin": "bùjǐn",
+"en": "not only",
+"sp": "no sólo"
+},
+{
+"level": 1,
+"sil": 3,
+"ch": "不客气",
+"pin": "búkeqì",
+"en": "you are welcome",
+"sp": "de nada"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "不足",
+"pin": "bùzú",
+"en": "insufficient, not enough",
+"sp": "insuficiente"
+},
+{
+"level": 4,
+"sil": 1,
+"ch": "擦",
+"pin": "cā",
+"en": "wipe",
+"sp": "borrar"
+},
+{
+"level": 3,
+"sil": 1,
+"ch": "才",
+"pin": "cái",
+"en": "talent, just, only",
+"sp": "capacidad, talento, sólo"
+},
+{
+"level": 1,
+"sil": 1,
+"ch": "菜",
+"pin": "cài",
+"en": "dish, vegetable",
+"sp": "plato de comida, verdura"
+},
+{
+"level": 4,
+"sil": 1,
+"ch": "猜",
+"pin": "cāi",
+"en": "guess",
+"sp": "adivinar"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "菜单",
+"pin": "càidān",
+"en": "menu",
+"sp": "carta del menú"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "材料",
+"pin": "cáiliào",
+"en": "material",
+"sp": "material"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "参观",
+"pin": "cānguān",
+"en": "to visit",
+"sp": "visitar"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "参加",
+"pin": "cānjiā",
+"en": "to attend, to participate",
+"sp": "asistir, participar"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "参考",
+"pin": "cānkǎo",
+"en": "reference, to consult",
+"sp": "consultar, referencia"
+},
+{
+"level": 3,
+"sil": 1,
+"ch": "草",
+"pin": "cǎo",
+"en": "grass",
+"sp": "hierba"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "操心",
+"pin": "cāoxīn",
+"en": "to worry about, to take trouble",
+"sp": "preocuparse"
+},
+{
+"level": 3,
+"sil": 1,
+"ch": "层",
+"pin": "céng",
+"en": "floor (level)",
+"sp": "planta, piso"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "测验",
+"pin": "cèyàn",
+"en": "test, quiz",
+"sp": "prueba, test"
+},
+{
+"level": 1,
+"sil": 1,
+"ch": "茶",
+"pin": "chá",
+"en": "tea",
+"sp": "té"
+}
+
+    
 ]

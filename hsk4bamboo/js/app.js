@@ -10,6 +10,7 @@ class HSKBambooApp {
             time: 10,
             lives: 3,
             showPinyin: false,
+            hskLevels: [1, 2, 3, 4], // Niveles por defecto
             difficulty: 1
         };
         

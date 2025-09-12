@@ -52,23 +52,33 @@
             <div class="settings-container">
                 <h2>Configuración</h2>
                 
-                <div class="setting-group">
-                    <label for="language-select">Idioma:</label>
-                    <select id="language-select">
-                        <option value="en">🗽 English</option>
-                        <option value="es">💃 Español</option>
-                    </select>
-                    <label for="show-pinyin">Pinyin</label>
-                    <label class="ios-switch">
-                        <input type="checkbox" id="show-pinyin">
-                        <span class="ios-switch-slider"></span>
-                    </label>
+                <!-- Grupo de Idioma y Pinyin -->
+                <div class="setting-group-row">
+                    <div class="setting-item">
+                        <label for="language-select">Idioma:</label>
+                        <select id="language-select" class="wider-select">
+                            <option value="en">🗽 English</option>
+                            <option value="es">💃 Español</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="show-pinyin">Pinyin:</label>
+                        <label class="ios-switch">
+                            <input type="checkbox" id="show-pinyin">
+                            <span class="ios-switch-slider"></span>
+                        </label>
+                    </div>
                 </div>
                 
+                <!-- Grupo de Número de Preguntas -->
                 <div class="setting-group">
-                    <label for="questions-slider">❓ <span id="questions-value">15</span></label>
-                    <input type="range" id="questions-slider" min="5" max="50" value="15">
+                    <div class="setting-item-full">
+                        <label for="questions-slider">Número de preguntas: <span id="questions-value">15</span></label>
+                        <input type="range" id="questions-slider" min="5" max="50" value="15" class="full-width-slider">
+                    </div>
                 </div>
+                
+                <!-- Grupo de Niveles HSK -->
                 <div class="setting-group">
                     <label>Niveles HSK:</label>
                     <div class="hsk-levels">
@@ -90,20 +100,26 @@
                     </div>
                 </div>
                 
-                <div class="setting-group">
-                    <label for="time-slider">⏱️ <span id="time-value">10</span> segundos</label>
-                    <input type="range" id="time-slider" min="2" max="30" value="10">
+                <!-- Grupo de Tiempo, Vidas y Dificultad -->
+                <div class="setting-group-row">
+                    <div class="setting-item">
+                        <label for="time-slider">Tiempo: <span id="time-value">10</span>s</label>
+                        <input type="range" id="time-slider" min="2" max="30" value="10">
+                    </div>
+                    <div class="setting-item">
+                        <label for="lives-slider">Vidas: <span id="lives-value">3</span></label>
+                        <input type="range" id="lives-slider" min="3" max="10" value="3">
+                    </div>
+                    <div class="setting-item">
+                        <label for="difficulty-switch">Dificultad: <span id="difficulty-emoji">😎</span></label>
+                        <label class="ios-switch">
+                            <input type="checkbox" id="difficulty-switch">
+                            <span class="ios-switch-slider"></span>
+                        </label>
+                    </div>
                 </div>
                 
-                <div class="setting-group">
-                    <label for="lives-slider">❤️</label><span id="lives-value">3</span></label><input type="range" id="lives-slider" min="3" max="10" value="3">
-                    <label for="difficulty-switch"><span id="difficulty-emoji">😎</span></label>
-                    <label class="ios-switch">
-                        <input type="checkbox" id="difficulty-switch">
-                        <span class="ios-switch-slider"></span>
-                    </label>
-                </div>
-                
+                <!-- Botones de acción -->
                 <div class="settings-buttons">
                     <button id="save-settings" class="action-btn">💾 Guardar</button>
                     <button id="reset-settings" class="action-btn">🔄 Resetear</button>

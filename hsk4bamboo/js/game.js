@@ -89,8 +89,12 @@ class Game {
         
         // Configurar pregunta según el tipo de juego
         if (this.currentGame.type === 1) {
-            // Juego 1: Pregunta en chino, opciones en el idioma seleccionado
-            questionText.innerHTML = `${question.word.ch}<br><small>${question.word.pin}</small>`;
+           // Juego 1: Pregunta en chino
+            if (this.currentGame.settings.showPinyin) {
+                questionText.innerHTML = `${question.word.ch}<br><small>${question.word.pin}</small>`;
+            } else {
+                questionText.textContent = question.word.ch;
+            }
         } else {
             // Juego 2: Pregunta en el idioma seleccionado, opciones en chino
             questionText.textContent = question.word[this.currentGame.settings.language];
@@ -105,8 +109,12 @@ class Game {
             if (this.currentGame.type === 1) {
                 button.textContent = option[this.currentGame.settings.language];
             } else {
-                // Juego 2: Opciones en chino con pinyin
-                button.innerHTML = `${option.ch}<br><small>${option.pin}</small>`;
+                // Juego 2: Opciones en chino
+                if (this.currentGame.settings.showPinyin) {
+                    button.innerHTML = `${option.ch}<br><small>${option.pin}</small>`;
+                } else {
+                    button.textContent = option.ch;
+                }
             }
             
             button.addEventListener('click', () => {

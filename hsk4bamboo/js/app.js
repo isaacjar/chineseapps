@@ -46,8 +46,31 @@ class HSKBambooApp {
             this.languageData = await langResponse.json();
         } catch (error) {
             console.error('Error loading data:', error);
+            // Datos de respaldo en caso de error
+                this.languageData = {
+                    en: {
+                        settingsSaved: "Settings saved successfully!",
+                        timeOut: "Time's up!",
+                        gameOver: "Game Over", 
+                        gameCompleted: "Game completed",
+                        menuReturn: "Returning to menu",
+                        successMessages: {
+                            "s1": "🐼 Awesome!",
+                            "s2": "🎉 Correct!",
+                            // ... resto de mensajes ...
+                        },
+                        failMessages: {
+                            "f1": "😅 Oops, almost...",
+                            // ... resto de mensajes ...
+                        }
+                    },
+                    es: {
+                        // ... datos en español ...
+                    }
+                };
+            }
         }
-    }
+    
     
     loadSettings() {
         const savedSettings = localStorage.getItem('hskBambooSettings');
@@ -76,6 +99,11 @@ class HSKBambooApp {
         // Inicializar listeners de botones
         document.getElementById('settings-btn').addEventListener('click', () => {
             UI.showScreen('settings');
+        });
+        
+        // Listener del logo 🎋
+        document.getElementById('logo-btn').addEventListener('click', () => {
+            this.goToMainMenu();
         });
         
         document.getElementById('vocab-list-btn').addEventListener('click', () => {
@@ -174,7 +202,7 @@ class HSKBambooApp {
             h4plus: document.querySelector('[data-filter="h4plus"]').classList.contains('active')
         };
     
-        let wordsToReview = this.vocabulary.filter(word => {
+        const wordsToReview = this.vocabulary.filter(word => {
             if (filters.vistas && word.s > 0) return true;
             if (filters.h1 && word.level === 1) return true;
             if (filters.h2 && word.level === 2) return true;
@@ -205,6 +233,23 @@ class HSKBambooApp {
             reviewList.appendChild(item);
         });
     }
+}
+
+goToMainMenu() {
+    // Detener cualquier juego en curso
+    if (Game.currentGame) {
+        clearTimeout(Game.timer);
+        Game.currentGame = null;
+    }
+    
+    // Ocultar estadísticas y mostrar botón de configuración
+    UI.showGameHeader(false);
+    
+    // Mostrar pantalla de menú
+    UI.showScreen('menu');
+    
+    // Mostrar mensaje de confirmación
+    UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
 }
 
 // Iniciar la aplicación cuando el DOM esté listo

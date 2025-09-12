@@ -214,7 +214,7 @@ body {
     .setting-group select {
         margin-left: 0;
         margin-top: 0.5rem;
-        align-self: flex-end;
+        align-self: flex-start;
     }
 }
 
@@ -661,7 +661,7 @@ input:checked + .ios-switch-slider {
 .setting-group-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
     gap: 1rem;
@@ -670,8 +670,9 @@ input:checked + .ios-switch-slider {
 .setting-item {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 120px;
+    align-items: flex-start;
 }
 
 .setting-item-full {
@@ -688,7 +689,7 @@ input:checked + .ios-switch-slider {
 }
 
 .full-width-slider {
-    width: 80% !important;
+    width: 100% !important;
 }
 
 /* Para móviles */
@@ -699,11 +700,13 @@ input:checked + .ios-switch-slider {
     }
     
     .setting-item {
+        flex: 0 1 auto;
         min-width: auto;
+        width: 100%;
     }
     
     .wider-select {
-        width: 80% !important;
+        width: 100% !important;
     }
 }
 

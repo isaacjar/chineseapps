@@ -20,7 +20,7 @@ class Game {
             score: 0,
             streak: 0,
             lives: settings.lives,
-            questions: this.prepareQuestions(gameType, settings.questions, vocabulary)
+            questions: this.prepareQuestions(gameType, settings.questions, vocabulary, settings)
         };
         
         // Actualizar header
@@ -30,19 +30,19 @@ class Game {
         this.showQuestion();
     }
     
-    static prepareQuestions(gameType, count, vocabulary) {
+    static prepareQuestions(gameType, count, vocabulary, settings) {
         // Mezclar vocabulario
         const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
         
         // Seleccionar las primeras 'count' palabras
         return shuffled.slice(0, count).map(word => ({
             word: word,
-            options: this.generateOptions(word, gameType, shuffled)
+            options: this.generateOptions(word, gameType, shuffled, settings)
         }));
     }
     
-    static generateOptions(correctWord, gameType, vocabulary) {
-        const optionsCount = this.currentGame.settings.difficulty === 1 ? 4 : 6;
+    static generateOptions(correctWord, gameType, vocabulary, settings) {
+        const optionsCount = settings.difficulty === 1 ? 4 : 6;
         const options = [correctWord];
         
         // Seleccionar opciones incorrectas aleatorias

@@ -5,9 +5,7 @@
     "ch": "啊",
     "pin": "a",
     "en": "particle for exclamation or surprise",
-    "sp": "partícula expresar exclamación o sorpresa",
-    "s": 0,
-    "e": 0
+    "sp": "partícula expresar exclamación o sorpresa"
   },
   {
     "level": 1,
@@ -15,9 +13,7 @@
     "ch": "爱",
     "pin": "ài",
     "en": "love, to love",
-    "sp": "amor, amar",
-    "s": 0,
-    "e": 0
+    "sp": "amor, amar"
   },
   {
     "level": 3,
@@ -25,9 +21,7 @@
     "ch": "矮",
     "pin": "ǎi",
     "en": "short",
-    "sp": "bajo (estatura)",
-    "s": 0,
-    "e": 0
+    "sp": "bajo (estatura)"
   },
   {
     "level": 3,
@@ -35,9 +29,7 @@
     "ch": "爱好",
     "pin": "àihào",
     "en": "hobby, interest",
-    "sp": "aficción",
-    "s": 0,
-    "e": 0
+    "sp": "aficción"
   },
   {
     "level": 5,
@@ -45,9 +37,7 @@
     "ch": "爱护",
     "pin": "àihù",
     "en": "to cherish, to take good care of",
-    "sp": "cuidar con cariño",
-    "s": 0,
-    "e": 0
+    "sp": "cuidar con cariño"
   },
   {
     "level": 4,
@@ -55,9 +45,7 @@
     "ch": "爱情",
     "pin": "àiqíng",
     "en": "love",
-    "sp": "amor",
-    "s": 0,
-    "e": 0
+    "sp": "amor"
   },
   {
     "level": 4,
@@ -65,9 +53,7 @@
     "ch": "暗",
     "pin": "àn",
     "en": "dark",
-    "sp": "oscuro",
-    "s": 0,
-    "e": 0
+    "sp": "oscuro"
   },
   {
     "level": 3,
@@ -75,9 +61,7 @@
     "ch": "安静",
     "pin": "ānjìng",
     "en": "quiet",
-    "sp": "tranquilo, tranquilidad",
-    "s": 0,
-    "e": 0
+    "sp": "tranquilo, tranquilidad"
   },
   {
     "level": 4,
@@ -85,9 +69,7 @@
     "ch": "安排",
     "pin": "ānpái",
     "en": "to arrange",
-    "sp": "planificar, plan",
-    "s": 0,
-    "e": 0
+    "sp": "planificar, plan"
   },
   {
     "level": 4,
@@ -95,9 +77,7 @@
     "ch": "安全",
     "pin": "ānquán",
     "en": "safety",
-    "sp": "seguro, seguridad",
-    "s": 0,
-    "e": 0
+    "sp": "seguro, seguridad"
   },
   {
     "level": 4,
@@ -105,9 +85,7 @@
     "ch": "按时",
     "pin": "ànshí",
     "en": "on time",
-    "sp": "puntual",
-    "s": 0,
-    "e": 0
+    "sp": "puntual"
   },
   {
     "level": 5,
@@ -115,9 +93,7 @@
     "ch": "安慰",
     "pin": "ānwèi",
     "en": "to comfort",
-    "sp": "consolar",
-    "s": 0,
-    "e": 0
+    "sp": "consolar"
   },
   {
     "level": 4,
@@ -125,9 +101,7 @@
     "ch": "按照",
     "pin": "ànzhào",
     "en": "according to",
-    "sp": "según",
-    "s": 0,
-    "e": 0
+    "sp": "según"
   },
   {
     "level": 3,
@@ -135,9 +109,7 @@
     "ch": "阿姨",
     "pin": "āyí",
     "en": "aunt",
-    "sp": "tía",
-    "s": 0,
-    "e": 0
+    "sp": "tía"
   },
   {
     "level": 2,
@@ -145,9 +117,7 @@
     "ch": "吧",
     "pin": "ba",
     "en": "particle for suggestions",
-    "sp": "partícula para sugerencias",
-    "s": 0,
-    "e": 0
+    "sp": "partícula para sugerencias"
   },
   {
     "level": 3,
@@ -155,9 +125,7 @@
     "ch": "把",
     "pin": "bǎ",
     "en": "to take",
-    "sp": "tomar, coger, agarrar",
-    "s": 0,
-    "e": 0
+    "sp": "tomar, coger, agarrar"
   },
   {
     "level": 1,
@@ -165,9 +133,7 @@
     "ch": "八",
     "pin": "bā",
     "en": "eight",
-    "sp": "ocho",
-    "s": 0,
-    "e": 0
+    "sp": "ocho"
   },
   {
     "level": 1,
@@ -175,9 +141,7 @@
     "ch": "爸爸",
     "pin": "bàba",
     "en": "dad",
-    "sp": "papá",
-    "s": 0,
-    "e": 0
+    "sp": "papá"
   },
   {
     "level": 3,
@@ -185,9 +149,7 @@
     "ch": "白",
     "pin": "bái",
     "en": "white",
-    "sp": "blanco",
-    "s": 0,
-    "e": 0
+    "sp": "blanco"
   },
   {
     "level": 2,
@@ -195,9 +157,7 @@
     "ch": "百",
     "pin": "bǎi",
     "en": "hundred",
-    "sp": "cien",
-    "s": 0,
-    "e": 0
+    "sp": "cien"
   },
   [
   {
@@ -206,9 +166,7 @@
     "ch": "白色",
     "pin": "báisè",
     "en": "white colour",
-    "sp": "color blanco",
-    "s": 0,
-    "e": 0
+    "sp": "color blanco"
   },
   {
     "level": 3,
@@ -216,9 +174,7 @@
     "ch": "半",
     "pin": "bàn",
     "en": "half",
-    "sp": "mitad",
-    "s": 0,
-    "e": 0
+    "sp": "mitad"
   },
   {
     "level": 3,
@@ -226,9 +182,7 @@
     "ch": "班",
     "pin": "bān",
     "en": "class, work",
-    "sp": "clase, trabajo, turno",
-    "s": 0,
-    "e": 0
+    "sp": "clase, trabajo, turno"
   },
   {
     "level": 3,
@@ -236,9 +190,7 @@
     "ch": "搬",
     "pin": "bān",
     "en": "to move",
-    "sp": "llevar, mover, mudarse",
-    "s": 0,
-    "e": 0
+    "sp": "llevar, mover, mudarse"
   },
   {
     "level": 3,
@@ -246,9 +198,7 @@
     "ch": "办法",
     "pin": "bànfǎ",
     "en": "way",
-    "sp": "manera",
-    "s": 0,
-    "e": 0
+    "sp": "manera"
   },
   {
     "level": 2,
@@ -256,9 +206,7 @@
     "ch": "帮",
     "pin": "bāng",
     "en": "to help",
-    "sp": "ayudar",
-    "s": 0,
-    "e": 0
+    "sp": "ayudar"
   },
   {
     "level": 2,
@@ -266,9 +214,7 @@
     "ch": "帮助",
     "pin": "bāngzhù",
     "en": "to help",
-    "sp": "ayudar",
-    "s": 0,
-    "e": 0
+    "sp": "ayudar"
   },
   {
     "level": 3,
@@ -276,9 +222,7 @@
     "ch": "帮忙",
     "pin": "bāng máng",
     "en": "to help, do a favor",
-    "sp": "ayudar, hacer un favor",
-    "s": 0,
-    "e": 0
+    "sp": "ayudar, hacer un favor"
   },
   {
     "level": 3,
@@ -286,9 +230,7 @@
     "ch": "办公室",
     "pin": "bàngōngshì",
     "en": "office",
-    "sp": "oficina",
-    "s": 0,
-    "e": 0
+    "sp": "oficina"
   },
   {
     "level": 4,
@@ -296,9 +238,7 @@
     "ch": "抱",
     "pin": "bào",
     "en": "hug",
-    "sp": "abrazo",
-    "s": 0,
-    "e": 0
+    "sp": "abrazo"
   },
   {
     "level": 3,
@@ -306,9 +246,7 @@
     "ch": "饱",
     "pin": "bǎo",
     "en": "to be full",
-    "sp": "estar lleno",
-    "s": 0,
-    "e": 0
+    "sp": "estar lleno"
   },
   {
     "level": 3,
@@ -316,9 +254,7 @@
     "ch": "包",
     "pin": "bāo",
     "en": "to wrap, bag",
-    "sp": "envolver, bolso",
-    "s": 0,
-    "e": 0
+    "sp": "envolver, bolso"
   },
   {
     "level": 4,
@@ -326,9 +262,7 @@
     "ch": "保护",
     "pin": "bǎohù",
     "en": "to protect",
-    "sp": "proteger",
-    "s": 0,
-    "e": 0
+    "sp": "proteger"
   },
   {
     "level": 4,
@@ -336,9 +270,7 @@
     "ch": "保证",
     "pin": "bǎozhèng",
     "en": "guarantee",
-    "sp": "garantizar",
-    "s": 0,
-    "e": 0
+    "sp": "garantizar"
   },
   {
     "level": 4,
@@ -346,9 +278,7 @@
     "ch": "报道",
     "pin": "bàodào",
     "en": "report",
-    "sp": "reportaje",
-    "s": 0,
-    "e": 0
+    "sp": "reportaje"
   },
   {
     "level": 5,
@@ -356,9 +286,7 @@
     "ch": "报告",
     "pin": "bàogào",
     "en": "report, to report",
-    "sp": "informe, reportar",
-    "s": 0,
-    "e": 0
+    "sp": "informe, reportar"
   },
   {
     "level": 5,
@@ -366,9 +294,7 @@
     "ch": "包含",
     "pin": "bāohán",
     "en": "to contain, to include",
-    "sp": "contener, incluir",
-    "s": 0,
-    "e": 0
+    "sp": "contener, incluir"
   },
   {
     "level": 4,
@@ -376,9 +302,7 @@
     "ch": "包括",
     "pin": "bāokuò",
     "en": "to include",
-    "sp": "incluir",
-    "s": 0,
-    "e": 0
+    "sp": "incluir"
   },
   {
     "level": 4,
@@ -386,9 +310,7 @@
     "ch": "报名",
     "pin": "bàomíng",
     "en": "to sign up",
-    "sp": "inscribirse",
-    "s": 0,
-    "e": 0
+    "sp": "inscribirse"
   },
   {
     "level": 4,
@@ -396,8 +318,166 @@
     "ch": "抱歉",
     "pin": "bàoqiàn",
     "en": "sorry",
-    "sp": "perdona, disculpa",
-    "s": 0,
-    "e": 0
+    "sp": "perdona, disculpa"
+  },
+  {
+    "level": 2,
+    "sil": 2,
+    "ch": "报纸",
+    "pin": "bàozhǐ",
+    "en": "newspaper",
+    "sp": "periódico"
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "把握",
+    "pin": "bǎwò",
+    "en": "to grasp, to seize (an opportunity)",
+    "sp": "aprovechar, controlar"
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "被",
+    "pin": "bèi",
+    "en": "particle for passive voice",
+    "sp": "particula para voz pasiva"
+  },
+  {
+    "level": 4,
+    "sil": 1,
+    "ch": "倍",
+    "pin": "bèi",
+    "en": "times (multiplier)",
+    "sp": "veces (una vez, dos veces)"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "北方",
+    "pin": "běifāng",
+    "en": "north",
+    "sp": "norte"
+  },
+  {
+    "level": 2,
+    "sil": 2,
+    "ch": "杯子",
+    "pin": "bēizi",
+    "en": "cup",
+    "sp": "copa, vaso"
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "背景",
+    "pin": "bèijǐng",
+    "en": "background",
+    "sp": "contexto, antecedentes"
+  },
+  {
+    "level": 1,
+    "sil": 2,
+    "ch": "北京",
+    "pin": "Běijīng",
+    "en": "Beijing",
+    "sp": "Pekín"
+  },
+  {
+    "level": 1,
+    "sil": 2,
+    "ch": "杯子",
+    "pin": "bēizi",
+    "en": "cup",
+    "sp": "copa, vaso"
+  },
+  {
+    "level": 4,
+    "sil": 1,
+    "ch": "笨",
+    "pin": "bèn",
+    "en": "stupid",
+    "sp": "estúpido"
+  },
+  {
+    "level": 1,
+    "sil": 1,
+    "ch": "本",
+    "pin": "běn",
+    "en": "mw. books",
+    "sp": "clasif. libros"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "本来",
+    "pin": "běnlái",
+    "en": "originally",
+    "sp": "originario"
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "本质",
+    "pin": "běnzhì",
+    "en": "essence, nature",
+    "sp": "esencia"
+  },
+  {
+    "level": 2,
+    "sil": 1,
+    "ch": "比",
+    "pin": "bǐ",
+    "en": "compared to",
+    "sp": "comparado con"
+  },
+  {
+    "level": 4,
+    "sil": 1,
+    "ch": "遍",
+    "pin": "biàn",
+    "en": "times (measure word)",
+    "sp": "veces (clasificador)"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "变化",
+    "pin": "biànhuà",
+    "en": "to change",
+    "sp": "cambiar"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "表达",
+    "pin": "biǎodá",
+    "en": "to express",
+    "sp": "expresar"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "表格",
+    "pin": "biǎogé",
+    "en": "form",
+    "sp": "tabla (tabla de contenidos)"
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "表面",
+    "pin": "biǎomiàn",
+    "en": "surface, superficial",
+    "sp": "superficie"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "表示",
+    "pin": "biǎoshì",
+    "en": "to show, to express",
+    "sp": "demostrar, manifestar, expresar"
   }
 ]

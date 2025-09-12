@@ -1118,6 +1118,326 @@
 "pin": "chúle",
 "en": "except, besides",
 "sp": "aparte de, excepto"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "处理",
+  "pin": "chǔlǐ",
+  "en": "to handle, to deal with",
+  "sp": "manejar, resolver"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "春",
+  "pin": "chūn",
+  "en": "spring",
+  "sp": "primavera"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "出生",
+  "pin": "chūshēng",
+  "en": "to be born",
+  "sp": "nacer"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "出现",
+  "pin": "chūxiàn",
+  "en": "to appear",
+  "sp": "aparecer, surgir"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "出租车",
+  "pin": "chūzūchē",
+  "en": "taxi",
+  "sp": "taxi"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "次",
+  "pin": "cì",
+  "en": "time, times",
+  "sp": "vez, veces"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "词典",
+  "pin": "cídiǎn",
+  "en": "dictionary",
+  "sp": "diccionario"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "词语",
+  "pin": "cíyǔ",
+  "en": "word, expression",
+  "sp": "palabra, expresión"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "从",
+  "pin": "cóng",
+  "en": "from",
+  "sp": "desde, seguir"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "从来",
+  "pin": "cónglái",
+  "en": "always",
+  "sp": "siempre"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "聪明",
+  "pin": "cōngmíng",
+  "en": "clever",
+  "sp": "inteligente"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "错",
+  "pin": "cuò",
+  "en": "wrong, mistake",
+  "sp": "error, equivocación"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "促使",
+  "pin": "cùshǐ",
+  "en": "to urge, to prompt",
+  "sp": "impulsar, motivar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "粗心",
+  "pin": "cūxīn",
+  "en": "careless",
+  "sp": "descuidado"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "大",
+  "pin": "dà",
+  "en": "big, old",
+  "sp": "grande (también de edad)"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "打电话",
+  "pin": "dǎ diànhuà",
+  "en": "to make a phone call",
+  "sp": "llamar por teléfono"
+},
+{
+  "level": 2,
+  "sil": 3,
+  "ch": "打篮球",
+  "pin": "dǎ lánqiú",
+  "en": "to play basketball",
+  "sp": "jugar al baloncesto"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "答案",
+  "pin": "dá'àn",
+  "en": "answer",
+  "sp": "respuesta"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "打扮",
+  "pin": "dǎbàn",
+  "en": "to dress up",
+  "sp": "arreglarse (maquillaje)"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "达到",
+  "pin": "dádào",
+  "en": "to reach, to achieve",
+  "sp": "alcanzar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "大概",
+  "pin": "dàgài",
+  "en": "about / roughly",
+  "sp": "aproximadamente"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "打工",
+  "pin": "dǎgōng",
+  "en": "to work (part-time or temporary)",
+  "sp": "trabajar (temporalmente)"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "带",
+  "pin": "dài",
+  "en": "to take, to bring",
+  "sp": "traer, llevar, guiar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "戴",
+  "pin": "dài",
+  "en": "to wear (complements)",
+  "sp": "vestir (complementos)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "代表",
+  "pin": "dàibiǎo",
+  "en": "representative",
+  "sp": "representar, representante"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "大夫",
+  "pin": "dàifu",
+  "en": "doctor",
+  "sp": "médico, doctor"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "代替",
+  "pin": "dàitì",
+  "en": "to replace",
+  "sp": "sustituir"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "大家",
+  "pin": "dàjiā",
+  "en": "everyone",
+  "sp": "todo el mundo, todos"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "单调",
+  "pin": "dāndiào",
+  "en": "monotonous, dull",
+  "sp": "monótono"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "当",
+  "pin": "dāng",
+  "en": "when",
+  "sp": "cuando"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "蛋糕",
+  "pin": "dàngāo",
+  "en": "cake",
+  "sp": "pastel"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "当地",
+  "pin": "dāngdì",
+  "en": "local",
+  "sp": "local, autóctono"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "当然",
+  "pin": "dāngrán",
+  "en": "of course",
+  "sp": "por supuesto"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "但是",
+  "pin": "dànshì",
+  "en": "but",
+  "sp": "pero"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "担心",
+  "pin": "dānxīn",
+  "en": "to worry",
+  "sp": "preocuparse, preocupación"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "到",
+  "pin": "dào",
+  "en": "to arrive, to reach",
+  "sp": "hasta, llegar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "刀",
+  "pin": "dāo",
+  "en": "knife",
+  "sp": "cuchillo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "到处",
+  "pin": "dàochù",
+  "en": "everywhere",
+  "sp": "todas partes"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "到底",
+  "pin": "dàodǐ",
+  "en": "exactly",
+  "sp": "finalmente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "道歉",
+  "pin": "dàoqiàn",
+  "en": "to apologize",
+  "sp": "disculparse, disculpa"
 }
 
     

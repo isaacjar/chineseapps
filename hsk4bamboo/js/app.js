@@ -233,25 +233,25 @@ class HSKBambooApp {
             reviewList.appendChild(item);
         });
     
-}
-
-goToMainMenu() {
-    // Detener cualquier juego en curso
-    if (Game.currentGame) {
-        clearTimeout(Game.timer);
-        Game.currentGame = null;
     }
-    
-    // Ocultar estadísticas y mostrar botón de configuración
-    UI.showGameHeader(false);
-    
-    // Mostrar pantalla de menú
-    UI.showScreen('menu');
-    
-    // Mostrar mensaje de confirmación
-    UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
-}
 
+    goToMainMenu() {
+        // Detener cualquier juego en curso
+        if (Game.currentGame) {
+            clearTimeout(Game.timer);
+            Game.currentGame = null;
+        }
+        
+        // Ocultar estadísticas y mostrar botón de configuración
+        UI.showGameHeader(false);
+        
+        // Mostrar pantalla de menú
+        UI.showScreen('menu');
+        
+        // Mostrar mensaje de confirmación
+        UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
+    }
+}
 // Iniciar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new HSKBambooApp();

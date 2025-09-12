@@ -213,7 +213,7 @@ body {
     .setting-group input[type="range"],
     .setting-group select {
         margin-left: 0;
-        margin-top: 0.5rem;
+        margin-top: 0.3rem;
         align-self: flex-start;
     }
 }

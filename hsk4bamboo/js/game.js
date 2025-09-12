@@ -89,10 +89,10 @@ class Game {
         
         // Configurar pregunta según el tipo de juego
         if (this.currentGame.type === 1) {
-            // Juego 1: Pregunta en español, opciones en el idioma seleccionado
-            questionText.textContent = question.word.sp;
+            // Juego 1: Pregunta en chino, opciones en el idioma seleccionado
+            questionText.innerHTML = `${question.word.ch}<br><small>${question.word.pin}</small>`;
         } else {
-            // Juego 2: Pregunta en el idioma seleccionado, opciones en español
+            // Juego 2: Pregunta en el idioma seleccionado, opciones en chino
             questionText.textContent = question.word[this.currentGame.settings.language];
         }
         
@@ -105,7 +105,8 @@ class Game {
             if (this.currentGame.type === 1) {
                 button.textContent = option[this.currentGame.settings.language];
             } else {
-                button.textContent = option.sp;
+                // Juego 2: Opciones en chino con pinyin
+                button.innerHTML = `${option.ch}<br><small>${option.pin}</small>`;
             }
             
             button.addEventListener('click', () => {
@@ -163,16 +164,20 @@ class Game {
         // Encontrar el botón correcto
         let correctButton = null;
         options.forEach(button => {
-            let buttonText = button.textContent;
-            let correctText;
+            let buttonContent;
+            let correctContent;
             
             if (this.currentGame.type === 1) {
-                correctText = correctWord[this.currentGame.settings.language];
+                // Juego 1: Comparar contenido de texto (idioma seleccionado)
+                buttonContent = button.textContent;
+                correctContent = correctWord[this.currentGame.settings.language];
             } else {
-                correctText = correctWord.sp;
+                // Juego 2: Comparar caracteres chinos
+                buttonContent = button.textContent.split('\n')[0]; // Solo los caracteres chinos
+                correctContent = correctWord.ch;
             }
             
-            if (buttonText === correctText) {
+            if (buttonContent === correctContent) {
                 correctButton = button;
             }
             
@@ -191,7 +196,7 @@ class Game {
         // Pasar a la siguiente pregunta después de un breve delay
         setTimeout(() => {
             this.nextQuestion();
-        }, 1500);
+        }, 2000);
     }
     
     static handleCorrectAnswer() {
@@ -236,16 +241,20 @@ class Game {
         // Efecto visual en los botones
         const options = document.querySelectorAll('.option-btn');
         options.forEach(button => {
-            let buttonText = button.textContent;
-            let selectedText;
+            let buttonContent;
+            let selectedContent;
             
             if (this.currentGame.type === 1) {
-                selectedText = selectedOption[this.currentGame.settings.language];
+                // Juego 1: Comparar contenido de texto
+                buttonContent = button.textContent;
+                selectedContent = selectedOption[this.currentGame.settings.language];
             } else {
-                selectedText = selectedOption.sp;
+                // Juego 2: Comparar caracteres chinos
+                buttonContent = button.textContent.split('\n')[0];
+                selectedContent = selectedOption.ch;
             }
             
-            if (buttonText === selectedText) {
+            if (buttonContent === selectedContent) {
                 button.classList.add('incorrect');
                 button.classList.add('shake');
             }

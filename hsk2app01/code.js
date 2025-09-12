@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentMode = btn.textContent;
+      currentMode = btn.dataset.mode;
       updateModeLabel();
     });
   });
@@ -321,6 +321,10 @@ function nextQuestion() {
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
       break;
+    case 'Ch-En':   
+      questionText = currentWord.ch;
+      correctText = currentWord.en;
+      break;
   }
 
   const label = document.getElementById('questionLabel');
@@ -338,6 +342,7 @@ function nextQuestion() {
       case 'Chinese': distractor = rand.pin; break;
       case 'Pinyin': distractor = rand.en; break;
       case 'English': distractor = `${rand.ch} [${rand.pin}]`; break;
+      case 'Ch-En': distractor = rand.en; break;
     }
     if (!options.includes(distractor)) options.push(distractor);
   }
@@ -400,7 +405,7 @@ function nextQuestion() {
       currentQuestion++;
       nextQuestion();
     }, 2000);
-  }, 5000);
+  }, 10000);
 }
 
 function checkAnswer(selectedText) {
@@ -415,6 +420,7 @@ function checkAnswer(selectedText) {
     case 'Chinese': correct = currentWord.pin; break;
     case 'Pinyin': correct = currentWord.en; break;
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
+    case 'Ch-En': correct = currentWord.en; break;
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -478,4 +484,5 @@ function disableOptions() {
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.6';
   });
+
 }

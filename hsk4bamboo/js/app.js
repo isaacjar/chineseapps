@@ -213,7 +213,7 @@ class HSKBambooApp {
         }).map(word => ({
             ...word,
             errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
-        })).sort((a, b) => b.errorRate - a.errorRate);const wordsToReview = this.vocabulary
+        })).sort((a, b) => b.errorRate - a.errorRate);
            
         const reviewList = document.getElementById('review-list');
         reviewList.innerHTML = '';

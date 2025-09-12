@@ -71,13 +71,15 @@ body {
 }
 
 .header-stats {
-    display: flex;
+    display: none;
     gap: 0.8rem;
     font-size: 0.9rem;
     margin-left: auto; /* Esto empujará las estadísticas a la derecha */
     margin-right: 1rem; /* Espacio a la derecha */
 }
-
+.header-stats.visible {
+    display: flex;
+}
 .settings-btn {
     background: none;
     border: none;

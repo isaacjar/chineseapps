@@ -446,7 +446,7 @@ function checkAnswer(selectedText) {
     case 'Chinese': correct = currentWord.pin; break;
     case 'Pinyin': correct = currentWord.en; break;
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
-	case 'Ch-En': distractor = rand.en; break;
+	case 'Ch-En': correct = currentWord.en; break;
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -572,5 +572,6 @@ function mostrarPopup(listados) {
   document.body.appendChild(popup);
 
 }
+
 
 

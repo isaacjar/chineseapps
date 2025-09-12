@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐼 HSK Bamboo 4 🎋</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎋</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <header class="header-bar">
+        <div class="logo-container">
+            <span class="logo">🎋</span>
+            <h1 class="app-title">🐼 HSK Bamboo 4 🎋</h1>
+        </div>
+        <div class="header-stats" id="header-stats">
+            <span id="stats-progress">🌱 1/15</span>
+            <span id="stats-score">🏅 0</span>
+            <span id="stats-streak">🔥 0</span>
+            <span id="stats-lives">❤️ 3</span>
+        </div>
+        <button class="settings-btn" id="settings-btn">⚙️</button>
+    </header>
+
+    <!-- Pantallas de la aplicación -->
+    <main class="main-content">
+        <!-- Pantalla de Menú -->
+        <section id="menu-screen" class="screen active">
+            <div class="menu-container">
+                <button class="menu-btn" id="vocab-list-btn">
+                    <span class="menu-icon">📚</span>
+                    <span class="menu-text">Listas de palabras</span>
+                </button>
+                <button class="menu-btn" id="game1-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span class="menu-text">Juego 1</span>
+                </button>
+                <button class="menu-btn" id="game2-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span class="menu-text">Juego 2</span>
+                </button>
+                <button class="menu-btn" id="stats-btn">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">Estadísticas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Opciones -->
+        <section id="settings-screen" class="screen">
+            <div class="settings-container">
+                <h2>Configuración</h2>
+                
+                <div class="setting-group">
+                    <label for="language-select">Idioma:</label>
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="questions-slider">Número de preguntas: <span id="questions-value">15</span></label>
+                    <input type="range" id="questions-slider" min="5" max="50" value="15">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="time-slider">Tiempo por pregunta: <span id="time-value">10</span> segundos</label>
+                    <input type="range" id="time-slider" min="2" max="30" value="10">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="lives-input">Número de vidas:</label>
+                    <input type="number" id="lives-input" min="1" max="10" value="3">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="difficulty-slider">Dificultad: <span id="difficulty-emoji">😎</span></label>
+                    <input type="range" id="difficulty-slider" min="1" max="2" value="1">
+                </div>
+                
+                <div class="settings-buttons">
+                    <button id="save-settings" class="action-btn">💾 Guardar</button>
+                    <button id="reset-settings" class="action-btn">🔄 Resetear</button>
+                    <button id="cancel-settings" class="action-btn">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Review -->
+        <section id="review-screen" class="screen">
+            <div class="review-container">
+                <h2>Palabras para repasar</h2>
+                <div id="review-list" class="review-list">
+                    <!-- Las palabras se cargarán dinámicamente -->
+                </div>
+                <button id="back-from-review" class="action-btn">Volver al menú</button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Estadísticas -->
+        <section id="stats-screen" class="screen">
+            <div class="stats-container">
+                <h2>Estadísticas</h2>
+                <p>Aquí se mostrarán las estadísticas de juego</p>
+                <button id="back-from-stats" class="action-btn">Volver al menú</button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Juego -->
+        <section id="game-screen" class="screen">
+            <div class="game-container">
+                <div class="question-container">
+                    <div id="question-text" class="question-text"></div>
+                </div>
+                
+                <div class="timer-container">
+                    <div id="timer-bar" class="timer-bar"></div>
+                </div>
+                
+                <div id="options-container" class="options-container">
+                    <!-- Las opciones se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra inferior -->
+    <footer class="footer-bar">
+        <p>🐼 HSK Bamboo 4 🎋 IJH 🎋 Made for learning joy</p>
+    </footer>
+
+    <!-- Toast para mensajes -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="js/lang.json"></script>
+    <script src="js/voclist.json"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

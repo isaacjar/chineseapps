@@ -369,6 +369,7 @@ function nextQuestion() {
       case 'Chinese': distractor = rand.pin; break;
       case 'Pinyin': distractor = rand.en; break;
       case 'English': distractor = `${rand.ch} [${rand.pin}]`; break;
+	  case 'Ch-En': distractor = rand.en; break;   
     }
     if (!options.includes(distractor)) options.push(distractor);
   }
@@ -572,6 +573,7 @@ function mostrarPopup(listados) {
   document.body.appendChild(popup);
 
 }
+
 
 
 

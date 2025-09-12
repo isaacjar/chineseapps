@@ -304,8 +304,8 @@ class Game {
             this.currentGame = null;
         }, 2500);
     }
-}
 
-static saveUserStats() {
-    localStorage.setItem('hskBambooStats', JSON.stringify(this.vocabulary));
+    static saveUserStats() {
+        localStorage.setItem('hskBambooStats', JSON.stringify(this.vocabulary));
+    }
 }

@@ -6,8 +6,8 @@ class SettingsUI {
         document.getElementById('questions-value').textContent = settings.questions;
         document.getElementById('time-slider').value = settings.time;
         document.getElementById('time-value').textContent = settings.time;
-        document.getElementById('lives-input').value = settings.lives;
-        document.getElementById('difficulty-slider').value = settings.difficulty;
+        document.getElementById('lives-slider').value = settings.lives;
+        document.getElementById('lives-value').textContent = settings.lives;
         
         const emoji = settings.difficulty == 1 ? '😎' : '🥵';
         document.getElementById('difficulty-emoji').textContent = emoji;
@@ -30,7 +30,7 @@ class SettingsUI {
             language: document.getElementById('language-select').value,
             questions: parseInt(document.getElementById('questions-slider').value),
             time: parseInt(document.getElementById('time-slider').value),
-            lives: parseInt(document.getElementById('lives-input').value),
+            lives: parseInt(document.getElementById('lives-slider').value),
             difficulty: parseInt(document.getElementById('difficulty-slider').value)
         };
     }

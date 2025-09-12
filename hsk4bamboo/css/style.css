@@ -376,7 +376,7 @@ body {
 .options-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 0.8rem;
     margin-top: 1rem;
 }
 
@@ -385,14 +385,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80px;
+    min-height: 65px;
     word-break: break-word;
     text-align: center;
-    padding: 1.2rem;
+    padding: 0.7rem;
     border: none;
     border-radius: 10px;
     background-color: var(--yellow-pastel);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: var(--shadow-light);
@@ -607,7 +607,7 @@ input:checked + .ios-switch-slider {
 
 .game-type-1 .option-btn {
     font-size: 1.3rem; /* Opciones más grandes */
-    padding: 1.5rem;
+    padding: 1.0rem;
 }
 
 /* Estilos específicos para Juego 2 */
@@ -618,7 +618,7 @@ input:checked + .ios-switch-slider {
 .game-type-2 .option-btn {
     font-size: 1.8rem; /* Opciones más grandes para caracteres chinos */
     padding: 1.8rem;
-    line-height: 1.4; /* Mejor espaciado para pinyin */
+    line-height: 1.3; /* Mejor espaciado para pinyin */
 }
 
 /* Ajustes para móviles */
@@ -651,4 +651,91 @@ input:checked + .ios-switch-slider {
 .pinyin-text {
     color: #666;
     font-size: 0.7em;
+}
+
+/* Añadir estos estilos al final del archivo CSS */
+
+/* Estilos para la configuración mejorada */
+.setting-group-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 120px;
+}
+
+.setting-item-full {
+    width: 100%;
+}
+
+.setting-item label {
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+}
+
+.wider-select {
+    width: 140px !important;
+}
+
+.full-width-slider {
+    width: 100% !important;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .setting-group-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .setting-item {
+        min-width: auto;
+    }
+    
+    .wider-select {
+        width: 100% !important;
+    }
+}
+
+/* Eliminar bordes de los grupos de configuración */
+.setting-group {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+    border-bottom: none;
+}
+
+/* Mejorar aspecto de los sliders */
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+    margin-top: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bamboo-medium);
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bamboo-medium);
+    cursor: pointer;
+    border: none;
 }

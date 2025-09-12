@@ -73,8 +73,8 @@
                 <!-- Grupo de Número de Preguntas -->
                 <div class="setting-group">
                     <div class="setting-item-full">
-                        <label for="questions-slider">Número de preguntas: <span id="questions-value">15</span></label>
-                        <input type="range" id="questions-slider" min="5" max="50" value="15" class="full-width-slider">
+                        <label for="questions-slider">❓ <span id="questions-value">15</span></label>
+                        <input type="range" id="questions-slider" min="5" max="50" step="5" value="15" class="full-width-slider">
                     </div>
                 </div>
                 
@@ -103,15 +103,13 @@
                 <!-- Grupo de Tiempo, Vidas y Dificultad -->
                 <div class="setting-group-row">
                     <div class="setting-item">
-                        <label for="time-slider">Tiempo: <span id="time-value">10</span>s</label>
-                        <input type="range" id="time-slider" min="2" max="30" value="10">
+                        <label for="time-slider">⏱️ <input type="range" id="time-slider" min="2" max="30" value="10"><span id="time-value">10</span>s</label>
                     </div>
                     <div class="setting-item">
-                        <label for="lives-slider">Vidas: <span id="lives-value">3</span></label>
-                        <input type="range" id="lives-slider" min="3" max="10" value="3">
+                        <label for="lives-slider">❤️ <input type="range" id="lives-slider" min="3" max="10" value="3"><span id="lives-value">3</span></label>
                     </div>
                     <div class="setting-item">
-                        <label for="difficulty-switch">Dificultad: <span id="difficulty-emoji">😎</span></label>
+                        <label for="difficulty-switch"><span id="difficulty-emoji">😎</span></label>
                         <label class="ios-switch">
                             <input type="checkbox" id="difficulty-switch">
                             <span class="ios-switch-slider"></span>

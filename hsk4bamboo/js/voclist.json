@@ -1438,6 +1438,166 @@
   "pin": "dàoqiàn",
   "en": "to apologize",
   "sp": "disculparse, disculpa"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "导游",
+  "pin": "dǎoyóu",
+  "en": "tour guide",
+  "sp": "guía turístico"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "打扫",
+  "pin": "dǎsǎo",
+  "en": "to clean",
+  "sp": "limpiar"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "大使馆",
+  "pin": "dàshǐguǎn",
+  "en": "embassy",
+  "sp": "embajada"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "打算",
+  "pin": "dǎsuàn",
+  "en": "to plan",
+  "sp": "planear (hacer planes)"
+},
+{
+  "level": 5,
+  "sil": 2,
+  "ch": "大型",
+  "pin": "dàxíng",
+  "en": "large-scale",
+  "sp": "de gran tamaño"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "大学",
+  "pin": "dàxué",
+  "en": "university",
+  "sp": "universidad"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "打印",
+  "pin": "dǎyìn",
+  "en": "print",
+  "sp": "imprimir"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "大约",
+  "pin": "dàyuē",
+  "en": "approximately",
+  "sp": "aproximadamente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "打折",
+  "pin": "dǎzhé",
+  "en": "discount",
+  "sp": "descuento"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "打针",
+  "pin": "dǎzhēn",
+  "en": "injection",
+  "sp": "inyectar"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "的",
+  "pin": "de",
+  "en": "possesive particle",
+  "sp": "part. posesivo"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "地",
+  "pin": "de",
+  "en": "particle for adverbs",
+  "sp": "part. adverbios"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "得",
+  "pin": "de",
+  "en": "to get, (degree complement)",
+  "sp": "obtener, (part. comp. grado)"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "等",
+  "pin": "děng",
+  "en": "to wait for",
+  "sp": "esperar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "灯",
+  "pin": "dēng",
+  "en": "lamp, light",
+  "sp": "lámpara"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "得意",
+  "pin": "déyì",
+  "en": "proud",
+  "sp": "orgullo"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "地",
+  "pin": "dì",
+  "en": "land",
+  "sp": "tierra"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "低",
+  "pin": "dī",
+  "en": "low",
+  "sp": "bajar, bajo (poco elevado)"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "第一",
+  "pin": "dì yī",
+  "en": "first (第 is used for ordinal numbers)",
+  "sp": "primero (第se usa para los nº ordinales)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "地址",
+  "pin": "dì zhǐ",
+  "en": "address",
+  "sp": "dirección"
 }
 
     

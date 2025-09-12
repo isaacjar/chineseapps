@@ -232,7 +232,6 @@ class HSKBambooApp {
             `;
             reviewList.appendChild(item);
         });
-      }
     }
 
     goToMainMenu() {

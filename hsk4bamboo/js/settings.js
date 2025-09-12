@@ -9,11 +9,13 @@ class SettingsUI {
         document.getElementById('lives-slider').value = settings.lives;
         document.getElementById('lives-value').textContent = settings.lives;
         document.getElementById('show-pinyin').checked = settings.showPinyin;
+        
         document.getElementById('hsk-level-1').checked = settings.hskLevels.includes(1);        
         document.getElementById('hsk-level-2').checked = settings.hskLevels.includes(2);
         document.getElementById('hsk-level-3').checked = settings.hskLevels.includes(3);
         document.getElementById('hsk-level-4').checked = settings.hskLevels.includes(4);
         document.getElementById('hsk-level-4plus').checked = settings.hskLevels.includes(5);
+        
         document.getElementById('difficulty-switch').checked = settings.difficulty === 2;
         const emoji = settings.difficulty === 2 ? '🥵' : '😎';
         document.getElementById('difficulty-emoji').textContent = emoji;
@@ -33,7 +35,7 @@ class SettingsUI {
         this.updateUIFromSettings(defaultSettings);
     }
     
-    static getSettingsFromUI() 
+    static getSettingsFromUI() {
         const hskLevels = [];
         if (document.getElementById('hsk-level-1').checked) hskLevels.push(1);
         if (document.getElementById('hsk-level-2').checked) hskLevels.push(2);

@@ -159,6 +159,9 @@ class Game {
     }
     
     static handleTimeOut() {
+        // Verificar que el juego todavía esté activo
+        if (!this.currentGame) return;
+        
         // Incrementar contador de veces mostrada
         const currentWord = this.currentGame.questions[this.currentGame.currentQuestion].word;
         currentWord.s = (currentWord.s || 0) + 1;
@@ -169,7 +172,10 @@ class Game {
         
         // Pasar a la siguiente pregunta después de un breve delay
         setTimeout(() => {
-            this.nextQuestion();
+            // Verificar nuevamente que el juego todavía esté activo
+            if (this.currentGame) {
+                this.nextQuestion();
+            }
         }, 1500);
     }
     
@@ -218,7 +224,10 @@ class Game {
         
         // Pasar a la siguiente pregunta después de un breve delay
         setTimeout(() => {
-            this.nextQuestion();
+            // Verificar que el juego todavía esté activo antes de continuar
+            if (this.currentGame) {
+                this.nextQuestion();
+            }
         }, 2000);
     }
     
@@ -292,14 +301,27 @@ class Game {
         // Verificar si se acabaron las vidas
         if (this.currentGame.lives <= 0) {
             setTimeout(() => {
-                this.endGame();
+                // Verificar que el juego todavía esté activo
+                if (this.currentGame) {
+                    this.endGame();
+                }
             }, 1500);
             return;
-        }
+        }    
     }
     
     static nextQuestion() {
+        // Verificar que el juego todavía esté activo
+        if (!this.currentGame) return;
+        
         this.currentGame.currentQuestion += 1;
+        
+        // Verificar si hemos llegado al final de las preguntas
+        if (this.currentGame.currentQuestion >= this.currentGame.questions.length) {
+            this.endGame();
+            return;
+        }
+            
         this.updateHeader();
         this.showQuestion();
     }

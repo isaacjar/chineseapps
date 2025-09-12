@@ -16,10 +16,10 @@ class UI {
         const settingsBtn = document.getElementById('settings-btn');
         
         if (isGame) {
-            headerStats.style.display = 'flex';
+            headerStats.classList.add('visible'); 
             settingsBtn.style.display = 'none';
         } else {
-            headerStats.style.display = 'none';
+            headerStats.classList.remove('visible');
             settingsBtn.style.display = 'block';
         }
     }

@@ -9,5 +9,11 @@
   { "ch": "没关系", "pin": "méi guānxi", "en": "it doesn't matter" },
   { "ch": "我", "pin": "wǒ", "en": "I" },
   { "ch": "他", "pin": "tā", "en": "he" },
-  { "ch": "她", "pin": "tā", "en": "she" }
+  { "ch": "她", "pin": "tā", "en": "she" },
+  { "ch": "一", "pin": "yī", "en": "one" },
+  { "ch": "二", "pin": "èr", "en": "two" },
+  { "ch": "三", "pin": "sān", "en": "three" },
+  { "ch": "六", "pin": "liù", "en": "six" },
+  { "ch": "八", "pin": "bā", "en": "eight" },
+  { "ch": "十", "pin": "shí", "en": "ten" }
 ]

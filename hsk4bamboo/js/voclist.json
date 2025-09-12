@@ -479,5 +479,165 @@
     "pin": "biǎoshì",
     "en": "to show, to express",
     "sp": "demostrar, manifestar, expresar"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "表演",
+    "pin": "biǎoyǎn",
+    "en": "performance, to perform",
+    "sp": "actuación, actuar"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "表扬",
+    "pin": "biǎoyáng",
+    "en": "to praise",
+    "sp": "halagar"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "标准",
+    "pin": "biāozhǔn",
+    "en": "standard",
+    "sp": "estándar"
+  },
+  {
+    "level": 2,
+    "sil": 1,
+    "ch": "别",
+    "pin": "bié",
+    "en": "must not, other",
+    "sp": "no deber, otro"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "别人",
+    "pin": "biérén",
+    "en": "other people",
+    "sp": "otras personas"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "比较",
+    "pin": "bǐjiào",
+    "en": "to compare, rather",
+    "sp": "comparar, bastante"
+  },
+  {
+    "level": 4,
+    "sil": 3,
+    "ch": "笔记本",
+    "pin": "bǐjìběn",
+    "en": "notebook",
+    "sp": "cuaderno"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "饼干",
+    "pin": "bǐnggān",
+    "en": "biscuit",
+    "sp": "galleta"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "并且",
+    "pin": "bìngqiě",
+    "en": "and also",
+    "sp": "y (conjunción)"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "宾馆",
+    "pin": "bīnguǎn",
+    "en": "hotel",
+    "sp": "hotel"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "冰箱",
+    "pin": "bīngxiāng",
+    "en": "refrigerator",
+    "sp": "frigorífico"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "比赛",
+    "pin": "bǐsài",
+    "en": "match, competition",
+    "sp": "partido, competición"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "必须",
+    "pin": "bìxū",
+    "en": "to need, to must",
+    "sp": "ser necesario"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "毕业",
+    "pin": "bìyè",
+    "en": "graduate",
+    "sp": "graduar"
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "鼻子",
+    "pin": "bízi",
+    "en": "nose",
+    "sp": "nariz"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "博士",
+    "pin": "bóshì",
+    "en": "doctor (PhD)",
+    "sp": "doctorado"
+  },
+  {
+    "level": 2,
+    "sil": 1,
+    "ch": "不",
+    "pin": "bù",
+    "en": "no, not",
+    "sp": "no"
+  },
+  {
+    "level": 3,
+    "sil": 3,
+    "ch": "不客气",
+    "pin": "bú kèqì",
+    "en": "you are welcome",
+    "sp": "exp. \"no hay de que\", \"de nada\""
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "不安",
+    "pin": "bù'ān",
+    "en": "uneasy, restless",
+    "sp": "inquieto, nervioso"
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "不但",
+    "pin": "búdàn",
+    "en": "not only",
+    "sp": "no sólo (no sólo…sino)"
   }
 ]

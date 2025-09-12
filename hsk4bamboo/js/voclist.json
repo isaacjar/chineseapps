@@ -799,6 +799,326 @@
 "pin": "chá",
 "en": "tea",
 "sp": "té"
+},
+{
+"level": 3,
+"sil": 1,
+"ch": "差",
+"pin": "chā",
+"en": "to be short of",
+"sp": "faltar"
+},
+{
+"level": 4,
+"sil": 3,
+"ch": "差不多",
+"pin": "chàbuduō",
+"en": "almost",
+"sp": "casi"
+},
+{
+"level": 2,
+"sil": 1,
+"ch": "长",
+"pin": "cháng",
+"en": "long",
+"sp": "largo"
+},
+{
+"level": 4,
+"sil": 1,
+"ch": "尝",
+"pin": "cháng",
+"en": "to taste",
+"sp": "probar, saborear"
+},
+{
+"level": 4,
+"sil": 1,
+"ch": "场",
+"pin": "chǎng",
+"en": "field",
+"sp": "clasificador"
+},
+{
+"level": 2,
+"sil": 2,
+"ch": "唱歌",
+"pin": "chàng gē",
+"en": "to sing songs",
+"sp": "cantar canciones"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "长城",
+"pin": "chángchéng",
+"en": "the Great Wall",
+"sp": "gran muralla"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "长江",
+"pin": "chángjiāng",
+"en": "Yangtze River",
+"sp": "río yangtze"
+},
+{
+"level": 4,
+"sil": 1,
+"ch": "吵",
+"pin": "chǎo",
+"en": "noisy",
+"sp": "debatir, discutir"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "超过",
+"pin": "chāoguò",
+"en": "to exceed",
+"sp": "exceder, más que"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "超市",
+"pin": "chāoshì",
+"en": "supermarket",
+"sp": "supermercado"
+},
+{
+"level": 1,
+"sil": 1,
+"ch": "车",
+"pin": "chē",
+"en": "car, vehicle",
+"sp": "coche, vehículo"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "成分",
+"pin": "chéngfèn",
+"en": "ingredient, component",
+"sp": "componente"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "成功",
+"pin": "chénggōng",
+"en": "to success",
+"sp": "conseguir, éxito"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "成绩",
+"pin": "chéngjī",
+"en": "result, marks",
+"sp": "resultado, notas"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "承认",
+"pin": "chéngrèn",
+"en": "to admit, to acknowledge",
+"sp": "admitir, reconocer"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "诚实",
+"pin": "chéngshí",
+"en": "honest",
+"sp": "honesto"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "城市",
+"pin": "chéngshì",
+"en": "city",
+"sp": "ciudad"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "成熟",
+"pin": "chéngshú",
+"en": "mature",
+"sp": "maduro"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "成为",
+"pin": "chéngwéi",
+"en": "to become",
+"sp": "convertir, convertirse"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "成语",
+"pin": "chéngyǔ",
+"en": "idiom",
+"sp": "modismo, expresión fija"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "乘坐",
+"pin": "chéngzuò",
+"en": "to take (vehicle)",
+"sp": "tomar, coger (transporte)"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "衬衫",
+"pin": "chènshān",
+"en": "shirt, blouse",
+"sp": "camisa"
+},
+{
+"level": 1,
+"sil": 1,
+"ch": "吃",
+"pin": "chī",
+"en": "to eat",
+"sp": "comer"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "迟到",
+"pin": "chídào",
+"en": "to be late",
+"sp": "llegar tarde"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "吃惊",
+"pin": "chījīng",
+"en": "surprised",
+"sp": "sorprenderse"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "持续",
+"pin": "chíxù",
+"en": "to continue, to persist",
+"sp": "continuar, durar"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "冲突",
+"pin": "chōngtū",
+"en": "conflict, clash",
+"sp": "conflicto"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "重新",
+"pin": "chóngxīn",
+"en": "again",
+"sp": "de nuevo"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "抽烟",
+"pin": "chōu yān",
+"en": "to smoke",
+"sp": "fumar"
+},
+{
+"level": 2,
+"sil": 1,
+"ch": "出",
+"pin": "chū",
+"en": "to go out",
+"sp": "salir"
+},
+{
+"level": 2,
+"sil": 1,
+"ch": "船",
+"pin": "chuán",
+"en": "ship, boat",
+"sp": "barco"
+},
+{
+"level": 2,
+"sil": 1,
+"ch": "穿",
+"pin": "chuān",
+"en": "to wear",
+"sp": "llevar puesto, vestir"
+},
+{
+"level": 5,
+"sil": 2,
+"ch": "传播",
+"pin": "chuánbō",
+"en": "to spread, to disseminate",
+"sp": "difundir"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "窗户",
+"pin": "chuānghù",
+"en": "window",
+"sp": "ventana"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "传真",
+"pin": "chuánzhēn",
+"en": "fax",
+"sp": "fax"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "出差",
+"pin": "chūchāi",
+"en": "business trip",
+"sp": "viaje de negocios"
+},
+{
+"level": 4,
+"sil": 2,
+"ch": "出发",
+"pin": "chūfā",
+"en": "to set out",
+"sp": "salir (principalmente con transporte)"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "厨房",
+"pin": "chúfáng",
+"en": "kitchen",
+"sp": "cocina"
+},
+{
+"level": 3,
+"sil": 2,
+"ch": "除了",
+"pin": "chúle",
+"en": "except, besides",
+"sp": "aparte de, excepto"
 }
 
     

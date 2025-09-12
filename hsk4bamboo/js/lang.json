@@ -4,6 +4,7 @@
     "timeOut": "Time's up!",
     "gameOver": "Game Over",
     "gameCompleted": "Game completed",
+    "menuReturn": "Returning to menu",
     "successMessages": {
       "s1": "🐼 Awesome!",
       "s2": "🎉 Correct!",
@@ -34,6 +35,7 @@
     "timeOut": "¡Se acabó el tiempo!",
     "gameOver": "Game Over",
     "gameCompleted": "Juego completado",
+    "menuReturn": "Volviendo al menú", 
     "successMessages": {
       "s1": "🐼 ¡Genial!",
       "s2": "🎉 ¡Correcto!",

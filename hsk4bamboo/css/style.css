@@ -663,16 +663,17 @@ input:checked + .ios-switch-slider {
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.6rem;
     gap: 1rem;
 }
 
 .setting-item {
     display: flex;
     flex-direction: column;
-    flex: 0 1 auto;
+    flex: 1;
     min-width: 120px;
     align-items: flex-start;
+    gap: 0.5rem;
 }
 
 .setting-item-full {
@@ -685,7 +686,8 @@ input:checked + .ios-switch-slider {
 }
 
 .wider-select {
-    width: 140px !important;
+    width: 200px !important;
+    font-size: 1rem;
 }
 
 .full-width-slider {
@@ -695,8 +697,10 @@ input:checked + .ios-switch-slider {
 /* Para móviles */
 @media (max-width: 768px) {
     .setting-group-row {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row; /* Mantener en fila incluso en móviles */
+        flex-wrap: wrap; /* Permitir que se envuelva si es necesario */
+        justify-content: flex-start; /* Alinear a la izquierda */
+        gap: 0.8rem; /* Reducir espacio entre elementos */
     }
     
     .setting-item {
@@ -706,7 +710,8 @@ input:checked + .ios-switch-slider {
     }
     
     .wider-select {
-        width: 100% !important;
+        width: 200px !important;
+        font-size: 1rem;
     }
 }
 

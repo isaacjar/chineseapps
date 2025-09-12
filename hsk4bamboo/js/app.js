@@ -110,6 +110,13 @@ class HSKBambooApp {
         document.getElementById('back-from-review').addEventListener('click', () => {
             UI.showScreen('menu');
         });
+
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.classList.toggle('active');
+                this.loadReviewList();
+            });
+        });
         
         document.getElementById('back-from-stats').addEventListener('click', () => {
             UI.showScreen('menu');
@@ -157,16 +164,29 @@ class HSKBambooApp {
         UI.showToast(this.languageData[this.settings.language].settingsSaved || 'Configuración guardada');
     }
     
-    loadReviewList() {
-        // Filtrar palabras que han sido mostradas al menos una vez
-        const wordsToReview = this.vocabulary
-            .filter(word => word.s > 0)
-            .map(word => ({
-                ...word,
-                errorRate: word.e / word.s * 100
-            }))
-            .sort((a, b) => b.errorRate - a.errorRate);
-        
+    loadReviewList() {  
+         const filters = {
+            vistas: document.querySelector('[data-filter="vistas"]').classList.contains('active'),
+            h1: document.querySelector('[data-filter="h1"]').classList.contains('active'),
+            h2: document.querySelector('[data-filter="h2"]').classList.contains('active'),
+            h3: document.querySelector('[data-filter="h3"]').classList.contains('active'),
+            h4: document.querySelector('[data-filter="h4"]').classList.contains('active'),
+            h4plus: document.querySelector('[data-filter="h4plus"]').classList.contains('active')
+        };
+    
+        let wordsToReview = this.vocabulary.filter(word => {
+            if (filters.vistas && word.s > 0) return true;
+            if (filters.h1 && word.level === 1) return true;
+            if (filters.h2 && word.level === 2) return true;
+            if (filters.h3 && word.level === 3) return true;
+            if (filters.h4 && word.level === 4) return true;
+            if (filters.h4plus && word.level >= 5) return true;
+            return false;
+        }).map(word => ({
+            ...word,
+            errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
+        })).sort((a, b) => b.errorRate - a.errorRate);const wordsToReview = this.vocabulary
+           
         const reviewList = document.getElementById('review-list');
         reviewList.innerHTML = '';
         

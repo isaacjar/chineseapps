@@ -198,5 +198,206 @@
     "sp": "cien",
     "s": 0,
     "e": 0
+  },
+  [
+  {
+    "level": 2,
+    "sil": 2,
+    "ch": "白色",
+    "pin": "báisè",
+    "en": "white colour",
+    "sp": "color blanco",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "半",
+    "pin": "bàn",
+    "en": "half",
+    "sp": "mitad",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "班",
+    "pin": "bān",
+    "en": "class, work",
+    "sp": "clase, trabajo, turno",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "搬",
+    "pin": "bān",
+    "en": "to move",
+    "sp": "llevar, mover, mudarse",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "办法",
+    "pin": "bànfǎ",
+    "en": "way",
+    "sp": "manera",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 2,
+    "sil": 1,
+    "ch": "帮",
+    "pin": "bāng",
+    "en": "to help",
+    "sp": "ayudar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 2,
+    "sil": 2,
+    "ch": "帮助",
+    "pin": "bāngzhù",
+    "en": "to help",
+    "sp": "ayudar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 2,
+    "ch": "帮忙",
+    "pin": "bāng máng",
+    "en": "to help, do a favor",
+    "sp": "ayudar, hacer un favor",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 3,
+    "ch": "办公室",
+    "pin": "bàngōngshì",
+    "en": "office",
+    "sp": "oficina",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 1,
+    "ch": "抱",
+    "pin": "bào",
+    "en": "hug",
+    "sp": "abrazo",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "饱",
+    "pin": "bǎo",
+    "en": "to be full",
+    "sp": "estar lleno",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 3,
+    "sil": 1,
+    "ch": "包",
+    "pin": "bāo",
+    "en": "to wrap, bag",
+    "sp": "envolver, bolso",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "保护",
+    "pin": "bǎohù",
+    "en": "to protect",
+    "sp": "proteger",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "保证",
+    "pin": "bǎozhèng",
+    "en": "guarantee",
+    "sp": "garantizar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "报道",
+    "pin": "bàodào",
+    "en": "report",
+    "sp": "reportaje",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "报告",
+    "pin": "bàogào",
+    "en": "report, to report",
+    "sp": "informe, reportar",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 5,
+    "sil": 2,
+    "ch": "包含",
+    "pin": "bāohán",
+    "en": "to contain, to include",
+    "sp": "contener, incluir",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "包括",
+    "pin": "bāokuò",
+    "en": "to include",
+    "sp": "incluir",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "报名",
+    "pin": "bàomíng",
+    "en": "to sign up",
+    "sp": "inscribirse",
+    "s": 0,
+    "e": 0
+  },
+  {
+    "level": 4,
+    "sil": 2,
+    "ch": "抱歉",
+    "pin": "bàoqiàn",
+    "en": "sorry",
+    "sp": "perdona, disculpa",
+    "s": 0,
+    "e": 0
   }
 ]

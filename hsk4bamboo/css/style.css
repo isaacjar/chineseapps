@@ -74,6 +74,8 @@ body {
     display: flex;
     gap: 0.8rem;
     font-size: 0.9rem;
+    margin-left: auto; /* Esto empujará las estadísticas a la derecha */
+    margin-right: 1rem; /* Espacio a la derecha */
 }
 
 .settings-btn {
@@ -393,6 +395,7 @@ body {
     .header-stats {
         font-size: 0.8rem;
         gap: 0.5rem;
+        margin-right: 0.5rem; /* Menos espacio en móvil */
     }
     
     .menu-btn {

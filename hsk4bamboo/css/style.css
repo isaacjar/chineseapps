@@ -58,6 +58,11 @@ body {
 .logo-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.logo-container:hover {
+    opacity: 0.8;
 }
 
 .logo {

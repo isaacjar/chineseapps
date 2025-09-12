@@ -96,8 +96,9 @@ class Game {
                 questionText.textContent = question.word.ch;
             }
         } else {
-            // Juego 2: Pregunta en el idioma seleccionado, opciones en chino
-            questionText.textContent = question.word[this.currentGame.settings.language];
+            // Juego 2: Pregunta en el idioma seleccionado 
+            const lang = this.currentGame.settings.language;
+            questionText.textContent = question.word[lang] || question.word.en || question.word.sp;
         }
         
         // Crear botones de opciones
@@ -107,7 +108,9 @@ class Game {
             
             // Configurar texto según el tipo de juego
             if (this.currentGame.type === 1) {
-                button.textContent = option[this.currentGame.settings.language];
+                // Juego 1: Opciones en el idioma seleccionado
+                const lang = this.currentGame.settings.language;
+                button.textContent = option[lang] || option.en || option.sp;
             } else {
                 // Juego 2: Opciones en chino
                 if (this.currentGame.settings.showPinyin) {
@@ -178,7 +181,8 @@ class Game {
             if (this.currentGame.type === 1) {
                 // Juego 1: Comparar contenido de texto (idioma seleccionado)
                 buttonContent = button.textContent;
-                correctContent = correctWord[this.currentGame.settings.language];
+                const lang = this.currentGame.settings.language;
+                correctContent = correctWord[lang] || correctWord.en || correctWord.sp;
             } else {
                 // Juego 2: Comparar caracteres chinos
                 buttonContent = button.textContent.split('\n')[0]; // Solo los caracteres chinos
@@ -255,7 +259,8 @@ class Game {
             if (this.currentGame.type === 1) {
                 // Juego 1: Comparar contenido de texto
                 buttonContent = button.textContent;
-                selectedContent = selectedOption[this.currentGame.settings.language];
+                const lang = this.currentGame.settings.language;
+                selectedContent = selectedOption[lang] || selectedOption.en || selectedOption.sp;
             } else {
                 // Juego 2: Comparar caracteres chinos
                 buttonContent = button.textContent.split('\n')[0];

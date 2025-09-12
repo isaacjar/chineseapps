@@ -96,9 +96,9 @@ class Game {
         if (this.currentGame.type === 1) {
            // Juego 1: Pregunta en chino
             if (this.currentGame.settings.showPinyin) {
-                questionText.innerHTML = `${question.word.ch}<br><small>${question.word.pin}</small>`;
+                questionText.innerHTML = `<span class="chinese-char">${question.word.ch}</span><br><small class="pinyin-text">${question.word.pin}</small>`;
             } else {
-                questionText.textContent = question.word.ch;
+                questionText.innerHTML = `<span class="chinese-char">${question.word.ch}</span>`;
             }
         } else {
             // Juego 2: Pregunta en el idioma seleccionado 
@@ -119,9 +119,9 @@ class Game {
             } else {
                 // Juego 2: Opciones en chino
                 if (this.currentGame.settings.showPinyin) {
-                    button.innerHTML = `${option.ch}<br><small>${option.pin}</small>`;
+                    button.innerHTML = `<span class="chinese-char">${option.ch}</span><br><small class="pinyin-text">${option.pin}</small>`;
                 } else {
-                    button.textContent = option.ch;
+                    button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
                 }
             }
             

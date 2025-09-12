@@ -366,7 +366,7 @@ function nextQuestion() {
       clearInterval(countdownInterval);
       return;
     }
-    if (countdown < 5) {
+    if (countdown < 10) {
       const circle = document.getElementById(`c${countdown + 1}`);
       if (circle) circle.classList.add('active');
       countdown++;
@@ -486,3 +486,4 @@ function disableOptions() {
   });
 
 }
+

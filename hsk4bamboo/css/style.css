@@ -314,10 +314,10 @@ body {
     color: white;
 }
 
-.toggle-btn:hover {
+/*.toggle-btn:hover {
     background-color: var(--bamboo-light);
     color: white;
-}
+}*/
 
 /* Pantalla de Estadísticas */
 .stats-container {

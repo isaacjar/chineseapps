@@ -274,7 +274,7 @@ body {
 
 .review-item {
     background-color: white;
-    padding: 1rem;
+    padding: 0.2rem;
     border-radius: 8px;
     box-shadow: var(--shadow-light);
     display: flex;
@@ -284,6 +284,7 @@ body {
 
 .review-word {
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .review-stats {
@@ -307,6 +308,7 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
+    font-size: 0.9rem;
 }
 
 .toggle-btn.active {

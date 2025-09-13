@@ -3198,6 +3198,166 @@
   "pin": "huídá",
   "en": "to answer",
   "sp": "responder"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "回忆",
+  "pin": "huíyì",
+  "en": "memory",
+  "sp": "recordar, evocar"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "会议",
+  "pin": "huìyì",
+  "en": "meeting",
+  "sp": "reunión"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "火",
+  "pin": "huǒ",
+  "en": "fire",
+  "sp": "fuego"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "活泼",
+  "pin": "huópō",
+  "en": "lively",
+  "sp": "animado, vivaz"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "火车",
+  "pin": "huǒchē",
+  "en": "train",
+  "sp": "tren"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "火车站",
+  "pin": "huǒchēzhàn",
+  "en": "railway station",
+  "sp": "estación de trenes"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "获得",
+  "pin": "huòdé",
+  "en": "to get",
+  "sp": "adquirir"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "活动",
+  "pin": "huódòng",
+  "en": "activity",
+  "sp": "actividad"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "或者",
+  "pin": "huòzhě",
+  "en": "or",
+  "sp": "o"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "忽然",
+  "pin": "hūrán",
+  "en": "suddenly",
+  "sp": "repentinamente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "护士",
+  "pin": "hùshì",
+  "en": "nurse",
+  "sp": "enfermera"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "互相",
+  "pin": "hùxiāng",
+  "en": "each other",
+  "sp": "mutuamente"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "护照",
+  "pin": "hùzhào",
+  "en": "passport",
+  "sp": "pasaporte"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "极",
+  "pin": "jí",
+  "en": "extremely",
+  "sp": "extremo, extremadamente"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "寄",
+  "pin": "jì",
+  "en": "to send",
+  "sp": "enviar"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "几",
+  "pin": "jǐ",
+  "en": "some, how many (<10)",
+  "sp": "varios, cuántos (<10)"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "假",
+  "pin": "jiǎ",
+  "en": "fake",
+  "sp": "copia, imitación"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "家",
+  "pin": "jiā",
+  "en": "family, home",
+  "sp": "familia, hogar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "加班",
+  "pin": "jiābān",
+  "en": "to work overtime",
+  "sp": "trabajar tiempo extra"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "价格",
+  "pin": "jiàgé",
+  "en": "price",
+  "sp": "precio"
 }
     
 ]

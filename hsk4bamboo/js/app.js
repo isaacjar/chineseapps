@@ -278,9 +278,11 @@ class HSKBambooApp {
                 wordsToReview = statsData.filter(word => word.e > 0)
                     .map(word => ({
                         ...word,
-                        errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
+                        successRate: word.s > 0 ? (100 - ((word.e / word.s) * 100)) : 0
+                        // errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
                     }))
-                    .sort((a, b) => b.errorRate - a.errorRate);
+                    .sort((a, b) => a.successRate - b.successRate); // Ordenar de menor a mayor porcentaje
+                    //.sort((a, b) => b.errorRate - a.errorRate);
             }
         } else {
             // Mostrar palabras por nivel HSK
@@ -320,20 +322,12 @@ class HSKBambooApp {
             if (filters.vistas) {
                 // Para palabras con errores, mostrar estadísticas
                 const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
-                displayText = `${word.ch} [${word.pin}] - ${translation}`;
-
-                // Agregar estadísticas solo para el filtro de vistas
-                const statsHTML = `
-                    <div class="review-stats">
-                        Mostrada: ${word.s || 0} veces, 
-                        Errores: ${word.e || 0} 
-                        ${word.s > 0 ? `(${word.errorRate.toFixed(1)}%)` : ''}
-                    </div>
-                `;
+                const successPercentage = word.s > 0 ? `${word.successRate.toFixed(1)} %` : '0 %';
+                
+                displayText = `${word.ch} [${word.pin}] - ${translation} (${successPercentage})`;
                 
                 item.innerHTML = `
                     <div class="review-word">${displayText}</div>
-                    ${statsHTML}
                 `;
                 
             } else {

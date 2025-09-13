@@ -355,17 +355,17 @@ body {
 .review-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
     justify-content: center;
 }
 
 .toggle-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     border: 2px solid var(--bamboo-medium);
     background-color: white;
     color: var(--bamboo-dark);
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
     font-size: 0.9rem;

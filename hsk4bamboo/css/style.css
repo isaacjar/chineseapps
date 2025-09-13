@@ -683,7 +683,7 @@ input:checked + .ios-switch-slider {
 
 /* Estilos específicos para Juego 2 */
 .game-type-2 .question-text {
-    font-size: 1.8rem; /* Más pequeño para texto occidental */
+    font-size: 1.6rem; /* Más pequeño para texto occidental */
 }
 
 .game-type-2 .option-btn {

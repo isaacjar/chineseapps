@@ -176,7 +176,7 @@ class HSKBambooApp {
         });
 
         // Listener Reset Estadísticas Palabras en Review Screen
-        document.getElementById('reset-stats-btn').addEventListener('click', () => {
+        document.getElementById('reset-review').addEventListener('click', () => {
             this.resetStats();
         });
             

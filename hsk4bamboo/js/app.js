@@ -263,7 +263,8 @@ class HSKBambooApp {
         };
     
         let wordsToReview = [];
-    
+        const currentLang = this.settings.language;
+        
         if (filters.vistas) {
             // Mostrar palabras con errores (guardadas en localStorage)
             const savedStats = localStorage.getItem('hskBambooStats');
@@ -299,11 +300,12 @@ class HSKBambooApp {
         reviewList.innerHTML = '';
         
         if (wordsToReview.length === 0) {
-            reviewList.innerHTML = '<p>No hay palabras para repasar todavía. ¡Juega para generarlas!</p>';
+            const message = filters.vistas ? 
+                'No hay palabras con errores todavía. ¡Juega para generarlas!' : 
+                'No hay palabras para repasar con los filtros seleccionados.';
+            reviewList.innerHTML = `<p>${message}</p>`;
             return;
         }
-        
-        const currentLang = this.settings.language;
         
         wordsToReview.forEach(word => {
             const item = document.createElement('div');
@@ -312,15 +314,32 @@ class HSKBambooApp {
             let displayText = '';
             if (filters.vistas) {
                 // Para palabras con errores, mostrar estadísticas
-                displayText = `${word.ch} [${word.pin}] - ${word[currentLang] || word.en}`;
+                const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
+                displayText = `${word.ch} [${word.pin}] - ${translation}`;
+
+                // Agregar estadísticas solo para el filtro de vistas
+                const statsHTML = `
+                    <div class="review-stats">
+                        Mostrada: ${word.s || 0} veces, 
+                        Errores: ${word.e || 0} 
+                        ${word.s > 0 ? `(${word.errorRate.toFixed(1)}%)` : ''}
+                    </div>
+                `;
+                
+                item.innerHTML = `
+                    <div class="review-word">${displayText}</div>
+                    ${statsHTML}
+                `;
+                
             } else {
                 // Para palabras por nivel, mostrar solo la palabra
-                displayText = `${word.ch} [${word.pin}] - ${word[currentLang] || word.en}`;
+                const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
+                displayText = `${word.ch} [${word.pin}] - ${translation}`;
+                
+                item.innerHTML = `
+                    <div class="review-word">${displayText}</div>
+                `;
             }
-            
-            item.innerHTML = `
-                <div class="review-word">${displayText}</div>
-            `;
             reviewList.appendChild(item);
         });
     }
@@ -344,7 +363,15 @@ class HSKBambooApp {
 
     // En la clase HSKBambooApp, agrega este método:
     resetStats() {
-        if (confirm("¿Resetear todas las estadísticas? Esta acción no se puede deshacer.")) {
+        const message = this.settings.language === 'es' ? 
+            "¿Estás seguro de que quieres resetear todas las estadísticas? Esta acción no se puede deshacer." :
+            "Are you sure you want to reset all statistics? This action cannot be undone.";
+        
+        const successMessage = this.settings.language === 'es' ?
+            'Estadísticas reseteadas correctamente' :
+            'Statistics reset successfully';
+        
+        if (confirm(message)) {
             // Eliminar estadísticas del localStorage
             localStorage.removeItem('hskBambooStats');
             
@@ -358,7 +385,7 @@ class HSKBambooApp {
             this.loadReviewList();
             
             // Mostrar mensaje de confirmación
-            UI.showToast('Estadísticas reseteadas ✅');
+            UI.showToast(successMessage);
         }
     }
     

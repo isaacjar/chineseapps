@@ -175,6 +175,11 @@ class HSKBambooApp {
             UI.showScreen('menu');
         });
 
+        // Listener Reset Estadísticas Palabras en Review Screen
+        document.getElementById('reset-stats-btn').addEventListener('click', () => {
+            this.resetStats();
+        });
+            
         // REVIEW SCREEN Listeners para los botones de filtro 
         document.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -388,11 +393,6 @@ class HSKBambooApp {
             UI.showToast(successMessage);
         }
     }
-    
-    // En el método initUI(), agrega este event listener:
-    document.getElementById('reset-stats-btn').addEventListener('click', () => {
-        this.resetStats();
-    });
 }
 // Iniciar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {

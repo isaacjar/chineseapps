@@ -255,8 +255,8 @@ body {
     background-color: var(--yellow-light);
     border-radius: 12px;
     padding: 1.5rem;
-    min-width: 400px;
-    max-width: 800px;
+    min-width: 70%;
+    max-width: 85%;
     margin: 0 auto;
     box-shadow: var(--shadow-light);
 }

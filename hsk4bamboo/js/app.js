@@ -152,7 +152,7 @@ class HSKBambooApp {
         });
 
         document.getElementById('time-slider').addEventListener('input', (e) => {
-            document.getElementById('time-value').textContent = e.target.value;
+            document.getElementById('time-value').textContent = e.target.value + ' s.';
         });
         
         document.getElementById('lives-slider').addEventListener('input', (e) => {

@@ -250,6 +250,7 @@ class Game {
         
         // Mostrar mensaje de acierto aleatorio (1 de cada 3 veces)
         if (this.shouldShowGameToast()) {
+            const currentLang = this.currentGame.settings.language;
             const successMessages = this.languageData[this.currentGame.settings.language]?.successMessages || 
                                   this.languageData.en.successMessages;
             const randomKey = 's' + (Math.floor(Math.random() * 10) + 1);
@@ -276,6 +277,7 @@ class Game {
         
         // Mostrar mensaje de error aleatorio (1 de cada 3 veces)
         if (this.shouldShowGameToast()) {
+            const currentLang = this.currentGame.settings.language;
             const failMessages = this.languageData[this.currentGame.settings.language]?.failMessages || 
                                this.languageData.en.failMessages;
             const randomKey = 'f' + (Math.floor(Math.random() * 10) + 1);
@@ -348,10 +350,13 @@ class Game {
         
         // Mostrar mensaje final
         let message;
+        const currentLang = this.currentGame.settings.language;
+        const langData = this.languageData[currentLang] || this.languageData.en;
+        
         if (this.currentGame.lives <= 0) {
-            message = this.languageData[this.currentGame.settings.language]?.gameOver || 'Game Over';
+            message = langData.gameOver || 'Game Over';
         } else {
-            message = `${this.languageData[this.currentGame.settings.language]?.gameCompleted || 'Juego completado'}! ${this.currentGame.score} puntos`;
+            message = `${langData.gameCompleted || 'Game completed'}! ${this.currentGame.score} puntos`;
         }
         
         UI.showToast(message);

@@ -324,7 +324,12 @@ class HSKBambooApp {
                 const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
                 const successPercentage = word.s > 0 ? `${word.successRate.toFixed(1)} %` : '0 %';
                 
-                displayText = `${word.ch} [${word.pin}] <i>${translation}</i> (${successPercentage})`;
+                displayText = `
+                    <span class="review-ch">${word.ch}</span>
+                    <span class="review-pin">[${word.pin}]</span>
+                    <span class="review-trans">${translation}</span>
+                    <span class="percentage-text">(${successPercentage})</span>
+                `;
                 
                 item.innerHTML = `
                     <div class="review-word">${displayText}</div>
@@ -333,7 +338,11 @@ class HSKBambooApp {
             } else {
                 // Para palabras por nivel, mostrar solo la palabra
                 const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
-                displayText = `${word.ch} [${word.pin}] <i>${translation}</i>`;
+                displayText = `
+                    <span class="review-ch">${word.ch}</span>
+                    <span class="review-pin">[${word.pin}]</span>
+                    <span class="review-trans">${translation}</span>
+                `;
                 
                 item.innerHTML = `
                     <div class="review-word">${displayText}</div>

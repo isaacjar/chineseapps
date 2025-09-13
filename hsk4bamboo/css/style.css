@@ -166,7 +166,7 @@ body {
     background-color: var(--yellow-light);
     border-radius: 12px;
     padding: 1.5rem;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     align-items: center;
     box-shadow: var(--shadow-light);
@@ -256,7 +256,7 @@ body {
     border-radius: 12px;
     padding: 1.5rem;
     min-width: 70%;
-    max-width: 85%;
+    max-width: 95%;
     margin: 0 auto;
     box-shadow: var(--shadow-light);
 }

@@ -3358,6 +3358,166 @@
   "pin": "jiàgé",
   "en": "price",
   "sp": "precio"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "家具",
+  "pin": "jiājù",
+  "en": "furniture",
+  "sp": "muebles"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "件",
+  "pin": "jiàn",
+  "en": "mw. clothes",
+  "sp": "clasif. ropa"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "见面",
+  "pin": "jiànmiàn",
+  "en": "to meet, to see",
+  "sp": "encontrarse, verse con"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "检查",
+  "pin": "jiǎnchá",
+  "en": "to examine",
+  "sp": "examinar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "坚持",
+  "pin": "jiānchí",
+  "en": "to persist",
+  "sp": "insistir"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "简单",
+  "pin": "jiǎndān",
+  "en": "simple",
+  "sp": "sencillo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "减肥",
+  "pin": "jiǎnféi",
+  "en": "to lose weight",
+  "sp": "adelgazar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "讲",
+  "pin": "jiǎng",
+  "en": "to speak, to talk",
+  "sp": "hablar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "降低",
+  "pin": "jiàngdī",
+  "en": "to lower",
+  "sp": "bajar, descender"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "奖金",
+  "pin": "jiǎngjīn",
+  "en": "bonus",
+  "sp": "premio, recompensa (dinero)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "将来",
+  "pin": "jiānglái",
+  "en": "future",
+  "sp": "futuro"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "健康",
+  "pin": "jiànkāng",
+  "en": "health",
+  "sp": "salud"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "减少",
+  "pin": "jiǎnshǎo",
+  "en": "to reduce",
+  "sp": "reducir"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "叫",
+  "pin": "jiào",
+  "en": "to be called",
+  "sp": "llamarse"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "教",
+  "pin": "jiào",
+  "en": "to teach",
+  "sp": "enseñar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "角",
+  "pin": "jiǎo",
+  "en": "ten cents",
+  "sp": "diez céntimos"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "脚",
+  "pin": "jiǎo",
+  "en": "foot",
+  "sp": "pie"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "交",
+  "pin": "jiāo",
+  "en": "to hand over",
+  "sp": "entregar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "骄傲",
+  "pin": "jiāo'ào",
+  "en": "proud",
+  "sp": "orgulloso"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "交流",
+  "pin": "jiāoliú",
+  "en": "to communicate",
+  "sp": "comunicar"
 }
     
 ]

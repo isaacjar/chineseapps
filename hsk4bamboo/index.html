@@ -63,10 +63,7 @@
                     </div>
                     <div class="setting-item">
                         <label for="show-pinyin">Pinyin:</label>
-                        <label class="ios-switch">
-                            <input type="checkbox" id="show-pinyin">
-                            <span class="ios-switch-slider"></span>
-                        </label>
+                        <label class="ios-switch"><input type="checkbox" id="show-pinyin"><span class="ios-switch-slider"></span></label>
                     </div>
                 </div>
                 
@@ -95,10 +92,11 @@
                 <!-- Grupo de Número de Preguntas -->
                 <div class="setting-group">
                     <div class="setting-item-full">
-                        <label for="questions-slider">❓ <span id="questions-value">15</span></label>
+                        <div class="slider-header">
+                            <label for="questions-slider">❓</label>
+                            <span id="questions-value">15</span>
+                        </div>
                         <input type="range" id="questions-slider" min="5" max="50" step="5" value="15" class="full-width-slider">
-                    </div>
-                    <div class="setting-item">
                         <label for="difficulty-switch"><span id="difficulty-emoji">😎</span></label>
                         <label class="ios-switch">
                             <input type="checkbox" id="difficulty-switch">

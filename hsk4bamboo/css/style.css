@@ -436,9 +436,8 @@ body {
 /* Toast para mensajes */
 .toast {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 100px;
+    left: 20px;
     padding: 1rem 2rem;
     border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.8);
@@ -446,6 +445,7 @@ body {
     font-weight: bold;
     z-index: 1000;
     transition: opacity 0.3s;
+    transform: none;
 }
 
 .toast.hidden {

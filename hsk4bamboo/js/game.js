@@ -92,6 +92,7 @@ class Game {
         const question = this.currentGame.questions[this.currentGame.currentQuestion];
         const questionText = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
+        const currentLang = this.currentGame.settings.language;
         
         // Limpiar opciones anteriores
         optionsContainer.innerHTML = '';
@@ -106,8 +107,8 @@ class Game {
             }
         } else {
             // Juego 2: Pregunta en el idioma seleccionado 
-            const lang = this.currentGame.settings.language;
-            questionText.textContent = question.word[lang] || question.word.en || question.word.sp;
+            const translation = question.word[currentLang] || (currentLang === 'es' ? question.word.sp : question.word.en);
+            questionText.textContent = translation;
         }
         
         // Crear botones de opciones
@@ -121,8 +122,8 @@ class Game {
             // Configurar texto según el tipo de juego
             if (this.currentGame.type === 1) {
                 // Juego 1: Opciones en el idioma seleccionado
-                const lang = this.currentGame.settings.language;
-                button.textContent = option[lang] || option.en || option.sp;
+                const translation = option[currentLang] || (currentLang === 'es' ? option.sp : option.en);
+                button.textContent = translation;
             } else {
                 // Juego 2: Opciones en chino
                 if (this.currentGame.settings.showPinyin) {
@@ -202,6 +203,7 @@ class Game {
         
         const isCorrect = selectedOption.ch === correctWord.ch;
         const options = document.querySelectorAll('.option-btn');
+        const currentLang = this.currentGame.settings.language;
         
         // Encontrar el botón correcto
         let correctButton = null;
@@ -213,7 +215,8 @@ class Game {
                 // Juego 1: Comparar contenido de texto (idioma seleccionado)
                 buttonContent = button.textContent;
                 const lang = this.currentGame.settings.language;
-                correctContent = correctWord[lang] || correctWord.en || correctWord.sp;
+                const correctTranslation = correctWord[currentLang] || (currentLang === 'es' ? correctWord.sp : correctWord.en);
+                correctContent = correctTranslation;
             } else {
                 // Juego 2: Comparar caracteres chinos
                 buttonContent = button.getAttribute('data-ch');

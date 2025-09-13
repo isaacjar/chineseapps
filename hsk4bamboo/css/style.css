@@ -758,9 +758,10 @@ input:checked + .ios-switch-slider {
 
 .slider-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    gap: 1rem;
+    width: 100%;
 }
 .slider-container {
     display: flex;
@@ -773,7 +774,49 @@ input:checked + .ios-switch-slider {
     margin: 0;
     min-width: 120px;
 }
+.slider-left {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+}
 
+.slider-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}.slider-left label[for="questions-slider"] {
+    font-size: 1.2rem;
+    min-width: 30px;
+}
+
+.slider-left .full-width-slider {
+    flex: 1;
+    margin: 0;
+}
+.ios-switch-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+.difficulty-label {
+    font-size: 0.9rem;
+    color: var(--bamboo-dark);
+    white-space: nowrap;
+}
+
+.difficulty-emoji {
+    font-size: 1.2rem;
+    min-width: 30px;
+    text-align: center;
+}
+.slider-left #questions-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--bamboo-dark);
+}
 .slider-container span {
     min-width: 40px;
     text-align: center;

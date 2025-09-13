@@ -341,6 +341,31 @@ class HSKBambooApp {
         // Mostrar mensaje de confirmación
         //UI.showToast(this.languageData[this.settings.language]?.menuReturn || 'Back to menu');
     }
+
+    // En la clase HSKBambooApp, agrega este método:
+    resetStats() {
+        if (confirm("¿Resetear todas las estadísticas? Esta acción no se puede deshacer.")) {
+            // Eliminar estadísticas del localStorage
+            localStorage.removeItem('hskBambooStats');
+            
+            // Resetear estadísticas en el vocabulario actual
+            this.vocabulary.forEach(word => {
+                word.s = 0;
+                word.e = 0;
+            });
+            
+            // Recargar la lista de review
+            this.loadReviewList();
+            
+            // Mostrar mensaje de confirmación
+            UI.showToast('Estadísticas reseteadas ✅');
+        }
+    }
+    
+    // En el método initUI(), agrega este event listener:
+    document.getElementById('reset-stats-btn').addEventListener('click', () => {
+        this.resetStats();
+    });
 }
 // Iniciar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {

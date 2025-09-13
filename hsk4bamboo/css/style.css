@@ -300,30 +300,31 @@ body {
 }
 
 .review-word {
-    font-size: 1.1rem;
-    line-height: 1.4;
+    font-size: 1.5rem;
+    line-height: 1.7;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
 .review-ch {
     font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
     font-weight: normal; /* No negrita */
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 
 .review-pin {
     color: #999; /* Gris 60% */
     font-weight: normal;
-    font-size: 0.9em;
+    font-size: 1.3em;
 }
 
 .review-trans {
     color: #0066cc; /* Azul */
     font-style: italic;
     font-weight: normal;
+    font-size: 1.3em;
 }
 
 .percentage-text {

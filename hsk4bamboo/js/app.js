@@ -103,9 +103,17 @@ class HSKBambooApp {
         if (urlParams.has('lang')) this.settings.language = urlParams.get('lang');
         if (urlParams.has('questions')) this.settings.questions = parseInt(urlParams.get('questions'));
         if (urlParams.has('time')) this.settings.time = parseInt(urlParams.get('time'));
+        if (urlParams.has('lives')) this.settings.lives = parseInt(urlParams.get('lives'));
         if (urlParams.has('difficulty')) this.settings.difficulty = parseInt(urlParams.get('difficulty'));
+        if (urlParams.has('showPinyin')) this.settings.showPinyin = urlParams.get('showPinyin') === 'true';
+        
+        // Procesar niveles HSK desde URL
+        if (urlParams.has('hskLevels')) {
+            const hskLevelsParam = urlParams.get('hskLevels');
+            this.settings.hskLevels = hskLevelsParam.split(',').map(Number);
+        }
+        
         if (urlParams.has('voclist')) {
-            // En una implementación real, cargaríamos la lista de vocabulario especificada
             console.log("Vocabulario personalizado solicitado:", urlParams.get('voclist'));
         }
     }
@@ -136,6 +144,14 @@ class HSKBambooApp {
         
         document.getElementById('stats-btn').addEventListener('click', () => {
             UI.showScreen('stats');
+        });
+
+        document.getElementById('time-slider').addEventListener('input', (e) => {
+            document.getElementById('time-value').textContent = e.target.value;
+        });
+        
+        document.getElementById('lives-slider').addEventListener('input', (e) => {
+            document.getElementById('lives-value').textContent = e.target.value;
         });
         
         document.getElementById('save-settings').addEventListener('click', () => {
@@ -195,7 +211,16 @@ class HSKBambooApp {
         this.settings.questions = parseInt(document.getElementById('questions-slider').value);
         this.settings.time = parseInt(document.getElementById('time-slider').value);
         this.settings.lives = parseInt(document.getElementById('lives-slider').value);
-       this.settings.difficulty = document.getElementById('difficulty-switch').checked ? 2 : 1;
+        this.settings.showPinyin = document.getElementById('show-pinyin').checked;
+        this.settings.difficulty = document.getElementById('difficulty-switch').checked ? 2 : 1;
+        
+        // Obtener niveles HSK seleccionados
+        this.settings.hskLevels = [];
+        if (document.getElementById('hsk-level-1').checked) this.settings.hskLevels.push(1);
+        if (document.getElementById('hsk-level-2').checked) this.settings.hskLevels.push(2);
+        if (document.getElementById('hsk-level-3').checked) this.settings.hskLevels.push(3);
+        if (document.getElementById('hsk-level-4').checked) this.settings.hskLevels.push(4);
+        if (document.getElementById('hsk-level-4plus').checked) this.settings.hskLevels.push(5);
         
         // Guardar en localStorage
         localStorage.setItem('hskBambooSettings', JSON.stringify(this.settings));
@@ -204,7 +229,7 @@ class HSKBambooApp {
         UI.showScreen('menu');
         
         // Mostrar mensaje de confirmación
-        UI.showToast(this.languageData[this.settings.language].settingsSaved || 'Configuración guardada');
+        UI.showToast(this.languageData[this.settings.language]?.settingsSaved || 'Configuración guardada');
     }
     
     loadReviewList() {  

@@ -383,7 +383,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
 }
 
 .option-btn {
@@ -485,8 +485,8 @@ body {
     }
     
     .option-btn {
-        padding: 1rem;
-        font-size: 1rem;
+        padding: 0.5rem;
+        font-size: 1.4rem;
     }
     
     .settings-container,

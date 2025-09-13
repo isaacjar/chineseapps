@@ -254,9 +254,9 @@ body {
 .review-container {
     background-color: var(--yellow-light);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 0.5rem;
     min-width: 70%;
-    max-width: 95%;
+    max-width: 100%;
     margin: 0 auto;
     box-shadow: var(--shadow-light);
 }
@@ -300,7 +300,7 @@ body {
 }
 
 .review-word {
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1.7;
     display: flex;
     align-items: center;
@@ -311,20 +311,20 @@ body {
 .review-ch {
     font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
     font-weight: normal; /* No negrita */
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .review-pin {
     color: #999; /* Gris 60% */
     font-weight: normal;
-    font-size: 1.3em;
+    font-size: 1.0em;
 }
 
 .review-trans {
     color: #0066cc; /* Azul */
     font-style: italic;
     font-weight: normal;
-    font-size: 1.3em;
+    font-size: 1.0em;
 }
 
 .percentage-text {
@@ -347,7 +347,7 @@ body {
     .review-pin,
     .review-trans,
     .percentage-text {
-        font-size: 0.85em;
+        font-size: 1em;
     }
 }
 .review-stats {

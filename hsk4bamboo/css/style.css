@@ -137,8 +137,9 @@ body {
     background-color: var(--yellow-pastel);
     border: none;
     border-radius: 12px;
-    padding: 1.2rem 1.4rem;
-    font-size: 1.8rem;
+    padding: 1rem 1.4rem;
+    font-size: 2rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: var(--shadow-light);

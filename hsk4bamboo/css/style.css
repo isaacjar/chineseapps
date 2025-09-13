@@ -203,7 +203,7 @@ body {
 
 .setting-group input[type="range"],
 .setting-group select {
-    width: 100%;
+    width: 90%;
     margin-left: 1rem;
 }
 
@@ -800,7 +800,7 @@ input:checked + .ios-switch-slider {
 
 /* Mejorar aspecto de los sliders */
 input[type="range"] {
-    width: 80%;
+    width: 90%;
     height: 8px;
     border-radius: 4px;
     background: #ddd;

@@ -97,16 +97,21 @@
                 <div class="setting-group">
                     <div class="setting-item-full">
                         <div class="slider-header">
-                            <label for="questions-slider">❓</label>                            
-                            <input type="range" id="questions-slider" min="5" max="50" step="5" value="15" class="full-width-slider">
-                            <span id="questions-value">15</span>
-                            <label for="difficulty-switch">
-                                <label class="ios-switch">
-                                    <input type="checkbox" id="difficulty-switch">
-                                    <span class="ios-switch-slider"></span>
-                                </label>                                
-                            </label>
-                            <label for="new"><span id="difficulty-emoji">😎</span></label>
+                            <div class="slider-left">
+                                <label for="questions-slider">❓</label>                            
+                                <input type="range" id="questions-slider" min="5" max="50" step="5" value="15" class="full-width-slider">
+                                <span id="questions-value">15</span>
+                            </div>
+                            <div class="slider-right">
+                                <label class="ios-switch-container">
+                                    <span class="difficulty-label">Dificultad</span>
+                                    <label class="ios-switch">
+                                        <input type="checkbox" id="difficulty-switch">
+                                        <span class="ios-switch-slider"></span>
+                                    </label>                                
+                                </label>
+                                <span class="difficulty-emoji" id="difficulty-emoji">😎</span>
+                            </div>
                         </div>        
                     </div>
                 </div>

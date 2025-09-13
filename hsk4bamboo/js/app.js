@@ -131,6 +131,11 @@ class HSKBambooApp {
         
         document.getElementById('vocab-list-btn').addEventListener('click', () => {
             UI.showScreen('review');
+            // Resetear filtros a estado inicial
+            document.querySelector('[data-filter="vistas"]').classList.add('active');
+            document.querySelectorAll('.toggle-btn:not([data-filter="vistas"])').forEach(btn => {
+                btn.classList.remove('active');
+            });
             this.loadReviewList();
         });
         
@@ -170,9 +175,24 @@ class HSKBambooApp {
             UI.showScreen('menu');
         });
 
+        // REVIEW SCREEN Listeners para los botones de filtro 
         document.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.target.classList.toggle('active');
+                const clickedFilter = e.target.dataset.filter;
+                
+                if (clickedFilter === 'vistas') {
+                    // Desactivar todos los otros botones
+                    document.querySelectorAll('.toggle-btn:not([data-filter="vistas"])').forEach(otherBtn => {
+                        otherBtn.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+                } else {
+                    // Desactivar el botón de vistas
+                    document.querySelector('[data-filter="vistas"]').classList.remove('active');
+                    // Activar/desactivar el botón clickeado
+                    e.target.classList.toggle('active');
+                }
+                
                 this.loadReviewList();
             });
         });
@@ -233,7 +253,7 @@ class HSKBambooApp {
     }
     
     loadReviewList() {  
-         const filters = {
+        const filters = {
             vistas: document.querySelector('[data-filter="vistas"]').classList.contains('active'),
             h1: document.querySelector('[data-filter="h1"]').classList.contains('active'),
             h2: document.querySelector('[data-filter="h2"]').classList.contains('active'),
@@ -242,19 +262,39 @@ class HSKBambooApp {
             h4plus: document.querySelector('[data-filter="h4plus"]').classList.contains('active')
         };
     
-        const wordsToReview = this.vocabulary.filter(word => {
-            if (filters.vistas && word.s > 0) return true;
-            if (filters.h1 && word.level === 1) return true;
-            if (filters.h2 && word.level === 2) return true;
-            if (filters.h3 && word.level === 3) return true;
-            if (filters.h4 && word.level === 4) return true;
-            if (filters.h4plus && word.level >= 5) return true;
-            return false;
-        }).map(word => ({
-            ...word,
-            errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
-        })).sort((a, b) => b.errorRate - a.errorRate);
-           
+        let wordsToReview = [];
+    
+        if (filters.vistas) {
+            // Mostrar palabras con errores (guardadas en localStorage)
+            const savedStats = localStorage.getItem('hskBambooStats');
+            if (savedStats) {
+                const statsData = JSON.parse(savedStats);
+                wordsToReview = statsData.filter(word => word.e > 0)
+                    .map(word => ({
+                        ...word,
+                        errorRate: word.s > 0 ? (word.e / word.s * 100) : 0
+                    }))
+                    .sort((a, b) => b.errorRate - a.errorRate);
+            }
+        } else {
+            // Mostrar palabras por nivel HSK
+            const selectedLevels = [];
+            if (filters.h1) selectedLevels.push(1);
+            if (filters.h2) selectedLevels.push(2);
+            if (filters.h3) selectedLevels.push(3);
+            if (filters.h4) selectedLevels.push(4);
+            if (filters.h4plus) selectedLevels.push(5);
+    
+            if (selectedLevels.length > 0) {
+                wordsToReview = this.vocabulary.filter(word => 
+                    selectedLevels.includes(word.level)
+                );
+            } else {
+                // Si no hay niveles seleccionados, mostrar todas las palabras
+                wordsToReview = [...this.vocabulary];
+            }
+        }
+    
         const reviewList = document.getElementById('review-list');
         reviewList.innerHTML = '';
         
@@ -263,17 +303,28 @@ class HSKBambooApp {
             return;
         }
         
+        const currentLang = this.settings.language;
+        
         wordsToReview.forEach(word => {
             const item = document.createElement('div');
             item.className = 'review-item';
+            
+            let displayText = '';
+            if (filters.vistas) {
+                // Para palabras con errores, mostrar estadísticas
+                displayText = `${word.ch} [${word.pin}] - ${word[currentLang] || word.en}`;
+            } else {
+                // Para palabras por nivel, mostrar solo la palabra
+                displayText = `${word.ch} [${word.pin}] - ${word[currentLang] || word.en}`;
+            }
+            
             item.innerHTML = `
-                <div class="review-word">${word.ch} (${word.pin}) - ${word[this.settings.language]}</div>
-                <div class="review-stats">Mostrada: ${word.s} veces, Errores: ${word.e} (${word.errorRate.toFixed(1)}%)</div>
+                <div class="review-word">${displayText}</div>
             `;
             reviewList.appendChild(item);
         });
     }
-
+    
     goToMainMenu() {
         // Detener cualquier juego en curso
         if (Game.currentGame) {

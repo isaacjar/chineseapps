@@ -690,6 +690,13 @@ input:checked + .ios-switch-slider {
     font-size: 1rem;
 }
 
+.slider-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .full-width-slider {
     width: 100% !important;
 }

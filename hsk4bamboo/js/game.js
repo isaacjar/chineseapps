@@ -110,6 +110,9 @@ class Game {
         question.options.forEach(option => {
             const button = document.createElement('button');
             button.className = 'option-btn';
+
+            // Añadir atributo data-ch para facilitar la comparación
+            button.setAttribute('data-ch', option.ch);
             
             // Configurar texto según el tipo de juego
             if (this.currentGame.type === 1) {
@@ -207,7 +210,7 @@ class Game {
                 correctContent = correctWord[lang] || correctWord.en || correctWord.sp;
             } else {
                 // Juego 2: Comparar caracteres chinos
-                buttonContent = button.textContent.split('\n')[0]; // Solo los caracteres chinos
+                buttonContent = button.getAttribute('data-ch');
                 correctContent = correctWord.ch;
             }
             
@@ -221,7 +224,7 @@ class Game {
         
         if (isCorrect) {
             // Respuesta correcta
-            this.handleCorrectAnswer(correctWord);
+            this.handleCorrectAnswer(correctWord, correctButton);
         } else {
             // Respuesta incorrecta
             this.handleIncorrectAnswer(selectedOption, correctButton);
@@ -236,7 +239,7 @@ class Game {
         }, 2000);
     }
     
-    static handleCorrectAnswer(correctWord) {
+    static handleCorrectAnswer(correctWord, correctButton) {
         // Incrementar puntuación y racha
         this.currentGame.score += 10;
         this.currentGame.streak += 1;
@@ -248,7 +251,7 @@ class Game {
         UI.showToast(successMessages[randomKey]);
         
         // Efecto visual en el botón correcto - encontrar el botón que coincide con la respuesta correcta
-        const lang = this.currentGame.settings.language;
+        /*const lang = this.currentGame.settings.language;
         const correctContent = this.currentGame.type === 1 ? 
             (correctWord[lang] || correctWord.en || correctWord.sp) : 
             correctWord.ch;
@@ -260,7 +263,7 @@ class Game {
                 // Para juego 2, comparar solo los caracteres chinos (ignorar pinyin)
                 return btn.textContent.split('\n')[0] === correctContent;
             }
-        });
+        });*/
         
         if (correctButton) {
             correctButton.classList.add('correct');
@@ -289,7 +292,7 @@ class Game {
         // Efecto visual en los botones
         const options = document.querySelectorAll('.option-btn');
         options.forEach(button => {
-            let buttonContent;
+            /*let buttonContent;
             let selectedContent;
             
             if (this.currentGame.type === 1) {
@@ -304,6 +307,13 @@ class Game {
             }
             
             if (buttonContent === selectedContent) {
+                button.classList.add('incorrect');
+                button.classList.add('shake');
+            }*/
+            const buttonCh = button.getAttribute('data-ch');
+            const selectedCh = selectedOption.ch;
+            
+            if (buttonCh === selectedCh) {
                 button.classList.add('incorrect');
                 button.classList.add('shake');
             }

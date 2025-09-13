@@ -180,7 +180,9 @@ class Game {
         this.saveUserStats();
         
         // Mostrar mensaje de tiempo agotado
-        UI.showToast(this.languageData[this.currentGame.settings.language].timeOut || '¡Tiempo agotado!');
+        const currentLang = this.currentGame.settings.language;
+        const langData = this.languageData[currentLang] || this.languageData.en;
+        UI.showToast(langData.timeOut || 'Time\'s up!');
         
         // Pasar a la siguiente pregunta después de un breve delay
         setTimeout(() => {

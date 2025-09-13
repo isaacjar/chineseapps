@@ -324,7 +324,7 @@ class HSKBambooApp {
                 const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
                 const successPercentage = word.s > 0 ? `${word.successRate.toFixed(1)} %` : '0 %';
                 
-                displayText = `${word.ch} [${word.pin}] - ${translation} (${successPercentage})`;
+                displayText = `${word.ch} [${word.pin}] <i>${translation}</i> (${successPercentage})`;
                 
                 item.innerHTML = `
                     <div class="review-word">${displayText}</div>
@@ -333,7 +333,7 @@ class HSKBambooApp {
             } else {
                 // Para palabras por nivel, mostrar solo la palabra
                 const translation = word[currentLang] || (currentLang === 'es' ? word.sp : word.en);
-                displayText = `${word.ch} [${word.pin}] - ${translation}`;
+                displayText = `${word.ch} [${word.pin}] <i>${translation}</i>`;
                 
                 item.innerHTML = `
                     <div class="review-word">${displayText}</div>

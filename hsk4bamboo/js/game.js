@@ -19,6 +19,10 @@ class Game {
         this.languageData = languageData;
         this.currentGame = null;
     }
+
+    static shouldShowGameToast() {
+        return Math.random() < 0.33; // 1 de cada 3 probabilidad
+    }
     
     static startGame(gameType, settings, vocabulary) {
         // Ocultar menú y mostrar pantalla de juego
@@ -244,26 +248,13 @@ class Game {
         this.currentGame.score += 10;
         this.currentGame.streak += 1;
         
-        // Mostrar mensaje de acierto aleatorio
-        const successMessages = this.languageData[this.currentGame.settings.language]?.successMessages || 
-                              this.languageData.en.successMessages;
-        const randomKey = 's' + (Math.floor(Math.random() * 10) + 1);
-        UI.showToast(successMessages[randomKey]);
-        
-        // Efecto visual en el botón correcto - encontrar el botón que coincide con la respuesta correcta
-        /*const lang = this.currentGame.settings.language;
-        const correctContent = this.currentGame.type === 1 ? 
-            (correctWord[lang] || correctWord.en || correctWord.sp) : 
-            correctWord.ch;
-        
-        const correctButton = [...document.querySelectorAll('.option-btn')].find(btn => {
-            if (this.currentGame.type === 1) {
-                return btn.textContent === correctContent;
-            } else {
-                // Para juego 2, comparar solo los caracteres chinos (ignorar pinyin)
-                return btn.textContent.split('\n')[0] === correctContent;
-            }
-        });*/
+        // Mostrar mensaje de acierto aleatorio (1 de cada 3 veces)
+        if (this.shouldShowGameToast()) {
+            const successMessages = this.languageData[this.currentGame.settings.language]?.successMessages || 
+                                  this.languageData.en.successMessages;
+            const randomKey = 's' + (Math.floor(Math.random() * 10) + 1);
+            UI.showToast(successMessages[randomKey]);
+        }
         
         if (correctButton) {
             correctButton.classList.add('correct');
@@ -283,33 +274,17 @@ class Game {
         // Reducir vidas
         this.currentGame.lives -= 1;
         
-        // Mostrar mensaje de error aleatorio
-        const failMessages = this.languageData[this.currentGame.settings.language]?.failMessages || 
-                           this.languageData.en.failMessages;
-        const randomKey = 'f' + (Math.floor(Math.random() * 10) + 1);
-        UI.showToast(failMessages[randomKey]);
+        // Mostrar mensaje de error aleatorio (1 de cada 3 veces)
+        if (this.shouldShowGameToast()) {
+            const failMessages = this.languageData[this.currentGame.settings.language]?.failMessages || 
+                               this.languageData.en.failMessages;
+            const randomKey = 'f' + (Math.floor(Math.random() * 10) + 1);
+            UI.showToast(failMessages[randomKey]);
+        }
         
         // Efecto visual en los botones
         const options = document.querySelectorAll('.option-btn');
         options.forEach(button => {
-            /*let buttonContent;
-            let selectedContent;
-            
-            if (this.currentGame.type === 1) {
-                // Juego 1: Comparar contenido de texto
-                buttonContent = button.textContent;
-                const lang = this.currentGame.settings.language;
-                selectedContent = selectedOption[lang] || selectedOption.en || selectedOption.sp;
-            } else {
-                // Juego 2: Comparar caracteres chinos
-                buttonContent = button.textContent.split('\n')[0];
-                selectedContent = selectedOption.ch;
-            }
-            
-            if (buttonContent === selectedContent) {
-                button.classList.add('incorrect');
-                button.classList.add('shake');
-            }*/
             const buttonCh = button.getAttribute('data-ch');
             const selectedCh = selectedOption.ch;
             

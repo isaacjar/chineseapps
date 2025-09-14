@@ -612,7 +612,7 @@
 {"level": 3, "ch": "裙", "pin": "qún", "en": "skirt", "sp": "falda"},
 {"level": 3, "ch": "铅", "pin": "qiān", "en": "lead (metal)", "sp": "plomo"},
 {"level": 3, "ch": "筷", "pin": "kuài", "en": "chopsticks", "sp": "palillos"},
-{"level": 3, "ch": "蕉", "pin": "jiāo", "en": "banana", "sp": "plátano"}
+{"level": 3, "ch": "蕉", "pin": "jiāo", "en": "banana", "sp": "plátano"},
 {"level": 4, "ch": "将", "pin": "jiāng", "en": "will, shall", "sp": "hará, deberá"},
 {"level": 4, "ch": "部", "pin": "bù", "en": "part, section", "sp": "parte, sección"},
 {"level": 4, "ch": "之", "pin": "zhī", "en": "of, it", "sp": "de, ello"},

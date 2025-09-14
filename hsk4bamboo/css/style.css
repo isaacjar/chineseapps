@@ -743,10 +743,10 @@ input:checked + .ios-switch-slider {
 
 .setting-item-full {    
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    flex: 1;
-    min-width: 200px;
+    flex-wrap: wrap;
+    width: 100%;
 }
 /* Estilos para las etiquetas */
 .setting-item-full label:first-child {

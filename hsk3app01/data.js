@@ -1,4 +1,4 @@
-let vocabulary = [
+window.vocabulary = [
   { ch: '阿姨', pin: 'āyí', en: 'aunt' },
   { ch: '啊', pin: 'a', en: 'particle for exclamation or surprise' },
   { ch: '矮', pin: 'ǎi', en: 'short' },
@@ -608,4 +608,5 @@ let vocabulary = [
   { ch: '作业', pin: 'zuòyè', en: 'homework' },
   { ch: '作用', pin: 'zuòyòng', en: 'action, effect' }
 ]; 
+
 

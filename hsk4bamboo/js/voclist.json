@@ -7678,7 +7678,488 @@
 "pin": "wǒmen",
 "en": "we, us",
 "sp": "nosotros"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "握手",
+  "pin": "wò shǒu",
+  "en": "to shake hands",
+  "sp": "estrechar la mano"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "无",
+  "pin": "wú",
+  "en": "none",
+  "sp": "nada"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "五",
+  "pin": "wǔ",
+  "en": "five",
+  "sp": "cinco"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "误会",
+  "pin": "wùhuì",
+  "en": "misunderstanding",
+  "sp": "malentendido"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "无聊",
+  "pin": "wúliáo",
+  "en": "boring",
+  "sp": "aburrido"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "无论",
+  "pin": "wúlùn",
+  "en": "regardless",
+  "sp": "no importa"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "污染",
+  "pin": "wūrǎn",
+  "en": "pollution",
+  "sp": "polución, contaminación"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "洗",
+  "pin": "xǐ",
+  "en": "to wash",
+  "sp": "lavar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "西",
+  "pin": "xī",
+  "en": "west",
+  "sp": "oeste"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "洗衣服",
+  "pin": "xǐ yīfu",
+  "en": "to wash clothes",
+  "sp": "lavar ropa"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "夏",
+  "pin": "xià",
+  "en": "summer",
+  "sp": "verano"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "下雨",
+  "pin": "xià yǔ",
+  "en": "to rain",
+  "sp": "llover"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "下",
+  "pin": "xià",
+  "en": "down",
+  "sp": "debajo"
+},
+{
+  "level": 2,
+  "sil": 4,
+  "ch": "下(面)",
+  "pin": "xià(miàn)",
+  "en": "below, to finish",
+  "sp": "debajo, terminar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "咸",
+  "pin": "xián",
+  "en": "salty",
+  "sp": "salado"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "先",
+  "pin": "xiān",
+  "en": "first",
+  "sp": "primero"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "现代",
+  "pin": "xiàndài",
+  "en": "modern",
+  "sp": "moderno"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "向",
+  "pin": "xiàng",
+  "en": "to, towards",
+  "sp": "a, hacia"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "像",
+  "pin": "xiàng",
+  "en": "to be like similar to",
+  "sp": "parecerse a"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "想",
+  "pin": "xiǎng",
+  "en": "to think, to feel",
+  "sp": "pensar, sentir"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "响",
+  "pin": "xiǎng",
+  "en": "to sound",
+  "sp": "sonar, ruido"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "香",
+  "pin": "xiāng",
+  "en": "fragrant",
+  "sp": "fragante"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "相反",
+  "pin": "xiàngfǎn",
+  "en": "opposite",
+  "sp": "opuesto"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "香蕉",
+  "pin": "xiāngjiāo",
+  "en": "banana",
+  "sp": "platano"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "相同",
+  "pin": "xiāngtóng",
+  "en": "same, identical",
+  "sp": "mismo, idéntico, similar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "详细",
+  "pin": "xiángxì",
+  "en": "detailed",
+  "sp": "detallado"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "相信",
+  "pin": "xiāngxìn",
+  "en": "to believe",
+  "sp": "creer"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "羡慕",
+  "pin": "xiànmù",
+  "en": "to admire",
+  "sp": "admirar, admiración"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "先生",
+  "pin": "xiānsheng",
+  "en": "mister",
+  "sp": "señor"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "现在",
+  "pin": "xiànzài",
+  "en": "now",
+  "sp": "ahora"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "限制",
+  "pin": "xiànzhì",
+  "en": "limit",
+  "sp": "límite, limitar"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "笑",
+  "pin": "xiào",
+  "en": "to laugh, to smile",
+  "sp": "reírse, sonreír"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "小",
+  "pin": "xiǎo",
+  "en": "small",
+  "sp": "pequeño"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "效果",
+  "pin": "xiàoguǒ",
+  "en": "effect",
+  "sp": "efecto"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "笑话",
+  "pin": "xiàohuà",
+  "en": "joke",
+  "sp": "broma"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "小姐",
+  "pin": "xiǎojiě",
+  "en": "miss",
+  "sp": "señorita"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "小时",
+  "pin": "xiǎoshí",
+  "en": "hour",
+  "sp": "hora"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "小说",
+  "pin": "xiǎoshuō",
+  "en": "novel",
+  "sp": "novela"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "消息",
+  "pin": "xiāoxi",
+  "en": "news",
+  "sp": "información"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "小心",
+  "pin": "xiǎoxīn",
+  "en": "to be careful",
+  "sp": "tener cuidado"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "校长",
+  "pin": "xiàozhǎng",
+  "en": "principal",
+  "sp": "director de una escuela"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "下午",
+  "pin": "xiàwǔ",
+  "en": "afternoon",
+  "sp": "por la tarde"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "西班牙",
+  "pin": "Xībānyá",
+  "en": "Spain",
+  "sp": "España"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "鞋",
+  "pin": "xié",
+  "en": "shoe",
+  "sp": "zapato"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "写",
+  "pin": "xiě",
+  "en": "to write",
+  "sp": "escribir"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "些",
+  "pin": "xiē",
+  "en": "some, a little",
+  "sp": "varios, algunos"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "谢谢",
+  "pin": "xièxie",
+  "en": "thanks",
+  "sp": "gracias"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "西瓜",
+  "pin": "xīguā",
+  "en": "watermelon",
+  "sp": "sandía"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "习惯",
+  "pin": "xíguàn",
+  "en": "to be used to, habit",
+  "sp": "acostumbrarse, costumbre"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "西红柿",
+  "pin": "xīhóngshì",
+  "en": "tomato",
+  "sp": "tomate"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "喜欢",
+  "pin": "xǐhuan",
+  "en": "to like",
+  "sp": "gustar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "信",
+  "pin": "xìn",
+  "en": "letter",
+  "sp": "carta"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "心",
+  "pin": "xīn",
+  "en": "heart",
+  "sp": "corazón"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "新",
+  "pin": "xīn",
+  "en": "new",
+  "sp": "nuevo"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "行",
+  "pin": "xíng",
+  "en": "okay",
+  "sp": "de acuerdo"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "姓",
+  "pin": "xìng",
+  "en": "surname",
+  "sp": "apellido"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "醒",
+  "pin": "xǐng",
+  "en": "to wake up",
+  "sp": "despertar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "性别",
+  "pin": "xìngbié",
+  "en": "gender",
+  "sp": "género, sexo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "兴奋",
+  "pin": "xìngfèn",
+  "en": "excited",
+  "sp": "emocionado, excitado"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "幸福",
+  "pin": "xìngfú",
+  "en": "well-being",
+  "sp": "bienestar"
 }
+
 
     
 ]

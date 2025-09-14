@@ -84,7 +84,7 @@ class Game {
         // Preparar preguntas con opciones
         return selectedItems.map(item => ({
             item: item,
-            options: this.generateOptions(item, gameType, shuffled, settings)
+            options: this.generateOptions(item, gameType, shuffled, settings) 
         }));
     }
     

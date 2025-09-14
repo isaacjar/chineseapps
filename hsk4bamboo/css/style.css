@@ -602,9 +602,11 @@ body {
 /* Estilos para el switch tipo iOS */
 .ios-switch {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     width: 51px;
     height: 31px;
+    align-items: center;
+    vertical-align: middle;
 }
 
 .ios-switch input {
@@ -617,9 +619,9 @@ body {
     position: absolute;
     cursor: pointer;
     top: 50%;
-    left: 50%;
+    transform: translateY(-50%);
+    left: 0;
     right: 0;
-    bottom: 0;
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
@@ -733,6 +735,7 @@ input:checked + .ios-switch-slider {
     align-items: center;
     gap: 1.5rem;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .setting-item {
@@ -740,9 +743,18 @@ input:checked + .ios-switch-slider {
     min-width: 200px;
 }
 
-.setting-item-full {
+.setting-item-full {    
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 80%;
+    flex: 1;
+    min-width: 200px;
+}
+/* Estilos para las etiquetas */
+.setting-item-full label:first-child {
+    margin-right: 1rem;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .setting-item label {
@@ -787,7 +799,12 @@ input:checked + .ios-switch-slider {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-}.slider-left label[for="questions-slider"] {
+}
+.setting-item .slider-right {
+    justify-content: flex-end;
+}
+
+.slider-left label[for="questions-slider"] {
     font-size: 1.2rem;
     min-width: 30px;
 }

@@ -16,7 +16,7 @@ let bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
 let answeredWords = [];
 let questionStartTime = 0;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   // 🎨 Colores dinámicos
   const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
   const c1 = randomColor();
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 🎮 Configuración inicial
   const defaultModeBtn = document.getElementById('modePinyin');
-  if (defaultModeBtn) defaultModeBtn.classList.add('active');
+  defaultModeBtn.classList.add('active');
   currentMode = 'Pinyin';
   updateModeLabel();
   document.getElementById('questionCount').textContent = questionCount;
@@ -46,17 +46,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 🎛️ Cambio de modo
-  const modeButtons = document.querySelectorAll('.mode');
-  if (modeButtons.length) {
-    modeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentMode = btn.textContent;
-        updateModeLabel();
-      });
+  document.querySelectorAll('.mode').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMode = btn.dataset.mode;
+      updateModeLabel();
     });
-  }
+  });
 
   // ➕➖ Ajuste de número de preguntas
   document.getElementById('increase').onclick = () => {
@@ -289,20 +286,6 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
-  if (!window.vocabulary || window.vocabulary.length === 0) {
-    console.error("Vocabulary not loaded");
-    showToast("Error: Vocabulary not loaded. Please refresh.");
-    
-    // Mostrar mensaje de error en lugar de reintentar infinitamente
-    document.getElementById('questionLabel').textContent = "Error: Vocabulary not loaded";
-    
-    // Deshabilitar botones de juego
-    document.getElementById('newGame').disabled = true;
-    document.getElementById('pauseGame').disabled = true;
-    
-    return; // No reintentar
-  }
-  
   if (isGameEnded || isPaused) return;
 
   clearTimeout(answerTimeout);
@@ -338,7 +321,7 @@ function nextQuestion() {
       questionText = currentWord.en;
       correctText = `${currentWord.ch} [${currentWord.pin}]`;
       break;
-    case 'ChineseEnglish': 
+    case 'Ch-En':   
       questionText = currentWord.ch;
       correctText = currentWord.en;
       break;
@@ -359,7 +342,7 @@ function nextQuestion() {
       case 'Chinese': distractor = rand.pin; break;
       case 'Pinyin': distractor = rand.en; break;
       case 'English': distractor = `${rand.ch} [${rand.pin}]`; break;
-      case 'ChineseEnglish': distractor = rand.en; break; 
+      case 'Ch-En': distractor = rand.en; break;
     }
     if (!options.includes(distractor)) options.push(distractor);
   }
@@ -426,11 +409,6 @@ function nextQuestion() {
 }
 
 function checkAnswer(selectedText) {
-  if (!currentWord) {
-    console.error("No current word defined");
-    return;
-  }
-  
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
@@ -442,8 +420,7 @@ function checkAnswer(selectedText) {
     case 'Chinese': correct = currentWord.pin; break;
     case 'Pinyin': correct = currentWord.en; break;
     case 'English': correct = `${currentWord.ch} [${currentWord.pin}]`; break;
-    case 'ChineseEnglish': correct = currentWord.en; break;
-      
+    case 'Ch-En': correct = currentWord.en; break;
   }
 
   const normalize = str => str.trim().toLowerCase();
@@ -509,8 +486,4 @@ function disableOptions() {
   });
 
 }
-
-
-
-
 

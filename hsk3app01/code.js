@@ -290,10 +290,17 @@ function shuffle(array) {
 
 function nextQuestion() {
   if (!window.vocabulary || window.vocabulary.length === 0) {
-    console.error("Vocabulary not loaded yet");
-    showToast("Loading vocabulary...");
-    setTimeout(nextQuestion, 500);
-    return;
+    console.error("Vocabulary not loaded");
+    showToast("Error: Vocabulary not loaded. Please refresh.");
+    
+    // Mostrar mensaje de error en lugar de reintentar infinitamente
+    document.getElementById('questionLabel').textContent = "Error: Vocabulary not loaded";
+    
+    // Deshabilitar botones de juego
+    document.getElementById('newGame').disabled = true;
+    document.getElementById('pauseGame').disabled = true;
+    
+    return; // No reintentar
   }
   
   if (isGameEnded || isPaused) return;
@@ -502,6 +509,7 @@ function disableOptions() {
   });
 
 }
+
 
 
 

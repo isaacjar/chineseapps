@@ -196,6 +196,14 @@ body {
     margin-bottom: 0;
     flex: 1;
 }
+.label-fixed-width {
+    display: inline-block;
+    width: 60px; /* Ancho deseado */
+    min-width: 60px;
+    text-align: right;
+    margin-right: 0rem;
+    vertical-align: middle;
+}
 
 .setting-group .ios-switch {
     margin-left: 1rem;

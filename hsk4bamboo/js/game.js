@@ -50,7 +50,6 @@ class Game {
         this.currentGame = {
             type: gameType,
             settings: {...settings},
-            //vocabulary: [...vocabulary],
             currentQuestion: 0,
             score: 0,
             streak: 0,
@@ -88,9 +87,9 @@ class Game {
         }));
     }
     
-    static generateOptions(correctWord, gameType, vocabulary, settings) {
+    static generateOptions(correctWord, gameType, items, settings) { // CORRECCIÓN: cambiar vocabulary por items
         const optionsCount = settings.difficulty === 1 ? 4 : 6;
-        const options = [correctItem];
+        const options = [correctWord]; // CORRECCIÓN: usar correctWord en lugar de correctItem
 
         // Si no hay suficientes items, retornar solo el correcto
         if (items.length <= 1) {
@@ -98,14 +97,18 @@ class Game {
         }
             
         // Seleccionar opciones incorrectas aleatorias
-        while (options.length < optionsCount) {
+        let attempts = 0;
+        const maxAttempts = 100; // Prevenir bucle infinito
+        
+        while (options.length < optionsCount && attempts < maxAttempts) {
+            attempts++;
             const randomIndex = Math.floor(Math.random() * items.length);
             const randomItem = items[randomIndex];
             
             // Para el juego 3, comparamos por pinyin
             const isDifferent = gameType === 3 ? 
-                randomItem.pin !== correctItem.pin : 
-                randomItem.ch !== correctItem.ch;
+                randomItem.pin !== correctWord.pin : // CORRECCIÓN: usar correctWord
+                randomItem.ch !== correctWord.ch;   // CORRECCIÓN: usar correctWord
                 
             const alreadyInOptions = gameType === 3 ? 
                 options.some(opt => opt.pin === randomItem.pin) : 
@@ -139,9 +142,9 @@ class Game {
         if (this.currentGame.type === 1) {
            // Juego 1: Pregunta en chino
             if (this.currentGame.settings.showPinyin) {
-                questionText.innerHTML = `<span class="chinese-char">${question.word.ch}</span><small class="pinyin-text"> [${question.word.pin}]</small>`;
+                questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span><small class="pinyin-text"> [${question.item.pin}]</small>`; // CORRECCIÓN: usar question.item
             } else {
-                questionText.innerHTML = `<span class="chinese-char">${question.word.ch}</span>`;
+                questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span>`; // CORRECCIÓN: usar question.item
             }
         } else if (this.currentGame.type === 2) {
             // Juego 2: Pregunta en el idioma seleccionado 
@@ -150,9 +153,6 @@ class Game {
         } else if (this.currentGame.type === 3) {
             // Juego 3: Mostrar el carácter, adivinar el pinyin
             questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span>`;
-            
-            // Añadir clase específica para este juego
-            document.getElementById('game-screen').classList.add('game-type-3');
         }
         
         // Crear botones de opciones
@@ -223,8 +223,8 @@ class Game {
         if (!this.currentGame) return;
         
         // Incrementar contador de veces mostrada
-        const currentWord = this.currentGame.questions[this.currentGame.currentQuestion].word;
-        currentWord.s = (currentWord.s || 0) + 1;
+        const currentItem = this.currentGame.questions[this.currentGame.currentQuestion].item; // CORRECCIÓN: usar item
+        currentItem.s = (currentItem.s || 0) + 1;
         this.saveUserStats();
         
         // Mostrar mensaje de tiempo agotado
@@ -241,7 +241,7 @@ class Game {
         }, 1500);
     }
     
-    static checkAnswer(selectedOption, correctWord) {
+    static checkAnswer(selectedOption, correctItem) {
         // Detener temporizador
         clearTimeout(this.timer);
         
@@ -251,31 +251,24 @@ class Game {
         let isCorrect;
         const options = document.querySelectorAll('.option-btn');
 
-       // Determinar si la respuesta es correcta según el tipo de juego
-        if (this.currentGame.type === 1) {
-            // Juego 1: Comparar por caracteres chinos
-            isCorrect = selectedOption.ch === correctItem.ch;
-        } else if (this.currentGame.type === 2) {
-            // Juego 2: Comparar por caracteres chinos
+        // Determinar si la respuesta es correcta según el tipo de juego
+        if (this.currentGame.type === 1 || this.currentGame.type === 2) {
+            // Juegos 1 y 2: Comparar por caracteres chinos
             isCorrect = selectedOption.ch === correctItem.ch;
         } else if (this.currentGame.type === 3) {
             // Juego 3: Comparar por pinyin
             isCorrect = selectedOption.pin === correctItem.pin;
         }
         
-        // Encontrar el botón correcto
+        // Aplicar estilos visuales a las opciones
         options.forEach(button => {
             button.disabled = true;
         
             let buttonValue;
             let correctValue;
             
-            if (this.currentGame.type === 1) {
-                // Juego 1: El valor del botón es la traducción, pero comparamos por carácter chino
-                buttonValue = button.getAttribute('data-ch');
-                correctValue = correctItem.ch;
-            } else if (this.currentGame.type === 2) {
-                // Juego 2: Comparar por caracteres chinos
+            if (this.currentGame.type === 1 || this.currentGame.type === 2) {
+                // Juegos 1 y 2: Comparar por caracteres chinos
                 buttonValue = button.getAttribute('data-ch');
                 correctValue = correctItem.ch;
             } else if (this.currentGame.type === 3) {
@@ -288,9 +281,12 @@ class Game {
             if (buttonValue === correctValue) {
                 button.classList.add('correct');
                 button.classList.add('blink');
-            } else if ((this.currentGame.type === 1 && button.getAttribute('data-ch') === selectedOption.ch) ||
-                       (this.currentGame.type === 2 && button.getAttribute('data-ch') === selectedOption.ch) ||
-                       (this.currentGame.type === 3 && button.getAttribute('data-pin') === selectedOption.pin)) {
+            } else if ((this.currentGame.type === 1 || this.currentGame.type === 2) && 
+                       button.getAttribute('data-ch') === selectedOption.ch) {
+                button.classList.add('incorrect');
+                button.classList.add('shake');
+            } else if (this.currentGame.type === 3 && 
+                       button.getAttribute('data-pin') === selectedOption.pin) {
                 button.classList.add('incorrect');
                 button.classList.add('shake');
             }
@@ -298,10 +294,10 @@ class Game {
         
         if (isCorrect) {
             // Respuesta correcta
-            this.handleCorrectAnswer(correctButton);
+            this.handleCorrectAnswer(correctItem);
         } else {
             // Respuesta incorrecta
-            this.handleIncorrectAnswer(selectedOption, correctButton);
+            this.handleIncorrectAnswer(selectedOption, correctItem);
         }
         
         // Pasar a la siguiente pregunta después de un breve delay
@@ -313,7 +309,7 @@ class Game {
         }, 2000);
     }
     
-    static handleCorrectAnswer(correctWord, correctButton) {
+    static handleCorrectAnswer(correctItem) {
         // Incrementar puntuación y racha
         this.currentGame.score += 10;
         this.currentGame.streak += 1;
@@ -327,16 +323,12 @@ class Game {
             UI.showToast(successMessages[randomKey]);
         }
         
-        if (correctButton) {
-            correctButton.classList.add('correct');
-            correctButton.classList.add('blink');
-        }
+        this.saveUserStats();
     }
     
-    static handleIncorrectAnswer(selectedOption, correctButton) {
+    static handleIncorrectAnswer(selectedOption, correctItem) {
         // Incrementar contador de errores
-        const currentWord = this.currentGame.questions[this.currentGame.currentQuestion].word;
-        currentWord.e = (currentWord.e || 0) + 1;
+        correctItem.e = (correctItem.e || 0) + 1;
         this.saveUserStats();
         
         // Reiniciar racha
@@ -354,23 +346,6 @@ class Game {
             UI.showToast(failMessages[randomKey]);
         }
         
-        // Efecto visual en los botones
-        const options = document.querySelectorAll('.option-btn');
-        options.forEach(button => {
-            const buttonCh = button.getAttribute('data-ch');
-            const selectedCh = selectedOption.ch;
-            
-            if (buttonCh === selectedCh) {
-                button.classList.add('incorrect');
-                button.classList.add('shake');
-            }
-        });
-        
-        if (correctButton) {
-            correctButton.classList.add('correct');
-            correctButton.classList.add('blink');
-        }
-        
         // Verificar si se acabaron las vidas
         if (this.currentGame.lives <= 0) {
             setTimeout(() => {
@@ -379,7 +354,6 @@ class Game {
                     this.endGame();
                 }
             }, 1500);
-            return;
         }    
     }
     
@@ -440,6 +414,8 @@ class Game {
     }
 
     static saveUserStats() {
-        localStorage.setItem('hskBambooStats', JSON.stringify(this.vocabulary));
+        // Guardar estadísticas tanto de vocabulario como de caracteres
+        const allStats = [...this.vocabulary, ...(window.app.characters || [])];
+        localStorage.setItem('hskBambooStats', JSON.stringify(allStats));
     }
 }

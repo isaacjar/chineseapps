@@ -8158,8 +8158,1981 @@
   "pin": "xìngfú",
   "en": "well-being",
   "sp": "bienestar"
-}
-
-
-    
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "性格",
+  "pin": "xìnggé",
+  "en": "character",
+  "sp": "personalidad"
+},
+{
+  "level": 3,
+  "sil": 3,
+  "ch": "行李箱",
+  "pin": "xínglǐxiāng",
+  "en": "baggage, luggage",
+  "sp": "maleta, equipaje"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "星期",
+  "pin": "xīngqī",
+  "en": "week",
+  "sp": "semana"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "兴趣",
+  "pin": "xìngqù",
+  "en": "interest",
+  "sp": "interés"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "辛苦",
+  "pin": "xīnkǔ",
+  "en": "hardworking",
+  "sp": "agotado"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "新年",
+  "pin": "xīnnián",
+  "en": "New Year",
+  "sp": "Año Nuevo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "心情",
+  "pin": "xīnqíng",
+  "en": "mood",
+  "sp": "estado de ánimo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "信任",
+  "pin": "xìnrèn",
+  "en": "to trust",
+  "sp": "confiar, confianza"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "新闻",
+  "pin": "xīnwén",
+  "en": "news",
+  "sp": "noticia"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "新鲜",
+  "pin": "xīnxiān",
+  "en": "fresh, new",
+  "sp": "fresco, novedoso"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "信心",
+  "pin": "xìnxīn",
+  "en": "confidence",
+  "sp": "seguro, confiado"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "信用卡",
+  "pin": "xìnyòngkǎ",
+  "en": "credit card",
+  "sp": "tarjeta de crédito"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "熊猫",
+  "pin": "xióngmāo",
+  "en": "panda",
+  "sp": "oso panda"
+},
+{
+  "level": 3,
+  "sil": 3,
+  "ch": "洗手间",
+  "pin": "xǐshǒujiān",
+  "en": "toilet",
+  "sp": "lavabo"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "修",
+  "pin": "xiū",
+  "en": "to repair",
+  "sp": "arreglar"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "休息",
+  "pin": "xiūxi",
+  "en": "to rest",
+  "sp": "descansar"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "希望",
+  "pin": "xīwàng",
+  "en": "to hope, to desire",
+  "sp": "esperar, desear"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "吸引",
+  "pin": "xīyǐn",
+  "en": "to attract",
+  "sp": "atraer"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "洗澡",
+  "pin": "xǐzǎo",
+  "en": "to have a shower",
+  "sp": "ducharse"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "选择",
+  "pin": "xuǎnzé",
+  "en": "to choose, to select",
+  "sp": "elegir, escoger"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "许多",
+  "pin": "xǔduō",
+  "en": "many",
+  "sp": "mucho"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "学",
+  "pin": "xué",
+  "en": "to study, to learn",
+  "sp": "estudiar, aprender"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "血",
+  "pin": "xuè",
+  "en": "blood",
+  "sp": "sangre"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "雪",
+  "pin": "xuě",
+  "en": "snow",
+  "sp": "nieve"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "学生",
+  "pin": "xuésheng",
+  "en": "student",
+  "sp": "estudiante"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "学习",
+  "pin": "xuéxí",
+  "en": "to study, to learn",
+  "sp": "estudiar, aprender"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "学校",
+  "pin": "xuéxiào",
+  "en": "school",
+  "sp": "escuela, colegio"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "需要",
+  "pin": "xūyào",
+  "en": "to need",
+  "sp": "necesitar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "呀",
+  "pin": "ya",
+  "en": "ah",
+  "sp": "¡ah!"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "牙膏",
+  "pin": "yágāo",
+  "en": "toothpaste",
+  "sp": "pasta de dientes"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "压力",
+  "pin": "yālì",
+  "en": "pressure",
+  "sp": "presión"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "盐",
+  "pin": "yán",
+  "en": "salt",
+  "sp": "sal"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "演出",
+  "pin": "yǎnchū",
+  "en": "performance",
+  "sp": "representación, actuación"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "养成",
+  "pin": "yǎngchéng",
+  "en": "to develop (habit)",
+  "sp": "formar, cultivar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "严格",
+  "pin": "yángé",
+  "en": "strict",
+  "sp": "estricto"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "阳光",
+  "pin": "yángguāng",
+  "en": "sunlight",
+  "sp": "luz solar, rayos del sol"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "羊肉",
+  "pin": "yángròu",
+  "en": "lamb",
+  "sp": "cordero"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "样子",
+  "pin": "yàngzi",
+  "en": "appearance",
+  "sp": "apariencia"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "眼睛",
+  "pin": "yǎnjing",
+  "en": "eye",
+  "sp": "ojo"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "眼镜",
+  "pin": "yǎnjìng",
+  "en": "glasses",
+  "sp": "gafas"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "研究生",
+  "pin": "yánjiūshēng",
+  "en": "postgraduate",
+  "sp": "máster, maestría"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "颜色",
+  "pin": "yánsè",
+  "en": "colour",
+  "sp": "color"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "演员",
+  "pin": "yǎnyuán",
+  "en": "actor",
+  "sp": "actor, actriz"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "严重",
+  "pin": "yánzhòng",
+  "en": "serious",
+  "sp": "serio"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "药",
+  "pin": "yào",
+  "en": "medicine",
+  "sp": "medicina"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "要",
+  "pin": "yào",
+  "en": "to want, to have to",
+  "sp": "querer, tener que"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "邀请",
+  "pin": "yāoqǐng",
+  "en": "to invite",
+  "sp": "invitar"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "要求",
+  "pin": "yāoqiú",
+  "en": "to demand, to request",
+  "sp": "exigir"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "钥匙",
+  "pin": "yàoshi",
+  "en": "key",
+  "sp": "llaves"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "亚洲",
+  "pin": "yàzhōu",
+  "en": "Asia",
+  "sp": "Asia"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "页",
+  "pin": "yè",
+  "en": "page",
+  "sp": "página"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "也",
+  "pin": "yě",
+  "en": "also",
+  "sp": "también"
+},
+{
+  "极": 4,
+  "sil": 2,
+  "ch": "也许",
+  "pin": "yěxǔ",
+  "en": "perhaps",
+  "sp": "quizás"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "爷爷",
+  "pin": "yéye",
+  "en": "paternal grandfather",
+  "sp": "abuelo paterno"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "叶子",
+  "pin": "yèzi",
+  "en": "leaf",
+  "sp": "hoja"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "亿",
+  "极": "yì",
+  "en": "hundred million",
+  "sp": "centena de millón (100.000.000)"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "以",
+  "pin": "yǐ",
+  "en": "with",
+  "sp": "preposición"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "一",
+  "pin": "yī",
+  "en": "one",
+  "sp": "uno"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "一般",
+  "pin": "yìbān",
+  "en": "general, ordinary",
+  "sp": "en general, corriente"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "一边",
+  "pin": "yìbiān",
+  "en": "at the same time",
+  "sp": "al mismo tiempo"
+},
+({
+  "level": 3,
+  "sil": 2,
+  "ch": "一定",
+  "pin": "yídìng",
+  "en": "definitely, certain",
+  "sp": "de seguro, por supuesto"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "衣服",
+  "pin": "yīfu",
+  "en": "clothing",
+  "sp": "ropa"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "一共",
+  "pin": "yígòng",
+  "en": "altogether",
+  "sp": "en total"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "以后",
+  "pin": "yǐhòu",
+  "en": "after, afterwards",
+  "sp": "después"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "一会儿",
+  "pin": "yíhuìr",
+  "en": "a while, a moment",
+  "sp": "un momento, un rato"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "已经",
+  "pin": "yǐjing",
+  "en": "already",
+  "sp": "ya"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "阴",
+  "pin": "yīn",
+  "en": "cloudy",
+  "sp": "nublado"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "因此",
+  "pin": "yīncǐ",
+  "en": "therefore",
+  "sp": "por consiguiente"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "赢",
+  "pin": "yíng",
+  "en": "to win",
+  "sp": "ganar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "硬",
+  "pin": "yìng",
+  "en": "hard",
+  "sp": "duro"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "应该",
+  "pin": "yīnggāi",
+  "en": "must",
+  "sp": "deber"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "影响",
+  "pin": "yǐngxiǎng",
+  "en": "influence, to affect",
+  "sp": "influencia, afectar, influir"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "银行",
+  "pin": "yínháng",
+  "en": "bank",
+  "sp": "banco (de dinero)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "饮料",
+  "pin": "yǐnliào",
+  "en": "drink",
+  "sp": "bebida"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "引起",
+  "pin": "yǐnqǐ",
+  "en": "to cause",
+  "sp": "provocar"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "因为",
+  "pin": "yīnwei",
+  "en": "because",
+  "sp": "porque"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "印象",
+  "pin": "yìnxiàng",
+  "en": "impression",
+  "sp": "impresión"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "音乐",
+  "pin": "yīnyuè",
+  "en": "music",
+  "sp": "música"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "一起",
+  "pin": "yìqǐ",
+  "en": "together",
+  "sp": "juntos"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "以前",
+  "pin": "yǐqián",
+  "en": "previous, before",
+  "sp": "antes"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "一切",
+  "pin": "yíqiè",
+  "en": "everything",
+  "sp": "todo"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "医生",
+  "pin": "yīshēng",
+  "en": "doctor",
+  "sp": "médico"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "艺术",
+  "pin": "yìshù",
+  "en": "art",
+  "sp": "arte"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "意思",
+  "pin": "yìsi",
+  "en": "meaning, opinion",
+  "sp": "significado, opinión"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "以为",
+  "pin": "yǐwéi",
+  "en": "to think",
+  "sp": "considerar, creer"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "一下",
+  "pin": "yíxià",
+  "en": "some time, softens an order",
+  "sp": "un poquito, suaviza orden"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "一些",
+  "pin": "yìxiē",
+  "en": "some, a little bit of",
+  "sp": "algunos, algo de"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "一样",
+  "pin": "yíyàng",
+  "en": "same",
+  "sp": "igual"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "医院",
+  "pin": "yīyuàn",
+  "en": "hospital",
+  "sp": "hospital"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "一直",
+  "pin": "yìzhí",
+  "en": "always, straight",
+  "sp": "siempre, recto"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "椅子",
+  "pin": "yǐzi",
+  "en": "chair",
+  "sp": "silla"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "用",
+  "pin": "yòng",
+  "en": "to use",
+  "sp": "usar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "勇敢",
+  "pin": "yǒnggǎn",
+  "en": "brave",
+  "sp": "valiente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "永远",
+  "pin": "yǒngyuǎn",
+  "en": "forever",
+  "sp": "para siempre"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "由",
+  "pin": "yóu",
+  "en": "by",
+  "sp": "debido a, por"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "又",
+  "pin": "yòu",
+  "en": "again (past), too",
+  "sp": "de nuevo (pasado), además"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "有",
+  "pin": "yǒu",
+  "en": "to have",
+  "sp": "tener, haber"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "右",
+  "pin": "yòu",
+  "en": "right",
+  "sp": "derecha"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "右边",
+  "pin": "yòubian",
+  "en": "right",
+  "sp": "derecha"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "优点",
+  "pin": "yōudiǎn",
+  "en": "advantage",
+  "sp": "ventaja"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "友好",
+  "pin": "yǒuhǎo",
+  "en": "friendly",
+  "sp": "amistoso"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "有名",
+  "pin": "yǒumíng",
+  "en": "famous",
+  "sp": "famoso"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "幽默",
+  "pin": "yōumò",
+  "en": "humorous",
+  "sp": "gracioso"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "尤其",
+  "pin": "yóuqí",
+  "en": "especially",
+  "sp": "especialmente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "有趣",
+  "pin": "yǒuqù",
+  "en": "interesting",
+  "sp": "divertido, interesante"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "游戏",
+  "pin": "yóuxì",
+  "en": "game",
+  "sp": "juego, entretenimiento"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "优秀",
+  "pin": "yōuxiù",
+  "en": "excellent",
+  "sp": "excepcional"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "友谊",
+  "pin": "yǒuyì",
+  "en": "friendship",
+  "sp": "amistad"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "游泳",
+  "pin": "yóuyǒng",
+  "en": "to swim",
+  "sp": "nadar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "由于",
+  "pin": "yóuyú",
+  "en": "because of",
+  "sp": "porque"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "鱼",
+  "pin": "yú",
+  "en": "fish",
+  "sp": "pez"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "与",
+  "pin": "yǔ",
+  "en": "and",
+  "sp": "y (conjunción)"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "元",
+  "pin": "yuán",
+  "en": "Chinese currency",
+  "sp": "moneda china"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "圆",
+  "pin": "yuán",
+  "en": "circle",
+  "sp": "redondo, círculo"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "远",
+  "pin": "yuǎn",
+  "en": "far, distant",
+  "sp": "lejano, lejos"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "原来",
+  "pin": "yuánlái",
+  "en": "original",
+  "sp": "originalmente, antes"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "原谅",
+  "pin": "yuánliàng",
+  "en": "to forgive",
+  "sp": "perdonar"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "愿意",
+  "pin": "yuànyì",
+  "en": "to be willing to",
+  "sp": "estar dispuesto"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "原因",
+  "pin": "yuányīn",
+  "en": "reason",
+  "sp": "razón"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "遇到",
+  "pin": "yùdào",
+  "en": "to run into, to encounter",
+  "sp": "encontrarse con, toparse con"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "月",
+  "pin": "yuè",
+  "en": "month, moon",
+  "sp": "mes, luna"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "越",
+  "pin": "yuè",
+  "en": "to exceed, more and more",
+  "sp": "cada vez más, superar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "阅读",
+  "pin": "yuèdú",
+  "en": "to read",
+  "sp": "leer"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "约会",
+  "pin": "yuēhuì",
+  "en": "appointment, to have a date",
+  "sp": "cita, quedar con"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "月亮",
+  "pin": "yuèliàng",
+  "en": "the moon",
+  "sp": "luna"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "语法",
+  "pin": "yǔfǎ",
+  "en": "grammar",
+  "sp": "gramática"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "愉快",
+  "pin": "yúkuài",
+  "en": "happy",
+  "sp": "alegre, contento, agradable"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "羽毛球",
+  "pin": "yǔmáoqiú",
+  "en": "badminton",
+  "sp": "bádminton"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "云",
+  "pin": "yún",
+  "en": "cloud",
+  "sp": "nube"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "运动",
+  "pin": "yùndòng",
+  "en": "sports, to do sports",
+  "sp": "deporte, hacer deporte"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "允许",
+  "pin": "yǔnxǔ",
+  "en": "to allow",
+  "sp": "permitir"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "于是",
+  "pin": "yúshì",
+  "en": "therefore",
+  "sp": "entonces"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "预习",
+  "pin": "yùxí",
+  "en": "to preview a lesson",
+  "sp": "estudiar previamente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "语言",
+  "pin": "yǔyán",
+  "en": "language",
+  "sp": "idioma"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "在",
+  "pin": "zài",
+  "en": "at, to be at, to be (verb-ing)",
+  "sp": "en, estar en, estar (haciendo)"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "再",
+  "pin": "zài",
+  "en": "again, once more",
+  "sp": "otra vez, una vez más"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "再见",
+  "pin": "zài jiàn",
+  "en": "goodbye",
+  "sp": "adiós"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "脏",
+  "pin": "zāng",
+  "en": "dirty",
+  "sp": "sucio"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "咱们",
+  "pin": "zánmen",
+  "en": "we",
+  "sp": "nosotros"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "暂时",
+  "pin": "zànshí",
+  "en": "temporary",
+  "sp": "temporalmente"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "早",
+  "pin": "zǎo",
+  "en": "early",
+  "sp": "temprano"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "早上",
+  "pin": "zǎoshang",
+  "en": "early (morning)",
+  "sp": "temprano (por la mañana)"
+},
+{
+  "level": 2,
+  "sil": 3,
+  "ch": "早点儿",
+  "pin": "zǎodiǎnr",
+  "en": "a bit earlier",
+  "sp": "más temprano"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "增加",
+  "pin": "zēngjiā",
+  "en": "to increase",
+  "sp": "aumentar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "增长",
+  "pin": "zēngzhǎng",
+  "en": "to grow, to increase",
+  "sp": "aumentar, incrementar"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "怎么",
+  "pin": "zěnme",
+  "en": "how",
+  "sp": "cómo"
+},
+{
+  "level": 1,
+  "sil": 3,
+  "ch": "怎么样",
+  "pin": "zěnmeyàng",
+  "en": "how about",
+  "sp": "qué tal"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "责任",
+  "pin": "zérèn",
+  "en": "responsibility",
+  "sp": "responsabilidad"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "窄",
+  "pin": "zhǎi",
+  "en": "narrow",
+  "sp": "estrecho"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "站",
+  "pin": "zhàn",
+  "en": "to stand, stop (bus…)",
+  "sp": "estar de pie, parada (bus, …)"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "长",
+  "pin": "zhǎng",
+  "en": "to grow; head",
+  "sp": "crecer, desarrollar; jefe, cabeza"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "张",
+  "pin": "zhāng",
+  "en": "mw. flat objects",
+  "sp": "clasif. objetos planos"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "丈夫",
+  "pin": "zhàngfu",
+  "en": "husband",
+  "sp": "marido"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "找",
+  "pin": "zhǎo",
+  "en": "to look for",
+  "sp": "buscar"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "找到",
+  "pin": "zhǎodào",
+  "en": "to find",
+  "sp": "encontrar"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "照顾",
+  "pin": "zhàogù",
+  "en": "to look after",
+  "sp": "cuidar"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "着急",
+  "pin": "zháojí",
+  "en": "to worry, to feel anxious",
+  "sp": "preocuparse"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "照片",
+  "pin": "zhàopiàn",
+  "en": "photo",
+  "sp": "fotografía"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "招聘",
+  "pin": "zhāopìn",
+  "en": "to recruit",
+  "sp": "ofertar trabajo"
+},
+{
+  "level": 3,
+  "sil": 3,
+  "ch": "照相机",
+  "pin": "zhàoxiàngjī",
+  "en": "camera",
+  "sp": "cámara fotográfica"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "着",
+  "pin": "zhe",
+  "en": "action in progress particle",
+  "sp": "part. acción en proceso"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "这",
+  "pin": "zhè",
+  "en": "this",
+  "sp": "este"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "这么",
+  "pin": "zhème",
+  "en": "so",
+  "sp": "tan"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "真",
+  "pin": "zhēn",
+  "en": "real, true",
+  "sp": "real, verdadero"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "证明",
+  "pin": "zhèngmíng",
+  "en": "to prove",
+  "sp": "demostrar, probar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "正确",
+  "pin": "zhèngquè",
+  "en": "correct",
+  "sp": "correcto"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "正式",
+  "pin": "zhèngshì",
+  "en": "formal",
+  "sp": "formal"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "正常",
+  "pin": "zhèngcháng",
+  "en": "normal",
+  "sp": "normal"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "正好",
+  "pin": "zhènghǎo",
+  "en": "just right",
+  "sp": "justo, adecuado"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "整理",
+  "pin": "zhěnglǐ",
+  "en": "to tidy up",
+  "sp": "organizar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "整齐",
+  "pin": "zhěngqí",
+  "en": "neat",
+  "sp": "bien ordenado"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "正在",
+  "pin": "zhèngzài",
+  "en": "right now",
+  "sp": "en este preciso momento"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "真正",
+  "pin": "zhēnzhèng",
+  "en": "real",
+  "sp": "real, auténtico"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "这儿",
+  "pin": "zhèr",
+  "en": "here",
+  "sp": "aquí"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "指",
+  "pin": "zhǐ",
+  "en": "to point",
+  "sp": "apuntar, señalar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "之",
+  "pin": "zhī",
+  "en": "of",
+  "sp": "de (preposición)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "支持",
+  "pin": "zhīchí",
+  "en": "to support",
+  "sp": "apoyar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "知识",
+  "pin": "zhīshí",
+  "en": "knowledge",
+  "sp": "conocimiento"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "只",
+  "pin": "zhī; zhǐ",
+  "en": "mw. animal; only",
+  "sp": "clasif. animales; solamente"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "知道",
+  "pin": "zhīdào",
+  "en": "to know",
+  "sp": "saber"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "值得",
+  "pin": "zhídé",
+  "en": "to be worth",
+  "sp": "merecer"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "只好",
+  "pin": "zhǐhǎo",
+  "en": "to have no choice",
+  "sp": "no quedar más remedio que"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "直接",
+  "pin": "zhíjiē",
+  "en": "directly",
+  "sp": "directo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "质量",
+  "pin": "zhìliàng",
+  "en": "quality",
+  "sp": "calidad"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "至少",
+  "pin": "zhìshǎo",
+  "en": "at least",
+  "sp": "por lo menos"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "植物",
+  "pin": "zhíwù",
+  "en": "plant",
+  "sp": "planta (vegetal)"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "只要",
+  "pin": "zhǐyào",
+  "en": "as long as",
+  "sp": "siempre, con tal que"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "职业",
+  "pin": "zhíyè",
+  "en": "occupation",
+  "sp": "profesión"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "制造",
+  "pin": "zhìzào",
+  "en": "to manufacture",
+  "sp": "hacer, fabricar"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "种",
+  "pin": "zhǒng",
+  "en": "type, species",
+  "sp": "tipo, clase"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "中",
+  "pin": "zhōng",
+  "en": "middle",
+  "sp": "en el medio"
+},
+{
+  "level": 3,
+  "sil": 4,
+  "ch": "中间",
+  "pin": "zhōngjiān",
+  "en": "middle",
+  "sp": "en el medio"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "重点",
+  "pin": "zhòngdiǎn",
+  "en": "key point",
+  "sp": "importante"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "中国",
+  "pin": "Zhōngguó",
+  "en": "China",
+  "sp": "China"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "重视",
+  "pin": "zhòngshì",
+  "en": "to attach importance",
+  "sp": "dar importancia"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "中午",
+  "pin": "zhōngwǔ",
+  "en": "noon",
+  "sp": "al mediodía"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "重要",
+  "pin": "zhòngyào",
+  "en": "important",
+  "sp": "importante"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "终于",
+  "pin": "zhōngyú",
+  "en": "finally",
+  "sp": "por fin, finalmente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "周围",
+  "pin": "zhōuwéi",
+  "en": "around",
+  "sp": "alrededor"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "周末",
+  "pin": "zhōumò",
+  "en": "weekend",
+  "sp": "fin de semana"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "住",
+  "pin": "zhù",
+  "en": "to live, to stay",
+  "sp": "vivir, quedarse"
+},
+{
+  "level": 3,
+  "sil": 1,
+  "ch": "祝",
+  "pin": "zhù",
+  "en": "to wish",
+  "sp": "desear, felicitar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "猪",
+  "pin": "zhū",
+  "en": "pig",
+  "sp": "cerdo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "逐渐",
+  "pin": "zhújiàn",
+  "en": "gradually",
+  "sp": "gradualmente"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "赚",
+  "pin": "zhuàn",
+  "en": "to earn",
+  "sp": "ganar (dinero)"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "撞",
+  "pin": "zhuàng",
+  "en": "to hit",
+  "sp": "chocar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "专门",
+  "pin": "zhuānmén",
+  "en": "specialized",
+  "sp": "especialmente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "专业",
+  "pin": "zhuānyè",
+  "en": "major",
+  "sp": "especialidad"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "主动",
+  "pin": "zhǔdòng",
+  "en": "initiative",
+  "sp": "activo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "祝贺",
+  "pin": "zhùhè",
+  "en": "to congratulate",
+  "sp": "felicitar, felicitación"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "著名",
+  "pin": "zhùmíng",
+  "en": "famous",
+  "sp": "famoso"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "准确",
+  "pin": "zhǔnquè",
+  "en": "accurate",
+  "sp": "preciso"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "准备",
+  "pin": "zhǔnbèi",
+  "en": "to prepare, to get ready",
+  "sp": "preparar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "准时",
+  "pin": "zhǔnshí",
+  "en": "on time",
+  "sp": "puntual"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "桌子",
+  "pin": "zhuōzi",
+  "en": "table",
+  "sp": "mesa"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "主要",
+  "pin": "zhǔyào",
+  "en": "main, principal, mainly",
+  "sp": "principal, principalmente"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "注意",
+  "pin": "zhùyì",
+  "en": "to be careful",
+  "sp": "prestar atención"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "主意",
+  "pin": "zhǔyì",
+  "en": "idea",
+  "sp": "idea"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "字",
+  "pin": "zì",
+  "en": "character",
+  "sp": "carácter"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "字典",
+  "pin": "zìdiǎn",
+  "en": "dictionary",
+  "sp": "diccionario"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "自己",
+  "pin": "zìjǐ",
+  "en": "oneself",
+  "sp": "uno mismo"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "自然",
+  "pin": "zìrán",
+  "en": "natural",
+  "sp": "naturaleza"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "仔细",
+  "pin": "zǐxì",
+  "en": "careful",
+  "sp": "cuidado, cuidadosamente"
+},
+{
+  "level": 2,
+  "sil": 3,
+  "ch": "自行车",
+  "pin": "zìxíngchē",
+  "en": "bike",
+  "sp": "bicicleta"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "总结",
+  "pin": "zǒngjié",
+  "en": "to summarize",
+  "sp": "concluir"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "总是",
+  "pin": "zǒngshì",
+  "en": "always",
+  "sp": "siempre"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "走",
+  "pin": "zǒu",
+  "en": "to walk",
+  "sp": "andar"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "租",
+  "pin": "zū",
+  "en": "to rent",
+  "sp": "alquilar"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "组成",
+  "pin": "zǔchéng",
+  "en": "to compose, to form, to constitute",
+  "sp": "componer, formar, constituir"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "最",
+  "pin": "zuì",
+  "en": "the most",
+  "sp": "el más"
+},
+{
+  "level": 4,
+  "sil": 1,
+  "ch": "嘴",
+  "pin": "zuǐ",
+  "en": "mouth",
+  "sp": "boca"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "最好",
+  "pin": "zuìhǎo",
+  "en": "best",
+  "sp": "lo mejor"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "最后",
+  "pin": "zuìhòu",
+  "en": "finally",
+  "sp": "finalmente"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "最近",
+  "pin": "zuìjìn",
+  "en": "recently",
+  "sp": "últimamente"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "尊重",
+  "pin": "zūnzhòng",
+  "en": "respect",
+  "sp": "respetar, respeto"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "坐",
+  "pin": "zuò",
+  "en": "to sit, to travel by",
+  "sp": "sentarse"
+},
+{
+  "level": 1,
+  "sil": 1,
+  "ch": "做",
+  "pin": "zuò",
+  "en": "to make, to do",
+  "sp": "hacer"
+},
+{
+  "level": 4,
+  "sil": 3,
+  "ch": "做生意",
+  "pin": "zuò shēngyi",
+  "en": "to do business",
+  "sp": "hacer negocios"
+},
+{
+  "level": 2,
+  "sil": 1,
+  "ch": "左",
+  "pin": "zuǒ",
+  "en": "left",
+  "sp": "izquierda"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "左边",
+  "pin": "zuǒbiān",
+  "en": "left",
+  "sp": "izquierda"
+},
+{
+  "level": 1,
+  "sil": 2,
+  "ch": "昨天",
+  "pin": "zuótiān",
+  "en": "yesterday",
+  "sp": "ayer"
+},
+{
+  "level": 2,
+  "sil": 2,
+  "ch": "昨晚",
+  "pin": "zuówǎn",
+  "en": "last night",
+  "sp": "ayer por la noche"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "座位",
+  "pin": "zuòwèi",
+  "en": "seat",
+  "sp": "asiento"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "作业",
+  "pin": "zuòyè",
+  "en": "homework",
+  "sp": "tarea, ejercicio, labor"
+},
+{
+  "level": 3,
+  "sil": 2,
+  "ch": "作用",
+  "pin": "zuòyòng",
+  "en": "action, effect",
+  "sp": "papel, acción, función"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "作者",
+  "pin": "zuòzhě",
+  "en": "author",
+  "sp": "autor"
+},
+{
+  "level": 4,
+  "sil": 2,
+  "ch": "组织",
+  "pin": "zǔzhī",
+  "en": "to organize",
+  "sp": "organizar"
+}  
 ]

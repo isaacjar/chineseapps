@@ -28,7 +28,15 @@ class Game {
         // Ocultar menú y mostrar pantalla de juego
         UI.showScreen('game');
         UI.showGameHeader(true);
-        
+
+         // Determinar qué conjunto de datos usar
+        let dataSource;
+        if (gameType === 3) {
+            dataSource = window.app.characters; // Juego 3 usa caracteres
+        } else {
+            dataSource = vocabulary; // Juegos 1 y 2 usan vocabulario
+        }
+            
         // Inicializar estado del juego
         this.currentGame = {
             type: gameType,
@@ -50,23 +58,15 @@ class Game {
     
     static prepareQuestions(gameType, count, vocabulary, settings) {
         // Filtrar por niveles HSK seleccionados
-        let filteredItems;
-        // Juego 3 usa caracteres en lugar del archivo de vocabulario
-        if (gameType === 3) {
-            // Para el juego de caracteres, usar this.characters
-            filteredItems = window.app.characters.filter(char => 
-                settings.hskLevels.includes(char.level)
-            );
-        } else {
-            // Para otros juegos, usar vocabulary
-            filteredItems = vocabulary.filter(word => 
-                settings.hskLevels.includes(word.level)
-            );
-        }
-        
-        // Mezclar y seleccionar
+        const filteredItems = dataSource.filter(item => 
+            settings.hskLevels.includes(item.level)
+        );
+       // Mezclar y seleccionar
         const shuffled = [...filteredItems].sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, count).map(item => ({
+        const selectedItems = shuffled.slice(0, count);
+        
+        // Preparar preguntas con opciones
+        return selectedItems.map(item => ({
             item: item,
             options: this.generateOptions(item, gameType, shuffled, settings)
         }));
@@ -78,15 +78,19 @@ class Game {
         
         // Seleccionar opciones incorrectas aleatorias
         while (options.length < optionsCount) {
-            const randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            const randomIndex = Math.floor(Math.random() * items.length);
+            const randomItem = items[randomIndex];
             
             // Para el juego 3, comparamos por pinyin
             const isDifferent = gameType === 3 ? 
                 randomItem.pin !== correctItem.pin : 
                 randomItem.ch !== correctItem.ch;
                 
-            if (isDifferent && !options.some(opt => 
-                gameType === 3 ? opt.pin === randomItem.pin : opt.ch === randomItem.ch)) {
+            const alreadyInOptions = gameType === 3 ? 
+                options.some(opt => opt.pin === randomItem.pin) : 
+                options.some(opt => opt.ch === randomItem.ch);
+                
+            if (isDifferent && !alreadyInOptions) {
                 options.push(randomItem);
             }
         }
@@ -108,6 +112,7 @@ class Game {
         
         // Limpiar opciones anteriores
         optionsContainer.innerHTML = '';
+        document.getElementById('game-screen').className = 'screen active game-type-' + this.currentGame.type;
         
         // Configurar pregunta según el tipo de juego
         if (this.currentGame.type === 1) {
@@ -134,15 +139,12 @@ class Game {
             const button = document.createElement('button');
             button.className = 'option-btn';
 
-            // Añadir atributo data-pin para facilitar la comparación
-            button.setAttribute('data-pin', option.pin);
-            
             // Configurar texto según el tipo de juego
             if (this.currentGame.type === 1) {
                 // Juego 1: Opciones en el idioma seleccionado
-                const currentLang = this.currentGame.settings.language;
                 const translation = option[currentLang] || (currentLang === 'es' ? option.sp : option.en);
                 button.textContent = translation;
+                button.setAttribute('data-ch', option.ch); // Para comparación
             } else if (this.currentGame.type === 2) {
                 // Juego 2: Opciones en chino
                 if (this.currentGame.settings.showPinyin) {
@@ -150,9 +152,11 @@ class Game {
                 } else {
                     button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
                 }
+                button.setAttribute('data-ch', option.ch); // Para comparación
             } else if (this.currentGame.type === 3) {
                 // Juego 3: Opciones de pinyin
                 button.textContent = option.pin;
+                button.setAttribute('data-pin', option.pin); // Para comparación
             }
             
             button.addEventListener('click', () => {
@@ -221,12 +225,12 @@ class Game {
         clearTimeout(this.timer);
         
         // Incrementar contador de veces mostrada
-        correctWord.s = (correctWord.s || 0) + 1;
+        correctItem.s = (correctItem.s || 0) + 1;
         
         let isCorrect;
         const options = document.querySelectorAll('.option-btn');
 
-        // Determinar si la respuesta es correcta según el tipo de juego
+       // Determinar si la respuesta es correcta según el tipo de juego
         if (this.currentGame.type === 1) {
             // Juego 1: Comparar por caracteres chinos
             isCorrect = selectedOption.ch === correctItem.ch;
@@ -239,38 +243,41 @@ class Game {
         }
         
         // Encontrar el botón correcto
-        let correctButton = null;
         options.forEach(button => {
-            let buttonContent;
-            let correctContent;
+            button.disabled = true;
+        
+            let buttonValue;
+            let correctValue;
             
             if (this.currentGame.type === 1) {
-                // Juego 1: Comparar contenido de texto (idioma seleccionado)
-                const currentLang = this.currentGame.settings.language;
-                buttonValue = button.textContent;
-                const correctTranslation = correctItem[currentLang] || (currentLang === 'es' ? correctItem.sp : correctItem.en);
-                correctValue = correctTranslation;
+                // Juego 1: El valor del botón es la traducción, pero comparamos por carácter chino
+                buttonValue = button.getAttribute('data-ch');
+                correctValue = correctItem.ch;
             } else if (this.currentGame.type === 2) {
-                // Juego 2: Comparar caracteres chinos
+                // Juego 2: Comparar por caracteres chinos
                 buttonValue = button.getAttribute('data-ch');
                 correctValue = correctItem.ch;
             } else if (this.currentGame.type === 3) {
-                // Juego 3: Comparar pinyin
+                // Juego 3: Comparar por pinyin
                 buttonValue = button.getAttribute('data-pin');
                 correctValue = correctItem.pin;
             }
             
-            if (buttonContent === correctContent) {
-                correctButton = button;
+            // Marcar como correcta o incorrecta
+            if (buttonValue === correctValue) {
+                button.classList.add('correct');
+                button.classList.add('blink');
+            } else if ((this.currentGame.type === 1 && button.getAttribute('data-ch') === selectedOption.ch) ||
+                       (this.currentGame.type === 2 && button.getAttribute('data-ch') === selectedOption.ch) ||
+                       (this.currentGame.type === 3 && button.getAttribute('data-pin') === selectedOption.pin)) {
+                button.classList.add('incorrect');
+                button.classList.add('shake');
             }
-            
-            // Deshabilitar todos los botones
-            button.disabled = true;
         });
         
         if (isCorrect) {
             // Respuesta correcta
-            this.handleCorrectAnswer(correctWord, correctButton);
+            this.handleCorrectAnswer(correctButton);
         } else {
             // Respuesta incorrecta
             this.handleIncorrectAnswer(selectedOption, correctButton);

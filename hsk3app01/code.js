@@ -16,7 +16,7 @@ let bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
 let answeredWords = [];
 let questionStartTime = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   // 🎨 Colores dinámicos
   const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
   const c1 = randomColor();
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 🎮 Configuración inicial
   const defaultModeBtn = document.getElementById('modePinyin');
-  defaultModeBtn.classList.add('active');
+  if (defaultModeBtn) defaultModeBtn.classList.add('active');
   currentMode = 'Pinyin';
   updateModeLabel();
   document.getElementById('questionCount').textContent = questionCount;
@@ -487,4 +487,5 @@ function disableOptions() {
   });
 
 }
+
 

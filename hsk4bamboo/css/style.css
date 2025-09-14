@@ -961,3 +961,39 @@ input[type="range"]::-moz-range-thumb {
     height: 31px; /* Misma altura que los switches iOS */
     line-height: 1;
 }
+
+/* JUEGO CARACTERES */
+.game-type-3 .question-text {
+    font-size: 1.8rem;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-type-3 .option-btn {
+    font-size: 3rem;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-type-3 .pinyin-text {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .game-type-3 .question-text {
+        font-size: 1.5rem;
+        min-height: 60px;
+    }
+    
+    .game-type-3 .option-btn {
+        font-size: 2.5rem;
+        min-height: 80px;
+    }
+}

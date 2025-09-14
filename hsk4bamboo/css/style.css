@@ -1001,13 +1001,22 @@ input[type="range"]::-moz-range-thumb {
 
 /* JUEGO 1: Adivina el significado (Carácter -> Traducción) */
 .game-type-1 .question-text {
-    font-size: 2.8rem; /* Más grande para caracteres chinos */
+    font-size: 2rem; /* Más grande para caracteres chinos */
     min-height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.game-type-1 .chinese-char {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
 
+.game-type-1 .pinyin-text {
+    font-size: 1.5rem; /* La mitad del tamaño del carácter (3rem / 2 = 1.5rem) */
+    color: #666;
+    opacity: 0.8;
+}
 .game-type-1 .option-btn {
     font-size: 1.2rem; /* Opciones en español/inglés */
     min-height: 60px;
@@ -1018,8 +1027,8 @@ input[type="range"]::-moz-range-thumb {
 
 /* JUEGO 2: Adivina el chino (Traducción -> Carácter) */
 .game-type-2 .question-text {
-    font-size: 1.8rem; /* Más pequeño para texto occidental */
-    min-height: 80px;
+    font-size: 1.4rem; /* Más pequeño para texto occidental */
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1027,18 +1036,29 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .game-type-2 .option-btn {
-    font-size: 2rem; /* Opciones más grandes para caracteres chinos */
-    min-height: 80px;
+    font-size: 1rem; /* Opciones más grandes para caracteres chinos */
+    min-height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.8rem;
+    padding: 0.6rem;
+}
+.game-type-2 .option-btn .chinese-char {
+    font-size: 1.5rem; /* Tamaño del carácter chino */
+    font-weight: bold;
+}
+
+.game-type-2 .option-btn .pinyin-text {
+    font-size: 0.8rem; /* La mitad del tamaño del carácter */
+    color: #666;
+    opacity: 0.8;
+    align-self: center; /* Alinear verticalmente con el carácter */
 }
 
 /* JUEGO 3: Adivina el pinyin (Carácter -> Pinyin) */
 .game-type-3 .question-text {
-    font-size: 4rem; /* Muy grande para el carácter */
+    font-size: 3rem; /* Muy grande para el carácter */
     min-height: 120px;
     display: flex;
     align-items: center;
@@ -1046,10 +1066,10 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .game-type-3 .option-btn {
-    font-size: 1.5rem; /* Opciones de pinyin */
+    font-size: 1.6rem; /* Opciones de pinyin */
     min-height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.8rem;
+    padding: 0.7rem;
 }

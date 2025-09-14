@@ -25,28 +25,37 @@ class Game {
     }
     
     static startGame(gameType, settings, vocabulary) {
-        // Ocultar menú y mostrar pantalla de juego
-        UI.showScreen('game');
-        UI.showGameHeader(true);
-
-         // Determinar qué conjunto de datos usar
+        // Determinar qué conjunto de datos usar
         let dataSource;
         if (gameType === 3) {
             dataSource = window.app.characters; // Juego 3 usa caracteres
         } else {
             dataSource = vocabulary; // Juegos 1 y 2 usan vocabulario
         }
-            
+        
+        // Preparar preguntas
+        const questions = this.prepareQuestions(gameType, settings.questions, dataSource, settings);
+        
+        // Verificar que hay preguntas
+        if (questions.length === 0) {
+            UI.showToast('No hay preguntas disponibles con los niveles HSK seleccionados');
+            return;
+        }        
+
+        // Ocultar menú y mostrar pantalla de juego
+        UI.showScreen('game');
+        UI.showGameHeader(true);
+        
         // Inicializar estado del juego
         this.currentGame = {
             type: gameType,
             settings: {...settings},
-            vocabulary: [...vocabulary],
+            //vocabulary: [...vocabulary],
             currentQuestion: 0,
             score: 0,
             streak: 0,
             lives: settings.lives,
-            questions: this.prepareQuestions(gameType, settings.questions, vocabulary, settings)
+            questions: questions
         };
         
         // Actualizar header
@@ -56,11 +65,18 @@ class Game {
         this.showQuestion();
     }
     
-    static prepareQuestions(gameType, count, vocabulary, settings) {
+    static prepareQuestions(gameType, count, dataSource, settings) {
         // Filtrar por niveles HSK seleccionados
         const filteredItems = dataSource.filter(item => 
             settings.hskLevels.includes(item.level)
         );
+
+        // Verificar que hay suficientes items
+        if (filteredItems.length === 0) {
+            console.error('No hay items que coincidan con los niveles HSK seleccionados');
+            return [];
+        }
+            
        // Mezclar y seleccionar
         const shuffled = [...filteredItems].sort(() => Math.random() - 0.5);
         const selectedItems = shuffled.slice(0, count);
@@ -74,8 +90,13 @@ class Game {
     
     static generateOptions(correctWord, gameType, vocabulary, settings) {
         const optionsCount = settings.difficulty === 1 ? 4 : 6;
-        const options = [correctWord];
-        
+        const options = [correctItem];
+
+        // Si no hay suficientes items, retornar solo el correcto
+        if (items.length <= 1) {
+            return options;
+        }
+            
         // Seleccionar opciones incorrectas aleatorias
         while (options.length < optionsCount) {
             const randomIndex = Math.floor(Math.random() * items.length);

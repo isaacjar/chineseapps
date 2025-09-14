@@ -80,10 +80,14 @@ class Game {
         while (options.length < optionsCount) {
             const randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
             
-            // Asegurarse de que no es la palabra correcta y no está ya en las opciones
-            if (randomWord.ch !== correctWord.ch && 
-                !options.some(opt => opt.ch === randomWord.ch)) {
-                options.push(randomWord);
+            // Para el juego 3, comparamos por pinyin
+            const isDifferent = gameType === 3 ? 
+                randomItem.pin !== correctItem.pin : 
+                randomItem.ch !== correctItem.ch;
+                
+            if (isDifferent && !options.some(opt => 
+                gameType === 3 ? opt.pin === randomItem.pin : opt.ch === randomItem.ch)) {
+                options.push(randomItem);
             }
         }
         
@@ -118,12 +122,11 @@ class Game {
             const translation = question.item[currentLang] || (currentLang === 'es' ? question.item.sp : question.item.en);
             questionText.textContent = translation;
         } else if (this.currentGame.type === 3) {
-            // Juego 3: Mostrar el significado, adivinar el carácter
-            const translation = question.item[currentLang] || (currentLang === 'es' ? question.item.sp : question.item.en);
-            questionText.textContent = translation;
+            // Juego 3: Mostrar el carácter, adivinar el pinyin
+            questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span>`;
             
             // Añadir clase específica para este juego
-            document.getElementById('game-screen').classList.add('game-type-4');
+            document.getElementById('game-screen').classList.add('game-type-3');
         }
         
         // Crear botones de opciones
@@ -131,22 +134,25 @@ class Game {
             const button = document.createElement('button');
             button.className = 'option-btn';
 
-            // Añadir atributo data-ch para facilitar la comparación
-            button.setAttribute('data-ch', option.ch);
+            // Añadir atributo data-pin para facilitar la comparación
+            button.setAttribute('data-pin', option.pin);
             
             // Configurar texto según el tipo de juego
             if (this.currentGame.type === 1) {
                 // Juego 1: Opciones en el idioma seleccionado
+                const currentLang = this.currentGame.settings.language;
                 const translation = option[currentLang] || (currentLang === 'es' ? option.sp : option.en);
                 button.textContent = translation;
-            } else if (this.currentGame.type === 2 || this.currentGame.type === 4) {
-                // Juegos 2 y 3: Opciones en chino
-                button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
-                
-                // Para el juego 4, mostrar pinyin si está activado
-                if (this.currentGame.type === 3 && this.currentGame.settings.showPinyin) {
-                    button.innerHTML += `<small class="pinyin-text">${option.pin}</small>`;
+            } else if (this.currentGame.type === 2) {
+                // Juego 2: Opciones en chino
+                if (this.currentGame.settings.showPinyin) {
+                    button.innerHTML = `<span class="chinese-char">${option.ch}</span><small class="pinyin-text">${option.pin}</small>`;
+                } else {
+                    button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
                 }
+            } else if (this.currentGame.type === 3) {
+                // Juego 3: Opciones de pinyin
+                button.textContent = option.pin;
             }
             
             button.addEventListener('click', () => {
@@ -217,9 +223,20 @@ class Game {
         // Incrementar contador de veces mostrada
         correctWord.s = (correctWord.s || 0) + 1;
         
-        const isCorrect = selectedOption.ch === correctWord.ch;
+        let isCorrect;
         const options = document.querySelectorAll('.option-btn');
-        const currentLang = this.currentGame.settings.language;
+
+        // Determinar si la respuesta es correcta según el tipo de juego
+        if (this.currentGame.type === 1) {
+            // Juego 1: Comparar por caracteres chinos
+            isCorrect = selectedOption.ch === correctItem.ch;
+        } else if (this.currentGame.type === 2) {
+            // Juego 2: Comparar por caracteres chinos
+            isCorrect = selectedOption.ch === correctItem.ch;
+        } else if (this.currentGame.type === 3) {
+            // Juego 3: Comparar por pinyin
+            isCorrect = selectedOption.pin === correctItem.pin;
+        }
         
         // Encontrar el botón correcto
         let correctButton = null;
@@ -229,14 +246,18 @@ class Game {
             
             if (this.currentGame.type === 1) {
                 // Juego 1: Comparar contenido de texto (idioma seleccionado)
-                buttonContent = button.textContent;
-                const lang = this.currentGame.settings.language;
-                const correctTranslation = correctWord[currentLang] || (currentLang === 'es' ? correctWord.sp : correctWord.en);
-                correctContent = correctTranslation;
-            } else if (this.currentGame.type === 2 || this.currentGame.type === 3) {
-                // Juegos 2 y 3: Comparar caracteres chinos
-                buttonContent = button.getAttribute('data-ch');
-                correctContent = correctItem.ch;
+                const currentLang = this.currentGame.settings.language;
+                buttonValue = button.textContent;
+                const correctTranslation = correctItem[currentLang] || (currentLang === 'es' ? correctItem.sp : correctItem.en);
+                correctValue = correctTranslation;
+            } else if (this.currentGame.type === 2) {
+                // Juego 2: Comparar caracteres chinos
+                buttonValue = button.getAttribute('data-ch');
+                correctValue = correctItem.ch;
+            } else if (this.currentGame.type === 3) {
+                // Juego 3: Comparar pinyin
+                buttonValue = button.getAttribute('data-pin');
+                correctValue = correctItem.pin;
             }
             
             if (buttonContent === correctContent) {

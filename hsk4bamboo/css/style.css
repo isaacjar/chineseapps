@@ -742,7 +742,6 @@ input:checked + .ios-switch-slider {
 
 .setting-item-full {
     align-items: center;
-    margin-bottom: 1.5rem;
     width: 80%;
 }
 

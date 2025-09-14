@@ -49,18 +49,26 @@ class Game {
     }
     
     static prepareQuestions(gameType, count, vocabulary, settings) {
-        // Filtrar vocabulario por niveles HSK seleccionados
-        const filteredVocabulary = vocabulary.filter(word => 
-            settings.hskLevels.includes(word.level)
-        );
+        // Filtrar por niveles HSK seleccionados
+        let filteredItems;
+        // Juego 3 usa caracteres en lugar del archivo de vocabulario
+        if (gameType === 3) {
+            // Para el juego de caracteres, usar this.characters
+            filteredItems = window.app.characters.filter(char => 
+                settings.hskLevels.includes(char.level)
+            );
+        } else {
+            // Para otros juegos, usar vocabulary
+            filteredItems = vocabulary.filter(word => 
+                settings.hskLevels.includes(word.level)
+            );
+        }
         
-        // Mezclar vocabulario filtrado
-        const shuffled = [...filteredVocabulary].sort(() => Math.random() - 0.5);
-        
-        // Seleccionar las primeras 'count' palabras
-        return shuffled.slice(0, count).map(word => ({
-            word: word,
-            options: this.generateOptions(word, gameType, shuffled, settings)
+        // Mezclar y seleccionar
+        const shuffled = [...filteredItems].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, count).map(item => ({
+            item: item,
+            options: this.generateOptions(item, gameType, shuffled, settings)
         }));
     }
     
@@ -105,10 +113,17 @@ class Game {
             } else {
                 questionText.innerHTML = `<span class="chinese-char">${question.word.ch}</span>`;
             }
-        } else {
+        } else if (this.currentGame.type === 2) {
             // Juego 2: Pregunta en el idioma seleccionado 
-            const translation = question.word[currentLang] || (currentLang === 'es' ? question.word.sp : question.word.en);
+            const translation = question.item[currentLang] || (currentLang === 'es' ? question.item.sp : question.item.en);
             questionText.textContent = translation;
+        } else if (this.currentGame.type === 3) {
+            // Juego 3: Mostrar el significado, adivinar el carácter
+            const translation = question.item[currentLang] || (currentLang === 'es' ? question.item.sp : question.item.en);
+            questionText.textContent = translation;
+            
+            // Añadir clase específica para este juego
+            document.getElementById('game-screen').classList.add('game-type-4');
         }
         
         // Crear botones de opciones
@@ -124,17 +139,18 @@ class Game {
                 // Juego 1: Opciones en el idioma seleccionado
                 const translation = option[currentLang] || (currentLang === 'es' ? option.sp : option.en);
                 button.textContent = translation;
-            } else {
-                // Juego 2: Opciones en chino
-                if (this.currentGame.settings.showPinyin) {
-                    button.innerHTML = `<span class="chinese-char">${option.ch}</span><small class="pinyin-text">${option.pin}</small>`;
-                } else {
-                    button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
+            } else if (this.currentGame.type === 2 || this.currentGame.type === 4) {
+                // Juegos 2 y 3: Opciones en chino
+                button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
+                
+                // Para el juego 4, mostrar pinyin si está activado
+                if (this.currentGame.type === 3 && this.currentGame.settings.showPinyin) {
+                    button.innerHTML += `<small class="pinyin-text">${option.pin}</small>`;
                 }
             }
             
             button.addEventListener('click', () => {
-                this.checkAnswer(option, question.word);
+                this.checkAnswer(option, question.item);
             });
             
             optionsContainer.appendChild(button);
@@ -217,10 +233,10 @@ class Game {
                 const lang = this.currentGame.settings.language;
                 const correctTranslation = correctWord[currentLang] || (currentLang === 'es' ? correctWord.sp : correctWord.en);
                 correctContent = correctTranslation;
-            } else {
-                // Juego 2: Comparar caracteres chinos
+            } else if (this.currentGame.type === 2 || this.currentGame.type === 3) {
+                // Juegos 2 y 3: Comparar caracteres chinos
                 buttonContent = button.getAttribute('data-ch');
-                correctContent = correctWord.ch;
+                correctContent = correctItem.ch;
             }
             
             if (buttonContent === correctContent) {

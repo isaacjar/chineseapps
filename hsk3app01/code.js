@@ -46,14 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 🎛️ Cambio de modo
-  document.querySelectorAll('.mode').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.textContent;
-      updateModeLabel();
+  const modeButtons = document.querySelectorAll('.mode');
+  if (modeButtons.length) {
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.textContent;
+        updateModeLabel();
+      });
     });
-  });
+  }
 
   // ➕➖ Ajuste de número de preguntas
   document.getElementById('increase').onclick = () => {
@@ -286,6 +289,11 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
+  if (!vocabulary || vocabulary.length === 0) {
+    console.error("Vocabulary not loaded");
+    return;
+  }
+  
   if (isGameEnded || isPaused) return;
 
   clearTimeout(answerTimeout);
@@ -409,6 +417,11 @@ function nextQuestion() {
 }
 
 function checkAnswer(selectedText) {
+  if (!currentWord) {
+    console.error("No current word defined");
+    return;
+  }
+  
   clearTimeout(answerTimeout);
   clearInterval(countdownInterval);
   clearCountdownCircles();
@@ -487,5 +500,6 @@ function disableOptions() {
   });
 
 }
+
 
 

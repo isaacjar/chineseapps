@@ -42,7 +42,11 @@ class HSKBambooApp {
             // Cargar vocabulario
             const vocabResponse = await fetch('js/voclist.json');
             this.vocabulary = await vocabResponse.json();
-            
+
+            // Cargar caracteres
+            const charsResponse = await fetch('js/charslist.json');
+            this.characters = await charsResponse.json();
+                
             // Cargar estadísticas si existen
             const savedStats = localStorage.getItem('hskBambooStats');
             if (savedStats) {
@@ -52,6 +56,14 @@ class HSKBambooApp {
                     if (savedWord) {
                         word.s = savedWord.s || 0;
                         word.e = savedWord.e || 0;
+                    }
+                });
+                // Estadísiticas de juego caracteres
+                this.characters.forEach((char, index) => {
+                    const savedChar = statsData.find(c => c.ch === char.ch);
+                    if (savedChar) {
+                        char.s = savedChar.s || 0;
+                        char.e = savedChar.e || 0;
                     }
                 });
             }
@@ -145,6 +157,10 @@ class HSKBambooApp {
         
         document.getElementById('game2-btn').addEventListener('click', () => {
             Game.startGame(2, this.settings, this.vocabulary);
+        });
+        
+        document.getElementById('game3-btn').addEventListener('click', () => {
+            Game.startGame(3, this.settings, this.vocabulary);
         });
         
         document.getElementById('stats-btn').addEventListener('click', () => {

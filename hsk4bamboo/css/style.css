@@ -943,3 +943,12 @@ input[type="range"]::-moz-range-thumb {
     );
     background-size: 11.11% 100%;
 }
+
+.vertical-align-label {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 0.5rem;
+    height: 31px; /* Misma altura que los switches iOS */
+    line-height: 1;
+}

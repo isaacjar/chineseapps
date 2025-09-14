@@ -289,8 +289,10 @@ function shuffle(array) {
 }
 
 function nextQuestion() {
-  if (!vocabulary || vocabulary.length === 0) {
-    console.error("Vocabulary not loaded");
+  if (!window.vocabulary || window.vocabulary.length === 0) {
+    console.error("Vocabulary not loaded yet");
+    showToast("Loading vocabulary...");
+    setTimeout(nextQuestion, 500);
     return;
   }
   
@@ -500,6 +502,7 @@ function disableOptions() {
   });
 
 }
+
 
 
 

@@ -730,6 +730,7 @@ input:checked + .ios-switch-slider {
 .setting-group-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;

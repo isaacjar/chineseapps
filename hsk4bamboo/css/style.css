@@ -770,6 +770,7 @@ input:checked + .ios-switch-slider {
     align-items: center;
     gap: 0.8rem;
     width: 100%;
+    margin-bottom: 1.5rem;
 }
 .slider-container input[type="range"] {
     flex: 1;

@@ -152,8 +152,8 @@ function initUI() {
         document.getElementById('livesValue').textContent = this.value;
     });
     
-    document.getElementById('difficultyToggle').addEventListener('change', function() {
-        document.getElementById('difficultyValue').textContent = 
-            this.checked ? getTranslation('hard') : getTranslation('easy');
+    // Slider de dificultad
+    document.getElementById('difficultySlider').addEventListener('input', function() {
+        document.getElementById('difficultyValue').textContent = this.value + ' países';
     });
 }

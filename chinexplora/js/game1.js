@@ -4,7 +4,7 @@ let score = 0;
 let streak = 0;
 let bestStreak = 0;
 let lives = 3;
-let window.timerInterval;
+let timerInterval;
 let countries = [];
 let currentOptions = [];
 
@@ -114,7 +114,7 @@ function loadNextQuestion() {
 
 // Comprobar respuesta
 function checkAnswer(selectedCountry, correctCountry) {
-    clearInterval(window.timerInterval);
+    clearInterval(timerInterval);
     
     // Deshabilitar botones
     const buttons = document.querySelectorAll('.option-btn');

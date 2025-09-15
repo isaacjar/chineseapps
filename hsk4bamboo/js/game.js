@@ -135,7 +135,7 @@ class Game {
         // Configurar pregunta según el tipo de juego
         if (this.currentGame.type === 1) {
             if (this.currentGame.settings.showPinyin) {
-                questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span> <small class="pinyin-text"> [${question.item.pin}]</small>`;
+                questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span> <small class="pinyin-text">  [${question.item.pin}]</small>`;
             } else {
                 questionText.innerHTML = `<span class="chinese-char">${question.item.ch}</span>`;
             }
@@ -157,7 +157,7 @@ class Game {
                 button.setAttribute('data-ch', option.ch);
             } else if (this.currentGame.type === 2) {
                 if (this.currentGame.settings.showPinyin) {
-                    button.innerHTML = `<span class="chinese-char">${option.ch}</span> <small class="pinyin-text">${option.pin}</small>`;
+                    button.innerHTML = `<span class="chinese-char">${option.ch}</span> <small class="pinyin-text"> ${option.pin}</small>`;
                 } else {
                     button.innerHTML = `<span class="chinese-char">${option.ch}</span>`;
                 }

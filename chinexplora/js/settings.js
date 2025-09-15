@@ -24,9 +24,10 @@ function loadSettings() {
     document.getElementById('timerValue').textContent = settings.timer + ' s';
     document.getElementById('livesSlider').value = settings.lives;
     document.getElementById('livesValue').textContent = settings.lives;
-    document.getElementById('difficultyToggle').checked = settings.difficulty === 2;
+    document.getElementById('difficultySlider').value = settings.difficulty;
+    document.getElementById('difficultyValue').textContent = settings.difficulty + ' países';
     document.getElementById('difficultyValue').textContent = 
-        settings.difficulty === 2 ? getTranslation('hard') : getTranslation('easy');
+    settings.difficulty === 2 ? getTranslation('hard') : getTranslation('easy');
 }
 
 // Guardar configuración
@@ -36,7 +37,7 @@ function saveSettings() {
     settings.questions = parseInt(document.getElementById('questionsSlider').value);
     settings.timer = parseInt(document.getElementById('timerSlider').value);
     settings.lives = parseInt(document.getElementById('livesSlider').value);
-    settings.difficulty = document.getElementById('difficultyToggle').checked ? 2 : 1;
+    settings.difficulty = parseInt(document.getElementById('difficultySlider').value);
     
     localStorage.setItem('chinexplora_settings', JSON.stringify(settings));
     
@@ -67,9 +68,8 @@ function resetSettings() {
     document.getElementById('timerValue').textContent = settings.timer + ' s';
     document.getElementById('livesSlider').value = settings.lives;
     document.getElementById('livesValue').textContent = settings.lives;
-    document.getElementById('difficultyToggle').checked = settings.difficulty === 2;
-    document.getElementById('difficultyValue').textContent = 
-        settings.difficulty === 2 ? getTranslation('hard') : getTranslation('easy');
+    document.getElementById('difficultySlider').value = settings.difficulty;
+    document.getElementById('difficultyValue').textContent = settings.difficulty + ' países';
     
     showToast(getTranslation('settingsReset'));
 }

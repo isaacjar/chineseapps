@@ -18,7 +18,10 @@ function startGame1() {
     
     // Cargar países
     if (window.countriesData) {
-        countries = window.countriesData;
+        // Seleccionar los primeros países según la dificultad
+        const totalCountries = window.countriesData.length;
+        const countriesToSelect = Math.min(settings.difficulty, totalCountries);
+        countries = window.countriesData.slice(0, countriesToSelect);
     } else {
         // Datos de ejemplo si no se carga el JSON
         countries = [
@@ -216,3 +219,4 @@ function shuffleArray(array) {
     }
     return array;
 }
+

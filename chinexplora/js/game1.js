@@ -162,7 +162,7 @@ function startTimer() {
     const timerBar = document.getElementById('timerBar');
     let timeLeft = settings.timer;
     timerBar.style.width = '100%';
-    timerBar.style.backgroundColor = var(--color-blue);
+    timerBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-blue').trim();
     
     timerInterval = setInterval(() => {
         timeLeft -= 0.1;

@@ -133,6 +133,8 @@ body {
 
 .setting-row input[type="range"] {
     flex-grow: 1;
+    width: 250px;  
+    height: 8px;  
 }
 
 .settings-buttons {
@@ -192,6 +194,25 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+* Añadir estos estilos al final del archivo CSS */
+.setting-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    cursor: pointer;
+}
+
+.setting-row input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    cursor: pointer;
+    border: none;
 }
 
 /* Game Styles */

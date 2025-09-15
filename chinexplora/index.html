@@ -69,11 +69,8 @@
                 </div>
                 <div class="setting-row">
                     <label data-lang="difficulty">Dificultad:</label>
-                    <label class="switch">
-                        <input type="checkbox" id="difficultyToggle">
-                        <span class="slider round"></span>
-                    </label>
-                    <span id="difficultyValue" data-lang="easy">Fácil</span>
+                    <input type="range" id="difficultySlider" min="10" max="100" step="10" value="20">
+                    <span id="difficultyValue">50 países</span>
                 </div>
                 <div class="settings-buttons">
                     <button class="btn-action" id="btnSaveSettings" data-lang="save">💾 Guardar</button>

@@ -231,12 +231,20 @@ input:checked + .slider:before {
 .flag-container {
     width: 200px;
     height: 120px;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9f9;
+}
+
+.flag-container img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .flag-container img {

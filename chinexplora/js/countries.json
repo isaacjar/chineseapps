@@ -103,5 +103,775 @@
         "en": "South Korea",
         "sp": "Corea del Sur",
         "fileflag": "southkorea.png"
-    }
+    },
+    {
+    "ch": "阿根廷",
+    "pin": "Āgēntíng",
+    "en": "Argentina",
+    "sp": "Argentina",
+    "fileflag": "argentina.png"
+},
+{
+    "ch": "南非",
+    "pin": "Nánfēi",
+    "en": "South Africa",
+    "sp": "Sudáfrica",
+    "fileflag": "southafrica.png"
+},
+{
+    "ch": "埃及",
+    "pin": "Āijí",
+    "en": "Egypt",
+    "sp": "Egipto",
+    "fileflag": "egypt.png"
+},
+{
+    "ch": "尼日利亚",
+    "pin": "Nírìlìyà",
+    "en": "Nigeria",
+    "sp": "Nigeria",
+    "fileflag": "nigeria.png"
+},
+{
+    "ch": "印度尼西亚",
+    "pin": "Yìndùníxīyà",
+    "en": "Indonesia",
+    "sp": "Indonesia",
+    "fileflag": "indonesia.png"
+},
+{
+    "ch": "土耳其",
+    "pin": "Tǔ'ěrqí",
+    "en": "Turkey",
+    "sp": "Turquía",
+    "fileflag": "turkey.png"
+},
+{
+    "ch": "沙特阿拉伯",
+    "pin": "Shātè Ālābó",
+    "en": "Saudi Arabia",
+    "sp": "Arabia Saudita",
+    "fileflag": "saudiarabia.png"
+},
+{
+    "ch": "伊朗",
+    "pin": "Yīlǎng",
+    "en": "Iran",
+    "sp": "Irán",
+    "fileflag": "iran.png"
+},
+{
+    "ch": "巴基斯坦",
+    "pin": "Bājīsītǎn",
+    "en": "Pakistan",
+    "sp": "Pakistán",
+    "fileflag": "pakistan.png"
+},
+{
+    "ch": "越南",
+    "pin": "Yuènán",
+    "en": "Vietnam",
+    "sp": "Vietnam",
+    "fileflag": "vietnam.png"
+},
+{
+    "ch": "泰国",
+    "pin": "Tàiguó",
+    "en": "Thailand",
+    "sp": "Tailandia",
+    "fileflag": "thailand.png"
+},
+{
+    "ch": "马来西亚",
+    "pin": "Mǎláixīyà",
+    "en": "Malaysia",
+    "sp": "Malasia",
+    "fileflag": "malaysia.png"
+},
+{
+    "ch": "菲律宾",
+    "pin": "Fēilǜbīn",
+    "en": "Philippines",
+    "sp": "Filipinas",
+    "fileflag": "philippines.png"
+},
+{
+    "ch": "荷兰",
+    "pin": "Hélán",
+    "en": "Netherlands",
+    "sp": "Países Bajos",
+    "fileflag": "netherlands.png"
+},
+{
+    "ch": "瑞士",
+    "pin": "Ruìshì",
+    "en": "Switzerland",
+    "sp": "Suiza",
+    "fileflag": "switzerland.png"
+},
+{
+    "ch": "瑞典",
+    "pin": "Ruìdiǎn",
+    "en": "Sweden",
+    "sp": "Suecia",
+    "fileflag": "sweden.png"
+},
+{
+    "ch": "挪威",
+    "pin": "Nuówēi",
+    "en": "Norway",
+    "sp": "Noruega",
+    "fileflag": "norway.png"
+},
+{
+    "ch": "波兰",
+    "pin": "Bōlán",
+    "en": "Poland",
+    "sp": "Polonia",
+    "fileflag": "poland.png"
+},
+{
+    "ch": "乌克兰",
+    "pin": "Wūkèlán",
+    "en": "Ukraine",
+    "sp": "Ucrania",
+    "fileflag": "ukraine.png"
+},
+{
+    "ch": "希腊",
+    "pin": "Xīlà",
+    "en": "Greece",
+    "sp": "Grecia",
+    "fileflag": "greece.png"
+},
+{
+    "ch": "葡萄牙",
+    "pin": "Pútáoyá",
+    "en": "Portugal",
+    "sp": "Portugal",
+    "fileflag": "portugal.png"
+},
+{
+    "ch": "比利时",
+    "pin": "Bǐlìshí",
+    "en": "Belgium",
+    "sp": "Bélgica",
+    "fileflag": "belgium.png"
+},
+{
+    "ch": "奥地利",
+    "pin": "Àodìlì",
+    "en": "Austria",
+    "sp": "Austria",
+    "fileflag": "austria.png"
+},
+{
+    "ch": "丹麦",
+    "pin": "Dānmài",
+    "en": "Denmark",
+    "sp": "Dinamarca",
+    "fileflag": "denmark.png"
+},
+{
+    "ch": "芬兰",
+    "pin": "Fēnlán",
+    "en": "Finland",
+    "sp": "Finlandia",
+    "fileflag": "finland.png"
+},
+{
+    "ch": "新加坡",
+    "pin": "Xīnjiāpō",
+    "en": "Singapore",
+    "sp": "Singapur",
+    "fileflag": "singapore.png"
+},
+{
+    "ch": "以色列",
+    "pin": "Yǐsèliè",
+    "en": "Israel",
+    "sp": "Israel",
+    "fileflag": "israel.png"
+},
+{
+    "ch": "爱尔兰",
+    "pin": "Ài'ěrlán",
+    "en": "Ireland",
+    "sp": "Irlanda",
+    "fileflag": "ireland.png"
+},
+{
+    "ch": "哥伦比亚",
+    "pin": "Gēlúnbǐyà",
+    "en": "Colombia",
+    "sp": "Colombia",
+    "fileflag": "colombia.png"
+},
+{
+    "ch": "智利",
+    "pin": "Zhìlì",
+    "en": "Chile",
+    "sp": "Chile",
+    "fileflag": "chile.png"
+},
+{
+    "ch": "秘鲁",
+    "pin": "Bìlǔ",
+    "en": "Peru",
+    "sp": "Perú",
+    "fileflag": "peru.png"
+},
+{
+    "ch": "委内瑞拉",
+    "pin": "Wěinèiruìlā",
+    "en": "Venezuela",
+    "sp": "Venezuela",
+    "fileflag": "venezuela.png"
+},
+{
+    "ch": "孟加拉国",
+    "pin": "Mèngjiālāguó",
+    "en": "Bangladesh",
+    "sp": "Bangladesh",
+    "fileflag": "bangladesh.png"
+},
+{
+    "ch": "缅甸",
+    "pin": "Miǎndiàn",
+    "en": "Myanmar",
+    "sp": "Myanmar",
+    "fileflag": "myanmar.png"
+},
+{
+    "ch": "哈萨克斯坦",
+    "pin": "Hāsàkèsītǎn",
+    "en": "Kazakhstan",
+    "sp": "Kazajistán",
+    "fileflag": "kazakhstan.png"
+},
+{
+    "ch": "伊拉克",
+    "pin": "Yīlākè",
+    "en": "Iraq",
+    "sp": "Irak",
+    "fileflag": "iraq.png"
+},
+{
+    "ch": "阿富汗",
+    "pin": "Āfùhàn",
+    "en": "Afghanistan",
+    "sp": "Afganistán",
+    "fileflag": "afghanistan.png"
+},
+{
+    "ch": "捷克",
+    "pin": "Jiékè",
+    "en": "Czech Republic",
+    "sp": "República Checa",
+    "fileflag": "czechrepublic.png"
+},
+{
+    "ch": "匈牙利",
+    "pin": "Xiōngyálì",
+    "en": "Hungary",
+    "sp": "Hungría",
+    "fileflag": "hungary.png"
+},
+{
+    "ch": "罗马尼亚",
+    "pin": "Luómǎníyà",
+    "en": "Romania",
+    "sp": "Rumanía",
+    "fileflag": "romania.png"
+},
+{
+    "ch": "保加利亚",
+    "pin": "Bǎojiālìyà",
+    "en": "Bulgaria",
+    "sp": "Bulgaria",
+    "fileflag": "bulgaria.png"
+},
+{
+    "ch": "塞尔维亚",
+    "pin": "Sài'ěrwéiyà",
+    "en": "Serbia",
+    "sp": "Serbia",
+    "fileflag": "serbia.png"
+},
+{
+    "ch": "克罗地亚",
+    "pin": "Kèluódìyà",
+    "en": "Croatia",
+    "sp": "Croacia",
+    "fileflag": "croatia.png"
+},
+{
+    "ch": "摩洛哥",
+    "pin": "Móluògē",
+    "en": "Morocco",
+    "sp": "Marruecos",
+    "fileflag": "morocco.png"
+},
+{
+    "ch": "阿尔及利亚",
+    "pin": "Ā'ěrjílìyà",
+    "en": "Algeria",
+    "sp": "Argelia",
+    "fileflag": "algeria.png"
+},
+{
+    "ch": "肯尼亚",
+    "pin": "Kěnníyà",
+    "en": "Kenya",
+    "sp": "Kenia",
+    "fileflag": "kenya.png"
+},
+{
+    "ch": "埃塞俄比亚",
+    "pin": "Āisài'ébǐyà",
+    "en": "Ethiopia",
+    "sp": "Etiopía",
+    "fileflag": "ethiopia.png"
+},
+{
+    "ch": "加纳",
+    "pin": "Jiānà",
+    "en": "Ghana",
+    "sp": "Ghana",
+    "fileflag": "ghana.png"
+},
+{
+    "ch": "新西兰",
+    "pin": "Xīnxīlán",
+    "en": "New Zealand",
+    "sp": "Nueva Zelanda",
+    "fileflag": "newzealand.png"
+},
+{
+    "ch": "卡塔尔",
+    "pin": "Kǎtǎ'ěr",
+    "en": "Qatar",
+    "sp": "Catar",
+    "fileflag": "qatar.png"
+},
+{
+    "ch": "斯里兰卡",
+    "pin": "Sīlǐlánkǎ",
+    "en": "Sri Lanka",
+    "sp": "Sri Lanka",
+    "fileflag": "srilanka.png"
+},
+{
+    "ch": "尼泊尔",
+    "pin": "Níbó'ěr",
+    "en": "Nepal",
+    "sp": "Nepal",
+    "fileflag": "nepal.png"
+},
+{
+    "ch": "柬埔寨",
+    "pin": "Jiǎnpǔzhài",
+    "en": "Cambodia",
+    "sp": "Camboya",
+    "fileflag": "cambodia.png"
+},
+{
+    "ch": "老挝",
+    "pin": "Lǎowō",
+    "en": "Laos",
+    "sp": "Laos",
+    "fileflag": "laos.png"
+},
+{
+    "ch": "蒙古",
+    "pin": "Měnggǔ",
+    "en": "Mongolia",
+    "sp": "Mongolia",
+    "fileflag": "mongolia.png"
+},
+{
+    "ch": "乌兹别克斯坦",
+    "pin": "Wūzībiékèsītǎn",
+    "en": "Uzbekistan",
+    "sp": "Uzbekistán",
+    "fileflag": "uzbekistan.png"
+},
+{
+    "ch": "阿塞拜疆",
+    "pin": "Āsàibàijiāng",
+    "en": "Azerbaijan",
+    "sp": "Azerbaiyán",
+    "fileflag": "azerbaijan.png"
+},
+{
+    "ch": "格鲁吉亚",
+    "pin": "Gélǔjíyà",
+    "en": "Georgia",
+    "sp": "Georgia",
+    "fileflag": "georgia.png"
+},
+{
+    "ch": "亚美尼亚",
+    "pin": "Yàměiníyà",
+    "en": "Armenia",
+    "sp": "Armenia",
+    "fileflag": "armenia.png"
+},
+{
+    "ch": "黎巴嫩",
+    "pin": "Líbānèn",
+    "en": "Lebanon",
+    "sp": "Líbano",
+    "fileflag": "lebanon.png"
+},
+{
+    "ch": "约旦",
+    "pin": "Yuēdàn",
+    "en": "Jordan",
+    "sp": "Jordania",
+    "fileflag": "jordan.png"
+},
+{
+    "ch": "叙利亚",
+    "pin": "Xùlìyà",
+    "en": "Syria",
+    "sp": "Siria",
+    "fileflag": "syria.png"
+},
+{
+    "ch": "也门",
+    "pin": "Yěmén",
+    "en": "Yemen",
+    "sp": "Yemen",
+    "fileflag": "yemen.png"
+},
+{
+    "ch": "阿曼",
+    "pin": "Āmàn",
+    "en": "Oman",
+    "sp": "Omán",
+    "fileflag": "oman.png"
+},
+{
+    "ch": "科威特",
+    "pin": "Kēwēitè",
+    "en": "Kuwait",
+    "sp": "Kuwait",
+    "fileflag": "kuwait.png"
+},
+{
+    "ch": "巴林",
+    "pin": "Bālín",
+    "en": "Bahrain",
+    "sp": "Baréin",
+    "fileflag": "bahrain.png"
+},
+{
+    "ch": "阿拉伯联合酋长国",
+    "pin": "Ālābó Liánhé Qiúzhǎngguó",
+    "en": "United Arab Emirates",
+    "sp": "Emiratos Árabes Unidos",
+    "fileflag": "uae.png"
+},
+{
+    "ch": "突尼斯",
+    "pin": "Tūnísī",
+    "en": "Tunisia",
+    "sp": "Túnez",
+    "fileflag": "tunisia.png"
+},
+{
+    "ch": "坦桑尼亚",
+    "pin": "Tǎnsāngníyà",
+    "en": "Tanzania",
+    "sp": "Tanzania",
+    "fileflag": "tanzania.png"
+},
+{
+    "ch": "乌干达",
+    "pin": "Wūgāndá",
+    "en": "Uganda",
+    "sp": "Uganda",
+    "fileflag": "uganda.png"
+},
+{
+    "ch": "安哥拉",
+    "pin": "Āngēlā",
+    "en": "Angola",
+    "sp": "Angola",
+    "fileflag": "angola.png"
+},
+{
+    "ch": "莫桑比克",
+    "pin": "Mòsāngbǐkè",
+    "en": "Mozambique",
+    "sp": "Mozambique",
+    "fileflag": "mozambique.png"
+},
+{
+    "ch": "津巴布韦",
+    "pin": "Jīnbābùwéi",
+    "en": "Zimbabwe",
+    "sp": "Zimbabue",
+    "fileflag": "zimbabwe.png"
+},
+{
+    "ch": "古巴",
+    "pin": "Gǔbā",
+    "en": "Cuba",
+    "sp": "Cuba",
+    "fileflag": "cuba.png"
+},
+{
+    "ch": "多米尼加共和国",
+    "pin": "Duōmǐníjiā Gònghéguó",
+    "en": "Dominican Republic",
+    "sp": "República Dominicana",
+    "fileflag": "dominicanrepublic.png"
+},
+{
+    "ch": "厄瓜多尔",
+    "pin": "Èguāduō'ěr",
+    "en": "Ecuador",
+    "sp": "Ecuador",
+    "fileflag": "ecuador.png"
+},
+{
+    "ch": "玻利维亚",
+    "pin": "Bōlìwéiyà",
+    "en": "Bolivia",
+    "sp": "Bolivia",
+    "fileflag": "bolivia.png"
+},
+{
+    "ch": "巴拉圭",
+    "pin": "Bālāguī",
+    "en": "Paraguay",
+    "sp": "Paraguay",
+    "fileflag": "paraguay.png"
+},
+{
+    "ch": "乌拉圭",
+    "pin": "Wūlāguī",
+    "en": "Uruguay",
+    "sp": "Uruguay",
+    "fileflag": "uruguay.png"
+},
+{
+    "ch": "哥斯达黎加",
+    "pin": "Gēsīdálíjiā",
+    "en": "Costa Rica",
+    "sp": "Costa Rica",
+    "fileflag": "costarica.png"
+},
+{
+    "ch": "巴拿马",
+    "pin": "Bānámǎ",
+    "en": "Panama",
+    "sp": "Panamá",
+    "fileflag": "panama.png"
+},
+{
+    "ch": "危地马拉",
+    "pin": "Wēidìmǎlā",
+    "en": "Guatemala",
+    "sp": "Guatemala",
+    "fileflag": "guatemala.png"
+},
+{
+    "ch": "洪都拉斯",
+    "pin": "Hóngdūlāsī",
+    "en": "Honduras",
+    "sp": "Honduras",
+    "fileflag": "honduras.png"
+},
+{
+    "ch": "萨尔瓦多",
+    "pin": "Sà'ěrwǎduō",
+    "en": "El Salvador",
+    "sp": "El Salvador",
+    "fileflag": "elsalvador.png"
+},
+{
+    "ch": "尼加拉瓜",
+    "pin": "Níjiālāguā",
+    "en": "Nicaragua",
+    "sp": "Nicaragua",
+    "fileflag": "nicaragua.png"
+},
+{
+    "ch": "牙买加",
+    "pin": "Yámǎijiā",
+    "en": "Jamaica",
+    "sp": "Jamaica",
+    "fileflag": "jamaica.png"
+},
+{
+    "ch": "海地",
+    "pin": "Hǎidì",
+    "en": "Haiti",
+    "sp": "Haití",
+    "fileflag": "haiti.png"
+},
+{
+    "ch": "特立尼达和多巴哥",
+    "pin": "Tèlìnídá hé Duōbāgē",
+    "en": "Trinidad and Tobago",
+    "sp": "Trinidad y Tobago",
+    "fileflag": "trinidadandtobago.png"
+},
+{
+    "ch": "巴哈马",
+    "pin": "Bāhāmǎ",
+    "en": "Bahamas",
+    "sp": "Bahamas",
+    "fileflag": "bahamas.png"
+},
+{
+    "ch": "巴巴多斯",
+    "pin": "Bābāduōsī",
+    "en": "Barbados",
+    "sp": "Barbados",
+    "fileflag": "barbados.png"
+},
+{
+    "ch": "冰岛",
+    "pin": "Bīngdǎo",
+    "en": "Iceland",
+    "sp": "Islandia",
+    "fileflag": "iceland.png"
+},
+{
+    "ch": "卢森堡",
+    "pin": "Lúsēnbǎo",
+    "en": "Luxembourg",
+    "sp": "Luxemburgo",
+    "fileflag": "luxembourg.png"
+},
+{
+    "ch": "马耳他",
+    "pin": "Mǎ'ěrtā",
+    "en": "Malta",
+    "sp": "Malta",
+    "fileflag": "malta.png"
+},
+{
+    "ch": "塞浦路斯",
+    "pin": "Sàipǔlùsī",
+    "en": "Cyprus",
+    "sp": "Chipre",
+    "fileflag": "cyprus.png"
+},
+{
+    "ch": "斯洛伐克",
+    "pin": "Sīluòfákè",
+    "en": "Slovakia",
+    "sp": "Eslovaquia",
+    "fileflag": "slovakia.png"
+},
+{
+    "ch": "斯洛文尼亚",
+    "pin": "Sīluòwénníyà",
+    "en": "Slovenia",
+    "sp": "Eslovenia",
+    "fileflag": "slovenia.png"
+},
+{
+    "ch": "立陶宛",
+    "pin": "Lìtáowǎn",
+    "en": "Lithuania",
+    "sp": "Lituania",
+    "fileflag": "lithuania.png"
+},
+{
+    "ch": "拉脱维亚",
+    "pin": "Lātuōwéiyà",
+    "en": "Latvia",
+    "sp": "Letonia",
+    "fileflag": "latvia.png"
+},
+{
+    "ch": "爱沙尼亚",
+    "pin": "Àishāníyà",
+    "en": "Estonia",
+    "sp": "Estonia",
+    "fileflag": "estonia.png"
+},
+{
+    "ch": "波斯尼亚和黑塞哥维那",
+    "pin": "Bōsīníyà hé Hēisàigēwéinà",
+    "en": "Bosnia and Herzegovina",
+    "sp": "Bosnia y Herzegovina",
+    "fileflag": "bosnia.png"
+},
+{
+    "ch": "阿尔巴尼亚",
+    "pin": "Ā'ěrbāníyà",
+    "en": "Albania",
+    "sp": "Albania",
+    "fileflag": "albania.png"
+},
+{
+    "ch": "北马其顿",
+    "pin": "Běi Mǎqídùn",
+    "en": "North Macedonia",
+    "sp": "Macedonia del Norte",
+    "fileflag": "macedonia.png"
+},
+{
+    "ch": "黑山",
+    "pin": "Hēishān",
+    "en": "Montenegro",
+    "sp": "Montenegro",
+    "fileflag": "montenegro.png"
+},
+{
+    "ch": "科索沃",
+    "pin": "Kēsuǒwò",
+    "en": "Kosovo",
+    "sp": "Kosovo",
+    "fileflag": "kosovo.png"
+},
+{
+    "ch": "摩尔多瓦",
+    "pin": "Mó'ěrduōwǎ",
+    "en": "Moldova",
+    "sp": "Moldavia",
+    "fileflag": "moldova.png"
+},
+{
+    "ch": "白俄罗斯",
+    "pin": "Bái'éluósī",
+    "en": "Belarus",
+    "sp": "Bielorrusia",
+    "fileflag": "belarus.png"
+},
+{
+    "ch": "喀麦隆",
+    "pin": "Kāmàilóng",
+    "en": "Cameroon",
+    "sp": "Camerún",
+    "fileflag": "cameroon.png"
+},
+{
+    "ch": "科特迪瓦",
+    "pin": "Kètèdíwǎ",
+    "en": "Ivory Coast",
+    "sp": "Costa de Marfil",
+    "fileflag": "ivorycoast.png"
+},
+{
+    "ch": "塞内加尔",
+    "pin": "Sàinèijiā'ěr",
+    "en": "Senegal",
+    "sp": "Senegal",
+    "fileflag": "senegal.png"
+},
+{
+    "ch": "马达加斯加",
+    "pin": "Mǎdájiāsījiā",
+    "en": "Madagascar",
+    "sp": "Madagascar",
+    "fileflag": "madagascar.png"
+}
 ]

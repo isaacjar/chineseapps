@@ -1050,7 +1050,7 @@ input[type="range"]::-moz-range-thumb {
 
 /* JUEGO 2: Adivina el chino (Traducción -> Carácter) */
 .game-type-2 .question-text {
-    font-size: 1.3rem; /* Más pequeño para texto occidental */
+    font-size: 1.2rem; /* Más pequeño para texto occidental */
     min-height: 60px;
     display: flex;
     align-items: center;
@@ -1059,22 +1059,22 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .game-type-2 .option-btn {
-    font-size: 2rem; /* Opciones más grandes para caracteres chinos */
+    font-size: 3rem; /* Opciones más grandes para caracteres chinos */
     min-height: 60px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0.6rem;
+    padding: 0.4rem;
     gap: 1rem; /* ← Espacio entre carácter y pinyin */
 }
 .game-type-2 .option-btn .chinese-char {
-    font-size: 1.5rem; /* Tamaño del carácter chino */
+    font-size: 2.2rem; /* Tamaño del carácter chino */
     font-weight: bold;
 }
 
 .game-type-2 .option-btn .pinyin-text {
-    font-size: 1.2rem; /* La mitad del tamaño del carácter */
+    font-size: 1.4rem; /* La mitad del tamaño del carácter */
     color: #666;
     opacity: 0.8;
 }
@@ -1086,11 +1086,11 @@ input[type="range"]::-moz-range-thumb {
     }
     
     .game-type-2 .option-btn .chinese-char {
-        font-size: 1.5rem;
+        font-size: 1.9rem;
     }
     
     .game-type-2 .option-btn .pinyin-text {
-        font-size: 0.9rem;
+        font-size: 1.3rem;
     }
 }
 

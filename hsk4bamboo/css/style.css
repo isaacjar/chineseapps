@@ -1016,7 +1016,7 @@ input[type="range"]::-moz-range-thumb {
     gap: 0.5rem;           /* Espacio entre carácter y pinyin */
 }
 .game-type-1 .chinese-char {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: bold;
 }
 

@@ -26,6 +26,11 @@ function showScreen(screenId) {
 
 // Ir al menú principal
 function goToMenu() {
+    // Detener el temporizador si está activo
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
     showScreen('menuScreen');
 }
 

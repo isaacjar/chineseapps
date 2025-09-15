@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar idioma
     loadLanguage(settings.language);
     
+    // Inicializar la interfaz
+    initUI();
+    
     // Configurar event listeners
     document.getElementById('logo').addEventListener('click', goToMenu);
     document.getElementById('btnSettings').addEventListener('click', showSettings);

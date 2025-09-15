@@ -91,18 +91,10 @@ function loadNextQuestion() {
         const button = document.createElement('button');
         button.className = 'option-btn';
         
-        // Mostrar nombre según idioma y configuración de pinyin
-        let displayName;
-        if (settings.language === 'es') {
-            displayName = country.sp;
-            if (settings.pinyin) {
-                displayName += ` (${country.pin})`;
-            }
-        } else {
-            displayName = country.en;
-            if (settings.pinyin) {
-                displayName += ` (${country.pin})`;
-            }
+        // Mostrar nombre según configuración de pinyin
+        let displayName = country.ch;  // Siempre mostrar caracteres chinos
+        if (settings.pinyin) {
+            displayName += ` [${country.pin}]`;  // Añadir pinyin si está activado
         }
         
         button.textContent = displayName;

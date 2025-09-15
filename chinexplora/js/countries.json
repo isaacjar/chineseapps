@@ -1,0 +1,107 @@
+[
+    {
+        "ch": "中国",
+        "pin": "Zhōngguó",
+        "en": "China",
+        "sp": "China",
+        "fileflag": "china.png"
+    },
+    {
+        "ch": "美国",
+        "pin": "Měiguó",
+        "en": "United States",
+        "sp": "Estados Unidos",
+        "fileflag": "usa.png"
+    },
+    {
+        "ch": "西班牙",
+        "pin": "Xībānyá",
+        "en": "Spain",
+        "sp": "España",
+        "fileflag": "spain.png"
+    },
+    {
+        "ch": "法国",
+        "pin": "Fǎguó",
+        "en": "France",
+        "sp": "Francia",
+        "fileflag": "france.png"
+    },
+    {
+        "ch": "德国",
+        "pin": "Déguó",
+        "en": "Germany",
+        "sp": "Alemania",
+        "fileflag": "germany.png"
+    },
+    {
+        "ch": "日本",
+        "pin": "Rìběn",
+        "en": "Japan",
+        "sp": "Japón",
+        "fileflag": "japan.png"
+    },
+    {
+        "ch": "意大利",
+        "pin": "Yìdàlì",
+        "en": "Italy",
+        "sp": "Italia",
+        "fileflag": "italy.png"
+    },
+    {
+        "ch": "英国",
+        "pin": "Yīngguó",
+        "en": "United Kingdom",
+        "sp": "Reino Unido",
+        "fileflag": "uk.png"
+    },
+    {
+        "ch": "巴西",
+        "pin": "Bāxī",
+        "en": "Brazil",
+        "sp": "Brasil",
+        "fileflag": "brazil.png"
+    },
+    {
+        "ch": "俄罗斯",
+        "pin": "Éluósī",
+        "en": "Russia",
+        "sp": "Rusia",
+        "fileflag": "russia.png"
+    },
+    {
+        "ch": "加拿大",
+        "pin": "Jiānádà",
+        "en": "Canada",
+        "sp": "Canadá",
+        "fileflag": "canada.png"
+    },
+    {
+        "ch": "澳大利亚",
+        "pin": "Àodàlìyà",
+        "en": "Australia",
+        "sp": "Australia",
+        "fileflag": "australia.png"
+    },
+    {
+        "ch": "印度",
+        "pin": "Yìndù",
+        "en": "India",
+        "sp": "India",
+        "fileflag": "india.png"
+    },
+    {
+        "ch": "墨西哥",
+        "pin": "Mòxīgē",
+        "en": "Mexico",
+        "sp": "México",
+        "fileflag": "mexico.png"
+    },
+    {
+        "ch": "韩国",
+        "pin": "Hánguó",
+        "en": "South Korea",
+        "sp": "Corea del Sur",
+        "fileflag": "southkorea.png"
+    }
+]

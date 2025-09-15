@@ -4,7 +4,7 @@ let score = 0;
 let streak = 0;
 let bestStreak = 0;
 let lives = 3;
-let timerInterval;
+let window.timerInterval;
 let countries = [];
 let currentOptions = [];
 
@@ -111,7 +111,7 @@ function loadNextQuestion() {
 
 // Comprobar respuesta
 function checkAnswer(selectedCountry, correctCountry) {
-    clearInterval(timerInterval);
+    clearInterval(window.timerInterval);
     
     // Deshabilitar botones
     const buttons = document.querySelectorAll('.option-btn');
@@ -154,7 +154,7 @@ function startTimer() {
     const timerBar = document.getElementById('timerBar');
     let timeLeft = settings.timer;
     timerBar.style.width = '100%';
-    timerBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-blue').trim();
+    timerBar.style.backgroundColor = '#7FB3D5'; // Color azul
     
     timerInterval = setInterval(() => {
         timeLeft -= 0.1;

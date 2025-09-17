@@ -36,6 +36,8 @@ function goToMenu() {
 
 // Mostrar configuración
 function showSettings() {
+    // Actualizar la UI con la configuración actual
+    updateSettingsUI();
     showScreen('settingsScreen');
 }
 
@@ -129,6 +131,17 @@ function initUI() {
     document.getElementById('btnSaveSettings').addEventListener('click', saveSettings);
     document.getElementById('btnResetSettings').addEventListener('click', resetSettings);
     document.getElementById('btnCancelSettings').addEventListener('click', cancelSettings);
+
+    // Slider de dificultad (toggle)
+    document.getElementById('difficultyToggle').addEventListener('change', function() {
+        settings.difficulty = this.checked ? 2 : 1;
+        updateDifficultyIcon();
+    });
+    
+    // Slider de países disponibles
+    document.getElementById('countryCountSlider').addEventListener('input', function() {
+        document.getElementById('countryCountValue').textContent = this.value;
+    });
     
     // Botones de estadísticas
     document.getElementById('btnAcceptStats').addEventListener('click', goToMenu);

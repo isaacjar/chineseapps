@@ -32,7 +32,7 @@ function loadSettings() {
     document.getElementById('countryCountValue').textContent = settings.countryCount;
 }
 
-/ Actualizar icono de dificultad
+// Actualizar icono de dificultad
 function updateDifficultyIcon() {
     const difficultyIcon = document.getElementById('difficultyIcon');
     difficultyIcon.textContent = settings.difficulty === 2 ? '🥵' : '😎';

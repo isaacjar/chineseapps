@@ -1,3 +1,6 @@
+// Constante con el número máximo de países
+const MAX_COUNTRIES = 135;
+
 // Variables del juego
 let currentQuestion = 0;
 let score = 0;
@@ -18,9 +21,8 @@ function startGame1() {
     
     // Cargar países
     if (window.countriesData) {
-        // Seleccionar los primeros países según la dificultad
-        const totalCountries = window.countriesData.length;
-        const countriesToSelect = Math.min(settings.difficulty, totalCountries);
+        // Seleccionar países según la configuración
+        const countriesToSelect = Math.min(settings.countryCount, MAX_COUNTRIES);
         countries = window.countriesData.slice(0, countriesToSelect);
     } else {
         // Datos de ejemplo si no se carga el JSON
@@ -76,7 +78,8 @@ function loadNextQuestion() {
     currentOptions = [correctCountry];
     
     // Añadir opciones incorrectas
-    while (currentOptions.length < (settings.difficulty === 1 ? 4 : 6)) {
+    const optionCount = settings.difficulty === 1 ? 4 : 6;
+    while (currentOptions.length < optionCount) {
         const randomCountry = countries[Math.floor(Math.random() * countries.length)];
         if (!currentOptions.includes(randomCountry)) {
             currentOptions.push(randomCountry);

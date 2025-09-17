@@ -9,6 +9,7 @@
         "language": "Language:",
         "pinyin": "Pinyin:",
         "difficulty": "Difficulty:",
+        "countryCount": "Available countries:",
         "easy": "Easy",
         "hard": "Hard",
         "save": "Save",
@@ -39,6 +40,7 @@
         "language": "Idioma:",
         "pinyin": "Pinyin:",
         "difficulty": "Dificultad:",
+        "countryCount": "Países disponibles:"
         "easy": "Fácil",
         "hard": "Difícil",
         "save": "Guardar",

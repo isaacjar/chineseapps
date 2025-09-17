@@ -97,10 +97,6 @@ function loadLanguage(lang) {
             element.textContent = window.langData[lang][key];
         }
     });
-    
-    // Actualizar valores específicos
-    document.getElementById('difficultyValue').textContent = 
-        settings.difficulty === 2 ? window.langData[lang]['hard'] : window.langData[lang]['easy'];
 }
 
 // Obtener traducción

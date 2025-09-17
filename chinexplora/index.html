@@ -53,6 +53,18 @@
                     </label>
                 </div>
                 <div class="setting-row">
+                    <label data-lang="difficulty">Dificultad: <span id="difficultyIcon">😎</span></label>
+                    <label class="switch">
+                        <input type="checkbox" id="difficultyToggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <label>🌍 <span data-lang="countryCount">Países disponibles:</span></label>
+                    <input type="range" id="countryCountSlider" min="10" max="135" step="5" value="50">
+                    <span id="countryCountValue">50</span>
+                </div>
+                <div class="setting-row">
                     <label>❓</label>
                     <input type="range" id="questionsSlider" min="5" max="50" step="5" value="15">
                     <span id="questionsValue">15</span>
@@ -66,11 +78,6 @@
                     <label>❤️</label>
                     <input type="range" id="livesSlider" min="1" max="10" step="1" value="3">
                     <span id="livesValue">3</span>
-                </div>
-                <div class="setting-row">
-                    <label data-lang="difficulty">Dificultad:</label>
-                    <input type="range" id="difficultySlider" min="10" max="100" step="10" value="20">
-                    <span id="difficultyValue">50 países</span>
                 </div>
                 <div class="settings-buttons">
                     <button class="btn-action" id="btnSaveSettings" data-lang="save">💾 Guardar</button>

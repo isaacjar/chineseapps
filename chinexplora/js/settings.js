@@ -15,7 +15,15 @@ function loadSettings() {
     if (savedSettings) {
         settings = JSON.parse(savedSettings);
     }
-    
+
+    // Solo actualizar UI si estamos en la pantalla de configuración
+    if (document.getElementById('settingsScreen') && !document.getElementById('settingsScreen').classList.contains('hidden')) {
+        updateSettingsUI();
+    }
+}
+
+// Actualizar UI de configuración (solo llamar cuando la pantalla esté visible)
+function updateSettingsUI() {
     // Aplicar configuración a la UI
     document.getElementById('languageSelect').value = settings.language;
     document.getElementById('pinyinToggle').checked = settings.pinyin;
@@ -70,19 +78,7 @@ function resetSettings() {
     };
     
     // Aplicar configuración por defecto a la UI
-    document.getElementById('languageSelect').value = settings.language;
-    document.getElementById('pinyinToggle').checked = settings.pinyin;
-    document.getElementById('difficultyToggle').checked = settings.difficulty === 2;
-    updateDifficultyIcon();
-    document.getElementById('questionsSlider').value = settings.questions;
-    document.getElementById('questionsValue').textContent = settings.questions;
-    document.getElementById('timerSlider').value = settings.timer;
-    document.getElementById('timerValue').textContent = settings.timer + ' s';
-    document.getElementById('livesSlider').value = settings.lives;
-    document.getElementById('livesValue').textContent = settings.lives;
-    document.getElementById('countryCountSlider').value = settings.countryCount;
-    document.getElementById('countryCountValue').textContent = settings.countryCount;
-    
+    updateSettingsUI();
     showToast(getTranslation('settingsReset'));
 }
 

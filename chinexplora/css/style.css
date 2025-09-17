@@ -148,11 +148,15 @@ body {
     margin-top: 30px;
 }
 
+#languageSelect {
+    width: 180px;  /* Aumentar el ancho del desplegable */
+}
+
 /* Switch slider */
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
+    width: 50px;
     height: 24px;
 }
 
@@ -189,7 +193,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(36px);
+    transform: translateX(50px);
 }
 
 .slider.round {

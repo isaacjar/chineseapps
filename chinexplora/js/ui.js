@@ -143,7 +143,13 @@ function initUI() {
     document.getElementById('questionsSlider').addEventListener('input', function() {
         document.getElementById('questionsValue').textContent = this.value;
     });
+    // Difficulty switch
+    document.getElementById('difficultyToggle').addEventListener('change', function() {
+        settings.difficulty = this.checked ? 2 : 1;
+        updateDifficultyIcon();
+    });
     
+        
     document.getElementById('timerSlider').addEventListener('input', function() {
         document.getElementById('timerValue').textContent = this.value + ' s';
     });
@@ -152,8 +158,8 @@ function initUI() {
         document.getElementById('livesValue').textContent = this.value;
     });
     
-    // Slider de dificultad
-    document.getElementById('difficultySlider').addEventListener('input', function() {
-        document.getElementById('difficultyValue').textContent = this.value + ' países';
+    // Slider de países
+    document.getElementById('countryCountSlider').addEventListener('input', function() {
+        document.getElementById('countryCountValue').textContent = this.value;
     });
 }

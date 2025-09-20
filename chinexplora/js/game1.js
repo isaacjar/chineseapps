@@ -1,5 +1,5 @@
 // Constante con el número máximo de países
-const MAX_COUNTRIES = 135;
+let MAX_COUNTRIES = 135;
 
 // Variables del juego
 let currentQuestion = 0;
@@ -13,6 +13,9 @@ let currentOptions = [];
 
 // Iniciar juego de banderas
 function startGame1() {
+    // Actualizar MAX_COUNTRIES con el número real de países cargados
+    MAX_COUNTRIES = window.countriesData ? window.countriesData.length : 135;
+    
     // Verificar que countriesData está cargado
     if (!window.countriesData || window.countriesData.length === 0) {
         console.error('Countries data not loaded');

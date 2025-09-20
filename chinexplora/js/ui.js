@@ -120,7 +120,7 @@ function initUI() {
     // Botones del menú
     document.getElementById('btnGame1').addEventListener('click', startGame1);
     document.getElementById('btnGame2').addEventListener('click', function() {
-        showToast(getTranslation('comingSoon'));
+        startGame2();
     });
     document.getElementById('btnGame3').addEventListener('click', function() {
         showToast(getTranslation('comingSoon'));

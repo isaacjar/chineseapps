@@ -14,6 +14,7 @@ function loadSettings() {
     const savedSettings = localStorage.getItem('chinexplora_settings');
     if (savedSettings) {
         settings = JSON.parse(savedSettings);
+        updateDifficultyIcon();
     }
 
     // Solo actualizar UI si estamos en la pantalla de configuración

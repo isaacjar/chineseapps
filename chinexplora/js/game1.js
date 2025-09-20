@@ -13,6 +13,13 @@ let currentOptions = [];
 
 // Iniciar juego de banderas
 function startGame1() {
+    // Verificar que countriesData está cargado
+    if (!window.countriesData || window.countriesData.length === 0) {
+        console.error('Countries data not loaded');
+        showToast('Error loading countries data');
+        return;
+    }
+    
     // Reiniciar variables del juego
     currentQuestion = 0;
     score = 0;

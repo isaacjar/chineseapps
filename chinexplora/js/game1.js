@@ -130,9 +130,18 @@ function checkAnswer(selectedCountry, correctCountry) {
     const buttons = document.querySelectorAll('.option-btn');
     buttons.forEach(btn => {
         btn.disabled = true;
-        if (btn.textContent.includes(correctCountry.sp) || btn.textContent.includes(correctCountry.en)) {
+        // Obtener el texto del botón sin el pinyin (si existe)
+        let buttonText = btn.textContent;
+        if (buttonText.includes('[')) {
+            buttonText = buttonText.split('[')[0].trim();
+        }
+        
+        // Comprobar si es la respuesta correcta
+        if (buttonText === correctCountry.ch) {
             btn.classList.add('correct');
-        } else if (btn === selectedCountry) {
+        } 
+        // Comprobar si es la respuesta seleccionada e incorrecta
+        else if (buttonText === selectedCountry.ch && selectedCountry !== correctCountry) {
             btn.classList.add('incorrect');
         }
     });

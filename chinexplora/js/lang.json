@@ -2,7 +2,7 @@
     "en": {
         "menuTitle": "Main Menu",
         "game1": "Flags",
-        "game2": "Game 2",
+        "game2": "Shapes",
         "game3": "Game 3",
         "stats": "Statistics",
         "settings": "Settings",
@@ -33,7 +33,7 @@
     "es": {
         "menuTitle": "Menú Principal",
         "game1": "Banderas",
-        "game2": "Juego 2",
+        "game2": "Siluetas",
         "game3": "Juego 3",
         "stats": "Estadísticas",
         "settings": "Configuración",

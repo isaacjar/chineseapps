@@ -35,5 +35,17 @@ async function loadJSONFiles() {
     if (!countriesResponse.ok) {
         throw new Error('Failed to load countries.json');
     }
-    window.countriesData = await countriesResponse.json();
+   window.countriesData = await countriesResponse.json();
+        
+        console.log('Countries loaded:', window.countriesData.length); // Para debug
+    } catch (error) {
+        console.error('Error loading JSON files:', error);
+        // Inicializar con datos de ejemplo si hay error
+        window.countriesData = [
+            { ch: "中国", pin: "Zhōngguó", en: "China", sp: "China", fileflag: "china.png" },
+            { ch: "美国", pin: "Měiguó", en: "United States", sp: "Estados Unidos", fileflag: "usa.png" },
+            { ch: "西班牙", pin: "Xībānyá", en: "Spain", sp: "España", fileflag: "spain.png" }
+        ];
+        window.langData = {en: {}, es: {}};
+    }
 }

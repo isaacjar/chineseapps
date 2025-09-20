@@ -44,7 +44,7 @@ body {
     padding: 15px 20px;
     background-color: var(--color-dark);
     color: white;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .logo {
@@ -62,6 +62,8 @@ body {
     gap: 15px;
     font-size: 1rem;
     margin: 0 15px;
+    flex-wrap: nowrap; /* Añadido para evitar saltos de línea */
+    white-space: nowrap; /* Añadido para evitar saltos de línea */
 }
 
 .score-item {

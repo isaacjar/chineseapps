@@ -34,7 +34,13 @@ function updateSettingsUI() {
     if (!difficultyIcon || !languageSelect || !pinyinToggle) {
         return;
     }
-    
+
+    // Actualizar el máximo del slider según los países disponibles
+    const maxCountries = window.countriesData ? window.countriesData.length : 135;
+    document.getElementById('countryCountSlider').max = maxCountries;
+    document.getElementById('countryCountSlider').value = Math.min(settings.countryCount, maxCountries);
+    document.getElementById('countryCountValue').textContent = Math.min(settings.countryCount, maxCountries);
+
     // Aplicar configuración a la UI
     document.getElementById('languageSelect').value = settings.language;
     document.getElementById('pinyinToggle').checked = settings.pinyin;
@@ -46,9 +52,7 @@ function updateSettingsUI() {
     document.getElementById('timerValue').textContent = settings.timer + ' s';
     document.getElementById('livesSlider').value = settings.lives;
     document.getElementById('livesValue').textContent = settings.lives;
-    document.getElementById('difficultySlider').value = settings.difficulty;
-    document.getElementById('countryCountSlider').value = settings.countryCount;
-    document.getElementById('countryCountValue').textContent = settings.countryCount;
+    document.getElementById('difficultySlider').value = settings.difficulty;  
 }
 
 // Actualizar icono de dificultad

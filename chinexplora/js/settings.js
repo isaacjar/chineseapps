@@ -24,6 +24,16 @@ function loadSettings() {
 
 // Actualizar UI de configuración (solo llamar cuando la pantalla esté visible)
 function updateSettingsUI() {
+    // Verificar si los elementos existen antes de intentar acceder a ellos
+    const difficultyIcon = document.getElementById('difficultyIcon');
+    const languageSelect = document.getElementById('languageSelect');
+    const pinyinToggle = document.getElementById('pinyinToggle');
+    
+    // Si alguno de los elementos principales no existe, salir
+    if (!difficultyIcon || !languageSelect || !pinyinToggle) {
+        return;
+    }
+    
     // Aplicar configuración a la UI
     document.getElementById('languageSelect').value = settings.language;
     document.getElementById('pinyinToggle').checked = settings.pinyin;
@@ -43,7 +53,9 @@ function updateSettingsUI() {
 // Actualizar icono de dificultad
 function updateDifficultyIcon() {
     const difficultyIcon = document.getElementById('difficultyIcon');
-    difficultyIcon.textContent = settings.difficulty === 2 ? '🥵' : '😎';
+    if (difficultyIcon) {
+        difficultyIcon.textContent = settings.difficulty === 2 ? '🥵' : '😎';
+    }
 }
 
 // Guardar configuración

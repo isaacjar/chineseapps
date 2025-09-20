@@ -306,6 +306,20 @@ input:checked + .slider:before {
     transition: width 0.1s linear;
 }
 
+.country-outline {
+    background-color: #f8f9f9;
+    border-radius: var(--border-radius);
+    padding: 10px;
+}
+
+.flag-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9f9;
+    border-radius: var(--border-radius);
+}
+
 /* Stats Styles */
 .stats {
     padding: 30px 20px;

@@ -36,9 +36,13 @@ function goToMenu() {
 
 // Mostrar configuración
 function showSettings() {
-    // Actualizar la UI con la configuración actual
-    updateSettingsUI();
+    // Primero mostrar la pantalla, luego actualizar la UI
     showScreen('settingsScreen');
+    
+    // Pequeño delay para asegurar que el DOM esté renderizado
+    setTimeout(() => {
+        updateSettingsUI();
+    }, 50);
 }
 
 // Mostrar estadísticas

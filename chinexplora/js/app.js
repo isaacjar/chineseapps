@@ -37,8 +37,12 @@ async function loadJSONFiles() {
         throw new Error('Failed to load countries.json');
     }
    window.countriesData = await countriesResponse.json();
-   
-   console.log('Countries loaded:', window.countriesData.length); // Para debug
+   //console.log('Countries loaded:', window.countriesData.length); // Para debug
+    // Actualizar el máximo del slider de países
+    if (document.getElementById('countryCountSlider')) {
+        document.getElementById('countryCountSlider').max = window.countriesData.length;
+    }
+  
  } catch (error) {
         console.error('Error loading JSON files:', error);
         // Inicializar con datos de ejemplo si hay error

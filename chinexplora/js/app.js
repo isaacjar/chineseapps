@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Función para cargar todos los archivos JSON
 async function loadJSONFiles() {
+  try {
     // Cargar lang.json
     const langResponse = await fetch('js/lang.json');
     if (!langResponse.ok) {
@@ -36,9 +37,9 @@ async function loadJSONFiles() {
         throw new Error('Failed to load countries.json');
     }
    window.countriesData = await countriesResponse.json();
-        
-        console.log('Countries loaded:', window.countriesData.length); // Para debug
-    } catch (error) {
+   
+   console.log('Countries loaded:', window.countriesData.length); // Para debug
+ } catch (error) {
         console.error('Error loading JSON files:', error);
         // Inicializar con datos de ejemplo si hay error
         window.countriesData = [

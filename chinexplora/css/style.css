@@ -383,14 +383,29 @@ input:checked + .slider:before {
 /* Responsive Styles */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column;
+        flex-direction: row; /* Cambiado de column a row */
+        flex-wrap: wrap; /* Mantener wrap */
         gap: 10px;
+        justify-content: space-between; /* Añadido */
+        align-items: center; /* Añadido */
     }
     
     .score-display {
-        order: 3;
-        width: 100%;
-        justify-content: space-around;
+        order: 0; /* Cambiado de 3 a 0 */
+        width: auto; /* Cambiado de 100% a auto */
+        margin: 0; /* Añadido */
+        flex-wrap: nowrap; /* Añadido */
+        white-space: nowrap; /* Añadido */
+        overflow-x: auto; /* Añadido para scroll horizontal si es necesario */
+    }
+
+    .btn-settings {
+        order: 1; /* Añadido para mantener el botón a la derecha */
+    }
+    
+    /* Opcional: ajustar tamaño de fuente en móviles */
+    .score-item {
+        font-size: 0.9rem;
     }
     
     .options-container {

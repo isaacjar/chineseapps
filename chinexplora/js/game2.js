@@ -9,9 +9,17 @@ let livesGame2 = 3;
 let timerIntervalGame2;
 let countriesGame2 = [];
 let currentOptionsGame2 = [];
+let timerIntervalGame2 = null;
+let isGame2Active = false;
 
 // Iniciar juego de siluetas
 function startGame2() {
+    // Detener cualquier juego anterior que esté activo
+    stopAllGames();
+
+     // Marcar que el juego 2 está activo
+    isGame2Active = true;
+    
     // Reiniciar variables del juego
     currentQuestionGame2 = 0;
     scoreGame2 = 0;
@@ -22,6 +30,7 @@ function startGame2() {
     if (!window.countriesData || window.countriesData.length === 0) {
         console.error('Countries data not loaded');
         showToast('Error loading countries data');
+        isGame2Active = false;
         return;
     }
     
@@ -29,6 +38,7 @@ function startGame2() {
     const countriesWithOutline = window.countriesData.filter(country => country.outline);
     if (countriesWithOutline.length === 0) {
         showToast('No country outlines available');
+        isGame2Active = false;
         return;
     }
     
@@ -54,6 +64,11 @@ function startGame2() {
 
 // Cargar siguiente pregunta
 function loadNextQuestionGame2() {
+    // Verificar si el juego sigue activo
+    if (!isGame2Active) {
+        return;
+    }
+    
     if (currentQuestionGame2 >= settings.questions || livesGame2 <= 0) {
         endGameGame2();
         return;
@@ -134,6 +149,8 @@ function drawCountryOutline(outlinePath) {
 
 // Comprobar respuesta
 function checkAnswerGame2(selectedCountry, correctCountry) {
+    if (!isGame2Active) return;
+    
     clearInterval(timerIntervalGame2);
     
     // Deshabilitar botones
@@ -184,12 +201,23 @@ function checkAnswerGame2(selectedCountry, correctCountry) {
 
 // Iniciar temporizador
 function startTimerGame2() {
+    // Limpiar temporizador anterior si existe
+    if (timerIntervalGame2) {
+        clearInterval(timerIntervalGame2);
+    }
+    
     const timerBar = document.getElementById('timerBar');
     let timeLeft = settings.timer;
     timerBar.style.width = '100%';
     timerBar.style.backgroundColor = '#7FB3D5';
     
     timerIntervalGame2 = setInterval(() => {
+        // Verificar si el juego sigue activo
+        if (!isGame2Active) {
+            clearInterval(timerIntervalGame2);
+            return;
+        }
+        
         timeLeft -= 0.1;
         const percentage = (timeLeft / settings.timer) * 100;
         timerBar.style.width = `${percentage}%`;
@@ -257,3 +285,27 @@ function saveStatsGame2() {
     
     localStorage.setItem('chinexplora_stats', JSON.stringify(userStats));
 }
+
+// Función general para detener todos los juegos
+function stopAllGames() {
+    // Detener juego 1 si está activo
+    if (typeof timerInterval !== 'undefined' && timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    
+    // Detener juego 2
+    stopGame2();
+    
+    // Detener juego 3 si existe
+    if (typeof timerIntervalGame3 !== 'undefined' && timerIntervalGame3) {
+        clearInterval(timerIntervalGame3);
+        timerIntervalGame3 = null;
+    }
+    
+    // Resetear variables de estado de juegos
+    if (typeof isGame1Active !== 'undefined') isGame1Active = false;
+    if (typeof isGame3Active !== 'undefined') isGame3Active = false;
+}
+
+

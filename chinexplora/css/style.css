@@ -154,18 +154,23 @@ body {
     width: 180px;  /* Aumentar el ancho del desplegable */
 }
 
-/* Switch slider */
+/* Switch compacto */
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 24px;
+    width: 44px; /* Más compacto */
+    height: 22px;
 }
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.slider:before {
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px); /* 44px - 18px - 2px - 2px = 22px */
 }
 
 .slider {
@@ -310,14 +315,25 @@ input:checked + .slider:before {
     background-color: #f8f9f9;
     border-radius: var(--border-radius);
     padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.country-outline path {
+    vector-effect: non-scaling-stroke; /* Mantiene el grosor del stroke consistente */
 }
 
 .flag-container {
+     width: 200px;
+    height: 120px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #f8f9f9;
-    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Stats Styles */

@@ -81,8 +81,8 @@ function loadNextQuestion() {
     const correctCountry = countries[randomIndex];
     
     // Cargar bandera
-    document.getElementById('flagImage').src = `flags/${correctCountry.fileflag}`;
-    document.getElementById('flagImage').alt = correctCountry.sp;
+    const flagContainer = document.getElementById('flagContainer');
+    flagContainer.innerHTML = `<img id="flagImage" src="flags/${correctCountry.fileflag}" alt="${correctCountry.sp}">`;
     
     // Generar opciones
     currentOptions = [correctCountry];

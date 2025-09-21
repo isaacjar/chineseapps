@@ -49,7 +49,7 @@ function startGame3() {
 
 // Configurar contenedor de colores
 function setupColorContainer() {
-    const flagContainer = document.getElementById('flagImage').parentElement;
+    const flagContainer = document.getElementById('flagContainer');
     flagContainer.innerHTML = `
         <div class="color-game-container">
             <div class="color-circles" id="colorCircles"></div>

@@ -26,16 +26,16 @@ function showScreen(screenId) {
 
 // Ir al menú principal
 function goToMenu() {
-    // Detener el temporizador si está activo
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
+    // Detener todos los juegos activos
+    stopAllGames();
     showScreen('menuScreen');
 }
 
 // Mostrar configuración
 function showSettings() {
+    // Detener todos los juegos activos
+    stopAllGames();
+    
     // Primero mostrar la pantalla, luego actualizar la UI
     showScreen('settingsScreen');
     
@@ -47,6 +47,9 @@ function showSettings() {
 
 // Mostrar estadísticas
 function showStats() {
+     // Detener todos los juegos activos
+    stopAllGames();
+    
     // Cargar estadísticas antes de mostrar
     loadStats();
     

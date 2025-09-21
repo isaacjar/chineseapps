@@ -13,9 +13,9 @@ let settings = {
 function loadSettings() {
     const savedSettings = localStorage.getItem('chinexplora_settings');
     if (savedSettings) {
-        settings = JSON.parse(savedSettings);
-        updateDifficultyIcon();
+        settings = JSON.parse(savedSettings);        
     }
+    updateDifficultyIcon();
 
     // Solo actualizar UI si estamos en la pantalla de configuración
     if (document.getElementById('settingsScreen') && !document.getElementById('settingsScreen').classList.contains('hidden')) {
@@ -25,34 +25,50 @@ function loadSettings() {
 
 // Actualizar UI de configuración (solo llamar cuando la pantalla esté visible)
 function updateSettingsUI() {
-    // Verificar si los elementos existen antes de intentar acceder a ellos
-    const difficultyIcon = document.getElementById('difficultyIcon');
-    const languageSelect = document.getElementById('languageSelect');
-    const pinyinToggle = document.getElementById('pinyinToggle');
-    
-    // Si alguno de los elementos principales no existe, salir
-    if (!difficultyIcon || !languageSelect || !pinyinToggle) {
+   // Verificar si estamos en la pantalla de configuración
+    const settingsScreen = document.getElementById('settingsScreen');
+    if (!settingsScreen || settingsScreen.classList.contains('hidden')) {
         return;
     }
 
     // Actualizar el máximo del slider según los países disponibles
     const maxCountries = window.countriesData ? window.countriesData.length : 135;
-    document.getElementById('countryCountSlider').max = maxCountries;
-    document.getElementById('countryCountSlider').value = Math.min(settings.countryCount, maxCountries);
-    document.getElementById('countryCountValue').textContent = Math.min(settings.countryCount, maxCountries);
+    const countryCountSlider = document.getElementById('countryCountSlider');
+    if (countryCountSlider) {
+        countryCountSlider.max = maxCountries;
+        countryCountSlider.value = Math.min(settings.countryCount, maxCountries);
+        document.getElementById('countryCountValue').textContent = Math.min(settings.countryCount, maxCountries);
+    }
 
-    // Aplicar configuración a la UI
-    document.getElementById('languageSelect').value = settings.language;
-    document.getElementById('pinyinToggle').checked = settings.pinyin;
-    document.getElementById('difficultyToggle').checked = settings.difficulty === 2;
+    // Aplicar configuración a la UI solo si los elementos existen
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) languageSelect.value = settings.language;
+    
+    const pinyinToggle = document.getElementById('pinyinToggle');
+    if (pinyinToggle) pinyinToggle.checked = settings.pinyin;
+    
+    const difficultyToggle = document.getElementById('difficultyToggle');
+    if (difficultyToggle) difficultyToggle.checked = settings.difficulty === 2;
+    
     updateDifficultyIcon();
-    document.getElementById('questionsSlider').value = settings.questions;
-    document.getElementById('questionsValue').textContent = settings.questions;
-    document.getElementById('timerSlider').value = settings.timer;
-    document.getElementById('timerValue').textContent = settings.timer + ' s';
-    document.getElementById('livesSlider').value = settings.lives;
-    document.getElementById('livesValue').textContent = settings.lives;
-    document.getElementById('difficultySlider').value = settings.difficulty;  
+    
+    const questionsSlider = document.getElementById('questionsSlider');
+    if (questionsSlider) {
+        questionsSlider.value = settings.questions;
+        document.getElementById('questionsValue').textContent = settings.questions;
+    }
+    
+    const timerSlider = document.getElementById('timerSlider');
+    if (timerSlider) {
+        timerSlider.value = settings.timer;
+        document.getElementById('timerValue').textContent = settings.timer + ' s';
+    }
+    
+    const livesSlider = document.getElementById('livesSlider');
+    if (livesSlider) {
+        livesSlider.value = settings.lives;
+        document.getElementById('livesValue').textContent = settings.lives;
+    }
 }
 
 // Actualizar icono de dificultad
@@ -65,13 +81,21 @@ function updateDifficultyIcon() {
 
 // Guardar configuración
 function saveSettings() {
-    settings.language = document.getElementById('languageSelect').value;
-    settings.pinyin = document.getElementById('pinyinToggle').checked;
-    settings.difficulty = document.getElementById('difficultyToggle').checked ? 2 : 1;
-    settings.questions = parseInt(document.getElementById('questionsSlider').value);
-    settings.timer = parseInt(document.getElementById('timerSlider').value);
-    settings.lives = parseInt(document.getElementById('livesSlider').value);
-    settings.countryCount = parseInt(document.getElementById('countryCountSlider').value);
+    const languageSelect = document.getElementById('languageSelect');
+    const pinyinToggle = document.getElementById('pinyinToggle');
+    const difficultyToggle = document.getElementById('difficultyToggle');
+    const questionsSlider = document.getElementById('questionsSlider');
+    const timerSlider = document.getElementById('timerSlider');
+    const livesSlider = document.getElementById('livesSlider');
+    const countryCountSlider = document.getElementById('countryCountSlider');
+
+    if (languageSelect) settings.language = languageSelect.value;
+    if (pinyinToggle) settings.pinyin = pinyinToggle.checked;
+    if (difficultyToggle) settings.difficulty = difficultyToggle.checked ? 2 : 1;
+    if (questionsSlider) settings.questions = parseInt(questionsSlider.value);
+    if (timerSlider) settings.timer = parseInt(timerSlider.value);
+    if (livesSlider) settings.lives = parseInt(livesSlider.value);
+    if (countryCountSlider) settings.countryCount = parseInt(countryCountSlider.value);
     
     localStorage.setItem('chinexplora_settings', JSON.stringify(settings));
     

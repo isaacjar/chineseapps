@@ -126,7 +126,7 @@ function initUI() {
         startGame2();
     });
     document.getElementById('btnGame3').addEventListener('click', function() {
-        startGame2();
+        startGame3();
         //showToast(getTranslation('comingSoon'));
     });
     document.getElementById('btnStats').addEventListener('click', showStats);

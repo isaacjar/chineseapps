@@ -156,10 +156,10 @@ body {
 
 /* Switch slider */
 .switch {
-    flex-shrink: 0;
-    margin-left: 10px;
-    width: 40px; /* Reducido de 40px a 36px */
-    height: 24px; /* Reducido de 24px a 20px */
+    position: relative;
+    display: inline-block;
+    width: 36px; /* Reducido de 40px a 36px */
+    height: 20px; /* Reducido de 24px a 20px */
 }
 
 .switch input {
@@ -195,7 +195,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(56px); /* Reducido de 36px a 16px */
+    transform: translateX(16px); /* Reducido de 36px a 16px */
 }
 
 .slider.round {
@@ -206,7 +206,7 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-* Añadir estos estilos al final del archivo CSS */
+/* Añadir estos estilos al final del archivo CSS */
 .setting-row input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

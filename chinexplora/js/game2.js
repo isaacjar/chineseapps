@@ -6,7 +6,6 @@ let scoreGame2 = 0;
 let streakGame2 = 0;
 let bestStreakGame2 = 0;
 let livesGame2 = 3;
-let timerIntervalGame2;
 let countriesGame2 = [];
 let currentOptionsGame2 = [];
 let timerIntervalGame2 = null;

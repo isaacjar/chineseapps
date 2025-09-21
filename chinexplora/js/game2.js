@@ -119,12 +119,14 @@ function loadNextQuestionGame2() {
 // Dibujar silueta del país
 function drawCountryOutline(outlinePath) {
     const flagContainer = document.getElementById('flagImage').parentElement;
+    
+    // Crear SVG con viewBox predefinido para mejor rendimiento
     flagContainer.innerHTML = `
         <svg width="200" height="120" viewBox="0 0 1000 1000" class="country-outline">
             <path d="${outlinePath}" 
-                  fill="none" 
-                  stroke="#333" 
-                  stroke-width="8" 
+                  fill="#f8f9f9" 
+                  stroke="#34495E" 
+                  stroke-width="20" 
                   stroke-linejoin="round"/>
         </svg>
     `;

@@ -476,3 +476,85 @@ input:checked + .slider:before {
         padding: 10px;
     }
 }
+
+/* style.css - Estilos para el Juego 3 */
+
+.color-game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.color-circles {
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+}
+
+.color-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.color-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.correct-circle {
+    border: 3px solid #27ae60;
+    box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+}
+
+.color-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+}
+
+.option-letter {
+    font-weight: bold;
+    font-size: 1.2em;
+    min-width: 30px;
+}
+
+.option-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.question-text {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.skip-btn {
+    margin-top: 15px;
+    background-color: #95a5a6;
+}
+
+.skip-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .color-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .color-circles {
+        gap: 15px;
+        padding: 15px;
+    }
+}

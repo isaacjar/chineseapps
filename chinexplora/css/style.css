@@ -195,7 +195,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(16px); /* Reducido de 36px a 16px */
+    transform: translateX(56px); /* Reducido de 36px a 16px */
 }
 
 .slider.round {

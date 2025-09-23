@@ -1,0 +1,12 @@
+[
+  { "ch": "一", "pin": "yī", "en": "one" },
+  { "ch": "二", "pin": "èr", "en": "two" },
+  { "ch": "三", "pin": "sān", "en": "three" },
+  { "ch": "四", "pin": "sì", "en": "four" },
+  { "ch": "五", "pin": "wǔ", "en": "five" },
+  { "ch": "六", "pin": "liù", "en": "six" },
+  { "ch": "七", "pin": "qī", "en": "seven" },
+  { "ch": "八", "pin": "bā", "en": "eight" },
+  { "ch": "九", "pin": "jiǔ", "en": "nine" },
+  { "ch": "十", "pin": "shí", "en": "ten" }
+]

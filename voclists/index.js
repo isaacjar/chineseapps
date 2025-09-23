@@ -1,5 +1,6 @@
 const voclists = [
   { filename: "H1L1", title: "HSK 1 Lesson 1", level: "H1", misc: "MIT" },
+  { filename: "H1L2", title: "HSK 1 Lesson 2", level: "H1", misc: "MIT" },
   { filename: "H1L1a4", title: "HSK 1 Lessons 1 to 4", level: "H1", misc: "MIT" },
   { filename: "H1L5", title: "HSK 1 Lesson 5", level: "H1", misc: "MIT" },
   { filename: "H1L5a6", title: "HSK 1 Lessons 5 & 6", level: "H1", misc: "MIT" },

@@ -1,0 +1,20 @@
+[
+  { "ch": "中国", "pin": "Zhōngguó", "en": "China" },
+  { "ch": "老师", "pin": "lǎoshī", "en": "teacher" },
+  { "ch": "七", "pin": "qī", "en": "seven" },
+  { "ch": "二", "pin": "èr", "en": "two" },
+  { "ch": "几", "pin": "jǐ", "en": "how many, several" },
+  { "ch": "九", "pin": "jiǔ", "en": "nine" },
+  { "ch": "汉语", "pin": "Hànyǔ", "en": "Chinese language" },
+  { "ch": "朋友", "pin": "péngyǒu", "en": "friend" },
+  { "ch": "同学", "pin": "tóngxué", "en": "classmate" },
+  { "ch": "他", "pin": "tā", "en": "he; him" },
+  { "ch": "她", "pin": "tā", "en": "she; her" },
+  { "ch": "谁", "pin": "shéi", "en": "who" },
+  { "ch": "哪", "pin": "nǎ", "en": "which" },
+  { "ch": "国", "pin": "guó", "en": "country" },
+  { "ch": "是", "pin": "shì", "en": "to be" },
+  { "ch": "呢", "pin": "ne", "en": "and...?" },
+  { "ch": "的", "pin": "de", "en": "possessive particle" },
+  { "ch": "书", "pin": "shū", "en": "book" }
+]

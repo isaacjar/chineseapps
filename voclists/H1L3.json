@@ -1,0 +1,19 @@
+[
+  { "ch": "中国", "pin": "Zhōngguó", "en": "China" },
+  { "ch": "美国", "pin": "Měiguó", "en": "United States" },
+  { "ch": "中国人", "pin": "Zhōngguórén", "en": "Chinese person" },
+  { "ch": "美国人", "pin": "Měiguórén", "en": "American person" },
+  { "ch": "老师", "pin": "lǎoshī", "en": "teacher" },
+  { "ch": "学生", "pin": "xuésheng", "en": "student" },
+  { "ch": "叫", "pin": "jiào", "en": "to call, to be called" },
+  { "ch": "什么", "pin": "shénme", "en": "what" },
+  { "ch": "名字", "pin": "míngzi", "en": "name" },
+  { "ch": "我", "pin": "wǒ", "en": "I, me" },
+  { "ch": "是", "pin": "shì", "en": "to be" },
+  { "ch": "吗", "pin": "ma", "en": "question particle" },
+  { "ch": "人", "pin": "rén", "en": "person" },
+  { "ch": "月", "pin": "yuè", "en": "moon, month" },
+  { "ch": "心", "pin": "xīn", "en": "heart" },
+  { "ch": "中", "pin": "zhōng", "en": "middle, center" },
+  { "ch": "国", "pin": "guó", "en": "country" }
+]

@@ -1,4 +1,4 @@
-// game2.js - Juego de Siluetas de Países
+// game2.js - Juego de Siluetas de Países (Versión Corregida)
 
 // Variables del juego
 let currentQuestionGame2 = 0;
@@ -16,7 +16,7 @@ function startGame2() {
     // Detener cualquier juego anterior que esté activo
     stopAllGames();
 
-     // Marcar que el juego 2 está activo
+    // Marcar que el juego 2 está activo
     isGame2Active = true;
     
     // Reiniciar variables del juego
@@ -130,20 +130,33 @@ function loadNextQuestionGame2() {
     startTimerGame2();
 }
 
-// Dibujar silueta del país
+// Dibujar silueta del país - FUNCIÓN CORREGIDA
 function drawCountryOutline(outlinePath) {
     const flagContainer = document.getElementById('flagContainer');
     
-    // Crear SVG para la silueta
-    flagContainer.innerHTML = `
-        <svg width="200" height="120" viewBox="0 0 1000 1000" class="country-outline">
-            <path d="${outlinePath}" 
-                  fill="#f8f9f9" 
-                  stroke="#34495E" 
-                  stroke-width="20" 
-                  stroke-linejoin="round"/>
-        </svg>
-    `;
+    // Limpiar contenedor
+    flagContainer.innerHTML = '';
+    
+    // Crear SVG para la silueta con viewBox optimizado
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.setAttribute("viewBox", "0 0 1000 600"); // ViewBox más apropiado para proporciones de banderas
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.classList.add("country-outline");
+    
+    // Crear el path de la silueta
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", outlinePath);
+    path.setAttribute("fill", "#f8f9f9");
+    path.setAttribute("stroke", "#34495E");
+    path.setAttribute("stroke-width", "15"); // Grosor reducido para mejor visualización
+    path.setAttribute("stroke-linejoin", "round");
+    path.setAttribute("vector-effect", "non-scaling-stroke"); // Mantiene grosor consistente
+    
+    svg.appendChild(path);
+    flagContainer.appendChild(svg);
 }
 
 // Comprobar respuesta
@@ -249,6 +262,8 @@ function updateScoreDisplayGame2() {
 
 // Finalizar juego
 function endGameGame2() {
+    isGame2Active = false;
+    
     // Guardar estadísticas
     saveStatsGame2();
     
@@ -285,26 +300,20 @@ function saveStatsGame2() {
     localStorage.setItem('chinexplora_stats', JSON.stringify(userStats));
 }
 
-// Función general para detener todos los juegos
-function stopAllGames() {
-    // Detener juego 1 si está activo
-    if (typeof timerInterval !== 'undefined' && timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
+// Función para detener el juego 2
+function stopGame2() {
+    if (timerIntervalGame2) {
+        clearInterval(timerIntervalGame2);
+        timerIntervalGame2 = null;
     }
-    
-    // Detener juego 2
-    stopGame2();
-    
-    // Detener juego 3 si existe
-    if (typeof timerIntervalGame3 !== 'undefined' && timerIntervalGame3) {
-        clearInterval(timerIntervalGame3);
-        timerIntervalGame3 = null;
-    }
-    
-    // Resetear variables de estado de juegos
-    if (typeof isGame1Active !== 'undefined') isGame1Active = false;
-    if (typeof isGame3Active !== 'undefined') isGame3Active = false;
+    isGame2Active = false;
 }
 
-
+// Función auxiliar para mezclar arrays (si no está definida)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}

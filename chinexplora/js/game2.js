@@ -130,19 +130,19 @@ function loadNextQuestionGame2() {
     startTimerGame2();
 }
 
-// Dibujar silueta del país - FUNCIÓN CORREGIDA
+// Dibujar silueta del país - VERSIÓN MEJORADA
 function drawCountryOutline(outlinePath) {
     const flagContainer = document.getElementById('flagContainer');
     
     // Limpiar contenedor
     flagContainer.innerHTML = '';
     
-    // Crear SVG para la silueta con viewBox optimizado
+    // Crear SVG para la silueta
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
     svg.setAttribute("width", "100%");
     svg.setAttribute("height", "100%");
-    svg.setAttribute("viewBox", "0 0 1000 600"); // ViewBox más apropiado para proporciones de banderas
+    svg.setAttribute("viewBox", "0 0 3500 2000"); // ViewBox estándar para todos los países
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     svg.classList.add("country-outline");
     
@@ -151,9 +151,9 @@ function drawCountryOutline(outlinePath) {
     path.setAttribute("d", outlinePath);
     path.setAttribute("fill", "#f8f9f9");
     path.setAttribute("stroke", "#34495E");
-    path.setAttribute("stroke-width", "15"); // Grosor reducido para mejor visualización
+    path.setAttribute("stroke-width", "80"); // Grosor proporcional al viewBox
     path.setAttribute("stroke-linejoin", "round");
-    path.setAttribute("vector-effect", "non-scaling-stroke"); // Mantiene grosor consistente
+    path.setAttribute("vector-effect", "non-scaling-stroke");
     
     svg.appendChild(path);
     flagContainer.appendChild(svg);

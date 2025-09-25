@@ -1,4 +1,4 @@
-// game3.js - Juego de Colores y Letras
+// game3.js - Juego de Lugares en China (Versión Corregida)
 
 // Variables del juego
 let currentQuestionGame3 = 0;
@@ -7,26 +7,20 @@ let streakGame3 = 0;
 let bestStreakGame3 = 0;
 let livesGame3 = 3;
 let timerIntervalGame3;
-let currentCorrectOption = null;
-let colorOptions = [];
+let currentCorrectPlace = null;
+let placesData = [];
+let mapImageLoaded = false;
 
-// Colores disponibles
-const COLORS = [
-    '#FF6B6B', '#4ECDC4', '#45B7D1', '#F9A826', 
-    '#6C5CE7', '#FD79A8', '#00B894', '#FDCB6E',
-    '#0984E3', '#D63031', '#00CEC9', '#636E72'
-];
-
-// Letras disponibles
-const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
-
-// Iniciar juego de colores y letras
+// Iniciar juego de lugares en China
 function startGame3() {
     // Reiniciar variables del juego
     currentQuestionGame3 = 0;
     scoreGame3 = 0;
     streakGame3 = 0;
     livesGame3 = settings.lives;
+    
+    // Cargar datos de lugares
+    loadPlacesData();
     
     // Actualizar marcadores
     updateScoreDisplayGame3();
@@ -40,26 +34,127 @@ function startGame3() {
     // Mostrar pantalla de juego
     showScreen('gameScreen');
     
-    // Configurar el contenedor para los círculos de colores
-    setupColorContainer();
+    // Configurar el contenedor para el mapa de China
+    setupMapContainer();
     
-    // Cargar primera pregunta
-    loadNextQuestionGame3();
+    // Cargar primera pregunta después de cargar el mapa
+    setTimeout(() => {
+        loadNextQuestionGame3();
+    }, 500);
 }
 
-// Configurar contenedor de colores
-function setupColorContainer() {
+// Cargar datos de lugares
+async function loadPlacesData() {
+    try {
+        // Intentar cargar desde places.json
+        const response = await fetch('js/places.json');
+        if (response.ok) {
+            placesData = await response.json();
+        } else {
+            // Datos de respaldo si el archivo no existe
+            placesData = [
+                {
+                    "ch": "北京",
+                    "pin": "Běijīng",
+                    "en": "Beijing",
+                    "sp": "Pekín",
+                    "x": 235,
+                    "y": 95
+                },
+                {
+                    "ch": "上海",
+                    "pin": "Shànghǎi",
+                    "en": "Shanghai",
+                    "sp": "Shanghái",
+                    "x": 320,
+                    "y": 200
+                },
+                {
+                    "ch": "广州",
+                    "pin": "Guǎngzhōu",
+                    "en": "Guangzhou",
+                    "sp": "Cantón",
+                    "x": 250,
+                    "y": 300
+                },
+                {
+                    "ch": "成都",
+                    "pin": "Chéngdū",
+                    "en": "Chengdu",
+                    "sp": "Chengdú",
+                    "x": 150,
+                    "y": 220
+                },
+                {
+                    "ch": "西安",
+                    "pin": "Xī'ān",
+                    "en": "Xi'an",
+                    "sp": "Xi'an",
+                    "x": 180,
+                    "y": 150
+                },
+                {
+                    "ch": "拉萨",
+                    "pin": "Lāsà",
+                    "en": "Lhasa",
+                    "sp": "Lhasa",
+                    "x": 80,
+                    "y": 180
+                },
+                {
+                    "ch": "香港",
+                    "pin": "Xiānggǎng",
+                    "en": "Hong Kong",
+                    "sp": "Hong Kong",
+                    "x": 280,
+                    "y": 320
+                },
+                {
+                    "ch": "台北",
+                    "pin": "Táiběi",
+                    "en": "Taipei",
+                    "sp": "Taipéi",
+                    "x": 380,
+                    "y": 280
+                }
+            ];
+        }
+    } catch (error) {
+        console.error('Error loading places data:', error);
+        // Usar datos mínimos de respaldo
+        placesData = [
+            {"ch": "北京", "pin": "Běijīng", "en": "Beijing", "sp": "Pekín", "x": 235, "y": 95},
+            {"ch": "上海", "pin": "Shànghǎi", "en": "Shanghai", "sp": "Shanghái", "x": 320, "y": 200}
+        ];
+    }
+}
+
+// Configurar contenedor del mapa
+function setupMapContainer() {
     const flagContainer = document.getElementById('flagContainer');
     flagContainer.innerHTML = `
-        <div class="color-game-container">
-            <div class="color-circles" id="colorCircles"></div>
+        <div class="map-game-container">
+            <img src="flags/aachinamap.png" alt="Mapa de China" class="china-map" id="chinaMap">
+            <svg class="points-overlay" id="pointsOverlay" width="300" height="200" viewBox="0 0 500 400"></svg>
         </div>
     `;
+    
+    // Asegurar que la imagen se cargue
+    const mapImage = document.getElementById('chinaMap');
+    mapImage.onload = function() {
+        mapImageLoaded = true;
+    };
+    mapImage.onerror = function() {
+        console.error('Error loading China map image');
+        // Mostrar un fondo alternativo
+        flagContainer.innerHTML = '<div class="map-placeholder">🗺️ Mapa de China</div>';
+        mapImageLoaded = true;
+    };
 }
 
 // Cargar siguiente pregunta
 function loadNextQuestionGame3() {
-    if (currentQuestionGame3 >= settings.questions || livesGame3 <= 0) {
+    if (currentQuestionGame3 >= settings.questions || livesGame3 <= 0 || placesData.length === 0) {
         endGameGame3();
         return;
     }
@@ -67,86 +162,94 @@ function loadNextQuestionGame3() {
     currentQuestionGame3++;
     document.getElementById('currentQuestion').textContent = `${currentQuestionGame3}/${settings.questions}`;
     
-    // Generar opciones de colores y letras
-    generateColorOptions();
+    // Seleccionar lugar aleatorio
+    const randomIndex = Math.floor(Math.random() * placesData.length);
+    currentCorrectPlace = placesData[randomIndex];
     
-    // Mostrar círculos de colores
-    displayColorCircles();
+    // Mostrar el mapa con el punto
+    displayMapWithPoint();
     
-    // Mostrar opciones de letras
-    displayLetterOptions();
+    // Generar y mostrar opciones
+    generatePlaceOptions();
     
     // Iniciar temporizador
     startTimerGame3();
 }
 
-// Generar opciones de colores y letras
-function generateColorOptions() {
-    const optionCount = settings.difficulty === 1 ? 4 : 6;
-    colorOptions = [];
+// Mostrar mapa con punto de ubicación
+function displayMapWithPoint() {
+    const pointsOverlay = document.getElementById('pointsOverlay');
+    pointsOverlay.innerHTML = '';
     
-    // Mezclar colores y letras
-    const shuffledColors = [...COLORS].sort(() => Math.random() - 0.5);
-    const shuffledLetters = [...LETTERS].sort(() => Math.random() - 0.5);
+    // Crear punto de ubicación (más pequeño)
+    const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    point.setAttribute("cx", currentCorrectPlace.x);
+    point.setAttribute("cy", currentCorrectPlace.y);
+    point.setAttribute("r", "8"); // Punto más pequeño (era 15)
+    point.setAttribute("fill", "#E74C3C");
+    point.setAttribute("stroke", "#FFFFFF");
+    point.setAttribute("stroke-width", "2");
+    point.setAttribute("class", "location-point");
     
-    // Crear opciones únicas
-    for (let i = 0; i < optionCount; i++) {
-        colorOptions.push({
-            color: shuffledColors[i],
-            letter: shuffledLetters[i],
-            isCorrect: false
-        });
-    }
+    // Añadir animación sutil
+    point.setAttribute("filter", "url(#glow)");
     
-    // Seleccionar una opción correcta aleatoria
-    const correctIndex = Math.floor(Math.random() * optionCount);
-    currentCorrectOption = colorOptions[correctIndex];
-    currentCorrectOption.isCorrect = true;
+    // Crear filtro de resplandor
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+    filter.setAttribute("id", "glow");
+    filter.innerHTML = `
+        <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+        <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    `;
+    defs.appendChild(filter);
+    pointsOverlay.appendChild(defs);
+    pointsOverlay.appendChild(point);
 }
 
-// Mostrar círculos de colores
-function displayColorCircles() {
-    const colorCirclesContainer = document.getElementById('colorCircles');
-    colorCirclesContainer.innerHTML = '';
-    
-    colorOptions.forEach((option, index) => {
-        const circle = document.createElement('div');
-        circle.className = 'color-circle';
-        circle.style.backgroundColor = option.color;
-        circle.dataset.index = index;
-        colorCirclesContainer.appendChild(circle);
-    });
-    
-    // Ajustar grid según la dificultad
-    if (settings.difficulty === 1) {
-        colorCirclesContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
-    } else {
-        colorCirclesContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    }
-}
-
-// Mostrar opciones de letras
-function displayLetterOptions() {
+// Generar opciones de lugares
+function generatePlaceOptions() {
     const optionsContainer = document.getElementById('optionsContainer');
     optionsContainer.innerHTML = '';
     
     // Texto de la pregunta
     const questionText = document.createElement('div');
     questionText.className = 'question-text';
-    questionText.innerHTML = `<p>${getTranslation('selectColorForLetter')} <strong>${currentCorrectOption.letter}</strong></p>`;
+    questionText.innerHTML = `<p>${getTranslation('selectCityForPoint')} <strong>📍</strong></p>`;
     optionsContainer.appendChild(questionText);
     
+    // Generar opciones
+    const optionCount = settings.difficulty === 1 ? 4 : 6;
+    const placeOptions = [currentCorrectPlace];
+    
+    // Añadir opciones incorrectas
+    while (placeOptions.length < Math.min(optionCount, placesData.length)) {
+        const randomPlace = placesData[Math.floor(Math.random() * placesData.length)];
+        if (!placeOptions.find(p => p.ch === randomPlace.ch)) {
+            placeOptions.push(randomPlace);
+        }
+    }
+    
+    // Mezclar opciones
+    shuffleArray(placeOptions);
+    
     // Crear botones de opciones
-    colorOptions.forEach((option, index) => {
+    placeOptions.forEach(place => {
         const button = document.createElement('button');
-        button.className = 'option-btn color-option-btn';
-        button.innerHTML = `
-            <span class="option-letter">${option.letter}</span>
-            <span class="option-color" style="background-color: ${option.color}"></span>
-        `;
+        button.className = 'option-btn place-option-btn';
         
+        // Mostrar nombre según configuración
+        let displayName = place.ch;
+        if (settings.pinyin) {
+            displayName += ` [${place.pin}]`;
+        }
+        
+        button.textContent = displayName;
         button.addEventListener('click', function() {
-            checkAnswerGame3(option, currentCorrectOption);
+            checkAnswerGame3(place, currentCorrectPlace);
         });
         
         optionsContainer.appendChild(button);
@@ -154,32 +257,36 @@ function displayLetterOptions() {
 }
 
 // Comprobar respuesta
-function checkAnswerGame3(selectedOption, correctOption) {
+function checkAnswerGame3(selectedPlace, correctPlace) {
     clearInterval(timerIntervalGame3);
     
     // Deshabilitar botones
-    const buttons = document.querySelectorAll('.color-option-btn');
+    const buttons = document.querySelectorAll('.place-option-btn');
     buttons.forEach(btn => {
         btn.disabled = true;
-        const btnLetter = btn.querySelector('.option-letter').textContent;
         
-        if (btnLetter === correctOption.letter) {
+        // Obtener el texto del botón sin el pinyin
+        let buttonText = btn.textContent;
+        if (buttonText.includes('[')) {
+            buttonText = buttonText.split('[')[0].trim();
+        }
+        
+        if (buttonText === correctPlace.ch) {
             btn.classList.add('correct');
-        } else if (btnLetter === selectedOption.letter && selectedOption !== correctOption) {
+        } else if (buttonText === selectedPlace.ch && selectedPlace !== correctPlace) {
             btn.classList.add('incorrect');
         }
     });
     
-    // Resaltar círculo correcto
-    const circles = document.querySelectorAll('.color-circle');
-    colorOptions.forEach((option, index) => {
-        if (option.isCorrect) {
-            circles[index].classList.add('correct-circle');
-        }
-    });
+    // Resaltar punto correcto en el mapa
+    const point = document.querySelector('.location-point');
+    if (point) {
+        point.style.fill = '#27ae60'; // Verde para correcto
+        point.setAttribute('r', '10'); // Agrandar ligeramente
+    }
     
     // Comprobar si es correcta
-    if (selectedOption === correctOption) {
+    if (selectedPlace === correctPlace) {
         // Respuesta correcta
         scoreGame3 += 10 * (streakGame3 + 1);
         streakGame3++;
@@ -192,6 +299,16 @@ function checkAnswerGame3(selectedOption, correctOption) {
         livesGame3--;
         streakGame3 = 0;
         showToast(getTranslation('incorrectAnswer'));
+        
+        // Mostrar también el punto correcto
+        const correctPoint = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        correctPoint.setAttribute("cx", correctPlace.x);
+        correctPoint.setAttribute("cy", correctPlace.y);
+        correctPoint.setAttribute("r", "6");
+        correctPoint.setAttribute("fill", "#27ae60");
+        correctPoint.setAttribute("stroke", "#FFFFFF");
+        correctPoint.setAttribute("stroke-width", "2");
+        document.getElementById('pointsOverlay').appendChild(correctPoint);
     }
     
     // Actualizar marcadores
@@ -277,4 +394,13 @@ function saveStatsGame3() {
     }
     
     localStorage.setItem('chinexplora_stats', JSON.stringify(userStats));
+}
+
+// Función auxiliar para mezclar arrays
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }

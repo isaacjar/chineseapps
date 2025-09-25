@@ -571,3 +571,73 @@ input:checked + .slider:before {
         padding: 15px;
     }
 }
+
+/* Estilos para el Juego 3 - Mapa de China */
+.map-game-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f8f9f9;
+}
+
+.china-map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.points-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.location-point {
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        r: 6;
+        opacity: 0.8;
+    }
+    to {
+        r: 9;
+        opacity: 1;
+    }
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #7f8c8d;
+    background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+}
+
+.place-option-btn {
+    text-align: left;
+    padding: 10px 15px;
+    font-size: 0.95em;
+}
+
+.question-text {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Asegurar que el SVG se superponga correctamente */
+.points-overlay {
+    z-index: 10;
+}

@@ -28,7 +28,8 @@
         "timeUp": "Time's up!",
         "settingsSaved": "Settings saved",
         "settingsReset": "Settings reset to default",
-        "comingSoon": "Coming soon!"
+        "comingSoon": "Coming soon!",
+        "selectCityForPoint": "Select the city for the marked point:"
     },
     "es": {
         "menuTitle": "Menú Principal",
@@ -59,6 +60,7 @@
         "timeUp": "¡Tiempo agotado!",
         "settingsSaved": "Configuración guardada",
         "settingsReset": "Configuración restablecida",
-        "comingSoon": "¡Próximamente!"
+        "comingSoon": "¡Próximamente!",
+        "selectCityForPoint": "Selecciona la ciudad para el punto marcado:"
     }
 }

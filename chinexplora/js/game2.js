@@ -141,7 +141,7 @@ function drawCountryOutline(outlinePath) {
     const img = document.createElement('img');
     img.src = `outline/${outlineImage}`;
     img.alt = 'Country outline';
-    img.classList.add('country-outline');
+    img.classList.add('country-outline', 'flag-game2');
     img.style.filter = 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4))';
     
     flagContainer.appendChild(img);

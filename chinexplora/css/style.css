@@ -265,10 +265,10 @@ input:checked + .slider:before {
 
 /* Juego 2 - Siluetas (100%) */
 .flag-game2 img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: drop-shadow(4px 6px 12px rgba(0, 0, 0, 0.5));
 }
 
 /* Juego 3 - Mapa de China (100%) */

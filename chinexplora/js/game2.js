@@ -87,7 +87,7 @@ function loadNextQuestionGame2() {
     const correctCountry = countriesWithOutline[randomIndex];
     
     // Dibujar silueta del país
-    drawCountryOutline(correctCountry.outline);
+    drawCountryOutline(correctCountry.fileflag); 
     
     // Generar opciones
     currentOptionsGame2 = [correctCountry];
@@ -137,26 +137,14 @@ function drawCountryOutline(outlinePath) {
     // Limpiar contenedor
     flagContainer.innerHTML = '';
     
-    // Crear SVG para la silueta
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
-    svg.setAttribute("viewBox", "0 0 3500 2000"); // ViewBox estándar para todos los países
-    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    svg.classList.add("country-outline");
+    // Crear imagen de la silueta
+    const img = document.createElement('img');
+    img.src = `outline/${outlineImage}`;
+    img.alt = 'Country outline';
+    img.classList.add('country-outline');
+    img.style.filter = 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4))';
     
-    // Crear el path de la silueta
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", outlinePath);
-    path.setAttribute("fill", "#f8f9f9");
-    path.setAttribute("stroke", "#34495E");
-    path.setAttribute("stroke-width", "80"); // Grosor proporcional al viewBox
-    path.setAttribute("stroke-linejoin", "round");
-    path.setAttribute("vector-effect", "non-scaling-stroke");
-    
-    svg.appendChild(path);
-    flagContainer.appendChild(svg);
+    flagContainer.appendChild(img);
 }
 
 // Comprobar respuesta

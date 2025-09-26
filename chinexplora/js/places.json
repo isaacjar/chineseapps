@@ -13,5 +13,20 @@
   { "ch": "苏州", "pin": "Sūzhōu", "en": "Suzhou", "sp": "Suzhou", "x": 395, "y": 238 },
   { "ch": "重庆", "pin": "Chóngqìng", "en": "Chongqing", "sp": "Chongqing", "x": 237, "y": 300 },
   { "ch": "天津", "pin": "Tiānjīn", "en": "Tianjin", "sp": "Tianjín", "x": 328, "y": 138 },
-  { "ch": "武汉", "pin": "Wǔhàn", "en": "Wuhan", "sp": "Wuhan", "x": 328, "y": 250 }
+  { "ch": "武汉", "pin": "Wǔhàn", "en": "Wuhan", "sp": "Wuhan", "x": 328, "y": 250 },
+  { "ch": "深圳", "pin": "Shēnzhèn", "en": "Shenzhen", "sp": "Shenzhen", "x": 330, "y": 348 },
+  { "ch": "青岛", "pin": "Qīngdǎo", "en": "Qingdao", "sp": "Qingdao", "x": 386, "y": 172 },
+  { "ch": "郑州", "pin": "Zhèngzhōu", "en": "Zhengzhou", "sp": "Zhengzhou", "x": 340, "y": 204 },
+  { "ch": "长沙", "pin": "Chángshā", "en": "Changsha", "sp": "Changsha", "x": 340, "y": 264 },
+  { "ch": "合肥", "pin": "Héféi", "en": "Hefei", "sp": "Hefei", "x": 356, "y": 228 },
+  { "ch": "昆明", "pin": "Kūnmíng", "en": "Kunming", "sp": "Kunming", "x": 240, "y": 326 },
+  { "ch": "哈尔滨", "pin": "Hā'ěrbīn", "en": "Harbin", "sp": "Harbin", "x": 431, "y": 34 },
+  { "ch": "济南", "pin": "Jǐnán", "en": "Jinan", "sp": "Jinan", "x": 371, "y": 174 },
+  { "ch": "南昌", "pin": "Nánchāng", "en": "Nanchang", "sp": "Nanchang", "x": 360, "y": 248 },
+  { "ch": "石家庄", "pin": "Shíjiāzhuāng", "en": "Shijiazhuang", "sp": "Shijiazhuang", "x": 346, "y": 160 },
+  { "ch": "烟台", "pin": "Yāntái", "en": "Yantai", "sp": "Yantai", "x": 397, "y": 154 },
+  { "ch": "福州", "pin": "Fúzhōu", "en": "Fuzhou", "sp": "Fuzhou", "x": 408, "y": 282 },
+  { "ch": "太原", "pin": "Tàiyuán", "en": "Taiyuan", "sp": "Taiyuan", "x": 330, "y": 180 },
+  { "ch": "温州", "pin": "Wēnzhōu", "en": "Wenzhou", "sp": "Wenzhou", "x": 410, "y": 296 },
+  { "ch": "南宁", "pin": "Nánníng", "en": "Nanning", "sp": "Nanning", "x": 300, "y": 340 }
 ]

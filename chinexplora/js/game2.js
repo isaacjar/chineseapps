@@ -87,7 +87,7 @@ function loadNextQuestionGame2() {
     const correctCountry = countriesWithOutline[randomIndex];
     
     // Dibujar silueta del país
-    drawCountryOutline(correctCountry.fileflag); 
+    drawCountryOutline(correctCountry.fileflag);
     
     // Generar opciones
     currentOptionsGame2 = [correctCountry];
@@ -131,7 +131,7 @@ function loadNextQuestionGame2() {
 }
 
 // Dibujar silueta del país - VERSIÓN MEJORADA
-function drawCountryOutline(outlinePath) {
+function drawCountryOutline(fileflag) {
     const flagContainer = document.getElementById('flagContainer');
     
     // Limpiar contenedor
@@ -139,7 +139,7 @@ function drawCountryOutline(outlinePath) {
     
     // Crear imagen de la silueta
     const img = document.createElement('img');
-    img.src = `outline/${outlineImage}`;
+    img.src = `outline/${fileflag}`;
     img.alt = 'Country outline';
     img.classList.add('country-outline', 'flag-game2');
     img.style.filter = 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4))';

@@ -134,7 +134,7 @@ function setupMapContainer() {
     const flagContainer = document.getElementById('flagContainer');
     flagContainer.innerHTML = `
         <div class="map-game-container">
-            <img src="flags/aachinamap.png" alt="Mapa de China" class="china-map" id="chinaMap">
+            <img src="flags/aachinamap.png" alt="Mapa de China" class="china-map flag-game3" id="chinaMap">
             <svg class="points-overlay" id="pointsOverlay" width="300" height="200" viewBox="0 0 500 400"></svg>
         </div>
     `;

@@ -257,6 +257,29 @@ input:checked + .slider:before {
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
 }
 
+/* Juego 1 - Banderas (250x144) */
+.flag-game1 img {
+    width: 250px;
+    height: 144px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* Juego 2 - Siluetas (100%) */
+.flag-game2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Juego 3 - Mapa de China (100%) */
+.flag-game3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .options-container {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -4,119 +4,119 @@
         "pin": "Běijīng",
         "en": "Beijing",
         "sp": "Pekín",
-        "x": 235,
-        "y": 95
+        "x": 209,
+        "y": 79
     },
     {
         "ch": "上海",
         "pin": "Shànghǎi",
         "en": "Shanghai",
         "sp": "Shanghái",
-        "x": 320,
-        "y": 200
+        "x": 233,
+        "y": 127
     },
     {
         "ch": "广州",
         "pin": "Guǎngzhōu",
         "en": "Guangzhou",
         "sp": "Cantón",
-        "x": 250,
-        "y": 300
+        "x": 194,
+        "y": 171
     },
     {
         "ch": "成都",
         "pin": "Chéngdū",
         "en": "Chengdu",
         "sp": "Chengdú",
-        "x": 150,
-        "y": 220
+        "x": 151,
+        "y": 130
     },
     {
         "ch": "西安",
         "pin": "Xī'ān",
         "en": "Xi'an",
         "sp": "Xi'an",
-        "x": 180,
-        "y": 150
+        "x": 174,
+        "y": 109
     },
     {
         "ch": "拉萨",
         "pin": "Lāsà",
         "en": "Lhasa",
         "sp": "Lhasa",
-        "x": 80,
-        "y": 180
+        "x": 63,
+        "y": 113
     },
     {
         "ch": "香港",
         "pin": "Xiānggǎng",
         "en": "Hong Kong",
         "sp": "Hong Kong",
-        "x": 280,
-        "y": 320
+        "x": 221,
+        "y": 200
     },
     {
         "ch": "台北",
         "pin": "Táiběi",
         "en": "Taipei",
         "sp": "Taipéi",
-        "x": 380,
-        "y": 280
+        "x": 300,
+        "y": 175
     },
     {
         "ch": "南京",
         "pin": "Nánjīng",
         "en": "Nanjing",
         "sp": "Nankín",
-        "x": 290,
-        "y": 180
+        "x": 229,
+        "y": 113
     },
     {
         "ch": "杭州",
         "pin": "Hángzhōu",
         "en": "Hangzhou",
         "sp": "Hangzhou",
-        "x": 320,
-        "y": 220
+        "x": 253,
+        "y": 138
     },
     {
         "ch": "桂林",
         "pin": "Guìlín",
         "en": "Guilin",
         "sp": "Guilin",
-        "x": 220,
-        "y": 260
+        "x": 174,
+        "y": 163
     },
     {
         "ch": "苏州",
         "pin": "Sūzhōu",
         "en": "Suzhou",
         "sp": "Suzhou",
-        "x": 300,
-        "y": 190
+        "x": 237,
+        "y": 119
     },
     {
         "ch": "重庆",
         "pin": "Chóngqìng",
         "en": "Chongqing",
         "sp": "Chongqing",
-        "x": 180,
-        "y": 240
+        "x": 142,
+        "y": 150
     },
     {
         "ch": "天津",
         "pin": "Tiānjīn",
         "en": "Tianjin",
         "sp": "Tianjín",
-        "x": 250,
-        "y": 110
+        "x": 197,
+        "y": 69
     },
     {
         "ch": "武汉",
         "pin": "Wǔhàn",
         "en": "Wuhan",
         "sp": "Wuhan",
-        "x": 250,
-        "y": 200
+        "x": 197,
+        "y": 125
     }
 ]

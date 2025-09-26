@@ -256,10 +256,10 @@ input:checked + .slider:before {
 }
 
 /* Juego 1 - Banderas (250x144) */
-.flag-game1 img {
-    width: 250px;
-    height: 144px;
-    object-fit: contain;
+.flag-game1 {
+    width: 250px !important;
+    height: 144px !important;
+    object-fit: contain !important;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
 }
 

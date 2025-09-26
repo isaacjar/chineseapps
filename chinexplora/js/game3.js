@@ -216,10 +216,10 @@ function generatePlaceOptions() {
     optionsContainer.innerHTML = '';
     
     // Texto de la pregunta
-    const questionText = document.createElement('div');
+    /*const questionText = document.createElement('div');
     questionText.className = 'question-text';
     questionText.innerHTML = `<p>${getTranslation('selectCityForPoint')} <strong>📍</strong></p>`;
-    optionsContainer.appendChild(questionText);
+    optionsContainer.appendChild(questionText);*/
     
     // Generar opciones
     const optionCount = settings.difficulty === 1 ? 4 : 6;

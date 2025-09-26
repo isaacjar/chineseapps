@@ -143,6 +143,7 @@ function setupMapContainer() {
     const mapImage = document.getElementById('chinaMap');
     mapImage.onload = function() {
         mapImageLoaded = true;
+        enableCoordinateCapture();  // 📍 PARA CAPTURAR PUNTOS EN EL MAPA
     };
     mapImage.onerror = function() {
         console.error('Error loading China map image');
@@ -403,4 +404,44 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+// 📍 Función para capturar coordenadas (solo para desarrollo)
+function enableCoordinateCapture() {
+    const mapImage = document.getElementById('chinaMap');
+    const pointsOverlay = document.getElementById('pointsOverlay');
+    
+    if (!mapImage || !pointsOverlay) return;
+    
+    // Crear punto temporal
+    const tempPoint = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    tempPoint.setAttribute("r", "8");
+    tempPoint.setAttribute("fill", "#FF0000");
+    tempPoint.setAttribute("class", "temp-point");
+    
+    mapImage.style.cursor = 'crosshair';
+    
+    // Evento click en el mapa
+    mapImage.addEventListener('click', function(event) {
+        const rect = mapImage.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        // Calcular coordenadas relativas al viewBox (500x400)
+        const relX = Math.round((x / rect.width) * 500);
+        const relY = Math.round((y / rect.height) * 400);
+        
+        // Mostrar coordenadas en el primer botón
+        const firstButton = document.querySelector('.place-option-btn');
+        if (firstButton) {
+            firstButton.textContent = `X:${relX} Y:${relY}`;
+        }
+        
+        // Mostrar punto en el mapa
+        tempPoint.setAttribute("cx", relX);
+        tempPoint.setAttribute("cy", relY);
+        pointsOverlay.appendChild(tempPoint);
+        
+        console.log(`Coordenadas: x: ${relX}, y: ${relY}`);
+    });
 }

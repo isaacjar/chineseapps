@@ -82,8 +82,7 @@ function loadNextQuestion() {
     
     // Cargar bandera
     const flagContainer = document.getElementById('flagContainer');
-    flagContainer.innerHTML = `<img id="flagImage" src="flags/${correctCountry.fileflag}" alt="${correctCountry.sp}">`;
-    
+    flagContainer.innerHTML = `<img id="flagImage" src="flags/${correctCountry.fileflag}" alt="${correctCountry.sp}" class="flag-game1">`;
     // Generar opciones
     currentOptions = [correctCountry];
     

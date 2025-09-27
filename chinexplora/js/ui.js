@@ -1,4 +1,5 @@
 // ui.js - Funciones para la interfaz de usuario
+let currentGame = 1;
 
 // Mostrar u ocultar pantallas
 function showScreen(screenId) {
@@ -120,14 +121,20 @@ function initUI() {
     document.getElementById('logo').addEventListener('click', goToMenu);
     document.getElementById('btnSettings').addEventListener('click', showSettings);
     
-    // Botones del menú
-    document.getElementById('btnGame1').addEventListener('click', startGame1);
+    // Listeners de los botones de juegos:
+    document.getElementById('btnGame1').addEventListener('click', function() {
+        currentGame = 1;
+        startGame1();
+    });
+    
     document.getElementById('btnGame2').addEventListener('click', function() {
+        currentGame = 2;
         startGame2();
     });
+    
     document.getElementById('btnGame3').addEventListener('click', function() {
+        currentGame = 3;
         startGame3();
-        //showToast(getTranslation('comingSoon'));
     });
     document.getElementById('btnStats').addEventListener('click', showStats);
     
@@ -152,7 +159,19 @@ function initUI() {
     
     // Botones de game over
     document.getElementById('btnPlayAgain').addEventListener('click', function() {
-        startGame1();
+        switch(currentGame) {
+            case 1:
+                startGame1();
+                break;
+            case 2:
+                startGame2();
+                break;
+            case 3:
+                startGame3();
+                break;
+            default:
+                startGame1();
+        }
     });
     document.getElementById('btnGoToMenu').addEventListener('click', goToMenu);
     

@@ -30,11 +30,14 @@ function startGame2() {
         console.error('Countries data not loaded');
         showToast('Error loading countries data');
         isGame2Active = false;
+        
+        // Intentar cargar datos de respaldo
+        loadBackupCountries();
         return;
     }
     
     // Filtrar países que tienen outline
-    const countriesWithOutline = window.countriesData.filter(country => country.outline);
+    const countriesWithOutline = window.countriesData.filter(country => country.fileflag);
     if (countriesWithOutline.length === 0) {
         showToast('No country outlines available');
         isGame2Active = false;
@@ -304,4 +307,24 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function loadBackupCountries() {
+    // Datos de respaldo mínimos para el juego 2
+    const backupCountries = [
+        { ch: "中国", pin: "Zhōngguó", en: "China", sp: "China", fileflag: "china.png" },
+        { ch: "美国", pin: "Měiguó", en: "United States", sp: "Estados Unidos", fileflag: "usa.png" },
+        { ch: "西班牙", pin: "Xībānyá", en: "Spain", sp: "España", fileflag: "spain.png" },
+        { ch: "法国", pin: "Fǎguó", en: "France", sp: "Francia", fileflag: "france.png" }
+    ];
+    
+    window.countriesData = backupCountries;
+    countriesGame2 = backupCountries;
+    
+    // Reintentar cargar la pregunta
+    setTimeout(() => {
+        if (isGame2Active) {
+            loadNextQuestionGame2();
+        }
+    }, 500);
 }

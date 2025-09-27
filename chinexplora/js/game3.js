@@ -249,6 +249,8 @@ function generatePlaceOptions() {
         }
         
         button.textContent = displayName;
+        button.textContent = (place === currentCorrectPlace) ? `🛤️ ${displayName}` : displayName;  // BORRAR DEBUG 📍
+        
         button.addEventListener('click', function() {
             checkAnswerGame3(place, currentCorrectPlace);
         });

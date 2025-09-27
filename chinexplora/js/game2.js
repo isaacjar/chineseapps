@@ -80,7 +80,7 @@ function loadNextQuestionGame2() {
     document.getElementById('currentQuestion').textContent = `${currentQuestionGame2}/${settings.questions}`;
     
     // Seleccionar país aleatorio con outline
-    const countriesWithOutline = countriesGame2.filter(country => country.outline);
+    const countriesWithOutline = countriesGame2.filter(country => country.fileflag);
     if (countriesWithOutline.length === 0) {
         endGameGame2();
         return;

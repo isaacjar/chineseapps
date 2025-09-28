@@ -737,13 +737,14 @@ input:checked + .slider:before {
 .modal-content {
     background: white;
     border-radius: var(--border-radius);
-    padding: 20px;
+    padding: 25px;
     max-width: 90%;
     max-height: 90%;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close {
@@ -755,39 +756,103 @@ input:checked + .slider:before {
     font-size: 2rem;
     cursor: pointer;
     color: var(--color-dark);
+    z-index: 1001;
 }
 
 .modal-flag-container,
 .modal-outline-container {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9f9 0%, #e8ecec 100%);
+    border-radius: var(--border-radius);
+    border: 2px solid #e0e0e0;
+    position: relative;
 }
 
+/* Sombreado mejorado para banderas */
 .modal-flag {
-    max-width: 200px;
-    max-height: 120px;
+    max-width: 220px;
+    max-height: 140px;
     object-fit: contain;
+    filter: 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 0 1px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
 }
 
+/* Sombreado para siluetas */
 .modal-outline {
-    max-width: 200px;
-    max-height: 120px;
+    max-width: 220px;
+    max-height: 140px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    filter: 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4))
+        drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 0 0 1px rgba(0, 0, 0, 0.2));
+    border-radius: 4px;
 }
 
 .modal-country-info {
     text-align: center;
+    background: var(--color-light);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
 }
 
 .modal-country-info h3 {
     color: var(--color-dark);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
 }
 
 .modal-country-info p {
-    margin: 2px 0;
+    margin: 5px 0;
     color: #666;
+    font-size: 1rem;
+}
+
+/* Efecto hover para las tarjetas de país */
+.country-card:hover .country-name {
+    color: var(--color-blue);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .modal-flag,
+    .modal-outline {
+        max-width: 180px;
+        max-height: 110px;
+    }
+    
+    .modal-flag-container,
+    .modal-outline-container {
+        padding: 12px;
+    }
+    
+    .modal-country-info {
+        padding: 12px;
+    }
+    
+    .modal-country-info h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .modal-flag,
+    .modal-outline {
+        max-width: 150px;
+        max-height: 90px;
+    }
 }
 
 /* Estilos para el mapa interactivo */

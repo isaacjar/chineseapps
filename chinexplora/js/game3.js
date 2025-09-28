@@ -447,3 +447,11 @@ function enableCoordinateCapture() {
         console.log(`Coordenadas: x: ${relX}, y: ${relY}`);
     });
 }
+
+// Función para detener el juego 3
+function stopGame3() {
+    if (timerIntervalGame3) {
+        clearInterval(timerIntervalGame3);
+        timerIntervalGame3 = null;
+    }
+}

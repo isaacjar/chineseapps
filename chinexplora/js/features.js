@@ -131,8 +131,12 @@ function showChinaMap() {
         overlay.appendChild(point);
     });
     
-    // Limpiar información de ubicación
-    document.getElementById('locationInfo').innerHTML = '<p class="location-prompt">Haz clic en un punto del mapa para ver información</p>';
+    // Limpiar información de ubicación - usar la traducción
+    const locationInfo = document.getElementById('locationInfo');
+    locationInfo.innerHTML = '<p class="location-prompt" data-lang="clickOnPoint">Haz clic en un punto para ver información</p>';
+    
+    // Forzar la actualización del texto traducido
+    loadLanguage(settings.language);
     
     showScreen('chinaMapScreen');
 }

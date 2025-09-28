@@ -198,4 +198,7 @@ function initUI() {
     document.getElementById('countryCountSlider').addEventListener('input', function() {
         document.getElementById('countryCountValue').textContent = this.value;
     });
+
+    // Inicializar nuevas funcionalidades
+    initFeatures();
 }

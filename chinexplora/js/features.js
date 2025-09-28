@@ -156,12 +156,13 @@ function showLocationInfo(place) {
     
     // Usar el campo correcto según el idioma
     const name = settings.language === 'es' ? place.sp : place.en;
+    const description = settings.language === 'es' ? place.es : place.en;
     
     locationInfo.innerHTML = `
         <div class="location-name">${place.ch}</div>
         <div class="location-pinyin">${place.pin}</div>
         <div class="location-translation">${name}</div>
-        <div class="location-description">${place.description || 'Información no disponible'}</div>
+        <div class="location-description">${description || 'Información no disponible'}</div>
     `;
 }
 

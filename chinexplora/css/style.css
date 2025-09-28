@@ -793,8 +793,9 @@ input:checked + .slider:before {
 /* Estilos para el mapa interactivo */
 .interactive-map-container {
     padding: 20px;
-    width: 90%;
+    width: 100%; /* Cambiado de 90% a 100% */
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .map-wrapper {
@@ -862,24 +863,37 @@ input:checked + .slider:before {
     line-height: 1.4;
 }
 
-/* Responsive */
+/* Ajustes responsive para móviles */
 @media (max-width: 768px) {
-    .countries-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 10px;
-    }
-    
-    .modal-content {
-        flex-direction: column;
-    }
-    
-    .modal-flag,
-    .modal-outline {
-        max-width: 150px;
-        max-height: 100px;
+    .interactive-map-container {
+        padding: 10px; /* Menos padding en móviles */
     }
     
     .map-wrapper {
-        height: 300px;
+        height: 300px; /* Altura ajustada para móviles */
+        margin: 15px 0;
+    }
+    
+    .location-info {
+        padding: 12px;
+        margin: 12px 0;
+    }
+    
+    .location-name {
+        font-size: 1.1rem;
+    }
+}
+
+/* Para tablets y pantallas más grandes */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .map-wrapper {
+        height: 450px; /* Un poco más alto en tablets */
+    }
+}
+
+/* Para pantallas muy grandes */
+@media (min-width: 1025px) {
+    .map-wrapper {
+        height: 500px; /* Más alto en desktop */
     }
 }

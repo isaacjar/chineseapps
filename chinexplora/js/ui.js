@@ -102,7 +102,12 @@ function loadLanguage(lang) {
     elements.forEach(element => {
         const key = element.getAttribute('data-lang');
         if (window.langData[lang][key]) {
-            element.textContent = window.langData[lang][key];
+            // Si es un input, actualizar el placeholder
+            if (element.tagName === 'INPUT' && element.type === 'text') {
+                element.placeholder = window.langData[lang][key];
+            } else {
+                element.textContent = window.langData[lang][key];
+            }
         }
     });
 }

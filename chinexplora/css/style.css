@@ -659,3 +659,227 @@ input:checked + .slider:before {
 .points-overlay {
     z-index: 10;
 }
+
+/* Estilos para la lista de países */
+.countries-list {
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.search-container {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 2px solid var(--color-blue);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.country-card {
+    background: var(--color-light);
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.country-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--color-blue);
+}
+
+.country-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.country-pinyin {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.country-translation {
+    font-size: 0.8em;
+    color: #888;
+}
+
+/* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--color-dark);
+}
+
+.modal-flag-container,
+.modal-outline-container {
+    text-align: center;
+    padding: 10px;
+}
+
+.modal-flag {
+    max-width: 200px;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.modal-outline {
+    max-width: 200px;
+    max-height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.modal-country-info {
+    text-align: center;
+}
+
+.modal-country-info h3 {
+    color: var(--color-dark);
+    margin-bottom: 5px;
+}
+
+.modal-country-info p {
+    margin: 2px 0;
+    color: #666;
+}
+
+/* Estilos para el mapa interactivo */
+.interactive-map-container {
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.interactive-map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.china-map-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.interactive-points-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.interactive-point {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.interactive-point:hover {
+    r: 12;
+    fill: #e74c3c;
+}
+
+.location-info {
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin: 15px 0;
+    min-height: 80px;
+}
+
+.location-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-dark);
+    margin-bottom: 5px;
+}
+
+.location-pinyin {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.location-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .modal-content {
+        flex-direction: column;
+    }
+    
+    .modal-flag,
+    .modal-outline {
+        max-width: 150px;
+        max-height: 100px;
+    }
+    
+    .map-wrapper {
+        height: 300px;
+    }
+}

@@ -60,6 +60,17 @@ async function loadJSONFiles() {
     if (document.getElementById('countryCountSlider')) {
         document.getElementById('countryCountSlider').max = window.countriesData.length;
     }
+
+    // Cargar places.json
+    const placesResponse = await fetch('js/places.json');
+    if (!placesResponse.ok) {
+        throw new Error('Failed to load places.json');
+    }
+    window.placesData = await placesResponse.json();
+    
+    console.log('JSON files loaded successfully:');
+    console.log('- Countries:', window.countriesData.length);
+    console.log('- Places:', window.placesData.length);
   
  } catch (error) {
         console.error('Error loading JSON files:', error);
@@ -68,6 +79,10 @@ async function loadJSONFiles() {
             { ch: "中国", pin: "Zhōngguó", en: "China", sp: "China", fileflag: "china.png" },
             { ch: "美国", pin: "Měiguó", en: "United States", sp: "Estados Unidos", fileflag: "usa.png" },
             { ch: "西班牙", pin: "Xībānyá", en: "Spain", sp: "España", fileflag: "spain.png" }
+        ];
+        window.placesData = [
+            { "ch": "北京", "pin": "Běijīng", "en": "Beijing", "sp": "Pekín", "x": 372, "y": 159 },
+            { "ch": "上海", "pin": "Shànghǎi", "en": "Shanghai", "sp": "Shanghái", "x": 422, "y": 250 }
         ];
         window.langData = {en: {}, es: {}};
     }

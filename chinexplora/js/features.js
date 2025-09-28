@@ -74,12 +74,15 @@ function showCountryModal(country) {
     // Cargar imágenes
     modalFlag.src = `flags/${country.fileflag}`;
     modalFlag.alt = country.ch;
+    modalFlag.onerror = function() {
+        this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120" viewBox="0 0 200 120"><rect width="200" height="120" fill="%23f0f0f0"/><text x="100" y="60" text-anchor="middle" fill="%23999">Bandera no disponible</text></svg>';
+    };
     
-    // Intentar cargar la silueta, si no existe mostrar la bandera
+    // Intentar cargar la silueta, si no existe mostrar un placeholder
     modalOutline.src = `outline/${country.fileflag}`;
     modalOutline.onerror = function() {
-        this.src = `flags/${country.fileflag}`;
-        this.style.filter = 'grayscale(1) brightness(0)';
+        this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120" viewBox="0 0 200 120"><rect width="200" height="120" fill="%23f8f9f9"/><text x="100" y="60" text-anchor="middle" fill="%23999">Silueta no disponible</text></svg>';
+        this.style.filter = 'none';
     };
     
     // Mostrar información

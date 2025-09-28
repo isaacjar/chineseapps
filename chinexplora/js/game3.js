@@ -143,7 +143,7 @@ function setupMapContainer() {
     const mapImage = document.getElementById('chinaMap');
     mapImage.onload = function() {
         mapImageLoaded = true;
-        enableCoordinateCapture();  // 📍 PARA CAPTURAR PUNTOS EN EL MAPA
+        //enableCoordinateCapture();  // 📍 PARA CAPTURAR PUNTOS EN EL MAPA
     };
     mapImage.onerror = function() {
         console.error('Error loading China map image');
@@ -249,7 +249,7 @@ function generatePlaceOptions() {
         }
         
         button.textContent = displayName;
-        button.textContent = (place === currentCorrectPlace) ? `🛤️ ${displayName}` : displayName;  // BORRAR DEBUG 📍
+        //button.textContent = (place === currentCorrectPlace) ? `🛤️ ${displayName}` : displayName;  // BORRAR DEBUG 📍
         
         button.addEventListener('click', function() {
             checkAnswerGame3(place, currentCorrectPlace);

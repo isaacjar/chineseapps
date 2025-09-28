@@ -1,9 +1,8 @@
 // Función global para detener todos los juegos
 window.stopAllGames = function() {
     // Detener juego 1 si está activo
-    if (typeof timerInterval !== 'undefined' && timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
+    if (typeof stopGame1 !== 'undefined') {
+        stopGame1();
     }
     
     // Detener juego 2 si está activo
@@ -12,9 +11,8 @@ window.stopAllGames = function() {
     }
     
     // Detener juego 3 si está activo
-    if (typeof timerIntervalGame3 !== 'undefined' && timerIntervalGame3) {
-        clearInterval(timerIntervalGame3);
-        timerIntervalGame3 = null;
+    if (typeof stopGame3 !== 'undefined') {
+        stopGame3();
     }
 };
 

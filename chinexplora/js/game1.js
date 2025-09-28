@@ -241,3 +241,10 @@ function shuffleArray(array) {
     return array;
 }
 
+// Función para detener el juego 1
+function stopGame1() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+}

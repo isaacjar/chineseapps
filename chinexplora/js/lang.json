@@ -29,7 +29,11 @@
         "settingsSaved": "Settings saved",
         "settingsReset": "Settings reset to default",
         "comingSoon": "Coming soon!",
-        "selectCityForPoint": "Select the city for the marked point:"
+        "selectCityForPoint": "Select the city for the marked point:",
+        "countriesList": "Countries List",
+        "chinaMap": "China Map",
+        "searchCountry": "Search country...",
+        "clickOnPoint": "Click on a point to see information"
     },
     "es": {
         "menuTitle": "Menú Principal",
@@ -61,6 +65,10 @@
         "settingsSaved": "Configuración guardada",
         "settingsReset": "Configuración restablecida",
         "comingSoon": "¡Próximamente!",
-        "selectCityForPoint": "Selecciona la ciudad para el punto marcado:"
+        "selectCityForPoint": "Selecciona la ciudad para el punto marcado:",
+        "countriesList": "Lista de Países",
+        "chinaMap": "Mapa de China",
+        "searchCountry": "Buscar país...",
+        "clickOnPoint": "Haz clic en un punto para ver información"
     }
 }

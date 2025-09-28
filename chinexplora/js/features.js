@@ -1,6 +1,7 @@
 // features.js - Funcionalidades adicionales
 
 // Mostrar lista de países
+// Mostrar lista de países
 function showCountriesList() {
     stopAllGames();
     
@@ -12,8 +13,13 @@ function showCountriesList() {
     const countriesGrid = document.getElementById('countriesGrid');
     countriesGrid.innerHTML = '';
     
-    // Ordenar países alfabéticamente por nombre en chino
-    const sortedCountries = [...window.countriesData].sort((a, b) => a.ch.localeCompare(b.ch));
+    // Ordenar países alfabéticamente por pinyin (sin tildes para mejor ordenación)
+    const sortedCountries = [...window.countriesData].sort((a, b) => {
+        // Quitar tildes y convertir a minúsculas para ordenación consistente
+        const pinyinA = a.pin.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const pinyinB = b.pin.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return pinyinA.localeCompare(pinyinB);
+    });
     
     sortedCountries.forEach(country => {
         const countryCard = document.createElement('div');
@@ -31,7 +37,7 @@ function showCountriesList() {
         countriesGrid.appendChild(countryCard);
     });
     
-    // Configurar búsqueda
+    // Configurar búsqueda - el placeholder ya se actualizó automáticamente
     const searchInput = document.getElementById('countrySearch');
     searchInput.addEventListener('input', filterCountries);
     

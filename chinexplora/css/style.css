@@ -909,23 +909,39 @@ input:checked + .slider:before {
     min-height: 80px;
 }
 
+.location-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
 .location-name {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: var(--color-dark);
     margin-bottom: 5px;
 }
 
 .location-pinyin {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #666;
     margin-bottom: 5px;
+}
+
+.location-translation {
+    font-size: 1.1rem;
+    color: var(--color-blue);
+    margin: 0;
+    font-weight: 500;
 }
 
 .location-description {
     font-size: 0.9rem;
     color: #555;
     line-height: 1.4;
+    margin-top: 8px;
 }
 
 /* Ajustes responsive para móviles */
@@ -944,8 +960,19 @@ input:checked + .slider:before {
         margin: 12px 0;
     }
     
+    .location-header {
+        gap: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
     .location-name {
         font-size: 1.1rem;
+    }
+
+    .location-pinyin,
+    .location-translation {
+        font-size: 1rem;
     }
 }
 
@@ -962,3 +989,5 @@ input:checked + .slider:before {
         height: 500px; /* Más alto en desktop */
     }
 }
+
+

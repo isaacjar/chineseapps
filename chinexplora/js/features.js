@@ -154,6 +154,7 @@ function showChinaMap() {
 function showLocationInfo(place) {
     const locationInfo = document.getElementById('locationInfo');
     
+    // Usar el campo correcto según el idioma
     const name = settings.language === 'es' ? place.sp : place.en;
     
     locationInfo.innerHTML = `

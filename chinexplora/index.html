@@ -31,6 +31,8 @@
                 <button class="btn-game" id="btnGame1">🚩 <span data-lang="game1">Flags</span></button>
                 <button class="btn-game" id="btnGame2">🗺️ <span data-lang="game2">Shapes</span></button>
                 <button class="btn-game" id="btnGame3">🏞️ <span data-lang="game3">Places</span></button>
+                <button class="btn-game" id="btnCountriesList">📄 <span data-lang="countriesList">Lista de Países</span></button>
+                <button class="btn-game" id="btnChinaMap">🗾 <span data-lang="chinaMap">Mapa de China</span></button>
                 <button class="btn-game" id="btnStats">📊 <span data-lang="stats">Estadísticas</span></button>
             </div>
         </div>
@@ -141,7 +143,54 @@
                 </div>
             </div>
         </div>
-
+        <!-- Pantalla de Lista de Países -->
+        <div class="screen hidden" id="countriesListScreen">
+            <div class="countries-list">
+                <h2 data-lang="countriesList">Countries / Países</h2>
+                <div class="search-container">
+                    <input type="text" id="countrySearch" placeholder="Buscar país..." class="search-input">
+                </div>
+                <div class="countries-grid" id="countriesGrid">
+                    <!-- Los países se cargarán aquí dinámicamente -->
+                </div>
+                <button class="btn-action" id="btnBackFromCountries">⬅️ </button>
+            </div>
+        </div>
+        
+        <!-- Modal para mostrar bandera y silueta -->
+        <div class="modal hidden" id="countryModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">×</button>
+                <div class="modal-flag-container">
+                    <img id="modalFlag" src="" alt="Bandera" class="modal-flag">
+                </div>
+                <div class="modal-outline-container">
+                    <img id="modalOutline" src="" alt="Silueta" class="modal-outline">
+                </div>
+                <div class="modal-country-info">
+                    <h3 id="modalCountryName"></h3>
+                    <p id="modalCountryPinyin"></p>
+                    <p id="modalCountryTranslation"></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pantalla del Mapa de China Interactivo -->
+        <div class="screen hidden" id="chinaMapScreen">
+            <div class="interactive-map-container">
+                <h2 data-lang="chinaMap">China</h2>
+                <div class="map-wrapper">
+                    <div class="interactive-map">
+                        <img src="flags/aachinamap.png" alt="Mapa de China" class="china-map-large">
+                        <svg class="interactive-points-overlay" id="interactivePointsOverlay" width="100%" height="100%" viewBox="0 0 500 400"></svg>
+                    </div>
+                </div>
+                <div class="location-info" id="locationInfo">
+                    <!-- La información del lugar se mostrará aquí -->
+                </div>
+                <button class="btn-action" id="btnBackFromMap">⬅️ Volver</button>
+            </div>
+        </div>
         <!-- Toast notification -->
         <div class="toast hidden" id="toast"></div>
     </div>

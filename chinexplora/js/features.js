@@ -159,9 +159,11 @@ function showLocationInfo(place) {
     const description = settings.language === 'es' ? place.es : place.en;
     
     locationInfo.innerHTML = `
-        <div class="location-name">${place.ch}</div>
-        <div class="location-pinyin">${place.pin}</div>
-        <div class="location-translation">${name}</div>
+        <div class="location-header">
+            <span class="location-name">${place.ch}</span>
+            <span class="location-pinyin">${place.pin}</span>
+            <span class="location-translation">${name}</span>
+        </div>
         <div class="location-description">${description || 'Información no disponible'}</div>
     `;
 }

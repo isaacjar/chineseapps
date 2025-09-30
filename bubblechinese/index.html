@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Chinese 🎈</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎈</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barra de herramientas vertical -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <button id="addTextBtn" class="tool-btn" title="Añadir texto">
+                    <span class="icon">📝</span>
+                </button>
+                <button id="loadFileBtn" class="tool-btn" title="Cargar archivo">
+                    <span class="icon">📁</span>
+                </button>
+            </div>
+            
+            <div class="toolbar-group">
+                <button id="increaseSizeBtn" class="tool-btn" title="Aumentar tamaño">
+                    <span class="icon">+</span>
+                </button>
+                <button id="decreaseSizeBtn" class="tool-btn" title="Disminuir tamaño">
+                    <span class="icon">-</span>
+                </button>
+            </div>
+            
+            <div class="toolbar-group">
+                <button id="togglePinyinBtn" class="tool-btn active" title="Mostrar/ocultar pinyin">
+                    <span class="icon">拼音</span>
+                </button>
+                <button id="toggleSpanishBtn" class="tool-btn active" title="Mostrar/ocultar español">
+                    <span class="icon">🇪🇸</span>
+                </button>
+                <button id="toggleEnglishBtn" class="tool-btn active" title="Mostrar/ocultar inglés">
+                    <span class="icon">🇺🇸</span>
+                </button>
+            </div>
+        </div>
 
+        <!-- Área principal de burbujas -->
+        <div class="bubbles-container" id="bubblesContainer">
+            <div class="welcome-message">
+                <h1>Bubble Chinese 🎈</h1>
+                <p>Usa los botones de la izquierda para añadir caracteres chinos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para añadir texto -->
+    <div id="textModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Añadir caracteres chinos</h2>
+            <textarea id="textInput" placeholder="Escribe o pega caracteres chinos aquí..."></textarea>
+            <div class="modal-buttons">
+                <button id="confirmTextBtn">Añadir</button>
+                <button id="cancelTextBtn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input oculto para cargar archivos -->
+    <input type="file" id="fileInput" accept=".txt" style="display: none;">
+
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>

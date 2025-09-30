@@ -4,8 +4,18 @@ const appState = {
     fontSize: 3, // rem
     showPinyin: true,
     showSpanish: true,
-    showEnglish: true
+    showEnglish: true,
+    currentFont: 'font-ma-shan-zheng' // Fuente por defecto
 };
+
+// Lista de fuentes disponibles
+const availableFonts = [
+    { id: 'font-ma-shan-zheng', name: 'Ma Shan Zheng', class: 'font-ma-shan-zheng' },
+    { id: 'font-liu-jian-mao-cao', name: 'Liu Jian Mao Cao', class: 'font-liu-jian-mao-cao' },
+    { id: 'font-zcool', name: 'ZCOOL QingKe', class: 'font-zcool' },
+    { id: 'font-noto-sans', name: 'Noto Sans', class: 'font-noto-sans' },
+    { id: 'font-simhei', name: 'SimHei', class: 'font-simhei' }
+];
 
 // Variable global para almacenar los datos del diccionario
 let charactersData = [];
@@ -16,6 +26,7 @@ async function initApp() {
     loadStateFromStorage();
     renderBubbles();
     setupEventListeners();
+    updateFontIndicator();
 }
 
 // Cargar diccionario desde el archivo JSON
@@ -55,6 +66,39 @@ function loadStateFromStorage() {
 // Guardar estado en localStorage
 function saveStateToStorage() {
     localStorage.setItem('bubbleChineseState', JSON.stringify(appState));
+}
+
+// Cambiar a la siguiente fuente
+function cycleFont() {
+    const currentIndex = availableFonts.findIndex(font => font.id === appState.currentFont);
+    const nextIndex = (currentIndex + 1) % availableFonts.length;
+    appState.currentFont = availableFonts[nextIndex].id;
+    saveStateToStorage();
+    renderBubbles();
+    updateFontIndicator();
+}
+
+// Actualizar el indicador visual de la fuente actual
+function updateFontIndicator() {
+    const fontBtn = document.getElementById('fontToggleBtn');
+    const currentFontIndex = availableFonts.findIndex(font => font.id === appState.currentFont);
+    const nextFontIndex = (currentFontIndex + 1) % availableFonts.length;
+    const nextFont = availableFonts[nextFontIndex];
+    
+    // Actualizar tooltip
+    fontBtn.title = `Cambiar fuente (Próxima: ${nextFont.name})`;
+    
+    // Asegurarse de que existe el indicador
+    let indicator = fontBtn.querySelector('.font-indicator');
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.className = 'font-indicator';
+        fontBtn.appendChild(indicator);
+    }
+    
+    // Cambiar color del indicador según la fuente
+    const colors = ['#ff69b4', '#ff8c00', '#32cd32', '#1e90ff', '#8a2be2'];
+    indicator.style.backgroundColor = colors[currentFontIndex] || '#ff69b4';
 }
 
 // Procesar texto para extraer caracteres
@@ -116,12 +160,19 @@ function renderBubbles() {
         return;
     }
     
+    // Determinar clase de tamaño
+    let sizeClass = 'bubble-size-medium';
+    if (appState.fontSize <= 2) sizeClass = 'bubble-size-small';
+    else if (appState.fontSize <= 3.5) sizeClass = 'bubble-size-medium';
+    else if (appState.fontSize <= 4.5) sizeClass = 'bubble-size-large';
+    else sizeClass = 'bubble-size-xlarge';
+    
     // Crear burbujas para cada carácter
     appState.characters.forEach(char => {
         const bubble = document.createElement('div');
-        bubble.className = 'bubble';
+        bubble.className = `bubble ${sizeClass} ${appState.currentFont}`;
         
-        let content = `<div class="character" style="font-size: ${appState.fontSize}rem">${char.ch}</div>`;
+        let content = `<div class="character">${char.ch}</div>`;
         
         if (appState.showPinyin && char.pin) {
             content += `<div class="pinyin">${char.pin}</div>`;
@@ -156,6 +207,9 @@ function setupEventListeners() {
     document.getElementById('loadFileBtn').addEventListener('click', () => {
         document.getElementById('fileInput').click();
     });
+    
+    // Botón para cambiar fuente
+    document.getElementById('fontToggleBtn').addEventListener('click', cycleFont);
     
     // Manejar carga de archivo
     document.getElementById('fileInput').addEventListener('change', handleFileUpload);

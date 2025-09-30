@@ -5,7 +5,8 @@ const appState = {
     showPinyin: true,
     showSpanish: true,
     showEnglish: true,
-    currentFont: 'font-ma-shan-zheng' // Fuente por defecto
+    currentFont: 'font-ma-shan-zheng', // Fuente por defecto
+    selectedGroups: new Set() // Grupos seleccionados
 };
 
 // Lista de fuentes disponibles
@@ -51,10 +52,15 @@ async function loadDictionary() {
 
 // Cargar estado desde localStorage
 function loadStateFromStorage() {
-    const savedState = localStorage.getItem('bubbleChineseState');
-    if (savedState) {
+     const savedState = localStorage.getItem('bubbleChineseState');
+     if (savedState) {
         const parsedState = JSON.parse(savedState);
         Object.assign(appState, parsedState);
+        
+        // Convertir Array back to Set
+        if (parsedState.selectedGroups) {
+            appState.selectedGroups = new Set(parsedState.selectedGroups);
+        }
         
         // Actualizar estado de los botones
         document.getElementById('togglePinyinBtn').classList.toggle('active', appState.showPinyin);
@@ -65,7 +71,11 @@ function loadStateFromStorage() {
 
 // Guardar estado en localStorage
 function saveStateToStorage() {
-    localStorage.setItem('bubbleChineseState', JSON.stringify(appState));
+    const stateToSave = {
+        ...appState,
+        selectedGroups: [...appState.selectedGroups] // Convertir Set a Array para localStorage
+    };
+    localStorage.setItem('bubbleChineseState', JSON.stringify(stateToSave));
 }
 
 // Cambiar a la siguiente fuente
@@ -210,7 +220,16 @@ function setupEventListeners() {
     
     // Botón para cambiar fuente
     document.getElementById('fontToggleBtn').addEventListener('click', cycleFont);
-    
+
+    document.getElementById('groupSelectBtn').addEventListener('click', showGroupSelection);
+    document.getElementById('confirmGroupsBtn').addEventListener('click', addSelectedGroups);
+    document.getElementById('cancelGroupsBtn').addEventListener('click', () => {
+        document.getElementById('groupModal').style.display = 'none';
+    });
+    document.querySelector('.group-close').addEventListener('click', () => {
+        document.getElementById('groupModal').style.display = 'none';
+    });
+        
     // Manejar carga de archivo
     document.getElementById('fileInput').addEventListener('change', handleFileUpload);
     
@@ -265,6 +284,63 @@ function handleFileUpload(event) {
     
     // Resetear el input para permitir cargar el mismo archivo otra vez
     event.target.value = '';
+}
+
+// Nueva función para mostrar grupos
+function showGroupSelection() {
+    const modal = document.getElementById('groupModal');
+    const container = document.getElementById('groupsContainer');
+    
+    // Limpiar contenedor
+    container.innerHTML = '';
+    
+    // Obtener grupos únicos del diccionario
+    const groups = [...new Set(charactersData.map(char => char.gr))].sort();
+    
+    // Crear botones para cada grupo
+    groups.forEach(group => {
+        const groupChars = charactersData.filter(char => char.gr === group);
+        const groupBtn = document.createElement('button');
+        groupBtn.className = `group-btn ${appState.selectedGroups.has(group) ? 'selected' : ''}`;
+        groupBtn.innerHTML = `
+            <div class="group-check"></div>
+            <div class="group-name">Grupo ${group}</div>
+            <div class="group-chars">${groupChars.map(char => char.ch).join(' ')}</div>
+        `;
+        
+        groupBtn.addEventListener('click', () => {
+            groupBtn.classList.toggle('selected');
+        });
+        
+        container.appendChild(groupBtn);
+    });
+    
+    modal.style.display = 'block';
+}
+
+// Nueva función para añadir grupos seleccionados
+function addSelectedGroups() {
+    const selectedGroupBtns = document.querySelectorAll('.group-btn.selected');
+    const newGroups = new Set();
+    
+    selectedGroupBtns.forEach(btn => {
+        const groupName = btn.querySelector('.group-name').textContent.replace('Grupo ', '');
+        newGroups.add(groupName);
+    });
+    
+    // Añadir a los grupos seleccionados
+    appState.selectedGroups = new Set([...appState.selectedGroups, ...newGroups]);
+    
+    // Obtener caracteres de los grupos seleccionados
+    const newCharacters = charactersData.filter(char => 
+        appState.selectedGroups.has(char.gr)
+    );
+    
+    // Añadir caracteres (evitando duplicados)
+    addCharacters(newCharacters);
+    
+    // Cerrar modal
+    document.getElementById('groupModal').style.display = 'none';
 }
 
 // Inicializar la aplicación cuando el DOM esté listo

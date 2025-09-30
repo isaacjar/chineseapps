@@ -1,0 +1,15 @@
+[
+  { "ch": "熊猫", "pin": "xióngmāo", "en": "panda" },
+  { "ch": "安静", "pin": "ānjìng", "en": "quiet" },
+  { "ch": "见面", "pin": "jiànmiàn", "en": "to meet" },
+  { "ch": "电梯", "pin": "diàntī", "en": "elevator" },
+  { "ch": "害怕", "pin": "hàipà", "en": "afraid" },
+  { "ch": "洗手间", "pin": "xǐshǒujiān", "en": "restroom" },
+  { "ch": "满意", "pin": "mǎnyì", "en": "satisfied" },
+  { "ch": "可乐", "pin": "kělè", "en": "cola" },
+  { "ch": "马上", "pin": "mǎshàng", "en": "right away" },
+  { "ch": "一会儿", "pin": "yíhuìr", "en": "a little while" },
+  { "ch": "老", "pin": "lǎo", "en": "old" },
+  { "ch": "健康", "pin": "jiànkāng", "en": "healthy" },
+  { "ch": "重要", "pin": "zhòngyào", "en": "important" }
+]

@@ -328,16 +328,18 @@ function addSelectedGroups() {
         newGroups.add(groupName);
     });
     
-    // Añadir a los grupos seleccionados
-    appState.selectedGroups = new Set([...appState.selectedGroups, ...newGroups]);
+    // Actualizar grupos seleccionados
+    appState.selectedGroups = newGroups;
     
-    // Obtener caracteres de los grupos seleccionados
+    // Obtener caracteres de los grupos seleccionados (SUSTITUIR, no añadir)
     const newCharacters = charactersData.filter(char => 
         appState.selectedGroups.has(char.gr)
     );
     
-    // Añadir caracteres (evitando duplicados)
-    addCharacters(newCharacters);
+    // SUSTITUIR los caracteres en pantalla
+    appState.characters = newCharacters;
+    saveStateToStorage();
+    renderBubbles();
     
     // Cerrar modal
     document.getElementById('groupModal').style.display = 'none';

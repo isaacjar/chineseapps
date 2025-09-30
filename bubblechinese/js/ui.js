@@ -28,6 +28,13 @@ function setupModal() {
             closeModal();
         }
     });
+
+    window.addEventListener('click', (event) => {
+        const groupModal = document.getElementById('groupModal');
+        if (event.target === groupModal) {
+            groupModal.style.display = 'none';
+        }
+    });
     
     // Confirmar texto
     confirmBtn.addEventListener('click', () => {

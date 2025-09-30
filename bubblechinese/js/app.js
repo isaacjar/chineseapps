@@ -23,7 +23,7 @@ let charactersData = [];
 
 // Inicialización de la aplicación
 async function initApp() {
-    await loictionary();
+    await loadDictionary();
     loadStateFromStorage();
     renderBubbles();
     setupEventListeners();

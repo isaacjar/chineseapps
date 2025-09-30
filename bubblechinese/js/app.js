@@ -23,7 +23,7 @@ let charactersData = [];
 
 // Inicialización de la aplicación
 async function initApp() {
-    await loadDictionary();
+    await loictionary();
     loadStateFromStorage();
     renderBubbles();
     setupEventListeners();
@@ -143,11 +143,8 @@ function processText(text) {
 
 // Añadir caracteres a la aplicación
 function addCharacters(newChars) {
-    // Evitar duplicados
-    const existingChars = appState.characters.map(c => c.ch);
-    const filteredChars = newChars.filter(char => !existingChars.includes(char.ch));
-    
-    appState.characters = [...appState.characters, ...filteredChars];
+    // SUSTITUIR los caracteres en lugar de añadirlos
+    appState.characters = newChars;
     saveStateToStorage();
     renderBubbles();
 }
@@ -278,11 +275,11 @@ function handleFileUpload(event) {
     reader.onload = function(e) {
         const text = e.target.result;
         const newChars = processText(text);
+        // SUSTITUIR los caracteres
         addCharacters(newChars);
     };
     reader.readAsText(file);
     
-    // Resetear el input para permitir cargar el mismo archivo otra vez
     event.target.value = '';
 }
 

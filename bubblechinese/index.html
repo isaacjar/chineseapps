@@ -21,7 +21,9 @@
                     <div class="btn-label">Archivo</div>
                 </button>
             </div>
-            
+            <button id="groupSelectBtn" class="tool-btn" title="Seleccionar grupos">
+                <span class="icon">👥</span>
+            </button>
             <div class="toolbar-group">
                 <button id="increaseSizeBtn" class="tool-btn" title="Aumentar tamaño">
                     <span class="icon">+</span>
@@ -75,6 +77,21 @@
         </div>
     </div>
 
+    <!-- Nuevo modal para selección de grupos (añadir antes del cierre del body) -->
+    <div id="groupModal" class="modal">
+        <div class="modal-content group-modal">
+            <span class="close group-close">&times;</span>
+            <h2>Seleccionar Grupos de Caracteres</h2>
+            <div class="groups-container" id="groupsContainer">
+                <!-- Los grupos se generarán dinámicamente aquí -->
+            </div>
+            <div class="modal-buttons">
+                <button id="confirmGroupsBtn">Añadir Seleccionados</button>
+                <button id="cancelGroupsBtn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+        
     <!-- Input oculto para cargar archivos -->
     <input type="file" id="fileInput" accept=".txt" style="display: none;">
 

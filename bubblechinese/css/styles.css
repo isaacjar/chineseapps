@@ -21,6 +21,10 @@ body {
     overflow-x: hidden;
 }
 
+/* Importar fuentes bonitas para chino */
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&display=swap');
+
 .app-container {
     display: flex;
     height: 100vh;
@@ -138,6 +142,10 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     z-index: 1;
+    /* Fuentes bonitas para chino - ordenadas por preferencia */
+    font-family: 'Ma Shan Zheng', 'Liu Jian Mao Cao', 'ZCOOL QingKe HuangYou', 'Noto Sans SC', 'SimHei', 'Microsoft YaHei', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1;
 }
 
 .pinyin {
@@ -145,6 +153,8 @@ body {
     color: #555;
     margin-bottom: 8px;
     z-index: 1;
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    font-weight: 500;
 }
 
 .meaning {
@@ -152,6 +162,8 @@ body {
     color: #666;
     text-align: center;
     z-index: 1;
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    line-height: 1.3;
 }
 
 /* Modal */
@@ -206,6 +218,8 @@ body {
     resize: vertical;
     font-size: 1rem;
     margin-bottom: 20px;
+    font-family: 'Ma Shan Zheng', 'ZCOOL QingKe HuangYou', 'Noto Sans SC', sans-serif;
+    font-size: 1.2rem;
 }
 
 .modal-buttons {
@@ -274,4 +288,21 @@ body {
     .character {
         font-size: 2.5rem;
     }
+}
+
+/* Estilos adicionales para diferentes tamaños de fuente */
+.bubble-size-small .character {
+    font-size: 2rem !important;
+}
+
+.bubble-size-medium .character {
+    font-size: 3rem !important;
+}
+
+.bubble-size-large .character {
+    font-size: 4rem !important;
+}
+
+.bubble-size-xlarge .character {
+    font-size: 5rem !important;
 }

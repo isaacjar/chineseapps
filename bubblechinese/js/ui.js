@@ -41,6 +41,7 @@ function setupModal() {
         const text = document.getElementById('textInput').value.trim();
         if (text) {
             const newChars = processText(text);
+            // SUSTITUIR los caracteres
             addCharacters(newChars);
             closeModal();
         }

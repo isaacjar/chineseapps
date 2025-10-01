@@ -214,6 +214,9 @@ function setupEventListeners() {
     document.getElementById('loadFileBtn').addEventListener('click', () => {
         document.getElementById('fileInput').click();
     });
+
+     // Botón para mezclar caracteres
+    document.getElementById('shuffleBtn').addEventListener('click', shuffleCharacters);
     
     // Botón para cambiar fuente
     document.getElementById('fontToggleBtn').addEventListener('click', cycleFont);
@@ -342,5 +345,23 @@ function addSelectedGroups() {
     document.getElementById('groupModal').style.display = 'none';
 }
 
+// Función para mezclar caracteres aleatoriamente
+function shuffleCharacters() {
+    // Crear una copia del array y mezclarlo usando el algoritmo Fisher-Yates
+    const shuffled = [...appState.characters];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    // Actualizar el estado con los caracteres mezclados
+    appState.characters = shuffled;
+    saveStateToStorage();
+    renderBubbles();
+}
+
+
 // Inicializar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initApp);
+
+

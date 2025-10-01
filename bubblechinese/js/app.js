@@ -198,6 +198,12 @@ function renderBubbles() {
         }
         
         bubble.innerHTML = content;
+
+        // ⭐⭐ Burbuja clickable ⭐⭐
+        bubble.addEventListener('click', () => {
+            showStrokeAnimation(char.ch);
+        });
+
         container.appendChild(bubble);
     });
 }
@@ -360,6 +366,59 @@ function shuffleCharacters() {
     renderBubbles();
 }
 
+// Nueva función para mostrar animación de trazos
+function showStrokeAnimation(character) {
+    // Crear modal para animación
+    const modal = document.createElement('div');
+    modal.className = 'stroke-modal';
+    modal.innerHTML = `
+        <div class="stroke-modal-content">
+            <span class="stroke-close">&times;</span>
+            <h3>Animación de Trazos: ${character}</h3>
+            <div id="stroke-animation-container"></div>
+            <div class="stroke-controls">
+                <button id="play-stroke">Reproducir</button>
+                <button id="reset-stroke">Reiniciar</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Inicializar Hanzi Writer
+    const writer = HanziWriter.create('stroke-animation-container', character, {
+        width: 200,
+        height: 200,
+        padding: 10,
+        strokeAnimationSpeed: 2,
+        delayBetweenStrokes: 400,
+        showOutline: true,
+        showCharacter: false
+    });
+    
+    // Event listeners para controles
+    document.getElementById('play-stroke').addEventListener('click', () => {
+        writer.animateCharacter();
+    });
+    
+    document.getElementById('reset-stroke').addEventListener('click', () => {
+        writer.showCharacter(); // Reset to show static character
+    });
+    
+    // Cerrar modal
+    modal.querySelector('.stroke-close').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+    
+    // Reproducir automáticamente al abrir
+    writer.animateCharacter();
+}
 
 // Inicializar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initApp);

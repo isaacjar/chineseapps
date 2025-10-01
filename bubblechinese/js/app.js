@@ -228,13 +228,6 @@ function setupEventListeners() {
     document.getElementById('fontToggleBtn').addEventListener('click', cycleFont);
 
     document.getElementById('groupSelectBtn').addEventListener('click', showGroupSelection);
-    document.getElementById('confirmGroupsBtn').addEventListener('click', addSelectedGroups);
-    document.getElementById('cancelGroupsBtn').addEventListener('click', () => {
-        document.getElementById('groupModal').style.display = 'none';
-    });
-    document.querySelector('.group-close').addEventListener('click', () => {
-        document.getElementById('groupModal').style.display = 'none';
-    });
         
     // Manejar carga de archivo
     document.getElementById('fileInput').addEventListener('change', handleFileUpload);
@@ -319,6 +312,14 @@ function showGroupSelection() {
         });
         
         container.appendChild(groupBtn);
+    });
+
+    document.getElementById('confirmGroupsBtn').addEventListener('click', addSelectedGroups);
+    document.getElementById('cancelGroupsBtn').addEventListener('click', () => {
+        document.getElementById('groupModal').style.display = 'none';
+    });
+    document.querySelector('.group-close').addEventListener('click', () => {
+        document.getElementById('groupModal').style.display = 'none';
     });
     
     modal.style.display = 'block';

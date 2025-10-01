@@ -493,3 +493,68 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* Estilos para el modal de animación de trazos */
+.stroke-modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stroke-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+}
+
+.stroke-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.stroke-close:hover {
+    color: var(--accent-color);
+}
+
+#stroke-animation-container {
+    margin: 20px auto;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    background: white;
+}
+
+.stroke-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.stroke-controls button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.stroke-controls button:hover {
+    background: #ff4da6;
+}

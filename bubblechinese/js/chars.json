@@ -157,6 +157,5 @@
     {"ch": "晚", "pin": "wǎn", "en": "evening", "es": "noche", "lv": "2", "gr": "025"},
     {"ch": "早", "pin": "zǎo", "en": "morning", "es": "mañana", "lv": "2", "gr": "025"},
     {"ch": "上", "pin": "shàng", "en": "morning", "es": "mañana", "lv": "2", "gr": "025"},
-    {"ch": "下", "pin": "xià", "en": "afternoon", "es": "tarde", "lv": "2", "gr": "025"},
-    {"ch": "晚", "pin": "wǎn", "en": "evening", "es": "noche", "lv": "2", "gr": "025"}
+    {"ch": "下", "pin": "xià", "en": "afternoon", "es": "tarde", "lv": "2", "gr": "025"}
 ]

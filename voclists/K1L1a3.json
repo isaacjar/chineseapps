@@ -6,48 +6,14 @@
     { "ch": "家", "pin": "jiā", "en": "home" },
     { "ch": "哪儿", "pin": "nǎr", "en": "where" },
     { "ch": "是", "pin": "shì", "en": "to be" },
-    { "ch": "中国", "pin": "Zhōngguó", "en": "China" }
-  ],
-  "characters": [
+    { "ch": "中国", "pin": "Zhōngguó", "en": "China" },
     { "ch": "我", "pin": "wǒ", "en": "I" },
     { "ch": "你", "pin": "nǐ", "en": "you" },
-    { "ch": "他", "pin": "tā", "en": "he" }
-  ],
-  "sentences": [
-    {
-      "ch": "你是哪国人？",
-      "pin": "Nǐ shì nǎ guó rén?",
-      "en": "Where are you from?",
-      "es": "¿De dónde eres?"
-    },
-    {
-      "ch": "你家在哪儿？",
-      "pin": "Nǐ jiā zài nǎr?",
-      "en": "Where’s your house?",
-      "es": "¿Dónde está tu casa?"
-    },
-    {
-      "ch": "我是西班牙人。",
-      "pin": "Wǒ shì Xībānyárén.",
-      "en": "I am from Spain.",
-      "es": "Yo soy de España."
-    },
-    {
-      "ch": "他家在北京。",
-      "pin": "Tā jiā zài Běijīng.",
-      "en": "His house is in Beijing.",
-      "es": "Su casa está en Pekín."
-    },
-    {
-      "ch": "你叫什么名字？",
-      "pin": "Nǐ jiào shénme míngzi?",
-      "en": "What's your name?",
-      "es": "¿Cómo te llamas?"
-    },
-    {
-      "ch": "你好吗？",
-      "pin": "Nǐ hǎo ma?",
-      "en": "How are you?",
-      "es": "¿Cómo estás?"
-    }
-  ]
+    { "ch": "他", "pin": "tā", "en": "he" },
+    {"ch": "你是哪国人？", "pin": "Nǐ shì nǎ guó rén?", "en": "Where are you from?", "es": "¿De dónde eres?"},
+    { "ch": "你家在哪儿？", "pin": "Nǐ jiā zài nǎr?", "en": "Where’s your house?", "es": "¿Dónde está tu casa?" },
+    { "ch": "我是西班牙人。", "pin": "Wǒ shì Xībānyárén.", "en": "I am from Spain.", "es": "Yo soy de España." },
+    { "ch": "他家在北京。", "pin": "Tā jiā zài Běijīng.", "en": "His house is in Beijing.", "es": "Su casa está en Pekín." },
+    { "ch": "你叫什么名字？", "pin": "Nǐ jiào shénme míngzi?", "en": "What's your name?", "es": "¿Cómo te llamas?" },
+    { "ch": "你好吗？", "pin": "Nǐ hǎo ma?", "en": "How are you?", "es": "¿Cómo estás?" }
+]

@@ -114,20 +114,28 @@ class UI {
         // Actualizar contador
         countElement.textContent = `${this.game.vocabulary.length} palabras`;
         
+        // Obtener el idioma configurado
+        const lang = this.settings.get('language');
+        
         // Mostrar cada palabra
         this.game.vocabulary.forEach(word => {
             const wordElement = document.createElement('div');
             wordElement.className = 'word-item';
+            
+            // Determinar la traducción según el idioma configurado
+            let translation;
+            if (lang === 'es' && word.es) {
+                translation = word.es;
+            } else {
+                translation = word.en;
+            }
             
             wordElement.innerHTML = `
                 <div class="word-chinese">
                     <div class="word-character">${word.ch || ''}</div>
                     <div class="word-pinyin">${word.pin || ''}</div>
                 </div>
-                <div class="word-translations">
-                    <div class="word-english">${word.en || ''}</div>
-                    <div class="word-spanish">${word.es || word.en || ''}</div>
-                </div>
+                <div class="word-translation">${translation}</div>
             `;
             
             container.appendChild(wordElement);

@@ -232,10 +232,12 @@ class UI {
     
     async selectVocabList(list) {
         console.log('Seleccionando listado:', list.filename);
+        this.showToast(`Cargando "${list.title}"...`, 'info');
+        
         const success = await this.game.loadVocabularyList(list.filename);
         if (success) {
             this.settings.set('currentVocabList', list.filename);
-            this.showToast(`Listado "${list.title}" cargado correctamente`, 'success');
+            this.showToast(`Listado "${list.title}" cargado (${this.game.vocabulary.length} palabras)`, 'success');
             this.showScreen('menu-screen');
         } else {
             this.showToast(`Error cargando el listado "${list.title}"`, 'error');

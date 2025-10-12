@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yulin - 语林</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <header id="header">
+        <div class="header-left">
+            <span id="logo">🌳</span>
+            <h1 id="app-title">Yulin</h1>
+        </div>
+        <div class="header-right">
+            <button id="settings-btn" class="icon-btn">⚙️</button>
+            <div id="game-stats" class="hidden">
+                <span id="question-progress">🌱 1/15</span>
+                <span id="score">🏅 0</span>
+                <span id="streak">🔥 0</span>
+                <span id="lives">❤️ 3</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pantallas principales -->
+    <main id="main-content">
+        <!-- Pantalla de Menú -->
+        <section id="menu-screen" class="screen active">
+            <div class="menu-buttons">
+                <button id="vocab-lists-btn" class="menu-btn">
+                    <span class="menu-icon">📚</span>
+                    <span class="menu-text">Listados de vocabulario</span>
+                </button>
+                <button id="game1-btn" class="menu-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span class="menu-text">Juego 1</span>
+                </button>
+                <button id="game2-btn" class="menu-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span class="menu-text">Juego 2</span>
+                </button>
+                <button id="stats-btn" class="menu-btn">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">Estadísticas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Listados -->
+        <section id="lists-screen" class="screen hidden">
+            <div class="popup-content">
+                <h2>Listados de vocabulario</h2>
+                <div id="vocab-lists-container" class="lists-container">
+                    <!-- Los listados se cargarán aquí dinámicamente -->
+                </div>
+                <div class="popup-buttons">
+                    <button id="close-lists-btn" class="btn">Cerrar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Configuración -->
+        <section id="settings-screen" class="screen hidden">
+            <div class="popup-content">
+                <h2>Configuración</h2>
+                <div class="setting-group">
+                    <label for="language-select">Idioma:</label>
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="questions-slider">Número de preguntas: <span id="questions-value">15</span></label>
+                    <input type="range" id="questions-slider" min="5" max="50" value="15">
+                </div>
+                <div class="setting-group">
+                    <label for="time-slider">Tiempo por pregunta: <span id="time-value">10</span> seg.</label>
+                    <input type="range" id="time-slider" min="2" max="30" value="10">
+                </div>
+                <div class="setting-group">
+                    <label for="lives-select">Número de vidas:</label>
+                    <select id="lives-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="difficulty-slider">Dificultad: <span id="difficulty-emoji">😎</span></label>
+                    <input type="range" id="difficulty-slider" min="1" max="2" value="1">
+                </div>
+                <div class="popup-buttons">
+                    <button id="save-settings-btn" class="btn">💾 Guardar</button>
+                    <button id="reset-settings-btn" class="btn">🔄 Resetear</button>
+                    <button id="cancel-settings-btn" class="btn">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Estadísticas -->
+        <section id="stats-screen" class="screen hidden">
+            <div class="popup-content">
+                <h2>Estadísticas</h2>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-label">Palabras mostradas:</span>
+                        <span id="words-shown" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Aciertos:</span>
+                        <span id="correct-answers" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Porcentaje de acierto:</span>
+                        <span id="accuracy-percentage" class="stat-value">0%</span>
+                    </div>
+                </div>
+                <div class="popup-buttons">
+                    <button id="reset-stats-btn" class="btn">Resetear</button>
+                    <button id="close-stats-btn" class="btn">Cerrar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Juego -->
+        <section id="game-screen" class="screen hidden">
+            <div class="game-container">
+                <div id="question-container">
+                    <div id="question-text" class="question-text"></div>
+                    <div id="timer-bar" class="timer-bar">
+                        <div id="timer-progress" class="timer-progress"></div>
+                    </div>
+                </div>
+                <div id="options-container" class="options-container">
+                    <!-- Los botones de opciones se generarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra inferior -->
+    <footer id="footer">
+        <span>🌳语林 Yǔlín 🌳 IJH 🌳Made for learning joy</span>
+    </footer>
+
+    <!-- Toast para mensajes -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Scripts -->
+    <script src="js/lang.json"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -689,3 +689,68 @@ input:checked + .slider:before {
         transform: translateX(22px);
     }
 }
+
+/* Estilo para pinyin en preguntas */
+.question-text small {
+    font-size: 0.7em;
+    color: #795548;
+    font-style: italic;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Estilos para el juego con caracteres chinos */
+.chinese-character {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #5d4037;
+    margin-bottom: 0.5rem;
+}
+
+.pinyin-text {
+    font-size: 1.2rem;
+    color: #795548;
+    font-style: italic;
+}
+
+.translation-text {
+    font-size: 2.5rem;
+    color: #5d4037;
+    font-weight: bold;
+}
+
+/* Estilos para opciones en chino */
+.option-chinese {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.option-pinyin {
+    font-size: 0.8rem;
+    color: #795548;
+    font-style: italic;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .chinese-character {
+        font-size: 2.5rem;
+    }
+    
+    .pinyin-text {
+        font-size: 1rem;
+    }
+    
+    .translation-text {
+        font-size: 2rem;
+    }
+    
+    .option-chinese {
+        font-size: 1.2rem;
+    }
+    
+    .option-pinyin {
+        font-size: 0.7rem;
+    }
+}

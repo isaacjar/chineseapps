@@ -17,40 +17,39 @@ class UI {
         const vocabListsBtn = document.getElementById('vocab-lists-btn');
         const game1Btn = document.getElementById('game1-btn');
         const game2Btn = document.getElementById('game2-btn');
+        const wordsBtn = document.getElementById('words-btn');
         const statsBtn = document.getElementById('stats-btn');
         const settingsBtn = document.getElementById('settings-btn');
         
         if (vocabListsBtn) vocabListsBtn.addEventListener('click', () => this.showScreen('lists-screen'));
         if (game1Btn) game1Btn.addEventListener('click', () => this.game.startGame('game1'));
         if (game2Btn) game2Btn.addEventListener('click', () => this.game.startGame('game2'));
+        if (wordsBtn) wordsBtn.addEventListener('click', () => this.showWordsList());
         if (statsBtn) statsBtn.addEventListener('click', () => {
             this.stats.updateUI();
             this.showScreen('stats-screen');
         });
         
-        // Botón de configuración - Verificar que existe antes de añadir event listener
+        // Botón de configuración
         if (settingsBtn) {
             settingsBtn.addEventListener('click', () => {
-                console.log('Botón settings clickeado');
-                // Asegurarse de que la pantalla de settings esté visible antes de actualizar UI
                 this.showScreen('settings-screen');
-                // Pequeño delay para asegurar que el DOM esté listo
                 setTimeout(() => {
                     this.settings.updateUI();
                 }, 50);
             });
-        } else {
-            console.error('Botón settings no encontrado');
         }
         
         // Botones de cierre
         const closeListsBtn = document.getElementById('close-lists-btn');
         const cancelSettingsBtn = document.getElementById('cancel-settings-btn');
         const closeStatsBtn = document.getElementById('close-stats-btn');
+        const closeWordsBtn = document.getElementById('close-words-btn');
         
         if (closeListsBtn) closeListsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
         if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
         if (closeStatsBtn) closeStatsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
+        if (closeWordsBtn) closeWordsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
         
         // Configuración
         const saveSettingsBtn = document.getElementById('save-settings-btn');
@@ -63,7 +62,7 @@ class UI {
         const resetStatsBtn = document.getElementById('reset-stats-btn');
         if (resetStatsBtn) resetStatsBtn.addEventListener('click', () => this.stats.reset());
         
-        // Sliders - Solo añadir event listeners si los elementos existen
+        // Sliders
         const questionsSlider = document.getElementById('questions-slider');
         const timeSlider = document.getElementById('time-slider');
         const difficultySlider = document.getElementById('difficulty-slider');
@@ -87,6 +86,54 @@ class UI {
                 this.settings.updateDifficultyEmoji();
             });
         }
+    }
+    
+    showWordsList() {
+        // Verificar si hay vocabulario cargado
+        if (!this.game.vocabulary || this.game.vocabulary.length === 0) {
+            this.showToast('Primero selecciona un listado de vocabulario', 'error');
+            this.showScreen('lists-screen');
+            return;
+        }
+        
+        this.displayWords();
+        this.showScreen('words-screen');
+    }
+    
+    displayWords() {
+        const container = document.getElementById('words-container');
+        const countElement = document.getElementById('words-count');
+        
+        if (!container || !countElement) {
+            console.error('No se encontraron elementos para mostrar palabras');
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        // Actualizar contador
+        countElement.textContent = `${this.game.vocabulary.length} palabras`;
+        
+        // Mostrar cada palabra
+        this.game.vocabulary.forEach(word => {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word-item';
+            
+            wordElement.innerHTML = `
+                <div class="word-chinese">
+                    <div class="word-character">${word.ch || ''}</div>
+                    <div class="word-pinyin">${word.pin || ''}</div>
+                </div>
+                <div class="word-translations">
+                    <div class="word-english">${word.en || ''}</div>
+                    <div class="word-spanish">${word.es || word.en || ''}</div>
+                </div>
+            `;
+            
+            container.appendChild(wordElement);
+        });
+        
+        console.log('Palabras mostradas:', this.game.vocabulary.length);
     }
     
     updateLabels() {

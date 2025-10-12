@@ -5,7 +5,8 @@ class Settings {
             questions: 15,
             time: 10,
             lives: 3,
-            difficulty: 1
+            difficulty: 1,
+            showPinyin: true // Nueva configuración para mostrar pinyin
         };
         
         this.loadSettings();
@@ -34,6 +35,7 @@ class Settings {
         if (urlParams.has('questions')) this.settings.questions = parseInt(urlParams.get('questions'));
         if (urlParams.has('time')) this.settings.time = parseInt(urlParams.get('time'));
         if (urlParams.has('difficulty')) this.settings.difficulty = parseInt(urlParams.get('difficulty'));
+        if (urlParams.has('pinyin')) this.settings.showPinyin = urlParams.get('pinyin') === 'true';
     }
     
     get(key) {
@@ -76,6 +78,10 @@ class Settings {
         // Dificultad
         const difficultySwitch = document.getElementById('difficulty-switch');
         if (difficultySwitch) difficultySwitch.checked = this.settings.difficulty === 2;
+        
+        // Mostrar Pinyin
+        const pinyinSwitch = document.getElementById('pinyin-switch');
+        if (pinyinSwitch) pinyinSwitch.checked = this.settings.showPinyin;
         
         this.updateDifficultyEmoji();
     }

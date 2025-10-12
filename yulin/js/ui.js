@@ -1,7 +1,8 @@
 class UI {
-    constructor(settings, game) {
+    constructor(settings, game, stats) {
         this.settings = settings;
         this.game = game;
+        this.stats = stats;
         this.labels = LABELS; // Usar las etiquetas del archivo externo
         this.vocabLists = [];
         

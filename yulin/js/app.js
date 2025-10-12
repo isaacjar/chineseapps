@@ -3,10 +3,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Inicializar componentes
     const settings = new Settings();
     const stats = new Stats();
-    const ui = new UI(settings, null); // Game se inicializará después
     
-    const game = new Game(settings, stats, ui);
-    ui.game = game; // Conectar UI con Game
+    // Inicializar Game primero
+    const game = new Game(settings, stats, null);
+    
+    // Inicializar UI después, pasando todas las dependencias
+    const ui = new UI(settings, game, stats);
+    
+    // Conectar UI con Game
+    game.ui = ui;
     
     // Cargar listado de vocabulario si está especificado
     if (settings.get('currentVocabList')) {

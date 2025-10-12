@@ -12,18 +12,11 @@ class Game {
         this.timer = null;
         this.timeLeft = 0;
         
-        // Datos de ejemplo para testing
+        // Datos de ejemplo para testing con nuevo formato
         this.sampleVocabulary = [
-            { es: "hola", en: "hello", zh: "你好" },
-            { es: "adiós", en: "goodbye", zh: "再见" },
-            { es: "gracias", en: "thank you", zh: "谢谢" },
-            { es: "por favor", en: "please", zh: "请" },
-            { es: "sí", en: "yes", zh: "是" },
-            { es: "no", en: "no", zh: "不" },
-            { es: "agua", en: "water", zh: "水" },
-            { es: "comida", en: "food", zh: "食物" },
-            { es: "casa", en: "house", zh: "房子" },
-            { es: "familia", en: "family", zh: "家庭" }
+            { ch: "你好", pin: "nǐ hǎo", en: "hello", es: "hola" },
+            { ch: "谢谢", pin: "xièxie", en: "thank you", es: "gracias" },
+            { ch: "小", pin: "xiǎo", en: "small", es: "pequeño" }
         ];
     }
     
@@ -47,18 +40,19 @@ class Game {
                 throw new Error('El listado está vacío o no es un array válido');
             }
             
-            // Verificar que cada elemento tenga las propiedades necesarias
+            // Verificar que cada elemento tenga al menos 'en' o 'es'
             const isValid = data.every(item => 
                 item && typeof item === 'object' && 
-                'es' in item && 'en' in item
+                ('en' in item || 'es' in item)
             );
             
             if (!isValid) {
-                throw new Error('El formato del listado no es válido');
+                throw new Error('El formato del listado no es válido - necesita al menos "en" o "es"');
             }
             
             this.vocabulary = data;
             console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras`);
+            console.log('Primeras palabras:', this.vocabulary.slice(0, 3));
             return true;
             
         } catch (error) {
@@ -144,11 +138,22 @@ class Game {
         
         if (this.currentGame === 'game1') {
             // Juego 1: Pregunta en español, opciones en el idioma de la app
-            questionElement.textContent = word.es;
+            // Usar 'es' si existe, sino usar 'en'
+            const questionText = word.es || word.en;
+            questionElement.textContent = questionText;
         } else {
             // Juego 2: Pregunta en el idioma de la app, opciones en español
             const lang = this.settings.get('language');
-            questionElement.textContent = word[lang];
+            // Para el juego 2, mostramos la palabra en el idioma seleccionado
+            // que puede ser 'en' o 'es', pero como el campo 'en' siempre existe,
+            // mostramos 'en' para inglés y 'es' para español si existe
+            let questionText;
+            if (lang === 'es' && word.es) {
+                questionText = word.es;
+            } else {
+                questionText = word.en;
+            }
+            questionElement.textContent = questionText;
         }
     }
     
@@ -173,10 +178,19 @@ class Game {
             if (this.currentGame === 'game1') {
                 // Juego 1: Opciones en el idioma de la app
                 const lang = this.settings.get('language');
-                button.textContent = option[lang];
+                // Para el juego 1, mostramos las opciones en el idioma seleccionado
+                let optionText;
+                if (lang === 'es' && option.es) {
+                    optionText = option.es;
+                } else {
+                    optionText = option.en;
+                }
+                button.textContent = optionText;
             } else {
                 // Juego 2: Opciones en español
-                button.textContent = option.es;
+                // Usar 'es' si existe, sino usar 'en'
+                const optionText = option.es || option.en;
+                button.textContent = optionText;
             }
             
             button.addEventListener('click', () => this.checkAnswer(option, correctWord));
@@ -193,13 +207,29 @@ class Game {
         // Mostrar feedback visual
         const options = document.querySelectorAll('.option-btn');
         options.forEach(btn => {
-            const btnText = this.currentGame === 'game1' 
-                ? btn.textContent === correctWord[this.settings.get('language')]
-                : btn.textContent === correctWord.es;
+            let isCorrectOption = false;
+            
+            if (this.currentGame === 'game1') {
+                // Juego 1: Comparar por contenido del idioma seleccionado
+                const lang = this.settings.get('language');
+                const btnText = btn.textContent;
+                let correctText;
+                if (lang === 'es' && correctWord.es) {
+                    correctText = correctWord.es;
+                } else {
+                    correctText = correctWord.en;
+                }
+                isCorrectOption = btnText === correctText;
+            } else {
+                // Juego 2: Comparar por contenido en español
+                const btnText = btn.textContent;
+                const correctText = correctWord.es || correctWord.en;
+                isCorrectOption = btnText === correctText;
+            }
                 
-            if (btnText) {
+            if (isCorrectOption) {
                 btn.classList.add('correct');
-            } else if (btn === selectedOption) {
+            } else if (btn.textContent === selectedOption.es || btn.textContent === selectedOption.en) {
                 btn.classList.add('incorrect');
             }
             btn.disabled = true;

@@ -69,7 +69,7 @@ class Game {
             
             return true; // Devolver true para permitir continuar con datos de ejemplo
         }
-    }
+    } 
     
     startGame(gameType) {
         if (!this.vocabulary.length) {

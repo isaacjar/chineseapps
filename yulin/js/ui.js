@@ -73,6 +73,7 @@ class UI {
         const timeSlider = document.getElementById('time-slider');
         const livesSlider = document.getElementById('lives-slider');
         const difficultySwitch = document.getElementById('difficulty-switch');
+        const pinyinSwitch = document.getElementById('pinyin-switch'); // Nuevo
         
         if (questionsSlider) {
             questionsSlider.addEventListener('input', (e) => {
@@ -101,7 +102,12 @@ class UI {
                 this.settings.updateDifficultyEmoji();
             });
         }
-    }
+        
+        if (pinyinSwitch) {
+            pinyinSwitch.addEventListener('change', (e) => {
+                this.settings.set('showPinyin', e.target.checked);
+            });
+        }
     
     goToHome() {
         // Detener el juego si está en curso

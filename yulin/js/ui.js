@@ -8,9 +8,153 @@ class UI {
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {
-            // Una vez cargados los listados, actualizar la UI si es necesario
             this.updateLabels();
         });
+    }
+    
+    setupEventListeners() {
+        // Botones del menú
+        const vocabListsBtn = document.getElementById('vocab-lists-btn');
+        const game1Btn = document.getElementById('game1-btn');
+        const game2Btn = document.getElementById('game2-btn');
+        const statsBtn = document.getElementById('stats-btn');
+        const settingsBtn = document.getElementById('settings-btn');
+        
+        if (vocabListsBtn) vocabListsBtn.addEventListener('click', () => this.showScreen('lists-screen'));
+        if (game1Btn) game1Btn.addEventListener('click', () => this.game.startGame('game1'));
+        if (game2Btn) game2Btn.addEventListener('click', () => this.game.startGame('game2'));
+        if (statsBtn) statsBtn.addEventListener('click', () => {
+            this.stats.updateUI();
+            this.showScreen('stats-screen');
+        });
+        
+        // Botón de configuración - Verificar que existe antes de añadir event listener
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                console.log('Botón settings clickeado');
+                // Asegurarse de que la pantalla de settings esté visible antes de actualizar UI
+                this.showScreen('settings-screen');
+                // Pequeño delay para asegurar que el DOM esté listo
+                setTimeout(() => {
+                    this.settings.updateUI();
+                }, 50);
+            });
+        } else {
+            console.error('Botón settings no encontrado');
+        }
+        
+        // Botones de cierre
+        const closeListsBtn = document.getElementById('close-lists-btn');
+        const cancelSettingsBtn = document.getElementById('cancel-settings-btn');
+        const closeStatsBtn = document.getElementById('close-stats-btn');
+        
+        if (closeListsBtn) closeListsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
+        if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
+        if (closeStatsBtn) closeStatsBtn.addEventListener('click', () => this.showScreen('menu-screen'));
+        
+        // Configuración
+        const saveSettingsBtn = document.getElementById('save-settings-btn');
+        const resetSettingsBtn = document.getElementById('reset-settings-btn');
+        
+        if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', () => this.saveSettings());
+        if (resetSettingsBtn) resetSettingsBtn.addEventListener('click', () => this.resetSettings());
+        
+        // Estadísticas
+        const resetStatsBtn = document.getElementById('reset-stats-btn');
+        if (resetStatsBtn) resetStatsBtn.addEventListener('click', () => this.stats.reset());
+        
+        // Sliders - Solo añadir event listeners si los elementos existen
+        const questionsSlider = document.getElementById('questions-slider');
+        const timeSlider = document.getElementById('time-slider');
+        const difficultySlider = document.getElementById('difficulty-slider');
+        
+        if (questionsSlider) {
+            questionsSlider.addEventListener('input', (e) => {
+                const questionsValue = document.getElementById('questions-value');
+                if (questionsValue) questionsValue.textContent = e.target.value;
+            });
+        }
+        
+        if (timeSlider) {
+            timeSlider.addEventListener('input', (e) => {
+                const timeValue = document.getElementById('time-value');
+                if (timeValue) timeValue.textContent = e.target.value;
+            });
+        }
+        
+        if (difficultySlider) {
+            difficultySlider.addEventListener('input', (e) => {
+                this.settings.updateDifficultyEmoji();
+            });
+        }
+    }
+    
+    updateLabels() {
+        const lang = this.settings.get('language');
+        const currentLabels = this.labels[lang];
+        
+        if (!currentLabels) {
+            console.error('No se encontraron etiquetas para el idioma:', lang);
+            return;
+        }
+        
+        // Actualizar título de la app
+        const appTitle = document.getElementById('app-title');
+        if (appTitle) appTitle.textContent = currentLabels.appTitle;
+        
+        // Actualizar menú
+        const vocabListsText = document.querySelector('#vocab-lists-btn .menu-text');
+        const game1Text = document.querySelector('#game1-btn .menu-text');
+        const game2Text = document.querySelector('#game2-btn .menu-text');
+        const statsText = document.querySelector('#stats-btn .menu-text');
+        
+        if (vocabListsText) vocabListsText.textContent = currentLabels.menu.vocabLists;
+        if (game1Text) game1Text.textContent = currentLabels.menu.game1;
+        if (game2Text) game2Text.textContent = currentLabels.menu.game2;
+        if (statsText) statsText.textContent = currentLabels.menu.stats;
+        
+        // Actualizar pantalla de listados
+        const listsTitle = document.querySelector('#lists-screen h2');
+        const closeListsBtn = document.getElementById('close-lists-btn');
+        
+        if (listsTitle) listsTitle.textContent = currentLabels.lists.title;
+        if (closeListsBtn) closeListsBtn.textContent = currentLabels.lists.close;
+        
+        // Actualizar pantalla de configuración
+        const settingsTitle = document.querySelector('#settings-screen h2');
+        const languageLabel = document.querySelector('#settings-screen label[for="language-select"]');
+        const questionsLabel = document.querySelector('#settings-screen label[for="questions-slider"]');
+        const timeLabel = document.querySelector('#settings-screen label[for="time-slider"]');
+        const livesLabel = document.querySelector('#settings-screen label[for="lives-select"]');
+        const difficultyLabel = document.querySelector('#settings-screen label[for="difficulty-slider"]');
+        const saveSettingsBtn = document.getElementById('save-settings-btn');
+        const resetSettingsBtn = document.getElementById('reset-settings-btn');
+        const cancelSettingsBtn = document.getElementById('cancel-settings-btn');
+        
+        if (settingsTitle) settingsTitle.textContent = currentLabels.settings.title;
+        if (languageLabel) languageLabel.textContent = currentLabels.settings.language;
+        if (questionsLabel) questionsLabel.textContent = currentLabels.settings.questions;
+        if (timeLabel) timeLabel.textContent = currentLabels.settings.time;
+        if (livesLabel) livesLabel.textContent = currentLabels.settings.lives;
+        if (difficultyLabel) difficultyLabel.textContent = currentLabels.settings.difficulty;
+        if (saveSettingsBtn) saveSettingsBtn.textContent = currentLabels.settings.save;
+        if (resetSettingsBtn) resetSettingsBtn.textContent = currentLabels.settings.reset;
+        if (cancelSettingsBtn) cancelSettingsBtn.textContent = currentLabels.settings.cancel;
+        
+        // Actualizar pantalla de estadísticas
+        const statsTitle = document.querySelector('#stats-screen h2');
+        const wordsShownLabel = document.querySelector('.stat-item:nth-child(1) .stat-label');
+        const correctAnswersLabel = document.querySelector('.stat-item:nth-child(2) .stat-label');
+        const accuracyLabel = document.querySelector('.stat-item:nth-child(3) .stat-label');
+        const resetStatsBtn = document.getElementById('reset-stats-btn');
+        const closeStatsBtn = document.getElementById('close-stats-btn');
+        
+        if (statsTitle) statsTitle.textContent = currentLabels.stats.title;
+        if (wordsShownLabel) wordsShownLabel.textContent = currentLabels.stats.wordsShown;
+        if (correctAnswersLabel) correctAnswersLabel.textContent = currentLabels.stats.correctAnswers;
+        if (accuracyLabel) accuracyLabel.textContent = currentLabels.stats.accuracy;
+        if (resetStatsBtn) resetStatsBtn.textContent = currentLabels.stats.reset;
+        if (closeStatsBtn) closeStatsBtn.textContent = currentLabels.stats.close;
     }
     
     async loadVocabLists() {
@@ -98,9 +242,6 @@ class UI {
             // Mantener en la pantalla de listados para que el usuario pueda elegir otro
         }
     }
-
-    // ... el resto de los métodos permanece igual ...
-    }
     
     showScreen(screenId) {
         // Ocultar todas las pantallas
@@ -111,26 +252,43 @@ class UI {
         
         // Mostrar la pantalla solicitada
         const screen = document.getElementById(screenId);
-        screen.classList.remove('hidden');
-        screen.classList.add('active');
+        if (screen) {
+            screen.classList.remove('hidden');
+            screen.classList.add('active');
+        } else {
+            console.error('No se encontró la pantalla:', screenId);
+        }
     }
     
     showGameStats() {
-        document.getElementById('settings-btn').classList.add('hidden');
-        document.getElementById('game-stats').classList.remove('hidden');
+        const settingsBtn = document.getElementById('settings-btn');
+        const gameStats = document.getElementById('game-stats');
+        
+        if (settingsBtn) settingsBtn.classList.add('hidden');
+        if (gameStats) gameStats.classList.remove('hidden');
     }
     
     hideGameStats() {
-        document.getElementById('settings-btn').classList.remove('hidden');
-        document.getElementById('game-stats').classList.add('hidden');
+        const settingsBtn = document.getElementById('settings-btn');
+        const gameStats = document.getElementById('game-stats');
+        
+        if (settingsBtn) settingsBtn.classList.remove('hidden');
+        if (gameStats) gameStats.classList.add('hidden');
     }
     
     saveSettings() {
-        this.settings.set('language', document.getElementById('language-select').value);
-        this.settings.set('questions', parseInt(document.getElementById('questions-slider').value));
-        this.settings.set('time', parseInt(document.getElementById('time-slider').value));
-        this.settings.set('lives', parseInt(document.getElementById('lives-select').value));
-        this.settings.set('difficulty', parseInt(document.getElementById('difficulty-slider').value));
+        // Verificar que los elementos existen antes de obtener sus valores
+        const languageSelect = document.getElementById('language-select');
+        const questionsSlider = document.getElementById('questions-slider');
+        const timeSlider = document.getElementById('time-slider');
+        const livesSelect = document.getElementById('lives-select');
+        const difficultySlider = document.getElementById('difficulty-slider');
+        
+        if (languageSelect) this.settings.set('language', languageSelect.value);
+        if (questionsSlider) this.settings.set('questions', parseInt(questionsSlider.value));
+        if (timeSlider) this.settings.set('time', parseInt(timeSlider.value));
+        if (livesSelect) this.settings.set('lives', parseInt(livesSelect.value));
+        if (difficultySlider) this.settings.set('difficulty', parseInt(difficultySlider.value));
         
         this.updateLabels();
         this.showToast('Configuración guardada', 'success');
@@ -146,6 +304,11 @@ class UI {
     
     showToast(message, type = 'info') {
         const toast = document.getElementById('toast');
+        if (!toast) {
+            console.error('No se encontró el elemento toast');
+            return;
+        }
+        
         toast.textContent = message;
         toast.className = 'toast';
         
@@ -181,28 +344,5 @@ class UI {
         const messages = Object.values(this.labels[lang].failMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
         this.showToast(randomMessage, 'error');
-    }
-    
-    async loadVocabLists() {
-        try {
-            // En lugar de cargar el archivo index.js, vamos a definir los listados manualmente
-            // o usar una API si está disponible
-            this.vocabLists = [
-                { filename: "H1L1", title: "HSK 1 Lesson 1", level: "H1", misc: "MIT" },
-                { filename: "H1L2", title: "HSK 1 Lesson 2", level: "H1", misc: "MIT" },
-                { filename: "H1L3", title: "HSK 1 Lesson 3", level: "H1", misc: "MIT" },
-                { filename: "H2L1", title: "HSK 2 Lesson 1", level: "H2", misc: "MIT" },
-                { filename: "H2L2", title: "HSK 2 Lesson 2", level: "H2", misc: "MIT" }
-            ];
-            this.displayVocabLists();
-        } catch (error) {
-            console.error('Error cargando listados de vocabulario:', error);
-            // Listados de ejemplo como fallback
-            this.vocabLists = [
-                { filename: "H1L1", title: "HSK 1 Lesson 1", level: "H1", misc: "MIT" },
-                { filename: "H1L2", title: "HSK 1 Lesson 2", level: "H1", misc: "MIT" }
-            ];
-            this.displayVocabLists();
-        }
     }
 }

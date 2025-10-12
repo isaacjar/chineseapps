@@ -108,7 +108,8 @@ class UI {
                 this.settings.set('showPinyin', e.target.checked);
             });
         }
-    
+    }
+        
     goToHome() {
         // Detener el juego si está en curso
         if (this.game.timer) {

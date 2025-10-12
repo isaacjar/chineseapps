@@ -128,8 +128,9 @@ class UI {
     displayWords() {
         const container = document.getElementById('words-container');
         const countElement = document.getElementById('words-count');
+        const wordsTitle = document.querySelector('#words-screen h2');
         
-        if (!container || !countElement) {
+        if (!container || !countElement || !wordsTitle) {
             console.error('No se encontraron elementos para mostrar palabras');
             return;
         }
@@ -138,6 +139,30 @@ class UI {
         
         // Actualizar contador
         countElement.textContent = `${this.game.vocabulary.length} palabras`;
+        
+        // Buscar el nombre del listado actual en los listados cargados
+        let listTitle = 'Lista de Palabras'; // Valor por defecto
+        
+        // Si tenemos el listado actual cargado, buscar su título
+        if (this.vocabLists.length > 0 && this.game.vocabulary.length > 0) {
+            // Buscar en los parámetros URL primero
+            const urlParams = new URLSearchParams(window.location.search);
+            const voclistParam = urlParams.get('voclist');
+            
+            if (voclistParam) {
+                const foundList = this.vocabLists.find(list => list.filename === voclistParam);
+                if (foundList) {
+                    listTitle = foundList.title;
+                }
+            } else {
+                // Si no hay parámetro URL, usar el primer listado como referencia
+                // (en una app real podrías querer guardar el título cuando se selecciona)
+                listTitle = this.vocabLists[0].title;
+            }
+        }
+        
+        // Actualizar el título con el nombre del listado
+        wordsTitle.textContent = listTitle;
         
         // Obtener el idioma configurado
         const lang = this.settings.get('language');

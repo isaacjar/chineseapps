@@ -13,11 +13,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Conectar UI con Game
     game.ui = ui;
     
-    // Cargar listado de vocabulario si está especificado
-    if (settings.get('currentVocabList')) {
-        await game.loadVocabularyList(settings.get('currentVocabList'));
+    // Verificar si hay un listado cargado o parámetros URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const voclistParam = urlParams.get('voclist');
+    
+    if (settings.get('currentVocabList') || voclistParam) {
+        // Hay un listado guardado o en parámetros URL, cargarlo
+        const listToLoad = voclistParam || settings.get('currentVocabList');
+        const success = await game.loadVocabularyList(listToLoad);
+        
+        if (success) {
+            console.log('Listado cargado:', listToLoad);
+            // Mostrar menú principal
+            ui.showScreen('menu-screen');
+        } else {
+            // Error cargando el listado, mostrar pantalla de listados
+            console.error('Error cargando listado, mostrando selector');
+            ui.showScreen('lists-screen');
+        }
     } else {
-        // Si no hay listado cargado, mostrar pantalla de listados
+        // No hay listado cargado, mostrar pantalla de listados inmediatamente
+        console.log('No hay listado cargado, mostrando selector');
         ui.showScreen('lists-screen');
     }
     

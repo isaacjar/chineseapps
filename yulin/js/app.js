@@ -13,27 +13,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Conectar UI con Game
     game.ui = ui;
     
-    // Verificar si hay un listado cargado o parámetros URL
+    // Verificar parámetros URL para voclist
     const urlParams = new URLSearchParams(window.location.search);
     const voclistParam = urlParams.get('voclist');
     
-    if (settings.get('currentVocabList') || voclistParam) {
-        // Hay un listado guardado o en parámetros URL, cargarlo
-        const listToLoad = voclistParam || settings.get('currentVocabList');
-        const success = await game.loadVocabularyList(listToLoad);
+    if (voclistParam) {
+        // Hay parámetro voclist en la URL, cargarlo
+        console.log('Cargando listado desde URL parameter:', voclistParam);
+        const success = await game.loadVocabularyList(voclistParam);
         
         if (success) {
-            console.log('Listado cargado:', listToLoad);
+            console.log('Listado cargado desde URL:', voclistParam);
             // Mostrar menú principal
             ui.showScreen('menu-screen');
+            ui.showToast(`Listado cargado desde URL: ${voclistParam}`, 'success');
         } else {
-            // Error cargando el listado, mostrar pantalla de listados
-            console.error('Error cargando listado, mostrando selector');
+            // Error cargando el listado desde URL, mostrar pantalla de listados
+            console.error('Error cargando listado desde URL, mostrando selector');
             ui.showScreen('lists-screen');
+            ui.showToast(`Error cargando listado desde URL: ${voclistParam}`, 'error');
         }
     } else {
-        // No hay listado cargado, mostrar pantalla de listados inmediatamente
-        console.log('No hay listado cargado, mostrando selector');
+        // No hay parámetro voclist en la URL, mostrar pantalla de listados inmediatamente
+        console.log('No hay listado especificado en URL, mostrando selector');
         ui.showScreen('lists-screen');
     }
     

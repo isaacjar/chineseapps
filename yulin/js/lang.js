@@ -4,6 +4,7 @@ const LABELS = {
         "appTitle": "Yulin",
         "menu": {
             "vocabLists": "Vocabulary Lists",
+            "words": "Words",
             "game1": "Game 1",
             "game2": "Game 2",
             "stats": "Statistics"
@@ -59,12 +60,17 @@ const LABELS = {
             "f8": "🙃 Oops, no!",
             "f9": "🍄 Another chance!",
             "f10": "🐤 That wasn't it..."
+        },
+        "words": {
+            "title": "Word List",
+            "close": "Close"
         }
     },
     "es": {
         "appTitle": "Yulin",
         "menu": {
             "vocabLists": "Listados de vocabulario",
+            "words": "Palabras",
             "game1": "Juego 1",
             "game2": "Juego 2",
             "stats": "Estadísticas"
@@ -120,6 +126,10 @@ const LABELS = {
             "f8": "🙃 Ups, ¡no!",
             "f9": "🍄 ¡Otra oportunidad!",
             "f10": "🐤 ¡Esa no era..."
+        },
+        "words": {
+            "title": "Lista de Palabras",
+            "close": "Cerrar"
         }
     }
 };

@@ -461,3 +461,115 @@ body {
     border-radius: 8px;
     background-color: var(--pastel-green-light);
 }
+
+/* Estilos para la pantalla de palabras */
+.words-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--pastel-brown);
+}
+
+.words-count {
+    font-weight: bold;
+    color: #5d4037;
+    font-size: 1.1rem;
+}
+
+.words-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border: 1px solid var(--pastel-brown);
+    border-radius: 8px;
+    background-color: var(--pastel-green-light);
+}
+
+.word-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.word-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.word-chinese {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.word-character {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5d4037;
+    margin-bottom: 0.25rem;
+}
+
+.word-pinyin {
+    font-size: 0.9rem;
+    color: #795548;
+    font-style: italic;
+}
+
+.word-translations {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    flex: 1;
+}
+
+.word-english {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #5d4037;
+    margin-bottom: 0.25rem;
+}
+
+.word-spanish {
+    font-size: 1rem;
+    color: #795548;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .word-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem;
+    }
+    
+    .word-translations {
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+    
+    .word-character {
+        font-size: 1.5rem;
+    }
+    
+    .words-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    
+    .words-header .btn {
+        align-self: flex-end;
+    }
+}

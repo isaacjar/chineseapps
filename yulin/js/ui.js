@@ -68,10 +68,11 @@ class UI {
         const resetStatsBtn = document.getElementById('reset-stats-btn');
         if (resetStatsBtn) resetStatsBtn.addEventListener('click', () => this.stats.reset());
         
-        // Sliders
+        // Sliders y switch
         const questionsSlider = document.getElementById('questions-slider');
         const timeSlider = document.getElementById('time-slider');
-        const difficultySlider = document.getElementById('difficulty-slider');
+        const livesSlider = document.getElementById('lives-slider');
+        const difficultySwitch = document.getElementById('difficulty-switch');
         
         if (questionsSlider) {
             questionsSlider.addEventListener('input', (e) => {
@@ -83,12 +84,20 @@ class UI {
         if (timeSlider) {
             timeSlider.addEventListener('input', (e) => {
                 const timeValue = document.getElementById('time-value');
-                if (timeValue) timeValue.textContent = e.target.value;
+                if (timeValue) timeValue.textContent = `${e.target.value} s.`;
             });
         }
         
-        if (difficultySlider) {
-            difficultySlider.addEventListener('input', (e) => {
+        if (livesSlider) {
+            livesSlider.addEventListener('input', (e) => {
+                const livesValue = document.getElementById('lives-value');
+                if (livesValue) livesValue.textContent = e.target.value;
+            });
+        }
+        
+        if (difficultySwitch) {
+            difficultySwitch.addEventListener('change', (e) => {
+                this.settings.set('difficulty', e.target.checked ? 2 : 1);
                 this.settings.updateDifficultyEmoji();
             });
         }

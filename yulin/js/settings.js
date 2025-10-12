@@ -6,7 +6,6 @@ class Settings {
             time: 10,
             lives: 3,
             difficulty: 1
-            // Eliminamos currentVocabList de los settings por defecto
         };
         
         this.loadSettings();
@@ -16,7 +15,6 @@ class Settings {
     loadSettings() {
         const savedSettings = localStorage.getItem('yulin-settings');
         if (savedSettings) {
-            // No cargamos currentVocabList desde localStorage
             const { currentVocabList, ...savedSettingsWithoutVocab } = JSON.parse(savedSettings);
             this.settings = {...this.defaultSettings, ...savedSettingsWithoutVocab};
         } else {
@@ -25,7 +23,6 @@ class Settings {
     }
     
     saveSettings() {
-        // No guardamos currentVocabList en localStorage
         const { currentVocabList, ...settingsToSave } = this.settings;
         localStorage.setItem('yulin-settings', JSON.stringify(settingsToSave));
     }
@@ -33,19 +30,10 @@ class Settings {
     applyUrlParameters() {
         const urlParams = new URLSearchParams(window.location.search);
         
-        if (urlParams.has('lang')) {
-            this.settings.language = urlParams.get('lang');
-        }
-        if (urlParams.has('questions')) {
-            this.settings.questions = parseInt(urlParams.get('questions'));
-        }
-        if (urlParams.has('time')) {
-            this.settings.time = parseInt(urlParams.get('time'));
-        }
-        if (urlParams.has('difficulty')) {
-            this.settings.difficulty = parseInt(urlParams.get('difficulty'));
-        }
-        // No aplicamos voclist como setting persistente
+        if (urlParams.has('lang')) this.settings.language = urlParams.get('lang');
+        if (urlParams.has('questions')) this.settings.questions = parseInt(urlParams.get('questions'));
+        if (urlParams.has('time')) this.settings.time = parseInt(urlParams.get('time'));
+        if (urlParams.has('difficulty')) this.settings.difficulty = parseInt(urlParams.get('difficulty'));
     }
     
     get(key) {
@@ -54,10 +42,7 @@ class Settings {
     
     set(key, value) {
         this.settings[key] = value;
-        // Si no es currentVocabList, guardamos en localStorage
-        if (key !== 'currentVocabList') {
-            this.saveSettings();
-        }
+        if (key !== 'currentVocabList') this.saveSettings();
     }
     
     reset() {
@@ -66,22 +51,31 @@ class Settings {
     }
     
     updateUI() {
-        // Solo actualizar elementos que existen
+        // Idioma
         const languageSelect = document.getElementById('language-select');
+        if (languageSelect) languageSelect.value = this.settings.language;
+        
+        // Número de preguntas
         const questionsSlider = document.getElementById('questions-slider');
         const questionsValue = document.getElementById('questions-value');
-        const timeSlider = document.getElementById('time-slider');
-        const timeValue = document.getElementById('time-value');
-        const livesSelect = document.getElementById('lives-select');
-        const difficultySlider = document.getElementById('difficulty-slider');
-        
-        if (languageSelect) languageSelect.value = this.settings.language;
         if (questionsSlider) questionsSlider.value = this.settings.questions;
         if (questionsValue) questionsValue.textContent = this.settings.questions;
+        
+        // Tiempo por pregunta
+        const timeSlider = document.getElementById('time-slider');
+        const timeValue = document.getElementById('time-value');
         if (timeSlider) timeSlider.value = this.settings.time;
-        if (timeValue) timeValue.textContent = this.settings.time;
-        if (livesSelect) livesSelect.value = this.settings.lives;
-        if (difficultySlider) difficultySlider.value = this.settings.difficulty;
+        if (timeValue) timeValue.textContent = `${this.settings.time} s.`;
+        
+        // Número de vidas
+        const livesSlider = document.getElementById('lives-slider');
+        const livesValue = document.getElementById('lives-value');
+        if (livesSlider) livesSlider.value = this.settings.lives;
+        if (livesValue) livesValue.textContent = this.settings.lives;
+        
+        // Dificultad
+        const difficultySwitch = document.getElementById('difficulty-switch');
+        if (difficultySwitch) difficultySwitch.checked = this.settings.difficulty === 2;
         
         this.updateDifficultyEmoji();
     }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yǔlín - Vocabulary Game</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      <span class="title-text">Yǔlín</span>
+      <button id="gameSelector" class="game-selector-btn" title="Select Game">🎮</button>
+    </h1>
+
+    <!-- Game Selector Modal -->
+    <div id="gameModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Select Game</h2>
+        <div id="gameList" class="game-list">
+          <!-- Games will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Language Selector -->
+    <div class="language-toggle">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+
+    <!-- Mode Selection -->
+    <div class="mode-toggle">
+      <button class="mode" id="modeChinese" data-mode="Chinese">🈶</button>
+      <button class="mode" id="modePinyin" data-mode="Pinyin">🔤</button>
+      <button class="mode" id="modeEnglish" data-mode="English">EN</button>
+      <button class="mode" id="modeChEn" data-mode="Ch-En">🈶EN</button>
+    </div>
+
+    <!-- Question Settings -->
+    <div class="question-settings">
+      <label for="questionCount">Number of questions:</label>
+      <div class="stepper">
+        <button id="decrease" class="step-btn" aria-label="Decrease questions">−</button>
+        <div id="questionCount" class="step-display">20</div>
+        <button id="increase" class="step-btn" aria-label="Increase questions">+</button>
+      </div>
+    </div>
+
+    <!-- Control Button -->
+    <div class="controls">
+      <button id="newGame">▶ New Game</button>
+      <div id="questionProgress" class="progress-label" hidden>1/10</div> 
+      <div id="toast" class="toast" hidden></div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div id="scoreDisplay" class="stat" tabindex="-1">📚 0</div>
+      <div id="streakDisplay" class="stat">🧠 0</div>
+      <div id="bestScoreDisplay" class="stat">🎓 0</div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div id="progressFill"></div>
+    </div>
+
+    <!-- Countdown Visual -->
+    <div id="countdownCircles" class="circle-container">
+      <div class="circle" id="c1"></div>
+      <div class="circle" id="c2"></div>
+      <div class="circle" id="c3"></div>
+      <div class="circle" id="c4"></div>
+      <div class="circle" id="c5"></div>
+      <div class="circle" id="c6"></div>
+      <div class="circle" id="c7"></div>
+      <div class="circle" id="c8"></div>
+      <div class="circle" id="c9"></div>
+      <div class="circle" id="c10"></div>
+    </div>
+
+    <!-- Summary and Review -->
+    <div id="summaryMessage" class="summary" hidden></div>
+    <div id="vocabReview" class="summary" hidden></div>
+
+    <!-- Question Display -->
+    <div class="question-display">
+      <label id="questionLabel">Select a mode to begin</label>
+    </div>
+
+    <!-- Answer Options -->
+    <div class="options">
+      <button class="option" id="opt1"></button>
+      <button class="option" id="opt2"></button>
+      <button class="option" id="opt3"></button>
+      <button class="option" id="opt4"></button>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="results" hidden></div>
+  </div>
+
+  <!-- Foco redirigido para evitar efecto azul en móviles -->
+  <div id="focusRedirect" tabindex="-1" style="height:1px; width:1px; opacity:0;"></div>
+
+  <!-- Scripts -->
+  <script src="vocabulary.js"></script>
+  <script src="ui.js"></script>
+  <script src="game.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

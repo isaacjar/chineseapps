@@ -135,25 +135,37 @@ class Game {
     
     displayQuestion(word) {
         const questionElement = document.getElementById('question-text');
+        questionElement.innerHTML = ''; // Limpiar contenido anterior
         
         if (this.currentGame === 'game1') {
-            // Juego 1: Pregunta en español, opciones en el idioma de la app
-            // Usar 'es' si existe, sino usar 'en'
-            const questionText = word.es || word.en;
-            questionElement.textContent = questionText;
+            // JUEGO 1: Mostrar palabra en chino (grande)
+            const chineseElement = document.createElement('div');
+            chineseElement.className = 'chinese-character';
+            chineseElement.textContent = word.ch || '';
+            
+            questionElement.appendChild(chineseElement);
+            
+            // Mostrar pinyin si está activado en settings
+            if (this.settings.get('showPinyin') && word.pin) {
+                const pinyinElement = document.createElement('div');
+                pinyinElement.className = 'pinyin-text';
+                pinyinElement.textContent = word.pin;
+                questionElement.appendChild(pinyinElement);
+            }
         } else {
-            // Juego 2: Pregunta en el idioma de la app, opciones en español
+            // JUEGO 2: Mostrar palabra en el idioma configurado
             const lang = this.settings.get('language');
-            // Para el juego 2, mostramos la palabra en el idioma seleccionado
-            // que puede ser 'en' o 'es', pero como el campo 'en' siempre existe,
-            // mostramos 'en' para inglés y 'es' para español si existe
             let questionText;
             if (lang === 'es' && word.es) {
                 questionText = word.es;
             } else {
                 questionText = word.en;
             }
-            questionElement.textContent = questionText;
+            
+            const textElement = document.createElement('div');
+            textElement.className = 'translation-text';
+            textElement.textContent = questionText;
+            questionElement.appendChild(textElement);
         }
     }
     
@@ -176,9 +188,8 @@ class Game {
             button.className = 'option-btn';
             
             if (this.currentGame === 'game1') {
-                // Juego 1: Opciones en el idioma de la app
+                // JUEGO 1: Opciones en el idioma configurado
                 const lang = this.settings.get('language');
-                // Para el juego 1, mostramos las opciones en el idioma seleccionado
                 let optionText;
                 if (lang === 'es' && option.es) {
                     optionText = option.es;
@@ -187,10 +198,21 @@ class Game {
                 }
                 button.textContent = optionText;
             } else {
-                // Juego 2: Opciones en español
-                // Usar 'es' si existe, sino usar 'en'
-                const optionText = option.es || option.en;
-                button.textContent = optionText;
+                // JUEGO 2: Opciones en chino
+                const chineseElement = document.createElement('div');
+                chineseElement.className = 'option-chinese';
+                chineseElement.textContent = option.ch || '';
+                
+                // Mostrar pinyin si está activado
+                if (this.settings.get('showPinyin') && option.pin) {
+                    const pinyinElement = document.createElement('div');
+                    pinyinElement.className = 'option-pinyin';
+                    pinyinElement.textContent = option.pin;
+                    button.appendChild(chineseElement);
+                    button.appendChild(pinyinElement);
+                } else {
+                    button.appendChild(chineseElement);
+                }
             }
             
             button.addEventListener('click', () => this.checkAnswer(option, correctWord));
@@ -211,8 +233,8 @@ class Game {
             
             if (this.currentGame === 'game1') {
                 // Juego 1: Comparar por contenido del idioma seleccionado
-                const lang = this.settings.get('language');
                 const btnText = btn.textContent;
+                const lang = this.settings.get('language');
                 let correctText;
                 if (lang === 'es' && correctWord.es) {
                     correctText = correctWord.es;
@@ -221,16 +243,23 @@ class Game {
                 }
                 isCorrectOption = btnText === correctText;
             } else {
-                // Juego 2: Comparar por contenido en español
-                const btnText = btn.textContent;
-                const correctText = correctWord.es || correctWord.en;
-                isCorrectOption = btnText === correctText;
+                // Juego 2: Comparar por caracter chino
+                const chineseElement = btn.querySelector('.option-chinese');
+                const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
+                const correctChinese = correctWord.ch || '';
+                isCorrectOption = btnChinese === correctChinese;
             }
                 
             if (isCorrectOption) {
                 btn.classList.add('correct');
-            } else if (btn.textContent === selectedOption.es || btn.textContent === selectedOption.en) {
-                btn.classList.add('incorrect');
+            } else {
+                const btnChinese = btn.querySelector('.option-chinese');
+                const selectedChinese = selectedOption.ch || '';
+                if (btnChinese && btnChinese.textContent === selectedChinese) {
+                    btn.classList.add('incorrect');
+                } else if (!btnChinese && btn.textContent === (selectedOption.es || selectedOption.en)) {
+                    btn.classList.add('incorrect');
+                }
             }
             btn.disabled = true;
         });

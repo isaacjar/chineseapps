@@ -44,6 +44,14 @@ body {
 .header-left {
     display: flex;
     align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.header-left:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 #logo {

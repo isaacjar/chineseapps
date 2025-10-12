@@ -61,19 +61,31 @@ class Settings {
     }
     
     updateUI() {
-        // Actualizar elementos de la UI según la configuración actual
-        document.getElementById('language-select').value = this.settings.language;
-        document.getElementById('questions-slider').value = this.settings.questions;
-        document.getElementById('questions-value').textContent = this.settings.questions;
-        document.getElementById('time-slider').value = this.settings.time;
-        document.getElementById('time-value').textContent = this.settings.time;
-        document.getElementById('lives-select').value = this.settings.lives;
-        document.getElementById('difficulty-slider').value = this.settings.difficulty;
+        // Solo actualizar elementos que existen
+        const languageSelect = document.getElementById('language-select');
+        const questionsSlider = document.getElementById('questions-slider');
+        const questionsValue = document.getElementById('questions-value');
+        const timeSlider = document.getElementById('time-slider');
+        const timeValue = document.getElementById('time-value');
+        const livesSelect = document.getElementById('lives-select');
+        const difficultySlider = document.getElementById('difficulty-slider');
+        
+        if (languageSelect) languageSelect.value = this.settings.language;
+        if (questionsSlider) questionsSlider.value = this.settings.questions;
+        if (questionsValue) questionsValue.textContent = this.settings.questions;
+        if (timeSlider) timeSlider.value = this.settings.time;
+        if (timeValue) timeValue.textContent = this.settings.time;
+        if (livesSelect) livesSelect.value = this.settings.lives;
+        if (difficultySlider) difficultySlider.value = this.settings.difficulty;
+        
         this.updateDifficultyEmoji();
     }
     
     updateDifficultyEmoji() {
-        const emoji = this.settings.difficulty === 1 ? '😎' : '🥵';
-        document.getElementById('difficulty-emoji').textContent = emoji;
+        const difficultyEmoji = document.getElementById('difficulty-emoji');
+        if (difficultyEmoji) {
+            const emoji = this.settings.difficulty === 1 ? '😎' : '🥵';
+            difficultyEmoji.textContent = emoji;
+        }
     }
 }

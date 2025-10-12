@@ -13,6 +13,12 @@ class UI {
     }
     
     setupEventListeners() {
+        // Header clickeable para volver al menú
+        const headerHome = document.getElementById('header-home');
+        if (headerHome) {
+            headerHome.addEventListener('click', () => this.goToHome());
+        }
+        
         // Botones del menú
         const vocabListsBtn = document.getElementById('vocab-lists-btn');
         const game1Btn = document.getElementById('game1-btn');
@@ -86,6 +92,25 @@ class UI {
                 this.settings.updateDifficultyEmoji();
             });
         }
+    }
+    
+    goToHome() {
+        // Detener el juego si está en curso
+        if (this.game.timer) {
+            clearTimeout(this.game.timer);
+            this.game.timer = null;
+        }
+        
+        // Ocultar estadísticas del juego
+        this.hideGameStats();
+        
+        // Mostrar pantalla de menú
+        this.showScreen('menu-screen');
+        
+        // Mostrar feedback visual
+        this.showToast('Volviendo al menú principal', 'info');
+        
+        console.log('Navegación al menú principal');
     }
     
     showWordsList() {

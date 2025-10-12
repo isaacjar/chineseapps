@@ -70,35 +70,55 @@
         <section id="settings-screen" class="screen hidden">
             <div class="popup-content">
                 <h2>Configuración</h2>
+                
+                <!-- Idioma -->
                 <div class="setting-group">
                     <label for="language-select">Idioma:</label>
                     <select id="language-select">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="es">🇪🇸 Español</option>
                     </select>
                 </div>
+                
+                <!-- Número de preguntas -->
                 <div class="setting-group">
-                    <label for="questions-slider">Número de preguntas: <span id="questions-value">15</span></label>
-                    <input type="range" id="questions-slider" min="5" max="50" value="15">
+                    <label for="questions-slider">Número de preguntas:</label>
+                    <div class="slider-container">
+                        <input type="range" id="questions-slider" min="5" max="50" step="5" value="15">
+                        <span id="questions-value" class="slider-value">15</span>
+                    </div>
                 </div>
+                
+                <!-- Tiempo por pregunta -->
                 <div class="setting-group">
-                    <label for="time-slider">Tiempo por pregunta: <span id="time-value">10</span> seg.</label>
-                    <input type="range" id="time-slider" min="2" max="30" value="10">
+                    <label for="time-slider">Tiempo por pregunta:</label>
+                    <div class="slider-container">
+                        <input type="range" id="time-slider" min="2" max="30" step="1" value="10">
+                        <span id="time-value" class="slider-value">10 s.</span>
+                    </div>
                 </div>
+                
+                <!-- Número de vidas -->
                 <div class="setting-group">
-                    <label for="lives-select">Número de vidas:</label>
-                    <select id="lives-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3" selected>3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <label for="lives-slider">❤️ Número de vidas:</label>
+                    <div class="slider-container">
+                        <input type="range" id="lives-slider" min="1" max="10" step="1" value="3">
+                        <span id="lives-value" class="slider-value">3</span>
+                    </div>
                 </div>
+                
+                <!-- Dificultad -->
                 <div class="setting-group">
-                    <label for="difficulty-slider">Dificultad: <span id="difficulty-emoji">😎</span></label>
-                    <input type="range" id="difficulty-slider" min="1" max="2" value="1">
+                    <label for="difficulty-switch">Dificultad:</label>
+                    <div class="switch-container">
+                        <span id="difficulty-emoji">😎</span>
+                        <label class="switch">
+                            <input type="checkbox" id="difficulty-switch">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                 </div>
+                
                 <div class="popup-buttons">
                     <button id="save-settings-btn" class="btn">💾 Guardar</button>
                     <button id="reset-settings-btn" class="btn">🔄 Resetear</button>

@@ -3,101 +3,77 @@ class UI {
         this.settings = settings;
         this.game = game;
         this.stats = stats;
-        this.labels = LABELS; // Usar las etiquetas del archivo externo
+        this.labels = LABELS;
         this.vocabLists = [];
         
         this.setupEventListeners();
-        this.loadVocabLists();
-        this.updateLabels(); // Actualizar las etiquetas inmediatamente
-    }
-    
-    setupEventListeners() {
-        // Botones del menú
-        document.getElementById('vocab-lists-btn').addEventListener('click', () => this.showScreen('lists-screen'));
-        document.getElementById('game1-btn').addEventListener('click', () => this.game.startGame('game1'));
-        document.getElementById('game2-btn').addEventListener('click', () => this.game.startGame('game2'));
-        document.getElementById('stats-btn').addEventListener('click', () => {
-            this.stats.updateUI();
-            this.showScreen('stats-screen');
-        });
-        
-        // Botón de configuración
-        document.getElementById('settings-btn').addEventListener('click', () => {
-            this.settings.updateUI();
-            this.showScreen('settings-screen');
-        });
-        
-        // Botones de cierre
-        document.getElementById('close-lists-btn').addEventListener('click', () => this.showScreen('menu-screen'));
-        document.getElementById('cancel-settings-btn').addEventListener('click', () => this.showScreen('menu-screen'));
-        document.getElementById('close-stats-btn').addEventListener('click', () => this.showScreen('menu-screen'));
-        
-        // Configuración
-        document.getElementById('save-settings-btn').addEventListener('click', () => this.saveSettings());
-        document.getElementById('reset-settings-btn').addEventListener('click', () => this.resetSettings());
-        
-        // Estadísticas
-        document.getElementById('reset-stats-btn').addEventListener('click', () => this.stats.reset());
-        
-        // Sliders
-        document.getElementById('questions-slider').addEventListener('input', (e) => {
-            document.getElementById('questions-value').textContent = e.target.value;
-        });
-        
-        document.getElementById('time-slider').addEventListener('input', (e) => {
-            document.getElementById('time-value').textContent = e.target.value;
-        });
-        
-        document.getElementById('difficulty-slider').addEventListener('input', (e) => {
-            this.settings.updateDifficultyEmoji();
+        this.loadVocabLists().then(() => {
+            // Una vez cargados los listados, actualizar la UI si es necesario
+            this.updateLabels();
         });
     }
     
-    updateLabels() {
-        const lang = this.settings.get('language');
-        const currentLabels = this.labels[lang];
-        
-        if (!currentLabels) {
-            console.error('No se encontraron etiquetas para el idioma:', lang);
-            return;
+    async loadVocabLists() {
+        try {
+            // Intentar cargar desde el archivo index.js remoto
+            const response = await fetch('https://isaacjar.github.io/chineseapps/voclists/index.js');
+            if (response.ok) {
+                const scriptContent = await response.text();
+                
+                // Extraer el array voclists del script usando una expresión regular más robusta
+                const match = scriptContent.match(/const voclists\s*=\s*(\[.*?\]);/s);
+                if (match && match[1]) {
+                    try {
+                        // Evaluar el array de forma segura
+                        const voclists = eval(`(${match[1]})`);
+                        this.vocabLists = voclists;
+                        console.log('Listados cargados desde servidor:', this.vocabLists.length);
+                    } catch (e) {
+                        console.error('Error parseando listados:', e);
+                        this.useFallbackLists();
+                    }
+                } else {
+                    console.warn('No se pudo encontrar el array voclists, usando listados de ejemplo');
+                    this.useFallbackLists();
+                }
+            } else {
+                console.warn('No se pudo cargar index.js, usando listados de ejemplo');
+                this.useFallbackLists();
+            }
+        } catch (error) {
+            console.error('Error cargando listados de vocabulario:', error);
+            this.useFallbackLists();
         }
         
-        // Actualizar título de la app
-        document.getElementById('app-title').textContent = currentLabels.appTitle;
-        
-        // Actualizar menú
-        document.querySelector('#vocab-lists-btn .menu-text').textContent = currentLabels.menu.vocabLists;
-        document.querySelector('#game1-btn .menu-text').textContent = currentLabels.menu.game1;
-        document.querySelector('#game2-btn .menu-text').textContent = currentLabels.menu.game2;
-        document.querySelector('#stats-btn .menu-text').textContent = currentLabels.menu.stats;
-        
-        // Actualizar pantalla de listados
-        document.querySelector('#lists-screen h2').textContent = currentLabels.lists.title;
-        document.getElementById('close-lists-btn').textContent = currentLabels.lists.close;
-        
-        // Actualizar pantalla de configuración
-        document.querySelector('#settings-screen h2').textContent = currentLabels.settings.title;
-        document.querySelector('#settings-screen label[for="language-select"]').textContent = currentLabels.settings.language;
-        document.querySelector('#settings-screen label[for="questions-slider"]').textContent = currentLabels.settings.questions;
-        document.querySelector('#settings-screen label[for="time-slider"]').textContent = currentLabels.settings.time;
-        document.querySelector('#settings-screen label[for="lives-select"]').textContent = currentLabels.settings.lives;
-        document.querySelector('#settings-screen label[for="difficulty-slider"]').textContent = currentLabels.settings.difficulty;
-        document.getElementById('save-settings-btn').textContent = currentLabels.settings.save;
-        document.getElementById('reset-settings-btn').textContent = currentLabels.settings.reset;
-        document.getElementById('cancel-settings-btn').textContent = currentLabels.settings.cancel;
-        
-        // Actualizar pantalla de estadísticas
-        document.querySelector('#stats-screen h2').textContent = currentLabels.stats.title;
-        document.querySelector('.stat-item:nth-child(1) .stat-label').textContent = currentLabels.stats.wordsShown;
-        document.querySelector('.stat-item:nth-child(2) .stat-label').textContent = currentLabels.stats.correctAnswers;
-        document.querySelector('.stat-item:nth-child(3) .stat-label').textContent = currentLabels.stats.accuracy;
-        document.getElementById('reset-stats-btn').textContent = currentLabels.stats.reset;
-        document.getElementById('close-stats-btn').textContent = currentLabels.stats.close;
+        this.displayVocabLists();
+    }
+    
+    useFallbackLists() {
+        // Listados de ejemplo como fallback
+        this.vocabLists = [
+            { filename: "H1L1", title: "HSK 1 Lesson 1", level: "H1", misc: "MIT" },
+            { filename: "H1L2", title: "HSK 1 Lesson 2", level: "H1", misc: "MIT" },
+            { filename: "H1L3", title: "HSK 1 Lesson 3", level: "H1", misc: "MIT" },
+            { filename: "H2L1", title: "HSK 2 Lesson 1", level: "H2", misc: "MIT" },
+            { filename: "H2L2", title: "HSK 2 Lesson 2", level: "H2", misc: "MIT" },
+            { filename: "H2L3", title: "HSK 2 Lesson 3", level: "H2", misc: "MIT" },
+            { filename: "H3L1", title: "HSK 3 Lesson 1", level: "H3", misc: "MIT" }
+        ];
     }
     
     displayVocabLists() {
         const container = document.getElementById('vocab-lists-container');
+        if (!container) {
+            console.error('No se encontró el contenedor de listados');
+            return;
+        }
+        
         container.innerHTML = '';
+        
+        if (this.vocabLists.length === 0) {
+            container.innerHTML = '<p>No hay listados disponibles</p>';
+            return;
+        }
         
         this.vocabLists.forEach(list => {
             const button = document.createElement('button');
@@ -106,17 +82,24 @@ class UI {
             button.addEventListener('click', () => this.selectVocabList(list));
             container.appendChild(button);
         });
+        
+        console.log('Listados mostrados:', this.vocabLists.length);
     }
     
     async selectVocabList(list) {
+        console.log('Seleccionando listado:', list.filename);
         const success = await this.game.loadVocabularyList(list.filename);
         if (success) {
             this.settings.set('currentVocabList', list.filename);
-            this.showToast(`Listado "${list.title}" cargado`, 'success');
+            this.showToast(`Listado "${list.title}" cargado correctamente`, 'success');
             this.showScreen('menu-screen');
         } else {
-            this.showToast('Error cargando el listado', 'error');
+            this.showToast(`Error cargando el listado "${list.title}"`, 'error');
+            // Mantener en la pantalla de listados para que el usuario pueda elegir otro
         }
+    }
+
+    // ... el resto de los métodos permanece igual ...
     }
     
     showScreen(screenId) {

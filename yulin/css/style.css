@@ -422,3 +422,42 @@ body {
         gap: 1rem;
     }
 }
+
+/* Añadir al final del archivo CSS */
+.lists-container p {
+    text-align: center;
+    padding: 2rem;
+    color: #795548;
+    font-style: italic;
+}
+
+.vocab-list-btn {
+    padding: 0.75rem;
+    background-color: var(--pastel-orange);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.vocab-list-btn:hover {
+    background-color: var(--pastel-orange-dark);
+    transform: translateY(-2px);
+}
+
+/* Mejorar la visibilidad del contenedor de listados */
+.lists-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--pastel-brown);
+    border-radius: 8px;
+    background-color: var(--pastel-green-light);
+}

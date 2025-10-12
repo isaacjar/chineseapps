@@ -153,12 +153,21 @@ class UI {
         const vocabListsText = document.querySelector('#vocab-lists-btn .menu-text');
         const game1Text = document.querySelector('#game1-btn .menu-text');
         const game2Text = document.querySelector('#game2-btn .menu-text');
+        const wordsText = document.querySelector('#words-btn .menu-text'); // Nueva
         const statsText = document.querySelector('#stats-btn .menu-text');
         
         if (vocabListsText) vocabListsText.textContent = currentLabels.menu.vocabLists;
         if (game1Text) game1Text.textContent = currentLabels.menu.game1;
         if (game2Text) game2Text.textContent = currentLabels.menu.game2;
+        if (wordsText) wordsText.textContent = currentLabels.menu.words; // Nueva
         if (statsText) statsText.textContent = currentLabels.menu.stats;
+        
+        // Actualizar pantalla de palabras (nueva)
+        const wordsTitle = document.querySelector('#words-screen h2');
+        const closeWordsBtn = document.getElementById('close-words-btn');
+        
+        if (wordsTitle) wordsTitle.textContent = currentLabels.words.title;
+        if (closeWordsBtn) closeWordsBtn.textContent = currentLabels.words.close;
         
         // Actualizar pantalla de listados
         const listsTitle = document.querySelector('#lists-screen h2');

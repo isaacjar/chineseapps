@@ -34,6 +34,10 @@
                     <span class="menu-icon">📚</span>
                     <span class="menu-text">Listados de vocabulario</span>
                 </button>
+                 <button id="words-btn" class="menu-btn">
+                    <span class="menu-icon">📝</span>
+                    <span class="menu-text">Palabras</span>
+                </button>
                 <button id="game1-btn" class="menu-btn">
                     <span class="menu-icon">🎮</span>
                     <span class="menu-text">Juego 1</span>
@@ -144,6 +148,19 @@
         </section>
     </main>
 
+    <section id="words-screen" class="screen hidden">
+        <div class="popup-content">
+            <h2>Lista de Palabras</h2>
+            <div class="words-header">
+                <span class="words-count" id="words-count">0 palabras</span>
+                <button id="close-words-btn" class="btn">Cerrar</button>
+            </div>
+            <div id="words-container" class="words-container">
+                <!-- Las palabras se cargarán aquí dinámicamente -->
+            </div>
+        </div>
+    </section>
+        
     <!-- Barra inferior -->
     <footer id="footer">
         <span>🌳语林 Yǔlín 🌳 IJH 🌳Made for learning joy</span>

@@ -11,17 +11,69 @@ class Game {
         this.streak = 0;
         this.timer = null;
         this.timeLeft = 0;
+        
+        // Datos de ejemplo para testing
+        this.sampleVocabulary = [
+            { es: "hola", en: "hello", zh: "你好" },
+            { es: "adiós", en: "goodbye", zh: "再见" },
+            { es: "gracias", en: "thank you", zh: "谢谢" },
+            { es: "por favor", en: "please", zh: "请" },
+            { es: "sí", en: "yes", zh: "是" },
+            { es: "no", en: "no", zh: "不" },
+            { es: "agua", en: "water", zh: "水" },
+            { es: "comida", en: "food", zh: "食物" },
+            { es: "casa", en: "house", zh: "房子" },
+            { es: "familia", en: "family", zh: "家庭" }
+        ];
     }
     
     async loadVocabularyList(filename) {
+        if (!filename) {
+            console.error('No se proporcionó nombre de archivo');
+            return false;
+        }
+        
         try {
+            console.log('Cargando listado:', filename);
             const response = await fetch(`https://isaacjar.github.io/chineseapps/voclists/${filename}.json`);
-            if (!response.ok) throw new Error('Lista no encontrada');
-            this.vocabulary = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('El listado está vacío o no es un array válido');
+            }
+            
+            // Verificar que cada elemento tenga las propiedades necesarias
+            const isValid = data.every(item => 
+                item && typeof item === 'object' && 
+                'es' in item && 'en' in item
+            );
+            
+            if (!isValid) {
+                throw new Error('El formato del listado no es válido');
+            }
+            
+            this.vocabulary = data;
+            console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras`);
             return true;
+            
         } catch (error) {
             console.error('Error cargando vocabulario:', error);
-            return false;
+            console.log('Usando vocabulario de ejemplo');
+            
+            // Usar datos de ejemplo si falla la carga
+            this.vocabulary = this.sampleVocabulary;
+            
+            // Mostrar advertencia al usuario
+            if (this.ui) {
+                this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
+            }
+            
+            return true; // Devolver true para permitir continuar con datos de ejemplo
         }
     }
     

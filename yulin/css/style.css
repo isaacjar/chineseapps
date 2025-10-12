@@ -338,7 +338,7 @@ body {
     left: 20px; /* 20px desde la izquierda */
     transform: none; /* Eliminar transform anterior */
     padding: 0.7rem 1.4rem;
-    background-color: #5d4037;
+    background-color: var(--pastel-brown-dark);
     color: var(--pastel-orange);
     border-radius: 8px;
     box-shadow: var(--shadow);

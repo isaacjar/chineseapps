@@ -5,8 +5,8 @@ class Settings {
             questions: 15,
             time: 10,
             lives: 3,
-            difficulty: 1,
-            currentVocabList: null
+            difficulty: 1
+            // Eliminamos currentVocabList de los settings por defecto
         };
         
         this.loadSettings();
@@ -16,14 +16,18 @@ class Settings {
     loadSettings() {
         const savedSettings = localStorage.getItem('yulin-settings');
         if (savedSettings) {
-            this.settings = {...this.defaultSettings, ...JSON.parse(savedSettings)};
+            // No cargamos currentVocabList desde localStorage
+            const { currentVocabList, ...savedSettingsWithoutVocab } = JSON.parse(savedSettings);
+            this.settings = {...this.defaultSettings, ...savedSettingsWithoutVocab};
         } else {
             this.settings = {...this.defaultSettings};
         }
     }
     
     saveSettings() {
-        localStorage.setItem('yulin-settings', JSON.stringify(this.settings));
+        // No guardamos currentVocabList en localStorage
+        const { currentVocabList, ...settingsToSave } = this.settings;
+        localStorage.setItem('yulin-settings', JSON.stringify(settingsToSave));
     }
     
     applyUrlParameters() {
@@ -41,9 +45,7 @@ class Settings {
         if (urlParams.has('difficulty')) {
             this.settings.difficulty = parseInt(urlParams.get('difficulty'));
         }
-        if (urlParams.has('voclist')) {
-            this.settings.currentVocabList = urlParams.get('voclist');
-        }
+        // No aplicamos voclist como setting persistente
     }
     
     get(key) {
@@ -52,7 +54,10 @@ class Settings {
     
     set(key, value) {
         this.settings[key] = value;
-        this.saveSettings();
+        // Si no es currentVocabList, guardamos en localStorage
+        if (key !== 'currentVocabList') {
+            this.saveSettings();
+        }
     }
     
     reset() {

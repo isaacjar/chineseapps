@@ -325,7 +325,7 @@ class UI {
         
         const success = await this.game.loadVocabularyList(list.filename);
         if (success) {
-            this.settings.set('currentVocabList', list.filename);
+            // NO guardamos en settings, solo cargamos en memoria
             this.showToast(`Listado "${list.title}" cargado (${this.game.vocabulary.length} palabras)`, 'success');
             this.showScreen('menu-screen');
         } else {

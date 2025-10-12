@@ -4,6 +4,7 @@
     --pastel-orange-dark: #ffc285;
     --pastel-brown: #d7ccc8;
     --pastel-brown-dark: #bcaaa4;
+    --pastel-brown-ultra-dark: #6D4C41;
     --pastel-green: #c8e6c9;
     --pastel-green-dark: #a5d6a7;
     --pastel-green-light: #e8f5e9;
@@ -439,7 +440,7 @@ body {
 .lists-container p {
     text-align: center;
     padding: 2rem;
-    color: #795548;
+    color: #3b2517;
     font-style: italic;
 }
 
@@ -591,5 +592,100 @@ body {
     
     .word-chinese {
         gap: 0.25rem;
+    }
+}
+
+/* Estilos para la configuración mejorada */
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.slider-value {
+    min-width: 3rem;
+    font-weight: bold;
+    color: #5d4037;
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Switch personalizado */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--pastel-brown);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--pastel-orange);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    .slider-container {
+        gap: 0.5rem;
+    }
+    
+    .switch {
+        width: 50px;
+        height: 28px;
+    }
+    
+    .slider:before {
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+    }
+    
+    input:checked + .slider:before {
+        transform: translateX(22px);
     }
 }

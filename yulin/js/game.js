@@ -293,6 +293,7 @@ class Game {
     endGame() {
         this.stats.recordGame();
         clearTimeout(this.timer);
+        this.timer = null; // Limpiar referencia al timer
         
         const message = this.score === this.settings.get('questions') 
             ? '🎉 ¡Perfecto! ¡Has acertado todas!' 

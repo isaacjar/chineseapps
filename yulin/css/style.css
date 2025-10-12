@@ -4,7 +4,7 @@
     --pastel-orange-dark: #ffc285;
     --pastel-brown: #d7ccc8;
     --pastel-brown-dark: #bcaaa4;
-    --pastel-brown-ultra-dark: #6D4C41;
+    --pastel-brown-ultra-dark: #21140c;
     --pastel-green: #c8e6c9;
     --pastel-green-dark: #a5d6a7;
     --pastel-green-light: #e8f5e9;
@@ -339,7 +339,7 @@ body {
     left: 20px; /* 20px desde la izquierda */
     transform: none; /* Eliminar transform anterior */
     padding: 0.7rem 1.4rem;
-    background-color: var(--pastel-brown-dark);
+    background-color: var(--pastel-brown-ultra-dark);
     color: var(--pastel-orange);
     border-radius: 8px;
     box-shadow: var(--shadow);

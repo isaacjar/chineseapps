@@ -156,12 +156,14 @@ class UI {
         // Actualizar contador
         countElement.textContent = `${this.game.vocabulary.length} palabras`;
         
-        // Buscar el nombre del listado actual en los listados cargados
+        // Usar el listado actual si está disponible, sino buscar en los parámetros URL
         let listTitle = 'Lista de Palabras'; // Valor por defecto
         
-        // Si tenemos el listado actual cargado, buscar su título
-        if (this.vocabLists.length > 0 && this.game.vocabulary.length > 0) {
-            // Buscar en los parámetros URL primero
+        if (this.currentList) {
+            // Usar el listado actualmente seleccionado
+            listTitle = this.currentList.title;
+        } else if (this.vocabLists.length > 0 && this.game.vocabulary.length > 0) {
+            // Buscar en los parámetros URL como fallback
             const urlParams = new URLSearchParams(window.location.search);
             const voclistParam = urlParams.get('voclist');
             
@@ -172,7 +174,6 @@ class UI {
                 }
             } else {
                 // Si no hay parámetro URL, usar el primer listado como referencia
-                // (en una app real podrías querer guardar el título cuando se selecciona)
                 listTitle = this.vocabLists[0].title;
             }
         }
@@ -366,12 +367,12 @@ class UI {
         
         const success = await this.game.loadVocabularyList(list.filename);
         if (success) {
-            // NO guardamos en settings, solo cargamos en memoria
+            // Guardar el listado actual para referencia futura
+            this.currentList = list; // <-- Añade esta línea
             this.showToast(`Listado "${list.title}" cargado (${this.game.vocabulary.length} palabras)`, 'success');
             this.showScreen('menu-screen');
         } else {
             this.showToast(`Error cargando el listado "${list.title}"`, 'error');
-            // Mantener en la pantalla de listados para que el usuario pueda elegir otro
         }
     }
     

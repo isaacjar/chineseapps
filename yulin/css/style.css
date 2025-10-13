@@ -206,11 +206,11 @@ body {
 }
 
 /* Configuración */
-/* Settings compactas - Una línea por setting */
+/* Settings compactas - Corregidas para alinear a la izquierda */
 .setting-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;  
     margin-bottom: 12px;
     padding: 10px 15px;
     background: var(--pastel-orange);
@@ -220,12 +220,13 @@ body {
 }
 
 .setting-group label {
-    flex: 0 0 140px;
+    flex: 0 0 auto; /* ← CAMBIAR: Ancho automático según contenido */
     font-weight: 600;
     color: #5d4037;
     font-size: 14px;
     margin: 0;
     text-align: left;
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
 }
 
 /* Contenedores de controles */
@@ -234,13 +235,30 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    flex: 1;
-    justify-content: flex-start;
+    flex: 0 1 auto; /* ← CAMBIAR: Ocupar solo el espacio necesario */
 }
 
-/* Sliders en una línea */
+/* Sliders en una línea - Corregido */
 .slider-container {
     justify-content: flex-start;
+    flex: 1; /* ← Solo los sliders pueden expandirse */
+}
+
+.slider-container input[type="range"] {
+    flex: 1;
+    margin: 0 15px;
+    min-width: 120px; /* Ancho mínimo para el slider */
+}
+
+/* Select compacto - Corregido */
+.setting-group select {
+    flex: 0 1 auto; /* ← CAMBIAR: Ancho automático */
+    padding: 8px 12px;
+    border: 2px solid var(--pastel-orange);
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    min-width: 120px; /* Ancho mínimo para selects */
 }
 
 .slider-container input[type="range"] {

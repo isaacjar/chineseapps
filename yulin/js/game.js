@@ -293,52 +293,63 @@ class Game {
             }
         }, 1500);
     }
-    
-    this.timer = setTimeout(() => {
-        // Tiempo agotado - mostrar respuesta correcta
-        const options = document.querySelectorAll('.option-btn');
-        options.forEach(btn => {
-            let isThisCorrectOption = false;
-            
-            if (this.currentGame === 'game1') {
-                // Juego 1: Comparar por contenido del idioma seleccionado
-                const btnText = btn.textContent;
-                const lang = this.settings.get('language');
-                let correctText;
-                if (lang === 'es' && this.currentWord.es) { // ← CAMBIAR: this.currentWord
-                    correctText = this.currentWord.es;
-                } else {
-                    correctText = this.currentWord.en;
-                }
-                isThisCorrectOption = btnText === correctText;
-            } else {
-                // Juego 2: Comparar por caracter chino
-                const chineseElement = btn.querySelector('.option-chinese');
-                const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
-                const correctChinese = this.currentWord.ch || ''; // ← CAMBIAR: this.currentWord
-                isThisCorrectOption = btnChinese === correctChinese;
-            }
-            
-            if (isThisCorrectOption) {
-                btn.classList.add('correct-answer');
-            }
-            btn.disabled = true;
-        });
+
+    startTimer() {
+        this.timeLeft = this.settings.get('time');
+        const timerProgress = document.getElementById('timer-progress');
+        timerProgress.style.width = '100%';
+        timerProgress.style.transition = `width ${this.timeLeft}s linear`;
         
-        this.lives--;
-        this.streak = 0;
-        this.updateGameStats();
-        this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
-        
-        // Siguiente pregunta después de mostrar la respuesta correcta
         setTimeout(() => {
-            if (this.lives <= 0) {
-                this.endGame();
-            } else {
-                this.nextQuestion();
-            }
-        }, 1500);
-    }, this.timeLeft * 1000);
+            timerProgress.style.width = '0%';
+        }, 10);
+        
+        this.timer = setTimeout(() => {
+            // Tiempo agotado - mostrar respuesta correcta
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(btn => {
+                let isThisCorrectOption = false;
+                
+                if (this.currentGame === 'game1') {
+                    // Juego 1: Comparar por contenido del idioma seleccionado
+                    const btnText = btn.textContent;
+                    const lang = this.settings.get('language');
+                    let correctText;
+                    if (lang === 'es' && this.currentWord.es) {
+                        correctText = this.currentWord.es;
+                    } else {
+                        correctText = this.currentWord.en;
+                    }
+                    isThisCorrectOption = btnText === correctText;
+                } else {
+                    // Juego 2: Comparar por caracter chino
+                    const chineseElement = btn.querySelector('.option-chinese');
+                    const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
+                    const correctChinese = this.currentWord.ch || '';
+                    isThisCorrectOption = btnChinese === correctChinese;
+                }
+                
+                if (isThisCorrectOption) {
+                    btn.classList.add('correct-answer');
+                }
+                btn.disabled = true;
+            });
+            
+            this.lives--;
+            this.streak = 0;
+            this.updateGameStats();
+            this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
+            
+            // Siguiente pregunta después de mostrar la respuesta correcta
+            setTimeout(() => {
+                if (this.lives <= 0) {
+                    this.endGame();
+                } else {
+                    this.nextQuestion();
+                }
+            }, 1500);
+        }, this.timeLeft * 1000);
+    }
     
     updateGameStats() {
         document.getElementById('question-progress').textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;

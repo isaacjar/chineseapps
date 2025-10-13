@@ -5,8 +5,8 @@ const LABELS = {
         "menu": {
             "vocabLists": "Vocabulary Lists",
             "words": "Words",
-            "game1": "Game 1",
-            "game2": "Game 2",
+            "game1": "Guess meaning",
+            "game2": "Guess Chinese",
             "stats": "Statistics"
         },
         "lists": {
@@ -15,10 +15,10 @@ const LABELS = {
         },
         "settings": {
             "title": "Settings",
-            "language": "Language:",
-            "questions": "Number of questions:",
-            "time": "Time per question:",
-            "lives": "Number of lives:",
+            "language": "🗣:",
+            "questions": "❓:",
+            "time": "⏱️:",
+            "lives": "❤️:",
             "difficulty": "Difficulty:",
             "save": "💾 Save",
             "reset": "🔄 Reset",
@@ -81,10 +81,10 @@ const LABELS = {
         },
         "settings": {
             "title": "Configuración",
-            "language": "Idioma:",
-            "questions": "Número de preguntas:",
-            "time": "Tiempo por pregunta:",
-            "lives": "Número de vidas:",
+            "language": "🗣:",
+            "questions": "❓:",
+            "time": "⏱️:",
+            "lives": "❤️ :",
             "difficulty": "Dificultad:",
             "save": "💾 Guardar",
             "reset": "🔄 Resetear",

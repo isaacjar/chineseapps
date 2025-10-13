@@ -11,6 +11,7 @@ class Game {
         this.streak = 0;
         this.timer = null;
         this.timeLeft = 0;
+        this.currentWord = null;
         
         // Datos de ejemplo para testing con nuevo formato
         this.sampleVocabulary = [
@@ -100,18 +101,18 @@ class Game {
         
         // Seleccionar palabra actual y opciones
         const currentIndex = Math.floor(Math.random() * this.vocabulary.length);
-        const currentWord = this.vocabulary[currentIndex];
+        this.currentWord = this.vocabulary[currentIndex]; // ← Guardar como propiedad
         
         // Seleccionar opciones incorrectas
         const incorrectOptions = this.getIncorrectOptions(currentIndex);
         
         // Mezclar opciones
-        const allOptions = [currentWord, ...incorrectOptions];
+        const allOptions = [this.currentWord, ...incorrectOptions];
         this.shuffleArray(allOptions);
         
         // Mostrar pregunta y opciones
-        this.displayQuestion(currentWord);
-        this.displayOptions(allOptions, currentWord);
+        this.displayQuestion(this.currentWord);
+        this.displayOptions(allOptions, this.currentWord);
         
         // Iniciar temporizador
         this.startTimer();
@@ -293,62 +294,51 @@ class Game {
         }, 1500);
     }
     
-    startTimer() {
-        this.timeLeft = this.settings.get('time');
-        const timerProgress = document.getElementById('timer-progress');
-        timerProgress.style.width = '100%';
-        timerProgress.style.transition = `width ${this.timeLeft}s linear`;
+    this.timer = setTimeout(() => {
+        // Tiempo agotado - mostrar respuesta correcta
+        const options = document.querySelectorAll('.option-btn');
+        options.forEach(btn => {
+            let isThisCorrectOption = false;
+            
+            if (this.currentGame === 'game1') {
+                // Juego 1: Comparar por contenido del idioma seleccionado
+                const btnText = btn.textContent;
+                const lang = this.settings.get('language');
+                let correctText;
+                if (lang === 'es' && this.currentWord.es) { // ← CAMBIAR: this.currentWord
+                    correctText = this.currentWord.es;
+                } else {
+                    correctText = this.currentWord.en;
+                }
+                isThisCorrectOption = btnText === correctText;
+            } else {
+                // Juego 2: Comparar por caracter chino
+                const chineseElement = btn.querySelector('.option-chinese');
+                const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
+                const correctChinese = this.currentWord.ch || ''; // ← CAMBIAR: this.currentWord
+                isThisCorrectOption = btnChinese === correctChinese;
+            }
+            
+            if (isThisCorrectOption) {
+                btn.classList.add('correct-answer');
+            }
+            btn.disabled = true;
+        });
         
+        this.lives--;
+        this.streak = 0;
+        this.updateGameStats();
+        this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
+        
+        // Siguiente pregunta después de mostrar la respuesta correcta
         setTimeout(() => {
-            timerProgress.style.width = '0%';
-        }, 10);
-        
-        this.timer = setTimeout(() => {
-            // Tiempo agotado - mostrar respuesta correcta
-            const options = document.querySelectorAll('.option-btn');
-            options.forEach(btn => {
-                let isThisCorrectOption = false;
-                
-                if (this.currentGame === 'game1') {
-                    // Juego 1: Comparar por contenido del idioma seleccionado
-                    const btnText = btn.textContent;
-                    const lang = this.settings.get('language');
-                    let correctText;
-                    if (lang === 'es' && correctWord.es) {
-                        correctText = correctWord.es;
-                    } else {
-                        correctText = correctWord.en;
-                    }
-                    isThisCorrectOption = btnText === correctText;
-                } else {
-                    // Juego 2: Comparar por caracter chino
-                    const chineseElement = btn.querySelector('.option-chinese');
-                    const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
-                    const correctChinese = correctWord.ch || '';
-                    isThisCorrectOption = btnChinese === correctChinese;
-                }
-                
-                if (isThisCorrectOption) {
-                    btn.classList.add('correct-answer');
-                }
-                btn.disabled = true;
-            });
-            
-            this.lives--;
-            this.streak = 0;
-            this.updateGameStats();
-            this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
-            
-            // Siguiente pregunta después de mostrar la respuesta correcta
-            setTimeout(() => {
-                if (this.lives <= 0) {
-                    this.endGame();
-                } else {
-                    this.nextQuestion();
-                }
-            }, 1500);
-        }, this.timeLeft * 1000);
-    }
+            if (this.lives <= 0) {
+                this.endGame();
+            } else {
+                this.nextQuestion();
+            }
+        }, 1500);
+    }, this.timeLeft * 1000);
     
     updateGameStats() {
         document.getElementById('question-progress').textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;

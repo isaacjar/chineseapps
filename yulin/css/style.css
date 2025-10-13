@@ -438,35 +438,41 @@ body {
     font-size: 1.2rem;
     color: #5d4037;
     box-shadow: var(--shadow);
-    border: 3px solid transparent; /* Borde transparente por defecto */
+    border: 3px solid transparent;
 }
 
-.option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer) {
+/* Hover solo para botones normales (sin feedback) */
+.option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled) {
     background-color: var(--pastel-green-dark);
     transform: translateY(-2px);
 }
 
-/* Respuesta CORRECTA (usuario acierta) */
+/* Los botones deshabilitados no deben tener efectos hover */
+.option-btn:disabled:hover {
+    background-color: inherit;
+    transform: none;
+    cursor: not-allowed;
+}
+
+/* Estilos de feedback - estos deben tener prioridad */
 .option-btn.correct {
-    background-color: #4caf50; /* Verde más intenso para mejor contraste */
+    background-color: #4caf50;
     color: white;
-    border-color: #2e7d32; /* Borde verde oscuro */
+    border-color: #2e7d32;
     animation: pulse-green 0.6s;
 }
 
-/* Respuesta INCORRECTA (usuario pulsa mal) */
 .option-btn.incorrect {
-    background-color: #f44336; /* Rojo intenso */
+    background-color: #f44336;
     color: white;
-    border-color: #c62828; /* Borde rojo oscuro */
+    border-color: #c62828;
     animation: shake 0.5s;
 }
 
-/* Respuesta CORRECTA NO SELECCIONADA (se muestra cuando el tiempo pasa) */
 .option-btn.correct-answer {
-    background-color: #ffeb3b; /* Amarillo intenso */
+    background-color: #ffeb3b;
     color: #5d4037;
-    border-color: #fbc02d; /* Borde amarillo oscuro */
+    border-color: #fbc02d;
     animation: pulse-yellow 0.6s;
 }
 

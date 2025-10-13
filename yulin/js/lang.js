@@ -71,8 +71,8 @@ const LABELS = {
         "menu": {
             "vocabLists": "Listados de vocabulario",
             "words": "Palabras",
-            "game1": "Juego 1",
-            "game2": "Juego 2",
+            "game1": "Atrapa el significado",
+            "game2": "Caza la palabra china",
             "stats": "Estadísticas"
         },
         "lists": {

@@ -275,7 +275,7 @@ body {
 .switch {
     position: relative;
     display: inline-block;
-    width: 50px;
+    width: 30px;
     height: 26px;
     flex-shrink: 0;
 }
@@ -311,7 +311,7 @@ body {
 }
 
 input:checked + .slider {
-    background-color: var(--pastel-orange);
+    background-color: var(--pastel-brown-ultra-dark);
 }
 
 input:checked + .slider:before {

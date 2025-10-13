@@ -5,6 +5,7 @@ class UI {
         this.stats = stats;
         this.labels = LABELS;
         this.vocabLists = [];
+        this.currentList = null;
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {

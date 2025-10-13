@@ -229,7 +229,8 @@ class Game {
         // Mostrar feedback visual
         const options = document.querySelectorAll('.option-btn');
         options.forEach(btn => {
-            let isCorrectOption = false;
+            let isThisCorrectOption = false;
+            let isThisSelectedOption = false;
             
             if (this.currentGame === 'game1') {
                 // Juego 1: Comparar por contenido del idioma seleccionado
@@ -241,25 +242,30 @@ class Game {
                 } else {
                     correctText = correctWord.en;
                 }
-                isCorrectOption = btnText === correctText;
+                isThisCorrectOption = btnText === correctText;
+                
+                // Verificar si es la opción seleccionada
+                const selectedText = this.currentGame === 'game1' ? 
+                    (this.settings.get('language') === 'es' && selectedOption.es ? selectedOption.es : selectedOption.en) :
+                    selectedOption.ch;
+                isThisSelectedOption = btnText === selectedText;
             } else {
                 // Juego 2: Comparar por caracter chino
                 const chineseElement = btn.querySelector('.option-chinese');
                 const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
                 const correctChinese = correctWord.ch || '';
-                isCorrectOption = btnChinese === correctChinese;
-            }
+                isThisCorrectOption = btnChinese === correctChinese;
                 
-            if (isCorrectOption) {
-                btn.classList.add('correct');
-            } else {
-                const btnChinese = btn.querySelector('.option-chinese');
+                // Verificar si es la opción seleccionada
                 const selectedChinese = selectedOption.ch || '';
-                if (btnChinese && btnChinese.textContent === selectedChinese) {
-                    btn.classList.add('incorrect');
-                } else if (!btnChinese && btn.textContent === (selectedOption.es || selectedOption.en)) {
-                    btn.classList.add('incorrect');
-                }
+                isThisSelectedOption = btnChinese === selectedChinese;
+            }
+            
+            // Aplicar clases según el escenario
+            if (isThisCorrectOption) {
+                btn.classList.add('correct');
+            } else if (isThisSelectedOption && !isCorrect) {
+                btn.classList.add('incorrect');
             }
             btn.disabled = true;
         });
@@ -298,17 +304,49 @@ class Game {
         }, 10);
         
         this.timer = setTimeout(() => {
-            // Tiempo agotado
+            // Tiempo agotado - mostrar respuesta correcta
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(btn => {
+                let isThisCorrectOption = false;
+                
+                if (this.currentGame === 'game1') {
+                    // Juego 1: Comparar por contenido del idioma seleccionado
+                    const btnText = btn.textContent;
+                    const lang = this.settings.get('language');
+                    let correctText;
+                    if (lang === 'es' && correctWord.es) {
+                        correctText = correctWord.es;
+                    } else {
+                        correctText = correctWord.en;
+                    }
+                    isThisCorrectOption = btnText === correctText;
+                } else {
+                    // Juego 2: Comparar por caracter chino
+                    const chineseElement = btn.querySelector('.option-chinese');
+                    const btnChinese = chineseElement ? chineseElement.textContent : btn.textContent;
+                    const correctChinese = correctWord.ch || '';
+                    isThisCorrectOption = btnChinese === correctChinese;
+                }
+                
+                if (isThisCorrectOption) {
+                    btn.classList.add('correct-answer');
+                }
+                btn.disabled = true;
+            });
+            
             this.lives--;
             this.streak = 0;
             this.updateGameStats();
             this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
             
-            if (this.lives <= 0) {
-                this.endGame();
-            } else {
-                setTimeout(() => this.nextQuestion(), 1000);
-            }
+            // Siguiente pregunta después de mostrar la respuesta correcta
+            setTimeout(() => {
+                if (this.lives <= 0) {
+                    this.endGame();
+                } else {
+                    this.nextQuestion();
+                }
+            }, 1500);
         }, this.timeLeft * 1000);
     }
     

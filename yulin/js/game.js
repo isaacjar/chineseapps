@@ -91,6 +91,19 @@ class Game {
     }
     
     nextQuestion() {
+        // Limpiar timer anterior si existe
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        
+        // Resetear barra de tiempo visualmente
+        const timerProgress = document.getElementById('timer-progress');
+        if (timerProgress) {
+            timerProgress.style.width = '100%';
+            timerProgress.style.transition = 'none'; // Resetear transición
+        }
+            
         if (this.currentQuestion >= this.settings.get('questions')) {
             this.endGame();
             return;
@@ -101,7 +114,7 @@ class Game {
         
         // Seleccionar palabra actual y opciones
         const currentIndex = Math.floor(Math.random() * this.vocabulary.length);
-        this.currentWord = this.vocabulary[currentIndex]; // ← Guardar como propiedad
+        this.currentWord = this.vocabulary[currentIndex];
         
         // Seleccionar opciones incorrectas
         const incorrectOptions = this.getIncorrectOptions(currentIndex);
@@ -222,7 +235,11 @@ class Game {
     }
     
     checkAnswer(selectedOption, correctWord) {
-        clearTimeout(this.timer);
+        // Limpiar timer
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
         
         const isCorrect = selectedOption === correctWord;
         this.stats.recordAnswer(isCorrect);

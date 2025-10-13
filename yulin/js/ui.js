@@ -447,13 +447,13 @@ class UI {
         toast.className = 'toast';
         
         // Añadir clase de tipo
-        if (type === 'error') {
+        /*if (type === 'error') {
             toast.style.backgroundColor = '#ef9a9a';
         } else if (type === 'success') {
             toast.style.backgroundColor = '#a5d6a7';
         } else {
             toast.style.backgroundColor = 'var(--pastel-orange)';
-        }
+        }*/
         
         // Mostrar toast
         setTimeout(() => {

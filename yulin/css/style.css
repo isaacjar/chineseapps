@@ -409,6 +409,7 @@ body {
     grid-template-columns: 1fr 1fr;
 }
 
+/* Estilos mejorados para respuestas */
 .option-btn {
     padding: 1.5rem;
     background-color: var(--pastel-green);
@@ -419,6 +420,7 @@ body {
     font-size: 1.2rem;
     color: #5d4037;
     box-shadow: var(--shadow);
+    border: 3px solid transparent; /* Borde transparente por defecto */
 }
 
 .option-btn:hover {
@@ -426,24 +428,62 @@ body {
     transform: translateY(-2px);
 }
 
+/* Respuesta CORRECTA (usuario acierta) */
 .option-btn.correct {
-    background-color: #a5d6a7;
-    animation: blink-green 0.5s;
+    background-color: #4caf50; /* Verde más intenso para mejor contraste */
+    color: white;
+    border-color: #2e7d32; /* Borde verde oscuro */
+    animation: pulse-green 0.6s;
 }
 
+/* Respuesta INCORRECTA (usuario pulsa mal) */
 .option-btn.incorrect {
-    background-color: #ef9a9a;
-    animation: blink-red 0.5s;
+    background-color: #f44336; /* Rojo intenso */
+    color: white;
+    border-color: #c62828; /* Borde rojo oscuro */
+    animation: shake 0.5s;
 }
 
-@keyframes blink-green {
-    0%, 100% { background-color: var(--pastel-green); }
-    50% { background-color: #a5d6a7; }
+/* Respuesta CORRECTA NO SELECCIONADA (se muestra cuando el tiempo pasa) */
+.option-btn.correct-answer {
+    background-color: #ffeb3b; /* Amarillo intenso */
+    color: #5d4037;
+    border-color: #fbc02d; /* Borde amarillo oscuro */
+    animation: pulse-yellow 0.6s;
 }
 
-@keyframes blink-red {
-    0%, 100% { background-color: var(--pastel-green); }
-    50% { background-color: #ef9a9a; }
+/* Animaciones mejoradas */
+@keyframes pulse-green {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes pulse-yellow {
+    0%, 100% { 
+        transform: scale(1);
+        background-color: #ffeb3b;
+    }
+    50% { 
+        transform: scale(1.05);
+        background-color: #fff176;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Efecto de deshabilitar botones después de responder */
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.option-btn:disabled:hover {
+    transform: none;
+    background-color: var(--pastel-green);
 }
 
 /* Footer */

@@ -478,12 +478,30 @@ body {
 /* Efecto de deshabilitar botones después de responder */
 .option-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .option-btn:disabled:hover {
     transform: none;
-    background-color: var(--pastel-green);
+}
+
+/* Mayor especificidad para los colores de feedback */
+button.option-btn.correct:disabled {
+    background-color: #4caf50;
+    color: white;
+    border-color: #2e7d32;
+}
+
+button.option-btn.incorrect:disabled {
+    background-color: #f44336;
+    color: white;
+    border-color: #c62828;
+}
+
+button.option-btn.correct-answer:disabled {
+    background-color: #ffeb3b;
+    color: #5d4037;
+    border-color: #fbc02d;
 }
 
 /* Footer */

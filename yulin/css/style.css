@@ -19,6 +19,14 @@
     box-sizing: border-box;
 }
 
+/* Fuente más legible para principiantes */
+.chinese-character,
+.option-chinese,
+.word-character {
+    font-family: 'Ma Shan Zheng', 'ZCOOL XiaoWei', 'Liu Jian Mao Cao', cursive, sans-serif;
+    font-weight: normal;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--pastel-green-light);

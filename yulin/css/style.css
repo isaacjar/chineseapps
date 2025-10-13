@@ -229,27 +229,6 @@ body {
     white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
 }
 
-/* Contenedores de controles */
-.switch-container,
-.slider-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 0 1 auto; /* ← CAMBIAR: Ocupar solo el espacio necesario */
-}
-
-/* Sliders en una línea - Corregido */
-.slider-container {
-    justify-content: flex-start;
-    flex: 1; /* ← Solo los sliders pueden expandirse */
-}
-
-.slider-container input[type="range"] {
-    flex: 1;
-    margin: 0 15px;
-    min-width: 120px; /* Ancho mínimo para el slider */
-}
-
 /* Select compacto - Corregido */
 .setting-group select {
     flex: 0 1 auto; /* ← CAMBIAR: Ancho automático */
@@ -259,23 +238,6 @@ body {
     background: white;
     font-size: 14px;
     min-width: 120px; /* Ancho mínimo para selects */
-}
-
-.slider-container input[type="range"] {
-    flex: 1;
-    margin: 0 15px;
-}
-
-.slider-value {
-    flex: 0 0 45px;
-    text-align: center;
-    font-weight: 700;
-    color: #5d4037;
-    font-size: 14px;
-    background: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 2px solid var(--pastel-orange);
 }
 
 /* Select compacto */
@@ -731,7 +693,7 @@ button.option-btn.correct-answer:disabled {
 }
 
 .word-character {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #5d4037;
     min-width: 3rem;
@@ -739,14 +701,13 @@ button.option-btn.correct-answer:disabled {
 }
 
 .word-pinyin {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #795548;
-    font-style: italic;
     min-width: 6rem;
 }
 
 .word-translation {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #5d4037;
     font-weight: 500;
     text-align: right;

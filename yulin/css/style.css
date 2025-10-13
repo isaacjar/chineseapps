@@ -824,7 +824,7 @@ button.option-btn.correct-answer:disabled {
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
+    width: 60px;
     height: 34px;
     flex-shrink: 0;
 }

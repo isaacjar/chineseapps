@@ -109,6 +109,15 @@ class UI {
                 this.settings.set('showPinyin', e.target.checked);
             });
         }
+      
+        const fontSelect = document.getElementById('font-select');
+        if (fontSelect) {
+            fontSelect.addEventListener('change', (e) => {
+                this.settings.set('chineseFont', e.target.value);
+                this.applyChineseFont(); // Aplicar la fuente inmediatamente
+            });
+        }       
+                
     }
         
     goToHome() {
@@ -287,6 +296,7 @@ class UI {
         if (accuracyLabel) accuracyLabel.textContent = currentLabels.stats.accuracy;
         if (resetStatsBtn) resetStatsBtn.textContent = currentLabels.stats.reset;
         if (closeStatsBtn) closeStatsBtn.textContent = currentLabels.stats.close;
+        this.applyChineseFont();
     }
     
     async loadVocabLists() {
@@ -417,12 +427,14 @@ class UI {
         const timeSlider = document.getElementById('time-slider');
         const livesSlider = document.getElementById('lives-slider');
         const difficultySlider = document.getElementById('difficulty-slider');
+        const fontSelect = document.getElementById('font-select');
         
         if (languageSelect) this.settings.set('language', languageSelect.value);
         if (questionsSlider) this.settings.set('questions', parseInt(questionsSlider.value));
         if (timeSlider) this.settings.set('time', parseInt(timeSlider.value));
         if (livesSlider) this.settings.set('lives', parseInt(livesSlider.value));
         if (difficultySlider) this.settings.set('difficulty', parseInt(difficultySlider.value));
+        if (fontSelect) this.settings.set('chineseFont', fontSelect.value);
         
         this.updateLabels();
         this.showToast('Configuración guardada', 'success');
@@ -479,4 +491,17 @@ class UI {
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
         this.showToast(randomMessage, 'error');
     }
+
+    applyChineseFont() {
+        const font = this.settings.get('chineseFont');
+        const chineseElements = document.querySelectorAll('.chinese-character, .option-chinese, .word-character');
+        
+        chineseElements.forEach(element => {
+            // Remover todas las clases de fuentes anteriores
+            element.classList.remove('noto-serif', 'noto-sans', 'simsun', 'kaiti', 'heiti', 'fangsong');
+            // Añadir la nueva clase de fuente
+            element.classList.add(font);
+        });
+    }
+    
 }

@@ -404,7 +404,7 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #5d4037;
     box-shadow: var(--shadow);
     border: 3px solid transparent;
@@ -872,13 +872,13 @@ input:checked + .slider:before {
 
 /* Estilos para opciones en chino */
 .option-chinese {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
 }
 
 .option-pinyin {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #795548;
     font-style: italic;
 }

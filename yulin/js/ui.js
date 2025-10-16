@@ -496,12 +496,18 @@ class UI {
         const font = this.settings.get('chineseFont');
         const chineseElements = document.querySelectorAll('.chinese-character, .option-chinese, .word-character');
         
+        // Aplicar a elementos de caracteres chinos
         chineseElements.forEach(element => {
-            // Remover todas las clases de fuentes anteriores
             element.classList.remove('noto-serif', 'noto-sans', 'simsun', 'kaiti', 'heiti', 'fangsong');
-            // Añadir la nueva clase de fuente
             element.classList.add(font);
         });
+        
+        // Aplicar a la vista previa de fuente
+        const fontPreview = document.getElementById('font-preview');
+        if (fontPreview) {
+            fontPreview.classList.remove('noto-serif', 'noto-sans', 'simsun', 'kaiti', 'heiti', 'fangsong');
+            fontPreview.classList.add(font);
+        }
     }
     
 }

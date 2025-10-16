@@ -113,17 +113,23 @@ function updateFontIndicator() {
 
 // Función para buscar caracteres en línea
 async function fetchCharacterData(character) {
+    // API 1: Arch Chinese (muy confiable para caracteres básicos)
     try {
-        // Usar API alternativa - HanziDB
-        const response = await fetch(`https://hanzi.db.niamu.li/char/${encodeURIComponent(character)}`);
+        console.log(`Buscando "${character}" en Arch Chinese...`);
+        // Usamos un proxy CORS para evitar problemas
+        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://www.archchinese.com/chinese_english_dictionary.html?find=${character}`)}`);
         
         if (response.ok) {
-            const data = await response.json();
-            if (data && data.definition) {
+            const text = await response.text();
+            // Buscar patrones simples en el HTML
+            const pinyinMatch = text.match(/<span class="pinyin">([^<]+)<\/span>/);
+            const definitionMatch = text.match(/<td class="definition">([^<]+)<\/td>/);
+            
+            if (pinyinMatch || definitionMatch) {
                 return {
                     ch: character,
-                    pin: data.pinyin || '?',
-                    en: data.definition || 'Unknown',
+                    pin: pinyinMatch ? pinyinMatch[1] : '?',
+                    en: definitionMatch ? definitionMatch[1] : 'Unknown',
                     es: 'Desconocido',
                     lv: '0',
                     gr: '999'
@@ -131,19 +137,23 @@ async function fetchCharacterData(character) {
             }
         }
     } catch (error) {
-        console.warn(`No se pudo obtener datos para "${character}" desde HanziDB`);
+        console.warn(`Arch Chinese falló para "${character}":`, error.message);
     }
 
-    // Segundo intento con otra API
+    // API 2: Chinese-Tools (alternativa)
     try {
-        const response = await fetch(`https://api.ctext.org/getcharacter?char=${encodeURIComponent(character)}`);
+        console.log(`Buscando "${character}" en Chinese-Tools...`);
+        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://www.chinese-tools.com/tools/wordsearch.html?q=${character}`)}`);
+        
         if (response.ok) {
-            const data = await response.json();
-            if (data && data.pinyin) {
+            const text = await response.text();
+            // Buscar pinyin en el HTML
+            const pinyinMatch = text.match(/拼音[：:]\s*([^\s<]+)/);
+            if (pinyinMatch) {
                 return {
                     ch: character,
-                    pin: data.pinyin[0] || '?', // Primer pinyin
-                    en: data.definition || 'Unknown',
+                    pin: pinyinMatch[1],
+                    en: 'Check online dictionary',
                     es: 'Desconocido',
                     lv: '0',
                     gr: '999'
@@ -151,15 +161,77 @@ async function fetchCharacterData(character) {
             }
         }
     } catch (error) {
-        console.warn(`No se pudo obtener datos para "${character}" desde CText`);
+        console.warn(`Chinese-Tools falló para "${character}":`, error.message);
+    }
+
+    // API 3: Datos básicos de caracteres comunes (fallback local)
+    const commonChars = {
+        '名': { pin: 'míng', en: 'name, fame' },
+        '点': { pin: 'diǎn', en: 'point, dot' },
+        '们': { pin: 'men', en: 'plural marker' },
+        '的': { pin: 'de', en: 'possessive particle' },
+        '了': { pin: 'le', en: 'completed action' },
+        '是': { pin: 'shì', en: 'to be' },
+        '不': { pin: 'bù', en: 'not' },
+        '有': { pin: 'yǒu', en: 'to have' },
+        '在': { pin: 'zài', en: 'at, in' },
+        '这': { pin: 'zhè', en: 'this' },
+        '那': { pin: 'nà', en: 'that' },
+        '和': { pin: 'hé', en: 'and' },
+        '人': { pin: 'rén', en: 'person' },
+        '大': { pin: 'dà', en: 'big' },
+        '小': { pin: 'xiǎo', en: 'small' },
+        '中': { pin: 'zhōng', en: 'middle' },
+        '国': { pin: 'guó', en: 'country' },
+        '学': { pin: 'xué', en: 'study' },
+        '生': { pin: 'shēng', en: 'life, student' },
+        '子': { pin: 'zǐ', en: 'child' },
+        '女': { pin: 'nǚ', en: 'woman' },
+        '男': { pin: 'nán', en: 'man' },
+        '老': { pin: 'lǎo', en: 'old' },
+        '师': { pin: 'shī', en: 'teacher' },
+        '我': { pin: 'wǒ', en: 'I, me' },
+        '你': { pin: 'nǐ', en: 'you' },
+        '他': { pin: 'tā', en: 'he, him' },
+        '她': { pin: 'tā', en: 'she, her' },
+        '它': { pin: 'tā', en: 'it' },
+        '们': { pin: 'men', en: 'plural marker' },
+        '好': { pin: 'hǎo', en: 'good' },
+        '吃': { pin: 'chī', en: 'eat' },
+        '喝': { pin: 'hē', en: 'drink' },
+        '看': { pin: 'kàn', en: 'look, watch' },
+        '听': { pin: 'tīng', en: 'listen' },
+        '说': { pin: 'shuō', en: 'speak' },
+        '读': { pin: 'dú', en: 'read' },
+        '写': { pin: 'xiě', en: 'write' },
+        '来': { pin: 'lái', en: 'come' },
+        '去': { pin: 'qù', en: 'go' },
+        '上': { pin: 'shàng', en: 'up, on' },
+        '下': { pin: 'xià', en: 'down, under' },
+        '左': { pin: 'zuǒ', en: 'left' },
+        '右': { pin: 'yòu', en: 'right' },
+        '前': { pin: 'qián', en: 'front' },
+        '后': { pin: 'hòu', en: 'back' }
+        };
+
+    if (commonChars[character]) {
+        console.log(`Encontrado "${character}" en diccionario local de respaldo`);
+        return {
+            ch: character,
+            pin: commonChars[character].pin,
+            en: commonChars[character].en,
+            es: 'Desconocido',
+            lv: '0',
+            gr: '999'
+        };
     }
 
     // Si todo falla, usar datos básicos
-    console.log(`Carácter "${character}" no encontrado en APIs online`);
+    console.log(`Carácter "${character}" no encontrado`);
     return {
         ch: character,
         pin: '?',
-        en: 'Unknown',
+        en: 'Unknown character',
         es: 'Desconocido',
         lv: '0',
         gr: '999'
@@ -174,13 +246,16 @@ async function processText(text) {
     // Eliminar duplicados
     const uniqueChars = [...new Set(chineseChars)];
     
+    console.log(`Procesando ${uniqueChars.length} caracteres únicos:`, uniqueChars);
+    
     // Buscar información de cada carácter
     const newCharacters = [];
+    
     for (const char of uniqueChars) {
         let charData = charactersData.find(c => c.ch === char);
         
         if (!charData) {
-            // Si no está en el diccionario local, buscar en línea
+            console.log(`"${char}" no está en diccionario local, buscando...`);
             charData = await fetchCharacterData(char);
         }
         

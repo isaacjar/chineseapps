@@ -668,7 +668,7 @@ button.option-btn.correct-answer:disabled {
 .words-container {
     max-height: 60vh;
     overflow-y: auto;
-    padding: 0.5rem;
+    padding: 0.4rem;
     border: 1px solid var(--pastel-brown);
     border-radius: 8px;
     background-color: var(--pastel-green-light);
@@ -678,8 +678,8 @@ button.option-btn.correct-answer:disabled {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.5rem;
+    margin-bottom: 0.4rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: var(--shadow);
@@ -695,20 +695,20 @@ button.option-btn.correct-answer:disabled {
 .word-chinese {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     flex: 1;
 }
 
 .word-character {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #5d4037;
-    min-width: 3rem;
+    min-width: 6rem;
     text-align: center;
 }
 
 .word-pinyin {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #795548;
     min-width: 6rem;
 }

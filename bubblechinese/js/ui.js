@@ -37,12 +37,11 @@ function setupModal() {
     });
     
     // Confirmar texto
-    confirmBtn.addEventListener('click', () => {
+    confirmBtn.addEventListener('click', async () => {
         const text = document.getElementById('textInput').value.trim();
         if (text) {
-            const newChars = processText(text);
-            // SUSTITUIR los caracteres
-            addCharacters(newChars);
+            const newChars = await processText(text);
+            await addCharacters(newChars);
             closeModal();
         }
     });

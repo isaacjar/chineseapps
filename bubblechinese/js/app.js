@@ -173,7 +173,7 @@ function processText(text) {
 }
 
 // Añadir caracteres a la aplicación
-async function addCharacters(newChars) {
+function addCharacters(newChars) {
     appState.characters = newChars;
     saveStateToStorage();
     renderBubbles();
@@ -283,10 +283,13 @@ function handleFileUpload(event) {
     if (!file) return;
     
     const reader = new FileReader();
-        reader.onload = async function(e) {
+    reader.onload = async function(e) {
         const text = e.target.result;
         const newChars = await processText(text);
-        await addCharacters(newChars);
+        // SUSTITUIR los caracteres
+        appState.characters = newChars;
+        saveStateToStorage();
+        renderBubbles();
     };
     reader.readAsText(file);
     

@@ -157,13 +157,14 @@ class Game {
     displayQuestion(word) {
         const questionElement = document.getElementById('question-text');
         questionElement.innerHTML = ''; // Limpiar contenido anterior
+        // Aplicar clase de fuente
+        const fontClass = this.settings.get('chineseFont') || 'noto-serif';
         
         if (this.currentGame === 'game1') {
             // JUEGO 1: Mostrar palabra en chino (grande)
             const chineseElement = document.createElement('div');
-            chineseElement.className = 'chinese-character';
+            chineseElement.className = `chinese-character ${fontClass}`;
             chineseElement.textContent = word.ch || '';
-            
             questionElement.appendChild(chineseElement);
             
             // Mostrar pinyin si está activado en settings
@@ -203,6 +204,9 @@ class Game {
             // Escritorio: ajustar según dificultad
             optionsContainer.style.gridTemplateColumns = difficulty === 1 ? '1fr 1fr' : '1fr 1fr 1fr';
         }
+
+        // Obtener la fuente configurada
+        const fontClass = this.settings.get('chineseFont') || 'noto-serif';
         
         options.forEach(option => {
             const button = document.createElement('button');
@@ -221,7 +225,7 @@ class Game {
             } else {
                 // JUEGO 2: Opciones en chino
                 const chineseElement = document.createElement('div');
-                chineseElement.className = 'option-chinese';
+                chineseElement.className = `option-chinese ${fontClass}`;
                 chineseElement.textContent = option.ch || '';
                 
                 // Mostrar pinyin si está activado
@@ -253,6 +257,8 @@ class Game {
         
         // Mostrar feedback visual
         const options = document.querySelectorAll('.option-btn');
+        const fontClass = this.settings.get('chineseFont') || 'noto-serif';
+        
         options.forEach(btn => {
             let isThisCorrectOption = false;
             let isThisSelectedOption = false;
@@ -284,6 +290,11 @@ class Game {
                 // Verificar si es la opción seleccionada
                 const selectedChinese = selectedOption.ch || '';
                 isThisSelectedOption = btnChinese === selectedChinese;
+
+                // Aplicar clase de fuente si no la tiene
+                if (chineseElement && !chineseElement.classList.contains(fontClass)) {
+                    chineseElement.classList.add(fontClass);
+                }
             }
             
             // Aplicar clases según el escenario

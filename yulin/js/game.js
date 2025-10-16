@@ -100,8 +100,15 @@ class Game {
         // Resetear barra de tiempo visualmente
         const timerProgress = document.getElementById('timer-progress');
         if (timerProgress) {
+            // Remover transición temporalmente para el reset instantáneo
+            timerProgress.style.transition = 'none';
             timerProgress.style.width = '100%';
-            timerProgress.style.transition = 'none'; // Resetear transición
+            
+            // Forzar reflow para aplicar el cambio inmediatamente
+            timerProgress.offsetHeight;
+            
+            // Restaurar la transición para la siguiente animación
+            timerProgress.style.transition = `width ${this.settings.get('time')}s linear`;
         }
             
         if (this.currentQuestion >= this.settings.get('questions')) {
@@ -314,12 +321,15 @@ class Game {
     startTimer() {
         this.timeLeft = this.settings.get('time');
         const timerProgress = document.getElementById('timer-progress');
-        timerProgress.style.width = '100%';
-        timerProgress.style.transition = `width ${this.timeLeft}s linear`;
         
+        // Asegurar que la transición esté configurada correctamente
+        timerProgress.style.transition = `width ${this.timeLeft}s linear`;
+        timerProgress.style.width = '100%';
+        
+         // Pequeño delay para asegurar que el reset se aplicó
         setTimeout(() => {
             timerProgress.style.width = '0%';
-        }, 10);
+        }, 50);
         
         this.timer = setTimeout(() => {
             // Tiempo agotado - mostrar respuesta correcta

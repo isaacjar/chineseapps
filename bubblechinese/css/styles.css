@@ -558,3 +558,9 @@ body {
 .stroke-controls button:hover {
     background: #ff4da6;
 }
+
+/* Estilo para caracteres no encontrados en el diccionario */
+.unknown-character .character {
+    color: #8B0000 !important; /* Rojo oscuro */
+    font-weight: bold;
+}

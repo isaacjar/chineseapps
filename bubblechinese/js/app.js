@@ -114,28 +114,48 @@ function updateFontIndicator() {
 // Función para buscar caracteres en línea
 async function fetchCharacterData(character) {
     try {
-        // Usar API simple y gratuita
-        const response = await fetch(`https://ccdb.hemiola.com/characters/${encodeURIComponent(character)}?fields=kDefinition,kMandarin`);
+        // Usar API alternativa - HanziDB
+        const response = await fetch(`https://hanzi.db.niamu.li/char/${encodeURIComponent(character)}`);
         
         if (response.ok) {
             const data = await response.json();
-            if (data && data.length > 0) {
-                const charData = data[0];
+            if (data && data.definition) {
                 return {
                     ch: character,
-                    pin: charData.kMandarin || '?',
-                    en: charData.kDefinition || 'Unknown',
-                    es: 'Desconocido', // Solo inglés por simplicidad
+                    pin: data.pinyin || '?',
+                    en: data.definition || 'Unknown',
+                    es: 'Desconocido',
                     lv: '0',
                     gr: '999'
                 };
             }
         }
     } catch (error) {
-        console.warn(`No se pudo obtener datos para "${character}"`);
+        console.warn(`No se pudo obtener datos para "${character}" desde HanziDB`);
     }
-    
-    // Datos por defecto si no se encuentra
+
+    // Segundo intento con otra API
+    try {
+        const response = await fetch(`https://api.ctext.org/getcharacter?char=${encodeURIComponent(character)}`);
+        if (response.ok) {
+            const data = await response.json();
+            if (data && data.pinyin) {
+                return {
+                    ch: character,
+                    pin: data.pinyin[0] || '?', // Primer pinyin
+                    en: data.definition || 'Unknown',
+                    es: 'Desconocido',
+                    lv: '0',
+                    gr: '999'
+                };
+            }
+        }
+    } catch (error) {
+        console.warn(`No se pudo obtener datos para "${character}" desde CText`);
+    }
+
+    // Si todo falla, usar datos básicos
+    console.log(`Carácter "${character}" no encontrado en APIs online`);
     return {
         ch: character,
         pin: '?',

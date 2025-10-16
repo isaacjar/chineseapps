@@ -6,7 +6,8 @@ class Settings {
             time: 10,
             lives: 3,
             difficulty: 1,
-            showPinyin: true // Nueva configuración para mostrar pinyin
+            showPinyin: true,
+            chineseFont: 'noto-serif'
         };
         
         this.loadSettings();
@@ -56,7 +57,11 @@ class Settings {
         // Idioma
         const languageSelect = document.getElementById('language-select');
         if (languageSelect) languageSelect.value = this.settings.language;
-        
+
+        // Fuente china
+        const fontSelect = document.getElementById('font-select');
+        if (fontSelect) fontSelect.value = this.settings.chineseFont;
+                
         // Número de preguntas
         const questionsSlider = document.getElementById('questions-slider');
         const questionsValue = document.getElementById('questions-value');

@@ -19,6 +19,44 @@
     box-sizing: border-box;
 }
 
+/* Fuentes para caracteres chinos */
+.chinese-character.noto-serif,
+.option-chinese.noto-serif,
+.word-character.noto-serif {
+    font-family: 'Noto Serif SC', serif;
+}
+
+.chinese-character.noto-sans,
+.option-chinese.noto-sans,
+.word-character.noto-sans {
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.chinese-character.simsun,
+.option-chinese.simsun,
+.word-character.simsun {
+    font-family: 'SimSun', '宋体', serif;
+}
+
+.chinese-character.kaiti,
+.option-chinese.kaiti,
+.word-character.kaiti {
+    font-family: 'KaiTi', '楷体', serif;
+}
+
+.chinese-character.heiti,
+.option-chinese.heiti,
+.word-character.heiti {
+    font-family: 'HeiTi', '黑体', 'Microsoft YaHei', sans-serif;
+}
+
+.chinese-character.fangsong,
+.option-chinese.fangsong,
+.word-character.fangsong {
+    font-family: 'FangSong', '仿宋', serif;
+}
+
+/* Fuente por defecto (mantener la existente) */
 .chinese-character,
 .option-chinese,
 .word-character {

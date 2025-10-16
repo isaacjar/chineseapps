@@ -147,7 +147,7 @@ async function fetchCharacterData(character) {
 }
 
 // Procesar texto para extraer caracteres
-function processText(text) {
+async function processText(text) {
     // Filtrar solo caracteres chinos
     const chineseChars = text.match(/[\u4e00-\u9fff]/g) || [];
     
@@ -181,41 +181,67 @@ function addCharacters(newChars) {
 
 // Renderizar burbujas
 function renderBubbles() {
-    const bubble = document.createElement('div');
+    const container = document.getElementById('bubblesContainer');
     
-    // Determinar si es un carácter desconocido
-    const isUnknown = !charactersData.find(c => c.ch === char.ch);
-    const unknownClass = isUnknown ? 'unknown-character' : '';
+    // Limpiar contenedor
+    container.innerHTML = '';
     
-    bubble.className = `bubble ${sizeClass} ${appState.currentFont} ${unknownClass}`;
-    
-    let content = `<div class="character">${char.ch}</div>`;
-    
-    if (appState.showPinyin && char.pin) {
-        content += `<div class="pinyin">${char.pin}</div>`;
+    if (appState.characters.length === 0) {
+        // Mostrar mensaje de bienvenida
+        container.innerHTML = `
+            <div class="welcome-message">
+                <h1>Bubble Chinese 🎈</h1>
+                <p>Usa los botones de la izquierda para añadir caracteres chinos</p>
+            </div>
+        `;
+        return;
     }
     
-    const meanings = [];
-    if (appState.showSpanish && char.es) {
-        meanings.push(char.es);
-    }
-    if (appState.showEnglish && char.en) {
-        meanings.push(char.en);
-    }
+    // Determinar clase de tamaño
+    let sizeClass = 'bubble-size-medium';
+    if (appState.fontSize <= 2) sizeClass = 'bubble-size-small';
+    else if (appState.fontSize <= 3.5) sizeClass = 'bubble-size-medium';
+    else if (appState.fontSize <= 4.5) sizeClass = 'bubble-size-large';
+    else sizeClass = 'bubble-size-xlarge';
     
-    if (meanings.length > 0) {
-        content += `<div class="meaning">${meanings.join(' / ')}</div>`;
-    }
-    
-    bubble.innerHTML = content;
+    // Crear burbujas para cada carácter
+    appState.characters.forEach(char => {
+        const bubble = document.createElement('div');
+        
+        // Determinar si es un carácter desconocido
+        const isUnknown = !charactersData.find(c => c.ch === char.ch);
+        const unknownClass = isUnknown ? 'unknown-character' : '';
+        
+        bubble.className = `bubble ${sizeClass} ${appState.currentFont} ${unknownClass}`;
+        
+        let content = `<div class="character">${char.ch}</div>`;
+        
+        if (appState.showPinyin && char.pin) {
+            content += `<div class="pinyin">${char.pin}</div>`;
+        }
+        
+        const meanings = [];
+        if (appState.showSpanish && char.es) {
+            meanings.push(char.es);
+        }
+        if (appState.showEnglish && char.en) {
+            meanings.push(char.en);
+        }
+        
+        if (meanings.length > 0) {
+            content += `<div class="meaning">${meanings.join(' / ')}</div>`;
+        }
+        
+        bubble.innerHTML = content;
 
-    // Hacer burbuja clickable
-    bubble.addEventListener('click', () => {
-        showStrokeAnimation(char.ch);
+        // Hacer burbuja clickable
+        bubble.addEventListener('click', () => {
+            showStrokeAnimation(char.ch);
+        });
+
+        container.appendChild(bubble);
     });
-
-    container.appendChild(bubble);
-});
+}
 
 // Configurar event listeners
 function setupEventListeners() {
@@ -283,13 +309,14 @@ function handleFileUpload(event) {
     if (!file) return;
     
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = function(e) {
         const text = e.target.result;
-        const newChars = await processText(text);
-        // SUSTITUIR los caracteres
-        appState.characters = newChars;
-        saveStateToStorage();
-        renderBubbles();
+        // Usar .then() en lugar de await
+        processText(text).then(newChars => {
+            appState.characters = newChars;
+            saveStateToStorage();
+            renderBubbles();
+        });
     };
     reader.readAsText(file);
     

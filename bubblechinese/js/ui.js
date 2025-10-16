@@ -37,15 +37,16 @@ function setupModal() {
     });
     
     // Confirmar texto
-    confirmBtn.addEventListener('click', async () => {
+    confirmBtn.addEventListener('click', () => {
         const text = document.getElementById('textInput').value.trim();
         if (text) {
-            const newChars = await processText(text);
-            // SUSTITUIR los caracteres
-            appState.characters = newChars;
-            saveStateToStorage();
-            renderBubbles();
-            closeModal();
+            // Usar .then() en lugar de await
+            processText(text).then(newChars => {
+                appState.characters = newChars;
+                saveStateToStorage();
+                renderBubbles();
+                closeModal();
+            });
         }
     });
     

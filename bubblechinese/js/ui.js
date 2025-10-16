@@ -41,7 +41,10 @@ function setupModal() {
         const text = document.getElementById('textInput').value.trim();
         if (text) {
             const newChars = await processText(text);
-            await addCharacters(newChars);
+            // SUSTITUIR los caracteres
+            appState.characters = newChars;
+            saveStateToStorage();
+            renderBubbles();
             closeModal();
         }
     });

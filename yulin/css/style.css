@@ -398,13 +398,13 @@ body {
 
 /* Estilos mejorados para respuestas */
 .option-btn {
-    padding: 1.5rem;
+    padding: 1.2rem;
     background-color: var(--pastel-green);
     border: none;
     border-radius: 12px;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #5d4037;
     box-shadow: var(--shadow);
     border: 3px solid transparent;
@@ -606,7 +606,7 @@ button.option-btn.correct-answer:disabled {
 @media (min-width: 769px) and (min-height: 701px) {
     .options-container {
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
+        gap: 0.8rem;
     }
 }
 
@@ -619,7 +619,7 @@ button.option-btn.correct-answer:disabled {
 }
 
 .vocab-list-btn {
-    padding: 0.75rem;
+    padding: 0.5rem;
     background-color: var(--pastel-orange);
     border: none;
     border-radius: 8px;
@@ -872,15 +872,15 @@ input:checked + .slider:before {
 
 /* Estilos para opciones en chino */
 .option-chinese {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
 }
 
 .option-pinyin {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #795548;
-    font-style: italic;
+    /*font-style: italic;*/
 }
 
 /* Responsive para móviles */

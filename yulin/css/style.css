@@ -872,7 +872,7 @@ input:checked + .slider:before {
 
 /* Estilos para opciones en chino */
 .option-chinese {
-    font-size: 2.1rem;
+    font-size: 2.4rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
 }
@@ -898,7 +898,7 @@ input:checked + .slider:before {
     }
     
     .option-chinese {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
     }
     
     .option-pinyin {

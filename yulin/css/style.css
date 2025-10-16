@@ -943,3 +943,56 @@ input:checked + .slider:before {
         font-size: 0.7rem;
     }
 }
+
+/* Vista previa de fuente */
+.font-preview {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5d4037;
+    min-width: 180px;
+    text-align: center;
+    padding: 8px 12px;
+    background-color: white;
+    border: 2px solid var(--pastel-orange);
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+/* Aplicar fuentes a la vista previa */
+.font-preview.noto-serif {
+    font-family: 'Noto Serif SC', serif;
+}
+
+.font-preview.noto-sans {
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.font-preview.simsun {
+    font-family: 'SimSun', '宋体', serif;
+}
+
+.font-preview.kaiti {
+    font-family: 'KaiTi', '楷体', serif;
+}
+
+.font-preview.heiti {
+    font-family: 'HeiTi', '黑体', 'Microsoft YaHei', sans-serif;
+}
+
+.font-preview.fangsong {
+    font-family: 'FangSong', '仿宋', serif;
+}
+
+/* Ajuste responsive para la vista previa */
+@media (max-width: 768px) {
+    .font-preview {
+        font-size: 1.5rem;
+        min-width: 150px;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .setting-group {
+        align-items: center;
+    }
+}

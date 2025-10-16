@@ -283,11 +283,10 @@ function handleFileUpload(event) {
     if (!file) return;
     
     const reader = new FileReader();
-    reader.onload = function(e) {
+        reader.onload = async function(e) {
         const text = e.target.result;
-        const newChars = processText(text);
-        // SUSTITUIR los caracteres
-        addCharacters(newChars);
+        const newChars = await processText(text);
+        await addCharacters(newChars);
     };
     reader.readAsText(file);
     

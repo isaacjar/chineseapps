@@ -47,6 +47,7 @@
     {"ch": "么", "pin": "me", "en": "(question particle)", "es": "partícula interrogativa", "lv": "1", "gr": "008"},
     {"ch": "谁", "pin": "shéi", "en": "who", "es": "quién", "lv": "1", "gr": "008"},
     {"ch": "哪", "pin": "nǎ", "en": "which", "es": "cuál", "lv": "1", "gr": "008"},
+    {"ch": "们", "pin": "men", "en": "plural for pronouns", "es": "plural para pronombres", "lv": "1", "gr": "008"},
     {"ch": "里", "pin": "lǐ", "en": "inside", "es": "dentro", "lv": "1", "gr": "009"},
     {"ch": "上", "pin": "shàng", "en": "up/on", "es": "arriba/sobre", "lv": "1", "gr": "009"},
     {"ch": "下", "pin": "xià", "en": "down/under", "es": "abajo/debajo", "lv": "1", "gr": "009"},

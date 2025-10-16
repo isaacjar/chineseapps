@@ -61,6 +61,13 @@ class Settings {
         // Fuente china
         const fontSelect = document.getElementById('font-select');
         if (fontSelect) fontSelect.value = this.settings.chineseFont;
+
+        // Aplicar vista previa de fuente
+        const fontPreview = document.getElementById('font-preview');
+        if (fontPreview) {
+            fontPreview.classList.remove('noto-serif', 'noto-sans', 'simsun', 'kaiti', 'heiti', 'fangsong');
+            fontPreview.classList.add(this.settings.chineseFont);
+        }
                 
         // Número de preguntas
         const questionsSlider = document.getElementById('questions-slider');

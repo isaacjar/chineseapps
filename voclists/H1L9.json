@@ -1,0 +1,16 @@
+[
+  { "ch": "学校", "pin": "xuéxiào", "en": "school", "es": "escuela, colegio" },
+  { "ch": "猫", "pin": "māo", "en": "cat", "es": "gato" },
+  { "ch": "哪儿", "pin": "nǎr", "en": "where", "es": "dónde" },
+  { "ch": "狗", "pin": "gǒu", "en": "dog", "es": "perro" },
+  { "ch": "在", "pin": "zài", "en": "at, to be at", "es": "en, estar en" },
+  { "ch": "椅子", "pin": "yǐzi", "en": "chair", "es": "silla" },
+  { "ch": "儿子", "pin": "érzi", "en": "son", "es": "hijo" },
+  { "ch": "医院", "pin": "yīyuàn", "en": "hospital", "es": "hospital" },
+  { "ch": "医生", "pin": "yīshēng", "en": "doctor", "es": "médico" },
+  { "ch": "下面", "pin": "xiàmiàn", "en": "below, under", "es": "debajo" },
+  { "ch": "家", "pin": "jiā", "en": "home, family", "es": "hogar, familia" },
+  { "ch": "工作", "pin": "gōngzuò", "en": "job, to work", "es": "trabajo, trabajar" },
+  { "ch": "小", "pin": "xiǎo", "en": "small", "es": "pequeño" },
+  { "ch": "那儿", "pin": "nàr", "en": "there", "es": "allí" }
+]

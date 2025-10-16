@@ -111,6 +111,41 @@ function updateFontIndicator() {
     indicator.style.backgroundColor = colors[currentFontIndex] || '#ff69b4';
 }
 
+// Función para buscar caracteres en línea
+async function fetchCharacterData(character) {
+    try {
+        // Usar API simple y gratuita
+        const response = await fetch(`https://ccdb.hemiola.com/characters/${encodeURIComponent(character)}?fields=kDefinition,kMandarin`);
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data && data.length > 0) {
+                const charData = data[0];
+                return {
+                    ch: character,
+                    pin: charData.kMandarin || '?',
+                    en: charData.kDefinition || 'Unknown',
+                    es: 'Desconocido', // Solo inglés por simplicidad
+                    lv: '0',
+                    gr: '999'
+                };
+            }
+        }
+    } catch (error) {
+        console.warn(`No se pudo obtener datos para "${character}"`);
+    }
+    
+    // Datos por defecto si no se encuentra
+    return {
+        ch: character,
+        pin: '?',
+        en: 'Unknown',
+        es: 'Desconocido',
+        lv: '0',
+        gr: '999'
+    };
+}
+
 // Procesar texto para extraer caracteres
 function processText(text) {
     // Filtrar solo caracteres chinos
@@ -121,29 +156,24 @@ function processText(text) {
     
     // Buscar información de cada carácter
     const newCharacters = [];
-    uniqueChars.forEach(char => {
-        const charData = charactersData.find(c => c.ch === char);
+    for (const char of uniqueChars) {
+        let charData = charactersData.find(c => c.ch === char);
+        
+        if (!charData) {
+            // Si no está en el diccionario local, buscar en línea
+            charData = await fetchCharacterData(char);
+        }
+        
         if (charData) {
             newCharacters.push(charData);
-        } else {
-            // Si no está en el diccionario, crear un objeto básico
-            newCharacters.push({
-                ch: char,
-                pin: '?',
-                en: 'Unknown',
-                es: 'Desconocido',
-                lv: '0',
-                gr: '000'
-            });
         }
-    });
+    }
     
     return newCharacters;
 }
 
 // Añadir caracteres a la aplicación
-function addCharacters(newChars) {
-    // SUSTITUIR los caracteres en lugar de añadirlos
+async function addCharacters(newChars) {
     appState.characters = newChars;
     saveStateToStorage();
     renderBubbles();
@@ -151,62 +181,41 @@ function addCharacters(newChars) {
 
 // Renderizar burbujas
 function renderBubbles() {
-    const container = document.getElementById('bubblesContainer');
+    const bubble = document.createElement('div');
     
-    // Limpiar contenedor
-    container.innerHTML = '';
+    // Determinar si es un carácter desconocido
+    const isUnknown = !charactersData.find(c => c.ch === char.ch);
+    const unknownClass = isUnknown ? 'unknown-character' : '';
     
-    if (appState.characters.length === 0) {
-        // Mostrar mensaje de bienvenida
-        container.innerHTML = `
-            <div class="welcome-message">
-                <h1>Bubble Chinese 🎈</h1>
-                <p>Usa los botones de la izquierda para añadir caracteres chinos</p>
-            </div>
-        `;
-        return;
+    bubble.className = `bubble ${sizeClass} ${appState.currentFont} ${unknownClass}`;
+    
+    let content = `<div class="character">${char.ch}</div>`;
+    
+    if (appState.showPinyin && char.pin) {
+        content += `<div class="pinyin">${char.pin}</div>`;
     }
     
-    // Determinar clase de tamaño
-    let sizeClass = 'bubble-size-medium';
-    if (appState.fontSize <= 2) sizeClass = 'bubble-size-small';
-    else if (appState.fontSize <= 3.5) sizeClass = 'bubble-size-medium';
-    else if (appState.fontSize <= 4.5) sizeClass = 'bubble-size-large';
-    else sizeClass = 'bubble-size-xlarge';
+    const meanings = [];
+    if (appState.showSpanish && char.es) {
+        meanings.push(char.es);
+    }
+    if (appState.showEnglish && char.en) {
+        meanings.push(char.en);
+    }
     
-    // Crear burbujas para cada carácter
-    appState.characters.forEach(char => {
-        const bubble = document.createElement('div');
-        bubble.className = `bubble ${sizeClass} ${appState.currentFont}`;
-        
-        let content = `<div class="character">${char.ch}</div>`;
-        
-        if (appState.showPinyin && char.pin) {
-            content += `<div class="pinyin">${char.pin}</div>`;
-        }
-        
-        const meanings = [];
-        if (appState.showSpanish && char.es) {
-            meanings.push(char.es);
-        }
-        if (appState.showEnglish && char.en) {
-            meanings.push(char.en);
-        }
-        
-        if (meanings.length > 0) {
-            content += `<div class="meaning">${meanings.join(' / ')}</div>`;
-        }
-        
-        bubble.innerHTML = content;
+    if (meanings.length > 0) {
+        content += `<div class="meaning">${meanings.join(' / ')}</div>`;
+    }
+    
+    bubble.innerHTML = content;
 
-        // ⭐⭐ Burbuja clickable ⭐⭐
-        bubble.addEventListener('click', () => {
-            showStrokeAnimation(char.ch);
-        });
-
-        container.appendChild(bubble);
+    // Hacer burbuja clickable
+    bubble.addEventListener('click', () => {
+        showStrokeAnimation(char.ch);
     });
-}
+
+    container.appendChild(bubble);
+});
 
 // Configurar event listeners
 function setupEventListeners() {

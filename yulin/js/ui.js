@@ -415,13 +415,13 @@ class UI {
         const languageSelect = document.getElementById('language-select');
         const questionsSlider = document.getElementById('questions-slider');
         const timeSlider = document.getElementById('time-slider');
-        const livesSelect = document.getElementById('lives-select');
+        const livesSlider = document.getElementById('lives-slider');
         const difficultySlider = document.getElementById('difficulty-slider');
         
         if (languageSelect) this.settings.set('language', languageSelect.value);
         if (questionsSlider) this.settings.set('questions', parseInt(questionsSlider.value));
         if (timeSlider) this.settings.set('time', parseInt(timeSlider.value));
-        if (livesSelect) this.settings.set('lives', parseInt(livesSelect.value));
+        if (livesSlider) this.settings.set('lives', parseInt(livesSlider.value));
         if (difficultySlider) this.settings.set('difficulty', parseInt(difficultySlider.value));
         
         this.updateLabels();

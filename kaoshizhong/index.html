@@ -22,19 +22,19 @@
         <main class="menu-grid">
             <button class="menu-card" data-screen="clock-screen">
                 <span class="menu-icon">🕐</span>
-                <span class="menu-label">Reloj Actual</span>
+                <span class="menu-label">Current Time</span>
             </button>
             <button class="menu-card" data-screen="stopwatch-screen">
                 <span class="menu-icon">⏱️</span>
-                <span class="menu-label">Cronómetro</span>
+                <span class="menu-label">Stopwatch</span>
             </button>
             <button class="menu-card" data-screen="timer-screen">
                 <span class="menu-icon">⏲️</span>
-                <span class="menu-label">Temporizador</span>
+                <span class="menu-label">Timer</span>
             </button>
             <button class="menu-card" data-screen="countdown-screen">
                 <span class="menu-icon">⏰</span>
-                <span class="menu-label">Hasta Hora</span>
+                <span class="menu-label">Target Time</span>
             </button>
         </main>
     </div>
@@ -55,7 +55,7 @@
         
         <div id="clock-title-edit" class="edit-container hidden">
             <input type="text" id="clock-title-input" placeholder="Título del evento">
-            <button id="save-clock-title" class="btn primary">Guardar</button>
+            <button id="save-clock-title" class="btn primary">Save</button>
         </div>
     </div>
 
@@ -80,7 +80,7 @@
         
         <div id="stopwatch-title-edit" class="edit-container hidden">
             <input type="text" id="stopwatch-title-input" placeholder="Título del evento">
-            <button id="save-stopwatch-title" class="btn primary">Guardar</button>
+            <button id="save-stopwatch-title" class="btn primary">Save</button>
         </div>
     </div>
 
@@ -115,13 +115,13 @@
             </div>
             <div id="custom-timer-input" class="custom-input hidden">
                 <input type="text" id="custom-time" placeholder="HH:MM:SS" value="00:10:00">
-                <button id="set-custom-time" class="btn primary">Establecer</button>
+                <button id="set-custom-time" class="btn primary">Set</button>
             </div>
         </main>
         
         <div id="timer-title-edit" class="edit-container hidden">
             <input type="text" id="timer-title-input" placeholder="Título del evento">
-            <button id="save-timer-title" class="btn primary">Guardar</button>
+            <button id="save-timer-title" class="btn primary">Save</button>
         </div>
     </div>
 
@@ -138,7 +138,7 @@
         <main class="clock-container">
             <div id="countdown" class="clock-display">00:50:00</div>
             <div class="target-time">
-                <span id="target-time-display" class="target-time-text">Hasta: 12:00</span>
+                <span id="target-time-display" class="target-time-text">To 12:00</span>
                 <button id="set-target-time" class="icon-btn small" aria-label="Establecer hora objetivo">⏰</button>
             </div>
             <div class="controls">
@@ -149,16 +149,16 @@
         
         <div id="countdown-title-edit" class="edit-container hidden">
             <input type="text" id="countdown-title-input" placeholder="Título del evento">
-            <button id="save-countdown-title" class="btn primary">Guardar</button>
+            <button id="save-countdown-title" class="btn primary">Save</button>
         </div>
         
         <div id="time-picker-modal" class="modal hidden">
             <div class="modal-content">
-                <h3>Establecer hora objetivo</h3>
+                <h3>Set time</h3>
                 <input type="time" id="target-time-input">
                 <div class="modal-actions">
-                    <button id="cancel-time-picker" class="btn">Cancelar</button>
-                    <button id="save-target-time" class="btn primary">Guardar</button>
+                    <button id="cancel-time-picker" class="btn">Cancel</button>
+                    <button id="save-target-time" class="btn primary">Save</button>
                 </div>
             </div>
         </div>
@@ -168,27 +168,27 @@
     <div id="settings-screen" class="screen">
         <header class="app-header">
             <button id="back-from-settings" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
-            <h1 class="app-title">Configuración</h1>
+            <h1 class="app-title">Settings</h1>
         </header>
         
         <main class="settings-container">
             <div class="setting-group">
-                <h3>Color de fondo</h3>
+                <h3>Background Color</h3>
                 <input type="color" id="bg-color" value="#000000">
             </div>
             
             <div class="setting-group">
-                <h3>Color del texto del reloj</h3>
+                <h3>Text Color</h3>
                 <input type="color" id="clock-text-color" value="#FFE4B5">
             </div>
             
             <div class="setting-group">
-                <h3>Color de elementos adicionales</h3>
+                <h3>Auxiliar Color</h3>
                 <input type="color" id="accent-color" value="#979595">
             </div>
             
             <div class="setting-group">
-                <h3>Fuente del reloj</h3>
+                <h3>🔤</h3>
                 <select id="font-family">
                     <option value="'Roboto', sans-serif">Roboto</option>
                     <option value="'Arial', sans-serif">Arial</option>
@@ -203,7 +203,7 @@
                 </select>
             </div>
             
-            <button id="reset-settings" class="btn">Restablecer valores predeterminados</button>
+            <button id="reset-settings" class="btn">Reset</button>
         </main>
     </div>
 

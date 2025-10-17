@@ -72,8 +72,9 @@
         <main class="clock-container">
             <div id="stopwatch" class="clock-display">00:00:00</div>
             <div class="controls">
+                <button id="start-stopwatch" class="btn primary">Start</button>
+                <button id="pause-stopwatch" class="btn hidden">Pause</button>
                 <button id="reset-stopwatch" class="btn">Reset</button>
-                <button id="pause-stopwatch" class="btn primary">Pause</button>
             </div>
         </main>
         
@@ -107,8 +108,9 @@
                     <option value="custom">Customize</option>
                 </select>
                 <div class="controls">
+                    <button id="start-timer" class="btn primary">Start</button>
+                    <button id="pause-timer" class="btn hidden">Pause</button>
                     <button id="reset-timer" class="btn">Reset</button>
-                    <button id="pause-timer" class="btn primary">Pause</button>
                 </div>
             </div>
             <div id="custom-timer-input" class="custom-input hidden">
@@ -138,6 +140,10 @@
             <div class="target-time">
                 <span id="target-time-display" class="target-time-text">Hasta: 12:00</span>
                 <button id="set-target-time" class="icon-btn small" aria-label="Establecer hora objetivo">⏰</button>
+            </div>
+            <div class="controls">
+                <button id="start-countdown" class="btn primary">Start</button>
+                <button id="pause-countdown" class="btn hidden">Pause</button>
             </div>
         </main>
         

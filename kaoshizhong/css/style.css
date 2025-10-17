@@ -1,4 +1,4 @@
-/* css/style.css */
+/* css/style.css - Actualizado con nuevos colores */
 :root {
     --primary-orange: #FFB74D;
     --light-orange: #FFE0B2;
@@ -6,13 +6,15 @@
     --primary-green: #81C784;
     --light-green: #C8E6C9;
     --dark-green: #388E3C;
-    --primary-brown: #A1887F;
+    --primary-brown: #8D6E63; /* Marrón más claro */
     --light-brown: #D7CCC8;
     --dark-brown: #5D4037;
+    --app-background: #000000; /* Fondo negro */
+    --app-surface: #A1887F; /* Marrón claro para el cuadro de la app */
     --text-dark: #212121;
     --text-light: #757575;
-    --background: #F5F5F5;
-    --surface: #FFFFFF;
+    --background: #000000; /* Fondo negro */
+    --surface: #A1887F; /* Marrón claro para superficies */
     --error: #B00020;
     
     --clock-bg: #000000;
@@ -36,7 +38,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--background);
+    background-color: var(--app-background); /* Fondo negro */
     color: var(--text-dark);
     height: 100vh;
     overflow: hidden;
@@ -48,6 +50,7 @@ body {
     flex-direction: column;
     height: 100vh;
     padding: 0;
+    background-color: var(--app-surface); /* Marrón claro para el cuadro de la app */
 }
 
 .screen.active {
@@ -60,9 +63,10 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background-color: var(--surface);
+    background-color: var(--surface); /* Marrón claro */
     box-shadow: var(--shadow);
     z-index: 10;
+    color: white; /* Texto blanco para mejor contraste */
 }
 
 .header-left {
@@ -78,11 +82,12 @@ body {
 .app-title {
     font-size: 18px;
     font-weight: 500;
+    color: white; /* Texto blanco */
 }
 
 .pinyin {
     font-size: 14px;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.8); /* Texto blanco semi-transparente */
 }
 
 .header-center {
@@ -96,6 +101,7 @@ body {
 .event-title {
     font-size: 16px;
     font-weight: 500;
+    color: white; /* Texto blanco */
 }
 
 /* Botones */
@@ -110,10 +116,11 @@ body {
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
+    color: white; /* Iconos blancos */
 }
 
 .icon-btn:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(255, 255, 255, 0.1); /* Hover más claro */
 }
 
 .icon-btn.small {
@@ -123,7 +130,7 @@ body {
 
 .back-btn {
     font-weight: bold;
-    color: var(--text-dark);
+    color: white; /* Texto blanco */
 }
 
 .btn {
@@ -160,6 +167,7 @@ body {
     padding: 16px;
     flex: 1;
     align-content: center;
+    background-color: var(--app-surface); /* Fondo marrón claro */
 }
 
 .menu-card {
@@ -175,6 +183,10 @@ body {
     transition: all 0.3s;
     box-shadow: var(--shadow);
     aspect-ratio: 1;
+    /* Asegurar que sea clickeable */
+    position: relative;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .menu-card:hover {
@@ -192,6 +204,16 @@ body {
     font-size: 14px;
     font-weight: 500;
     color: var(--text-dark);
+}
+
+/* Eliminar cualquier estilo que pueda estar interfiriendo */
+.menu-card * {
+    pointer-events: none; /* Esto evita que los elementos hijos interfieran con el click */
+}
+
+/* Pero permitir interacción con los botones normales */
+.btn, .icon-btn {
+    pointer-events: auto;
 }
 
 /* Contenedor de reloj */
@@ -238,6 +260,7 @@ select {
     background-color: var(--surface);
     font-size: 14px;
     width: 100%;
+    color: var(--text-dark);
 }
 
 .custom-input {
@@ -254,6 +277,8 @@ select {
     border-radius: 4px;
     border: 1px solid var(--light-brown);
     font-size: 14px;
+    background-color: white;
+    color: var(--text-dark);
 }
 
 /* Hora objetivo */
@@ -276,7 +301,7 @@ select {
     gap: 8px;
     padding: 16px;
     background-color: var(--surface);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .edit-container input {
@@ -285,6 +310,8 @@ select {
     border-radius: 4px;
     border: 1px solid var(--light-brown);
     font-size: 14px;
+    background-color: white;
+    color: var(--text-dark);
 }
 
 .hidden {
@@ -312,11 +339,13 @@ select {
     width: 90%;
     max-width: 400px;
     box-shadow: var(--shadow-elevated);
+    color: white; /* Texto blanco */
 }
 
 .modal-content h3 {
     margin-bottom: 16px;
     font-weight: 500;
+    color: white;
 }
 
 .modal-content input[type="time"] {
@@ -326,6 +355,8 @@ select {
     border: 1px solid var(--light-brown);
     font-size: 16px;
     margin-bottom: 16px;
+    background-color: white;
+    color: var(--text-dark);
 }
 
 .modal-actions {
@@ -339,6 +370,7 @@ select {
     padding: 16px;
     flex: 1;
     overflow-y: auto;
+    background-color: var(--app-surface); /* Fondo marrón claro */
 }
 
 .setting-group {
@@ -349,6 +381,7 @@ select {
     margin-bottom: 8px;
     font-weight: 500;
     font-size: 16px;
+    color: white; /* Texto blanco */
 }
 
 .setting-group input[type="color"] {
@@ -359,13 +392,50 @@ select {
     cursor: pointer;
 }
 
+/* Controles ocultos */
+.controls .hidden {
+    display: none;
+}
+
+.controls .visible {
+    display: inline-block;
+}
+
+/* Animación de parpadeo para temporizadores */
+@keyframes blink-alarm {
+    0%, 50% {
+        color: var(--clock-text);
+        background-color: var(--clock-bg);
+    }
+    51%, 100% {
+        color: #ff4444;
+        background-color: #fff8f8;
+    }
+}
+
+.blinking-alarm {
+    animation: blink-alarm 1s infinite;
+}
+
+/* Mejorar la visibilidad del texto durante el parpadeo */
+.clock-display {
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Estilos para el estado de alarma */
+.alarm-active {
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+}
+
 /* Responsive para pantallas más anchas */
 @media (min-width: 768px) and (min-aspect-ratio: 1/1) {
     body {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--dark-brown);
+        background-color: var(--app-background); /* Fondo negro */
     }
     
     .screen {
@@ -375,12 +445,14 @@ select {
         border-radius: 12px;
         overflow: hidden;
         box-shadow: var(--shadow-elevated);
+        background-color: var(--app-surface); /* Marrón claro para el cuadro */
     }
     
     .menu-grid {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 24px;
         padding: 24px;
+        background-color: var(--app-surface); /* Fondo marrón claro */
     }
     
     .menu-card {
@@ -414,40 +486,4 @@ select {
 /* Fuentes específicas para el modo reloj digital */
 .clock-font-digital {
     font-family: 'Digital-7', monospace;
-}
-
-/* Animación de parpadeo para temporizadores */
-@keyframes blink-alarm {
-    0%, 50% {
-        color: var(--clock-text);
-        background-color: var(--clock-bg);
-    }
-    51%, 100% {
-        color: #ff4444;
-        background-color: #fff8f8;
-    }
-}
-
-.blinking-alarm {
-    animation: blink-alarm 1s infinite;
-}
-
-/* Mejorar la visibilidad del texto durante el parpadeo */
-.clock-display {
-    transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-/* Estilos para el estado de alarma */
-.alarm-active {
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
-}
-
-.controls .hidden {
-    display: none;
-}
-
-.controls .visible {
-    display: inline-block;
 }

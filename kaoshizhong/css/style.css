@@ -400,6 +400,36 @@ select {
     border: 1px solid #333;
 }
 
+/* Añadir al CSS - Estilos para los botones de settings */
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.settings-actions .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Para pantallas más grandes, poner los botones en línea */
+@media (min-width: 768px) {
+    .settings-actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .settings-actions .btn {
+        width: auto;
+        flex: 1;
+        margin: 0 8px;
+    }
+}
+
+
 /* Controles ocultos */
 .controls .hidden {
     display: none;

@@ -1,4 +1,4 @@
-// js/settings.js - Corregir el sistema de fuentes
+// js/settings.js - Añadir método para guardar manualmente
 class SettingsManager {
     constructor() {
         this.defaultSettings = {
@@ -22,29 +22,45 @@ class SettingsManager {
             "'Digital-7', monospace": "clock-font-digital"
         };
         
+        this.currentSettings = {...this.defaultSettings};
         this.loadSettings();
     }
     
     loadSettings() {
         const stored = localStorage.getItem('clockAppSettings');
         if (stored) {
-            this.settings = {...this.defaultSettings, ...JSON.parse(stored)};
+            this.currentSettings = {...this.defaultSettings, ...JSON.parse(stored)};
         } else {
-            this.settings = {...this.defaultSettings};
+            this.currentSettings = {...this.defaultSettings};
         }
         
         this.applySettings();
     }
     
     saveSettings() {
-        localStorage.setItem('clockAppSettings', JSON.stringify(this.settings));
+        localStorage.setItem('clockAppSettings', JSON.stringify(this.currentSettings));
         this.applySettings();
+        this.showSaveConfirmation();
+    }
+    
+    showSaveConfirmation() {
+        // Mostrar mensaje de confirmación temporal
+        const saveBtn = document.getElementById('save-settings');
+        const originalText = saveBtn.textContent;
+        
+        saveBtn.textContent = '✓ Guardado!';
+        saveBtn.style.backgroundColor = '#4CAF50';
+        
+        setTimeout(() => {
+            saveBtn.textContent = originalText;
+            saveBtn.style.backgroundColor = '';
+        }, 2000);
     }
     
     applySettings() {
-        document.documentElement.style.setProperty('--clock-bg', this.settings.bgColor);
-        document.documentElement.style.setProperty('--clock-text', this.settings.clockTextColor);
-        document.documentElement.style.setProperty('--accent-color', this.settings.accentColor);
+        document.documentElement.style.setProperty('--clock-bg', this.currentSettings.bgColor);
+        document.documentElement.style.setProperty('--clock-text', this.currentSettings.clockTextColor);
+        document.documentElement.style.setProperty('--accent-color', this.currentSettings.accentColor);
         
         // Aplicar fuente seleccionada a todos los displays de reloj
         this.applyFontToAllClocks();
@@ -52,7 +68,7 @@ class SettingsManager {
     
     applyFontToAllClocks() {
         const clockDisplays = document.querySelectorAll('.clock-display');
-        const fontClass = this.fontMap[this.settings.fontFamily] || 'clock-font-roboto';
+        const fontClass = this.fontMap[this.currentSettings.fontFamily] || 'clock-font-roboto';
         
         // Primero remover todas las clases de fuente
         clockDisplays.forEach(display => {
@@ -65,22 +81,37 @@ class SettingsManager {
     }
     
     updateSetting(key, value) {
-        this.settings[key] = value;
+        this.currentSettings[key] = value;
         
         // Si cambia la fuente, actualizar también la clase
         if (key === 'fontFamily') {
-            this.settings.fontClass = this.fontMap[value] || 'clock-font-roboto';
+            this.currentSettings.fontClass = this.fontMap[value] || 'clock-font-roboto';
         }
         
+        // Aplicar cambios inmediatamente (opcional)
+        this.applySettings();
+    }
+    
+    saveCurrentSettings() {
         this.saveSettings();
     }
     
     resetToDefaults() {
-        this.settings = {...this.defaultSettings};
+        this.currentSettings = {...this.defaultSettings};
         this.saveSettings();
     }
     
     getSettings() {
-        return {...this.settings};
+        return {...this.currentSettings};
+    }
+    
+    // Nuevo método para obtener los valores actuales del formulario
+    getFormSettings() {
+        return {
+            bgColor: document.getElementById('bg-color').value,
+            clockTextColor: document.getElementById('clock-text-color').value,
+            accentColor: document.getElementById('accent-color').value,
+            fontFamily: document.getElementById('font-family').value
+        };
     }
 }

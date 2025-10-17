@@ -443,3 +443,11 @@ select {
 .alarm-active {
     box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
 }
+
+.controls .hidden {
+    display: none;
+}
+
+.controls .visible {
+    display: inline-block;
+}

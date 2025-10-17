@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考时钟 [Kǎo shí zhōng]</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕰️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Pantalla de Menú -->
+    <div id="menu-screen" class="screen active">
+        <header class="app-header">
+            <div class="header-left">
+                <span class="app-icon">🕰️</span>
+                <h1 class="app-title">考时钟 <span class="pinyin">[Kǎo shí zhōng]</span></h1>
+            </div>
+            <button id="settings-btn" class="icon-btn" aria-label="Configuración">⚙️</button>
+        </header>
+        
+        <main class="menu-grid">
+            <button class="menu-card" data-screen="clock-screen">
+                <span class="menu-icon">🕐</span>
+                <span class="menu-label">Reloj Actual</span>
+            </button>
+            <button class="menu-card" data-screen="stopwatch-screen">
+                <span class="menu-icon">⏱️</span>
+                <span class="menu-label">Cronómetro</span>
+            </button>
+            <button class="menu-card" data-screen="timer-screen">
+                <span class="menu-icon">⏲️</span>
+                <span class="menu-label">Temporizador</span>
+            </button>
+            <button class="menu-card" data-screen="countdown-screen">
+                <span class="menu-icon">⏰</span>
+                <span class="menu-label">Hasta Hora</span>
+            </button>
+        </main>
+    </div>
+
+    <!-- Pantalla de Reloj Actual -->
+    <div id="clock-screen" class="screen">
+        <header class="app-header">
+            <button id="back-from-clock" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
+            <div class="header-center">
+                <span id="clock-title" class="event-title">Chinese Test</span>
+                <button id="edit-clock-title" class="icon-btn small" aria-label="Editar título">📝</button>
+            </div>
+        </header>
+        
+        <main class="clock-container">
+            <div id="current-clock" class="clock-display">00:00:00</div>
+        </main>
+        
+        <div id="clock-title-edit" class="edit-container hidden">
+            <input type="text" id="clock-title-input" placeholder="Título del evento">
+            <button id="save-clock-title" class="btn primary">Guardar</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Cronómetro -->
+    <div id="stopwatch-screen" class="screen">
+        <header class="app-header">
+            <button id="back-from-stopwatch" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
+            <div class="header-center">
+                <span id="stopwatch-title" class="event-title">Chinese Test</span>
+                <button id="edit-stopwatch-title" class="icon-btn small" aria-label="Editar título">📝</button>
+            </div>
+        </header>
+        
+        <main class="clock-container">
+            <div id="stopwatch" class="clock-display">00:00:00</div>
+            <div class="controls">
+                <button id="reset-stopwatch" class="btn">Reset</button>
+                <button id="pause-stopwatch" class="btn primary">Pause</button>
+            </div>
+        </main>
+        
+        <div id="stopwatch-title-edit" class="edit-container hidden">
+            <input type="text" id="stopwatch-title-input" placeholder="Título del evento">
+            <button id="save-stopwatch-title" class="btn primary">Guardar</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Temporizador -->
+    <div id="timer-screen" class="screen">
+        <header class="app-header">
+            <button id="back-from-timer" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
+            <div class="header-center">
+                <span id="timer-title" class="event-title">Chinese Test</span>
+                <button id="edit-timer-title" class="icon-btn small" aria-label="Editar título">📝</button>
+            </div>
+        </header>
+        
+        <main class="clock-container">
+            <div id="timer" class="clock-display">00:10:00</div>
+            <div class="timer-controls">
+                <select id="timer-presets">
+                    <option value="300">5 min</option>
+                    <option value="600">10 min</option>
+                    <option value="900">15 min</option>
+                    <option value="1200">20 min</option>
+                    <option value="1500">25 min</option>
+                    <option value="1800">30 min</option>
+                    <option value="2700">45 min</option>
+                    <option value="custom">Customize</option>
+                </select>
+                <div class="controls">
+                    <button id="reset-timer" class="btn">Reset</button>
+                    <button id="pause-timer" class="btn primary">Pause</button>
+                </div>
+            </div>
+            <div id="custom-timer-input" class="custom-input hidden">
+                <input type="text" id="custom-time" placeholder="HH:MM:SS" value="00:10:00">
+                <button id="set-custom-time" class="btn primary">Establecer</button>
+            </div>
+        </main>
+        
+        <div id="timer-title-edit" class="edit-container hidden">
+            <input type="text" id="timer-title-input" placeholder="Título del evento">
+            <button id="save-timer-title" class="btn primary">Guardar</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Temporizador hasta Hora -->
+    <div id="countdown-screen" class="screen">
+        <header class="app-header">
+            <button id="back-from-countdown" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
+            <div class="header-center">
+                <span id="countdown-title" class="event-title">Chinese Test</span>
+                <button id="edit-countdown-title" class="icon-btn small" aria-label="Editar título">📝</button>
+            </div>
+        </header>
+        
+        <main class="clock-container">
+            <div id="countdown" class="clock-display">00:50:00</div>
+            <div class="target-time">
+                <span id="target-time-display" class="target-time-text">Hasta: 12:00</span>
+                <button id="set-target-time" class="icon-btn small" aria-label="Establecer hora objetivo">⏰</button>
+            </div>
+        </main>
+        
+        <div id="countdown-title-edit" class="edit-container hidden">
+            <input type="text" id="countdown-title-input" placeholder="Título del evento">
+            <button id="save-countdown-title" class="btn primary">Guardar</button>
+        </div>
+        
+        <div id="time-picker-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Establecer hora objetivo</h3>
+                <input type="time" id="target-time-input">
+                <div class="modal-actions">
+                    <button id="cancel-time-picker" class="btn">Cancelar</button>
+                    <button id="save-target-time" class="btn primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Configuración -->
+    <div id="settings-screen" class="screen">
+        <header class="app-header">
+            <button id="back-from-settings" class="icon-btn back-btn" aria-label="Volver al menú">X</button>
+            <h1 class="app-title">Configuración</h1>
+        </header>
+        
+        <main class="settings-container">
+            <div class="setting-group">
+                <h3>Color de fondo</h3>
+                <input type="color" id="bg-color" value="#000000">
+            </div>
+            
+            <div class="setting-group">
+                <h3>Color del texto del reloj</h3>
+                <input type="color" id="clock-text-color" value="#FFE4B5">
+            </div>
+            
+            <div class="setting-group">
+                <h3>Color de elementos adicionales</h3>
+                <input type="color" id="accent-color" value="#979595">
+            </div>
+            
+            <div class="setting-group">
+                <h3>Fuente del reloj</h3>
+                <select id="font-family">
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Arial', sans-serif">Arial</option>
+                    <option value="'Helvetica', sans-serif">Helvetica</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                    <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                    <option value="'Gill Sans', sans-serif">Gill Sans</option>
+                    <option value="'Digital-7', monospace">Digital Clock</option>
+                </select>
+            </div>
+            
+            <button id="reset-settings" class="btn">Restablecer valores predeterminados</button>
+        </main>
+    </div>
+
+    <script src="js/settings.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,23 +1,124 @@
-// js/app.js - Modificaciones en TimerManager y CountdownManager
+// js/app.js 
 
-// Inicialización de la aplicación
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM cargado - Inicializando aplicación...');
+// Primero definimos todas las clases
+class ClockManager {
+    constructor(uiManager) {
+        this.uiManager = uiManager;
+        this.init();
+    }
     
-    const settingsManager = new SettingsManager();
-    const uiManager = new UIManager(settingsManager);
+    init() {
+        this.updateClock();
+        setInterval(() => {
+            this.updateClock();
+        }, 1000);
+    }
     
-    // Inicializar managers para cada funcionalidad
-    window.clockManager = new ClockManager(uiManager);
-    window.stopwatchManager = new StopwatchManager(uiManager);
-    window.timerManager = new TimerManager(uiManager);
-    window.countdownManager = new CountdownManager(uiManager);
+    updateClock() {
+        const now = new Date();
+        const timeString = this.formatTime(now);
+        this.uiManager.updateClockDisplay('current-clock', timeString);
+    }
     
-    // Aplicar configuración inicial
-    settingsManager.applySettings();
+    formatTime(date) {
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+}
+
+class StopwatchManager {
+    constructor(uiManager) {
+        this.uiManager = uiManager;
+        this.isRunning = false;
+        this.startTime = 0;
+        this.elapsedTime = 0;
+        this.intervalId = null;
+        this.blinkIntervalId = null;
+        this.isBlinking = false;
+        this.initEventListeners();
+    }
     
-    console.log('Aplicación inicializada correctamente');
-});
+    initEventListeners() {
+        document.getElementById('reset-stopwatch').addEventListener('click', () => {
+            this.reset();
+        });
+        
+        document.getElementById('pause-stopwatch').addEventListener('click', () => {
+            if (this.isRunning) {
+                this.pause();
+                document.getElementById('pause-stopwatch').textContent = 'Start';
+            } else {
+                this.start();
+                document.getElementById('pause-stopwatch').textContent = 'Pause';
+            }
+        });
+    }
+    
+    start() {
+        if (!this.isRunning) {
+            this.stopBlinking();
+            this.startTime = Date.now() - this.elapsedTime;
+            this.intervalId = setInterval(() => {
+                this.update();
+            }, 10);
+            this.isRunning = true;
+        }
+    }
+    
+    pause() {
+        if (this.isRunning) {
+            clearInterval(this.intervalId);
+            this.isRunning = false;
+        }
+    }
+    
+    reset() {
+        this.stopBlinking();
+        this.pause();
+        this.elapsedTime = 0;
+        this.uiManager.updateClockDisplay('stopwatch', '00:00:00');
+        document.getElementById('pause-stopwatch').textContent = 'Start';
+    }
+    
+    update() {
+        this.elapsedTime = Date.now() - this.startTime;
+        this.uiManager.updateClockDisplay('stopwatch', this.formatTime(this.elapsedTime));
+    }
+    
+    formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    startBlinking() {
+        if (this.isBlinking) return;
+        
+        this.isBlinking = true;
+        const stopwatchDisplay = document.getElementById('stopwatch');
+        
+        // Añadir clases CSS para la animación
+        stopwatchDisplay.classList.add('blinking-alarm', 'alarm-active');
+    }
+    
+    stopBlinking() {
+        if (this.blinkIntervalId) {
+            clearInterval(this.blinkIntervalId);
+            this.blinkIntervalId = null;
+        }
+        this.isBlinking = false;
+        
+        const stopwatchDisplay = document.getElementById('stopwatch');
+        stopwatchDisplay.classList.remove('blinking-alarm', 'alarm-active');
+        stopwatchDisplay.style.color = '';
+        stopwatchDisplay.style.backgroundColor = '';
+    }
+}
 
 class TimerManager {
     constructor(uiManager) {
@@ -106,7 +207,6 @@ class TimerManager {
             this.pause();
             this.remainingTime = 0;
             this.startBlinking();
-            // Reproducir sonido de alarma si está disponible
             this.playAlarmSound();
         }
     }
@@ -117,6 +217,7 @@ class TimerManager {
         this.isBlinking = true;
         const timerDisplay = document.getElementById('timer');
         
+        // Añadir clases CSS para la animación
         timerDisplay.classList.add('blinking-alarm', 'alarm-active');
     }
     
@@ -251,7 +352,8 @@ class CountdownManager {
         
         this.isBlinking = true;
         const countdownDisplay = document.getElementById('countdown');
-       
+        
+        // Añadir clases CSS para la animación
         countdownDisplay.classList.add('blinking-alarm', 'alarm-active');
     }
     
@@ -311,3 +413,22 @@ class CountdownManager {
         }
     }
 }
+
+// Inicialización de la aplicación - AHORA SÍ después de definir todas las clases
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM cargado - Inicializando aplicación...');
+    
+    const settingsManager = new SettingsManager();
+    const uiManager = new UIManager(settingsManager);
+    
+    // Inicializar managers para cada funcionalidad
+    window.clockManager = new ClockManager(uiManager);
+    window.stopwatchManager = new StopwatchManager(uiManager);
+    window.timerManager = new TimerManager(uiManager);
+    window.countdownManager = new CountdownManager(uiManager);
+    
+    // Aplicar configuración inicial
+    settingsManager.applySettings();
+    
+    console.log('Aplicación inicializada correctamente');
+});

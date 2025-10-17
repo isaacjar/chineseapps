@@ -1,4 +1,4 @@
-// js/ui.js
+// js/ui.js - Versión corregida
 class UIManager {
     constructor(settingsManager) {
         this.settingsManager = settingsManager;
@@ -7,7 +7,7 @@ class UIManager {
     }
     
     initEventListeners() {
-        // Navegación del menú principal
+        // Navegación del menú principal - CORREGIDO
         document.querySelectorAll('.menu-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const targetScreen = e.currentTarget.getAttribute('data-screen');
@@ -15,11 +15,25 @@ class UIManager {
             });
         });
         
-        // Botones de retroceso
-        document.querySelectorAll('.back-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showScreen('menu-screen');
-            });
+        // Botones de retroceso - CORREGIDO
+        document.getElementById('back-from-clock').addEventListener('click', () => {
+            this.showScreen('menu-screen');
+        });
+        
+        document.getElementById('back-from-stopwatch').addEventListener('click', () => {
+            this.showScreen('menu-screen');
+        });
+        
+        document.getElementById('back-from-timer').addEventListener('click', () => {
+            this.showScreen('menu-screen');
+        });
+        
+        document.getElementById('back-from-countdown').addEventListener('click', () => {
+            this.showScreen('menu-screen');
+        });
+        
+        document.getElementById('back-from-settings').addEventListener('click', () => {
+            this.showScreen('menu-screen');
         });
         
         // Botón de configuración
@@ -42,19 +56,27 @@ class UIManager {
     }
     
     showScreen(screenId) {
-        // Ocultar pantalla actual
+        console.log('Cambiando a pantalla:', screenId); // Para debug
+        
+        // Ocultar todas las pantallas
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
         });
         
-        // Mostrar nueva pantalla
-        document.getElementById(screenId).classList.add('active');
-        this.currentScreen = screenId;
-        
-        // Aplicar configuración actual
-        this.settingsManager.applySettings();
+        // Mostrar la pantalla solicitada
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+            this.currentScreen = screenId;
+            
+            // Aplicar configuración actual
+            this.settingsManager.applySettings();
+        } else {
+            console.error('Pantalla no encontrada:', screenId);
+        }
     }
     
+    // ... el resto del código permanece igual ...
     setupTitleEditors() {
         // Reloj actual
         document.getElementById('edit-clock-title').addEventListener('click', () => {

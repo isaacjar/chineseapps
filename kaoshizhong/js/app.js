@@ -336,7 +336,12 @@ class CountdownManager {
         this.targetTime = this.getDefaultTargetTime();
         this.intervalId = null;
         this.isRunning = true;
+        this.pausedTime = null; // Tiempo cuando se pausa
+        this.remainingMs = 0; // Tiempo restante cuando está pausado
         console.log('CountdownManager inicializado');
+        
+        // Mostrar la hora objetivo inicial
+        this.updateTargetTimeDisplay();
     }
     
     initEventListeners() {
@@ -379,28 +384,21 @@ class CountdownManager {
         }
     }
     
-    start() {
-        if (!this.isRunning) {
-            this.intervalId = setInterval(() => {
-                this.updateDisplay();
-            }, 1000);
-            this.isRunning = true;
-            console.log('Countdown iniciado');
-        }
-    }
-    
-    pause() {
-        if (this.isRunning) {
-            clearInterval(this.intervalId);
-            this.isRunning = false;
-            console.log('Countdown pausado');
-        }
-    }
-    
     getDefaultTargetTime() {
         const now = new Date();
         now.setMinutes(now.getMinutes() + 50);
         return now;
+    }
+    
+    formatTimeForDisplay(date) {
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+    
+    updateTargetTimeDisplay() {
+        const timeString = this.formatTimeForDisplay(this.targetTime);
+        this.uiManager.updateTargetTimeDisplay(timeString);
     }
     
     setTargetTime(timeString) {
@@ -409,13 +407,54 @@ class CountdownManager {
         this.targetTime = new Date(now);
         this.targetTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
         
+        // Si la hora objetivo ya pasó hoy, establecerla para mañana
         if (this.targetTime < now) {
             this.targetTime.setDate(this.targetTime.getDate() + 1);
         }
         
-        this.uiManager.updateTargetTimeDisplay(timeString);
+        this.updateTargetTimeDisplay();
         this.updateDisplay();
         this.toggleButtons('countdown', true);
+        
+        // Si estaba pausado, reiniciar el estado de pausa
+        if (!this.isRunning) {
+            this.pausedTime = null;
+            this.remainingMs = 0;
+        }
+    }
+    
+    start() {
+        if (!this.isRunning) {
+            if (this.pausedTime !== null && this.remainingMs > 0) {
+                // Reanudar desde el tiempo pausado
+                this.targetTime = new Date(Date.now() + this.remainingMs);
+                this.pausedTime = null;
+                this.remainingMs = 0;
+            }
+            
+            this.intervalId = setInterval(() => {
+                this.updateDisplay();
+            }, 1000);
+            this.isRunning = true;
+            console.log('Countdown iniciado/reanudado');
+            
+            // Actualizar la visualización de la hora objetivo
+            this.updateTargetTimeDisplay();
+        }
+    }
+    
+    pause() {
+        if (this.isRunning) {
+            clearInterval(this.intervalId);
+            
+            // Guardar el tiempo restante cuando se pausa
+            const now = new Date();
+            this.remainingMs = this.targetTime - now;
+            this.pausedTime = now;
+            
+            this.isRunning = false;
+            console.log('Countdown pausado. Tiempo restante:', this.remainingMs, 'ms');
+        }
     }
     
     init() {
@@ -426,12 +465,26 @@ class CountdownManager {
     
     updateDisplay() {
         const now = new Date();
-        const diffMs = this.targetTime - now;
+        let diffMs;
+        
+        if (this.isRunning) {
+            // Cuando está corriendo, calcular diferencia normalmente
+            diffMs = this.targetTime - now;
+        } else if (this.pausedTime !== null) {
+            // Cuando está pausado, usar el tiempo restante guardado
+            diffMs = this.remainingMs;
+        } else {
+            // Estado por defecto
+            diffMs = this.targetTime - now;
+        }
         
         if (diffMs <= 0) {
             this.uiManager.updateClockDisplay('countdown', '00:00:00');
-            this.startBlinking();
-            this.playAlarmSound();
+            if (this.isRunning) {
+                this.startBlinking();
+                this.playAlarmSound();
+                this.pause(); // Auto-pausar cuando termina
+            }
             return;
         }
         

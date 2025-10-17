@@ -6,6 +6,8 @@ class UI {
         this.labels = LABELS;
         this.vocabLists = [];
         this.currentList = null;
+        this.filteredLists = [];
+        this.currentFilter = 'all';
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {
@@ -313,6 +315,7 @@ class UI {
                         // Evaluar el array de forma segura
                         const voclists = eval(`(${match[1]})`);
                         this.vocabLists = voclists;
+                        this.filteredLists = [...this.vocabLists]; // Inicialmente mostrar todos
                         console.log('Listados cargados desde servidor:', this.vocabLists.length);
                     } catch (e) {
                         console.error('Error parseando listados:', e);
@@ -332,6 +335,7 @@ class UI {
         }
         
         this.displayVocabLists();
+        this.createFilterButtons();
     }
     
     useFallbackLists() {
@@ -345,31 +349,107 @@ class UI {
             { filename: "H2L3", title: "HSK 2 Lesson 3", level: "H2", misc: "MIT" },
             { filename: "H3L1", title: "HSK 3 Lesson 1", level: "H3", misc: "MIT" }
         ];
+        this.filteredLists = [...this.vocabLists];
     }
     
-    displayVocabLists() {
+    createFilterButtons() {
         const container = document.getElementById('vocab-lists-container');
-        if (!container) {
-            console.error('No se encontró el contenedor de listados');
-            return;
-        }
+        if (!container) return;
         
+        // Crear contenedor para los botones de filtro
+        const filterContainer = document.createElement('div');
+        filterContainer.className = 'filter-buttons';
+        filterContainer.style.marginBottom = '1rem';
+        filterContainer.style.display = 'flex';
+        filterContainer.style.flexWrap = 'wrap';
+        filterContainer.style.gap = '0.5rem';
+        filterContainer.style.justifyContent = 'center';
+        
+        // Obtener niveles únicos
+        const levels = ['all', ...new Set(this.vocabLists.map(list => list.level))];
+        
+        // Crear botones para cada nivel
+        levels.forEach(level => {
+            const button = document.createElement('button');
+            button.className = `filter-btn ${level === 'all' ? 'active' : ''}`;
+            button.textContent = level === 'all' ? 'All' : level;
+            button.dataset.level = level;
+            
+            // Estilos para los botones de filtro
+            button.style.padding = '0.5rem 1rem';
+            button.style.border = '2px solid var(--pastel-brown-dark)';
+            button.style.borderRadius = '20px';
+            button.style.backgroundColor = level === 'all' ? 'var(--pastel-brown-dark)' : 'var(--pastel-orange)';
+            button.style.color = level === 'all' ? 'white' : '#5d4037';
+            button.style.cursor = 'pointer';
+            button.style.transition = 'var(--transition)';
+            button.style.fontSize = '0.9rem';
+            button.style.fontWeight = 'bold';
+            
+            button.addEventListener('click', () => this.filterLists(level, button));
+            
+            filterContainer.appendChild(button);
+        });
+        
+        // Insertar los botones de filtro antes del contenido de listas
         container.innerHTML = '';
+        container.appendChild(filterContainer);
         
-        if (this.vocabLists.length === 0) {
-            container.innerHTML = '<p>No hay listados disponibles</p>';
+        // Crear contenedor para las listas
+        this.listsContent = document.createElement('div');
+        this.listsContent.className = 'lists-content';
+        this.listsContent.style.maxHeight = '350px';
+        this.listsContent.style.overflowY = 'auto';
+        container.appendChild(this.listsContent);
+        
+        this.displayFilteredLists();
+    }
+    
+    filterLists(level, clickedButton) {
+        // Actualizar filtro actual
+        this.currentFilter = level;
+        
+        // Actualizar listas filtradas
+        if (level === 'all') {
+            this.filteredLists = [...this.vocabLists];
+        } else {
+            this.filteredLists = this.vocabLists.filter(list => list.level === level);
+        }
+        
+        // Actualizar estado activo de los botones
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            const isActive = btn.dataset.level === level;
+            btn.style.backgroundColor = isActive ? 'var(--pastel-brown-dark)' : 'var(--pastel-orange)';
+            btn.style.color = isActive ? 'white' : '#5d4037';
+        });
+        
+        this.displayFilteredLists();
+    }
+    
+    displayFilteredLists() {
+        if (!this.listsContent) return;
+        
+        this.listsContent.innerHTML = '';
+        
+        if (this.filteredLists.length === 0) {
+            this.listsContent.innerHTML = '<p style="text-align: center; padding: 2rem; color: #5d4037;">No hay listados para este nivel</p>';
             return;
         }
         
-        this.vocabLists.forEach(list => {
+        this.filteredLists.forEach(list => {
             const button = document.createElement('button');
             button.className = 'vocab-list-btn';
             button.textContent = `${list.title} (${list.level})`;
             button.addEventListener('click', () => this.selectVocabList(list));
-            container.appendChild(button);
+            this.listsContent.appendChild(button);
         });
         
-        console.log('Listados mostrados:', this.vocabLists.length);
+        console.log('Listados filtrados mostrados:', this.filteredLists.length, 'para nivel:', this.currentFilter);
+    }
+    
+    displayVocabLists() {
+        // Este método ahora es manejado por displayFilteredLists
+        console.log('Display de listados manejado por sistema de filtros');
     }
     
     async selectVocabList(list) {
@@ -379,7 +459,7 @@ class UI {
         const success = await this.game.loadVocabularyList(list.filename);
         if (success) {
             // Guardar el listado actual para referencia futura
-            this.currentList = list; // <-- Añade esta línea
+            this.currentList = list;
             this.showToast(`Listado "${list.title}" cargado (${this.game.vocabulary.length} palabras)`, 'success');
             this.showScreen('menu-screen');
         } else {
@@ -457,15 +537,6 @@ class UI {
         
         toast.textContent = message;
         toast.className = 'toast';
-        
-        // Añadir clase de tipo
-        /*if (type === 'error') {
-            toast.style.backgroundColor = '#ef9a9a';
-        } else if (type === 'success') {
-            toast.style.backgroundColor = '#a5d6a7';
-        } else {
-            toast.style.backgroundColor = 'var(--pastel-orange)';
-        }*/
         
         // Mostrar toast
         setTimeout(() => {

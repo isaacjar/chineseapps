@@ -415,3 +415,31 @@ select {
 .clock-font-digital {
     font-family: 'Digital-7', monospace;
 }
+
+/* Animación de parpadeo para temporizadores */
+@keyframes blink-alarm {
+    0%, 50% {
+        color: var(--clock-text);
+        background-color: var(--clock-bg);
+    }
+    51%, 100% {
+        color: #ff4444;
+        background-color: #fff8f8;
+    }
+}
+
+.blinking-alarm {
+    animation: blink-alarm 1s infinite;
+}
+
+/* Mejorar la visibilidad del texto durante el parpadeo */
+.clock-display {
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Estilos para el estado de alarma */
+.alarm-active {
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+}

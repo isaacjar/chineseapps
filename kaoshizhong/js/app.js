@@ -1,5 +1,24 @@
 // js/app.js - Modificaciones en TimerManager y CountdownManager
 
+// Inicialización de la aplicación
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM cargado - Inicializando aplicación...');
+    
+    const settingsManager = new SettingsManager();
+    const uiManager = new UIManager(settingsManager);
+    
+    // Inicializar managers para cada funcionalidad
+    window.clockManager = new ClockManager(uiManager);
+    window.stopwatchManager = new StopwatchManager(uiManager);
+    window.timerManager = new TimerManager(uiManager);
+    window.countdownManager = new CountdownManager(uiManager);
+    
+    // Aplicar configuración inicial
+    settingsManager.applySettings();
+    
+    console.log('Aplicación inicializada correctamente');
+});
+
 class TimerManager {
     constructor(uiManager) {
         this.uiManager = uiManager;

@@ -1,5 +1,32 @@
 // js/app.js - Versión completamente corregida
 
+class ClockManager {
+    constructor(uiManager) {
+        this.uiManager = uiManager;
+        this.init();
+    }
+    
+    init() {
+        this.updateClock();
+        setInterval(() => {
+            this.updateClock();
+        }, 1000);
+    }
+    
+    updateClock() {
+        const now = new Date();
+        const timeString = this.formatTime(now);
+        this.uiManager.updateClockDisplay('current-clock', timeString);
+    }
+    
+    formatTime(date) {
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+}
+
 class StopwatchManager {
     constructor(uiManager) {
         this.uiManager = uiManager;
@@ -7,25 +34,44 @@ class StopwatchManager {
         this.startTime = 0;
         this.elapsedTime = 0;
         this.intervalId = null;
-        this.initEventListeners();
+        console.log('StopwatchManager inicializado');
     }
     
     initEventListeners() {
-        // Usar delegación de eventos para asegurar que funcionen
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'reset-stopwatch') {
+        console.log('Inicializando event listeners de stopwatch');
+        
+        // Reset
+        const resetBtn = document.getElementById('reset-stopwatch');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                console.log('Reset stopwatch clickeado');
                 this.reset();
-            } else if (e.target.id === 'start-stopwatch') {
+            });
+        }
+        
+        // Start
+        const startBtn = document.getElementById('start-stopwatch');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                console.log('Start stopwatch clickeado');
                 this.start();
                 this.toggleButtons('stopwatch', true);
-            } else if (e.target.id === 'pause-stopwatch') {
+            });
+        }
+        
+        // Pause
+        const pauseBtn = document.getElementById('pause-stopwatch');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', () => {
+                console.log('Pause stopwatch clickeado');
                 this.pause();
                 this.toggleButtons('stopwatch', false);
-            }
-        });
+            });
+        }
     }
     
     toggleButtons(type, isRunning) {
+        console.log(`Toggle buttons ${type}, running: ${isRunning}`);
         const startBtn = document.getElementById(`start-${type}`);
         const pauseBtn = document.getElementById(`pause-${type}`);
         
@@ -89,43 +135,81 @@ class TimerManager {
         this.remainingTime = this.totalTime;
         this.isRunning = false;
         this.intervalId = null;
-        this.initEventListeners();
-        this.updateDisplay();
+        console.log('TimerManager inicializado');
     }
     
     initEventListeners() {
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'reset-timer') {
+        console.log('Inicializando event listeners de timer');
+        
+        // Reset
+        const resetBtn = document.getElementById('reset-timer');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                console.log('Reset timer clickeado');
                 this.reset();
-            } else if (e.target.id === 'start-timer') {
+            });
+        }
+        
+        // Start
+        const startBtn = document.getElementById('start-timer');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                console.log('Start timer clickeado');
                 this.start();
                 this.toggleButtons('timer', true);
-            } else if (e.target.id === 'pause-timer') {
+            });
+        }
+        
+        // Pause
+        const pauseBtn = document.getElementById('pause-timer');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', () => {
+                console.log('Pause timer clickeado');
                 this.pause();
                 this.toggleButtons('timer', false);
-            } else if (e.target.id === 'set-custom-time') {
+            });
+        }
+        
+        // Custom time
+        const setCustomBtn = document.getElementById('set-custom-time');
+        if (setCustomBtn) {
+            setCustomBtn.addEventListener('click', () => {
+                console.log('Set custom time clickeado');
                 this.handleCustomTime();
-            }
-        });
-
-        // Selector de presets
-        document.getElementById('timer-presets').addEventListener('change', (e) => {
-            if (e.target.value !== 'custom') {
-                this.setTimer(parseInt(e.target.value));
-                this.toggleButtons('timer', false);
-            } else {
-                document.getElementById('custom-timer-input').classList.remove('hidden');
-            }
-        });
+            });
+        }
+        
+        // Presets
+        const presetSelect = document.getElementById('timer-presets');
+        if (presetSelect) {
+            presetSelect.addEventListener('change', (e) => {
+                console.log('Preset cambiado:', e.target.value);
+                if (e.target.value !== 'custom') {
+                    this.setTimer(parseInt(e.target.value));
+                    this.toggleButtons('timer', false);
+                } else {
+                    const customInput = document.getElementById('custom-timer-input');
+                    if (customInput) {
+                        customInput.classList.remove('hidden');
+                    }
+                }
+            });
+        }
     }
     
     handleCustomTime() {
-        const customTime = document.getElementById('custom-time').value;
-        if (this.validateTimeFormat(customTime)) {
-            this.setCustomTime(customTime);
-            document.getElementById('custom-timer-input').classList.add('hidden');
-        } else {
-            alert('Formato de tiempo inválido. Use HH:MM:SS');
+        const customTimeInput = document.getElementById('custom-time');
+        if (customTimeInput) {
+            const customTime = customTimeInput.value;
+            if (this.validateTimeFormat(customTime)) {
+                this.setCustomTime(customTime);
+                const customInput = document.getElementById('custom-timer-input');
+                if (customInput) {
+                    customInput.classList.add('hidden');
+                }
+            } else {
+                alert('Formato de tiempo inválido. Use HH:MM:SS');
+            }
         }
     }
     
@@ -135,6 +219,7 @@ class TimerManager {
     }
     
     toggleButtons(type, isRunning) {
+        console.log(`Toggle buttons ${type}, running: ${isRunning}`);
         const startBtn = document.getElementById(`start-${type}`);
         const pauseBtn = document.getElementById(`pause-${type}`);
         
@@ -206,7 +291,9 @@ class TimerManager {
     
     startBlinking() {
         const timerDisplay = document.getElementById('timer');
-        timerDisplay.classList.add('blinking-alarm', 'alarm-active');
+        if (timerDisplay) {
+            timerDisplay.classList.add('blinking-alarm', 'alarm-active');
+        }
     }
     
     playAlarmSound() {
@@ -248,25 +335,36 @@ class CountdownManager {
         this.uiManager = uiManager;
         this.targetTime = this.getDefaultTargetTime();
         this.intervalId = null;
-        this.isRunning = true; // Por defecto está corriendo
-        this.initEventListeners();
-        this.init();
-        this.updateDisplay();
+        this.isRunning = true;
+        console.log('CountdownManager inicializado');
     }
     
     initEventListeners() {
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'start-countdown') {
+        console.log('Inicializando event listeners de countdown');
+        
+        // Start
+        const startBtn = document.getElementById('start-countdown');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                console.log('Start countdown clickeado');
                 this.start();
                 this.toggleButtons('countdown', true);
-            } else if (e.target.id === 'pause-countdown') {
+            });
+        }
+        
+        // Pause
+        const pauseBtn = document.getElementById('pause-countdown');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', () => {
+                console.log('Pause countdown clickeado');
                 this.pause();
                 this.toggleButtons('countdown', false);
-            }
-        });
+            });
+        }
     }
     
     toggleButtons(type, isRunning) {
+        console.log(`Toggle buttons ${type}, running: ${isRunning}`);
         const startBtn = document.getElementById(`start-${type}`);
         const pauseBtn = document.getElementById(`pause-${type}`);
         
@@ -348,7 +446,9 @@ class CountdownManager {
     
     startBlinking() {
         const countdownDisplay = document.getElementById('countdown');
-        countdownDisplay.classList.add('blinking-alarm', 'alarm-active');
+        if (countdownDisplay) {
+            countdownDisplay.classList.add('blinking-alarm', 'alarm-active');
+        }
     }
     
     playAlarmSound() {
@@ -373,35 +473,7 @@ class CountdownManager {
     }
 }
 
-// ClockManager se mantiene igual
-class ClockManager {
-    constructor(uiManager) {
-        this.uiManager = uiManager;
-        this.init();
-    }
-    
-    init() {
-        this.updateClock();
-        setInterval(() => {
-            this.updateClock();
-        }, 1000);
-    }
-    
-    updateClock() {
-        const now = new Date();
-        const timeString = this.formatTime(now);
-        this.uiManager.updateClockDisplay('current-clock', timeString);
-    }
-    
-    formatTime(date) {
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${hours}:${minutes}:${seconds}`;
-    }
-}
-
-// Inicialización
+// Inicialización corregida
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM cargado - Inicializando aplicación...');
     
@@ -414,7 +486,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.timerManager = new TimerManager(uiManager);
     window.countdownManager = new CountdownManager(uiManager);
     
-    settingsManager.applySettings();
-    
-    console.log('Aplicación inicializada correctamente');
+    // Inicializar event listeners después de un pequeño delay para asegurar que el DOM esté listo
+    setTimeout(() => {
+        console.log('Inicializando event listeners...');
+        window.stopwatchManager.initEventListeners();
+        window.timerManager.initEventListeners();
+        window.countdownManager.initEventListeners();
+        
+        settingsManager.applySettings();
+        console.log('Aplicación inicializada correctamente');
+    }, 100);
 });

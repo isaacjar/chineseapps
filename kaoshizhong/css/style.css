@@ -567,15 +567,41 @@ select {
         margin-bottom: 50px;
     }
     
+    /* CONTROLES CORREGIDOS - Usar porcentajes del contenedor, no de la pantalla completa */
+    .controls {
+        max-width: 80%; /* Limitar al 80% del contenedor */
+        gap: 15px;
+    }
+    
+    .timer-controls {
+        max-width: 80%; /* Limitar al 80% del contenedor */
+    }
+    
+    .custom-input {
+        max-width: 80%; /* Limitar al 80% del contenedor */
+    }
+    
+    /* Botones de settings corregidos */
     .settings-actions {
         flex-direction: row;
         justify-content: space-between;
+        max-width: 100%; /* Usar todo el ancho disponible del contenedor */
     }
     
     .settings-actions .btn {
         width: auto;
         flex: 1;
         margin: 0 10px;
+        max-width: 45%; /* Limitar cada botón al 45% del contenedor */
+    }
+    
+    /* Asegurar que los selects e inputs no se salgan */
+    select {
+        max-width: 100%;
+    }
+    
+    .custom-input input {
+        max-width: 70%; /* El input ocupa el 70% del contenedor custom-input */
     }
 }
 
@@ -589,6 +615,20 @@ select {
     .menu-grid {
         grid-template-columns: 1fr 1fr;
         gap: 30px;
+    }
+    
+    /* Controles más compactos en tablet */
+    .controls {
+        max-width: 90%;
+        gap: 12px;
+    }
+    
+    .timer-controls {
+        max-width: 90%;
+    }
+    
+    .custom-input {
+        max-width: 90%;
     }
 }
 

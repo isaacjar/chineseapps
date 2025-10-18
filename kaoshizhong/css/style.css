@@ -1,4 +1,5 @@
-/* css/style.css - Versión optimizada y corregida */
+/* css/style.css - Versión corregida para pantalla completa */
+
 :root {
     --primary-green: #81C784;
     --dark-green: #388E3C;
@@ -38,12 +39,16 @@ body {
     font-size: var(--text-size-base);
 }
 
-/* Pantallas */
+/* PANTALLAS - SIEMPRE OCUPAN TODA LA PANTALLA */
 .screen {
     display: none;
     flex-direction: column;
     height: 100vh;
+    width: 100vw;
     background-color: var(--app-surface);
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .screen.active {
@@ -60,6 +65,7 @@ body {
     box-shadow: var(--shadow);
     z-index: 10;
     border-bottom: 1px solid #333;
+    width: 100%;
 }
 
 .header-left {
@@ -166,6 +172,7 @@ body {
     padding: 30px var(--margin-side);
     flex: 1;
     align-content: center;
+    width: 100%;
 }
 
 .menu-card {
@@ -308,6 +315,7 @@ select {
     background-color: #000000;
     border-top: 1px solid #333;
     align-items: center;
+    width: 100%;
 }
 
 .edit-container input {
@@ -380,6 +388,7 @@ select {
     padding: 30px var(--margin-side);
     flex: 1;
     overflow-y: auto;
+    width: 100%;
 }
 
 .setting-group {
@@ -455,23 +464,13 @@ select {
 .clock-font-trebuchet { font-family: 'Trebuchet MS', sans-serif !important; }
 .clock-font-gill { font-family: 'Gill Sans', sans-serif !important; }
 
-/* Responsive para pantallas apaisadas - CORREGIDO */
-@media (min-width: 768px) and (min-aspect-ratio: 1/1) {
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #000000;
-    }
-    
-    .screen {
-        width: 90vw;
-        max-width: 1000px;
-        height: 90vh;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--shadow-elevated);
-        border: 1px solid #333;
+/* RESPONSIVE CORREGIDO - SIN CUADRO DENTRO DE CUADRO */
+
+/* Tablets y pantallas grandes - MANTENER PANTALLA COMPLETA */
+@media (min-width: 768px) {
+    .clock-display {
+        font-size: var(--clock-size-tablet);
+        letter-spacing: 5px;
     }
     
     .menu-grid {
@@ -492,17 +491,7 @@ select {
         font-size: 1.4rem;
     }
     
-    .clock-display {
-        font-size: var(--clock-size-desktop);
-        letter-spacing: 6px;
-        margin-bottom: 50px;
-    }
-    
-    .clock-container {
-        padding: 40px var(--margin-side);
-    }
-    
-    /* CONTROLES CORREGIDOS - SIN DESBORDAMIENTO */
+    /* CONTROLES OPTIMIZADOS PARA PANTALLAS GRANDES */
     .controls {
         max-width: 90%;
         gap: 15px;
@@ -574,67 +563,36 @@ select {
         max-width: 48%;
         padding: 18px 20px;
     }
-    
-    .modal {
-        padding: 0 5%;
-    }
-    
-    .modal-content {
-        max-width: 450px;
-    }
-    
-    .modal-actions .btn {
-        min-width: 120px;
-        max-width: 140px;
-    }
 }
 
-/* Responsive para tablets */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Pantallas muy grandes */
+@media (min-width: 1200px) {
     .clock-display {
-        font-size: var(--clock-size-tablet);
-        letter-spacing: 5px;
-    }
-    
-    .menu-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
+        font-size: var(--clock-size-desktop);
+        letter-spacing: 6px;
     }
     
     .controls {
-        max-width: 95%;
-        gap: 10px;
-        padding: 0 2%;
+        max-width: 600px;
+        gap: 20px;
     }
     
     .timer-controls {
-        max-width: 95%;
-        padding: 0 2%;
+        max-width: 600px;
     }
     
     .custom-input {
-        max-width: 95%;
-        padding: 0 2%;
+        max-width: 600px;
     }
     
     .btn {
-        padding: 12px 14px;
-        font-size: 1rem;
-        max-width: 140px;
-    }
-    
-    .controls:has(.btn:nth-child(3)) {
-        max-width: 420px;
-    }
-    
-    .controls:has(.btn:nth-child(3)) .btn {
-        max-width: 120px;
-        font-size: 0.95rem;
-        padding: 10px 12px;
+        font-size: 1.2rem;
+        padding: 16px 20px;
+        max-width: 180px;
     }
 }
 
-/* Responsive para móviles vertical */
+/* Móviles en orientación vertical */
 @media (max-width: 767px) and (max-aspect-ratio: 1/1) {
     :root {
         --margin-side: 5%;
@@ -719,36 +677,5 @@ select {
     .menu-icon {
         font-size: 2rem;
         margin-bottom: 8px;
-    }
-}
-
-/* Pantallas muy grandes */
-@media (min-width: 1200px) {
-    .clock-display {
-        font-size: 10rem;
-        letter-spacing: 8px;
-    }
-    
-    .screen {
-        max-width: 1200px;
-    }
-    
-    .controls {
-        max-width: 600px;
-        gap: 20px;
-    }
-    
-    .timer-controls {
-        max-width: 600px;
-    }
-    
-    .custom-input {
-        max-width: 600px;
-    }
-    
-    .btn {
-        font-size: 1.2rem;
-        padding: 16px 20px;
-        max-width: 180px;
     }
 }

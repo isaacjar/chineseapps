@@ -5,9 +5,9 @@ class SettingsManager {
             bgColor: '#000000',
             clockTextColor: '#FFE4B5',
             accentColor: '#979595',
-            fontFamily: "'Orbitron', monospace", // Cambiado a Orbitron por defecto
+            fontFamily: "'Orbitron', monospace",
             fontClass: 'clock-font-orbitron',
-            showHours: false
+            showHours: false // Por defecto SIN horas
         };
         
         this.fontMap = {
@@ -157,15 +157,21 @@ class SettingsManager {
     }
     
     // Notificar a los managers que el formato de tiempo cambió - CORREGIDO
-    notifyTimeFormatChange() {
+   notifyTimeFormatChange() {
+        console.log('Notificando cambio de formato de horas...');
+        console.log('showHours actual:', this.getShowHours());
+        
         // Comprobar que los managers existen y tienen el método updateDisplay
         if (window.stopwatchManager && typeof window.stopwatchManager.updateDisplay === 'function') {
+            console.log('Actualizando stopwatch...');
             window.stopwatchManager.updateDisplay();
         }
         if (window.timerManager && typeof window.timerManager.updateDisplay === 'function') {
+            console.log('Actualizando timer...');
             window.timerManager.updateDisplay();
         }
         if (window.countdownManager && typeof window.countdownManager.updateDisplay === 'function') {
+            console.log('Actualizando countdown...');
             window.countdownManager.updateDisplay();
         }
     }

@@ -471,8 +471,41 @@ select {
     box-shadow: 0 0 30px rgba(255, 68, 68, 0.6);
 }
 
-/* Fuentes del reloj */
-.clock-font-digital { font-family: 'Digital-7', monospace !important; }
+/* FUENTES */
+/* Fuentes digitales de reloj */
+@font-face {
+    font-family: 'Digital-7';
+    src: url('https://fonts.cdnfonts.com/css/digital-7');
+}
+
+@font-face {
+    font-family: 'DS-Digital';
+    src: url('https://fonts.cdnfonts.com/css/ds-digital');
+}
+
+@font-face {
+    font-family: 'Digital Numbers';
+    src: url('https://fonts.cdnfonts.com/css/digital-numbers');
+}
+
+@font-face {
+    font-family: 'LCD';
+    src: url('https://fonts.cdnfonts.com/css/lcd');
+}
+
+@font-face {
+    font-family: 'Alarm Clock';
+    src: url('https://fonts.cdnfonts.com/css/alarm-clock');
+}
+
+/* Clases para las fuentes digitales */
+.clock-font-digital-7 { font-family: 'Digital-7', monospace !important;}
+.clock-font-ds-digital { font-family: 'DS-Digital', monospace !important;}
+.clock-font-digital-numbers { font-family: 'Digital Numbers', monospace !important;}
+.clock-font-lcd { font-family: 'LCD', monospace !important;}
+.clock-font-alarm-clock { font-family: 'Alarm Clock', monospace !important;}
+
+/* Fuentes estándar existentes */
 .clock-font-roboto { font-family: 'Roboto', sans-serif !important; }
 .clock-font-arial { font-family: 'Arial', sans-serif !important; }
 .clock-font-helvetica { font-family: 'Helvetica', sans-serif !important; }

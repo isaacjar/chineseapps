@@ -5,18 +5,18 @@ class SettingsManager {
             bgColor: '#000000',
             clockTextColor: '#FFE4B5',
             accentColor: '#979595',
-            fontFamily: "'Digital-7', monospace",
-            fontClass: 'clock-font-digital-7',
+            fontFamily: "'Orbitron', monospace", // Cambiado a Orbitron por defecto
+            fontClass: 'clock-font-orbitron',
             showHours: false
         };
         
         this.fontMap = {
-            // Fuentes digitales
+            // Fuentes digitales de Google Fonts (CONFIABLES)
+            "'Orbitron', monospace": "clock-font-orbitron",
+            "'Share Tech Mono', monospace": "clock-font-share-tech",
+            
+            // Digital-7 (opcional, para quienes prefieren el clásico)
             "'Digital-7', monospace": "clock-font-digital-7",
-            "'DS-Digital', monospace": "clock-font-ds-digital",
-            "'Digital Numbers', monospace": "clock-font-digital-numbers", 
-            "'LCD', monospace": "clock-font-lcd",
-            "'Alarm Clock', monospace": "clock-font-alarm-clock",
             
             // Fuentes estándar
             "'Roboto', sans-serif": "clock-font-roboto",

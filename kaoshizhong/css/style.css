@@ -1,4 +1,4 @@
-/* css/style.css - Versión corregida con botones visibles */
+/* css/style.css - Versión con números duplicados en tamaño */
 
 :root {
     --primary-green: #81C784;
@@ -13,9 +13,10 @@
     --shadow-elevated: 0 4px 8px rgba(0,0,0,0.12);
     
     --margin-side: 10%;
-    --clock-size-mobile: 4.5rem;
-    --clock-size-tablet: 7rem;
-    --clock-size-desktop: 9rem;
+    /* DUPLICAR TAMAÑOS DE RELOJ */
+    --clock-size-mobile: 9rem;      /* 4.5rem -> 9rem */
+    --clock-size-tablet: 14rem;     /* 7rem -> 14rem */
+    --clock-size-desktop: 18rem;    /* 9rem -> 18rem */
     --text-size-base: 18px;
 }
 
@@ -39,7 +40,7 @@ body {
     font-size: var(--text-size-base);
 }
 
-/* PANTALLAS - CORREGIDO: sin position fixed */
+/* PANTALLAS */
 .screen {
     display: none;
     flex-direction: column;
@@ -52,7 +53,7 @@ body {
     display: flex;
 }
 
-/* Encabezado - ASEGURAR QUE LOS BOTONES SE VEAN */
+/* Encabezado */
 .app-header {
     display: flex;
     align-items: center;
@@ -99,7 +100,7 @@ body {
     font-weight: 500;
 }
 
-/* Botones - ASEGURAR VISIBILIDAD */
+/* Botones */
 .icon-btn {
     background: none;
     border: none;
@@ -222,7 +223,7 @@ body {
     pointer-events: auto;
 }
 
-/* Contenedor de reloj */
+/* CONTENEDOR DE RELOJ - NÚMEROS DUPLICADOS EN TAMAÑO */
 .clock-container {
     display: flex;
     flex-direction: column;
@@ -238,7 +239,7 @@ body {
 .clock-display {
     font-size: var(--clock-size-mobile);
     font-weight: 700;
-    letter-spacing: 4px;
+    letter-spacing: 6px; /* Aumentado para números más grandes */
     margin-bottom: 40px;
     text-align: center;
     width: 100%;
@@ -471,11 +472,11 @@ select {
 .clock-font-trebuchet { font-family: 'Trebuchet MS', sans-serif !important; }
 .clock-font-gill { font-family: 'Gill Sans', sans-serif !important; }
 
-/* RESPONSIVE */
+/* RESPONSIVE CON NÚMEROS GRANDES */
 @media (min-width: 768px) {
     .clock-display {
         font-size: var(--clock-size-tablet);
-        letter-spacing: 5px;
+        letter-spacing: 8px; /* Aumentado */
     }
     
     .menu-grid {
@@ -571,7 +572,7 @@ select {
 @media (min-width: 1200px) {
     .clock-display {
         font-size: var(--clock-size-desktop);
-        letter-spacing: 6px;
+        letter-spacing: 12px; /* Aumentado */
     }
     
     .controls {
@@ -594,14 +595,15 @@ select {
     }
 }
 
+/* AJUSTES PARA MÓVILES CON NÚMEROS GRANDES */
 @media (max-width: 767px) and (max-aspect-ratio: 1/1) {
     :root {
         --margin-side: 5%;
     }
     
     .clock-display {
-        font-size: 3.5rem;
-        letter-spacing: 3px;
+        font-size: 7rem; /* Aumentado de 3.5rem */
+        letter-spacing: 4px; /* Aumentado */
     }
     
     .menu-grid {
@@ -633,11 +635,12 @@ select {
     }
 }
 
+/* AJUSTES PARA LANDSCAPE ESTRECHO CON NÚMEROS GRANDES */
 @media (max-height: 500px) and (orientation: landscape) {
     .clock-display {
-        font-size: 3rem;
+        font-size: 6rem; /* Aumentado de 3rem */
         margin-bottom: 20px;
-        letter-spacing: 2px;
+        letter-spacing: 3px; /* Aumentado */
     }
     
     .controls {
@@ -678,4 +681,11 @@ select {
         font-size: 2rem;
         margin-bottom: 8px;
     }
+}
+
+/* AJUSTE EXTRA PARA ASEGURAR QUE LOS NÚMEROS CABEN EN PANTALLA */
+.clock-display {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }

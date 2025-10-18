@@ -5,12 +5,20 @@ class SettingsManager {
             bgColor: '#000000',
             clockTextColor: '#FFE4B5',
             accentColor: '#979595',
-            fontFamily: "'Roboto', sans-serif",
-            fontClass: 'clock-font-roboto',
-            showHours: true // NUEVO: mostrar horas por defecto
+            fontFamily: "'Digital-7', monospace", // Cambiado a Digital-7 por defecto
+            fontClass: 'clock-font-digital-7',
+            showHours: false
         };
         
         this.fontMap = {
+            // Fuentes digitales (NUEVAS)
+            "'Digital-7', monospace": "clock-font-digital-7",
+            "'DS-Digital', monospace": "clock-font-ds-digital",
+            "'Digital Numbers', monospace": "clock-font-digital-numbers", 
+            "'LCD', monospace": "clock-font-lcd",
+            "'Alarm Clock', monospace": "clock-font-alarm-clock",
+            
+            // Fuentes estándar
             "'Roboto', sans-serif": "clock-font-roboto",
             "'Arial', sans-serif": "clock-font-arial", 
             "'Helvetica', sans-serif": "clock-font-helvetica",
@@ -19,8 +27,7 @@ class SettingsManager {
             "'Courier New', monospace": "clock-font-courier",
             "'Verdana', sans-serif": "clock-font-verdana",
             "'Trebuchet MS', sans-serif": "clock-font-trebuchet",
-            "'Gill Sans', sans-serif": "clock-font-gill",
-            "'Digital-7', monospace": "clock-font-digital"
+            "'Gill Sans', sans-serif": "clock-font-gill"
         };
         
         this.currentSettings = {...this.defaultSettings};

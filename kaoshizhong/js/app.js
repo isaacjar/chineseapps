@@ -118,26 +118,36 @@ class StopwatchManager {
         this.uiManager.updateClockDisplay('stopwatch', this.formatTime(this.elapsedTime));
     }
     
+    updateDisplay() {
+        this.uiManager.updateClockDisplay('stopwatch', this.formatTime(this.elapsedTime));
+    }
+    
     formatTime(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
         
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const settingsManager = window.settingsManager;
+        const showHours = settingsManager ? settingsManager.getShowHours() : true;
+        
+        if (showHours || hours > 0) {
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
     }
+
 }
 
 class TimerManager {
     constructor(uiManager) {
         this.uiManager = uiManager;
-        this.totalTime = 600; // 10 minutos por defecto
+        this.totalTime = 600;
         this.remainingTime = this.totalTime;
-        this.isRunning = false; // No iniciar automáticamente
+        this.isRunning = false;
         this.intervalId = null;
         console.log('TimerManager inicializado');
-        
-        // Solo mostrar tiempo inicial, sin iniciar
         this.updateDisplay();
     }
     
@@ -318,21 +328,34 @@ class TimerManager {
     }
     
     updateDisplay() {
-        let sign = '-';
-        let displayTime = this.remainingTime;
+        this.uiManager.updateClockDisplay('timer', this.formatTime(this.remainingTime));
+    }
+    
+    formatTime(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
         
-        // Si el tiempo ya pasó, mostrar positivo
-        if (this.remainingTime <= 0) {
+        const settingsManager = window.settingsManager;
+        const showHours = settingsManager ? settingsManager.getShowHours() : true;
+        
+        let sign = '-';
+        let displayTime = totalSeconds;
+        
+        if (totalSeconds <= 0) {
             sign = '+';
-            displayTime = Math.abs(this.remainingTime);
+            displayTime = Math.abs(totalSeconds);
         }
         
-        const hours = Math.floor(displayTime / 3600);
-        const minutes = Math.floor((displayTime % 3600) / 60);
-        const seconds = displayTime % 60;
+        const displayHours = Math.floor(displayTime / 3600);
+        const displayMinutes = Math.floor((displayTime % 3600) / 60);
+        const displaySeconds = displayTime % 60;
         
-        const timeString = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        this.uiManager.updateClockDisplay('timer', timeString);
+        if (showHours || displayHours > 0) {
+            return `${sign}${displayHours.toString().padStart(2, '0')}:${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+        } else {
+            return `${sign}${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+        }
     }
 }
 
@@ -341,12 +364,10 @@ class CountdownManager {
         this.uiManager = uiManager;
         this.targetTime = this.getDefaultTargetTime();
         this.intervalId = null;
-        this.isRunning = false; // No iniciar automáticamente
+        this.isRunning = false;
         this.pausedTime = null;
         this.remainingMs = 0;
         console.log('CountdownManager inicializado');
-        
-        // Solo mostrar el tiempo inicial, sin iniciar contador
         this.updateDisplay();
         this.updateTargetTimeDisplay();
     }
@@ -469,14 +490,12 @@ class CountdownManager {
         } else if (this.pausedTime !== null) {
             diffMs = this.remainingMs;
         } else {
-            // Cuando no está corriendo ni pausado, mostrar tiempo inicial
             diffMs = this.targetTime - now;
         }
         
         let sign = '-';
         let displayTime = diffMs;
         
-        // Si el tiempo ya pasó, mostrar positivo
         if (diffMs <= 0) {
             sign = '+';
             displayTime = Math.abs(diffMs);
@@ -489,12 +508,23 @@ class CountdownManager {
         }
         
         const diffSeconds = Math.floor(displayTime / 1000);
+        const timeString = `${sign}${this.formatTime(diffSeconds)}`;
+        this.uiManager.updateClockDisplay('countdown', timeString);
+    }
+    
+    formatTime(diffSeconds) {
         const hours = Math.floor(diffSeconds / 3600);
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
         
-        const timeString = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        this.uiManager.updateClockDisplay('countdown', timeString);
+        const settingsManager = window.settingsManager;
+        const showHours = settingsManager ? settingsManager.getShowHours() : true;
+        
+        if (showHours || hours > 0) {
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
     }
     
     startBlinking() {

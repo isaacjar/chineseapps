@@ -173,21 +173,6 @@
         
         <main class="settings-container">
             <div class="setting-group">
-                <h3>Background Color</h3>
-                <input type="color" id="bg-color" value="#000000">
-            </div>
-            
-            <div class="setting-group">
-                <h3>Text Color</h3>
-                <input type="color" id="clock-text-color" value="#FFE4B5">
-            </div>
-            
-            <div class="setting-group">
-                <h3>Auxiliar Color</h3>
-                <input type="color" id="accent-color" value="#979595">
-            </div>
-            
-            <div class="setting-group">
                 <h3>🔤</h3>
                 <select id="font-family">
                     <option value="'Roboto', sans-serif">Roboto</option>
@@ -201,6 +186,28 @@
                     <option value="'Gill Sans', sans-serif">Gill Sans</option>
                     <option value="'Digital-7', monospace">Digital Clock</option>
                 </select>
+            </div>
+            <div class="setting-group">
+                <h3>Hours</h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="show-hours" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-group">
+                <h3>Background Color</h3>
+                <input type="color" id="bg-color" value="#000000">
+            </div>
+            
+            <div class="setting-group">
+                <h3>Text Color</h3>
+                <input type="color" id="clock-text-color" value="#FFE4B5">
+            </div>
+            
+            <div class="setting-group">
+                <h3>Auxiliar Color</h3>
+                <input type="color" id="accent-color" value="#979595">
             </div>
              <button id="save-settings" class="btn primary">Save</button>
             <button id="reset-settings" class="btn">Reset</button>

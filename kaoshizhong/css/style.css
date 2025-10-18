@@ -1,22 +1,9 @@
-/* css/style.css - Versión completa corregida */
+/* css/style.css - Versión optimizada y corregida */
 :root {
-    --primary-orange: #FFB74D;
-    --light-orange: #FFE0B2;
-    --dark-orange: #F57C00;
     --primary-green: #81C784;
-    --light-green: #C8E6C9;
     --dark-green: #388E3C;
-    --primary-brown: #5D4037;
-    --light-brown: #D7CCC8;
-    --dark-brown: #3E2723;
     --app-background: #000000;
     --app-surface: #000000;
-    --text-dark: #212121;
-    --text-light: #757575;
-    --background: #000000;
-    --surface: #000000;
-    --error: #B00020;
-    
     --clock-bg: #000000;
     --clock-text: #FFE4B5;
     --accent-color: #979595;
@@ -24,13 +11,11 @@
     --shadow: 0 2px 4px rgba(0,0,0,0.1);
     --shadow-elevated: 0 4px 8px rgba(0,0,0,0.12);
     
-    /* Nuevas variables para tamaños responsivos */
-    --margin-side: 10%; /* Margen del 10% a cada lado */
+    --margin-side: 10%;
     --clock-size-mobile: 4.5rem;
     --clock-size-tablet: 7rem;
     --clock-size-desktop: 9rem;
     --text-size-base: 18px;
-    --text-size-large: 1.3rem;
 }
 
 @font-face {
@@ -58,7 +43,6 @@ body {
     display: none;
     flex-direction: column;
     height: 100vh;
-    padding: 0;
     background-color: var(--app-surface);
 }
 
@@ -66,7 +50,7 @@ body {
     display: flex;
 }
 
-/* Encabezado de la aplicación - MÁS GRANDE */
+/* Encabezado */
 .app-header {
     display: flex;
     align-items: center;
@@ -75,7 +59,6 @@ body {
     background-color: #000000;
     box-shadow: var(--shadow);
     z-index: 10;
-    color: white;
     border-bottom: 1px solid #333;
 }
 
@@ -92,7 +75,6 @@ body {
 .app-title {
     font-size: 1.5rem;
     font-weight: 500;
-    color: white;
 }
 
 .pinyin {
@@ -111,10 +93,9 @@ body {
 .event-title {
     font-size: 1.4rem;
     font-weight: 500;
-    color: white;
 }
 
-/* Botones MÁS GRANDES */
+/* Botones */
 .icon-btn {
     background: none;
     border: none;
@@ -126,7 +107,6 @@ body {
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
-    color: white;
     min-width: 48px;
     min-height: 48px;
 }
@@ -142,7 +122,6 @@ body {
 
 .back-btn {
     font-weight: bold;
-    color: white;
     font-size: 20px;
 }
 
@@ -157,12 +136,12 @@ body {
     background-color: #333;
     color: white;
     min-height: 50px;
-    min-width: 0;
     flex: 1;
     max-width: 200px;
-    box-sizing: border-box;
     text-align: center;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn:hover {
@@ -173,14 +152,13 @@ body {
 
 .btn.primary {
     background-color: var(--primary-green);
-    color: white;
 }
 
 .btn.primary:hover {
     background-color: var(--dark-green);
 }
 
-/* Menú principal MÁS GRANDE */
+/* Menú principal */
 .menu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -188,7 +166,6 @@ body {
     padding: 30px var(--margin-side);
     flex: 1;
     align-content: center;
-    background-color: #000000;
 }
 
 .menu-card {
@@ -204,8 +181,6 @@ body {
     transition: all 0.3s;
     box-shadow: var(--shadow);
     aspect-ratio: 1;
-    position: relative;
-    z-index: 1;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -223,20 +198,17 @@ body {
 .menu-label {
     font-size: 1.2rem;
     font-weight: 500;
-    color: white;
 }
 
-/* Eliminar cualquier estilo que pueda estar interfiriendo */
 .menu-card * {
     pointer-events: none;
 }
 
-/* Pero permitir interacción con los botones normales */
 .btn, .icon-btn {
     pointer-events: auto;
 }
 
-/* Contenedor de reloj - MÁS GRANDE Y CON MÁRGENES */
+/* Contenedor de reloj */
 .clock-container {
     display: flex;
     flex-direction: column;
@@ -247,10 +219,8 @@ body {
     background-color: var(--clock-bg);
     color: var(--clock-text);
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* RELOJ MUCHO MÁS GRANDE - Se adapta al ancho */
 .clock-display {
     font-size: var(--clock-size-mobile);
     font-weight: 700;
@@ -258,12 +228,13 @@ body {
     margin-bottom: 40px;
     text-align: center;
     width: 100%;
-    max-width: 100%;
     line-height: 1.1;
     padding: 20px 0;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 12px;
 }
 
-/* Controles MÁS GRANDES - CORREGIDOS */
+/* Controles */
 .controls {
     display: flex;
     gap: 15px;
@@ -272,8 +243,6 @@ body {
     max-width: 500px;
     justify-content: center;
     flex-wrap: nowrap;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 .timer-controls {
@@ -283,11 +252,9 @@ body {
     gap: 25px;
     width: 100%;
     max-width: 500px;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
-/* Select y inputs MÁS GRANDES */
+/* Select y inputs */
 select {
     padding: 15px 20px;
     border-radius: 8px;
@@ -297,8 +264,6 @@ select {
     width: 100%;
     color: white;
     min-height: 50px;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
 .custom-input {
@@ -308,8 +273,6 @@ select {
     max-width: 500px;
     margin-top: 25px;
     align-items: center;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 .custom-input input {
@@ -321,10 +284,9 @@ select {
     background-color: #222;
     color: white;
     min-height: 50px;
-    box-sizing: border-box;
 }
 
-/* Hora objetivo MÁS GRANDE */
+/* Hora objetivo */
 .target-time {
     display: flex;
     align-items: center;
@@ -338,7 +300,7 @@ select {
     opacity: 0.8;
 }
 
-/* Edición de título MÁS GRANDE */
+/* Edición de título */
 .edit-container {
     display: flex;
     gap: 15px;
@@ -363,7 +325,7 @@ select {
     display: none !important;
 }
 
-/* Modal MÁS GRANDE */
+/* Modal */
 .modal {
     position: fixed;
     top: 0;
@@ -385,14 +347,12 @@ select {
     width: 100%;
     max-width: 500px;
     box-shadow: var(--shadow-elevated);
-    color: white;
     border: 1px solid #333;
 }
 
 .modal-content h3 {
     margin-bottom: 25px;
     font-weight: 500;
-    color: white;
     font-size: 1.4rem;
     text-align: center;
 }
@@ -415,12 +375,11 @@ select {
     gap: 15px;
 }
 
-/* Configuración MÁS GRANDE */
+/* Configuración */
 .settings-container {
     padding: 30px var(--margin-side);
     flex: 1;
     overflow-y: auto;
-    background-color: #000000;
 }
 
 .setting-group {
@@ -431,7 +390,6 @@ select {
     margin-bottom: 15px;
     font-weight: 500;
     font-size: 1.3rem;
-    color: white;
 }
 
 .setting-group input[type="color"] {
@@ -445,12 +403,10 @@ select {
 
 .setting-group select {
     background-color: #222;
-    color: white;
     border: 1px solid #333;
     font-size: 1.1rem;
 }
 
-/* Botones de settings MÁS GRANDES */
 .settings-actions {
     display: flex;
     flex-direction: column;
@@ -458,26 +414,16 @@ select {
     margin-top: 40px;
     padding-top: 30px;
     border-top: 1px solid #333;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 .settings-actions .btn {
     width: 100%;
-    justify-content: center;
     font-size: 1.2rem;
     padding: 18px 24px;
     max-width: 100%;
-    min-width: auto;
 }
 
-/* Controles ocultos */
-.controls .hidden {
-    display: none;
-}
-
-/* Animación de parpadeo para temporizadores */
+/* Animación de alarma */
 @keyframes blink-alarm {
     0%, 50% {
         color: var(--clock-text);
@@ -493,71 +439,29 @@ select {
     animation: blink-alarm 1s infinite;
 }
 
-/* Mejorar la visibilidad del texto durante el parpadeo */
-.clock-display {
-    transition: color 0.3s ease, background-color 0.3s ease;
-    border-radius: 12px;
-}
-
-/* Estilos para el estado de alarma */
 .alarm-active {
     box-shadow: 0 0 30px rgba(255, 68, 68, 0.6);
 }
 
-/* Fuentes específicas */
-.clock-font-digital {
-    font-family: 'Digital-7', monospace !important;
-}
+/* Fuentes del reloj */
+.clock-font-digital { font-family: 'Digital-7', monospace !important; }
+.clock-font-roboto { font-family: 'Roboto', sans-serif !important; }
+.clock-font-arial { font-family: 'Arial', sans-serif !important; }
+.clock-font-helvetica { font-family: 'Helvetica', sans-serif !important; }
+.clock-font-georgia { font-family: 'Georgia', serif !important; }
+.clock-font-times { font-family: 'Times New Roman', serif !important; }
+.clock-font-courier { font-family: 'Courier New', monospace !important; }
+.clock-font-verdana { font-family: 'Verdana', sans-serif !important; }
+.clock-font-trebuchet { font-family: 'Trebuchet MS', sans-serif !important; }
+.clock-font-gill { font-family: 'Gill Sans', sans-serif !important; }
 
-.clock-font-roboto {
-    font-family: 'Roboto', sans-serif !important;
-}
-
-.clock-font-arial {
-    font-family: 'Arial', sans-serif !important;
-}
-
-.clock-font-helvetica {
-    font-family: 'Helvetica', sans-serif !important;
-}
-
-.clock-font-georgia {
-    font-family: 'Georgia', serif !important;
-}
-
-.clock-font-times {
-    font-family: 'Times New Roman', serif !important;
-}
-
-.clock-font-courier {
-    font-family: 'Courier New', monospace !important;
-}
-
-.clock-font-verdana {
-    font-family: 'Verdana', sans-serif !important;
-}
-
-.clock-font-trebuchet {
-    font-family: 'Trebuchet MS', sans-serif !important;
-}
-
-.clock-font-gill {
-    font-family: 'Gill Sans', sans-serif !important;
-}
-
-/* Transiciones suaves */
-.controls, .btn, .custom-input, .timer-controls {
-    transition: all 0.3s ease;
-}
-
-/* Responsive para pantallas más anchas - COMPLETAMENTE CORREGIDO */
+/* Responsive para pantallas apaisadas - CORREGIDO */
 @media (min-width: 768px) and (min-aspect-ratio: 1/1) {
     body {
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #000000;
-        font-size: 20px;
     }
     
     .screen {
@@ -567,12 +471,11 @@ select {
         border-radius: 16px;
         overflow: hidden;
         box-shadow: var(--shadow-elevated);
-        background-color: #000000;
         border: 1px solid #333;
     }
     
     .menu-grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         gap: 30px;
         padding: 40px var(--margin-side);
     }
@@ -595,92 +498,83 @@ select {
         margin-bottom: 50px;
     }
     
-    /* CONTROLES COMPLETAMENTE CORREGIDOS */
     .clock-container {
         padding: 40px var(--margin-side);
     }
     
+    /* CONTROLES CORREGIDOS - SIN DESBORDAMIENTO */
     .controls {
         max-width: 90%;
-        gap: 20px;
+        gap: 15px;
         margin-top: 40px;
+        padding: 0 5%;
     }
     
     .timer-controls {
         max-width: 90%;
+        padding: 0 5%;
     }
     
     .custom-input {
         max-width: 90%;
         gap: 12px;
+        padding: 0 5%;
     }
     
-    /* Botones específicos para pantalla apaisada */
     .btn {
-        padding: 16px 24px;
-        font-size: 1.2rem;
-        min-height: 55px;
-        flex: 1;
-        max-width: 180px;
+        padding: 14px 16px;
+        font-size: 1.1rem;
+        min-height: 50px;
+        max-width: 160px;
+        min-width: 120px;
     }
     
-    /* Grupos específicos de botones */
-    /* Para 2 botones (como en countdown) */
+    /* Grupos de botones optimizados */
     .controls:has(.btn:nth-child(2)):not(:has(.btn:nth-child(3))) {
-        max-width: 400px;
+        max-width: 350px;
     }
     
     .controls:has(.btn:nth-child(2)):not(:has(.btn:nth-child(3))) .btn {
-        max-width: 160px;
+        max-width: 150px;
     }
     
-    /* Para 3 botones (como en timer con reset, start, pause) */
     .controls:has(.btn:nth-child(3)) {
-        max-width: 500px;
-        gap: 15px;
+        max-width: 480px;
+        gap: 12px;
     }
     
     .controls:has(.btn:nth-child(3)) .btn {
-        max-width: 140px;
-        font-size: 1.1rem;
-        padding: 14px 18px;
+        max-width: 130px;
+        font-size: 1rem;
+        padding: 12px 14px;
     }
     
-    /* Select y inputs corregidos */
     select {
-        max-width: 100%;
         font-size: 1.1rem;
-        padding: 16px 20px;
+        padding: 14px 16px;
     }
     
     .custom-input input {
-        max-width: 60%;
-        flex: 2;
+        max-width: 65%;
+        min-width: 200px;
     }
     
     .custom-input .btn {
-        max-width: 35%;
-        flex: 1;
+        max-width: 30%;
+        min-width: 100px;
     }
     
-    /* Botones de settings corregidos */
     .settings-actions {
         flex-direction: row;
         justify-content: space-between;
-        max-width: 100%;
         gap: 20px;
     }
     
     .settings-actions .btn {
-        width: auto;
-        flex: 1;
-        margin: 0;
         max-width: 48%;
-        font-size: 1.2rem;
         padding: 18px 20px;
     }
     
-    /* Modal corregido */
     .modal {
         padding: 0 5%;
     }
@@ -689,18 +583,13 @@ select {
         max-width: 450px;
     }
     
-    .modal-actions {
-        justify-content: center;
-        gap: 20px;
-    }
-    
     .modal-actions .btn {
         min-width: 120px;
         max-width: 140px;
     }
 }
 
-/* Responsive para tablets - CORREGIDO */
+/* Responsive para tablets */
 @media (min-width: 768px) and (max-width: 1024px) {
     .clock-display {
         font-size: var(--clock-size-tablet);
@@ -712,28 +601,40 @@ select {
         gap: 30px;
     }
     
-    /* Controles más compactos en tablet */
     .controls {
         max-width: 95%;
-        gap: 12px;
+        gap: 10px;
+        padding: 0 2%;
     }
     
     .timer-controls {
         max-width: 95%;
+        padding: 0 2%;
     }
     
     .custom-input {
         max-width: 95%;
+        padding: 0 2%;
     }
     
     .btn {
-        padding: 12px 18px;
-        font-size: 1.1rem;
-        max-width: 150px;
+        padding: 12px 14px;
+        font-size: 1rem;
+        max-width: 140px;
+    }
+    
+    .controls:has(.btn:nth-child(3)) {
+        max-width: 420px;
+    }
+    
+    .controls:has(.btn:nth-child(3)) .btn {
+        max-width: 120px;
+        font-size: 0.95rem;
+        padding: 10px 12px;
     }
 }
 
-/* Responsive para móviles en orientación vertical */
+/* Responsive para móviles vertical */
 @media (max-width: 767px) and (max-aspect-ratio: 1/1) {
     :root {
         --margin-side: 5%;
@@ -773,7 +674,7 @@ select {
     }
 }
 
-/* Ajustes específicos para pantallas muy estrechas en landscape */
+/* Pantallas landscape estrechas */
 @media (max-height: 500px) and (orientation: landscape) {
     .clock-display {
         font-size: 3rem;
@@ -783,15 +684,22 @@ select {
     
     .controls {
         margin-top: 20px;
-        max-width: 95%;
+        max-width: 98%;
         gap: 8px;
+        padding: 0 1%;
     }
     
     .btn {
-        padding: 10px 14px;
-        font-size: 1rem;
-        min-height: 44px;
-        max-width: 130px;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        min-height: 40px;
+        max-width: 120px;
+    }
+    
+    .controls:has(.btn:nth-child(3)) .btn {
+        max-width: 110px;
+        font-size: 0.85rem;
+        padding: 6px 8px;
     }
     
     .target-time {
@@ -814,7 +722,7 @@ select {
     }
 }
 
-/* Para pantallas muy grandes - CORREGIDO */
+/* Pantallas muy grandes */
 @media (min-width: 1200px) {
     .clock-display {
         font-size: 10rem;
@@ -825,9 +733,9 @@ select {
         max-width: 1200px;
     }
     
-    /* Controles más grandes pero controlados */
     .controls {
         max-width: 600px;
+        gap: 20px;
     }
     
     .timer-controls {
@@ -840,13 +748,7 @@ select {
     
     .btn {
         font-size: 1.2rem;
-        padding: 18px 28px;
-        max-width: 200px;
+        padding: 16px 20px;
+        max-width: 180px;
     }
-}
-
-/* Asegurar que los botones sean siempre visibles y no se corten */
-.btn {
-    overflow: hidden;
-    text-overflow: ellipsis;
 }

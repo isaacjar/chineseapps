@@ -1,4 +1,4 @@
-// js/settings.js - Añadir método para guardar manualmente
+// js/settings.js - Versión actualizada con toggle de horas
 class SettingsManager {
     constructor() {
         this.defaultSettings = {
@@ -6,7 +6,8 @@ class SettingsManager {
             clockTextColor: '#FFE4B5',
             accentColor: '#979595',
             fontFamily: "'Roboto', sans-serif",
-            fontClass: 'clock-font-roboto'
+            fontClass: 'clock-font-roboto',
+            showHours: true // NUEVO: mostrar horas por defecto
         };
         
         this.fontMap = {
@@ -35,17 +36,26 @@ class SettingsManager {
         }
         
         this.applySettings();
+        this.updateFormInputs(); // NUEVO: actualizar inputs del formulario
     }
     
     saveSettings() {
+        // Obtener valores actuales del formulario
+        const formSettings = this.getFormSettings();
+        this.currentSettings = {...this.currentSettings, ...formSettings};
+        
         localStorage.setItem('clockAppSettings', JSON.stringify(this.currentSettings));
         this.applySettings();
         this.showSaveConfirmation();
+        
+        // Notificar a los managers que el formato de tiempo cambió
+        this.notifyTimeFormatChange();
     }
     
     showSaveConfirmation() {
-        // Mostrar mensaje de confirmación temporal
         const saveBtn = document.getElementById('save-settings');
+        if (!saveBtn) return;
+        
         const originalText = saveBtn.textContent;
         
         saveBtn.textContent = '✓ Guardado!';
@@ -70,26 +80,42 @@ class SettingsManager {
         const clockDisplays = document.querySelectorAll('.clock-display');
         const fontClass = this.fontMap[this.currentSettings.fontFamily] || 'clock-font-roboto';
         
-        // Primero remover todas las clases de fuente
         clockDisplays.forEach(display => {
             Object.values(this.fontMap).forEach(fontClass => {
                 display.classList.remove(fontClass);
             });
-            // Añadir la clase de fuente seleccionada
             display.classList.add(fontClass);
         });
+    }
+    
+    // NUEVO: Actualizar inputs del formulario con la configuración actual
+    updateFormInputs() {
+        const bgColorInput = document.getElementById('bg-color');
+        const clockTextColorInput = document.getElementById('clock-text-color');
+        const accentColorInput = document.getElementById('accent-color');
+        const fontFamilySelect = document.getElementById('font-family');
+        const showHoursCheckbox = document.getElementById('show-hours');
+        
+        if (bgColorInput) bgColorInput.value = this.currentSettings.bgColor;
+        if (clockTextColorInput) clockTextColorInput.value = this.currentSettings.clockTextColor;
+        if (accentColorInput) accentColorInput.value = this.currentSettings.accentColor;
+        if (fontFamilySelect) fontFamilySelect.value = this.currentSettings.fontFamily;
+        if (showHoursCheckbox) showHoursCheckbox.checked = this.currentSettings.showHours;
     }
     
     updateSetting(key, value) {
         this.currentSettings[key] = value;
         
-        // Si cambia la fuente, actualizar también la clase
         if (key === 'fontFamily') {
             this.currentSettings.fontClass = this.fontMap[value] || 'clock-font-roboto';
         }
         
-        // Aplicar cambios inmediatamente (opcional)
         this.applySettings();
+        
+        // NUEVO: Si cambia showHours, notificar a los managers
+        if (key === 'showHours') {
+            this.notifyTimeFormatChange();
+        }
     }
     
     saveCurrentSettings() {
@@ -105,13 +131,34 @@ class SettingsManager {
         return {...this.currentSettings};
     }
     
-    // Nuevo método para obtener los valores actuales del formulario
+    // NUEVO: Método para obtener configuración del formulario (incluye showHours)
     getFormSettings() {
+        const showHoursCheckbox = document.getElementById('show-hours');
+        
         return {
             bgColor: document.getElementById('bg-color').value,
             clockTextColor: document.getElementById('clock-text-color').value,
             accentColor: document.getElementById('accent-color').value,
-            fontFamily: document.getElementById('font-family').value
+            fontFamily: document.getElementById('font-family').value,
+            showHours: showHoursCheckbox ? showHoursCheckbox.checked : true
         };
+    }
+    
+    // NUEVO: Método para obtener si se deben mostrar horas
+    getShowHours() {
+        return this.currentSettings.showHours;
+    }
+    
+    // NUEVO: Notificar a los managers que el formato de tiempo cambió
+    notifyTimeFormatChange() {
+        if (window.stopwatchManager) {
+            window.stopwatchManager.updateDisplay();
+        }
+        if (window.timerManager) {
+            window.timerManager.updateDisplay();
+        }
+        if (window.countdownManager) {
+            window.countdownManager.updateDisplay();
+        }
     }
 }

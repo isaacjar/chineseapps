@@ -118,8 +118,9 @@ class StopwatchManager {
         this.uiManager.updateClockDisplay('stopwatch', this.formatTime(this.elapsedTime));
     }
     
-    updateDisplay() {
-        this.uiManager.updateClockDisplay('stopwatch', this.formatTime(this.elapsedTime));
+     updateDisplay() {
+        const timeString = this.formatTime(this.elapsedTime);
+        this.uiManager.updateClockDisplay('stopwatch', timeString);
     }
     
     formatTime(milliseconds) {
@@ -129,15 +130,18 @@ class StopwatchManager {
         const seconds = totalSeconds % 60;
         
         const settingsManager = window.settingsManager;
-        const showHours = settingsManager ? settingsManager.getShowHours() : true;
+        const showHours = settingsManager ? settingsManager.getShowHours() : false;
         
-        if (showHours || hours > 0) {
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        } else {
-            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // SI showHours es false, NUNCA mostrar horas, incluso si hay horas > 0
+        if (!showHours) {
+            // Si hay horas, convertirlas a minutos
+            const totalMinutes = hours * 60 + minutes;
+            return `${totalMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+        
+        // Si showHours es true, mostrar formato completo
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
-
 }
 
 class TimerManager {
@@ -328,16 +332,13 @@ class TimerManager {
     }
     
     updateDisplay() {
-        this.uiManager.updateClockDisplay('timer', this.formatTime(this.remainingTime));
+        const timeString = this.formatTime(this.remainingTime);
+        this.uiManager.updateClockDisplay('timer', timeString);
     }
     
     formatTime(totalSeconds) {
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-        
         const settingsManager = window.settingsManager;
-        const showHours = settingsManager ? settingsManager.getShowHours() : true;
+        const showHours = settingsManager ? settingsManager.getShowHours() : false;
         
         let sign = '-';
         let displayTime = totalSeconds;
@@ -347,15 +348,19 @@ class TimerManager {
             displayTime = Math.abs(totalSeconds);
         }
         
-        const displayHours = Math.floor(displayTime / 3600);
-        const displayMinutes = Math.floor((displayTime % 3600) / 60);
-        const displaySeconds = displayTime % 60;
+        const hours = Math.floor(displayTime / 3600);
+        const minutes = Math.floor((displayTime % 3600) / 60);
+        const seconds = displayTime % 60;
         
-        if (showHours || displayHours > 0) {
-            return `${sign}${displayHours.toString().padStart(2, '0')}:${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
-        } else {
-            return `${sign}${displayMinutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+        // SI showHours es false, NUNCA mostrar horas
+        if (!showHours) {
+            // Convertir horas a minutos
+            const totalMinutes = hours * 60 + minutes;
+            return `${sign}${totalMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+        
+        // Si showHours es true, mostrar formato completo
+        return `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
 }
 
@@ -513,18 +518,22 @@ class CountdownManager {
     }
     
     formatTime(diffSeconds) {
+        const settingsManager = window.settingsManager;
+        const showHours = settingsManager ? settingsManager.getShowHours() : false;
+        
         const hours = Math.floor(diffSeconds / 3600);
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
         
-        const settingsManager = window.settingsManager;
-        const showHours = settingsManager ? settingsManager.getShowHours() : true;
-        
-        if (showHours || hours > 0) {
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        } else {
-            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // SI showHours es false, NUNCA mostrar horas
+        if (!showHours) {
+            // Convertir horas a minutos
+            const totalMinutes = hours * 60 + minutes;
+            return `${totalMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+        
+        // Si showHours es true, mostrar formato completo
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
     
     startBlinking() {

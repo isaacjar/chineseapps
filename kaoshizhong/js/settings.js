@@ -1,17 +1,17 @@
-// js/settings.js - Versión actualizada con toggle de horas
+// js/settings.js - Versión corregida con toggle de horas
 class SettingsManager {
     constructor() {
         this.defaultSettings = {
             bgColor: '#000000',
             clockTextColor: '#FFE4B5',
             accentColor: '#979595',
-            fontFamily: "'Digital-7', monospace", // Cambiado a Digital-7 por defecto
+            fontFamily: "'Digital-7', monospace",
             fontClass: 'clock-font-digital-7',
             showHours: false
         };
         
         this.fontMap = {
-            // Fuentes digitales (NUEVAS)
+            // Fuentes digitales
             "'Digital-7', monospace": "clock-font-digital-7",
             "'DS-Digital', monospace": "clock-font-ds-digital",
             "'Digital Numbers', monospace": "clock-font-digital-numbers", 
@@ -43,7 +43,7 @@ class SettingsManager {
         }
         
         this.applySettings();
-        this.updateFormInputs(); // NUEVO: actualizar inputs del formulario
+        this.updateFormInputs();
     }
     
     saveSettings() {
@@ -95,7 +95,7 @@ class SettingsManager {
         });
     }
     
-    // NUEVO: Actualizar inputs del formulario con la configuración actual
+    // Actualizar inputs del formulario con la configuración actual
     updateFormInputs() {
         const bgColorInput = document.getElementById('bg-color');
         const clockTextColorInput = document.getElementById('clock-text-color');
@@ -119,7 +119,7 @@ class SettingsManager {
         
         this.applySettings();
         
-        // NUEVO: Si cambia showHours, notificar a los managers
+        // Si cambia showHours, notificar a los managers
         if (key === 'showHours') {
             this.notifyTimeFormatChange();
         }
@@ -138,7 +138,7 @@ class SettingsManager {
         return {...this.currentSettings};
     }
     
-    // NUEVO: Método para obtener configuración del formulario (incluye showHours)
+    // Método para obtener configuración del formulario (incluye showHours)
     getFormSettings() {
         const showHoursCheckbox = document.getElementById('show-hours');
         
@@ -147,25 +147,32 @@ class SettingsManager {
             clockTextColor: document.getElementById('clock-text-color').value,
             accentColor: document.getElementById('accent-color').value,
             fontFamily: document.getElementById('font-family').value,
-            showHours: showHoursCheckbox ? showHoursCheckbox.checked : true
+            showHours: showHoursCheckbox ? showHoursCheckbox.checked : false
         };
     }
     
-    // NUEVO: Método para obtener si se deben mostrar horas
+    // Método para obtener si se deben mostrar horas
     getShowHours() {
         return this.currentSettings.showHours;
     }
     
-    // NUEVO: Notificar a los managers que el formato de tiempo cambió
+    // Notificar a los managers que el formato de tiempo cambió - CORREGIDO
     notifyTimeFormatChange() {
-        if (window.stopwatchManager) {
+        // Comprobar que los managers existen y tienen el método updateDisplay
+        if (window.stopwatchManager && typeof window.stopwatchManager.updateDisplay === 'function') {
             window.stopwatchManager.updateDisplay();
         }
-        if (window.timerManager) {
+        if (window.timerManager && typeof window.timerManager.updateDisplay === 'function') {
             window.timerManager.updateDisplay();
         }
-        if (window.countdownManager) {
+        if (window.countdownManager && typeof window.countdownManager.updateDisplay === 'function') {
             window.countdownManager.updateDisplay();
         }
+    }
+    
+    // NUEVO: Método para aplicar cambios inmediatos sin guardar (para uso interno)
+    applyImmediateChanges() {
+        this.applySettings();
+        this.notifyTimeFormatChange();
     }
 }

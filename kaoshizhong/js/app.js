@@ -133,16 +133,23 @@ class TimerManager {
         this.uiManager = uiManager;
         this.totalTime = 600; // 10 minutos por defecto
         this.remainingTime = this.totalTime;
-        this.isRunning = false;
+        this.isRunning = false; // No iniciar automáticamente
         this.intervalId = null;
         console.log('TimerManager inicializado');
+        
+        // Solo mostrar tiempo inicial, sin iniciar
+        this.updateDisplay();
     }
     
     initEventListeners() {
         console.log('Inicializando event listeners de timer');
         
-        // Reset
         const resetBtn = document.getElementById('reset-timer');
+        const startBtn = document.getElementById('start-timer');
+        const pauseBtn = document.getElementById('pause-timer');
+        const setCustomBtn = document.getElementById('set-custom-time');
+        const presetSelect = document.getElementById('timer-presets');
+        
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
                 console.log('Reset timer clickeado');
@@ -150,28 +157,22 @@ class TimerManager {
             });
         }
         
-        // Start
-        const startBtn = document.getElementById('start-timer');
         if (startBtn) {
             startBtn.addEventListener('click', () => {
                 console.log('Start timer clickeado');
                 this.start();
-                this.toggleButtons('timer', true);
+                this.toggleButtons(true);
             });
         }
         
-        // Pause
-        const pauseBtn = document.getElementById('pause-timer');
         if (pauseBtn) {
             pauseBtn.addEventListener('click', () => {
                 console.log('Pause timer clickeado');
                 this.pause();
-                this.toggleButtons('timer', false);
+                this.toggleButtons(false);
             });
         }
         
-        // Custom time
-        const setCustomBtn = document.getElementById('set-custom-time');
         if (setCustomBtn) {
             setCustomBtn.addEventListener('click', () => {
                 console.log('Set custom time clickeado');
@@ -179,14 +180,12 @@ class TimerManager {
             });
         }
         
-        // Presets
-        const presetSelect = document.getElementById('timer-presets');
         if (presetSelect) {
             presetSelect.addEventListener('change', (e) => {
                 console.log('Preset cambiado:', e.target.value);
                 if (e.target.value !== 'custom') {
                     this.setTimer(parseInt(e.target.value));
-                    this.toggleButtons('timer', false);
+                    this.toggleButtons(false); // No iniciar automáticamente
                 } else {
                     const customInput = document.getElementById('custom-timer-input');
                     if (customInput) {
@@ -207,6 +206,7 @@ class TimerManager {
                 if (customInput) {
                     customInput.classList.add('hidden');
                 }
+                this.toggleButtons(false); // No iniciar automáticamente
             } else {
                 alert('Formato de tiempo inválido. Use HH:MM:SS');
             }
@@ -218,10 +218,10 @@ class TimerManager {
         return timeRegex.test(timeString);
     }
     
-    toggleButtons(type, isRunning) {
-        console.log(`Toggle buttons ${type}, running: ${isRunning}`);
-        const startBtn = document.getElementById(`start-${type}`);
-        const pauseBtn = document.getElementById(`pause-${type}`);
+    toggleButtons(isRunning) {
+        console.log(`Toggle buttons timer, running: ${isRunning}`);
+        const startBtn = document.getElementById('start-timer');
+        const pauseBtn = document.getElementById('pause-timer');
         
         if (startBtn && pauseBtn) {
             if (isRunning) {
@@ -239,7 +239,7 @@ class TimerManager {
         this.totalTime = seconds;
         this.remainingTime = seconds;
         this.updateDisplay();
-        this.toggleButtons('timer', false);
+        this.toggleButtons(false); // No iniciar automáticamente
     }
     
     setCustomTime(timeString) {
@@ -273,7 +273,7 @@ class TimerManager {
         this.pause();
         this.remainingTime = this.totalTime;
         this.updateDisplay();
-        this.toggleButtons('timer', false);
+        this.toggleButtons(false);
         console.log('Temporizador reseteado');
     }
     
@@ -318,15 +318,21 @@ class TimerManager {
     }
     
     updateDisplay() {
-        this.uiManager.updateClockDisplay('timer', this.formatTime(this.remainingTime));
-    }
-    
-    formatTime(totalSeconds) {
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+        let sign = '-';
+        let displayTime = this.remainingTime;
         
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // Si el tiempo ya pasó, mostrar positivo
+        if (this.remainingTime <= 0) {
+            sign = '+';
+            displayTime = Math.abs(this.remainingTime);
+        }
+        
+        const hours = Math.floor(displayTime / 3600);
+        const minutes = Math.floor((displayTime % 3600) / 60);
+        const seconds = displayTime % 60;
+        
+        const timeString = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        this.uiManager.updateClockDisplay('timer', timeString);
     }
 }
 
@@ -335,12 +341,12 @@ class CountdownManager {
         this.uiManager = uiManager;
         this.targetTime = this.getDefaultTargetTime();
         this.intervalId = null;
-        this.isRunning = false;
+        this.isRunning = false; // No iniciar automáticamente
         this.pausedTime = null;
         this.remainingMs = 0;
         console.log('CountdownManager inicializado');
         
-        // Inicializar el display inmediatamente
+        // Solo mostrar el tiempo inicial, sin iniciar contador
         this.updateDisplay();
         this.updateTargetTimeDisplay();
     }
@@ -411,12 +417,12 @@ class CountdownManager {
         }
         
         this.updateTargetTimeDisplay();
-        this.updateDisplay(); // Actualizar inmediatamente
+        this.updateDisplay(); // Actualizar display pero no iniciar
         
-        // Iniciar automáticamente y forzar primera actualización
-        if (!this.isRunning) {
-            this.start();
-        }
+        // NO iniciar automáticamente, esperar a que el usuario pulse Start
+        this.toggleButtons(false);
+        
+        console.log('Hora objetivo establecida:', this.targetTime);
     }
     
     start() {
@@ -463,25 +469,31 @@ class CountdownManager {
         } else if (this.pausedTime !== null) {
             diffMs = this.remainingMs;
         } else {
+            // Cuando no está corriendo ni pausado, mostrar tiempo inicial
             diffMs = this.targetTime - now;
         }
         
+        let sign = '-';
+        let displayTime = diffMs;
+        
+        // Si el tiempo ya pasó, mostrar positivo
         if (diffMs <= 0) {
-            this.uiManager.updateClockDisplay('countdown', '00:00:00');
+            sign = '+';
+            displayTime = Math.abs(diffMs);
+            
             if (this.isRunning) {
                 this.startBlinking();
                 this.playAlarmSound();
                 this.pause();
             }
-            return;
         }
         
-        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffSeconds = Math.floor(displayTime / 1000);
         const hours = Math.floor(diffSeconds / 3600);
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
         
-        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const timeString = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         this.uiManager.updateClockDisplay('countdown', timeString);
     }
     

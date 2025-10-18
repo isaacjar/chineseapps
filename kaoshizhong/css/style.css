@@ -1,4 +1,4 @@
-/* css/style.css - Versión corregida para pantalla completa */
+/* css/style.css - Versión corregida con botones visibles */
 
 :root {
     --primary-green: #81C784;
@@ -39,23 +39,20 @@ body {
     font-size: var(--text-size-base);
 }
 
-/* PANTALLAS - SIEMPRE OCUPAN TODA LA PANTALLA */
+/* PANTALLAS - CORREGIDO: sin position fixed */
 .screen {
     display: none;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
     background-color: var(--app-surface);
-    position: fixed;
-    top: 0;
-    left: 0;
 }
 
 .screen.active {
     display: flex;
 }
 
-/* Encabezado */
+/* Encabezado - ASEGURAR QUE LOS BOTONES SE VEAN */
 .app-header {
     display: flex;
     align-items: center;
@@ -63,9 +60,10 @@ body {
     padding: 20px var(--margin-side);
     background-color: #000000;
     box-shadow: var(--shadow);
-    z-index: 10;
     border-bottom: 1px solid #333;
     width: 100%;
+    position: relative;
+    z-index: 10;
 }
 
 .header-left {
@@ -101,7 +99,7 @@ body {
     font-weight: 500;
 }
 
-/* Botones */
+/* Botones - ASEGURAR VISIBILIDAD */
 .icon-btn {
     background: none;
     border: none;
@@ -115,6 +113,9 @@ body {
     transition: background-color 0.2s;
     min-width: 48px;
     min-height: 48px;
+    color: white;
+    z-index: 20;
+    position: relative;
 }
 
 .icon-btn:hover {
@@ -129,6 +130,12 @@ body {
 .back-btn {
     font-weight: bold;
     font-size: 20px;
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .btn {
@@ -344,7 +351,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: 1000;
     padding: 0 var(--margin-side);
 }
 
@@ -464,9 +471,7 @@ select {
 .clock-font-trebuchet { font-family: 'Trebuchet MS', sans-serif !important; }
 .clock-font-gill { font-family: 'Gill Sans', sans-serif !important; }
 
-/* RESPONSIVE CORREGIDO - SIN CUADRO DENTRO DE CUADRO */
-
-/* Tablets y pantallas grandes - MANTENER PANTALLA COMPLETA */
+/* RESPONSIVE */
 @media (min-width: 768px) {
     .clock-display {
         font-size: var(--clock-size-tablet);
@@ -491,7 +496,6 @@ select {
         font-size: 1.4rem;
     }
     
-    /* CONTROLES OPTIMIZADOS PARA PANTALLAS GRANDES */
     .controls {
         max-width: 90%;
         gap: 15px;
@@ -518,7 +522,6 @@ select {
         min-width: 120px;
     }
     
-    /* Grupos de botones optimizados */
     .controls:has(.btn:nth-child(2)):not(:has(.btn:nth-child(3))) {
         max-width: 350px;
     }
@@ -565,7 +568,6 @@ select {
     }
 }
 
-/* Pantallas muy grandes */
 @media (min-width: 1200px) {
     .clock-display {
         font-size: var(--clock-size-desktop);
@@ -592,7 +594,6 @@ select {
     }
 }
 
-/* Móviles en orientación vertical */
 @media (max-width: 767px) and (max-aspect-ratio: 1/1) {
     :root {
         --margin-side: 5%;
@@ -632,7 +633,6 @@ select {
     }
 }
 
-/* Pantallas landscape estrechas */
 @media (max-height: 500px) and (orientation: landscape) {
     .clock-display {
         font-size: 3rem;

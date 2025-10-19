@@ -1,1 +1,209 @@
-j
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐼 HSK Bamboo 4 🎋</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎋</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <header class="header-bar">
+        <div class="logo-container" id="logo-btn">
+            <span class="logo">🎋</span>
+            <h1 class="app-title">HSK Bamboo 4</h1>
+        </div>
+        <div class="header-stats" id="header-stats">
+            <span id="stats-progress">🌱 1/15</span>
+            <span id="stats-score">🏅 0</span>
+            <span id="stats-streak">🔥 0</span>
+            <span id="stats-lives">❤️ 3</span>
+        </div>
+        <button class="settings-btn" id="settings-btn">⚙️</button>
+    </header>
+
+    <!-- Pantallas de la aplicación -->
+    <main class="main-content">
+        <!-- Pantalla de Menú -->
+        <section id="menu-screen" class="screen active">
+            <div class="menu-container">
+                <button class="menu-btn" id="vocab-list-btn">
+                    <span class="menu-icon">📚</span>
+                    <span class="menu-text">Listas de palabras</span>
+                </button>
+                <button class="menu-btn" id="game1-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span class="menu-text">Adivina el significado</span>
+                </button>
+                <button class="menu-btn" id="game2-btn">
+                    <span class="menu-icon">🧸</span>
+                    <span class="menu-text">Adivina el chino</span>
+                </button>
+                <button class="menu-btn" id="game3-btn">
+                    <span class="menu-icon">🀄</span>
+                    <span class="menu-text">Caracteres</span>
+                </button>
+                <button class="menu-btn" id="stats-btn">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">Estadísticas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Opciones -->
+        <section id="settings-screen" class="screen">
+            <div class="settings-container">
+                <h2>Configuración</h2>
+                
+                <!-- Grupo de Idioma y Pinyin -->
+                <div class="setting-group-row">
+                    <div class="setting-item-full">
+                        <label for="language-select" class="vertical-align-label">Idioma:</label>
+                        <select id="language-select" class="wider-select">
+                            <option value="en">🗽 English</option>
+                            <option value="es">💃 Español</option>
+                        </select>
+                    </div>
+                    <div class="setting-item-full">
+                        <label for="show-pinyin" class="vertical-align-label">Pinyin:</label>
+                        <label class="ios-switch"><input type="checkbox" id="show-pinyin"><span class="ios-switch-slider"></span></label>
+                        <div class="slider-right">
+                            <label class="label-fixed-width"></label>
+                            <span class="difficulty-emoji" id="difficulty-emoji">😎</span>
+                            <label class="ios-switch-container">
+                                <span class="difficulty-label"></span>
+                                <label class="ios-switch">
+                                    <input type="checkbox" id="difficulty-switch">
+                                    <span class="ios-switch-slider"></span>
+                                </label>                                
+                            </label>                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grupo de Niveles HSK -->
+                <div class="setting-group">
+                    <label class="label-fixed-width"> </label>
+                    <label class="vertical-align-label">Niveles HSK:</label>
+                    <div class="hsk-levels">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hsk-level-1" checked> H1
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hsk-level-2" checked> H2
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hsk-level-3" checked> H3
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hsk-level-4" checked> H4
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hsk-level-4plus"> H4+
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Grupo de Número de Preguntas -->
+                <div class="setting-group-row">
+                    <div class="setting-item">
+                        <label for="questions-slider">❓</label> 
+                        <div class="slider-container">
+                            <input type="range" id="questions-slider" min="5" max="50" step="5" value="15">
+                            <span id="questions-value">15</span>
+                        </div>
+                    </div>                    
+                </div>
+                
+                <!-- Grupo de Tiempo, Vidas y Dificultad -->
+                <div class="setting-group-row">
+                    <div class="setting-item">
+                        <label for="time-slider">⏱️ </label>
+                        <div class="slider-container">
+                            <input type="range" id="time-slider" min="2" max="30" value="10">
+                            <span id="time-value">10 s</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label for="lives-slider">❤️ </label>
+                        <div class="slider-container">
+                            <input type="range" id="lives-slider" min="1" max="10" value="3">
+                            <span id="lives-value">3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Botones de acción -->
+                <div class="settings-buttons">
+                    <button id="save-settings" class="action-btn">💾 Guardar</button>
+                    <button id="reset-settings" class="action-btn">🔄 Reset</button>
+                    <button id="cancel-settings" class="action-btn">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Review -->
+        <section id="review-screen" class="screen">
+            <div class="review-container">
+                <div class="review-header">
+                    <button id="back-from-review" class="action-btn">🔙</button> 
+                    <h2>Repaso</h2>
+                    <button id="reset-review" class="action-btn">🔄</button>                                        
+                </div>
+                <div class="review-filters">
+                    <button class="toggle-btn active" data-filter="vistas">❌</button>
+                    <button class="toggle-btn" data-filter="h1">H1</button>
+                    <button class="toggle-btn" data-filter="h2">H2</button>
+                    <button class="toggle-btn" data-filter="h3">H3</button>
+                    <button class="toggle-btn" data-filter="h4">H4</button>
+                    <button class="toggle-btn" data-filter="h4plus">H4+</button>
+                </div>
+                <div id="review-list" class="review-list">
+                    <!-- Las palabras se cargarán dinámicamente -->
+                </div>                
+            </div>
+        </section>
+
+        <!-- Pantalla de Estadísticas -->
+        <section id="stats-screen" class="screen">
+            <div class="stats-container">
+                <h2>Estadísticas</h2>
+                <p>100% Winner</p><p>&nbsp;</p>
+                <button id="back-from-stats" class="action-btn">Volver al menú</button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Juego -->
+        <section id="game-screen" class="screen">
+            <div class="game-container">
+                <div class="question-container">
+                    <div id="question-text" class="question-text"></div>
+                </div>
+                
+                <div class="timer-container">
+                    <div id="timer-bar" class="timer-bar"></div>
+                </div>
+                
+                <div id="options-container" class="options-container">
+                    <!-- Las opciones se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra inferior -->
+    <footer class="footer-bar">
+        <p>🐼 HSK Bamboo 4 🎋 IJH 🎋 Made for learning joy</p>
+    </footer>
+
+    <!-- Toast para mensajes -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="js/settings.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

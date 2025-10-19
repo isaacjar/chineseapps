@@ -1021,4 +1021,281 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .game-type-1 .pinyin-text {
-    font-size: 1.5
+    font-size: 1.5rem; /* La mitad del tamaño del carácter (3rem / 2 = 1.5rem) */
+    color: #666;
+    opacity: 0.8;
+    align-self: center;    /* Asegura centrado vertical */
+}
+.game-type-1 .option-btn {
+    font-size: 1.4rem; /* Opciones en español/inglés */
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Para móviles */
+@media (max-width: 768px) {
+    .game-type-1 .chinese-with-pinyin {
+        gap: 0.3rem;
+    }
+    
+    .game-type-1 .chinese-char {
+        font-size: 1.8rem;
+    }
+    
+    .game-type-1 .pinyin-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* JUEGO 2: Adivina el chino (Traducción -> Carácter) */
+.game-type-2 .question-text {
+    font-size: 1.2rem; /* Más pequeño para texto occidental */
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.game-type-2 .option-btn {
+    font-size: 3rem; /* Opciones más grandes para caracteres chinos */
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem;
+    gap: 2.2rem; /* ← Espacio entre carácter y pinyin */
+}
+.game-type-2 .option-btn .chinese-char {
+    font-size: 2.3rem; /* Tamaño del carácter chino */
+    font-weight: bold;
+}
+
+.game-type-2 .option-btn .pinyin-text {
+    font-size: 1.4rem; /* La mitad del tamaño del carácter */
+    color: #666;
+    opacity: 0.8;
+}
+/* Para móviles */
+@media (max-width: 768px) {
+    .game-type-2 .option-btn {
+        flex-direction: row; /* ← Mantener en fila incluso en móviles */
+        gap: 0.3rem;
+    }
+    
+    .game-type-2 .option-btn .chinese-char {
+        font-size: 1.9rem;
+    }
+    
+    .game-type-2 .option-btn .pinyin-text {
+        font-size: 1.3rem;
+    }
+}
+
+/* JUEGO 3: Adivina el pinyin (Carácter -> Pinyin) */
+.game-type-3 .question-text {
+    font-size: 2.3rem; /* Muy grande para el carácter */
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-type-3 .option-btn {
+    font-size: 1.5rem; /* Opciones de pinyin */
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem;
+}
+
+/* Estilos para la pantalla de estadísticas */
+.stats-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stats-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.stats-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.stats-section h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.level-stats {
+    margin-top: 15px;
+}
+
+.level-stat {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.level-label {
+    width: 60px;
+    font-weight: bold;
+}
+
+.level-bar-container {
+    flex-grow: 1;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.level-bar {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.level-count {
+    width: 40px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.review-words-list {
+    margin-top: 15px;
+}
+
+.review-word-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.review-word-item:last-child {
+    border-bottom: none;
+}
+
+.word-ch {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 50px;
+}
+
+.word-pinyin {
+    width: 120px;
+    color: var(--text-secondary);
+}
+
+.word-translation {
+    flex-grow: 1;
+}
+
+.word-stats {
+    width: 70px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.more-words {
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.no-stats, .no-words {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.stats-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-btn.warning {
+    background-color: #ff4757;
+}
+
+.action-btn.warning:hover {
+    background-color: #ff3744;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-section {
+        padding: 15px;
+    }
+    
+    .review-word-item {
+        flex-wrap: wrap;
+    }
+    
+    .word-ch, .word-pinyin, .word-translation, .word-stats {
+        margin-bottom: 5px;
+    }
+    
+    .stats-actions {
+        flex-direction: column;
+    }
+}

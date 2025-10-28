@@ -10,6 +10,7 @@ const voclists = [
   { filename: "H1L1a6", title: "HSK 1 Lessons 1 to 6", level: "H1", misc: "MIT" },
   { filename: "H1L7", title: "HSK 1 Lesson 7", level: "H1", misc: "MIT" },
   { filename: "H1L8", title: "HSK 1 Lesson 8", level: "H1", misc: "MIT" },
+  { filename: "H1L9", title: "HSK 1 Lesson 9", level: "H1", misc: "MIT" },
   { filename: "H1L6a8", title: "HSK 1 Lessons 6 to 8", level: "H1", misc: "MIT" },
   { filename: "H1L13", title: "HSK 1 Lesson 13", level: "H1", misc: "MIT" },
   { filename: "H1L14", title: "HSK 1 Lesson 14", level: "H1", misc: "MIT" },
@@ -53,6 +54,7 @@ const voclists = [
   { filename: "H3L14a15", title: "HSK 3 Lessons 14, 15", level: "H3", misc: "MIT" },  
   { filename: "hsk3", title: "HSK 3 Vocabulary (full)", level: "H3", misc: "hsk" },
   { filename: "numbers10", title: "Numbers (1-10)", level: "H1", misc: "topics" },
+  { filename: "numbers99", title: "Numbers (1-99)", level: "H1", misc: "topics" },
   { filename: "viajes", title: "Travelling in Chinese", level: "H2", misc: "topics" },
   { filename: "house", title: "The house", level: "H3", misc: "topics" },
   // más listados...

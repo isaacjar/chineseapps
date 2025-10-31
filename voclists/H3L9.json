@@ -1,0 +1,19 @@
+[
+  { "ch": "喜欢", "pin": "xǐhuan", "en": "to like", "es": "gustar" },
+  { "ch": "房子", "pin": "fángzi", "en": "house", "es": "casa" },
+  { "ch": "颜色", "pin": "yánsè", "en": "color", "es": "color" },
+  { "ch": "了解", "pin": "liǎojiě", "en": "to understand", "es": "entender" },
+  { "ch": "胖", "pin": "pàng", "en": "fat", "es": "gordo" },
+  { "ch": "一定", "pin": "yídìng", "en": "certainly", "es": "seguro que" },
+  { "ch": "比较", "pin": "bǐjiào", "en": "comparatively, rather", "es": "comparativamente, bastante" },
+  { "ch": "参加", "pin": "cānjiā", "en": "to participate", "es": "participar" },
+  { "ch": "担心", "pin": "dānxīn", "en": "to worry", "es": "preocuparse" },
+  { "ch": "一样", "pin": "yíyàng", "en": "same", "es": "igual" },
+  { "ch": "多", "pin": "duō", "en": "many, much", "es": "mucho, muchos" },
+  { "ch": "最后", "pin": "zuìhòu", "en": "last, finally", "es": "último, finalmente" },
+  { "ch": "瘦", "pin": "shòu", "en": "thin", "es": "delgado" },
+  { "ch": "衣服", "pin": "yīfu", "en": "clothes", "es": "ropa" },
+  { "ch": "天气", "pin": "tiānqì", "en": "weather", "es": "clima" },
+  { "ch": "影响", "pin": "yǐngxiǎng", "en": "influence, to influence", "es": "influencia, influir" },
+  { "ch": "越来越", "pin": "yuè lái yuè", "en": "more and more", "es": "cada vez más" }
+]

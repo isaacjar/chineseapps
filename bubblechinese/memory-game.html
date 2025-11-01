@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Memoria - Bubble Chinese</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/memory-game.css">
+</head>
+<body>
+    <div class="memory-container">
+        <!-- Header con botón de volver -->
+        <header class="memory-header">
+            <button id="backToMain" class="back-btn">← Volver a Bubble Chinese</button>
+            <h1>🎮 Juego de Memoria Chino</h1>
+            <div class="game-stats">
+                <span id="movesCount">Movimientos: 0</span>
+                <span id="pairsCount">Parejas: 0/0</span>
+                <span id="timer">Tiempo: 00:00</span>
+            </div>
+        </header>
+
+        <!-- Pantalla de configuración -->
+        <div id="configScreen" class="screen active">
+            <div class="config-container">
+                <h2>Configuración del Juego</h2>
+                
+                <div class="config-section">
+                    <h3>Grupos de Caracteres</h3>
+                    <div class="groups-selection" id="gameGroupsContainer">
+                        <!-- Los grupos se generarán dinámicamente aquí -->
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>Número de Parejas</h3>
+                    <div class="pairs-selection">
+                        <button class="pairs-btn" data-pairs="8">8</button>
+                        <button class="pairs-btn" data-pairs="12">12</button>
+                        <button class="pairs-btn" data-pairs="16">16</button>
+                        <button class="pairs-btn" data-pairs="20">20</button>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>Modo de Emparejamiento</h3>
+                    <div class="match-mode">
+                        <label class="mode-option">
+                            <input type="radio" name="matchMode" value="pinyin" checked>
+                            <span class="checkmark"></span>
+                            Carácter - Pinyin
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="matchMode" value="english">
+                            <span class="checkmark"></span>
+                            Carácter - Inglés
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="matchMode" value="spanish">
+                            <span class="checkmark"></span>
+                            Carácter - Español
+                        </label>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>Dificultad</h3>
+                    <div class="difficulty-selection">
+                        <label class="difficulty-option">
+                            <input type="radio" name="difficulty" value="easy" checked>
+                            <span class="checkmark"></span>
+                            Fácil (8s)
+                        </label>
+                        <label class="difficulty-option">
+                            <input type="radio" name="difficulty" value="medium">
+                            <span class="checkmark"></span>
+                            Medio (6s)
+                        </label>
+                        <label class="difficulty-option">
+                            <input type="radio" name="difficulty" value="hard">
+                            <span class="checkmark"></span>
+                            Difícil (4s)
+                        </label>
+                    </div>
+                </div>
+
+                <button id="startGame" class="start-btn">Comenzar Juego</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de juego -->
+        <div id="gameScreen" class="screen">
+            <div class="game-board" id="gameBoard">
+                <!-- Las cartas se generarán dinámicamente aquí -->
+            </div>
+            
+            <div class="game-controls">
+                <button id="pauseGame" class="control-btn">⏸️ Pausa</button>
+                <button id="restartGame" class="control-btn">🔄 Reiniciar</button>
+                <button id="newGame" class="control-btn">🎮 Nuevo Juego</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de pausa -->
+        <div id="pauseScreen" class="screen overlay">
+            <div class="pause-content">
+                <h2>Juego en Pausa</h2>
+                <p>Tómate un descanso</p>
+                <button id="resumeGame" class="control-btn">▶️ Continuar</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="resultsScreen" class="screen overlay">
+            <div class="results-content">
+                <h2>¡Juego Completado! 🎉</h2>
+                <div class="results-stats">
+                    <p><strong>Tiempo:</strong> <span id="finalTime">00:00</span></p>
+                    <p><strong>Movimientos:</strong> <span id="finalMoves">0</span></p>
+                    <p><strong>Precisión:</strong> <span id="accuracy">100%</span></p>
+                    <p><strong>Puntuación:</strong> <span id="score">1000</span> puntos</p>
+                </div>
+                <div class="results-buttons">
+                    <button id="playAgain" class="control-btn">🔄 Jugar Otra Vez</button>
+                    <button id="backToConfig" class="control-btn">⚙️ Nueva Configuración</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/chars.json"></script>
+    <script src="js/memory-game.js"></script>
+</body>
+</html>

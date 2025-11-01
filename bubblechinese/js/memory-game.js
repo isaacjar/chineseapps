@@ -336,16 +336,20 @@ function renderGameBoard() {
     const pairs = memoryGame.config.pairsCount;
     const totalCards = pairs * 2;
     
-    // Grid adaptado para tiles más grandes
-    let minCardSize = '150px'; // Aumentado para tiles más grandes
-    if (totalCards <= 12) {
-        minCardSize = '180px';
-    } else if (totalCards <= 20) {
-        minCardSize = '160px';
-    } else if (totalCards <= 30) {
+    // Grid más adaptable para diferentes tamaños de pantalla
+    let minCardSize = '120px'; // Reducido de 150px
+    if (totalCards <= 8) {
         minCardSize = '140px';
-    } else {
+    } else if (totalCards <= 12) {
         minCardSize = '120px';
+    } else if (totalCards <= 16) {
+        minCardSize = '100px';
+    } else if (totalCards <= 20) {
+        minCardSize = '90px';
+    } else if (totalCards <= 24) {
+        minCardSize = '80px';
+    } else {
+        minCardSize = '70px';
     }
     
     board.style.gridTemplateColumns = `repeat(auto-fill, minmax(${minCardSize}, 1fr))`;

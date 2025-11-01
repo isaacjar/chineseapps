@@ -1,11 +1,10 @@
-// Estado del juego de memoria
+// Estado del juego de memoria - ELIMINADA LA DIFICULTAD
 const memoryGame = {
     config: {
         selectedGroups: new Set(['001']),
         pairsCount: 8,
-        matchMode: 'pinyin',
-        difficulty: 'easy',
-        viewTime: 8
+        matchMode: 'pinyin'
+        // ELIMINADO: difficulty y viewTime
     },
     game: {
         cards: [],
@@ -194,7 +193,7 @@ function showScreen(screenId) {
     }
 }
 
-// Iniciar juego
+// Iniciar juego - ELIMINADA LA DIFICULTAD
 function startGame() {
     console.log('Iniciando juego...');
     
@@ -203,29 +202,17 @@ function startGame() {
         return;
     }
 
+    // SOLO obtener el modo de emparejamiento
     const matchMode = document.querySelector('input[name="matchMode"]:checked').value;
-    const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
     
     memoryGame.config.matchMode = matchMode;
-    memoryGame.config.difficulty = difficulty;
     
-    switch(difficulty) {
-        case 'easy':
-            memoryGame.config.viewTime = 8;
-            break;
-        case 'medium':
-            memoryGame.config.viewTime = 6;
-            break;
-        case 'hard':
-            memoryGame.config.viewTime = 4;
-            break;
-    }
+    // ELIMINADO: Todo el código relacionado con dificultad
 
     console.log('Configuración:', {
         groups: [...memoryGame.config.selectedGroups],
         pairs: memoryGame.config.pairsCount,
-        mode: memoryGame.config.matchMode,
-        difficulty: memoryGame.config.difficulty
+        mode: memoryGame.config.matchMode
     });
 
     if (!prepareGameCards()) {
@@ -336,28 +323,12 @@ function startGameSession() {
 
     updateGameStats();
     renderGameBoard();
-    startTimer(); // Quitado showCardsTemporarily()
+    startTimer();
     
     console.log('Sesión de juego iniciada correctamente');
 }
 
-// Mostrar cartas temporalmente al inicio
-/*function showCardsTemporarily() {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.classList.add('flipped');
-    });
-
-    setTimeout(() => {
-        cards.forEach(card => {
-            card.classList.remove('flipped');
-        });
-        memoryGame.game.canFlip = true;
-        console.log('Juego listo para jugar');
-    }, memoryGame.config.viewTime * 1000);
-}*/
-
-// Renderizar tablero de juego
+// Renderizar tablero de juego - ACTUALIZADO PARA TILES MÁS GRANDES
 function renderGameBoard() {
     const board = document.getElementById('gameBoard');
     board.innerHTML = '';
@@ -365,19 +336,19 @@ function renderGameBoard() {
     const pairs = memoryGame.config.pairsCount;
     const totalCards = pairs * 2;
     
-    // Calcular grid más eficiente para el espacio
-    let minCardSize = '80px';
+    // Grid adaptado para tiles más grandes
+    let minCardSize = '150px'; // Aumentado para tiles más grandes
     if (totalCards <= 12) {
-        minCardSize = '100px';
+        minCardSize = '180px';
     } else if (totalCards <= 20) {
-        minCardSize = '90px';
+        minCardSize = '160px';
     } else if (totalCards <= 30) {
-        minCardSize = '80px';
+        minCardSize = '140px';
     } else {
-        minCardSize = '70px';
+        minCardSize = '120px';
     }
     
-    board.style.gridTemplateColumns = `repeat(auto-fit, minmax(${minCardSize}, 1fr))`;
+    board.style.gridTemplateColumns = `repeat(auto-fill, minmax(${minCardSize}, 1fr))`;
     
     console.log(`Renderizando ${totalCards} cartas con tamaño mínimo ${minCardSize}`);
     

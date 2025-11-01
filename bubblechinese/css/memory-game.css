@@ -47,6 +47,7 @@
     display: block;
 }
 
+/* Pantallas overlay (pausa y resultados) deben usar flex */
 .screen.overlay {
     position: fixed;
     top: 0;
@@ -54,12 +55,28 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    display: flex;
+    display: none; /* Por defecto oculto */
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
+.screen.overlay.active {
+    display: flex; /* Solo se muestra cuando está activa */
+}
+
+/* Asegurar que la pantalla de configuración y juego se muestren correctamente */
+#configScreen.active,
+#gameScreen.active {
+    display: block;
+}
+
+/* Asegurar que las pantallas overlay tengan el z-index correcto */
+#pauseScreen.active,
+#resultsScreen.active {
+    display: flex;
+    z-index: 1001;
+}
 /* Configuración */
 .config-container {
     background: white;

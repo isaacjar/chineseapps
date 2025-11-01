@@ -43,7 +43,12 @@ async function loadCharactersForGame() {
         memoryGame.characters = [
             { ch: '你', pin: 'nǐ', en: 'you', es: 'tú', lv: '1', gr: '001' },
             { ch: '好', pin: 'hǎo', en: 'good', es: 'bueno', lv: '1', gr: '001' },
-            { ch: '我', pin: 'wǒ', en: 'I/me', es: 'yo/mí', lv: '1', gr: '001' }
+            { ch: '我', pin: 'wǒ', en: 'I/me', es: 'yo/mí', lv: '1', gr: '001' },
+            { ch: '是', pin: 'shì', en: 'to be', es: 'ser', lv: '1', gr: '002' },
+            { ch: '的', pin: 'de', en: 'possessive', es: 'posesivo', lv: '1', gr: '002' },
+            { ch: '了', pin: 'le', en: 'completed action', es: 'acción terminada', lv: '1', gr: '002' },
+            { ch: '不', pin: 'bù', en: 'not; no', es: 'no', lv: '1', gr: '002' },
+            { ch: '他', pin: 'tā', en: 'he, him', es: 'él', lv: '1', gr: '003' }
         ];
     }
 }
@@ -66,6 +71,9 @@ function setupEventListeners() {
             memoryGame.config.pairsCount = parseInt(e.target.dataset.pairs);
         });
     });
+
+    // Establecer el primer botón de parejas como activo por defecto
+    document.querySelector('.pairs-btn').classList.add('active');
 
     // Controles del juego
     document.getElementById('pauseGame').addEventListener('click', pauseGame);
@@ -110,6 +118,13 @@ function updateGroupsSelection() {
         
         container.appendChild(groupBtn);
     });
+
+    // Seleccionar automáticamente algunos grupos si no hay ninguno seleccionado
+    if (memoryGame.config.selectedGroups.size === 0 && groups.length > 0) {
+        const firstGroup = groups[0];
+        memoryGame.config.selectedGroups.add(firstGroup);
+        container.querySelector('.group-option').classList.add('selected');
+    }
 }
 
 // Ocultar todas las pantallas
@@ -147,7 +162,9 @@ function startGame() {
     }
 
     // Preparar cartas del juego
-    prepareGameCards();
+    if (!prepareGameCards()) {
+        return; // Si no se pudieron preparar las cartas, salir
+    }
     
     // Mostrar pantalla de juego
     hideAllScreens();
@@ -166,18 +183,26 @@ function prepareGameCards() {
 
     if (availableChars.length === 0) {
         alert('No hay caracteres disponibles en los grupos seleccionados.');
-        return;
+        return false;
+    }
+
+    // Verificar que hay suficientes caracteres para el número de parejas seleccionado
+    if (availableChars.length < memoryGame.config.pairsCount) {
+        alert(`Solo hay ${availableChars.length} caracteres disponibles en los grupos seleccionados. Por favor selecciona más grupos o reduce el número de parejas.`);
+        return false;
     }
 
     // Seleccionar caracteres aleatorios
     const selectedChars = [];
-    const charCount = Math.min(memoryGame.config.pairsCount, availableChars.length);
+    const charCount = memoryGame.config.pairsCount;
     
     // Mezclar y seleccionar caracteres
     const shuffled = [...availableChars].sort(() => Math.random() - 0.5);
     for (let i = 0; i < charCount; i++) {
         selectedChars.push(shuffled[i]);
     }
+
+    console.log('Caracteres seleccionados para el juego:', selectedChars);
 
     // Crear pares de cartas
     memoryGame.game.cards = [];
@@ -221,6 +246,9 @@ function prepareGameCards() {
 
     // Mezclar cartas
     memoryGame.game.cards = memoryGame.game.cards.sort(() => Math.random() - 0.5);
+    
+    console.log('Cartas del juego preparadas:', memoryGame.game.cards);
+    return true;
 }
 
 // Iniciar sesión de juego
@@ -258,6 +286,7 @@ function showCardsTemporarily() {
             card.classList.remove('flipped');
         });
         memoryGame.game.canFlip = true;
+        console.log('Cartas ocultadas, juego listo para comenzar');
     }, memoryGame.config.viewTime * 1000);
 }
 
@@ -275,6 +304,8 @@ function renderGameBoard() {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.type}`;
         cardElement.dataset.index = index;
+        cardElement.dataset.cardId = card.id;
+        cardElement.dataset.pairId = card.pairId;
         
         cardElement.innerHTML = `
             <div class="front">?</div>
@@ -284,6 +315,8 @@ function renderGameBoard() {
         cardElement.addEventListener('click', () => flipCard(index));
         board.appendChild(cardElement);
     });
+
+    console.log('Tablero renderizado con', memoryGame.game.cards.length, 'cartas');
 }
 
 // Voltear carta
@@ -294,7 +327,18 @@ function flipCard(index) {
     const cardElement = document.querySelector(`.card[data-index="${index}"]`);
     
     // No permitir voltear cartas ya emparejadas o ya volteadas
-    if (card.matched || memoryGame.game.flippedCards.includes(index)) return;
+    if (card.matched || memoryGame.game.flippedCards.includes(index)) {
+        console.log('Carta ya emparejada o volteada, ignorando click');
+        return;
+    }
+    
+    // No permitir voltear más de 2 cartas
+    if (memoryGame.game.flippedCards.length >= 2) {
+        console.log('Ya hay 2 cartas volteadas, ignorando click');
+        return;
+    }
+    
+    console.log('Volteando carta:', card);
     
     // Voltear carta
     cardElement.classList.add('flipped');
@@ -306,6 +350,7 @@ function flipCard(index) {
         memoryGame.game.moves++;
         updateGameStats();
         
+        console.log('Verificando coincidencia...');
         checkForMatch();
     }
 }
@@ -316,8 +361,11 @@ function checkForMatch() {
     const card1 = memoryGame.game.cards[index1];
     const card2 = memoryGame.game.cards[index2];
     
-    if (card1.pairId === card2.pairId) {
+    console.log('Comparando cartas:', card1.pairId, 'vs', card2.pairId);
+    
+    if (card1.pairId === card2.pairId && card1.id !== card2.id) {
         // Coincidencia encontrada
+        console.log('¡Coincidencia encontrada!');
         card1.matched = true;
         card2.matched = true;
         memoryGame.game.matchedPairs++;
@@ -330,11 +378,14 @@ function checkForMatch() {
             memoryGame.game.flippedCards = [];
             memoryGame.game.canFlip = true;
             
+            console.log('Parejas emparejadas:', memoryGame.game.matchedPairs, 'de', memoryGame.config.pairsCount);
+            
             // Verificar si el juego ha terminado
             checkGameCompletion();
         }, 500);
     } else {
         // No coincide, voltear de nuevo
+        console.log('No coincide, volteando cartas de nuevo');
         setTimeout(() => {
             document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
                 card.classList.remove('flipped');
@@ -348,10 +399,15 @@ function checkForMatch() {
 
 // Verificar si el juego ha terminado
 function checkGameCompletion() {
+    console.log('Verificando final del juego:', memoryGame.game.matchedPairs, '==', memoryGame.config.pairsCount);
+    
     if (memoryGame.game.matchedPairs === memoryGame.config.pairsCount) {
         // Juego completado
+        console.log('¡Juego completado!');
         clearInterval(memoryGame.game.timer);
-        showResultsScreen();
+        setTimeout(() => {
+            showResultsScreen();
+        }, 500);
     }
 }
 

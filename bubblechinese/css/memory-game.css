@@ -249,7 +249,7 @@
     transition: all 0.4s ease;
     transform-style: preserve-3d;
     position: relative;
-    min-height: 120px;
+    min-height: 60px;
     width: 100%;
     max-width: 200px; /* Duplicado de 100px a 200px */
     border: 3px solid transparent;

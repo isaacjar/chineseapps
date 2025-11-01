@@ -1,11 +1,11 @@
 // Estado del juego de memoria
 const memoryGame = {
     config: {
-        selectedGroups: new Set(),
+        selectedGroups: new Set(['001']), // Grupo por defecto
         pairsCount: 8,
         matchMode: 'pinyin',
         difficulty: 'easy',
-        viewTime: 8 // segundos para ver las cartas al inicio
+        viewTime: 8
     },
     game: {
         cards: [],
@@ -15,7 +15,8 @@ const memoryGame = {
         timer: null,
         timeElapsed: 0,
         isPaused: false,
-        canFlip: true
+        canFlip: false,
+        gameStarted: false
     },
     characters: []
 };
@@ -26,6 +27,9 @@ async function initMemoryGame() {
     setupEventListeners();
     showConfigScreen();
     updateGroupsSelection();
+    
+    // Establecer valores por defecto
+    document.querySelector('.pairs-btn').classList.add('active');
 }
 
 // Cargar caracteres para el juego
@@ -34,12 +38,13 @@ async function loadCharactersForGame() {
         const response = await fetch('js/chars.json');
         if (response.ok) {
             memoryGame.characters = await response.json();
+            console.log('Caracteres cargados:', memoryGame.characters.length);
         } else {
             throw new Error('Error cargando caracteres');
         }
     } catch (error) {
         console.error('Error al cargar caracteres:', error);
-        // Usar datos de respaldo mínimos
+        // Usar datos de respaldo
         memoryGame.characters = [
             { ch: '你', pin: 'nǐ', en: 'you', es: 'tú', lv: '1', gr: '001' },
             { ch: '好', pin: 'hǎo', en: 'good', es: 'bueno', lv: '1', gr: '001' },
@@ -48,7 +53,9 @@ async function loadCharactersForGame() {
             { ch: '的', pin: 'de', en: 'possessive', es: 'posesivo', lv: '1', gr: '002' },
             { ch: '了', pin: 'le', en: 'completed action', es: 'acción terminada', lv: '1', gr: '002' },
             { ch: '不', pin: 'bù', en: 'not; no', es: 'no', lv: '1', gr: '002' },
-            { ch: '他', pin: 'tā', en: 'he, him', es: 'él', lv: '1', gr: '003' }
+            { ch: '他', pin: 'tā', en: 'he, him', es: 'él', lv: '1', gr: '003' },
+            { ch: '她', pin: 'tā', en: 'she, her', es: 'ella', lv: '1', gr: '003' },
+            { ch: '人', pin: 'rén', en: 'person', es: 'persona', lv: '1', gr: '003' }
         ];
     }
 }
@@ -72,15 +79,12 @@ function setupEventListeners() {
         });
     });
 
-    // Establecer el primer botón de parejas como activo por defecto
-    document.querySelector('.pairs-btn').classList.add('active');
-
     // Controles del juego
     document.getElementById('pauseGame').addEventListener('click', pauseGame);
     document.getElementById('resumeGame').addEventListener('click', resumeGame);
     document.getElementById('restartGame').addEventListener('click', restartGame);
     document.getElementById('newGame').addEventListener('click', showConfigScreen);
-    document.getElementById('playAgain').addEventListener('click', restartGame);
+    document.getElementById('playAgain').addEventListener('click', playAgain);
     document.getElementById('backToConfig').addEventListener('click', showConfigScreen);
 }
 
@@ -89,6 +93,22 @@ function showConfigScreen() {
     hideAllScreens();
     document.getElementById('configScreen').classList.add('active');
     updateGroupsSelection();
+    resetGameState();
+}
+
+// Resetear estado del juego
+function resetGameState() {
+    memoryGame.game = {
+        cards: [],
+        flippedCards: [],
+        matchedPairs: 0,
+        moves: 0,
+        timer: null,
+        timeElapsed: 0,
+        isPaused: false,
+        canFlip: false,
+        gameStarted: false
+    };
 }
 
 // Actualizar selección de grupos
@@ -118,13 +138,6 @@ function updateGroupsSelection() {
         
         container.appendChild(groupBtn);
     });
-
-    // Seleccionar automáticamente algunos grupos si no hay ninguno seleccionado
-    if (memoryGame.config.selectedGroups.size === 0 && groups.length > 0) {
-        const firstGroup = groups[0];
-        memoryGame.config.selectedGroups.add(firstGroup);
-        container.querySelector('.group-option').classList.add('selected');
-    }
 }
 
 // Ocultar todas las pantallas
@@ -141,7 +154,7 @@ function startGame() {
         return;
     }
 
-    // Obtener configuración de modo de emparejamiento y dificultad
+    // Obtener configuración
     const matchMode = document.querySelector('input[name="matchMode"]:checked').value;
     const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
     
@@ -163,7 +176,7 @@ function startGame() {
 
     // Preparar cartas del juego
     if (!prepareGameCards()) {
-        return; // Si no se pudieron preparar las cartas, salir
+        return;
     }
     
     // Mostrar pantalla de juego
@@ -174,7 +187,7 @@ function startGame() {
     startGameSession();
 }
 
-// Preparar cartas del juego
+// Preparar cartas del juego - FUNCIÓN CRÍTICA CORREGIDA
 function prepareGameCards() {
     // Obtener caracteres de los grupos seleccionados
     const availableChars = memoryGame.characters.filter(char => 
@@ -186,37 +199,38 @@ function prepareGameCards() {
         return false;
     }
 
-    // Verificar que hay suficientes caracteres para el número de parejas seleccionado
+    // Verificar que hay suficientes caracteres
     if (availableChars.length < memoryGame.config.pairsCount) {
-        alert(`Solo hay ${availableChars.length} caracteres disponibles en los grupos seleccionados. Por favor selecciona más grupos o reduce el número de parejas.`);
+        alert(`Solo hay ${availableChars.length} caracteres disponibles. Selecciona más grupos o reduce el número de parejas.`);
         return false;
     }
 
     // Seleccionar caracteres aleatorios
     const selectedChars = [];
-    const charCount = memoryGame.config.pairsCount;
-    
-    // Mezclar y seleccionar caracteres
     const shuffled = [...availableChars].sort(() => Math.random() - 0.5);
-    for (let i = 0; i < charCount; i++) {
-        selectedChars.push(shuffled[i]);
+    
+    for (let i = 0; i < memoryGame.config.pairsCount; i++) {
+        if (shuffled[i]) {
+            selectedChars.push(shuffled[i]);
+        }
     }
 
-    console.log('Caracteres seleccionados para el juego:', selectedChars);
+    console.log('Caracteres seleccionados para el juego:', selectedChars.map(c => c.ch));
 
-    // Crear pares de cartas
+    // CREAR CARTAS - ESTA ES LA PARTE MÁS IMPORTANTE
     memoryGame.game.cards = [];
+    
     selectedChars.forEach(char => {
-        // Carta con carácter chino
+        // PRIMERA CARTA: Carácter chino
         memoryGame.game.cards.push({
-            id: `${char.ch}-ch`,
+            id: `ch-${char.ch}-${Date.now()}-${Math.random()}`, // ID único
             type: 'chinese',
             content: char.ch,
-            pairId: char.ch,
-            matched: false
+            pairId: char.ch, // Mismo pairId para ambas cartas del par
+            matched: false // IMPORTANTE: Inicializar como no emparejada
         });
 
-        // Carta con traducción según el modo
+        // SEGUNDA CARTA: Traducción
         let translationContent = '';
         let translationType = '';
         
@@ -236,18 +250,21 @@ function prepareGameCards() {
         }
 
         memoryGame.game.cards.push({
-            id: `${char.ch}-trans`,
+            id: `trans-${char.ch}-${Date.now()}-${Math.random()}`, // ID único diferente
             type: translationType,
             content: translationContent,
-            pairId: char.ch,
-            matched: false
+            pairId: char.ch, // Mismo pairId que la carta del carácter
+            matched: false // IMPORTANTE: Inicializar como no emparejada
         });
     });
 
     // Mezclar cartas
     memoryGame.game.cards = memoryGame.game.cards.sort(() => Math.random() - 0.5);
     
-    console.log('Cartas del juego preparadas:', memoryGame.game.cards);
+    console.log('Cartas preparadas:', memoryGame.game.cards);
+    console.log('Total de cartas:', memoryGame.game.cards.length);
+    console.log('Pares esperados:', memoryGame.config.pairsCount);
+    
     return true;
 }
 
@@ -260,6 +277,7 @@ function startGameSession() {
     memoryGame.game.flippedCards = [];
     memoryGame.game.isPaused = false;
     memoryGame.game.canFlip = false;
+    memoryGame.game.gameStarted = true;
 
     // Actualizar UI
     updateGameStats();
@@ -286,7 +304,7 @@ function showCardsTemporarily() {
             card.classList.remove('flipped');
         });
         memoryGame.game.canFlip = true;
-        console.log('Cartas ocultadas, juego listo para comenzar');
+        console.log('Juego listo para comenzar');
     }, memoryGame.config.viewTime * 1000);
 }
 
@@ -295,9 +313,12 @@ function renderGameBoard() {
     const board = document.getElementById('gameBoard');
     board.innerHTML = '';
     
-    // Determinar layout del grid según número de parejas
+    // Determinar layout del grid
     const pairs = memoryGame.config.pairsCount;
-    board.className = `game-board ${pairs <= 12 ? 'grid-4' : 'grid-6'}`;
+    const totalCards = pairs * 2;
+    board.className = `game-board ${totalCards <= 24 ? 'grid-4' : 'grid-6'}`;
+    
+    console.log('Renderizando tablero con', totalCards, 'cartas');
     
     // Crear cartas
     memoryGame.game.cards.forEach((card, index) => {
@@ -306,6 +327,7 @@ function renderGameBoard() {
         cardElement.dataset.index = index;
         cardElement.dataset.cardId = card.id;
         cardElement.dataset.pairId = card.pairId;
+        cardElement.dataset.matched = card.matched;
         
         cardElement.innerHTML = `
             <div class="front">?</div>
@@ -315,30 +337,35 @@ function renderGameBoard() {
         cardElement.addEventListener('click', () => flipCard(index));
         board.appendChild(cardElement);
     });
-
-    console.log('Tablero renderizado con', memoryGame.game.cards.length, 'cartas');
 }
 
 // Voltear carta
 function flipCard(index) {
-    if (!memoryGame.game.canFlip || memoryGame.game.isPaused) return;
+    if (!memoryGame.game.canFlip || memoryGame.game.isPaused) {
+        console.log('No se puede voltear: canFlip=', memoryGame.game.canFlip, 'isPaused=', memoryGame.game.isPaused);
+        return;
+    }
     
     const card = memoryGame.game.cards[index];
     const cardElement = document.querySelector(`.card[data-index="${index}"]`);
     
-    // No permitir voltear cartas ya emparejadas o ya volteadas
-    if (card.matched || memoryGame.game.flippedCards.includes(index)) {
-        console.log('Carta ya emparejada o volteada, ignorando click');
+    // Verificar condiciones
+    if (card.matched) {
+        console.log('Carta ya emparejada');
         return;
     }
     
-    // No permitir voltear más de 2 cartas
+    if (memoryGame.game.flippedCards.includes(index)) {
+        console.log('Carta ya volteada');
+        return;
+    }
+    
     if (memoryGame.game.flippedCards.length >= 2) {
-        console.log('Ya hay 2 cartas volteadas, ignorando click');
+        console.log('Ya hay 2 cartas volteadas');
         return;
     }
     
-    console.log('Volteando carta:', card);
+    console.log('Volteando carta', index, '-', card.content, '- pairId:', card.pairId);
     
     // Voltear carta
     cardElement.classList.add('flipped');
@@ -350,8 +377,9 @@ function flipCard(index) {
         memoryGame.game.moves++;
         updateGameStats();
         
-        console.log('Verificando coincidencia...');
-        checkForMatch();
+        setTimeout(() => {
+            checkForMatch();
+        }, 300);
     }
 }
 
@@ -361,31 +389,35 @@ function checkForMatch() {
     const card1 = memoryGame.game.cards[index1];
     const card2 = memoryGame.game.cards[index2];
     
-    console.log('Comparando cartas:', card1.pairId, 'vs', card2.pairId);
+    console.log('Comparando:', card1.content, '(', card1.pairId, ') vs', card2.content, '(', card2.pairId, ')');
     
+    // VERIFICACIÓN CORREGIDA: Mismo pairId pero diferentes IDs de carta
     if (card1.pairId === card2.pairId && card1.id !== card2.id) {
-        // Coincidencia encontrada
-        console.log('¡Coincidencia encontrada!');
+        console.log('¡COINCIDENCIA ENCONTRADA!');
+        
+        // Marcar como emparejadas
         card1.matched = true;
         card2.matched = true;
         memoryGame.game.matchedPairs++;
         
-        setTimeout(() => {
-            document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
-                card.classList.add('matched');
-            });
-            
-            memoryGame.game.flippedCards = [];
-            memoryGame.game.canFlip = true;
-            
-            console.log('Parejas emparejadas:', memoryGame.game.matchedPairs, 'de', memoryGame.config.pairsCount);
-            
-            // Verificar si el juego ha terminado
-            checkGameCompletion();
-        }, 500);
+        // Actualizar UI
+        document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
+            card.classList.add('matched');
+            card.dataset.matched = 'true';
+        });
+        
+        console.log('Parejas emparejadas:', memoryGame.game.matchedPairs, 'de', memoryGame.config.pairsCount);
+        
+        // Resetear cartas volteadas
+        memoryGame.game.flippedCards = [];
+        memoryGame.game.canFlip = true;
+        
+        // Verificar fin del juego
+        checkGameCompletion();
     } else {
-        // No coincide, voltear de nuevo
-        console.log('No coincide, volteando cartas de nuevo');
+        console.log('No coincide, volteando de nuevo');
+        
+        // Voltear cartas de nuevo
         setTimeout(() => {
             document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
                 card.classList.remove('flipped');
@@ -399,16 +431,23 @@ function checkForMatch() {
 
 // Verificar si el juego ha terminado
 function checkGameCompletion() {
-    console.log('Verificando final del juego:', memoryGame.game.matchedPairs, '==', memoryGame.config.pairsCount);
+    console.log('Verificando fin del juego:', memoryGame.game.matchedPairs, '/', memoryGame.config.pairsCount);
     
-    if (memoryGame.game.matchedPairs === memoryGame.config.pairsCount) {
-        // Juego completado
-        console.log('¡Juego completado!');
+    if (memoryGame.game.matchedPairs >= memoryGame.config.pairsCount) {
+        console.log('¡JUEGO COMPLETADO!');
         clearInterval(memoryGame.game.timer);
+        
         setTimeout(() => {
             showResultsScreen();
         }, 500);
     }
+}
+
+// Jugar otra vez
+function playAgain() {
+    hideAllScreens();
+    document.getElementById('gameScreen').classList.add('active');
+    startGameSession();
 }
 
 // Pausar juego
@@ -437,7 +476,7 @@ function restartGame() {
 function startTimer() {
     clearInterval(memoryGame.game.timer);
     memoryGame.game.timer = setInterval(() => {
-        if (!memoryGame.game.isPaused) {
+        if (!memoryGame.game.isPaused && memoryGame.game.gameStarted) {
             memoryGame.game.timeElapsed++;
             updateGameStats();
         }
@@ -456,17 +495,15 @@ function updateGameStats() {
 
 // Mostrar pantalla de resultados
 function showResultsScreen() {
-    // Calcular precisión y puntuación
+    // Calcular estadísticas
     const totalFlips = memoryGame.game.moves * 2;
     const accuracy = totalFlips > 0 ? Math.round((memoryGame.config.pairsCount * 2 / totalFlips) * 100) : 100;
-    
-    // Calcular puntuación basada en tiempo, movimientos y precisión
     const timeScore = Math.max(0, 300 - memoryGame.game.timeElapsed) * 2;
     const moveScore = Math.max(0, (memoryGame.config.pairsCount * 4 - memoryGame.game.moves)) * 10;
     const accuracyScore = accuracy * 3;
     const totalScore = timeScore + moveScore + accuracyScore;
     
-    // Actualizar UI de resultados
+    // Actualizar UI
     const minutes = Math.floor(memoryGame.game.timeElapsed / 60);
     const seconds = memoryGame.game.timeElapsed % 60;
     
@@ -475,7 +512,7 @@ function showResultsScreen() {
     document.getElementById('accuracy').textContent = `${accuracy}%`;
     document.getElementById('score').textContent = totalScore;
     
-    // Mostrar pantalla de resultados
+    // Mostrar pantalla
     hideAllScreens();
     document.getElementById('resultsScreen').classList.add('active');
 }

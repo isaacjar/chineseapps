@@ -365,22 +365,21 @@ function renderGameBoard() {
     const pairs = memoryGame.config.pairsCount;
     const totalCards = pairs * 2;
     
-    // Calcular grid dinámicamente según el número de cartas
-    let gridColumns = 4;
-    if (totalCards <= 16) {
-        gridColumns = 4;
-    } else if (totalCards <= 24) {
-        gridColumns = 6;
-    } else if (totalCards <= 36) {
-        gridColumns = 8;
+    // Calcular grid más eficiente para el espacio
+    let minCardSize = '80px';
+    if (totalCards <= 12) {
+        minCardSize = '100px';
+    } else if (totalCards <= 20) {
+        minCardSize = '90px';
+    } else if (totalCards <= 30) {
+        minCardSize = '80px';
     } else {
-        gridColumns = 10;
+        minCardSize = '70px';
     }
     
-    board.className = 'game-board';
-    board.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`;
+    board.style.gridTemplateColumns = `repeat(auto-fit, minmax(${minCardSize}, 1fr))`;
     
-    console.log(`Renderizando ${totalCards} cartas en grid ${gridColumns}x${Math.ceil(totalCards/gridColumns)}`);
+    console.log(`Renderizando ${totalCards} cartas con tamaño mínimo ${minCardSize}`);
     
     memoryGame.game.cards.forEach((card, index) => {
         const cardElement = document.createElement('div');

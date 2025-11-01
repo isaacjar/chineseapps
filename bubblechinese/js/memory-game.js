@@ -23,12 +23,22 @@ const memoryGame = {
 
 // Inicializar el juego
 async function initMemoryGame() {
+    console.log('Inicializando juego de memoria...');
+    
     await loadCharactersForGame();
     setupEventListeners();
+    
+    // Mostrar pantalla de configuración inmediatamente
     showConfigScreen();
     updateGroupsSelection();
     
-    document.querySelector('.pairs-btn').classList.add('active');
+    // Establecer valores por defecto
+    const defaultPairsBtn = document.querySelector('.pairs-btn[data-pairs="8"]');
+    if (defaultPairsBtn) {
+        defaultPairsBtn.classList.add('active');
+    }
+    
+    console.log('Juego inicializado, mostrando pantalla de configuración');
 }
 
 // Cargar caracteres para el juego
@@ -37,6 +47,7 @@ async function loadCharactersForGame() {
         const response = await fetch('js/chars.json');
         if (response.ok) {
             memoryGame.characters = await response.json();
+            console.log('Caracteres cargados:', memoryGame.characters.length);
         } else {
             throw new Error('Error cargando caracteres');
         }
@@ -45,13 +56,17 @@ async function loadCharactersForGame() {
         memoryGame.characters = [
             { ch: '你', pin: 'nǐ', en: 'you', es: 'tú', lv: '1', gr: '001' },
             { ch: '好', pin: 'hǎo', en: 'good', es: 'bueno', lv: '1', gr: '001' },
-            { ch: '我', pin: 'wǒ', en: 'I/me', es: 'yo/mí', lv: '1', gr: '001' }
+            { ch: '我', pin: 'wǒ', en: 'I/me', es: 'yo/mí', lv: '1', gr: '001' },
+            { ch: '是', pin: 'shì', en: 'to be', es: 'ser', lv: '1', gr: '002' },
+            { ch: '的', pin: 'de', en: 'possessive', es: 'posesivo', lv: '1', gr: '002' }
         ];
     }
 }
 
 // Configurar event listeners
 function setupEventListeners() {
+    console.log('Configurando event listeners...');
+    
     document.getElementById('backToMain').addEventListener('click', () => {
         window.location.href = 'index.html';
     });
@@ -63,6 +78,7 @@ function setupEventListeners() {
             document.querySelectorAll('.pairs-btn').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             memoryGame.config.pairsCount = parseInt(e.target.dataset.pairs);
+            console.log('Parejas seleccionadas:', memoryGame.config.pairsCount);
         });
     });
 
@@ -74,16 +90,31 @@ function setupEventListeners() {
     document.getElementById('backToConfig').addEventListener('click', showConfigScreen);
 }
 
-// Mostrar pantalla de configuración
+// Mostrar pantalla de configuración - CORREGIDO
 function showConfigScreen() {
+    console.log('Mostrando pantalla de configuración...');
+    
+    // Ocultar todas las pantallas primero
     hideAllScreens();
-    document.getElementById('configScreen').classList.add('active');
-    updateGroupsSelection();
+    
+    // Mostrar específicamente la pantalla de configuración
+    const configScreen = document.getElementById('configScreen');
+    if (configScreen) {
+        configScreen.classList.add('active');
+        configScreen.style.display = 'block';
+        console.log('Pantalla de configuración activada');
+    } else {
+        console.error('No se encontró la pantalla de configuración');
+    }
+    
     resetGameState();
+    updateGroupsSelection();
 }
 
 // Resetear estado del juego
 function resetGameState() {
+    console.log('Reseteando estado del juego...');
+    
     clearInterval(memoryGame.game.timer);
     memoryGame.game = {
         cards: [],
@@ -100,10 +131,18 @@ function resetGameState() {
 
 // Actualizar selección de grupos
 function updateGroupsSelection() {
+    console.log('Actualizando selección de grupos...');
+    
     const container = document.getElementById('gameGroupsContainer');
+    if (!container) {
+        console.error('No se encontró el contenedor de grupos');
+        return;
+    }
+    
     container.innerHTML = '';
 
     const groups = [...new Set(memoryGame.characters.map(char => char.gr))].sort();
+    console.log('Grupos disponibles:', groups);
     
     groups.forEach(group => {
         const groupChars = memoryGame.characters.filter(char => char.gr === group);
@@ -121,30 +160,28 @@ function updateGroupsSelection() {
             } else {
                 memoryGame.config.selectedGroups.add(group);
             }
+            console.log('Grupos seleccionados:', [...memoryGame.config.selectedGroups]);
         });
         
         container.appendChild(groupBtn);
     });
 }
 
-// Ocultar todas las pantallas - CORREGIDO
+// Ocultar todas las pantallas
 function hideAllScreens() {
-    const screens = document.querySelectorAll('.screen');
-    console.log('Ocultando todas las pantallas. Total encontradas:', screens.length);
+    console.log('Ocultando todas las pantallas...');
     
+    const screens = document.querySelectorAll('.screen');
     screens.forEach(screen => {
         screen.classList.remove('active');
-        // Asegurarse de que las pantallas overlay también se oculten correctamente
-        if (screen.classList.contains('overlay')) {
-            screen.style.display = 'none';
-        } else {
-            screen.style.display = 'none';
-        }
+        screen.style.display = 'none';
     });
 }
 
-// Mostrar una pantalla específica - NUEVA FUNCIÓN
+// Mostrar una pantalla específica
 function showScreen(screenId) {
+    console.log('Mostrando pantalla:', screenId);
+    
     hideAllScreens();
     const screen = document.getElementById(screenId);
     if (screen) {
@@ -154,12 +191,13 @@ function showScreen(screenId) {
         } else {
             screen.style.display = 'block';
         }
-        console.log('Mostrando pantalla:', screenId);
     }
 }
 
 // Iniciar juego
 function startGame() {
+    console.log('Iniciando juego...');
+    
     if (memoryGame.config.selectedGroups.size === 0) {
         alert('Por favor selecciona al menos un grupo de caracteres.');
         return;
@@ -183,6 +221,13 @@ function startGame() {
             break;
     }
 
+    console.log('Configuración:', {
+        groups: [...memoryGame.config.selectedGroups],
+        pairs: memoryGame.config.pairsCount,
+        mode: memoryGame.config.matchMode,
+        difficulty: memoryGame.config.difficulty
+    });
+
     if (!prepareGameCards()) {
         return;
     }
@@ -193,6 +238,8 @@ function startGame() {
 
 // Preparar cartas del juego
 function prepareGameCards() {
+    console.log('Preparando cartas del juego...');
+    
     memoryGame.game.cards = [];
     
     const availableChars = memoryGame.characters.filter(char => 
@@ -262,21 +309,22 @@ function prepareGameCards() {
     // Mezclar cartas
     memoryGame.game.cards = memoryGame.game.cards.sort(() => Math.random() - 0.5);
     
-    console.log('Cartas preparadas. Total:', memoryGame.game.cards.length);
-    console.log('Cartas no emparejadas:', memoryGame.game.cards.filter(c => !c.matched).length);
+    console.log('Cartas preparadas correctamente. Total:', memoryGame.game.cards.length);
     
     return true;
 }
 
 // Iniciar sesión de juego
 function startGameSession() {
-    // VERIFICACIÓN CRÍTICA: Asegurar que ninguna carta esté emparejada
-    let matchedCards = memoryGame.game.cards.filter(card => card.matched);
-    if (matchedCards.length > 0) {
-        console.error('ERROR: Se encontraron cartas emparejadas al inicio:', matchedCards);
-        // Forzar a no emparejadas
-        memoryGame.game.cards.forEach(card => card.matched = false);
-    }
+    console.log('Iniciando sesión de juego...');
+    
+    // Verificar que no haya cartas emparejadas
+    memoryGame.game.cards.forEach(card => {
+        if (card.matched) {
+            console.error('Carta emparejada al inicio:', card);
+            card.matched = false;
+        }
+    });
 
     memoryGame.game.matchedPairs = 0;
     memoryGame.game.moves = 0;
@@ -291,7 +339,7 @@ function startGameSession() {
     showCardsTemporarily();
     startTimer();
     
-    console.log('Juego iniciado correctamente. Parejas emparejadas:', memoryGame.game.matchedPairs);
+    console.log('Sesión de juego iniciada correctamente');
 }
 
 // Mostrar cartas temporalmente al inicio

@@ -314,7 +314,7 @@ function prepareGameCards() {
     return true;
 }
 
-// Iniciar sesión de juego
+// Iniciar sesión de juego - MODIFICADO: Sin vista previa
 function startGameSession() {
     console.log('Iniciando sesión de juego...');
     
@@ -331,19 +331,18 @@ function startGameSession() {
     memoryGame.game.timeElapsed = 0;
     memoryGame.game.flippedCards = [];
     memoryGame.game.isPaused = false;
-    memoryGame.game.canFlip = false;
+    memoryGame.game.canFlip = true; // Permitir voltear inmediatamente
     memoryGame.game.gameStarted = true;
 
     updateGameStats();
     renderGameBoard();
-    showCardsTemporarily();
-    startTimer();
+    startTimer(); // Quitado showCardsTemporarily()
     
     console.log('Sesión de juego iniciada correctamente');
 }
 
 // Mostrar cartas temporalmente al inicio
-function showCardsTemporarily() {
+/*function showCardsTemporarily() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         card.classList.add('flipped');
@@ -356,7 +355,7 @@ function showCardsTemporarily() {
         memoryGame.game.canFlip = true;
         console.log('Juego listo para jugar');
     }, memoryGame.config.viewTime * 1000);
-}
+}*/
 
 // Renderizar tablero de juego
 function renderGameBoard() {
@@ -365,11 +364,27 @@ function renderGameBoard() {
     
     const pairs = memoryGame.config.pairsCount;
     const totalCards = pairs * 2;
-    board.className = `game-board ${totalCards <= 24 ? 'grid-4' : 'grid-6'}`;
+    
+    // Calcular grid dinámicamente según el número de cartas
+    let gridColumns = 4;
+    if (totalCards <= 16) {
+        gridColumns = 4;
+    } else if (totalCards <= 24) {
+        gridColumns = 6;
+    } else if (totalCards <= 36) {
+        gridColumns = 8;
+    } else {
+        gridColumns = 10;
+    }
+    
+    board.className = 'game-board';
+    board.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`;
+    
+    console.log(`Renderizando ${totalCards} cartas en grid ${gridColumns}x${Math.ceil(totalCards/gridColumns)}`);
     
     memoryGame.game.cards.forEach((card, index) => {
         const cardElement = document.createElement('div');
-        cardElement.className = `card ${card.type}`;
+        cardElement.className = `card ${card.type} ${card.matched ? 'matched' : ''}`;
         cardElement.dataset.index = index;
         cardElement.dataset.cardId = card.id;
         cardElement.dataset.pairId = card.pairId;
@@ -432,8 +447,9 @@ function checkForMatch() {
         card2.matched = true;
         memoryGame.game.matchedPairs++;
         
+        // Actualizar clases para cambiar el color
         document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
-            card.classList.add('matched');
+            card.classList.add('matched', 'success');
             card.dataset.matched = 'true';
         });
         

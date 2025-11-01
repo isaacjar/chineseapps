@@ -1,7 +1,7 @@
 // Estado del juego de memoria
 const memoryGame = {
     config: {
-        selectedGroups: new Set(['001']), // Grupo por defecto
+        selectedGroups: new Set(['001']),
         pairsCount: 8,
         matchMode: 'pinyin',
         difficulty: 'easy',
@@ -28,7 +28,6 @@ async function initMemoryGame() {
     showConfigScreen();
     updateGroupsSelection();
     
-    // Establecer valores por defecto
     document.querySelector('.pairs-btn').classList.add('active');
 }
 
@@ -38,13 +37,11 @@ async function loadCharactersForGame() {
         const response = await fetch('js/chars.json');
         if (response.ok) {
             memoryGame.characters = await response.json();
-            console.log('Caracteres cargados:', memoryGame.characters.length);
         } else {
             throw new Error('Error cargando caracteres');
         }
     } catch (error) {
         console.error('Error al cargar caracteres:', error);
-        // Usar datos de respaldo
         memoryGame.characters = [
             { ch: '你', pin: 'nǐ', en: 'you', es: 'tú', lv: '1', gr: '001' },
             { ch: '好', pin: 'hǎo', en: 'good', es: 'bueno', lv: '1', gr: '001' },
@@ -53,24 +50,19 @@ async function loadCharactersForGame() {
             { ch: '的', pin: 'de', en: 'possessive', es: 'posesivo', lv: '1', gr: '002' },
             { ch: '了', pin: 'le', en: 'completed action', es: 'acción terminada', lv: '1', gr: '002' },
             { ch: '不', pin: 'bù', en: 'not; no', es: 'no', lv: '1', gr: '002' },
-            { ch: '他', pin: 'tā', en: 'he, him', es: 'él', lv: '1', gr: '003' },
-            { ch: '她', pin: 'tā', en: 'she, her', es: 'ella', lv: '1', gr: '003' },
-            { ch: '人', pin: 'rén', en: 'person', es: 'persona', lv: '1', gr: '003' }
+            { ch: '他', pin: 'tā', en: 'he, him', es: 'él', lv: '1', gr: '003' }
         ];
     }
 }
 
 // Configurar event listeners
 function setupEventListeners() {
-    // Navegación
     document.getElementById('backToMain').addEventListener('click', () => {
         window.location.href = 'index.html';
     });
 
-    // Configuración
     document.getElementById('startGame').addEventListener('click', startGame);
     
-    // Botones de número de parejas
     document.querySelectorAll('.pairs-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.pairs-btn').forEach(b => b.classList.remove('active'));
@@ -79,7 +71,6 @@ function setupEventListeners() {
         });
     });
 
-    // Controles del juego
     document.getElementById('pauseGame').addEventListener('click', pauseGame);
     document.getElementById('resumeGame').addEventListener('click', resumeGame);
     document.getElementById('restartGame').addEventListener('click', restartGame);
@@ -96,8 +87,9 @@ function showConfigScreen() {
     resetGameState();
 }
 
-// Resetear estado del juego
+// Resetear estado del juego - CORREGIDO
 function resetGameState() {
+    clearInterval(memoryGame.game.timer);
     memoryGame.game = {
         cards: [],
         flippedCards: [],
@@ -109,6 +101,7 @@ function resetGameState() {
         canFlip: false,
         gameStarted: false
     };
+    console.log('Estado del juego reseteado');
 }
 
 // Actualizar selección de grupos
@@ -154,14 +147,12 @@ function startGame() {
         return;
     }
 
-    // Obtener configuración
     const matchMode = document.querySelector('input[name="matchMode"]:checked').value;
     const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
     
     memoryGame.config.matchMode = matchMode;
     memoryGame.config.difficulty = difficulty;
     
-    // Configurar tiempo de vista según dificultad
     switch(difficulty) {
         case 'easy':
             memoryGame.config.viewTime = 8;
@@ -174,22 +165,22 @@ function startGame() {
             break;
     }
 
-    // Preparar cartas del juego
     if (!prepareGameCards()) {
         return;
     }
     
-    // Mostrar pantalla de juego
     hideAllScreens();
     document.getElementById('gameScreen').classList.add('active');
     
-    // Iniciar juego
     startGameSession();
 }
 
-// Preparar cartas del juego - FUNCIÓN CRÍTICA CORREGIDA
+// Preparar cartas del juego - COMPLETAMENTE REESCRITA
 function prepareGameCards() {
-    // Obtener caracteres de los grupos seleccionados
+    // Resetear cartas primero
+    memoryGame.game.cards = [];
+    
+    // Obtener caracteres disponibles
     const availableChars = memoryGame.characters.filter(char => 
         memoryGame.config.selectedGroups.has(char.gr)
     );
@@ -199,7 +190,6 @@ function prepareGameCards() {
         return false;
     }
 
-    // Verificar que hay suficientes caracteres
     if (availableChars.length < memoryGame.config.pairsCount) {
         alert(`Solo hay ${availableChars.length} caracteres disponibles. Selecciona más grupos o reduce el número de parejas.`);
         return false;
@@ -215,22 +205,22 @@ function prepareGameCards() {
         }
     }
 
-    console.log('Caracteres seleccionados para el juego:', selectedChars.map(c => c.ch));
+    console.log('Preparando juego con caracteres:', selectedChars.map(c => c.ch));
 
-    // CREAR CARTAS - ESTA ES LA PARTE MÁS IMPORTANTE
-    memoryGame.game.cards = [];
-    
-    selectedChars.forEach(char => {
-        // PRIMERA CARTA: Carácter chino
+    // CREAR PARES DE CARTAS - MÉTODO SIMPLIFICADO Y CORREGIDO
+    selectedChars.forEach((char, index) => {
+        const pairId = `pair-${index}-${char.ch}`; // ID único para el par
+        
+        // Carta 1: Carácter chino
         memoryGame.game.cards.push({
-            id: `ch-${char.ch}-${Date.now()}-${Math.random()}`, // ID único
+            id: `ch-${pairId}`,
             type: 'chinese',
             content: char.ch,
-            pairId: char.ch, // Mismo pairId para ambas cartas del par
-            matched: false // IMPORTANTE: Inicializar como no emparejada
+            pairId: pairId,
+            matched: false
         });
 
-        // SEGUNDA CARTA: Traducción
+        // Carta 2: Traducción
         let translationContent = '';
         let translationType = '';
         
@@ -250,27 +240,37 @@ function prepareGameCards() {
         }
 
         memoryGame.game.cards.push({
-            id: `trans-${char.ch}-${Date.now()}-${Math.random()}`, // ID único diferente
+            id: `trans-${pairId}`,
             type: translationType,
             content: translationContent,
-            pairId: char.ch, // Mismo pairId que la carta del carácter
-            matched: false // IMPORTANTE: Inicializar como no emparejada
+            pairId: pairId,
+            matched: false
         });
     });
 
     // Mezclar cartas
     memoryGame.game.cards = memoryGame.game.cards.sort(() => Math.random() - 0.5);
     
-    console.log('Cartas preparadas:', memoryGame.game.cards);
-    console.log('Total de cartas:', memoryGame.game.cards.length);
-    console.log('Pares esperados:', memoryGame.config.pairsCount);
+    console.log('Cartas creadas:', memoryGame.game.cards.length);
+    console.log('Estado inicial de las cartas:', memoryGame.game.cards.map(c => ({
+        content: c.content,
+        pairId: c.pairId,
+        matched: c.matched
+    })));
     
     return true;
 }
 
 // Iniciar sesión de juego
 function startGameSession() {
-    // Reiniciar estado del juego
+    // VERIFICACIÓN CRÍTICA: Asegurar que ninguna carta esté emparejada
+    memoryGame.game.cards.forEach(card => {
+        if (card.matched) {
+            console.error('ERROR: Carta ya emparejada al inicio:', card);
+            card.matched = false; // Forzar a no emparejada
+        }
+    });
+
     memoryGame.game.matchedPairs = 0;
     memoryGame.game.moves = 0;
     memoryGame.game.timeElapsed = 0;
@@ -279,17 +279,12 @@ function startGameSession() {
     memoryGame.game.canFlip = false;
     memoryGame.game.gameStarted = true;
 
-    // Actualizar UI
     updateGameStats();
-    
-    // Renderizar tablero
     renderGameBoard();
-    
-    // Mostrar cartas temporalmente
     showCardsTemporarily();
-    
-    // Iniciar temporizador
     startTimer();
+    
+    console.log('Juego iniciado. Parejas emparejadas:', memoryGame.game.matchedPairs);
 }
 
 // Mostrar cartas temporalmente al inicio
@@ -304,7 +299,7 @@ function showCardsTemporarily() {
             card.classList.remove('flipped');
         });
         memoryGame.game.canFlip = true;
-        console.log('Juego listo para comenzar');
+        console.log('Cartas ocultadas. Juego listo para jugar.');
     }, memoryGame.config.viewTime * 1000);
 }
 
@@ -313,14 +308,12 @@ function renderGameBoard() {
     const board = document.getElementById('gameBoard');
     board.innerHTML = '';
     
-    // Determinar layout del grid
     const pairs = memoryGame.config.pairsCount;
     const totalCards = pairs * 2;
     board.className = `game-board ${totalCards <= 24 ? 'grid-4' : 'grid-6'}`;
     
-    console.log('Renderizando tablero con', totalCards, 'cartas');
+    console.log('Renderizando', totalCards, 'cartas no emparejadas');
     
-    // Crear cartas
     memoryGame.game.cards.forEach((card, index) => {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.type}`;
@@ -342,36 +335,25 @@ function renderGameBoard() {
 // Voltear carta
 function flipCard(index) {
     if (!memoryGame.game.canFlip || memoryGame.game.isPaused) {
-        console.log('No se puede voltear: canFlip=', memoryGame.game.canFlip, 'isPaused=', memoryGame.game.isPaused);
         return;
     }
     
     const card = memoryGame.game.cards[index];
-    const cardElement = document.querySelector(`.card[data-index="${index}"]`);
     
-    // Verificar condiciones
-    if (card.matched) {
-        console.log('Carta ya emparejada');
-        return;
-    }
-    
-    if (memoryGame.game.flippedCards.includes(index)) {
-        console.log('Carta ya volteada');
+    if (card.matched || memoryGame.game.flippedCards.includes(index)) {
         return;
     }
     
     if (memoryGame.game.flippedCards.length >= 2) {
-        console.log('Ya hay 2 cartas volteadas');
         return;
     }
     
-    console.log('Volteando carta', index, '-', card.content, '- pairId:', card.pairId);
-    
-    // Voltear carta
+    const cardElement = document.querySelector(`.card[data-index="${index}"]`);
     cardElement.classList.add('flipped');
     memoryGame.game.flippedCards.push(index);
     
-    // Verificar si hay dos cartas volteadas
+    console.log('Carta volteada:', card.content, 'Index:', index);
+    
     if (memoryGame.game.flippedCards.length === 2) {
         memoryGame.game.canFlip = false;
         memoryGame.game.moves++;
@@ -389,18 +371,18 @@ function checkForMatch() {
     const card1 = memoryGame.game.cards[index1];
     const card2 = memoryGame.game.cards[index2];
     
-    console.log('Comparando:', card1.content, '(', card1.pairId, ') vs', card2.content, '(', card2.pairId, ')');
+    console.log('Verificando coincidencia:');
+    console.log('Carta 1:', card1.content, 'PairId:', card1.pairId);
+    console.log('Carta 2:', card2.content, 'PairId:', card2.pairId);
+    console.log('¿Coinciden?', card1.pairId === card2.pairId);
     
-    // VERIFICACIÓN CORREGIDA: Mismo pairId pero diferentes IDs de carta
-    if (card1.pairId === card2.pairId && card1.id !== card2.id) {
+    if (card1.pairId === card2.pairId) {
         console.log('¡COINCIDENCIA ENCONTRADA!');
         
-        // Marcar como emparejadas
         card1.matched = true;
         card2.matched = true;
         memoryGame.game.matchedPairs++;
         
-        // Actualizar UI
         document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
             card.classList.add('matched');
             card.dataset.matched = 'true';
@@ -408,16 +390,13 @@ function checkForMatch() {
         
         console.log('Parejas emparejadas:', memoryGame.game.matchedPairs, 'de', memoryGame.config.pairsCount);
         
-        // Resetear cartas volteadas
         memoryGame.game.flippedCards = [];
         memoryGame.game.canFlip = true;
         
-        // Verificar fin del juego
         checkGameCompletion();
     } else {
-        console.log('No coincide, volteando de nuevo');
+        console.log('No coincide');
         
-        // Voltear cartas de nuevo
         setTimeout(() => {
             document.querySelectorAll(`.card[data-index="${index1}"], .card[data-index="${index2}"]`).forEach(card => {
                 card.classList.remove('flipped');
@@ -429,17 +408,26 @@ function checkForMatch() {
     }
 }
 
-// Verificar si el juego ha terminado
+// Verificar si el juego ha terminado - CORREGIDO
 function checkGameCompletion() {
-    console.log('Verificando fin del juego:', memoryGame.game.matchedPairs, '/', memoryGame.config.pairsCount);
+    console.log('Verificando fin del juego. Parejas:', memoryGame.game.matchedPairs, 'Total:', memoryGame.config.pairsCount);
     
-    if (memoryGame.game.matchedPairs >= memoryGame.config.pairsCount) {
-        console.log('¡JUEGO COMPLETADO!');
+    // VERIFICACIÓN MÁS ESTRICTA
+    const allMatched = memoryGame.game.cards.every(card => card.matched);
+    const pairsMatched = memoryGame.game.matchedPairs === memoryGame.config.pairsCount;
+    
+    console.log('Todas las cartas emparejadas:', allMatched);
+    console.log('Parejas completadas:', pairsMatched);
+    
+    if (pairsMatched && allMatched) {
+        console.log('¡JUEGO REALMENTE COMPLETADO!');
         clearInterval(memoryGame.game.timer);
         
         setTimeout(() => {
             showResultsScreen();
-        }, 500);
+        }, 1000);
+    } else {
+        console.log('Juego aún en progreso...');
     }
 }
 
@@ -495,7 +483,8 @@ function updateGameStats() {
 
 // Mostrar pantalla de resultados
 function showResultsScreen() {
-    // Calcular estadísticas
+    console.log('Mostrando resultados...');
+    
     const totalFlips = memoryGame.game.moves * 2;
     const accuracy = totalFlips > 0 ? Math.round((memoryGame.config.pairsCount * 2 / totalFlips) * 100) : 100;
     const timeScore = Math.max(0, 300 - memoryGame.game.timeElapsed) * 2;
@@ -503,7 +492,6 @@ function showResultsScreen() {
     const accuracyScore = accuracy * 3;
     const totalScore = timeScore + moveScore + accuracyScore;
     
-    // Actualizar UI
     const minutes = Math.floor(memoryGame.game.timeElapsed / 60);
     const seconds = memoryGame.game.timeElapsed % 60;
     
@@ -512,7 +500,6 @@ function showResultsScreen() {
     document.getElementById('accuracy').textContent = `${accuracy}%`;
     document.getElementById('score').textContent = totalScore;
     
-    // Mostrar pantalla
     hideAllScreens();
     document.getElementById('resultsScreen').classList.add('active');
 }

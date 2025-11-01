@@ -353,7 +353,10 @@ function setupEventListeners() {
 
      // Botón para mezclar caracteres
     document.getElementById('shuffleBtn').addEventListener('click', shuffleCharacters);
-    
+
+    // Botón juego memoria
+    document.getElementById('memoryGameBtn').addEventListener('click', () => {window.location.href = 'memory-game.html';});
+        
     // Botón para cambiar fuente
     document.getElementById('fontToggleBtn').addEventListener('click', cycleFont);
 

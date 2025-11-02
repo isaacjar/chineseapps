@@ -35,6 +35,7 @@ class Settings {
         if (urlParams.has('lang')) this.settings.language = urlParams.get('lang');
         if (urlParams.has('questions')) this.settings.questions = parseInt(urlParams.get('questions'));
         if (urlParams.has('time')) this.settings.time = parseInt(urlParams.get('time'));
+        if (urlParams.has('lives')) this.settings.lives = parseInt(urlParams.get('lives'));
         if (urlParams.has('difficulty')) this.settings.difficulty = parseInt(urlParams.get('difficulty'));
         if (urlParams.has('pinyin')) this.settings.showPinyin = urlParams.get('pinyin') === 'true';
     }

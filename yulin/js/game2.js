@@ -1,3 +1,4 @@
+// game2.js
 class Game2 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -83,70 +84,93 @@ class Game2 {
     getIncorrectOptions(correctIndex) {
         const difficulty = this.settings.get('difficulty');
         const numOptions = difficulty === 1 ? 3 : 5;
-        const minSameSyllables = difficulty === 1 ? 4 : 6; // Mínimo requerido para usar solo mismo número de sílabas
+        const minSameCharacters = difficulty === 1 ? 4 : 6;
         
         const incorrectOptions = [];
         const usedIndices = new Set([correctIndex]);
         
-        // Calcular número de sílabas de la palabra correcta
-        const correctSyllables = this.countSyllables(this.currentWord.pin);
+        // Calcular número de caracteres de la palabra correcta
+        const correctCharacters = this.countCharacters(this.currentWord.ch);
+        console.log(`Palabra correcta: "${this.currentWord.ch}" - Caracteres: ${correctCharacters} - Pinyin: "${this.currentWord.pin}"`);
         
-        // Contar cuántas palabras tienen el mismo número de sílabas (excluyendo la correcta)
-        const sameSyllableWords = [];
+        // Buscar todas las palabras con el mismo número de caracteres (excluyendo la correcta)
+        const sameCharacterWords = [];
         for (let i = 0; i < this.vocabulary.length; i++) {
-            if (!usedIndices.has(i) && this.vocabulary[i].pin) {
-                const syllables = this.countSyllables(this.vocabulary[i].pin);
-                if (syllables === correctSyllables) {
-                    sameSyllableWords.push(this.vocabulary[i]);
+            if (i !== correctIndex && this.vocabulary[i].ch && this.vocabulary[i].pin) {
+                const characters = this.countCharacters(this.vocabulary[i].ch);
+                if (characters === correctCharacters) {
+                    sameCharacterWords.push({
+                        word: this.vocabulary[i],
+                        index: i
+                    });
                 }
             }
         }
         
-        console.log(`Palabras con ${correctSyllables} sílabas: ${sameSyllableWords.length} (mínimo requerido: ${minSameSyllables})`);
+        console.log(`Encontradas ${sameCharacterWords.length} palabras con ${correctCharacters} caracteres (mínimo requerido: ${minSameCharacters})`);
         
-        // Estrategia según la dificultad y disponibilidad de palabras con mismo número de sílabas
-        if (sameSyllableWords.length >= minSameSyllables) {
-            // Caso ideal: usar solo palabras con el mismo número de sílabas
-            console.log(`Usando estrategia: Solo mismo número de sílabas (${correctSyllables})`);
+        // DEBUG: Mostrar algunas palabras encontradas
+        if (sameCharacterWords.length > 0) {
+            console.log('Ejemplos de palabras con mismo número de caracteres:', 
+                sameCharacterWords.slice(0, 3).map(item => `${item.word.ch} (${item.word.pin})`));
+        }
+        
+        let strategy = '';
+        
+        // Estrategia según la dificultad y disponibilidad
+        if (sameCharacterWords.length >= minSameCharacters) {
+            // Caso ideal: usar solo palabras con el mismo número de caracteres
+            strategy = `Solo mismo número de caracteres (${correctCharacters})`;
+            console.log(`✓ Aplicando estrategia: ${strategy}`);
             
-            // Mezclar las palabras con mismo número de sílabas
-            this.shuffleArray(sameSyllableWords);
-            
-            // Tomar las primeras numOptions
-            for (let i = 0; i < Math.min(numOptions, sameSyllableWords.length); i++) {
-                incorrectOptions.push(sameSyllableWords[i]);
-                usedIndices.add(this.vocabulary.indexOf(sameSyllableWords[i]));
+            // Mezclar y seleccionar
+            this.shuffleArray(sameCharacterWords);
+            for (let i = 0; i < Math.min(numOptions, sameCharacterWords.length); i++) {
+                incorrectOptions.push(sameCharacterWords[i].word);
+                usedIndices.add(sameCharacterWords[i].index);
             }
             
         } else {
             // Caso fallback: usar cualquier palabra con pinyin disponible
-            console.log(`Usando estrategia: Fallback - cualquier palabra con pinyin`);
+            strategy = `Fallback - cualquier palabra con pinyin (solo ${sameCharacterWords.length} con ${correctCharacters} caracteres)`;
+            console.log(`↳ Aplicando estrategia: ${strategy}`);
             
             const availableWords = [];
             for (let i = 0; i < this.vocabulary.length; i++) {
-                if (!usedIndices.has(i) && this.vocabulary[i].pin) {
-                    availableWords.push(this.vocabulary[i]);
-                    usedIndices.add(i);
-                    if (availableWords.length >= numOptions + 10) break; // Límite razonable
+                if (i !== correctIndex && !usedIndices.has(i) && this.vocabulary[i].pin) {
+                    availableWords.push({
+                        word: this.vocabulary[i],
+                        index: i
+                    });
+                    if (availableWords.length >= numOptions + 20) break;
                 }
             }
             
             // Mezclar y seleccionar
             this.shuffleArray(availableWords);
             for (let i = 0; i < Math.min(numOptions, availableWords.length); i++) {
-                incorrectOptions.push(availableWords[i]);
+                incorrectOptions.push(availableWords[i].word);
             }
         }
         
-        console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} (requeridas: ${numOptions})`);
+        console.log(`Estrategia: ${strategy}`);
+        console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} de ${numOptions} requeridas`);
+        
         return incorrectOptions;
     }
 
-    countSyllables(pinyin) {
-        if (!pinyin) return 0;
-        // Contar sílabas basado en espacios y apóstrofes, ignorando tonos
-        const cleanPinyin = pinyin.replace(/[¹²³⁴]/, ''); // Remover marcas de tono si existen
-        return cleanPinyin.split(/[\s']+/).filter(syllable => syllable.length > 0).length;
+    countCharacters(chineseText) {
+        if (!chineseText || typeof chineseText !== 'string') {
+            console.warn('Texto chino inválido:', chineseText);
+            return 0;
+        }
+        
+        // Contar caracteres chinos (cualquier carácter que no sea espacio)
+        const characters = chineseText.replace(/\s/g, '').length;
+        
+        console.log(`Caracteres chinos: "${chineseText}" -> Total: ${characters}`);
+        
+        return characters;
     }
 
     displayQuestion(word) {
@@ -162,7 +186,7 @@ class Game2 {
         
         const instructionElement = document.createElement('div');
         instructionElement.className = 'instruction-text';
-        //instructionElement.textContent = 'Selecciona el pinyin correcto:';
+        instructionElement.textContent = 'Selecciona el pinyin correcto:';
         instructionElement.style.marginTop = '1rem';
         instructionElement.style.fontSize = '1.2rem';
         instructionElement.style.color = '#795548';
@@ -338,9 +362,23 @@ class Game2 {
                 throw new Error('No hay palabras con pinyin en este listado');
             }
             
-            // Análisis del listado cargado
-            const syllableAnalysis = this.analyzeSyllables();
-            console.log('Análisis de sílabas en el listado:', syllableAnalysis);
+            // Análisis detallado del listado
+            console.log('=== ANÁLISIS DEL LISTADO CARGADO ===');
+            console.log(`Total de palabras con pinyin: ${this.vocabulary.length}`);
+            
+            const characterAnalysis = this.analyzeCharacters();
+            console.log('Distribución por número de caracteres:', characterAnalysis);
+            
+            // Mostrar ejemplos de cada grupo de caracteres
+            Object.keys(characterAnalysis).forEach(characterCount => {
+                const examples = this.vocabulary
+                    .filter(word => this.countCharacters(word.ch) === parseInt(characterCount))
+                    .slice(0, 3)
+                    .map(word => `${word.ch} (${word.pin})`);
+                console.log(`  ${characterCount} caracteres: ${characterAnalysis[characterCount]} palabras. Ejemplos: ${examples.join(', ')}`);
+            });
+            
+            console.log('=== FIN DEL ANÁLISIS ===');
             
             console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con pinyin`);
             return true;
@@ -367,13 +405,12 @@ class Game2 {
         }
     }
 
-    // Método auxiliar para analizar la distribución de sílabas
-    analyzeSyllables() {
+    analyzeCharacters() {
         const analysis = {};
         this.vocabulary.forEach(word => {
-            if (word.pin) {
-                const syllables = this.countSyllables(word.pin);
-                analysis[syllables] = (analysis[syllables] || 0) + 1;
+            if (word.ch) {
+                const characters = this.countCharacters(word.ch);
+                analysis[characters] = (analysis[characters] || 0) + 1;
             }
         });
         return analysis;

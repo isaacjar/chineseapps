@@ -145,7 +145,7 @@ class Game2 {
         // Mostrar instrucción
         const instructionElement = document.createElement('div');
         instructionElement.className = 'instruction-text';
-        instructionElement.textContent = 'Selecciona el pinyin correcto:';
+        //instructionElement.textContent = 'Selecciona el pinyin correcto:';
         instructionElement.style.marginTop = '1rem';
         instructionElement.style.fontSize = '1.2rem';
         instructionElement.style.color = '#795548';

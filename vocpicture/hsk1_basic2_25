@@ -1,0 +1,27 @@
+[
+  { "ch": "手", "pin": "shǒu" },         // mano  
+  { "ch": "眼睛", "pin": "yǎnjing" },    // ojos  
+  { "ch": "嘴", "pin": "zuǐ" },          // boca  
+  { "ch": "耳朵", "pin": "ěrduo" },      // oreja  
+  { "ch": "鼻子", "pin": "bízi" },       // nariz  
+  { "ch": "衣服", "pin": "yīfu" },       // ropa  
+  { "ch": "鞋", "pin": "xié" },          // zapatos  
+  { "ch": "帽子", "pin": "màozi" },      // sombrero  
+  { "ch": "门", "pin": "mén" },          // puerta  
+  { "ch": "窗", "pin": "chuāng" },       // ventana  
+  { "ch": "灯", "pin": "dēng" },         // lámpara  
+  { "ch": "路", "pin": "lù" },           // calle/camino  
+  { "ch": "山", "pin": "shān" },         // montaña  
+  { "ch": "树", "pin": "shù" },          // árbol  
+  { "ch": "花", "pin": "huā" },          // flor  
+  { "ch": "草", "pin": "cǎo" },          // hierba  
+  { "ch": "太阳", "pin": "tàiyáng" },    // sol  
+  { "ch": "星星", "pin": "xīngxing" },   // estrella  
+  { "ch": "鸡蛋", "pin": "jīdàn" },      // huevo  
+  { "ch": "鱼", "pin": "yú" },           // pescado  
+  { "ch": "肉", "pin": "ròu" },          // carne  
+  { "ch": "香蕉", "pin": "xiāngjiāo" },  // plátano  
+  { "ch": "西瓜", "pin": "xīguā" },      // sandía  
+  { "ch": "牛奶", "pin": "niúnǎi" },     // leche  
+  { "ch": "果汁", "pin": "guǒzhī" }      // zumo
+]

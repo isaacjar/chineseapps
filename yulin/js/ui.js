@@ -473,7 +473,7 @@ class UI {
             this.currentList = list;
             const totalWords = this.game.vocabulary.length;
             const wordsWithPinyin = this.game2.vocabulary.length;
-            this.showToast(`Listado "${list.title}" cargado (${totalWords} palabras, ${wordsWithPinyin} con pinyin)`, 'success');
+            this.showToast(`List "${list.title}" loaded (${totalWords} words`, 'success');
             this.showScreen('menu-screen');
         } else {
             this.showToast(`Error cargando el listado "${list.title}"`, 'error');

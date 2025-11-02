@@ -1052,3 +1052,14 @@ input:checked + .slider:before {
         font-size: 0.8rem;
     }
 }
+
+/* Añadir estilos para las opciones de emoji */
+.emoji-option {
+    font-size: 4rem;
+    text-align: center;
+}
+
+/* Ajustar tamaño de caracteres chinos para game4 */
+#game-screen .chinese-character {
+    font-size: 4rem !important;
+}

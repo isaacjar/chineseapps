@@ -5,9 +5,10 @@ const LABELS = {
         "menu": {
             "vocabLists": "Vocabulary Lists",
             "words": "Words",
-            "game1": "Guess meaning",
-            "game2": "Guess Chinese",
-            "game3": "Guess pinyin",
+            "game1": "Meaning Search",
+            "game2": "Chinese Hunt",
+            "game3": "Pinyin Match",
+            "game4": "Picture Grab",
             "stats": "Statistics"
         },
         "lists": {
@@ -72,9 +73,10 @@ const LABELS = {
         "menu": {
             "vocabLists": "Listados de vocabulario",
             "words": "Palabras",
-            "game1": "Atrapa el significado",
-            "game2": "Caza la palabra china",
-            "game3": "Atrapa el pinyin",
+            "game1": "Busca el significado",
+            "game2": "Caza el chino",
+            "game3": "Empareja el pinyin",
+            "game4": "Atrapa la imagen", 
             "stats": "Estadísticas"
         },
         "lists": {

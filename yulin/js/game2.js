@@ -3,7 +3,7 @@ class Game2 {
         this.settings = settings;
         this.stats = stats;
         this.ui = ui;
-        this.currentGame = 'game3'; // Identificador único para este juego
+        this.currentGame = 'game3';
         this.vocabulary = [];
         this.currentQuestion = 0;
         this.score = 0;
@@ -33,13 +33,11 @@ class Game2 {
     }
 
     nextQuestion() {
-        // Limpiar timer anterior si existe
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
         }
         
-        // Resetear barra de tiempo visualmente
         const timerProgress = document.getElementById('timer-progress');
         if (timerProgress) {
             timerProgress.style.transition = 'none';
@@ -56,7 +54,6 @@ class Game2 {
         this.currentQuestion++;
         this.updateGameStats();
         
-        // Seleccionar palabra actual
         const currentIndex = Math.floor(Math.random() * this.vocabulary.length);
         this.currentWord = this.vocabulary[currentIndex];
         
@@ -66,44 +63,66 @@ class Game2 {
             return;
         }
         
-        // Obtener opciones incorrectas
         const incorrectOptions = this.getIncorrectOptions(currentIndex);
         
-        // Mezclar opciones
+        // Si no se pudieron encontrar suficientes opciones, intentar con otra palabra
+        if (incorrectOptions.length < (this.settings.get('difficulty') === 1 ? 3 : 5)) {
+            console.warn('No hay suficientes opciones, buscando otra palabra...');
+            this.nextQuestion();
+            return;
+        }
+        
         const allOptions = [this.currentWord, ...incorrectOptions];
         this.shuffleArray(allOptions);
         
-        // Mostrar pregunta y opciones
         this.displayQuestion(this.currentWord);
         this.displayOptions(allOptions, this.currentWord);
-        
-        // Iniciar temporizador
         this.startTimer();
     }
 
     getIncorrectOptions(correctIndex) {
-        const numOptions = this.settings.get('difficulty') === 1 ? 3 : 5;
+        const difficulty = this.settings.get('difficulty');
+        const numOptions = difficulty === 1 ? 3 : 5;
+        const minSameSyllables = difficulty === 1 ? 4 : 6; // Mínimo requerido para usar solo mismo número de sílabas
+        
         const incorrectOptions = [];
         const usedIndices = new Set([correctIndex]);
         
         // Calcular número de sílabas de la palabra correcta
         const correctSyllables = this.countSyllables(this.currentWord.pin);
         
-        // Primero intentar encontrar palabras con el mismo número de sílabas
+        // Contar cuántas palabras tienen el mismo número de sílabas (excluyendo la correcta)
         const sameSyllableWords = [];
         for (let i = 0; i < this.vocabulary.length; i++) {
             if (!usedIndices.has(i) && this.vocabulary[i].pin) {
                 const syllables = this.countSyllables(this.vocabulary[i].pin);
                 if (syllables === correctSyllables) {
                     sameSyllableWords.push(this.vocabulary[i]);
-                    usedIndices.add(i);
                 }
             }
         }
         
-        // Si no hay suficientes palabras con el mismo número de sílabas, usar cualquier palabra
-        let availableWords = [...sameSyllableWords];
-        if (availableWords.length < numOptions) {
+        console.log(`Palabras con ${correctSyllables} sílabas: ${sameSyllableWords.length} (mínimo requerido: ${minSameSyllables})`);
+        
+        // Estrategia según la dificultad y disponibilidad de palabras con mismo número de sílabas
+        if (sameSyllableWords.length >= minSameSyllables) {
+            // Caso ideal: usar solo palabras con el mismo número de sílabas
+            console.log(`Usando estrategia: Solo mismo número de sílabas (${correctSyllables})`);
+            
+            // Mezclar las palabras con mismo número de sílabas
+            this.shuffleArray(sameSyllableWords);
+            
+            // Tomar las primeras numOptions
+            for (let i = 0; i < Math.min(numOptions, sameSyllableWords.length); i++) {
+                incorrectOptions.push(sameSyllableWords[i]);
+                usedIndices.add(this.vocabulary.indexOf(sameSyllableWords[i]));
+            }
+            
+        } else {
+            // Caso fallback: usar cualquier palabra con pinyin disponible
+            console.log(`Usando estrategia: Fallback - cualquier palabra con pinyin`);
+            
+            const availableWords = [];
             for (let i = 0; i < this.vocabulary.length; i++) {
                 if (!usedIndices.has(i) && this.vocabulary[i].pin) {
                     availableWords.push(this.vocabulary[i]);
@@ -111,41 +130,39 @@ class Game2 {
                     if (availableWords.length >= numOptions + 10) break; // Límite razonable
                 }
             }
+            
+            // Mezclar y seleccionar
+            this.shuffleArray(availableWords);
+            for (let i = 0; i < Math.min(numOptions, availableWords.length); i++) {
+                incorrectOptions.push(availableWords[i]);
+            }
         }
         
-        // Seleccionar opciones incorrectas
-        while (incorrectOptions.length < numOptions && availableWords.length > 0) {
-            const randomIndex = Math.floor(Math.random() * availableWords.length);
-            incorrectOptions.push(availableWords[randomIndex]);
-            availableWords.splice(randomIndex, 1);
-        }
-        
+        console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} (requeridas: ${numOptions})`);
         return incorrectOptions;
     }
 
     countSyllables(pinyin) {
         if (!pinyin) return 0;
-        // Contar sílabas basado en espacios y apóstrofes
-        return pinyin.split(/[\s']+/).filter(syllable => syllable.length > 0).length;
+        // Contar sílabas basado en espacios y apóstrofes, ignorando tonos
+        const cleanPinyin = pinyin.replace(/[¹²³⁴]/, ''); // Remover marcas de tono si existen
+        return cleanPinyin.split(/[\s']+/).filter(syllable => syllable.length > 0).length;
     }
 
     displayQuestion(word) {
         const questionElement = document.getElementById('question-text');
         questionElement.innerHTML = '';
         
-        // Aplicar clase de fuente
         const fontClass = this.settings.get('chineseFont') || 'noto-serif';
         
-        // Mostrar caracter chino (grande)
         const chineseElement = document.createElement('div');
         chineseElement.className = `chinese-character ${fontClass}`;
         chineseElement.textContent = word.ch || '';
         questionElement.appendChild(chineseElement);
         
-        // Mostrar instrucción
         const instructionElement = document.createElement('div');
         instructionElement.className = 'instruction-text';
-        //instructionElement.textContent = 'Selecciona el pinyin correcto:';
+        instructionElement.textContent = 'Selecciona el pinyin correcto:';
         instructionElement.style.marginTop = '1rem';
         instructionElement.style.fontSize = '1.2rem';
         instructionElement.style.color = '#795548';
@@ -156,7 +173,6 @@ class Game2 {
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
-        // Ajustar grid según dificultad
         const difficulty = this.settings.get('difficulty');
         if (window.innerHeight > window.innerWidth) {
             optionsContainer.style.gridTemplateColumns = '1fr 1fr';
@@ -168,7 +184,6 @@ class Game2 {
             const button = document.createElement('button');
             button.className = 'option-btn';
             
-            // Mostrar solo el pinyin como opción
             const pinyinElement = document.createElement('div');
             pinyinElement.className = 'pinyin-option';
             pinyinElement.textContent = option.pin || '';
@@ -183,7 +198,6 @@ class Game2 {
     }
 
     checkAnswer(selectedOption, correctWord) {
-        // Limpiar timer
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
@@ -192,7 +206,6 @@ class Game2 {
         const isCorrect = selectedOption === correctWord;
         this.stats.recordAnswer(isCorrect);
         
-        // Mostrar feedback visual
         const options = document.querySelectorAll('.option-btn');
         
         options.forEach(btn => {
@@ -200,7 +213,6 @@ class Game2 {
             const isThisCorrectOption = pinyinText === correctWord.pin;
             const isThisSelectedOption = pinyinText === selectedOption.pin;
             
-            // Aplicar clases según el escenario
             if (isThisCorrectOption) {
                 btn.classList.add('correct');
             } else if (isThisSelectedOption && !isCorrect) {
@@ -209,7 +221,6 @@ class Game2 {
             btn.disabled = true;
         });
         
-        // Mostrar mensaje toast
         if (isCorrect) {
             this.score++;
             this.streak++;
@@ -222,7 +233,6 @@ class Game2 {
         
         this.updateGameStats();
         
-        // Siguiente pregunta después de un breve delay
         setTimeout(() => {
             if (this.lives <= 0) {
                 this.endGame();
@@ -244,7 +254,6 @@ class Game2 {
         }, 50);
         
         this.timer = setTimeout(() => {
-            // Tiempo agotado - mostrar respuesta correcta
             const options = document.querySelectorAll('.option-btn');
             options.forEach(btn => {
                 const pinyinText = btn.querySelector('.pinyin-option').textContent;
@@ -261,7 +270,6 @@ class Game2 {
             this.updateGameStats();
             this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
             
-            // Siguiente pregunta después de mostrar la respuesta correcta
             setTimeout(() => {
                 if (this.lives <= 0) {
                     this.endGame();
@@ -290,7 +298,6 @@ class Game2 {
             
         this.ui.showToast(message, 'info');
         
-        // Volver al menú después de un delay
         setTimeout(() => {
             this.ui.showScreen('menu-screen');
             this.ui.hideGameStats();
@@ -302,9 +309,9 @@ class Game2 {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+        return array;
     }
 
-    // Método para cargar vocabulario (compatible con la interfaz existente)
     async loadVocabularyList(filename) {
         if (!filename) {
             console.error('No se proporcionó nombre de archivo');
@@ -313,7 +320,7 @@ class Game2 {
         
         try {
             console.log('Cargando listado:', filename);
-            const response = await fetch(`https://isaacjarvis.github.io/chineseapps/voclists/${filename}.json`);
+            const response = await fetch(`https://isaacjar.github.io/chineseapps/voclists/${filename}.json`);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -325,12 +332,15 @@ class Game2 {
                 throw new Error('El listado está vacío o no es un array válido');
             }
             
-            // Filtrar palabras que tengan pinyin
             this.vocabulary = data.filter(item => item.pin && item.pin.trim() !== '');
             
             if (this.vocabulary.length === 0) {
                 throw new Error('No hay palabras con pinyin en este listado');
             }
+            
+            // Análisis del listado cargado
+            const syllableAnalysis = this.analyzeSyllables();
+            console.log('Análisis de sílabas en el listado:', syllableAnalysis);
             
             console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con pinyin`);
             return true;
@@ -338,14 +348,15 @@ class Game2 {
         } catch (error) {
             console.error('Error cargando vocabulario:', error);
             
-            // Usar datos de ejemplo si falla la carga
             this.vocabulary = [
                 { ch: "你好", pin: "nǐ hǎo", en: "hello", es: "hola" },
                 { ch: "谢谢", pin: "xièxie", en: "thank you", es: "gracias" },
                 { ch: "小", pin: "xiǎo", en: "small", es: "pequeño" },
                 { ch: "大", pin: "dà", en: "big", es: "grande" },
                 { ch: "中国", pin: "zhōng guó", en: "China", es: "China" },
-                { ch: "美国", pin: "měi guó", en: "USA", es: "EEUU" }
+                { ch: "美国", pin: "měi guó", en: "USA", es: "EEUU" },
+                { ch: "老师", pin: "lǎo shī", en: "teacher", es: "profesor" },
+                { ch: "学生", pin: "xué shēng", en: "student", es: "estudiante" }
             ].filter(item => item.pin);
             
             if (this.ui) {
@@ -354,5 +365,17 @@ class Game2 {
             
             return true;
         }
+    }
+
+    // Método auxiliar para analizar la distribución de sílabas
+    analyzeSyllables() {
+        const analysis = {};
+        this.vocabulary.forEach(word => {
+            if (word.pin) {
+                const syllables = this.countSyllables(word.pin);
+                analysis[syllables] = (analysis[syllables] || 0) + 1;
+            }
+        });
+        return analysis;
     }
 }

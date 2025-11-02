@@ -180,7 +180,7 @@ class Game4 {
     async loadPictureList(filename) {
         try {
             console.log('Cargando listado de imágenes:', filename);
-            const response = await fetch(`${this.picturesBaseUrl}${filename}.json`);
+            const response = await fetch(`${this.picturesBaseUrl}${filename}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);

@@ -1,5 +1,3 @@
-[file name]: game2.js
-[file content begin]
 class Game2 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -358,4 +356,3 @@ class Game2 {
         }
     }
 }
-[file content end]

@@ -1,5 +1,5 @@
 // game4.js
-
+ 
 class Game4 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -15,71 +15,261 @@ class Game4 {
         this.timeLeft = 0;
         this.currentWord = null;
         
-        // Diccionario de imágenes por palabra clave en inglés/español
-        this.imageKeywords = {
-            // Animales
-            'cat': '🐱', 'dog': '🐶', 'panda': '🐼', 'tiger': '🐯', 'lion': '🦁',
-            'bird': '🐦', 'fish': '🐟', 'elephant': '🐘', 'monkey': '🐵', 'horse': '🐴',
-            'cow': '🐮', 'pig': '🐷', 'frog': '🐸', 'bear': '🐻', 'rabbit': '🐰',
-            
-            // Comida
-            'apple': '🍎', 'banana': '🍌', 'orange': '🍊', 'grape': '🍇', 'watermelon': '🍉',
-            'bread': '🍞', 'rice': '🍚', 'noodle': '🍜', 'pizza': '🍕', 'hamburger': '🍔',
-            'egg': '🥚', 'cake': '🍰', 'ice cream': '🍦', 'coffee': '☕', 'tea': '🍵',
-            
-            // Objetos
-            'book': '📚', 'pen': '🖊️', 'pencil': '✏️', 'computer': '💻', 'phone': '📱',
-            'house': '🏠', 'car': '🚗', 'bicycle': '🚲', 'train': '🚆', 'plane': '✈️',
-            'clock': '⏰', 'key': '🔑', 'money': '💰', 'ball': '⚽', 'gift': '🎁',
-            
-            // Naturaleza
-            'tree': '🌳', 'flower': '🌸', 'sun': '☀️', 'moon': '🌙', 'star': '⭐',
-            'water': '💧', 'fire': '🔥', 'mountain': '⛰️', 'sea': '🌊', 'cloud': '☁️',
-            
-            // Personas y acciones
-            'person': '👤', 'family': '👪', 'friend': '👫', 'teacher': '👨‍🏫', 'student': '👩‍🎓',
-            'run': '🏃', 'swim': '🏊', 'eat': '🍽️', 'drink': '🥤', 'sleep': '😴',
-            
-            // Colores
-            'red': '🔴', 'blue': '🔵', 'green': '🟢', 'yellow': '🟡', 'black': '⚫', 'white': '⚪',
-            
-            // Ropa
-            'shirt': '👕', 'pants': '👖', 'shoe': '👟', 'hat': '🧢', 'glasses': '👓',
-            
-            // Emociones
-            'happy': '😊', 'sad': '😢', 'angry': '😠', 'surprised': '😲', 'love': '❤️'
-        };
+        // URL base para las imágenes
+        this.picturesBaseUrl = 'https://isaacjar.github.io/chineseapps/vocpicture/';
+        this.picFolderUrl = this.picturesBaseUrl + 'pic/';
         
-        // Mapeo de palabras chinas comunes a emojis
-        this.chineseToEmoji = {
-            '猫': '🐱', '狗': '🐶', '熊猫': '🐼', '老虎': '🐯', '狮子': '🦁',
-            '鸟': '🐦', '鱼': '🐟', '大象': '🐘', '猴子': '🐵', '马': '🐴',
-            '牛': '🐮', '猪': '🐷', '青蛙': '🐸', '熊': '🐻', '兔子': '🐰',
-            '苹果': '🍎', '香蕉': '🍌', '橙子': '🍊', '葡萄': '🍇', '西瓜': '🍉',
-            '面包': '🍞', '米饭': '🍚', '面条': '🍜', '披萨': '🍕', '汉堡': '🍔',
-            '鸡蛋': '🥚', '蛋糕': '🍰', '冰淇淋': '🍦', '咖啡': '☕', '茶': '🍵',
-            '书': '📚', '笔': '🖊️', '铅笔': '✏️', '电脑': '💻', '手机': '📱',
-            '房子': '🏠', '汽车': '🚗', '自行车': '🚲', '火车': '🚆', '飞机': '✈️',
-            '钟': '⏰', '钥匙': '🔑', '钱': '💰', '球': '⚽', '礼物': '🎁',
-            '树': '🌳', '花': '🌸', '太阳': '☀️', '月亮': '🌙', '星星': '⭐',
-            '水': '💧', '火': '🔥', '山': '⛰️', '海': '🌊', '云': '☁️',
-            '人': '👤', '家庭': '👪', '朋友': '👫', '老师': '👨‍🏫', '学生': '👩‍🎓',
-            '跑': '🏃', '游泳': '🏊', '吃': '🍽️', '喝': '🥤', '睡觉': '😴',
-            '红色': '🔴', '蓝色': '🔵', '绿色': '🟢', '黄色': '🟡', '黑色': '⚫', '白色': '⚪',
-            '衬衫': '👕', '裤子': '👖', '鞋子': '👟', '帽子': '🧢', '眼镜': '👓',
-            '高兴': '😊', '悲伤': '😢', '生气': '😠', '惊讶': '😲', '爱': '❤️',
-            '你好': '👋', '谢谢': '🙏', '是': '✅', '不': '❌', '好': '👍', '坏': '👎'
-        };
+        // Lista de archivos disponibles
+        this.availablePictureLists = [];
+        
+        // Cache para imágenes cargadas
+        this.imageCache = new Map();
+        
+        // Cache para almacenar las opciones actuales
+        this.currentOptions = [];
     }
 
-    startGame() {
-        if (!this.vocabulary.length) {
-            this.ui.showToast('Primero selecciona un listado de vocabulario', 'error');
-            this.ui.showScreen('lists-screen');
-            return;
+    async startGame() {
+        // Primero cargar la lista de archivos disponibles
+        await this.loadPictureLists();
+        
+        // Mostrar popup de selección de listado
+        this.showPictureListsPopup();
+    }
+
+    async loadPictureLists() {
+        try {
+            console.log('Cargando listado de archivos de imágenes...');
+            const response = await fetch(this.picturesBaseUrl + 'index.js');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const scriptContent = await response.text();
+            
+            // Extraer el array del script
+            const match = scriptContent.match(/const vocpiclists\s*=\s*(\[.*?\]);/s);
+            if (match && match[1]) {
+                try {
+                    this.availablePictureLists = eval(`(${match[1]})`);
+                    console.log('Listados de imágenes cargados:', this.availablePictureLists);
+                } catch (e) {
+                    console.error('Error parseando listados de imágenes:', e);
+                    this.useFallbackPictureLists();
+                }
+            } else {
+                console.warn('No se pudo encontrar el array vocpiclists, usando listados de ejemplo');
+                this.useFallbackPictureLists();
+            }
+        } catch (error) {
+            console.error('Error cargando listados de imágenes:', error);
+            this.useFallbackPictureLists();
+        }
+    }
+
+    useFallbackPictureLists() {
+        this.availablePictureLists = [
+            { filename: "animals", title: "Animales", level: "A1", misc: "Basic" },
+            { filename: "food", title: "Comida", level: "A1", misc: "Basic" },
+            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" },
+            { filename: "nature", title: "Naturaleza", level: "A1", misc: "Basic" }
+        ];
+    }
+
+    showPictureListsPopup() {
+        // Crear popup similar al de listados de vocabulario
+        const popup = document.createElement('div');
+        popup.className = 'popup-overlay';
+        popup.style.position = 'fixed';
+        popup.style.top = '0';
+        popup.style.left = '0';
+        popup.style.width = '100%';
+        popup.style.height = '100%';
+        popup.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        popup.style.display = 'flex';
+        popup.style.justifyContent = 'center';
+        popup.style.alignItems = 'center';
+        popup.style.zIndex = '1000';
+
+        const content = document.createElement('div');
+        content.className = 'popup-content';
+        content.style.backgroundColor = 'white';
+        content.style.padding = '2rem';
+        content.style.borderRadius = '12px';
+        content.style.maxWidth = '90%';
+        content.style.maxHeight = '80%';
+        content.style.overflowY = 'auto';
+        content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+
+        const title = document.createElement('h2');
+        title.textContent = 'Selecciona un listado de imágenes';
+        title.style.marginBottom = '1.5rem';
+        title.style.textAlign = 'center';
+        title.style.color = '#5d4037';
+
+        const listsContainer = document.createElement('div');
+        listsContainer.className = 'lists-container';
+        listsContainer.style.display = 'flex';
+        listsContainer.style.flexDirection = 'column';
+        listsContainer.style.gap = '0.5rem';
+        listsContainer.style.marginBottom = '1.5rem';
+        listsContainer.style.maxHeight = '400px';
+        listsContainer.style.overflowY = 'auto';
+
+        // Crear botones para cada listado
+        this.availablePictureLists.forEach(list => {
+            const button = document.createElement('button');
+            button.className = 'vocab-list-btn';
+            button.textContent = `${list.title} (${list.level})`;
+            button.style.padding = '1rem';
+            button.style.backgroundColor = 'var(--pastel-orange)';
+            button.style.border = 'none';
+            button.style.borderRadius = '8px';
+            button.style.cursor = 'pointer';
+            button.style.transition = 'var(--transition)';
+            button.style.textAlign = 'left';
+            button.style.fontSize = '1rem';
+            button.style.color = '#5d4037';
+
+            button.addEventListener('mouseenter', () => {
+                button.style.backgroundColor = 'var(--pastel-orange-dark)';
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.backgroundColor = 'var(--pastel-orange)';
+            });
+
+            button.addEventListener('click', async () => {
+                this.ui.showToast(`Cargando "${list.title}"...`, 'info');
+                const success = await this.loadPictureList(list.filename);
+                if (success) {
+                    document.body.removeChild(popup);
+                    this.startGameSession();
+                } else {
+                    this.ui.showToast(`Error cargando el listado "${list.title}"`, 'error');
+                }
+            });
+
+            listsContainer.appendChild(button);
+        });
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Cerrar';
+        closeButton.className = 'btn';
+        closeButton.style.padding = '0.5rem 1rem';
+        closeButton.style.backgroundColor = 'var(--pastel-green)';
+        closeButton.style.border = 'none';
+        closeButton.style.borderRadius = '8px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.margin = '0 auto';
+        closeButton.style.display = 'block';
+
+        closeButton.addEventListener('click', () => {
+            document.body.removeChild(popup);
+            this.ui.showScreen('menu-screen');
+        });
+
+        content.appendChild(title);
+        content.appendChild(listsContainer);
+        content.appendChild(closeButton);
+        popup.appendChild(content);
+        document.body.appendChild(popup);
+    }
+
+    async loadPictureList(filename) {
+        try {
+            console.log('Cargando listado de imágenes:', filename);
+            const response = await fetch(`${this.picturesBaseUrl}${filename}.json`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('El listado está vacío o no es un array válido');
+            }
+            
+            // Filtrar palabras que tengan caracteres chinos
+            this.vocabulary = data.filter(item => item.ch && item.ch.trim() !== '');
+            
+            if (this.vocabulary.length === 0) {
+                throw new Error('No hay palabras con caracteres chinos en este listado');
+            }
+            
+            console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con imágenes`);
+            
+            // Precargar algunas imágenes
+            await this.preloadImages();
+            
+            return true;
+            
+        } catch (error) {
+            console.error('Error cargando listado de imágenes:', error);
+            
+            // Datos de ejemplo
+            this.vocabulary = [
+                { ch: "猫", pin: "māo", en: "cat", es: "gato", pic: "cat.png" },
+                { ch: "狗", pin: "gǒu", en: "dog", es: "perro", pic: "dog.png" },
+                { ch: "苹果", pin: "píngguǒ", en: "apple", es: "manzana", pic: "apple.png" },
+                { ch: "书", pin: "shū", en: "book", es: "libro", pic: "book.png" },
+                { ch: "水", pin: "shuǐ", en: "water", es: "agua", pic: "water.png" }
+            ];
+            
+            this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
+            return true;
+        }
+    }
+
+    async preloadImages() {
+        // Precargar imágenes para las primeras 10 palabras
+        const wordsToPreload = this.vocabulary.slice(0, 10);
+        const preloadPromises = wordsToPreload.map(word => this.getImageUrl(word));
+        
+        await Promise.allSettled(preloadPromises);
+        console.log('Precarga de imágenes completada');
+    }
+
+    async getImageUrl(word) {
+        const cacheKey = word.ch;
+        
+        // Verificar si ya está en cache
+        if (this.imageCache.has(cacheKey)) {
+            return this.imageCache.get(cacheKey);
         }
         
-        this.currentGame = 'game4';
+        let imageUrl;
+        
+        // Si la palabra tiene campo "pic", usar esa imagen
+        if (word.pic) {
+            imageUrl = `${this.picFolderUrl}${word.pic}`;
+        } else {
+            // Si no tiene campo "pic", usar el carácter chino + .png
+            imageUrl = `${this.picFolderUrl}${word.ch}.png`;
+        }
+        
+        console.log(`Intentando cargar imagen: ${imageUrl}`);
+        
+        // Verificar si la imagen existe
+        try {
+            const response = await fetch(imageUrl, { method: 'HEAD' });
+            if (response.ok) {
+                this.imageCache.set(cacheKey, imageUrl);
+                return imageUrl;
+            }
+        } catch (error) {
+            console.warn(`No se pudo cargar imagen ${imageUrl}:`, error);
+        }
+        
+        // Si no existe, usar placeholder
+        const placeholderUrl = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(word.ch.substring(0, 2))}`;
+        this.imageCache.set(cacheKey, placeholderUrl);
+        return placeholderUrl;
+    }
+
+    startGameSession() {
         this.currentQuestion = 0;
         this.score = 0;
         this.lives = this.settings.get('lives');
@@ -90,7 +280,7 @@ class Game4 {
         this.nextQuestion();
     }
 
-    nextQuestion() {
+    async nextQuestion() {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
@@ -132,9 +322,20 @@ class Game4 {
         const allOptions = [this.currentWord, ...incorrectOptions];
         this.shuffleArray(allOptions);
         
+        // Guardar las opciones actuales
+        this.currentOptions = allOptions;
+        
+        // Precargar imágenes para todas las opciones
+        await this.preloadOptionsImages(allOptions);
+        
         this.displayQuestion(this.currentWord);
-        this.displayOptions(allOptions, this.currentWord);
+        await this.displayOptions(allOptions);
         this.startTimer();
+    }
+
+    async preloadOptionsImages(options) {
+        const imagePromises = options.map(option => this.getImageUrl(option));
+        await Promise.allSettled(imagePromises);
     }
 
     getIncorrectOptions(correctIndex) {
@@ -160,41 +361,7 @@ class Game4 {
             incorrectOptions.push(availableWords[i].word);
         }
         
-        console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} de ${numOptions} requeridas`);
-        
         return incorrectOptions;
-    }
-
-    getEmojiForWord(word) {
-        // Primero intentar con el mapeo directo de caracteres chinos
-        if (this.chineseToEmoji[word.ch]) {
-            return this.chineseToEmoji[word.ch];
-        }
-        
-        // Buscar en las traducciones en inglés
-        if (word.en) {
-            const englishWords = word.en.toLowerCase().split(/\s+/);
-            for (const engWord of englishWords) {
-                if (this.imageKeywords[engWord]) {
-                    return this.imageKeywords[engWord];
-                }
-            }
-        }
-        
-        // Buscar en las traducciones en español
-        if (word.es) {
-            const spanishWords = word.es.toLowerCase().split(/\s+/);
-            for (const espWord of spanishWords) {
-                if (this.imageKeywords[espWord]) {
-                    return this.imageKeywords[espWord];
-                }
-            }
-        }
-        
-        // Emoji por defecto basado en el primer carácter
-        const defaultEmojis = ['📝', '🔤', '💬', '🗣️', '📚', '🎯', '🔍', '✨', '🌟', '💫'];
-        const randomIndex = Math.floor(Math.random() * defaultEmojis.length);
-        return defaultEmojis[randomIndex];
     }
 
     displayQuestion(word) {
@@ -231,7 +398,7 @@ class Game4 {
         questionElement.appendChild(instructionElement);
     }
 
-    displayOptions(options, correctWord) {
+    async displayOptions(options) {
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
@@ -242,43 +409,71 @@ class Game4 {
             optionsContainer.style.gridTemplateColumns = difficulty === 1 ? '1fr 1fr' : '1fr 1fr 1fr';
         }
 
-        options.forEach(option => {
+        for (const option of options) {
             const button = document.createElement('button');
             button.className = 'option-btn';
-            button.style.padding = '1rem';
+            button.style.padding = '0.5rem';
             button.style.display = 'flex';
+            button.style.flexDirection = 'column';
             button.style.alignItems = 'center';
             button.style.justifyContent = 'center';
-            button.style.minHeight = '120px';
+            button.style.minHeight = '140px';
+            button.style.gap = '0.5rem';
             
-            const emojiElement = document.createElement('div');
-            emojiElement.className = 'emoji-option';
-            emojiElement.textContent = this.getEmojiForWord(option);
-            emojiElement.style.fontSize = '4rem';
-            emojiElement.style.textAlign = 'center';
+            // Obtener URL de la imagen
+            const imageUrl = await this.getImageUrl(option);
             
-            button.appendChild(emojiElement);
-            button.addEventListener('click', () => this.checkAnswer(option, correctWord));
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.alt = option.ch;
+            imgElement.style.width = '128px';
+            imgElement.style.height = '128px';
+            imgElement.style.objectFit = 'cover';
+            imgElement.style.borderRadius = '8px';
+            imgElement.style.border = '2px solid var(--pastel-brown)';
+            
+            // Añadir loader mientras carga
+            imgElement.style.background = 'var(--pastel-orange)';
+            imgElement.onload = () => {
+                imgElement.style.background = 'none';
+            };
+            
+            imgElement.onerror = () => {
+                // Si falla la imagen, mostrar placeholder
+                imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch.substring(0, 2))}`;
+                imgElement.style.background = 'none';
+            };
+            
+            button.appendChild(imgElement);
+            
+            // Pasar el objeto de opción directamente al event listener
+            button.addEventListener('click', () => {
+                this.checkAnswer(option);
+            });
+            
             optionsContainer.appendChild(button);
-        });
+        }
     }
 
-    checkAnswer(selectedOption, correctWord) {
+    checkAnswer(selectedOption) {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
         }
         
-        const isCorrect = selectedOption === correctWord;
+        const isCorrect = selectedOption === this.currentWord;
+        
         this.stats.recordAnswer(isCorrect);
         
         const options = document.querySelectorAll('.option-btn');
         
-        options.forEach(btn => {
-            const emojiText = btn.querySelector('.emoji-option').textContent;
-            const isThisCorrectOption = emojiText === this.getEmojiForWord(correctWord);
-            const isThisSelectedOption = emojiText === this.getEmojiForWord(selectedOption);
+        options.forEach((btn, index) => {
+            const optionForThisButton = this.currentOptions[index];
             
+            const isThisCorrectOption = optionForThisButton === this.currentWord;
+            const isThisSelectedOption = optionForThisButton === selectedOption;
+            
+            // Aplicar clases según el escenario
             if (isThisCorrectOption) {
                 btn.classList.add('correct');
             } else if (isThisSelectedOption && !isCorrect) {
@@ -321,9 +516,10 @@ class Game4 {
         
         this.timer = setTimeout(() => {
             const options = document.querySelectorAll('.option-btn');
-            options.forEach(btn => {
-                const emojiText = btn.querySelector('.emoji-option').textContent;
-                const isThisCorrectOption = emojiText === this.getEmojiForWord(this.currentWord);
+            
+            options.forEach((btn, index) => {
+                const optionForThisButton = this.currentOptions[index];
+                const isThisCorrectOption = optionForThisButton === this.currentWord;
                 
                 if (isThisCorrectOption) {
                     btn.classList.add('correct-answer');
@@ -376,77 +572,5 @@ class Game4 {
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
-    }
-
-    async loadVocabularyList(filename) {
-        if (!filename) {
-            console.error('No se proporcionó nombre de archivo');
-            return false;
-        }
-        
-        try {
-            console.log('Cargando listado:', filename);
-            const response = await fetch(`https://isaacjar.github.io/chineseapps/voclists/${filename}.json`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (!Array.isArray(data) || data.length === 0) {
-                throw new Error('El listado está vacío o no es un array válido');
-            }
-            
-            this.vocabulary = data.filter(item => item.ch && item.ch.trim() !== '');
-            
-            if (this.vocabulary.length === 0) {
-                throw new Error('No hay palabras con caracteres chinos en este listado');
-            }
-            
-            console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con caracteres chinos`);
-            
-            // Análisis de cobertura de emojis
-            let emojiCoverage = 0;
-            this.vocabulary.forEach(word => {
-                if (this.chineseToEmoji[word.ch] || 
-                    (word.en && this.hasMatchingEmoji(word.en)) ||
-                    (word.es && this.hasMatchingEmoji(word.es))) {
-                    emojiCoverage++;
-                }
-            });
-            
-            console.log(`Cobertura de emojis: ${emojiCoverage}/${this.vocabulary.length} (${Math.round(emojiCoverage/this.vocabulary.length*100)}%)`);
-            
-            return true;
-            
-        } catch (error) {
-            console.error('Error cargando vocabulario:', error);
-            
-            this.vocabulary = [
-                { ch: "猫", pin: "māo", en: "cat", es: "gato" },
-                { ch: "狗", pin: "gǒu", en: "dog", es: "perro" },
-                { ch: "苹果", pin: "píngguǒ", en: "apple", es: "manzana" },
-                { ch: "书", pin: "shū", en: "book", es: "libro" },
-                { ch: "水", pin: "shuǐ", en: "water", es: "agua" },
-                { ch: "火", pin: "huǒ", en: "fire", es: "fuego" },
-                { ch: "树", pin: "shù", en: "tree", es: "árbol" },
-                { ch: "房子", pin: "fángzi", en: "house", es: "casa" },
-                { ch: "汽车", pin: "qìchē", en: "car", es: "coche" },
-                { ch: "电话", pin: "diànhuà", en: "phone", es: "teléfono" }
-            ].filter(item => item.ch);
-            
-            if (this.ui) {
-                this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
-            }
-            
-            return true;
-        }
-    }
-
-    hasMatchingEmoji(text) {
-        if (!text) return false;
-        const words = text.toLowerCase().split(/\s+/);
-        return words.some(word => this.imageKeywords[word]);
     }
 }

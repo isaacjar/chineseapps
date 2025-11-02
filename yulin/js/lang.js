@@ -7,6 +7,7 @@ const LABELS = {
             "words": "Words",
             "game1": "Guess meaning",
             "game2": "Guess Chinese",
+            "game3": "Guess pinyin",
             "stats": "Statistics"
         },
         "lists": {
@@ -73,6 +74,7 @@ const LABELS = {
             "words": "Palabras",
             "game1": "Atrapa el significado",
             "game2": "Caza la palabra china",
+            "game3": "Atrapa el pinyin",
             "stats": "Estadísticas"
         },
         "lists": {

@@ -8,6 +8,7 @@ class UI {
         this.currentList = null;
         this.filteredLists = [];
         this.currentFilter = 'all';
+        this.game2 = new Game2(settings, stats, this);
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {
@@ -26,6 +27,7 @@ class UI {
         const vocabListsBtn = document.getElementById('vocab-lists-btn');
         const game1Btn = document.getElementById('game1-btn');
         const game2Btn = document.getElementById('game2-btn');
+        const game3Btn = document.getElementById('game3-btn'); 
         const wordsBtn = document.getElementById('words-btn');
         const statsBtn = document.getElementById('stats-btn');
         const settingsBtn = document.getElementById('settings-btn');
@@ -33,6 +35,7 @@ class UI {
         if (vocabListsBtn) vocabListsBtn.addEventListener('click', () => this.showScreen('lists-screen'));
         if (game1Btn) game1Btn.addEventListener('click', () => this.game.startGame('game1'));
         if (game2Btn) game2Btn.addEventListener('click', () => this.game.startGame('game2'));
+        if (game3Btn) game3Btn.addEventListener('click', () => this.game2.startGame());
         if (wordsBtn) wordsBtn.addEventListener('click', () => this.showWordsList());
         if (statsBtn) statsBtn.addEventListener('click', () => {
             this.stats.updateUI();
@@ -123,10 +126,14 @@ class UI {
     }
         
     goToHome() {
-        // Detener el juego si está en curso
+        // Detener TODOS los juegos si están en curso
         if (this.game.timer) {
             clearTimeout(this.game.timer);
             this.game.timer = null;
+        }
+        if (this.game2 && this.game2.timer) {
+            clearTimeout(this.game2.timer);
+            this.game2.timer = null;
         }
         
         // Ocultar estadísticas del juego
@@ -240,13 +247,15 @@ class UI {
         const vocabListsText = document.querySelector('#vocab-lists-btn .menu-text');
         const game1Text = document.querySelector('#game1-btn .menu-text');
         const game2Text = document.querySelector('#game2-btn .menu-text');
-        const wordsText = document.querySelector('#words-btn .menu-text'); // Nueva
+        const game3Text = document.querySelector('#game3-btn .menu-text');
+        const wordsText = document.querySelector('#words-btn .menu-text');  
         const statsText = document.querySelector('#stats-btn .menu-text');
         
         if (vocabListsText) vocabListsText.textContent = currentLabels.menu.vocabLists;
         if (game1Text) game1Text.textContent = currentLabels.menu.game1;
         if (game2Text) game2Text.textContent = currentLabels.menu.game2;
-        if (wordsText) wordsText.textContent = currentLabels.menu.words; // Nueva
+        if (game3Text) game3Text.textContent = currentLabels.menu.game3;
+        if (wordsText) wordsText.textContent = currentLabels.menu.words;  
         if (statsText) statsText.textContent = currentLabels.menu.stats;
         
         // Actualizar pantalla de palabras (nueva)
@@ -456,11 +465,15 @@ class UI {
         console.log('Seleccionando listado:', list.filename);
         this.showToast(`Cargando "${list.title}"...`, 'info');
         
-        const success = await this.game.loadVocabularyList(list.filename);
-        if (success) {
-            // Guardar el listado actual para referencia futura
+        // Cargar el listado tanto en Game como en Game2
+        const successGame1 = await this.game.loadVocabularyList(list.filename);
+        const successGame2 = await this.game2.loadVocabularyList(list.filename);
+        
+        if (successGame1 && successGame2) {
             this.currentList = list;
-            this.showToast(`Listado "${list.title}" cargado (${this.game.vocabulary.length} palabras)`, 'success');
+            const totalWords = this.game.vocabulary.length;
+            const wordsWithPinyin = this.game2.vocabulary.length;
+            this.showToast(`Listado "${list.title}" cargado (${totalWords} palabras, ${wordsWithPinyin} con pinyin)`, 'success');
             this.showScreen('menu-screen');
         } else {
             this.showToast(`Error cargando el listado "${list.title}"`, 'error');

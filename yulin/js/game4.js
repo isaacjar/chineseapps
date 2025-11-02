@@ -430,7 +430,7 @@ class Game4 {
             imgElement.style.height = '128px';
             imgElement.style.objectFit = 'cover';
             imgElement.style.borderRadius = '8px';
-            imgElement.style.border = '2px solid var(--pastel-brown)';
+            imgElement.style.border = 'none'; 
             
             // Añadir loader mientras carga
             imgElement.style.background = 'var(--pastel-orange)';

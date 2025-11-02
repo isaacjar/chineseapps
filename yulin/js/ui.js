@@ -477,7 +477,11 @@ class UI {
         // Cargar el listado tanto en Game como en Game2
         const successGame1 = await this.game.loadVocabularyList(list.filename);
         const successGame2 = await this.game2.loadVocabularyList(list.filename);
-        const successGame4 = await this.game4.loadVocabularyList(list.filename);
+        if (this.game4) {
+            // Game4 se carga mediante su propio sistema de popups
+            // Solo guardamos el listado actual para referencia
+            this.currentList = list;
+        }
         
         if (successGame1 && successGame2) {
             this.currentList = list;

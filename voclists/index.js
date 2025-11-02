@@ -59,6 +59,6 @@ const voclists = [
   { filename: "numbers10", title: "Numbers (1-10)", level: "H1", misc: "topics" },
   { filename: "numbers99", title: "Numbers (1-99)", level: "H1", misc: "topics" },
   { filename: "viajes", title: "Travelling in Chinese", level: "H2", misc: "topics" },
-  { filename: "house", title: "The house", level: "Topic", misc: "topics" },
+  { filename: "house", title: "The house", level: "H3", misc: "topics" },
   // más listados...
 ];

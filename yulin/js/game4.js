@@ -103,7 +103,7 @@ class Game4 {
         content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
 
         const title = document.createElement('h2');
-        title.textContent = 'Selecciona un listado de imágenes';
+        title.textContent = 'Vocabulary Lists';
         title.style.marginBottom = '1.5rem';
         title.style.textAlign = 'center';
         title.style.color = '#5d4037';

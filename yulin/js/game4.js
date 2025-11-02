@@ -389,13 +389,6 @@ class Game4 {
             questionElement.appendChild(pinyinElement);
         }
         
-        const instructionElement = document.createElement('div');
-        instructionElement.className = 'instruction-text';
-        instructionElement.textContent = 'Selecciona la imagen correcta:';
-        instructionElement.style.marginTop = '1rem';
-        instructionElement.style.fontSize = '1.2rem';
-        instructionElement.style.color = '#795548';
-        questionElement.appendChild(instructionElement);
     }
 
     async displayOptions(options) {

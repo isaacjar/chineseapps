@@ -1,12 +1,12 @@
 [
-  { "ch": "一", "pin": "yī", "en": "one" },
-  { "ch": "二", "pin": "èr", "en": "two" },
-  { "ch": "三", "pin": "sān", "en": "three" },
-  { "ch": "四", "pin": "sì", "en": "four" },
-  { "ch": "五", "pin": "wǔ", "en": "five" },
-  { "ch": "六", "pin": "liù", "en": "six" },
-  { "ch": "七", "pin": "qī", "en": "seven" },
-  { "ch": "八", "pin": "bā", "en": "eight" },
-  { "ch": "九", "pin": "jiǔ", "en": "nine" },
-  { "ch": "十", "pin": "shí", "en": "ten" }
+  { "ch": "一", "pin": "yī", "en": "one", "es": "uno" },
+  { "ch": "二", "pin": "èr", "en": "two", "es": "dos" },
+  { "ch": "三", "pin": "sān", "en": "three", "es": "tres" },
+  { "ch": "四", "pin": "sì", "en": "four", "es": "cuatro" },
+  { "ch": "五", "pin": "wǔ", "en": "five", "es": "cinco" },
+  { "ch": "六", "pin": "liù", "en": "six", "es": "seis" },
+  { "ch": "七", "pin": "qī", "en": "seven", "es": "siete" },
+  { "ch": "八", "pin": "bā", "en": "eight", "es": "ocho" },
+  { "ch": "九", "pin": "jiǔ", "en": "nine", "es": "nueve" },
+  { "ch": "十", "pin": "shí", "en": "ten", "es": "diez" }
 ]

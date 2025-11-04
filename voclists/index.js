@@ -56,6 +56,7 @@ const voclists = [
   { filename: "H3L15", title: "HSK 3 Lesson 15", level: "H3", misc: "MIT" },  
   { filename: "H3L14a15", title: "HSK 3 Lessons 14, 15", level: "H3", misc: "MIT" },  
   { filename: "hsk3", title: "HSK 3 Vocabulary (full)", level: "H3", misc: "hsk" },
+  { filename: "days_week", title: "Days of the week", level: "H1", misc: "topics" },
   { filename: "numbers10", title: "Numbers (1-10)", level: "H1", misc: "topics" },
   { filename: "numbers99", title: "Numbers (1-99)", level: "H1", misc: "topics" },
   { filename: "viajes", title: "Travelling in Chinese", level: "H2", misc: "topics" },

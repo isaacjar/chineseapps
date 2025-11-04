@@ -1,0 +1,10 @@
+[
+  { "ch": "星期一", "pin": "xīngqīyī", "en": "Monday", "es": "lunes" },
+  { "ch": "星期二", "pin": "xīngqī'èr", "en": "Tuesday", "es": "martes" },
+  { "ch": "星期三", "pin": "xīngqīsān", "en": "Wednesday", "es": "miércoles" },
+  { "ch": "星期四", "pin": "xīngqīsì", "en": "Thursday", "es": "jueves" },
+  { "ch": "星期五", "pin": "xīngqīwǔ", "en": "Friday", "es": "viernes" },
+  { "ch": "星期六", "pin": "xīngqīliù", "en": "Saturday", "es": "sábado" },
+  { "ch": "星期天", "pin": "xīngqītiān", "en": "Sunday", "es": "domingo" },
+  { "ch": "星期日", "pin": "xīngqīrì", "en": "Sunday", "es": "domingo" }
+]

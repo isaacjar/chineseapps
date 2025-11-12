@@ -1,0 +1,18 @@
+[
+  { "ch": "西瓜", "pin": "xīguā", "en": "watermelon", "es": "sandía" },
+  { "ch": "鸡蛋", "pin": "jīdàn", "en": "egg", "es": "huevo" },
+  { "ch": "休息", "pin": "xiūxí", "en": "to rest", "es": "descansar" },
+  { "ch": "吃药", "pin": "chīyào", "en": "to take medicine", "es": "tomar medicina" },
+  { "ch": "手机", "pin": "shǒujī", "en": "mobile phone", "es": "teléfono móvil" },
+  { "ch": "准备", "pin": "zhǔnbèi", "en": "to prepare", "es": "preparar" },
+  { "ch": "午饭", "pin": "wǔfàn", "en": "lunch", "es": "almuerzo" },
+  { "ch": "听", "pin": "tīng", "en": "to listen", "es": "escuchar" },
+  { "ch": "写", "pin": "xiě", "en": "to write", "es": "escribir" },
+  { "ch": "开车", "pin": "kāichē", "en": "to drive", "es": "conducir" },
+  { "ch": "帮助", "pin": "bāngzhù", "en": "to help", "es": "ayudar" },
+  { "ch": "课", "pin": "kè", "en": "lesson, class", "es": "lección, clase" },
+  { "ch": "哥哥", "pin": "gēge", "en": "older brother", "es": "hermano mayor" },
+  { "ch": "洗", "pin": "xǐ", "en": "to wash", "es": "lavar" },
+  { "ch": "别", "pin": "bié", "en": "don't, stop doing", "es": "no, dejar de" },
+  { "ch": "正在", "pin": "zhèngzài", "en": "in the process of", "es": "estar en proceso de" }
+]

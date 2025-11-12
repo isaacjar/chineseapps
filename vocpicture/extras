@@ -1,4 +1,14 @@
 [
   { "ch": "帮助", "pin": "bāngzhù" },
-  { "ch": "洗", "pin": "xǐ" }
+  { "ch": "洗", "pin": "xǐ" },
+  { "ch": "熊猫", "pin": "xióngmāo" },
+  { "ch": "猴子", "pin": "hóuzi" },
+  { "ch": "乌龟", "pin": "wūguī" },
+  { "ch": "海顿", "pin": "Hǎidùn" },
+  { "ch": "大象", "pin": "dàxiàng" },
+  { "ch": "老鼠", "pin": "lǎoshǔ" },
+  { "ch": "柠檬", "pin": "níngméng" },
+  { "ch": "鸡", "pin": "jī" },
+  { "ch": "喜欢", "pin": "xǐhuan" },
+  { "ch": "红绿灯", "pin": "hónglǜdēng" }
 ]

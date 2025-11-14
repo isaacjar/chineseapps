@@ -11,5 +11,19 @@
   { "ch": "鸡", "pin": "jī" },
   { "ch": "山羊", "pin": "shānyáng" },
   { "ch": "喜欢", "pin": "xǐhuan" },
-  { "ch": "红绿灯", "pin": "hónglǜdēng" }
+  { "ch": "红绿灯", "pin": "hónglǜdēng" },
+  { "ch": "温度", "pin": "wēndù" },
+  { "ch": "岛", "pin": "dǎo" },
+  { "ch": "云", "pin": "yún" },
+  { "ch": "旧", "pin": "jiù" },
+  { "ch": "雪人", "pin": "xuěrén" },
+  { "ch": "银行", "pin": "yínháng" },
+  { "ch": "伞", "pin": "sǎn" },
+  { "ch": "迟到", "pin": "chídào" },
+  { "ch": "高速公路", "pin": "gāosù gōnglù" },
+  { "ch": "地球", "pin": "dìqiú" },
+  { "ch": "火山", "pin": "huǒshān" },
+  { "ch": "沙漠", "pin": "shāmò" },
+  { "ch": "工厂", "pin": "gōngchǎng" },
+  { "ch": "伞", "pin": "sǎn" }
 ]

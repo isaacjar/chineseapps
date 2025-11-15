@@ -7,7 +7,7 @@ class Settings {
             lives: 3,
             difficulty: 1,
             showPinyin: true,
-            chineseFont: 'noto-serif'
+            chineseFont: 'noto-serif',
             soundEnabled: true
         };
         

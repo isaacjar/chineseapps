@@ -527,8 +527,13 @@ class Game4 {
             this.lives--;
             this.streak = 0;
             this.updateGameStats();
-            this.ui.showToast('⏰ ¡Tiempo agotado!', 'error');
             
+            const lang = this.settings.get('language');
+            const timeUpMessage = this.labels[lang].game.timeUp;
+            this.ui.showToast(timeUpMessage, 'error');
+            
+            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) { this.missedWords.push(this.currentWord); }
+                    
             setTimeout(() => {
                 if (this.lives <= 0) {
                     this.endGame();

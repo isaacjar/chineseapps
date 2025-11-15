@@ -1,5 +1,4 @@
-// game4.js
- 
+// game4.js 
 class Game4 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -14,6 +13,7 @@ class Game4 {
         this.timer = null;
         this.timeLeft = 0;
         this.currentWord = null;
+        this.missedWords = [];
         this.handleKeyPress = this.handleKeyPress.bind(this);
         
         // URL base para las imágenes
@@ -275,7 +275,8 @@ class Game4 {
         this.score = 0;
         this.lives = this.settings.get('lives');
         this.streak = 0;
-        
+        this.missedWords = [];
+     
         this.ui.showScreen('game-screen');
         this.ui.showGameStats();
         this.enableKeyboardControls();
@@ -484,6 +485,7 @@ class Game4 {
         } else {
             this.lives--;
             this.streak = 0;
+            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) { this.missedWords.push(this.currentWord); } // Guarda la palabra fallada
             this.ui.showRandomFailMessage();
         }
         
@@ -550,17 +552,20 @@ class Game4 {
         this.timer = null;
 
         this.disableKeyboardControls();
-        
-        const message = this.score === this.settings.get('questions') 
-            ? '🎉 ¡Perfecto! ¡Has acertado todas!' 
-            : `¡Juego terminado! Puntuación: ${this.score}/${this.settings.get('questions')}`;
-            
-        this.ui.showToast(message, 'info');
-        
-        setTimeout(() => {
-            this.ui.showScreen('menu-screen');
-            this.ui.hideGameStats();
-        }, 3000);
+
+        const missedWords = this.getMissedWords();
+     
+        // Mostrar popup de resultados
+        this.ui.showGameResults(
+            this.score, 
+            this.settings.get('questions'),
+            missedWords,
+            this.currentGame,
+            () => {
+                // Callback para jugar otra vez
+                this.startGameSession();
+            }
+        );
     }
     
     shuffleArray(array) {
@@ -600,5 +605,9 @@ class Game4 {
   // Método para remover event listener del teclado
   disableKeyboardControls() {
       document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  getMissedWords() {
+      return this.missedWords;
   }
 }

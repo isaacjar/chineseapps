@@ -8,6 +8,7 @@ class Settings {
             difficulty: 1,
             showPinyin: true,
             chineseFont: 'noto-serif'
+            soundEnabled: true
         };
         
         this.loadSettings();

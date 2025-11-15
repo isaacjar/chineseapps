@@ -161,7 +161,7 @@ class UI {
         this.showScreen('menu-screen');
         
         // Mostrar feedback visual
-        this.showToast('Volviendo al menú principal', 'info');
+        //this.showToast('Volviendo al menú principal', 'info');
         
         //console.log('Navegación al menú principal');
     }
@@ -482,8 +482,8 @@ class UI {
     }
     
     async selectVocabList(list) {
-        console.log('Seleccionando listado:', list.filename);
-        this.showToast(`Cargando "${list.title}"...`, 'info');
+        //console.log('Seleccionando listado:', list.filename);
+        this.showToast(`Loading "${list.title}"...`, 'info');
         
         // Cargar el listado tanto en Game como en Game2
         const successGame1 = await this.game.loadVocabularyList(list.filename);
@@ -555,7 +555,7 @@ class UI {
         if (fontSelect) this.settings.set('chineseFont', fontSelect.value);
         
         this.updateLabels();
-        this.showToast('Configuración guardada', 'success');
+        //this.showToast('Setting guardada', 'success');
         this.showScreen('menu-screen');
     }
     
@@ -563,7 +563,7 @@ class UI {
         this.settings.reset();
         this.settings.updateUI();
         this.updateLabels();
-        this.showToast('Configuración restablecida', 'info');
+        //this.showToast('Configuración restablecida', 'info');
     }
     
     showToast(message, type = 'info') {

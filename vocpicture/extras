@@ -58,7 +58,7 @@
   { "ch": "厨师", "pin": "chúshī" }, 
   { "ch": "蛇", "pin": "shé" }, 
   { "ch": "弱", "pin": "ruò" },
-  { "ch": "骂", "pin": "mà" }
+  { "ch": "骂", "pin": "mà" },
   { "ch": "闪电", "pin": "shǎndiàn" }, 
   { "ch": "弹簧", "pin": "tánhuáng" }, 
   { "ch": "电", "pin": "diàn" },
@@ -74,6 +74,13 @@
   { "ch": "笔记本", "pin": "bǐjìběn" },
   { "ch": "尺子", "pin": "chǐzi" },
   { "ch": "三角板", "pin": "sānjiǎobǎn" },
-  { "ch": "碗", "pin": "wǎn" }
-
+  { "ch": "碗", "pin": "wǎn" },
+  { "ch": "镜子", "pin": "jìngzi" },  
+  { "ch": "毛巾", "pin": "máojīn" }, 
+  { "ch": "袜子", "pin": "wàzi" },   
+  { "ch": "包", "pin": "bāo" }, 
+  { "ch": "冰箱", "pin": "bīngxiāng" },  
+  { "ch": "微波炉", "pin": "wēibōlú" }, 
+  { "ch": "洗衣机", "pin": "xǐyījī" }, 
+  { "ch": "梯子", "pin": "tīzi" } 
 ]

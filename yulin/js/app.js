@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else {
         // No hay parámetro voclist en la URL, mostrar pantalla de listados inmediatamente
-        console.log('No hay listado especificado en URL, mostrando selector');
+        //console.log('No hay listado especificado en URL, mostrando selector');
         ui.showScreen('lists-screen');
     }
     
@@ -43,5 +43,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     ui.updateLabels();
     stats.updateUI();
     
-    console.log('Yulin app inicializada correctamente');
+    //console.log('Yulin app inicializada correctamente');
 });

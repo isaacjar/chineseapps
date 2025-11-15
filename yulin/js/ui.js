@@ -1,3 +1,32 @@
+// ui.js
+// Clase para manejar sonidos
+class SoundManager {
+    constructor() {
+        this.sounds = {};
+        this.enabled = true;
+    }
+
+    loadSound(name, url) {
+        this.sounds[name] = new Audio(url);
+        this.sounds[name].load();
+    }
+
+    play(name) {
+        if (this.enabled && this.sounds[name]) {
+            // Reiniciar si ya se está reproduciendo
+            this.sounds[name].currentTime = 0;
+            this.sounds[name].play().catch(e => {
+                console.log('Error reproduciendo sonido:', e);
+            });
+        }
+    }
+
+    toggle() {
+        this.enabled = !this.enabled;
+        return this.enabled;
+    }
+}
+
 class UI {
     constructor(settings, game, stats) {
         this.settings = settings;
@@ -10,10 +39,13 @@ class UI {
         this.currentFilter = 'all';
         this.game2 = new Game2(settings, stats, this);
         this.game4 = new Game4(settings, stats, this);
+
+        this.soundManager = new SoundManager();
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {
             this.updateLabels();
+            this.loadSounds();
         });
     }
     
@@ -115,6 +147,17 @@ class UI {
         if (pinyinSwitch) {
             pinyinSwitch.addEventListener('change', (e) => {
                 this.settings.set('showPinyin', e.target.checked);
+            });
+        }
+
+        const soundSwitch = document.getElementById('sound-switch');
+        if (soundSwitch) {
+            soundSwitch.checked = this.settings.get('soundEnabled');
+            soundSwitch.addEventListener('change', (e) => {
+                this.settings.set('soundEnabled', e.target.checked);
+                if (this.soundManager) {
+                    this.soundManager.enabled = e.target.checked;
+                }
             });
         }
       
@@ -553,6 +596,10 @@ class UI {
         if (livesSlider) this.settings.set('lives', parseInt(livesSlider.value));
         if (difficultySlider) this.settings.set('difficulty', parseInt(difficultySlider.value));
         if (fontSelect) this.settings.set('chineseFont', fontSelect.value);
+
+        if (this.soundManager) {
+            this.soundManager.enabled = this.settings.get('soundEnabled');
+        }
         
         this.updateLabels();
         //this.showToast('Setting guardada', 'success');
@@ -591,6 +638,7 @@ class UI {
         if (Math.random() > 0.3) {
             return; // No mostrar nada el 70% de las veces
         }
+        this.soundManager.play('correct');
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].successMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -601,6 +649,7 @@ class UI {
          if (Math.random() > 0.3) {
             return; // No mostrar nada el 70% de las veces
         }
+        this.soundManager.play('wrong');
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].failMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -699,5 +748,26 @@ class UI {
         });
         
         document.body.appendChild(popup);
+    }
+
+    showTimeUpMessage() {
+        const lang = this.settings.get('language');
+        const timeUpMessage = this.labels[lang].game.timeUp;
+        this.showToast(timeUpMessage, 'error');
+        
+        // También reproducir sonido de error
+        if (this.soundManager) {
+            this.soundManager.play('wrong');
+        }
+    }
+
+    loadSounds() {
+        // URLs base - ajusta según tu estructura de carpetas
+        const baseUrl = 'https://isaacjar.github.io/chineseapps/sounds/';
+        
+        this.soundManager.loadSound('correct', baseUrl + 'correct.mp3');
+        this.soundManager.loadSound('wrong', baseUrl + 'wrong.mp3');
+        
+        console.log('Sounds loaded');
     }
 }

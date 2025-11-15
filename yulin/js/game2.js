@@ -372,11 +372,11 @@ class Game2 {
             }
             
             // Análisis detallado del listado
-            console.log('=== ANÁLISIS DEL LISTADO CARGADO ===');
-            console.log(`Total de palabras con pinyin: ${this.vocabulary.length}`);
+            //console.log('=== ANÁLISIS DEL LISTADO CARGADO ===');
+            //console.log(`Total de palabras con pinyin: ${this.vocabulary.length}`);
             
             const characterAnalysis = this.analyzeCharacters();
-            console.log('Distribución por número de caracteres:', characterAnalysis);
+            //console.log('Distribución por número de caracteres:', characterAnalysis);
             
             // Mostrar ejemplos de cada grupo de caracteres
             Object.keys(characterAnalysis).forEach(characterCount => {
@@ -384,12 +384,12 @@ class Game2 {
                     .filter(word => this.countCharacters(word.ch) === parseInt(characterCount))
                     .slice(0, 3)
                     .map(word => `${word.ch} (${word.pin})`);
-                console.log(`  ${characterCount} caracteres: ${characterAnalysis[characterCount]} palabras. Ejemplos: ${examples.join(', ')}`);
+                //console.log(`  ${characterCount} caracteres: ${characterAnalysis[characterCount]} palabras. Ejemplos: ${examples.join(', ')}`);
             });
             
-            console.log('=== FIN DEL ANÁLISIS ===');
+            //console.log('=== FIN DEL ANÁLISIS ===');
             
-            console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con pinyin`);
+            //console.log(`Listado "${filename}" cargado: ${this.vocabulary.length} palabras con pinyin`);
             return true;
             
         } catch (error) {

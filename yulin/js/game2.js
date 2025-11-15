@@ -13,6 +13,7 @@ class Game2 {
         this.timer = null;
         this.timeLeft = 0;
         this.currentWord = null;
+        this.missedWords = [];
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
@@ -28,6 +29,7 @@ class Game2 {
         this.score = 0;
         this.lives = this.settings.get('lives');
         this.streak = 0;
+        this.missedWords = [];
         
         this.ui.showScreen('game-screen');
         this.ui.showGameStats();
@@ -254,6 +256,7 @@ class Game2 {
         } else {
             this.lives--;
             this.streak = 0;
+            if (!this.missedWords.some(word => word.ch === correctWord.ch)) { this.missedWords.push(correctWord); }  // Guarda la palabra fallada
             this.ui.showRandomFailMessage();
         }
         
@@ -318,17 +321,20 @@ class Game2 {
         clearTimeout(this.timer);
         this.timer = null;
         this.disableKeyboardControls();
+
+        const missedWords = this.getMissedWords();
         
-        const message = this.score === this.settings.get('questions') 
-            ? '🎉 ¡Perfecto! ¡Has acertado todas!' 
-            : `¡Juego terminado! Puntuación: ${this.score}/${this.settings.get('questions')}`;
-            
-        this.ui.showToast(message, 'info');
-        
-        setTimeout(() => {
-            this.ui.showScreen('menu-screen');
-            this.ui.hideGameStats();
-        }, 3000);
+        // Mostrar popup de resultados
+        this.ui.showGameResults(
+            this.score, 
+            this.settings.get('questions'),
+            missedWords,
+            this.currentGame,
+            () => {
+                // Callback para jugar otra vez
+                this.startGame();
+            }
+        );
     }
     
     shuffleArray(array) {
@@ -448,5 +454,9 @@ class Game2 {
     // Método para remover event listener del teclado
     disableKeyboardControls() {
         document.removeEventListener('keydown', this.handleKeyPress);
+    }
+    
+    getMissedWords() {
+        return this.missedWords;
     }
 }

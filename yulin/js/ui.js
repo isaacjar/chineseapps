@@ -647,6 +647,8 @@ class UI {
         }
         
         // Crear contenido
+        /* <span class="word-chinese">${word.ch || ''}</span>
+           <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>*/
         popup.innerHTML = `
             <div class="results-content">
                 <h2 class="results-title">${labels.title}</h2>
@@ -662,6 +664,7 @@ class UI {
                             ${missedWords.map(word => `
                                 <div class="missed-word">
                                     <span class="word-chinese">${word.ch || ''}</span>
+                                    ${word.pin ? `<span class="word-pinyin">[${word.pin}]</span>` : ''}
                                     <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>
                                 </div>
                             `).join('')}

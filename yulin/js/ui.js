@@ -624,5 +624,77 @@ class UI {
             fontPreview.classList.add(font);
         }
     }
-    
+
+    // POPUP FINAL
+    showGameResults(score, totalQuestions, missedWords, gameType, playAgainCallback) {
+        const lang = this.settings.get('language');
+        const labels = this.labels[lang].gameResults;
+        
+        // Crear popup
+        const popup = document.createElement('div');
+        popup.className = 'results-popup';
+        
+        // Determinar mensaje según puntuación
+        let message;
+        if (score === totalQuestions) {
+            message = labels.perfectGame;
+        } else if (score >= totalQuestions * 0.8) {
+            message = labels.excellent;
+        } else if (score >= totalQuestions * 0.6) {
+            message = labels.goodJob;
+        } else {
+            message = labels.keepPracticing;
+        }
+        
+        // Crear contenido
+        popup.innerHTML = `
+            <div class="results-content">
+                <h2 class="results-title">${labels.title}</h2>
+                <div class="results-message">${message}</div>
+                
+                <div class="results-stats">
+                    <div class="results-score">
+                        ${labels.score}: <strong>${score}/${totalQuestions}</strong>
+                    </div>
+                    ${missedWords.length > 0 ? `
+                        <div class="results-missed">
+                            <strong>${labels.missedWords}:</strong>
+                            ${missedWords.map(word => `
+                                <div class="missed-word">
+                                    <span class="word-chinese">${word.ch || ''}</span>
+                                    <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="results-buttons">
+                    <button class="results-btn play-again">${labels.playAgain}</button>
+                    <button class="results-btn back-menu">${labels.backToMenu}</button>
+                </div>
+            </div>
+        `;
+        
+        // Event listeners
+        popup.querySelector('.play-again').addEventListener('click', () => {
+            document.body.removeChild(popup);
+            playAgainCallback();
+        });
+        
+        popup.querySelector('.back-menu').addEventListener('click', () => {
+            document.body.removeChild(popup);
+            this.goToHome();
+        });
+        
+        // Cerrar al hacer click fuera
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                document.body.removeChild(popup);
+                this.goToHome();
+            }
+        });
+        
+        document.body.appendChild(popup);
+    }
 }

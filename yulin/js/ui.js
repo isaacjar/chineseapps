@@ -142,7 +142,18 @@ class UI {
             clearTimeout(this.game4.timer);
             this.game4.timer = null;
         }
-        
+
+        // Deshabilitar controles de teclado de todos los juegos
+        if (this.game.disableKeyboardControls) {
+            this.game.disableKeyboardControls();
+        }
+        if (this.game2 && this.game2.disableKeyboardControls) {
+            this.game2.disableKeyboardControls();
+        }
+        if (this.game4 && this.game4.disableKeyboardControls) {
+            this.game4.disableKeyboardControls();
+        }
+            
         // Ocultar estadísticas del juego
         this.hideGameStats();
         
@@ -152,7 +163,7 @@ class UI {
         // Mostrar feedback visual
         this.showToast('Volviendo al menú principal', 'info');
         
-        console.log('Navegación al menú principal');
+        //console.log('Navegación al menú principal');
     }
     
     showWordsList() {

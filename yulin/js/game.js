@@ -12,6 +12,7 @@ class Game {
         this.timer = null;
         this.timeLeft = 0;
         this.currentWord = null;
+        this.missedWords = [];
 
         // Bind para manejar eventos de teclado
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -87,6 +88,8 @@ class Game {
         this.score = 0;
         this.lives = this.settings.get('lives');
         this.streak = 0;
+
+        this.missedWords = [];
         
         this.ui.showScreen('game-screen');
         this.ui.showGameStats();
@@ -319,6 +322,7 @@ class Game {
         } else {
             this.lives--;
             this.streak = 0;
+            if (!this.missedWords.some(word => word.ch === correctWord.ch)) { this.missedWords.push(correctWord); } // Logica guardar palabras falladas
             this.ui.showRandomFailMessage();
         }
         
@@ -409,17 +413,20 @@ class Game {
         // Deshabilitar controles de teclado
         this.disableKeyboardControls();
         
-        const message = this.score === this.settings.get('questions') 
-            ? '🎉 ¡Perfecto! ¡Has acertado todas!' 
-            : `¡Juego terminado! Puntuación: ${this.score}/${this.settings.get('questions')}`;
-            
-        this.ui.showToast(message, 'info');
+        // Obtener palabras falladas 
+        const missedWords = this.getMissedWords();
         
-        // Volver al menú después de un delay
-        setTimeout(() => {
-            this.ui.showScreen('menu-screen');
-            this.ui.hideGameStats();
-        }, 3000);
+        // Mostrar popup de resultados en lugar del toast
+        this.ui.showGameResults(
+            this.score, 
+            this.settings.get('questions'),
+            missedWords,
+            this.currentGame,
+            () => {
+                // Callback para jugar otra vez
+                this.startGame(this.currentGame);
+            }
+        );
     }
     
     shuffleArray(array) {
@@ -458,5 +465,10 @@ class Game {
     // Método para remover event listener del teclado
     disableKeyboardControls() {
         document.removeEventListener('keydown', this.handleKeyPress);
+    }
+    
+    // Método get Palabras Falladas
+    getMissedWords() {
+        return this.missedWords;
     }
 }

@@ -528,9 +528,7 @@ class Game4 {
             this.streak = 0;
             this.updateGameStats();
             
-            const lang = this.settings.get('language');
-            const timeUpMessage = this.labels[lang].game.timeUp;
-            this.ui.showToast(timeUpMessage, 'error');
+            this.ui.showTimeUpMessage();
             
             if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) { this.missedWords.push(this.currentWord); }
                     

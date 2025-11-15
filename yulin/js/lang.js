@@ -66,6 +66,18 @@ const LABELS = {
         "words": {
             "title": "Word List",
             "close": "Close"
+        },
+        "gameResults": {
+            "title": "Game Results",
+            "score": "Final Score",
+            "correctAnswers": "Correct Answers",
+            "missedWords": "Missed Words",
+            "perfectGame": "🎉 Perfect Game! 🎉",
+            "excellent": "🌟 Excellent! 🌟",
+            "goodJob": "😊 Good Job!",
+            "keepPracticing": "💪 Keep Practicing!",
+            "playAgain": "🔄 Play Again",
+            "backToMenu": "🏠 Back to Menu"
         }
     },
     "es": {
@@ -134,6 +146,18 @@ const LABELS = {
         "words": {
             "title": "Lista de Palabras",
             "close": "Cerrar"
+        }, 
+        "gameResults": {
+            "title": "Resultados del Juego",
+            "score": "Puntuación Final",
+            "correctAnswers": "Aciertos",
+            "missedWords": "Palabras Falladas",
+            "perfectGame": "🎉 ¡Juego Perfecto! 🎉",
+            "excellent": "🌟 ¡Excelente! 🌟",
+            "goodJob": "😊 ¡Bien Hecho!",
+            "keepPracticing": "💪 ¡Sigue Practicando!",
+            "playAgain": "🔄 Jugar Otra Vez",
+            "backToMenu": "🏠 Volver al Menú"
         }
     }
 };

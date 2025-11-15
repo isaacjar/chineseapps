@@ -27,5 +27,27 @@
   { "ch": "工厂", "pin": "gōngchǎng" },
   { "ch": "伞", "pin": "sǎn" },
   { "ch": "信", "pin": "xìn" },
-  { "ch": "加油站", "pin": "jiāyóuzhàn" }
+  { "ch": "加油站", "pin": "jiāyóuzhàn" },
+  { "ch": "风景", "pin": "fēngjǐng" },
+  { "ch": "音乐", "pin": "yīnyuè" },
+  { "ch": "省钱", "pin": "shěng qián" },
+  { "ch": "赢", "pin": "yíng" },
+  { "ch": "登机牌", "pin": "dēngjīpái" },
+  { "ch": "翻译", "pin": "fānyì" },
+  { "ch": "城市", "pin": "chéngshì" },
+  { "ch": "化妆", "pin": "huàzhuāng" },
+  { "ch": "拖拉机", "pin": "tuōlājī" }, 
+  { "ch": "电动车", "pin": "diàndòngchē" },
+  { "ch": "直升机", "pin": "zhíshēngjī" },
+  { "ch": "风", "pin": "fēng" },
+  { "ch": "龙卷风", "pin": "lóngjuǎnfēng" },
+  { "ch": "着陆", "pin": "zhuólù" }, 
+  { "ch": "海浪", "pin": "hǎilàng" }, 
+  { "ch": "楼", "pin": "lóu" },
+  { "ch": "卡车", "pin": "kǎchē" },
+  { "ch": "海滩", "pin": "hǎitān" }, 
+  { "ch": "有雾", "pin": "yǒuwù" }, 
+  { "ch": "蛋糕", "pin": "dàngāo" },
+  { "ch": "做饭", "pin": "zuò fàn" }
+
 ]

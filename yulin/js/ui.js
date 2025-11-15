@@ -763,7 +763,7 @@ class UI {
 
     loadSounds() {
         // URLs base - ajusta según tu estructura de carpetas
-        const baseUrl = 'https://isaacjar.github.io/chineseapps/sound/';
+        const baseUrl = 'https://isaacjar.github.io/chineseapps/yulin/sound/';
         
         this.soundManager.loadSound('correct', baseUrl + 'correct.mp3');
         this.soundManager.loadSound('wrong', baseUrl + 'wrong.mp3');

@@ -37,7 +37,8 @@ const LABELS = {
         "game": {
             "gameOver": "Game Over",
             "continue": "Continue",
-            "exit": "Exit"
+            "exit": "Exit",
+            "timeUp": "⏰ Time's up!"
         },
         "successMessages": {
             "s1": "🐼 Great!",
@@ -117,7 +118,8 @@ const LABELS = {
         "game": {
             "gameOver": "Game Over",
             "continue": "Continuar",
-            "exit": "Salir"
+            "exit": "Salir", 
+            "timeUp": "⏰ ¡Tiempo agotado!"
         },
         "successMessages": {
             "s1": "🐼 ¡Genial!",

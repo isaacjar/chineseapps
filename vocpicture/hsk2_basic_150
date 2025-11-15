@@ -20,6 +20,7 @@
   { "ch": "电视", "pin": "diànshì" },
   { "ch": "电影", "pin": "diànyǐng" },
   { "ch": "读", "pin": "dú" },
+  { "ch": "二", "pin": "èr" },
   { "ch": "饭店", "pin": "fàndiàn" },
   { "ch": "房间", "pin": "fángjiān" },
   { "ch": "房子", "pin": "fángzi" },

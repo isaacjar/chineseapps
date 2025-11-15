@@ -588,6 +588,9 @@ class UI {
     }
     
     showRandomSuccessMessage() {
+        if (Math.random() > 0.3) {
+            return; // No mostrar nada el 70% de las veces
+        }
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].successMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -595,6 +598,9 @@ class UI {
     }
     
     showRandomFailMessage() {
+         if (Math.random() > 0.3) {
+            return; // No mostrar nada el 70% de las veces
+        }
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].failMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];

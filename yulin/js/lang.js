@@ -48,7 +48,7 @@ const LABELS = {
             "s6": "🐸 Perfect!",
             "s7": "🚀 You crushed it!",
             "s8": "🍀 Awesome!",
-            "s9": "🦄 Fantastic!",
+            "s9": "🏎️ Fantastic!",
             "s10": "🔥 Unstoppable!"
         },
         "failMessages": {
@@ -116,7 +116,7 @@ const LABELS = {
             "s6": "🐸 ¡Perfecto!",
             "s7": "🚀 ¡Lo claveste!",
             "s8": "🍀 ¡De lujo!",
-            "s9": "🦄 ¡Fantástico!",
+            "s9": "🏎️ ¡Fantástico!",
             "s10": "🔥 ¡Imparable!"
         },
         "failMessages": {

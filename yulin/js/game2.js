@@ -95,7 +95,7 @@ class Game2 {
         
         // Calcular número de caracteres de la palabra correcta
         const correctCharacters = this.countCharacters(this.currentWord.ch);
-        console.log(`Palabra correcta: "${this.currentWord.ch}" - Caracteres: ${correctCharacters} - Pinyin: "${this.currentWord.pin}"`);
+        //console.log(`Palabra correcta: "${this.currentWord.ch}" - Caracteres: ${correctCharacters} - Pinyin: "${this.currentWord.pin}"`);
         
         // Buscar todas las palabras con el mismo número de caracteres (excluyendo la correcta)
         const sameCharacterWords = [];
@@ -111,13 +111,13 @@ class Game2 {
             }
         }
         
-        console.log(`Encontradas ${sameCharacterWords.length} palabras con ${correctCharacters} caracteres (mínimo requerido: ${minSameCharacters})`);
+        //console.log(`Encontradas ${sameCharacterWords.length} palabras con ${correctCharacters} caracteres (mínimo requerido: ${minSameCharacters})`);
         
         // DEBUG: Mostrar algunas palabras encontradas
-        if (sameCharacterWords.length > 0) {
+        /*if (sameCharacterWords.length > 0) {
             console.log('Ejemplos de palabras con mismo número de caracteres:', 
                 sameCharacterWords.slice(0, 3).map(item => `${item.word.ch} (${item.word.pin})`));
-        }
+        }*/
         
         let strategy = '';
         
@@ -125,7 +125,7 @@ class Game2 {
         if (sameCharacterWords.length >= minSameCharacters) {
             // Caso ideal: usar solo palabras con el mismo número de caracteres
             strategy = `Solo mismo número de caracteres (${correctCharacters})`;
-            console.log(`✓ Aplicando estrategia: ${strategy}`);
+            //console.log(`✓ Aplicando estrategia: ${strategy}`);
             
             // Mezclar y seleccionar
             this.shuffleArray(sameCharacterWords);
@@ -137,7 +137,7 @@ class Game2 {
         } else {
             // Caso fallback: usar cualquier palabra con pinyin disponible
             strategy = `Fallback - cualquier palabra con pinyin (solo ${sameCharacterWords.length} con ${correctCharacters} caracteres)`;
-            console.log(`↳ Aplicando estrategia: ${strategy}`);
+            //console.log(`↳ Aplicando estrategia: ${strategy}`);
             
             const availableWords = [];
             for (let i = 0; i < this.vocabulary.length; i++) {
@@ -157,8 +157,8 @@ class Game2 {
             }
         }
         
-        console.log(`Estrategia: ${strategy}`);
-        console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} de ${numOptions} requeridas`);
+        //console.log(`Estrategia: ${strategy}`);
+        //console.log(`Opciones incorrectas generadas: ${incorrectOptions.length} de ${numOptions} requeridas`);
         
         return incorrectOptions;
     }
@@ -172,7 +172,7 @@ class Game2 {
         // Contar caracteres chinos (cualquier carácter que no sea espacio)
         const characters = chineseText.replace(/\s/g, '').length;
         
-        console.log(`Caracteres chinos: "${chineseText}" -> Total: ${characters}`);
+        //console.log(`Caracteres chinos: "${chineseText}" -> Total: ${characters}`);
         
         return characters;
     }

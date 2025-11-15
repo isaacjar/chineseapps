@@ -48,6 +48,32 @@
   { "ch": "海滩", "pin": "hǎitān" }, 
   { "ch": "有雾", "pin": "yǒuwù" }, 
   { "ch": "蛋糕", "pin": "dàngāo" },
-  { "ch": "做饭", "pin": "zuò fàn" }
+  { "ch": "做饭", "pin": "zuò fàn" },
+  { "ch": "锚", "pin": "máo" }, 
+  { "ch": "蜗牛", "pin": "wōniú" },
+  { "ch": "书法", "pin": "shūfǎ" }, 
+  { "ch": "卫生纸", "pin": "wèishēngzhǐ" }, 
+  { "ch": "马桶", "pin": "mǎtǒng" }, 
+  { "ch": "猪", "pin": "zhū" }, 
+  { "ch": "厨师", "pin": "chúshī" }, 
+  { "ch": "蛇", "pin": "shé" }, 
+  { "ch": "弱", "pin": "ruò" },
+  { "ch": "骂", "pin": "mà" }
+  { "ch": "闪电", "pin": "shǎndiàn" }, 
+  { "ch": "弹簧", "pin": "tánhuáng" }, 
+  { "ch": "电", "pin": "diàn" },
+  { "ch": "笔", "pin": "bǐ" },
+  { "ch": "床", "pin": "chuáng" },
+  { "ch": "盘子", "pin": "pánzi" },
+  { "ch": "钥匙", "pin": "yàoshi" },
+  { "ch": "闹钟", "pin": "nàozhōng" },
+  { "ch": "筷子", "pin": "kuàizi" },
+  { "ch": "勺子", "pin": "sháozi" },
+  { "ch": "叉子", "pin": "chāzi" },
+  { "ch": "刀", "pin": "dāo" },
+  { "ch": "笔记本", "pin": "bǐjìběn" },
+  { "ch": "尺子", "pin": "chǐzi" },
+  { "ch": "三角板", "pin": "sānjiǎobǎn" },
+  { "ch": "碗", "pin": "wǎn" }
 
 ]

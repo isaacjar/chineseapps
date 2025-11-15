@@ -25,5 +25,7 @@
   { "ch": "火山", "pin": "huǒshān" },
   { "ch": "沙漠", "pin": "shāmò" },
   { "ch": "工厂", "pin": "gōngchǎng" },
-  { "ch": "伞", "pin": "sǎn" }
+  { "ch": "伞", "pin": "sǎn" },
+  { "ch": "信", "pin": "xìn" },
+  { "ch": "加油站", "pin": "jiāyóuzhàn" }
 ]

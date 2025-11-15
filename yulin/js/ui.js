@@ -803,7 +803,7 @@ class UI {
     async loadSounds() {
         try {
             // URLs base - ajusta según tu estructura de carpetas
-            const baseUrl = 'https://isaacjar.github.io/chineseapps/sounds/';
+            const baseUrl = 'https://isaacjar.github.io/chineseapps/yulin/sound/';
             
             // Cargar sonidos de forma asíncrona
             const loadPromises = [

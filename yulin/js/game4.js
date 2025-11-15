@@ -14,6 +14,7 @@ class Game4 {
         this.timer = null;
         this.timeLeft = 0;
         this.currentWord = null;
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         
         // URL base para las imágenes
         this.picturesBaseUrl = 'https://isaacjar.github.io/chineseapps/vocpicture/';
@@ -277,6 +278,7 @@ class Game4 {
         
         this.ui.showScreen('game-screen');
         this.ui.showGameStats();
+        this.enableKeyboardControls();
         this.nextQuestion();
     }
 
@@ -546,6 +548,8 @@ class Game4 {
         this.stats.recordGame();
         clearTimeout(this.timer);
         this.timer = null;
+
+        this.disableKeyboardControls();
         
         const message = this.score === this.settings.get('questions') 
             ? '🎉 ¡Perfecto! ¡Has acertado todas!' 
@@ -566,4 +570,35 @@ class Game4 {
         }
         return array;
     }
+
+  // Método para manejar eventos de teclado
+  handleKeyPress(event) {
+      // Solo procesar si estamos en pantalla de juego
+      if (!document.getElementById('game-screen').classList.contains('active')) {
+          return;
+      }
+      
+      const key = event.key;
+      
+      // Verificar si es un número del 1 al 9
+      if (/^[1-9]$/.test(key)) {
+          const optionIndex = parseInt(key) - 1; // Convertir a índice (0-based)
+          const options = document.querySelectorAll('.option-btn:not(:disabled)');
+          
+          // Verificar que el índice es válido
+          if (optionIndex < options.length) {
+              options[optionIndex].click(); // Simular click en la opción
+          }
+      }
+  }
+  
+  // Método para agregar event listener del teclado
+  enableKeyboardControls() {
+      document.addEventListener('keydown', this.handleKeyPress);
+  }
+  
+  // Método para remover event listener del teclado
+  disableKeyboardControls() {
+      document.removeEventListener('keydown', this.handleKeyPress);
+  }
 }

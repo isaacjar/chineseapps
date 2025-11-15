@@ -1119,25 +1119,29 @@ input:checked + .slider:before {
 
 .results-stats {
     background: white;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 12px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border: 2px solid var(--pastel-brown);
+    min-height: 200px;  
+    display: flex;
+    flex-direction: column;
 }
 
 .results-score {
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: #5d4037;
     margin-bottom: 0.5rem;
 }
 
 .results-missed {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #795548;
-    max-height: 150px;
+    max-height: 250px;
     overflow-y: auto;
     text-align: left;
     padding: 0.5rem;
+    flex: 1;
 }
 
 .missed-word {

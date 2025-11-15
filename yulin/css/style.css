@@ -1063,3 +1063,8 @@ input:checked + .slider:before {
 #game-screen .chinese-character {
     font-size: 4rem !important;
 }
+
+/* Sombra para imágenes en Game4 */
+#game-screen .option-btn img {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

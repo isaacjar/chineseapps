@@ -1064,7 +1064,17 @@ input:checked + .slider:before {
     font-size: 4rem !important;
 }
 
-/* Sombra para imágenes en Game4 */
+/* Efecto 3D para imágenes PNG transparentes en Game4 */
 #game-screen .option-btn img {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) 
+            drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transform: translateY(0);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Efecto hover para acentuar el 3D */
+#game-screen .option-btn:not(:disabled):hover img {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4)) 
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 }

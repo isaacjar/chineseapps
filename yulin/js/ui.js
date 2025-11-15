@@ -4,20 +4,57 @@ class SoundManager {
     constructor() {
         this.sounds = {};
         this.enabled = true;
+        this.soundsLoaded = false;
     }
 
-    loadSound(name, url) {
-        this.sounds[name] = new Audio(url);
-        this.sounds[name].load();
+    async loadSound(name, url) {
+        try {
+            const audio = new Audio();
+            
+            // Configurar el audio
+            audio.preload = 'auto';
+            audio.volume = 0.7; // Volumen moderado
+            
+            return new Promise((resolve) => {
+                audio.addEventListener('canplaythrough', () => {
+                    this.sounds[name] = audio;
+                    console.log(`Sonido cargado: ${name}`);
+                    resolve(true);
+                });
+                
+                audio.addEventListener('error', () => {
+                    console.warn(`No se pudo cargar el sonido: ${name} desde ${url}`);
+                    this.sounds[name] = null;
+                    resolve(false);
+                });
+                
+                audio.src = url;
+            });
+            
+        } catch (error) {
+            console.warn(`Error cargando sonido ${name}:`, error);
+            this.sounds[name] = null;
+            return false;
+        }
     }
 
     play(name) {
-        if (this.enabled && this.sounds[name]) {
+        // Si los sonidos no están habilitados, salir
+        if (!this.enabled) return;
+        
+        // Si el sonido no existe o no se cargó, salir silenciosamente
+        if (!this.sounds[name]) return;
+        
+        try {
             // Reiniciar si ya se está reproduciendo
             this.sounds[name].currentTime = 0;
-            this.sounds[name].play().catch(e => {
-                console.log('Error reproduciendo sonido:', e);
+            this.sounds[name].play().catch(error => {
+                // Silenciar errores de reproducción (comunes en móviles)
+                console.log('Error reproduciendo sonido (puede ignorarse):', error);
             });
+        } catch (error) {
+            // Capturar cualquier otro error silenciosamente
+            console.log('Error inesperado reproduciendo sonido:', error);
         }
     }
 
@@ -635,10 +672,12 @@ class UI {
     }
     
     showRandomSuccessMessage() {
+        if (this.soundManager) { this.soundManager.play('correct'); }
+        
         if (Math.random() > 0.3) {
             return; // No mostrar nada el 70% de las veces
         }
-        this.soundManager.play('correct');
+    
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].successMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -646,10 +685,12 @@ class UI {
     }
     
     showRandomFailMessage() {
-         if (Math.random() > 0.3) {
+        if (this.soundManager) { this.soundManager.play('wrong'); }
+        
+        if (Math.random() > 0.3) {
             return; // No mostrar nada el 70% de las veces
         }
-        this.soundManager.play('wrong');
+        
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].failMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -756,18 +797,30 @@ class UI {
         this.showToast(timeUpMessage, 'error');
         
         // También reproducir sonido de error
-        if (this.soundManager) {
-            this.soundManager.play('wrong');
-        }
+        if (this.soundManager) { this.soundManager.play('wrong'); }
     }
 
-    loadSounds() {
-        // URLs base - ajusta según tu estructura de carpetas
-        const baseUrl = 'https://isaacjar.github.io/chineseapps/yulin/sound/';
-        
-        this.soundManager.loadSound('correct', baseUrl + 'correct.mp3');
-        this.soundManager.loadSound('wrong', baseUrl + 'wrong.mp3');
-        
-        console.log('Sounds loaded');
+    async loadSounds() {
+        try {
+            // URLs base - ajusta según tu estructura de carpetas
+            const baseUrl = 'https://isaacjar.github.io/chineseapps/sounds/';
+            
+            // Cargar sonidos de forma asíncrona
+            const loadPromises = [
+                this.soundManager.loadSound('correct', baseUrl + 'correct.mp3'),
+                this.soundManager.loadSound('wrong', baseUrl + 'wrong.mp3')
+            ];
+            
+            // Esperar a que todos se carguen (o fallen silenciosamente)
+            await Promise.allSettled(loadPromises);
+            
+            this.soundManager.soundsLoaded = true;
+            console.log('Carga de sonidos completada');
+            
+        } catch (error) {
+            // Capturar cualquier error en la carga general
+            console.warn('Error en la carga general de sonidos:', error);
+            // El programa continúa normalmente
+        }
     }
 }

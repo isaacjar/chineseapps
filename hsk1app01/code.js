@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // 🔊 Botón de sonido
+  const soundBtn = document.getElementById('toggleSound');
+  if (soundBtn) {
+    soundBtn.addEventListener('click', toggleSound);
+  }
+
   // 🎛️ Cambio de modo
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {

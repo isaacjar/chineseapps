@@ -9,6 +9,10 @@ let countdownInterval;
 let isPaused = false;
 let isGameEnded = false;
 
+let soundEnabled = true;
+let correctSound = new Audio('https://isaacjar.github.io/chineseapps/yulin/sound/correct.mp3');
+let wrongSound = new Audio('https://isaacjar.github.io/chineseapps/yulin/sound/wrong.mp3');
+
 // Gamificación
 let score = 0;
 let streak = 0;
@@ -72,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('questionCount', questionCount);
   };
 
+  document.addEventListener('keydown', handleKeyPress);
+  
   // ▶️ Nuevo juego
   document.getElementById('newGame').onclick = () => {
     isGameEnded = false;
@@ -454,6 +460,16 @@ function checkAnswer(selectedText) {
 
   const isCorrect = (selected === correctText);
 
+  if (soundEnabled) {
+      if (isCorrect) {
+        correctSound.currentTime = 0;
+        correctSound.play().catch(e => console.log("Error reproduciendo sonido correcto:", e));
+      } else {
+        wrongSound.currentTime = 0;
+        wrongSound.play().catch(e => console.log("Error reproduciendo sonido incorrecto:", e));
+      }
+    }
+  
   if (isCorrect) {
     correctAnswers++;
     streak++;
@@ -491,6 +507,44 @@ function checkAnswer(selectedText) {
   }, 2000);
 }
 
+function handleKeyPress(event) {
+  // Solo procesar si estamos en medio de un juego y no está pausado
+  if (isGameEnded || isPaused || !document.querySelector('.options').style.display !== 'grid') {
+    return;
+  }
+  
+  // Mapear teclas numéricas a opciones
+  const keyMap = {
+    '1': 0, // Primera opción
+    '2': 1, // Segunda opción
+    '3': 2, // Tercera opción
+    '4': 3  // Cuarta opción
+  };
+  
+  const key = event.key;
+  
+  if (keyMap.hasOwnProperty(key)) {
+    const optionIndex = keyMap[key];
+    const options = document.querySelectorAll('.option');
+    
+    // Verificar que la opción existe y está disponible
+    if (options[optionIndex] && options[optionIndex].style.pointerEvents !== 'none') {
+      // Simular clic en la opción correspondiente
+      checkAnswer(options[optionIndex].textContent);
+    }
+  }
+}
+
+// Función para alternar sonido
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  const soundBtn = document.getElementById('toggleSound');
+  if (soundBtn) {
+    soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+  }
+  showToast(soundEnabled ? 'Sonido activado' : 'Sonido desactivado', 800);
+}
+
 function disableOptions() {
   document.querySelectorAll('.option').forEach(btn => {
     btn.style.pointerEvents = 'none';
@@ -498,5 +552,6 @@ function disableOptions() {
   });
 
 }
+
 
 

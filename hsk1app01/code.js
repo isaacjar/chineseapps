@@ -20,6 +20,9 @@ let bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
 let answeredWords = [];
 let questionStartTime = 0;
 
+// Declarar focusRedirect globalmente
+let focusRedirect;
+
 document.addEventListener('DOMContentLoaded', () => {
   // 🎨 Colores dinámicos
   const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 80%, 70%)`;
@@ -82,8 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('questionCount', questionCount);
   };
 
-  document.addEventListener('keydown', handleKeyPress);
-  
   // ▶️ Nuevo juego
   document.getElementById('newGame').onclick = () => {
     isGameEnded = false;
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 🔧 Redirigir el foco a un elemento visible para evitar el efecto azul
-  const focusRedirect = document.getElementById('focusRedirect');
+  focusRedirect = document.getElementById('focusRedirect'); // Inicializar la variable
   document.querySelectorAll('button, .option').forEach(btn => {
     btn.addEventListener('touchend', () => {
       btn.blur();
@@ -163,8 +164,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ⌨️ Control por teclado 
+  document.addEventListener('keydown', handleKeyPress);
+
   updateStatus();
 });
+
+// Función para manejar el control por teclado (versión simplificada)
+function handleKeyPress(event) {
+  // Solo procesar teclas numéricas 1-4
+  if (!['1', '2', '3', '4'].includes(event.key)) {
+    return;
+  }
+  
+  // Verificar condiciones básicas
+  if (isGameEnded || isPaused) {
+    return;
+  }
+  
+  // Verificar si las opciones están visibles
+  const optionsContainer = document.querySelector('.options');
+  if (!optionsContainer || window.getComputedStyle(optionsContainer).display !== 'grid') {
+    return;
+  }
+  
+  // Obtener todas las opciones
+  const options = document.querySelectorAll('.option');
+  if (options.length === 0) {
+    return;
+  }
+  
+  // Mapear teclas a índices
+  const keyMap = {
+    '1': 0,
+    '2': 1, 
+    '3': 2,
+    '4': 3
+  };
+  
+  const optionIndex = keyMap[event.key];
+  
+  // Verificar que la opción existe, tiene contenido y está activa
+  if (options[optionIndex] && 
+      options[optionIndex].textContent.trim() !== '' && 
+      options[optionIndex].style.pointerEvents !== 'none') {
+    
+    event.preventDefault();
+    checkAnswer(options[optionIndex].textContent);
+  }
+}
 
 function updateModeLabel() {
   let modeText;
@@ -513,34 +561,6 @@ function checkAnswer(selectedText) {
   }, 2000);
 }
 
-function handleKeyPress(event) {
-  // Solo procesar si estamos en medio de un juego y no está pausado
-  if (isGameEnded || isPaused || !document.querySelector('.options').style.display !== 'grid') {
-    return;
-  }
-  
-  // Mapear teclas numéricas a opciones
-  const keyMap = {
-    '1': 0, // Primera opción
-    '2': 1, // Segunda opción
-    '3': 2, // Tercera opción
-    '4': 3  // Cuarta opción
-  };
-  
-  const key = event.key;
-  
-  if (keyMap.hasOwnProperty(key)) {
-    const optionIndex = keyMap[key];
-    const options = document.querySelectorAll('.option');
-    
-    // Verificar que la opción existe y está disponible
-    if (options[optionIndex] && options[optionIndex].style.pointerEvents !== 'none') {
-      // Simular clic en la opción correspondiente
-      checkAnswer(options[optionIndex].textContent);
-    }
-  }
-}
-
 // Función para alternar sonido
 function toggleSound() {
   soundEnabled = !soundEnabled;
@@ -556,8 +576,4 @@ function disableOptions() {
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.6';
   });
-
 }
-
-
-

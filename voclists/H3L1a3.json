@@ -22,16 +22,10 @@
   { "ch": "去", "pin": "qù", "en": "to go", "es": "ir" },
   { "ch": "能", "pin": "néng", "en": "can", "es": "poder" },
   { "ch": "好", "pin": "hǎo", "en": "good", "es": "bueno" },
-  { "ch": "高", "pin": "gāo", "en": "tall", "es": "alto" },
-  { "ch": "一样", "pin": "yíyàng", "en": "same, equal to", "es": "igual" },
-  { "ch": "历史", "pin": "lìshǐ", "en": "History", "es": "Historia" },
-  { "ch": "数学", "pin": "shùxué", "en": "Mathematics", "es": "Matemáticas" },
-  { "ch": "条", "pin": "tiáo", "en": "(measure word for pants)", "es": "(clasificador pantalones)" },
-  { "ch": "中文", "pin": "Zhōngwén", "en": "Chinese language", "es": "idioma chino" },
-  { "ch": "昨天", "pin": "zuótiān", "en": "yesterday", "es": "ayer" },
-  { "ch": "明天", "pin": "míngtiān", "en": "tomorrow", "es": "mañana" },
-  { "ch": "好吃", "pin": "hǎochī", "en": "delicious", "es": "rico, delicioso" },
-  { "ch": "小时", "pin": "xiǎoshí", "en": "hour", "es": "hora" },
-  { "ch": "哥哥", "pin": "gēge", "en": "older brother", "es": "hermano mayor" },
-  { "ch": "学习", "pin": "xuéxí", "en": "to study, to learn", "es": "estudiar, aprender" }
+  { "ch": "为什么", "pin": "wèishénme", "en": "why", "es": "por qué" },
+  { "ch": "什么时候", "pin": "shénme shíhou", "en": "when", "es": "cuándo" },
+  { "ch": "什么", "pin": "shénme", "en": "what", "es": "qué" },
+  { "ch": "谁", "pin": "shéi", "en": "who", "es": "quién" },
+  { "ch": "哪儿", "pin": "nǎr", "en": "where", "es": "dónde" },
+  { "ch": "怎么", "pin": "zěnme", "en": "how", "es": "cómo" }
 ]

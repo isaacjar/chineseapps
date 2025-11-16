@@ -345,3 +345,9 @@ button:disabled {
   .step-btn { width: 36px; height: 36px; font-size: 18px; }
   .circle { width: 16px; height: 16px; }
 }
+
+/* Botón de sonido */
+#toggleSound {
+  background-color: #7b9acc;
+  color: white;
+}

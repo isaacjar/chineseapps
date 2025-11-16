@@ -21,5 +21,11 @@
   { "ch": "人", "pin": "rén", "en": "person", "es": "persona" },
   { "ch": "月", "pin": "yuè", "en": "moon, month", "es": "luna, mes" },
   { "ch": "要", "pin": "yào", "en": "to want, to have to", "es": "querer, tener que" },
-  { "ch": "也", "pin": "yě", "en": "also", "es": "también" }
+  { "ch": "也", "pin": "yě", "en": "also", "es": "también" }, 
+  { "ch": "前面", "pin": "qiánmiàn", "en": "in front", "es": "delante (de)" },
+  { "ch": "后面", "pin": "hòumiàn", "en": "at the back, behind", "es": "detrás (de)" },
+  { "ch": "左边", "pin": "zuǒbian", "en": "on the left", "es": "a la izquierda (de)" },
+  { "ch": "右边", "pin": "yòubian", "en": "on the right", "es": "a la derecha (de)" },
+  { "ch": "中间", "pin": "zhōngjiān", "en": "in the middle", "es": "en el medio (de)" },
+  { "ch": "旁边", "pin": "pángbiān", "en": "next to", "es": "al lado (de)" }
 ]

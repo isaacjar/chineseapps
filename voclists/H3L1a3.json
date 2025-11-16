@@ -2,7 +2,7 @@
   { "ch": "办公室", "pin": "bàngōngshì", "en": "office", "es": "oficina" },
   { "ch": "打算", "pin": "dǎsuàn", "en": "to plan", "es": "planear" },
   { "ch": "周末", "pin": "zhōumò", "en": "weekend", "es": "fin de semana" },
-  { "ch": "花茶", "pin": "huāchá", "en": "flower tea", "es": "té de flores" },
+  { "ch": "花茶", "pin": "huā chá", "en": "flower tea", "es": "té de flores" },
   { "ch": "作业", "pin": "zuòyè", "en": "homework", "es": "deberes" },
   { "ch": "面包", "pin": "miànbāo", "en": "bread", "es": "pan" },
   { "ch": "地图", "pin": "dìtú", "en": "map", "es": "mapa" },
@@ -22,10 +22,17 @@
   { "ch": "去", "pin": "qù", "en": "to go", "es": "ir" },
   { "ch": "能", "pin": "néng", "en": "can", "es": "poder" },
   { "ch": "好", "pin": "hǎo", "en": "good", "es": "bueno" },
-  { "ch": "为什么", "pin": "wèishénme", "en": "why", "es": "por qué" },
-  { "ch": "什么时候", "pin": "shénme shíhou", "en": "when", "es": "cuándo" },
-  { "ch": "什么", "pin": "shénme", "en": "what", "es": "qué" },
-  { "ch": "谁", "pin": "shéi", "en": "who", "es": "quién" },
-  { "ch": "哪儿", "pin": "nǎr", "en": "where", "es": "dónde" },
-  { "ch": "怎么", "pin": "zěnme", "en": "how", "es": "cómo" }
+  
+  { "ch": "哥哥", "pin": "gēge", "en": "older brother", "es": "hermano mayor" },
+  { "ch": "楼", "pin": "lóu", "en": "building, floor", "es": "edificio, piso" },
+  { "ch": "等", "pin": "děng", "en": "to wait", "es": "esperar" },
+  { "ch": "米饭", "pin": "mǐfàn", "en": "cooked rice", "es": "arroz cocido" },
+  { "ch": "面条", "pin": "miàntiáo", "en": "noodles", "es": "fideos" },
+  { "ch": "喝", "pin": "hē", "en": "to drink", "es": "beber" },
+  { "ch": "绿茶", "pin": "lǜchá", "en": "green tea", "es": "té verde" },
+  { "ch": "学习", "pin": "xuéxí", "en": "to study, to learn", "es": "estudiar, aprender" },
+  { "ch": "已经", "pin": "yǐjīng", "en": "already", "es": "ya" },
+  { "ch": "礼物", "pin": "lǐwù", "en": "gift", "es": "regalo" },
+  { "ch": "家", "pin": "jiā", "en": "home, family", "es": "casa, familia" },
+  { "ch": "喜欢", "pin": "xǐhuan", "en": "to like", "es": "gustar" }
 ]

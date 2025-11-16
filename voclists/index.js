@@ -30,6 +30,7 @@ const voclists = [
   { filename: "H2L8", title: "HSK 2 Lesson 8", level: "H2", misc: "MIT" },
   { filename: "H2L6a8", title: "HSK 2 Lessons 6 to 8", level: "H2", misc: "MIT" },
   { filename: "H2L9", title: "HSK 2 Lesson 9", level: "H2", misc: "MIT" },
+  { filename: "H2L8a10", title: "HSK 2 Lessons 8 to 10", level: "H2", misc: "MIT" },
   { filename: "H2L11", title: "HSK 2 Lesson 11", level: "H2", misc: "MIT" },
   { filename: "H2L12", title: "HSK 2 Lesson 12", level: "H2", misc: "MIT" },
   { filename: "H2L12a13", title: "HSK 2 Lessons 12 & 13", level: "H2", misc: "MIT" },

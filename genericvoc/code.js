@@ -11,6 +11,10 @@ let countdownInterval;
 let isPaused = false;
 let isGameEnded = false;
 
+let soundEnabled = true;
+let correctSound = new Audio('https://isaacjar.github.io/chineseapps/yulin/sound/correct.mp3');
+let wrongSound = new Audio('https://isaacjar.github.io/chineseapps/yulin/sound/wrong.mp3');
+
 // Gamificación
 let score = 0;
 let streak = 0;
@@ -57,6 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  const soundBtn = document.getElementById('toggleSound');
+  if (soundBtn) {
+    soundBtn.addEventListener('click', toggleSound);
+  }
+	
   // 🎛️ Cambio de modo
   document.querySelectorAll('.mode').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -166,6 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	} else {
 	  cargarIndexYMostrarPopup();
 	}
+
+	// ⌨️ Control por teclado
+    document.addEventListener('keydown', handleKeyPress);
+	
 	updateStatus();
 });
 
@@ -469,6 +482,17 @@ function checkAnswer(selectedText) {
 
   const isCorrect = (selected === correctText);
 
+  // Reproducir sonido
+  if (soundEnabled) {
+    if (isCorrect) {
+      correctSound.currentTime = 0;
+      correctSound.play().catch(e => console.log("Error reproduciendo sonido correcto:", e));
+    } else {
+      wrongSound.currentTime = 0;
+      wrongSound.play().catch(e => console.log("Error reproduciendo sonido incorrecto:", e));
+    }
+  }
+	
   if (isCorrect) {
     correctAnswers++;
     streak++;
@@ -572,6 +596,60 @@ function mostrarPopup(listados) {
 
   document.body.appendChild(popup);
 
+}
+
+// Función para manejar el control por teclado
+function handleKeyPress(event) {
+  // Solo procesar teclas numéricas 1-4
+  if (!['1', '2', '3', '4'].includes(event.key)) {
+    return;
+  }
+  
+  // Verificar condiciones básicas
+  if (isGameEnded || isPaused) {
+    return;
+  }
+  
+  // Verificar si las opciones están visibles
+  const optionsContainer = document.querySelector('.options');
+  if (!optionsContainer || window.getComputedStyle(optionsContainer).display !== 'grid') {
+    return;
+  }
+  
+  // Obtener todas las opciones
+  const options = document.querySelectorAll('.option');
+  if (options.length === 0) {
+    return;
+  }
+  
+  // Mapear teclas a índices
+  const keyMap = {
+    '1': 0,
+    '2': 1, 
+    '3': 2,
+    '4': 3
+  };
+  
+  const optionIndex = keyMap[event.key];
+  
+  // Verificar que la opción existe, tiene contenido y está activa
+  if (options[optionIndex] && 
+      options[optionIndex].textContent.trim() !== '' && 
+      options[optionIndex].style.pointerEvents !== 'none') {
+    
+    event.preventDefault();
+    checkAnswer(options[optionIndex].textContent);
+  }
+}
+
+// Función para alternar sonido
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  const soundBtn = document.getElementById('toggleSound');
+  if (soundBtn) {
+    soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+  }
+  showToast(soundEnabled ? 'Sonido activado' : 'Sonido desactivado', 800);
 }
 
 

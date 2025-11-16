@@ -32,6 +32,7 @@
   { "ch": "谁", "pin": "shéi", "en": "who", "es": "quién" },
   { "ch": "哪儿", "pin": "nǎr", "en": "where", "es": "dónde" },
   { "ch": "怎么", "pin": "zěnme", "en": "how", "es": "cómo" }, 
+  { "ch": "东西", "pin": "dōngxi", "en": "thing", "es": "cosa" }, 
   
   { "ch": "车", "pin": "chē", "en": "vehicle, car" },
   { "ch": "比", "pin": "bǐ", "en": "to compare" },

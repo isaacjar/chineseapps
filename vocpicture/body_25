@@ -1,0 +1,22 @@
+[
+{ "ch": "头", "pin": "tóu" },       // cabeza
+{ "ch": "脸", "pin": "liǎn" },      // cara
+{ "ch": "眼睛", "pin": "yǎnjing" }, // ojo
+{ "ch": "耳朵", "pin": "ěrduo" },   // oreja
+{ "ch": "鼻子", "pin": "bízi" },    // nariz
+{ "ch": "嘴巴", "pin": "zuǐba" },   // boca
+{ "ch": "牙齿", "pin": "yáchǐ" },   // dientes
+{ "ch": "舌头", "pin": "shétou" },  // lengua
+{ "ch": "脖子", "pin": "bózi" },    // cuello
+{ "ch": "肩膀", "pin": "jiānbǎng" },// hombro
+{ "ch": "胳膊", "pin": "gēbo" },    // brazo
+{ "ch": "手", "pin": "shǒu" },      // mano
+{ "ch": "手指", "pin": "shǒuzhǐ" }, // dedo
+{ "ch": "胸", "pin": "xiōng" },     // pecho
+{ "ch": "背", "pin": "bèi" },       // espalda
+{ "ch": "肚子", "pin": "dùzi" },    // barriga
+{ "ch": "腿", "pin": "tuǐ" },       // pierna
+{ "ch": "膝盖", "pin": "xīgài" },   // rodilla
+{ "ch": "脚", "pin": "jiǎo" },     // pie
+{ "ch": "脚趾", "pin": "jiǎozhǐ" }  // dedo del pie
+]

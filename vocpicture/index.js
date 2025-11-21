@@ -4,5 +4,6 @@ const vocpiclists = [
   { filename: "hsk1_basic_35", title: "HSK 1.01 Basic I (35)", level: "H1", misc: "Isaac" },
   { filename: "hsk1_basic2_25", title: "HSK 1.02 Basic II (25)", level: "H1", misc: "Isaac" },
   { filename: "hsk1_basic2_25", title: "HSK 1.02 Basic II (25)", level: "H1", misc: "Isaac" },  
-  { filename: "extras", title: "Extra level", level: "H1", misc: "Isaac" }
+  { filename: "body_25", title: "The body (25)", level: "H4", misc: "Isaac" },  
+  { filename: "extras", title: "Extra level (60)", level: "H4", misc: "Isaac" }
 ];

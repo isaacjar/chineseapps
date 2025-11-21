@@ -85,5 +85,7 @@
   { "ch": "梯子", "pin": "tīzi" },
   { "ch": "照相机", "pin": "zhàoxiàngjī" },
   { "ch": "弱", "pin": "ruò" }, 
-  { "ch": "军队", "pin": "jūnduì" }
+  { "ch": "军队", "pin": "jūnduì" },
+  { "ch": "毛笔", "pin": "máobǐ" }
+
 ]

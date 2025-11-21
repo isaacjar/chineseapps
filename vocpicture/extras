@@ -86,6 +86,9 @@
   { "ch": "照相机", "pin": "zhàoxiàngjī" },
   { "ch": "弱", "pin": "ruò" }, 
   { "ch": "军队", "pin": "jūnduì" },
-  { "ch": "毛笔", "pin": "máobǐ" }
+  { "ch": "毛笔", "pin": "máobǐ" },
+  { "ch": "剑", "pin": "jiàn" },
+  { "ch": "士兵", "pin": "shìbīng" },
+  { "ch": "将军", "pin": "jiāngjūn" }
 
 ]

@@ -82,5 +82,6 @@
   { "ch": "冰箱", "pin": "bīngxiāng" },  
   { "ch": "微波炉", "pin": "wēibōlú" }, 
   { "ch": "洗衣机", "pin": "xǐyījī" }, 
-  { "ch": "梯子", "pin": "tīzi" } 
+  { "ch": "梯子", "pin": "tīzi" },
+  { "ch": "照相机", "pin": "zhàoxiàngjī" }
 ]

@@ -89,6 +89,15 @@
   { "ch": "毛笔", "pin": "máobǐ" },
   { "ch": "剑", "pin": "jiàn" },
   { "ch": "士兵", "pin": "shìbīng" },
-  { "ch": "将军", "pin": "jiāngjūn" }
-
+  { "ch": "将军", "pin": "jiāngjūn" },
+  { "ch": "门", "pin": "mén" },
+  { "ch": "窗户", "pin": "chuānghu" },
+  { "ch": "厨房", "pin": "chúfáng" },
+  { "ch": "客厅", "pin": "kètīng" },
+  { "ch": "卧室", "pin": "wòshì" },
+  { "ch": "洗手间", "pin": "xǐshǒujiān" },
+  { "ch": "楼梯", "pin": "lóutī" },
+  { "ch": "车库", "pin": "chēkù" },
+  { "ch": "走廊", "pin": "zǒuláng" },
+  { "ch": "餐厅", "pin": "cāntīng" }
 ]

@@ -15,6 +15,9 @@ class Game4 {
         this.currentWord = null;
         this.missedWords = [];
         this.handleKeyPress = this.handleKeyPress.bind(this);
+
+        this.showPictureListsPopup = this.showPictureListsPopup.bind(this); //  
+        this.startGameSession = this.startGameSession.bind(this); //  
         
         // URLs para imágenes
         this.picturesBaseUrl = 'https://isaacjar.github.io/chineseapps/vocpicture/';
@@ -50,34 +53,156 @@ class Game4 {
         await this.loadPictureLists();
         
         // Mostrar popup de selección
-        this.showPictureListsPopup();
+        setTimeout(() => this.showPictureListsPopup(), 100);
     }
 
-    async loadPictureLists() {
+    showPictureListsPopup() {
+        // Crear popup similar al de listados de vocabulario
+        const popup = document.createElement('div');
+        popup.className = 'popup-overlay';
+        popup.style.position = 'fixed';
+        popup.style.top = '0';
+        popup.style.left = '0';
+        popup.style.width = '100%';
+        popup.style.height = '100%';
+        popup.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        popup.style.display = 'flex';
+        popup.style.justifyContent = 'center';
+        popup.style.alignItems = 'center';
+        popup.style.zIndex = '1000';
+
+        const content = document.createElement('div');
+        content.className = 'popup-content';
+        content.style.backgroundColor = 'white';
+        content.style.padding = '2rem';
+        content.style.borderRadius = '12px';
+        content.style.maxWidth = '90%';
+        content.style.maxHeight = '80%';
+        content.style.overflowY = 'auto';
+        content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+
+        const title = document.createElement('h2');
+        title.textContent = 'Vocabulary Lists';
+        title.style.marginBottom = '1.5rem';
+        title.style.textAlign = 'center';
+        title.style.color = '#5d4037';
+
+        const listsContainer = document.createElement('div');
+        listsContainer.className = 'lists-container';
+        listsContainer.style.display = 'flex';
+        listsContainer.style.flexDirection = 'column';
+        listsContainer.style.gap = '0.5rem';
+        listsContainer.style.marginBottom = '1.5rem';
+        listsContainer.style.maxHeight = '400px';
+        listsContainer.style.overflowY = 'auto';
+
+        // Crear botones para cada listado
+        this.availablePictureLists.forEach(list => {
+            const button = document.createElement('button');
+            button.className = 'vocab-list-btn';
+            button.textContent = `${list.title} (${list.level})`;
+            button.style.padding = '1rem';
+            button.style.backgroundColor = 'var(--pastel-orange)';
+            button.style.border = 'none';
+            button.style.borderRadius = '8px';
+            button.style.cursor = 'pointer';
+            button.style.transition = 'var(--transition)';
+            button.style.textAlign = 'left';
+            button.style.fontSize = '1rem';
+            button.style.color = '#5d4037';
+
+            button.addEventListener('mouseenter', () => {
+                button.style.backgroundColor = 'var(--pastel-orange-dark)';
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.backgroundColor = 'var(--pastel-orange)';
+            });
+
+            // USAR ARROW FUNCTION PARA MANTENER EL CONTEXTO
+            button.addEventListener('click', async () => {
+                this.ui.showToast(`Cargando "${list.title}"...`, 'info');
+                const success = await this.loadPictureList(list.filename);
+                if (success) {
+                    document.body.removeChild(popup);
+                    // Usar arrow function aquí también
+                    setTimeout(() => this.startGameSession(), 100);
+                } else {
+                    this.ui.showToast(`Error cargando el listado "${list.title}"`, 'error');
+                }
+            });
+
+            listsContainer.appendChild(button);
+        });
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Cerrar';
+        closeButton.className = 'btn';
+        closeButton.style.padding = '0.5rem 1rem';
+        closeButton.style.backgroundColor = 'var(--pastel-green)';
+        closeButton.style.border = 'none';
+        closeButton.style.borderRadius = '8px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.margin = '0 auto';
+        closeButton.style.display = 'block';
+
+        // USAR ARROW FUNCTION AQUÍ TAMBIÉN
+        closeButton.addEventListener('click', () => {
+            document.body.removeChild(popup);
+            this.ui.showScreen('menu-screen');
+        });
+
+        content.appendChild(title);
+        content.appendChild(listsContainer);
+        content.appendChild(closeButton);
+        popup.appendChild(content);
+        document.body.appendChild(popup);
+    }
+
+     async loadPictureList(filename) {
         try {
-            const response = await fetch(this.picturesBaseUrl + 'index.js');
+            this.debugLog(`Cargando listado: ${filename}`);
+            
+            // Construir URL correcta - IMPORTANTE: Asegúrate de la extensión
+            const url = `${this.picturesBaseUrl}${filename}.json`; // ← AÑADIR .json
+            
+            const response = await fetch(url);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             
-            const scriptContent = await response.text();
-            const match = scriptContent.match(/const vocpiclists\s*=\s*(\[.*?\]);/s);
+            const data = await response.json();
             
-            if (match && match[1]) {
-                try {
-                    this.availablePictureLists = eval(`(${match[1]})`);
-                    this.debugLog(`Listados de imágenes cargados: ${this.availablePictureLists.length}`);
-                } catch (e) {
-                    console.error('Error parseando listados:', e);
-                    this.useFallbackPictureLists();
-                }
-            } else {
-                this.useFallbackPictureLists();
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('Listado vacío o inválido');
             }
+            
+            // Filtrar palabras con caracteres chinos
+            this.vocabulary = data.filter(item => item.ch && item.ch.trim() !== '');
+            
+            if (this.vocabulary.length === 0) {
+                throw new Error('No hay palabras con caracteres chinos');
+            }
+            
+            this.debugLog(`Listado cargado: ${this.vocabulary.length} palabras`);
+            
+            // Limpiar caches para nuevo listado
+            this.imageCache.clear();
+            this.imageAvailabilityCache.clear();
+            
+            // Precargar imágenes de forma inteligente
+            await this.prefetchImages();
+            
+            return true;
+            
         } catch (error) {
-            console.error('Error cargando listados:', error);
-            this.useFallbackPictureLists();
+            console.error('Error cargando listado:', error);
+            
+            // Datos de ejemplo
+            this.vocabulary = this.getFallbackVocabulary();
+            this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
+            return true;
         }
     }
 
@@ -328,7 +453,6 @@ class Game4 {
         optionsContainer.appendChild(fragment);
     }
 
-    // MÉTODOS RESTANTES (sin cambios significativos)
     startGameSession() {
         this.currentQuestion = 0;
         this.score = 0;
@@ -342,12 +466,13 @@ class Game4 {
         this.nextQuestion();
     }
 
-    async nextQuestion() {
+     nextQuestion = async () => {
+        // Usar arrow function para mantener el contexto
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
         }
-        
+         
         // Reset timer visual
         const timerProgress = document.getElementById('timer-progress');
         if (timerProgress) {
@@ -451,7 +576,9 @@ class Game4 {
     }
 
     async displayOptions(options) {
-        const optionsContainer = document.getElementById('options-container');
+         const optionsContainer = document.getElementById('options-container');
+        if (!optionsContainer) return;
+        
         optionsContainer.innerHTML = '';
         
         const difficulty = this.settings.get('difficulty');
@@ -605,7 +732,8 @@ class Game4 {
         document.getElementById('lives').textContent = `❤️ ${this.lives}`;
     }
     
-    endGame() {
+   endGame = () => {
+        // Arrow function para mantener contexto
         this.stats.recordGame();
         clearTimeout(this.timer);
         this.timer = null;
@@ -613,7 +741,7 @@ class Game4 {
         this.disableKeyboardControls();
 
         const missedWords = this.getMissedWords();
-     
+        
         // Mostrar popup de resultados
         this.ui.showGameResults(
             this.score, 
@@ -625,7 +753,7 @@ class Game4 {
                 this.startGameSession();
             }
         );
-    }
+    };
     
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {

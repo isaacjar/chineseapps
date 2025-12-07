@@ -1,4 +1,4 @@
-// game4.js - VERSIÓN MEJORADA
+// game4.js - VERSIÓN COMPLETA CON CSS
 class Game4 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -22,16 +22,55 @@ class Game4 {
         // Lista de archivos disponibles
         this.availablePictureLists = [];
         
-        // Caches mejorados
+        // Caches
         this.imageCache = new Map();
         this.imageAvailabilityCache = new Map();
         
         // Opciones actuales
         this.currentOptions = [];
         
-        // Para evitar repetición de imágenes en la misma pregunta
+        // Para evitar repetición de imágenes
         this.recentlyUsedImages = new Set();
-        this.maxRecentImages = 15; // Número máximo de imágenes recientes
+        this.maxRecentImages = 15;
+        
+        // Estilos CSS que se añadirán dinámicamente
+        this.addGame4Styles();
+    }
+
+    // ============ MÉTODOS DE ESTILOS ============
+    
+    addGame4Styles() {
+        // Verificar si los estilos ya están añadidos
+        if (document.getElementById('game4-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'game4-styles';
+        style.textContent = `
+            .game4-image {
+                width: 128px;
+                height: 128px;
+                object-fit: cover;
+                border-radius: 8px;
+                border: 2px solid var(--pastel-brown);
+                background: var(--pastel-orange);
+                transition: all 0.3s ease;
+            }
+            
+            @media (max-width: 768px) {
+                .game4-image {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .game4-image {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     // ============ MÉTODOS PRINCIPALES ============
@@ -45,10 +84,7 @@ class Game4 {
     loadPictureLists = async () => {
         try {
             const response = await fetch(this.picturesBaseUrl + 'index.js');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             const scriptContent = await response.text();
             const match = scriptContent.match(/const vocpiclists\s*=\s*(\[.*?\]);/s);
@@ -71,8 +107,7 @@ class Game4 {
         this.availablePictureLists = [
             { filename: "animals", title: "Animales", level: "A1", misc: "Basic" },
             { filename: "food", title: "Comida", level: "A1", misc: "Basic" },
-            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" },
-            { filename: "nature", title: "Naturaleza", level: "A1", misc: "Basic" }
+            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" }
         ];
     };
 
@@ -165,40 +200,25 @@ class Game4 {
 
     loadPictureList = async (filename) => {
         try {
-            const url = `${this.picturesBaseUrl}${filename}`;
+            const url = `${this.picturesBaseUrl}${filename}.json`;
             const response = await fetch(url);
             
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             const data = await response.json();
+            if (!Array.isArray(data) || data.length === 0) throw new Error('Listado vacío');
             
-            if (!Array.isArray(data) || data.length === 0) {
-                throw new Error('Listado vacío');
-            }
-            
-            // Filtrar palabras con caracteres chinos
             this.vocabulary = data.filter(item => item.ch && item.ch.trim() !== '');
+            if (this.vocabulary.length === 0) throw new Error('No hay palabras con caracteres chinos');
             
-            if (this.vocabulary.length === 0) {
-                throw new Error('No hay palabras con caracteres chinos');
-            }
-            
-            // Limpiar caches
             this.imageCache.clear();
             this.imageAvailabilityCache.clear();
             this.recentlyUsedImages.clear();
             
-            // Precargar imágenes de forma inteligente (solo algunas)
             await this.prefetchImages();
-            
             return true;
             
         } catch (error) {
-            console.error('Error cargando listado:', error);
-            
-            // Datos de ejemplo
             this.vocabulary = this.getFallbackVocabulary();
             this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
             return true;
@@ -221,36 +241,22 @@ class Game4 {
     };
 
     prefetchImages = async () => {
-        // Precargar solo las primeras 6 imágenes para empezar rápido
         const toPrefetch = this.vocabulary.slice(0, 6);
-        
         const prefetchPromises = toPrefetch.map(word => 
             this.getImageUrl(word).catch(() => null)
         );
-        
         await Promise.allSettled(prefetchPromises);
     };
 
     getImageUrl = async (word) => {
         const cacheKey = word.ch;
+        if (this.imageCache.has(cacheKey)) return this.imageCache.get(cacheKey);
         
-        if (this.imageCache.has(cacheKey)) {
-            return this.imageCache.get(cacheKey);
-        }
+        let imageUrl = word.pic ? 
+            `${this.picFolderUrl}${word.pic}` : 
+            `${this.picFolderUrl}${word.ch}.png`;
         
-        let imageUrl;
-        
-        // 1. Intentar con el campo 'pic' específico
-        if (word.pic) {
-            imageUrl = `${this.picFolderUrl}${word.pic}`;
-        } else {
-            // 2. Intentar con el carácter chino + .png
-            imageUrl = `${this.picFolderUrl}${word.ch}.png`;
-        }
-        
-        // Verificar si la imagen existe
         const exists = await this.checkImageExists(imageUrl);
-        
         const finalUrl = exists ? imageUrl : this.getPlaceholderUrl(word);
         
         this.imageCache.set(cacheKey, finalUrl);
@@ -258,9 +264,7 @@ class Game4 {
     };
 
     checkImageExists = async (url) => {
-        if (this.imageAvailabilityCache.has(url)) {
-            return this.imageAvailabilityCache.get(url);
-        }
+        if (this.imageAvailabilityCache.has(url)) return this.imageAvailabilityCache.get(url);
         
         try {
             const response = await fetch(url, { method: 'HEAD' });
@@ -297,7 +301,7 @@ class Game4 {
             this.timer = null;
         }
         
-        // Reset timer visual
+        // Reset timer
         const timerProgress = document.getElementById('timer-progress');
         if (timerProgress) {
             timerProgress.style.transition = 'none';
@@ -305,7 +309,7 @@ class Game4 {
             timerProgress.offsetHeight;
             timerProgress.style.transition = `width ${this.settings.get('time')}s linear`;
         }
-            
+        
         if (this.currentQuestion >= this.settings.get('questions')) {
             this.endGame();
             return;
@@ -314,87 +318,70 @@ class Game4 {
         this.currentQuestion++;
         this.updateGameStats();
         
-        // Seleccionar palabra aleatoria que no sea muy reciente
+        // Seleccionar palabra aleatoria no reciente
         let candidateIndex;
         let attempts = 0;
-        const maxAttempts = 20;
         
         do {
             candidateIndex = Math.floor(Math.random() * this.vocabulary.length);
             attempts++;
-            
-            if (attempts >= maxAttempts) {
-                // Si no encontramos una palabra no reciente, usamos cualquier
-                break;
-            }
+            if (attempts >= 20) break;
         } while (this.recentlyUsedImages.has(this.vocabulary[candidateIndex].ch));
         
         this.currentWord = this.vocabulary[candidateIndex];
-        
-        // Añadir a imágenes recientes
         this.recentlyUsedImages.add(this.currentWord.ch);
         
-        // Limitar el tamaño del conjunto de imágenes recientes
+        // Limitar imágenes recientes
         if (this.recentlyUsedImages.size > this.maxRecentImages) {
             const firstItem = this.recentlyUsedImages.values().next().value;
             this.recentlyUsedImages.delete(firstItem);
         }
         
-        // Obtener opciones incorrectas ALEATORIAS
+        // Obtener opciones incorrectas aleatorias
         const incorrectOptions = this.getRandomIncorrectOptions(candidateIndex);
+        const requiredOptions = this.settings.get('difficulty') === 1 ? 3 : 5;
         
-        if (incorrectOptions.length < (this.settings.get('difficulty') === 1 ? 3 : 5)) {
+        if (incorrectOptions.length < requiredOptions) {
             setTimeout(() => this.nextQuestion(), 100);
             return;
         }
         
-        // Mezclar opciones
         const allOptions = [this.currentWord, ...incorrectOptions];
         this.shuffleArray(allOptions);
         this.currentOptions = allOptions;
         
-        // Precargar imágenes solo para esta pregunta
         await this.preloadOptionsImages(allOptions);
-        
         this.displayQuestion(this.currentWord);
         await this.displayOptions(allOptions);
         this.startTimer();
     };
 
-    // MÉTODO MEJORADO: Selecciona opciones incorrectas de forma ALEATORIA
     getRandomIncorrectOptions = (correctIndex) => {
         const difficulty = this.settings.get('difficulty');
         const numOptions = difficulty === 1 ? 3 : 5;
         
-        // Crear una lista de todas las palabras excepto la correcta
         const availableWords = [];
         for (let i = 0; i < this.vocabulary.length; i++) {
             if (i !== correctIndex && this.vocabulary[i].ch) {
-                availableWords.push({
-                    word: this.vocabulary[i],
-                    index: i
-                });
+                availableWords.push({ word: this.vocabulary[i], index: i });
             }
         }
         
-        // Mezclar aleatoriamente TODAS las palabras disponibles
         this.shuffleArray(availableWords);
         
-        // Seleccionar las primeras N palabras (aleatorias)
         const selectedWords = [];
         const selectedIndices = new Set();
         
+        // Primero intentar con palabras no recientes
         for (let i = 0; i < availableWords.length && selectedWords.length < numOptions; i++) {
             const candidate = availableWords[i];
-            
-            // Evitar imágenes muy recientes como distractores
             if (!this.recentlyUsedImages.has(candidate.word.ch)) {
                 selectedWords.push(candidate.word);
                 selectedIndices.add(candidate.index);
             }
         }
         
-        // Si no tenemos suficientes palabras no-recientes, usar cualquier
+        // Si no hay suficientes, usar cualquier
         if (selectedWords.length < numOptions) {
             for (let i = 0; i < availableWords.length && selectedWords.length < numOptions; i++) {
                 const candidate = availableWords[i];
@@ -416,7 +403,6 @@ class Game4 {
                 img.src = url;
             });
         });
-        
         await Promise.allSettled(imagePromises);
     };
 
@@ -431,18 +417,14 @@ class Game4 {
         const chineseElement = document.createElement('div');
         chineseElement.className = `chinese-character ${fontClass}`;
         chineseElement.textContent = word.ch || '';
-        chineseElement.style.cssText = `
-            font-size: 4rem; margin-bottom: 1rem;
-        `;
+        chineseElement.style.cssText = 'font-size: 4rem; margin-bottom: 1rem;';
         questionElement.appendChild(chineseElement);
         
         if (this.settings.get('showPinyin') && word.pin) {
             const pinyinElement = document.createElement('div');
             pinyinElement.className = 'pinyin-text';
             pinyinElement.textContent = word.pin;
-            pinyinElement.style.cssText = `
-                font-size: 1.8rem; color: #795548; margin-bottom: 1rem;
-            `;
+            pinyinElement.style.cssText = 'font-size: 1.8rem; color: #795548; margin-bottom: 1rem;';
             questionElement.appendChild(pinyinElement);
         }
     };
@@ -453,44 +435,50 @@ class Game4 {
         
         optionsContainer.innerHTML = '';
         
+        // Aplicar clase específica para imágenes
+        optionsContainer.className = 'options-container picture-mode';
+        optionsContainer.setAttribute('data-difficulty', this.settings.get('difficulty'));
+        
         const difficulty = this.settings.get('difficulty');
         const isMobile = window.innerHeight > window.innerWidth;
-        const columns = isMobile ? 2 : (difficulty === 1 ? 2 : 3);
+        let columns;
+        
+        if (isMobile) {
+            columns = 2;
+        } else {
+            columns = difficulty === 1 ? 2 : 3;
+        }
         
         optionsContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         optionsContainer.style.gap = '1rem';
+        optionsContainer.style.padding = '1rem';
         
-        // Crear botones directamente
         for (const option of options) {
             const button = document.createElement('button');
             button.className = 'option-btn picture-option';
             button.dataset.word = option.ch;
+            
+            // Aplicar estilos CSS correctos
             button.style.cssText = `
-                padding: 0.5rem; display: flex; flex-direction: column;
-                align-items: center; justify-content: center; border: none;
-                background: transparent; cursor: pointer; border-radius: 8px;
-                transition: transform 0.2s;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
             `;
-            
-            button.addEventListener('mouseenter', () => {
-                button.style.transform = 'scale(1.05)';
-            });
-            
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'scale(1)';
-            });
             
             const imageUrl = await this.getImageUrl(option);
             
             const img = document.createElement('img');
             img.src = imageUrl;
             img.alt = option.ch;
+            img.className = 'game4-image';
             img.loading = 'lazy';
-            img.style.cssText = `
-                width: 128px; height: 128px; object-fit: cover;
-                border-radius: 8px; border: 2px solid var(--pastel-brown-light);
-                background: var(--pastel-orange);
-            `;
             
             img.onerror = () => {
                 img.src = this.getPlaceholderUrl(option);
@@ -517,22 +505,17 @@ class Game4 {
         const isCorrect = selectedOption === this.currentWord;
         this.stats.recordAnswer(isCorrect);
         
-        const options = document.querySelectorAll('.option-btn');
+        const options = document.querySelectorAll('.picture-option');
         
         options.forEach((btn, index) => {
             const optionForThisButton = this.currentOptions[index];
-            
             const isThisCorrectOption = optionForThisButton === this.currentWord;
             const isThisSelectedOption = optionForThisButton === selectedOption;
             
             if (isThisCorrectOption) {
                 btn.classList.add('correct');
-                btn.querySelector('img').style.borderColor = 'var(--pastel-green)';
-                btn.querySelector('img').style.boxShadow = '0 0 10px var(--pastel-green)';
             } else if (isThisSelectedOption && !isCorrect) {
                 btn.classList.add('incorrect');
-                btn.querySelector('img').style.borderColor = 'var(--pastel-red)';
-                btn.querySelector('img').style.boxShadow = '0 0 10px var(--pastel-red)';
             }
             btn.disabled = true;
         });
@@ -575,7 +558,7 @@ class Game4 {
         }, 50);
         
         this.timer = setTimeout(() => {
-            const options = document.querySelectorAll('.option-btn');
+            const options = document.querySelectorAll('.picture-option');
             
             options.forEach((btn, index) => {
                 const optionForThisButton = this.currentOptions[index];
@@ -583,8 +566,6 @@ class Game4 {
                 
                 if (isThisCorrectOption) {
                     btn.classList.add('correct-answer');
-                    btn.querySelector('img').style.borderColor = 'var(--pastel-green)';
-                    btn.querySelector('img').style.boxShadow = '0 0 10px var(--pastel-green)';
                 }
                 btn.disabled = true;
             });
@@ -592,7 +573,6 @@ class Game4 {
             this.lives--;
             this.streak = 0;
             this.updateGameStats();
-            
             this.ui.showTimeUpMessage();
             
             if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) {
@@ -641,17 +621,13 @@ class Game4 {
         );
     };
 
-    // ============ MÉTODOS DE TECLADO ============
-    
     handleKeyPress = (event) => {
-        if (!document.getElementById('game-screen')?.classList.contains('active')) {
-            return;
-        }
+        if (!document.getElementById('game-screen')?.classList.contains('active')) return;
         
         const key = event.key;
         if (/^[1-9]$/.test(key)) {
             const optionIndex = parseInt(key) - 1;
-            const options = document.querySelectorAll('.option-btn:not(:disabled)');
+            const options = document.querySelectorAll('.picture-option:not(:disabled)');
             
             if (optionIndex < options.length) {
                 options[optionIndex].click();
@@ -667,8 +643,6 @@ class Game4 {
         document.removeEventListener('keydown', this.handleKeyPress);
     };
 
-    // ============ MÉTODOS REGULARES ============
-    
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

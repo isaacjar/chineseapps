@@ -1,4 +1,4 @@
-// game4.js - VERSIÓN MEJORADA
+// game4.js - VERSIÓN COMPLETA CORREGIDA
 class Game4 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -14,10 +14,6 @@ class Game4 {
         this.timeLeft = 0;
         this.currentWord = null;
         this.missedWords = [];
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-
-        this.showPictureListsPopup = this.showPictureListsPopup.bind(this); //  
-        this.startGameSession = this.startGameSession.bind(this); //  
         
         // URLs para imágenes
         this.picturesBaseUrl = 'https://isaacjar.github.io/chineseapps/vocpicture/';
@@ -27,37 +23,75 @@ class Game4 {
         this.availablePictureLists = [];
         
         // Caches mejorados
-        this.imageCache = new Map(); // URL → Promise de imagen cargada
-        this.imageAvailabilityCache = new Map(); // URL → boolean (si existe)
+        this.imageCache = new Map();
+        this.imageAvailabilityCache = new Map();
         
         // Opciones actuales
         this.currentOptions = [];
         
-        // Contador para logs (para evitar spam)
+        // Contador para logs
         this.debugCounter = 0;
-        this.maxDebugLogs = 5; // Máximo logs por sesión
+        this.maxDebugLogs = 5;
+        
+        // NO necesitamos bind si usamos arrow functions para los métodos
     }
 
-    debugLog(message, force = false) {
-        // Solo mostrar logs en desarrollo o cuando sea forzado
-        if (force || (this.debugCounter < this.maxDebugLogs && window.location.hostname.includes('localhost'))) {
-            console.log(`[Game4 Debug ${this.debugCounter++}] ${message}`);
-        }
-    }
-
-    async startGame() {
-        // Resetear contador de debug
+    // ============ MÉTODOS PRINCIPALES (arrow functions para mantener contexto) ============
+    
+    startGame = async () => {
+        console.log('Game4: startGame llamado');
         this.debugCounter = 0;
         
-        // Cargar lista de archivos disponibles
         await this.loadPictureLists();
         
-        // Mostrar popup de selección
-        setTimeout(() => this.showPictureListsPopup(), 100);
-    }
+        // Usar setTimeout para evitar problemas de contexto
+        setTimeout(() => {
+            this.showPictureListsPopup();
+        }, 0);
+    };
 
-    showPictureListsPopup() {
-        // Crear popup similar al de listados de vocabulario
+    loadPictureLists = async () => {
+        try {
+            console.log('Game4: Cargando listado de archivos...');
+            const response = await fetch(this.picturesBaseUrl + 'index.js');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const scriptContent = await response.text();
+            const match = scriptContent.match(/const vocpiclists\s*=\s*(\[.*?\]);/s);
+            
+            if (match && match[1]) {
+                try {
+                    this.availablePictureLists = eval(`(${match[1]})`);
+                    console.log(`Game4: ${this.availablePictureLists.length} listados cargados`);
+                } catch (e) {
+                    console.error('Error parseando listados:', e);
+                    this.useFallbackPictureLists();
+                }
+            } else {
+                this.useFallbackPictureLists();
+            }
+        } catch (error) {
+            console.error('Error cargando listados:', error);
+            this.useFallbackPictureLists();
+        }
+    };
+
+    useFallbackPictureLists = () => {
+        this.availablePictureLists = [
+            { filename: "animals", title: "Animales", level: "A1", misc: "Basic" },
+            { filename: "food", title: "Comida", level: "A1", misc: "Basic" },
+            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" },
+            { filename: "nature", title: "Naturaleza", level: "A1", misc: "Basic" }
+        ];
+        console.log('Game4: Usando listados de ejemplo');
+    };
+
+    showPictureListsPopup = () => {
+        console.log('Game4: Mostrando popup de listados');
+        
         const popup = document.createElement('div');
         popup.className = 'popup-overlay';
         popup.style.position = 'fixed';
@@ -82,7 +116,7 @@ class Game4 {
         content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
 
         const title = document.createElement('h2');
-        title.textContent = 'Vocabulary Lists';
+        title.textContent = 'Selecciona un Listado';
         title.style.marginBottom = '1.5rem';
         title.style.textAlign = 'center';
         title.style.color = '#5d4037';
@@ -96,44 +130,49 @@ class Game4 {
         listsContainer.style.maxHeight = '400px';
         listsContainer.style.overflowY = 'auto';
 
-        // Crear botones para cada listado
-        this.availablePictureLists.forEach(list => {
-            const button = document.createElement('button');
-            button.className = 'vocab-list-btn';
-            button.textContent = `${list.title} (${list.level})`;
-            button.style.padding = '1rem';
-            button.style.backgroundColor = 'var(--pastel-orange)';
-            button.style.border = 'none';
-            button.style.borderRadius = '8px';
-            button.style.cursor = 'pointer';
-            button.style.transition = 'var(--transition)';
-            button.style.textAlign = 'left';
-            button.style.fontSize = '1rem';
-            button.style.color = '#5d4037';
-
-            button.addEventListener('mouseenter', () => {
-                button.style.backgroundColor = 'var(--pastel-orange-dark)';
-            });
-
-            button.addEventListener('mouseleave', () => {
+        if (this.availablePictureLists.length === 0) {
+            listsContainer.innerHTML = '<p style="text-align: center; padding: 2rem; color: #5d4037;">No hay listados disponibles</p>';
+        } else {
+            this.availablePictureLists.forEach(list => {
+                const button = document.createElement('button');
+                button.className = 'vocab-list-btn';
+                button.textContent = `${list.title} (${list.level})`;
+                button.style.padding = '1rem';
                 button.style.backgroundColor = 'var(--pastel-orange)';
-            });
+                button.style.border = 'none';
+                button.style.borderRadius = '8px';
+                button.style.cursor = 'pointer';
+                button.style.transition = 'var(--transition)';
+                button.style.textAlign = 'left';
+                button.style.fontSize = '1rem';
+                button.style.color = '#5d4037';
 
-            // USAR ARROW FUNCTION PARA MANTENER EL CONTEXTO
-            button.addEventListener('click', async () => {
-                this.ui.showToast(`Cargando "${list.title}"...`, 'info');
-                const success = await this.loadPictureList(list.filename);
-                if (success) {
-                    document.body.removeChild(popup);
-                    // Usar arrow function aquí también
-                    setTimeout(() => this.startGameSession(), 100);
-                } else {
-                    this.ui.showToast(`Error cargando el listado "${list.title}"`, 'error');
-                }
-            });
+                button.addEventListener('mouseenter', () => {
+                    button.style.backgroundColor = 'var(--pastel-orange-dark)';
+                });
 
-            listsContainer.appendChild(button);
-        });
+                button.addEventListener('mouseleave', () => {
+                    button.style.backgroundColor = 'var(--pastel-orange)';
+                });
+
+                button.addEventListener('click', async () => {
+                    console.log(`Game4: Seleccionado ${list.filename}`);
+                    this.ui.showToast(`Cargando "${list.title}"...`, 'info');
+                    
+                    const success = await this.loadPictureList(list.filename);
+                    if (success) {
+                        document.body.removeChild(popup);
+                        setTimeout(() => {
+                            this.startGameSession();
+                        }, 100);
+                    } else {
+                        this.ui.showToast(`Error cargando el listado "${list.title}"`, 'error');
+                    }
+                });
+
+                listsContainer.appendChild(button);
+            });
+        }
 
         const closeButton = document.createElement('button');
         closeButton.textContent = 'Cerrar';
@@ -146,7 +185,6 @@ class Game4 {
         closeButton.style.margin = '0 auto';
         closeButton.style.display = 'block';
 
-        // USAR ARROW FUNCTION AQUÍ TAMBIÉN
         closeButton.addEventListener('click', () => {
             document.body.removeChild(popup);
             this.ui.showScreen('menu-screen');
@@ -157,14 +195,14 @@ class Game4 {
         content.appendChild(closeButton);
         popup.appendChild(content);
         document.body.appendChild(popup);
-    }
+    };
 
-     async loadPictureList(filename) {
+    loadPictureList = async (filename) => {
         try {
-            this.debugLog(`Cargando listado: ${filename}`);
+            console.log(`Game4: Cargando listado ${filename}`);
             
-            // Construir URL correcta - IMPORTANTE: Asegúrate de la extensión
-            const url = `${this.picturesBaseUrl}${filename}.json`; // ← AÑADIR .json
+            // Asegurar extensión .json
+            const url = `${this.picturesBaseUrl}${filename}.json`;
             
             const response = await fetch(url);
             
@@ -185,275 +223,99 @@ class Game4 {
                 throw new Error('No hay palabras con caracteres chinos');
             }
             
-            this.debugLog(`Listado cargado: ${this.vocabulary.length} palabras`);
+            console.log(`Game4: ${this.vocabulary.length} palabras cargadas`);
             
-            // Limpiar caches para nuevo listado
+            // Limpiar caches
             this.imageCache.clear();
             this.imageAvailabilityCache.clear();
             
-            // Precargar imágenes de forma inteligente
+            // Precargar imágenes
             await this.prefetchImages();
             
             return true;
             
         } catch (error) {
-            console.error('Error cargando listado:', error);
+            console.error('Game4: Error cargando listado:', error);
             
             // Datos de ejemplo
             this.vocabulary = this.getFallbackVocabulary();
             this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
             return true;
         }
-    }
+    };
 
-    useFallbackPictureLists() {
-        this.availablePictureLists = [
-            { filename: "animals", title: "Animales", level: "A1", misc: "Basic" },
-            { filename: "food", title: "Comida", level: "A1", misc: "Basic" },
-            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" }
-        ];
-        this.debugLog('Usando listados de ejemplo', true);
-    }
-
-    async loadPictureList(filename) {
-        try {
-            this.debugLog(`Cargando listado: ${filename}`);
-            const response = await fetch(`${this.picturesBaseUrl}${filename}`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (!Array.isArray(data) || data.length === 0) {
-                throw new Error('Listado vacío o inválido');
-            }
-            
-            // Filtrar palabras con caracteres chinos
-            this.vocabulary = data.filter(item => item.ch && item.ch.trim() !== '');
-            
-            if (this.vocabulary.length === 0) {
-                throw new Error('No hay palabras con caracteres chinos');
-            }
-            
-            this.debugLog(`Listado cargado: ${this.vocabulary.length} palabras`);
-            
-            // Limpiar caches para nuevo listado
-            this.imageCache.clear();
-            this.imageAvailabilityCache.clear();
-            
-            // Precargar imágenes de forma inteligente
-            await this.prefetchImages();
-            
-            return true;
-            
-        } catch (error) {
-            console.error('Error cargando listado:', error);
-            
-            // Datos de ejemplo
-            this.vocabulary = this.getFallbackVocabulary();
-            this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
-            return true;
-        }
-    }
-
-    getFallbackVocabulary() {
+    getFallbackVocabulary = () => {
         return [
             { ch: "猫", pin: "māo", en: "cat", es: "gato", pic: "cat.png" },
             { ch: "狗", pin: "gǒu", en: "dog", es: "perro", pic: "dog.png" },
             { ch: "苹果", pin: "píngguǒ", en: "apple", es: "manzana", pic: "apple.png" },
             { ch: "书", pin: "shū", en: "book", es: "libro", pic: "book.png" },
-            { ch: "水", pin: "shuǐ", en: "water", es: "agua", pic: "water.png" },
-            { ch: "鸟", pin: "niǎo", en: "bird", es: "pájaro", pic: "bird.png" },
-            { ch: "花", pin: "huā", en: "flower", es: "flor", pic: "flower.png" },
-            { ch: "车", pin: "chē", en: "car", es: "coche", pic: "car.png" },
-            { ch: "房子", pin: "fángzi", en: "house", es: "casa", pic: "house.png" },
-            { ch: "树", pin: "shù", en: "tree", es: "árbol", pic: "tree.png" }
+            { ch: "水", pin: "shuǐ", en: "water", es: "agua", pic: "water.png" }
         ];
-    }
+    };
 
-    async prefetchImages() {
-        // Estrategia mejorada de precarga:
-        // 1. Precargar las primeras N imágenes para empezar rápido
-        // 2. Precargar el resto en segundo plano
+    prefetchImages = async () => {
+        // Precargar las primeras 5 imágenes
+        const toPrefetch = this.vocabulary.slice(0, 5);
         
-        const immediatePrefetch = this.vocabulary.slice(0, 8); // Más que antes
-        const backgroundPrefetch = this.vocabulary.slice(8);
+        console.log(`Game4: Precargando ${toPrefetch.length} imágenes`);
         
-        // Precarga inmediata (bloqueante)
-        this.debugLog(`Precargando ${immediatePrefetch.length} imágenes inmediatamente`);
-        const immediatePromises = immediatePrefetch.map(word => 
-            this.checkImageAvailability(word).catch(() => false)
+        const prefetchPromises = toPrefetch.map(word => 
+            this.getImageUrl(word).catch(() => null)
         );
         
-        await Promise.allSettled(immediatePrefetch);
-        this.debugLog('Precarga inmediata completada');
-        
-        // Precarga en segundo plano (no bloqueante)
-        if (backgroundPrefetch.length > 0) {
-            setTimeout(async () => {
-                this.debugLog(`Precargando ${backgroundPrefetch.length} imágenes en segundo plano`);
-                const backgroundPromises = backgroundPrefetch.map(word => 
-                    this.checkImageAvailability(word).catch(() => false)
-                );
-                
-                await Promise.allSettled(backgroundPromises);
-                this.debugLog('Precarga en segundo plano completada', true);
-            }, 1000);
-        }
-    }
+        await Promise.allSettled(prefetchPromises);
+        console.log('Game4: Precarga de imágenes completada');
+    };
 
-    async checkImageAvailability(word) {
-        const url = await this.constructImageUrl(word);
+    getImageUrl = async (word) => {
+        const cacheKey = word.ch;
         
-        // Verificar cache primero
+        if (this.imageCache.has(cacheKey)) {
+            return this.imageCache.get(cacheKey);
+        }
+        
+        let imageUrl;
+        
+        if (word.pic) {
+            imageUrl = `${this.picFolderUrl}${word.pic}`;
+        } else {
+            imageUrl = `${this.picFolderUrl}${word.ch}.png`;
+        }
+        
+        // Verificar si la imagen existe
+        const exists = await this.checkImageExists(imageUrl);
+        
+        const finalUrl = exists ? imageUrl : this.getPlaceholderUrl(word);
+        
+        this.imageCache.set(cacheKey, finalUrl);
+        return finalUrl;
+    };
+
+    checkImageExists = async (url) => {
         if (this.imageAvailabilityCache.has(url)) {
             return this.imageAvailabilityCache.get(url);
         }
         
         try {
-            // Usar HEAD request para verificar existencia
-            const response = await fetch(url, { 
-                method: 'HEAD',
-                cache: 'force-cache'
-            });
-            
+            const response = await fetch(url, { method: 'HEAD' });
             const exists = response.ok;
             this.imageAvailabilityCache.set(url, exists);
-            
-            if (!exists) {
-                this.debugLog(`Imagen no disponible: ${url.substring(url.lastIndexOf('/') + 1)}`);
-            }
-            
             return exists;
         } catch (error) {
             this.imageAvailabilityCache.set(url, false);
             return false;
         }
-    }
+    };
 
-    async constructImageUrl(word) {
-        // 1. Intentar con el campo 'pic' específico
-        if (word.pic) {
-            const url = `${this.picFolderUrl}${word.pic}`;
-            return url;
-        }
-        
-        // 2. Intentar con el carácter chino + extensión común
-        const possibleExtensions = ['.png', '.jpg', '.jpeg', '.webp', '.gif'];
-        const baseName = word.ch.replace(/[\/\\?%*:|"<>]/g, ''); // Limpiar caracteres inválidos
-        
-        for (const ext of possibleExtensions) {
-            const url = `${this.picFolderUrl}${baseName}${ext}`;
-            
-            // Verificar cache de disponibilidad
-            if (this.imageAvailabilityCache.get(url)) {
-                return url;
-            }
-        }
-        
-        // 3. Si no se encuentra, usar placeholder
-        return this.getPlaceholderUrl(word);
-    }
-
-    getPlaceholderUrl(word) {
-        // Usar el primer carácter o los primeros dos
+    getPlaceholderUrl = (word) => {
         const text = word.ch.length > 1 ? word.ch.substring(0, 2) : word.ch;
-        const encodedText = encodeURIComponent(text);
-        
-        return `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodedText}`;
-    }
+        return `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(text)}`;
+    };
 
-    async getImageUrl(word) {
-        const cacheKey = word.ch;
+    startGameSession = () => {
+        console.log('Game4: Iniciando sesión de juego');
         
-        // Verificar cache
-        if (this.imageCache.has(cacheKey)) {
-            return this.imageCache.get(cacheKey);
-        }
-        
-        // Construir URL y verificar disponibilidad
-        const url = await this.constructImageUrl(word);
-        
-        // Verificar si realmente existe (si no está en cache)
-        const exists = await this.checkImageAvailability(word);
-        
-        const finalUrl = exists ? url : this.getPlaceholderUrl(word);
-        
-        // Guardar en cache
-        this.imageCache.set(cacheKey, finalUrl);
-        
-        return finalUrl;
-    }
-
-    async preloadOptionsImages(options) {
-        // Precargar solo las imágenes necesarias para esta pregunta
-        const imagePromises = options.map(async (option) => {
-            const url = await this.getImageUrl(option);
-            
-            // Crear y cargar imagen para precache
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = img.onerror = () => {
-                    resolve(url);
-                };
-                img.src = url;
-            });
-        });
-        
-        await Promise.allSettled(imagePromises);
-    }
-
-    async displayOptions(options) {
-        const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = '';
-        
-        const difficulty = this.settings.get('difficulty');
-        const isMobile = window.innerHeight > window.innerWidth;
-        const columns = isMobile ? 2 : (difficulty === 1 ? 2 : 3);
-        
-        optionsContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        
-        // Mostrar loader mientras se cargan las imágenes
-        optionsContainer.innerHTML = `
-            <div class="loading-overlay" style="grid-column: 1 / span ${columns}; text-align: center; padding: 2rem;">
-                <div style="font-size: 1.5rem; color: #5d4037;">Cargando imágenes...</div>
-            </div>
-        `;
-        
-        // Crear botones con imágenes
-        const fragment = document.createDocumentFragment();
-        
-        for (const option of options) {
-            const button = document.createElement('button');
-            button.className = 'option-btn picture-option';
-            button.dataset.word = option.ch;
-            
-            // Obtener URL de la imagen
-            const imageUrl = await this.getImageUrl(option);
-            
-            button.innerHTML = `
-                <img src="${imageUrl}" 
-                     alt="${option.ch}" 
-                     loading="lazy"
-                     onerror="this.src='${this.getPlaceholderUrl(option)}'; this.style.background='none'">
-            `;
-            
-            // Configurar el event listener
-            button.addEventListener('click', () => {
-                this.checkAnswer(option);
-            });
-            
-            fragment.appendChild(button);
-        }
-        
-        // Reemplazar contenido una vez todas las imágenes están listas
-        optionsContainer.innerHTML = '';
-        optionsContainer.appendChild(fragment);
-    }
-
-    startGameSession() {
         this.currentQuestion = 0;
         this.score = 0;
         this.lives = this.settings.get('lives');
@@ -464,16 +326,14 @@ class Game4 {
         this.ui.showGameStats();
         this.enableKeyboardControls();
         this.nextQuestion();
-    }
+    };
 
-     nextQuestion = async () => {
-        // Usar arrow function para mantener el contexto
+    nextQuestion = async () => {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
         }
-         
-        // Reset timer visual
+        
         const timerProgress = document.getElementById('timer-progress');
         if (timerProgress) {
             timerProgress.style.transition = 'none';
@@ -481,7 +341,7 @@ class Game4 {
             timerProgress.offsetHeight;
             timerProgress.style.transition = `width ${this.settings.get('time')}s linear`;
         }
-        
+            
         if (this.currentQuestion >= this.settings.get('questions')) {
             this.endGame();
             return;
@@ -490,7 +350,6 @@ class Game4 {
         this.currentQuestion++;
         this.updateGameStats();
         
-        // Seleccionar palabra aleatoria
         const currentIndex = Math.floor(Math.random() * this.vocabulary.length);
         this.currentWord = this.vocabulary[currentIndex];
         
@@ -499,7 +358,6 @@ class Game4 {
             return;
         }
         
-        // Obtener opciones incorrectas
         const incorrectOptions = this.getIncorrectOptions(currentIndex);
         
         if (incorrectOptions.length < (this.settings.get('difficulty') === 1 ? 3 : 5)) {
@@ -507,54 +365,64 @@ class Game4 {
             return;
         }
         
-        // Mezclar opciones
         const allOptions = [this.currentWord, ...incorrectOptions];
         this.shuffleArray(allOptions);
         this.currentOptions = allOptions;
         
-        // Precargar imágenes para esta pregunta
         await this.preloadOptionsImages(allOptions);
         
-        // Mostrar pregunta y opciones
         this.displayQuestion(this.currentWord);
         await this.displayOptions(allOptions);
-        
-        // Iniciar timer
         this.startTimer();
-    }
+    };
 
-    getIncorrectOptions(correctIndex) {
+    getIncorrectOptions = (correctIndex) => {
         const difficulty = this.settings.get('difficulty');
         const numOptions = difficulty === 1 ? 3 : 5;
+        
         const incorrectOptions = [];
         const usedIndices = new Set([correctIndex]);
         
-        // Buscar palabras disponibles
-        const availableIndices = [];
+        const availableWords = [];
         for (let i = 0; i < this.vocabulary.length; i++) {
             if (i !== correctIndex && this.vocabulary[i].ch) {
-                availableIndices.push(i);
+                availableWords.push({
+                    word: this.vocabulary[i],
+                    index: i
+                });
+                if (availableWords.length >= numOptions + 10) break;
             }
         }
         
-        // Mezclar índices disponibles
-        this.shuffleArray(availableIndices);
-        
-        // Seleccionar las primeras N
-        for (let i = 0; i < Math.min(numOptions, availableIndices.length); i++) {
-            incorrectOptions.push(this.vocabulary[availableIndices[i]]);
+        this.shuffleArray(availableWords);
+        for (let i = 0; i < Math.min(numOptions, availableWords.length); i++) {
+            incorrectOptions.push(availableWords[i].word);
         }
         
         return incorrectOptions;
-    }
+    };
 
-    displayQuestion(word) {
+    preloadOptionsImages = async (options) => {
+        const imagePromises = options.map(async (option) => {
+            const url = await this.getImageUrl(option);
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = img.onerror = () => resolve(url);
+                img.src = url;
+            });
+        });
+        
+        await Promise.allSettled(imagePromises);
+    };
+
+    displayQuestion = (word) => {
         const questionElement = document.getElementById('question-text');
+        if (!questionElement) return;
+        
         questionElement.innerHTML = '';
         
         const fontClass = this.settings.get('chineseFont') || 'noto-serif';
         
-        // Mostrar caracter chino grande
         const chineseElement = document.createElement('div');
         chineseElement.className = `chinese-character ${fontClass}`;
         chineseElement.textContent = word.ch || '';
@@ -562,7 +430,6 @@ class Game4 {
         chineseElement.style.marginBottom = '1rem';
         questionElement.appendChild(chineseElement);
         
-        // Mostrar pinyin si está activado en settings
         if (this.settings.get('showPinyin') && word.pin) {
             const pinyinElement = document.createElement('div');
             pinyinElement.className = 'pinyin-text';
@@ -572,76 +439,75 @@ class Game4 {
             pinyinElement.style.marginBottom = '1rem';
             questionElement.appendChild(pinyinElement);
         }
-        
-    }
+    };
 
-    async displayOptions(options) {
-         const optionsContainer = document.getElementById('options-container');
+    displayOptions = async (options) => {
+        const optionsContainer = document.getElementById('options-container');
         if (!optionsContainer) return;
         
         optionsContainer.innerHTML = '';
         
         const difficulty = this.settings.get('difficulty');
-        if (window.innerHeight > window.innerWidth) {
-            optionsContainer.style.gridTemplateColumns = '1fr 1fr';
-        } else {
-            optionsContainer.style.gridTemplateColumns = difficulty === 1 ? '1fr 1fr' : '1fr 1fr 1fr';
-        }
-
+        const isMobile = window.innerHeight > window.innerWidth;
+        const columns = isMobile ? 2 : (difficulty === 1 ? 2 : 3);
+        
+        optionsContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        
+        // Mostrar loader temporal
+        const loader = document.createElement('div');
+        loader.style.gridColumn = `1 / span ${columns}`;
+        loader.style.textAlign = 'center';
+        loader.style.padding = '2rem';
+        loader.innerHTML = '<div style="font-size: 1.5rem; color: #5d4037;">Cargando imágenes...</div>';
+        optionsContainer.appendChild(loader);
+        
+        // Crear botones
+        const fragment = document.createDocumentFragment();
+        
         for (const option of options) {
             const button = document.createElement('button');
-            button.className = 'option-btn';
-            button.style.padding = '0.5rem';
-            button.style.display = 'flex';
-            button.style.flexDirection = 'column';
-            button.style.alignItems = 'center';
-            button.style.justifyContent = 'center';
-            button.style.minHeight = '140px';
-            button.style.gap = '0.5rem';
+            button.className = 'option-btn picture-option';
+            button.dataset.word = option.ch;
             
-            // Obtener URL de la imagen
             const imageUrl = await this.getImageUrl(option);
             
-            const imgElement = document.createElement('img');
-            imgElement.src = imageUrl;
-            imgElement.alt = option.ch;
-            imgElement.style.width = '128px';
-            imgElement.style.height = '128px';
-            imgElement.style.objectFit = 'cover';
-            imgElement.style.borderRadius = '8px';
-            imgElement.style.border = 'none'; 
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = option.ch;
+            img.loading = 'lazy';
+            img.style.width = '128px';
+            img.style.height = '128px';
+            img.style.objectFit = 'cover';
+            img.style.borderRadius = '8px';
+            img.style.background = 'var(--pastel-orange)';
             
-            // Añadir loader mientras carga
-            imgElement.style.background = 'var(--pastel-orange)';
-            imgElement.onload = () => {
-                imgElement.style.background = 'none';
+            img.onerror = () => {
+                img.src = this.getPlaceholderUrl(option);
+                img.style.background = 'none';
             };
             
-            imgElement.onerror = () => {
-                // Si falla la imagen, mostrar placeholder
-                imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch.substring(0, 2))}`;
-                imgElement.style.background = 'none';
+            img.onload = () => {
+                img.style.background = 'none';
             };
             
-            button.appendChild(imgElement);
+            button.appendChild(img);
+            button.addEventListener('click', () => this.checkAnswer(option));
             
-            // Pasar el objeto de opción directamente al event listener
-            button.addEventListener('click', () => {
-                this.checkAnswer(option);
-            });
-            
-            optionsContainer.appendChild(button);
+            fragment.appendChild(button);
         }
-    }
+        
+        // Reemplazar loader con botones
+        optionsContainer.innerHTML = '';
+        optionsContainer.appendChild(fragment);
+    };
 
-    checkAnswer(selectedOption) {
+    checkAnswer = (selectedOption) => {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
         }
         
         const isCorrect = selectedOption === this.currentWord;
-        
         this.stats.recordAnswer(isCorrect);
         
         const options = document.querySelectorAll('.option-btn');
@@ -652,7 +518,6 @@ class Game4 {
             const isThisCorrectOption = optionForThisButton === this.currentWord;
             const isThisSelectedOption = optionForThisButton === selectedOption;
             
-            // Aplicar clases según el escenario
             if (isThisCorrectOption) {
                 btn.classList.add('correct');
             } else if (isThisSelectedOption && !isCorrect) {
@@ -668,7 +533,9 @@ class Game4 {
         } else {
             this.lives--;
             this.streak = 0;
-            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) { this.missedWords.push(this.currentWord); } // Guarda la palabra fallada
+            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) {
+                this.missedWords.push(this.currentWord);
+            }
             this.ui.showRandomFailMessage();
         }
         
@@ -681,11 +548,13 @@ class Game4 {
                 this.nextQuestion();
             }
         }, 1500);
-    }
+    };
 
-    startTimer() {
+    startTimer = () => {
         this.timeLeft = this.settings.get('time');
         const timerProgress = document.getElementById('timer-progress');
+        
+        if (!timerProgress) return;
         
         timerProgress.style.transition = `width ${this.timeLeft}s linear`;
         timerProgress.style.width = '100%';
@@ -713,7 +582,9 @@ class Game4 {
             
             this.ui.showTimeUpMessage();
             
-            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) { this.missedWords.push(this.currentWord); }
+            if (!this.missedWords.some(word => word.ch === this.currentWord.ch)) {
+                this.missedWords.push(this.currentWord);
+            }
                     
             setTimeout(() => {
                 if (this.lives <= 0) {
@@ -723,37 +594,67 @@ class Game4 {
                 }
             }, 1500);
         }, this.timeLeft * 1000);
-    }
+    };
     
-    updateGameStats() {
-        document.getElementById('question-progress').textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;
-        document.getElementById('score').textContent = `🏅 ${this.score}`;
-        document.getElementById('streak').textContent = `🔥 ${this.streak}`;
-        document.getElementById('lives').textContent = `❤️ ${this.lives}`;
-    }
+    updateGameStats = () => {
+        const questionProgress = document.getElementById('question-progress');
+        const score = document.getElementById('score');
+        const streak = document.getElementById('streak');
+        const lives = document.getElementById('lives');
+        
+        if (questionProgress) questionProgress.textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;
+        if (score) score.textContent = `🏅 ${this.score}`;
+        if (streak) streak.textContent = `🔥 ${this.streak}`;
+        if (lives) lives.textContent = `❤️ ${this.lives}`;
+    };
     
-   endGame = () => {
-        // Arrow function para mantener contexto
+    endGame = () => {
         this.stats.recordGame();
         clearTimeout(this.timer);
         this.timer = null;
-
+        
         this.disableKeyboardControls();
 
         const missedWords = this.getMissedWords();
         
-        // Mostrar popup de resultados
         this.ui.showGameResults(
             this.score, 
             this.settings.get('questions'),
             missedWords,
             this.currentGame,
             () => {
-                // Callback para jugar otra vez
                 this.startGameSession();
             }
         );
     };
+
+    // ============ MÉTODOS DE TECLADO (necesitan bind o arrow functions) ============
+    
+    handleKeyPress = (event) => {
+        if (!document.getElementById('game-screen')?.classList.contains('active')) {
+            return;
+        }
+        
+        const key = event.key;
+        if (/^[1-9]$/.test(key)) {
+            const optionIndex = parseInt(key) - 1;
+            const options = document.querySelectorAll('.option-btn:not(:disabled)');
+            
+            if (optionIndex < options.length) {
+                options[optionIndex].click();
+            }
+        }
+    };
+    
+    enableKeyboardControls = () => {
+        document.addEventListener('keydown', this.handleKeyPress);
+    };
+    
+    disableKeyboardControls = () => {
+        document.removeEventListener('keydown', this.handleKeyPress);
+    };
+
+    // ============ MÉTODOS REGULARES (no necesitan bind) ============
     
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -763,38 +664,7 @@ class Game4 {
         return array;
     }
 
-  // Método para manejar eventos de teclado
-  handleKeyPress(event) {
-      // Solo procesar si estamos en pantalla de juego
-      if (!document.getElementById('game-screen').classList.contains('active')) {
-          return;
-      }
-      
-      const key = event.key;
-      
-      // Verificar si es un número del 1 al 9
-      if (/^[1-9]$/.test(key)) {
-          const optionIndex = parseInt(key) - 1; // Convertir a índice (0-based)
-          const options = document.querySelectorAll('.option-btn:not(:disabled)');
-          
-          // Verificar que el índice es válido
-          if (optionIndex < options.length) {
-              options[optionIndex].click(); // Simular click en la opción
-          }
-      }
-  }
-  
-  // Método para agregar event listener del teclado
-  enableKeyboardControls() {
-      document.addEventListener('keydown', this.handleKeyPress);
-  }
-  
-  // Método para remover event listener del teclado
-  disableKeyboardControls() {
-      document.removeEventListener('keydown', this.handleKeyPress);
-  }
-
-  getMissedWords() {
-      return this.missedWords;
-  }
+    getMissedWords() {
+        return this.missedWords;
+    }
 }

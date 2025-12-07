@@ -18,7 +18,7 @@ class SoundManager {
             return new Promise((resolve) => {
                 audio.addEventListener('canplaythrough', () => {
                     this.sounds[name] = audio;
-                    console.log(`Sonido cargado: ${name}`);
+                    // console.log(`Sonido cargado: ${name}`);
                     resolve(true);
                 });
                 

@@ -165,7 +165,7 @@ class Game4 {
 
     loadPictureList = async (filename) => {
         try {
-            const url = `${this.picturesBaseUrl}${filename}.json`;
+            const url = `${this.picturesBaseUrl}${filename}`;
             const response = await fetch(url);
             
             if (!response.ok) {

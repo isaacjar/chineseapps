@@ -202,7 +202,7 @@ class Game4 {
             console.log(`Game4: Cargando listado ${filename}`);
             
             // Asegurar extensión .json
-            const url = `${this.picturesBaseUrl}${filename}.json`;
+            const url = `${this.picturesBaseUrl}${filename}`;
             
             const response = await fetch(url);
             

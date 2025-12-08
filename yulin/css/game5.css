@@ -1,0 +1,442 @@
+/* game5.css - Estilos para el Memory Game */
+
+/* Popup de configuración inicial */
+.game5-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game5-popup-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.game5-popup-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #5d4037;
+}
+
+/* Secciones del popup */
+.game5-list-section,
+.game5-grid-section {
+    margin-bottom: 2rem;
+}
+
+.game5-section-label {
+    margin-bottom: 1rem;
+    color: #795548;
+}
+
+/* Contenedor de listas */
+.game5-lists-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Botones de listas */
+.game5-vocab-list-btn {
+    padding: 1rem;
+    background-color: var(--pastel-orange);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    font-size: 1rem;
+    color: #5d4037;
+}
+
+.game5-vocab-list-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.game5-vocab-list-btn.selected {
+    background-color: var(--pastel-brown-dark);
+    color: white;
+}
+
+/* Opciones de grid */
+.game5-grid-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.game5-grid-option-btn {
+    padding: 0.75rem 1rem;
+    background-color: var(--pastel-green);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    color: #5d4037;
+}
+
+.game5-grid-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.game5-grid-option-btn.selected {
+    background-color: var(--pastel-green-dark);
+    color: white;
+}
+
+/* Botones de acción */
+.game5-buttons-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.game5-start-btn {
+    padding: 0.75rem 2rem;
+    background-color: var(--pastel-brown-dark);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.game5-cancel-btn {
+    padding: 0.75rem 2rem;
+    background-color: var(--pastel-orange);
+    color: #5d4037;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+/* Estadísticas del juego */
+.game5-stat {
+    margin-left: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Contenedor principal del juego */
+.game5-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    padding: 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.game5-title {
+    text-align: center;
+    margin: 0.5rem 0;
+    color: #5d4037;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.game5-grid-wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Grid de cartas */
+.game5-grid {
+    display: grid;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    place-items: center;
+}
+
+/* Botón de reinicio */
+.game5-button-container {
+    flex-shrink: 0;
+    padding: 0.5rem 0;
+    text-align: center;
+}
+
+.game5-reset-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Cartas de memoria */
+.game5-memory-card {
+    aspect-ratio: 1/1.2;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.game5-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+/* Cara frontal (reverso) */
+.game5-card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: var(--pastel-brown-dark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #5d4037;
+}
+
+.game5-pattern-container {
+    width: 80%;
+    height: 80%;
+    background-image: radial-gradient(circle, var(--pastel-orange) 2px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.7;
+    border-radius: 6px;
+}
+
+.game5-yulin-logo {
+    font-size: 2rem;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Cara trasera (contenido) */
+.game5-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: white;
+    border-radius: 8px;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 2px solid var(--pastel-orange);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Contenedor de imagen */
+.game5-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pastel-orange);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.game5-image-container.loaded {
+    background-color: transparent;
+}
+
+.game5-card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.game5-image-placeholder {
+    font-size: 2rem;
+    color: #5d4037;
+}
+
+/* Texto chino y pinyin */
+.game5-chinese-character {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #5d4037;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    line-height: 1;
+}
+
+.game5-pinyin {
+    font-size: 1rem;
+    color: #795548;
+    font-style: italic;
+}
+
+/* Estados de las cartas */
+.game5-memory-card.flipped .game5-card-inner {
+    transform: rotateY(180deg);
+}
+
+.game5-memory-card.matched {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.game5-memory-card.matched .game5-card-back {
+    border-color: var(--pastel-green-dark);
+}
+
+/* Popup de resultados */
+.game5-results-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.game5-results-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.game5-results-title {
+    text-align: center;
+    color: #5d4037;
+    margin-bottom: 1rem;
+}
+
+.game5-results-message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: var(--pastel-orange);
+}
+
+.game5-results-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.game5-result-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--pastel-orange);
+}
+
+.game5-stat-label {
+    font-weight: bold;
+    color: #795548;
+}
+
+.game5-stat-value {
+    color: #5d4037;
+    font-weight: bold;
+}
+
+.game5-results-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.game5-play-again-btn,
+.game5-back-menu-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.game5-play-again-btn {
+    background-color: var(--pastel-green-dark);
+    color: white;
+}
+
+.game5-back-menu-btn {
+    background-color: var(--pastel-orange);
+    color: #5d4037;
+}
+
+.game5-play-again-btn:hover,
+.game5-back-menu-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .game5-popup-content {
+        padding: 1rem;
+    }
+    
+    .game5-grid-options {
+        flex-direction: column;
+    }
+    
+    .game5-grid-option-btn {
+        width: 100%;
+    }
+    
+    .game5-buttons-container {
+        flex-direction: column;
+    }
+    
+    .game5-start-btn,
+    .game5-cancel-btn {
+        width: 100%;
+    }
+    
+    .game5-results-buttons {
+        flex-direction: column;
+    }
+    
+    .game5-play-again-btn,
+    .game5-back-menu-btn {
+        width: 100%;
+    }
+}

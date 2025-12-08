@@ -81,6 +81,8 @@ class Game5 {
     }
 
     showInitialSetupPopup() {
+        this.ui.showGameStats(); // Esto ocultará el botón ⚙️
+        
         const popup = document.createElement('div');
         popup.className = 'popup-overlay game5-popup-overlay';
         
@@ -318,6 +320,9 @@ class Game5 {
         
         // Mostrar pantalla de juego
         this.ui.showScreen('game-screen');
+        
+        // Ocultar botón de configuración y mostrar estadísticas
+        this.ui.showGameStats();
         
         // Configurar estadísticas del juego
         this.setupGameStats();
@@ -821,7 +826,7 @@ class Game5 {
         if (scoreElement) scoreElement.textContent = `🏅 ${this.score}`;
     }
 
-    endGame() {
+   endGame() {
         // Detener timer
         if (this.timer) {
             clearInterval(this.timer);
@@ -841,7 +846,7 @@ class Game5 {
             // Mostrar popup de resultados
             this.showResultsPopup(accuracy, efficiency);
         } else {
-            // Si el juego no había empezado, solo volver al menú
+            // Si el juego no había empezado, volver al menú y restaurar botón de configuración
             this.ui.goToHome();
         }
     }
@@ -938,7 +943,7 @@ class Game5 {
         return newArray;
     }
     
-    cleanup() {
+   cleanup() {
         // Restaurar manejador original del header
         const headerHome = document.getElementById('header-home');
         if (headerHome && this.originalHeaderClick) {

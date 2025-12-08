@@ -225,7 +225,11 @@ class UI {
             clearTimeout(this.game4.timer);
             this.game4.timer = null;
         }
-
+        if (this.game5 && this.game5.timer) {
+            clearInterval(this.game5.timer); // Game5 usa setInterval, no setTimeout
+            this.game5.timer = null;
+        }
+        
         // Deshabilitar controles de teclado de todos los juegos
         if (this.game.disableKeyboardControls) {
             this.game.disableKeyboardControls();
@@ -236,7 +240,10 @@ class UI {
         if (this.game4 && this.game4.disableKeyboardControls) {
             this.game4.disableKeyboardControls();
         }
-            
+        if (this.game5 && this.game5.cleanup) {
+            this.game5.cleanup();
+        }
+        
         // Ocultar estadísticas del juego
         this.hideGameStats();
         

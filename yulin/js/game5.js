@@ -33,6 +33,7 @@ class Game5 {
         
         // Bind de métodos
         this.handleCardClick = this.handleCardClick.bind(this);
+        this.handleResize = this.handleResize.bind(this);
     }
 
     async startGame() {
@@ -373,7 +374,7 @@ class Game5 {
     }
 
     startGameSession() {
-        // Resetear estado del juego
+    // Resetear estado del juego
         this.score = 0;
         this.moves = 0;
         this.matchedPairs = 0;
@@ -394,8 +395,8 @@ class Game5 {
         
         // Iniciar timer
         this.startTimer();
-
-         // Guardar referencia al manejador original del header
+    
+        // Guardar referencia al manejador original del header
         this.saveOriginalHeaderHandler();
     }
 
@@ -483,7 +484,12 @@ class Game5 {
         gridContainer.style.flex = '1';
         gridContainer.style.minHeight = '0';
         
-        // ... resto del código para crear cartas ...
+        // CREAR Y AÑADIR LAS CARTAS AL GRID
+        const cards = this.generateCards();
+        cards.forEach(card => {
+            const cardElement = this.createCardElement(card);
+            gridContainer.appendChild(cardElement);
+        });
         
         // Botón de reinicio (fuera del área de scroll)
         const buttonContainer = document.createElement('div');
@@ -496,6 +502,10 @@ class Game5 {
         resetButton.className = 'btn';
         resetButton.style.padding = '0.5rem 1rem';
         resetButton.style.fontSize = '0.9rem';
+        resetButton.addEventListener('click', () => {
+            this.cleanup();
+            this.startGameSession();
+        });
         
         buttonContainer.appendChild(resetButton);
         
@@ -516,7 +526,49 @@ class Game5 {
         // Redimensionar al cambiar tamaño
         window.addEventListener('resize', () => this.handleResize(gridContainer));
         
+        // Asegurar que el manejador del header esté configurado
         this.saveOriginalHeaderHandler();
+    }
+
+    generateCards() {
+        const cards = [];
+        
+        // Seleccionar palabras aleatorias para este juego
+        const selectedWords = this.getRandomWords(this.totalPairs);
+        
+        // Crear pares: una carta con imagen y una con texto para cada palabra
+        selectedWords.forEach((word, index) => {
+            // Carta con imagen
+            cards.push({
+                id: index * 2,
+                word: word,
+                type: 'image'
+            });
+            
+            // Carta con texto
+            cards.push({
+                id: index * 2 + 1,
+                word: word,
+                type: 'text'
+            });
+        });
+        
+        // Mezclar las cartas
+        return this.shuffleArray(cards);
+    }
+    
+    getRandomWords(count) {
+        // Crear copia del vocabulario
+        const shuffled = [...this.vocabulary];
+        
+        // Mezclar
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
+        // Tomar las primeras 'count' palabras
+        return shuffled.slice(0, Math.min(count, shuffled.length));
     }
     
     // Añadir nuevos métodos para manejo responsive:
@@ -689,7 +741,6 @@ class Game5 {
             this.applyCardSizeConstraints();
         }, 100);
     }
-
     createCardElement(card) {
         const cardElement = document.createElement('div');
         cardElement.className = 'memory-card';
@@ -1043,39 +1094,42 @@ class Game5 {
         document.body.appendChild(popup);
     }
 
-    shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+   shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         }
-        return array;
+        return newArray;
     }
-
-cleanup() {
-    // Restaurar manejador original del header
-    const headerHome = document.getElementById('header-home');
-    if (headerHome && this.originalHeaderClick) {
-        headerHome.onclick = this.originalHeaderClick;
+    cleanup() {
+        // Restaurar manejador original del header
+        const headerHome = document.getElementById('header-home');
+        if (headerHome && this.originalHeaderClick) {
+            headerHome.onclick = this.originalHeaderClick;
+        }
+        
+        // Detener timer
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        
+        // Limpiar listeners de cartas
+        const cards = document.querySelectorAll('.memory-card');
+        cards.forEach(card => {
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+        });
+        
+        // Limpiar listeners de redimensionamiento
+        window.removeEventListener('resize', this.handleResize);
+        
+        // Limpiar estado del juego
+        this.selectedCards = [];
+        this.canSelect = false;
+        this.gameStarted = false;
     }
-    
-    // Detener timer
-    if (this.timer) {
-        clearInterval(this.timer);
-        this.timer = null;
-    }
-    
-    // Limpiar listeners de cartas
-    const cards = document.querySelectorAll('.memory-card');
-    cards.forEach(card => {
-        const newCard = card.cloneNode(true);
-        card.parentNode.replaceChild(newCard, card);
-    });
-    
-    // Limpiar estado del juego
-    this.selectedCards = [];
-    this.canSelect = false;
-    this.gameStarted = false;
-}
 
 exitGame() {
     this.cleanup();

@@ -1183,3 +1183,123 @@ input:checked + .slider:before {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* ============================================
+   ESTILOS ESPECÍFICOS PARA GAME4 - IMÁGENES PNG TRANSPARENTES
+   ============================================ */
+
+/* Eliminar fondo y bordes del botón para Game4 */
+#game-screen.game4 .option-btn {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.5rem !important;
+    min-height: 180px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Hover normal (sin fondo) */
+#game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled) {
+    background-color: transparent !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Estados de feedback sin fondo */
+#game-screen.game4 .option-btn.correct {
+    background-color: transparent !important;
+    border: 3px solid #4caf50 !important;
+    animation: pulse-green 0.6s !important;
+}
+
+#game-screen.game4 .option-btn.incorrect {
+    background-color: transparent !important;
+    border: 3px solid #f44336 !important;
+    animation: shake 0.5s !important;
+}
+
+#game-screen.game4 .option-btn.correct-answer {
+    background-color: transparent !important;
+    border: 3px solid #ffeb3b !important;
+    animation: pulse-yellow 0.6s !important;
+}
+
+/* Deshabilitado sin fondo */
+#game-screen.game4 .option-btn:disabled {
+    background-color: transparent !important;
+    opacity: 0.7 !important;
+}
+
+/* Estilos para las imágenes PNG en Game4 */
+#game-screen.game4 .option-btn img {
+    width: 160px !important;
+    height: 160px !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    
+    /* Sombra que sigue la silueta de la imagen transparente */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) 
+            drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1)) !important;
+    
+    transform: translateY(0) !important;
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+    display: block !important;
+}
+
+/* Efecto hover para imágenes */
+#game-screen.game4 .option-btn:not(:disabled):hover img {
+    transform: translateY(-4px) !important;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) 
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15)) !important;
+}
+
+/* Efecto hover para estados de feedback */
+#game-screen.game4 .option-btn.correct:hover img,
+#game-screen.game4 .option-btn.incorrect:hover img,
+#game-screen.game4 .option-btn.correct-answer:hover img {
+    transform: none !important;
+}
+
+/* Placeholders con fondo naranja claro (solo para imágenes que fallan) */
+#game-screen.game4 .option-btn img[src*="placeholder.com"] {
+    background-color: var(--pastel-orange) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    filter: none !important;
+}
+
+/* Números de opción más visibles en Game4 */
+#game-screen.game4 .option-btn div[style*="position: absolute"] {
+    background-color: var(--pastel-brown-dark) !important;
+    color: white !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.9rem !important;
+    z-index: 10 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* Ajustes responsive para Game4 */
+@media (max-width: 768px) {
+    #game-screen.game4 .option-btn img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 140px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #game-screen.game4 .option-btn img {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 120px !important;
+    }
+}

@@ -440,3 +440,77 @@
         width: 100%;
     }
 }
+
+/* Contenedor de imagen con fondo marroncito */
+.game5-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pastel-brown); /* Fondo marroncito */
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game5-image-container.loaded {
+    background-color: var(--pastel-brown); /* Mantener el fondo marroncito */
+}
+
+.game5-card-image {
+    max-width: 80%; /* Reducir un poco el tamaño de la imagen */
+    max-height: 80%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* Fondo de patrón para las imágenes (similar a las cartas de texto) */
+.game5-image-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 15px 15px;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+/* Para las cartas de texto, también agregar fondo marroncito */
+.game5-card-back.text-card {
+    background-color: var(--pastel-brown);
+}
+
+/* Contenedor de texto chino */
+.game5-text-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pastel-brown);
+    border-radius: 6px;
+    position: relative;
+}
+
+/* Ajustar tamaño del texto chino */
+.game5-chinese-character {
+    font-size: 2.2rem; /* Reducir un poco */
+    font-weight: bold;
+    color: #5d4037;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    line-height: 1;
+    z-index: 2;
+}
+
+/* Ajustar pinyin */
+.game5-pinyin {
+    font-size: 1rem;
+    color: #795548;
+    font-style: italic;
+    z-index: 2;
+}

@@ -135,11 +135,11 @@ class Game5 {
             button.dataset.filename = list.filename;
 
             button.style.padding = '1rem';
-            button.style.backgroundColor = '#ffd8a6';
+            button.style.backgroundColor = 'var(--pastel-orange)';
             button.style.border = 'none';
             button.style.borderRadius = '8px';
             button.style.cursor = 'pointer';
-            button.style.transition = 'all 0.3s ease';
+            button.style.transition = 'var(--transition)';
             button.style.textAlign = 'left';
             button.style.fontSize = '1rem';
             button.style.color = '#5d4037';
@@ -147,11 +147,10 @@ class Game5 {
             button.addEventListener('click', () => {
                 // Desmarcar todos los botones
                 document.querySelectorAll('.vocab-list-btn').forEach(btn => {
-                    btn.style.backgroundColor = '#ffd8a6';
+                    btn.style.backgroundColor = 'var(--pastel-orange)';
                 });
                 // Marcar el seleccionado
-                button.style.backgroundColor = '#5d4037';
-                button.style.color = 'white';
+                button.style.backgroundColor = 'var(--pastel-brown-dark)';
                 this.selectedList = list;
             });
 
@@ -184,21 +183,21 @@ class Game5 {
             button.dataset.size = size;
 
             button.style.padding = '0.75rem 1rem';
-            button.style.backgroundColor = '#c8e6c9';
+            button.style.backgroundColor = 'var(--pastel-green)';
             button.style.border = 'none';
             button.style.borderRadius = '8px';
             button.style.cursor = 'pointer';
-            button.style.transition = 'all 0.3s ease';
+            button.style.transition = 'var(--transition)';
             button.style.fontSize = '0.9rem';
             button.style.color = '#5d4037';
 
             button.addEventListener('click', () => {
                 // Desmarcar todos los botones
                 document.querySelectorAll('.grid-option-btn').forEach(btn => {
-                    btn.style.backgroundColor = '#c8e6c9';
+                    btn.style.backgroundColor = 'var(--pastel-green)';
                 });
                 // Marcar el seleccionado
-                button.style.backgroundColor = '#a5d6a7';
+                button.style.backgroundColor = 'var(--pastel-green-dark)';
                 this.gridSize = size;
             });
 
@@ -219,7 +218,7 @@ class Game5 {
         startButton.textContent = '🚀 Start Game';
         startButton.className = 'btn';
         startButton.style.padding = '0.75rem 2rem';
-        startButton.style.backgroundColor = '#5d4037';
+        startButton.style.backgroundColor = 'var(--pastel-brown-dark)';
         startButton.style.color = 'white';
         startButton.style.border = 'none';
         startButton.style.borderRadius = '8px';
@@ -231,7 +230,7 @@ class Game5 {
         cancelButton.textContent = 'Cancel';
         cancelButton.className = 'btn';
         cancelButton.style.padding = '0.75rem 2rem';
-        cancelButton.style.backgroundColor = '#ffd8a6';
+        cancelButton.style.backgroundColor = 'var(--pastel-orange)';
         cancelButton.style.color = '#5d4037';
         cancelButton.style.border = 'none';
         cancelButton.style.borderRadius = '8px';
@@ -267,15 +266,12 @@ class Game5 {
         if (this.availablePictureLists.length > 0) {
             this.selectedList = this.availablePictureLists[0];
             const firstListBtn = listsContainer.querySelector('.vocab-list-btn');
-            if (firstListBtn) {
-                firstListBtn.style.backgroundColor = '#5d4037';
-                firstListBtn.style.color = 'white';
-            }
+            if (firstListBtn) firstListBtn.style.backgroundColor = 'var(--pastel-brown-dark)';
             
             // Seleccionar tamaño medio por defecto
             this.gridSize = 12;
             const mediumGridBtn = gridOptionsContainer.querySelector(`[data-size="12"]`);
-            if (mediumGridBtn) mediumGridBtn.style.backgroundColor = '#a5d6a7';
+            if (mediumGridBtn) mediumGridBtn.style.backgroundColor = 'var(--pastel-green-dark)';
         }
 
         content.appendChild(title);
@@ -378,7 +374,7 @@ class Game5 {
     }
 
     startGameSession() {
-        // Resetear estado del juego
+    // Resetear estado del juego
         this.score = 0;
         this.moves = 0;
         this.matchedPairs = 0;
@@ -399,329 +395,12 @@ class Game5 {
         
         // Iniciar timer
         this.startTimer();
-        
+    
         // Guardar referencia al manejador original del header
         this.saveOriginalHeaderHandler();
-        
-        // Aplicar estilos CSS dinámicos
-        this.applyMemoryGameStyles();
     }
 
-    applyMemoryGameStyles() {
-        const style = document.createElement('style');
-        style.id = 'memory-game-styles';
-        
-        // Eliminar estilos anteriores si existen
-        const oldStyle = document.getElementById('memory-game-styles');
-        if (oldStyle) oldStyle.remove();
-        
-        style.textContent = `
-            /* MEMORY GAME STYLES */
-            .memory-game-container {
-                display: flex;
-                flex-direction: column;
-                height: calc(100vh - 120px);
-                padding: 0.5rem;
-                box-sizing: border-box;
-                overflow: hidden;
-            }
-            
-            .memory-grid {
-                display: grid;
-                width: 100%;
-                height: 100%;
-                overflow: hidden !important;
-                place-items: center;
-                gap: 0.25rem;
-                padding: 0.25rem;
-            }
-            
-            .memory-card {
-                width: 100%;
-                height: 100%;
-                max-width: 180px;
-                max-height: 216px;
-                transition: transform 0.3s ease;
-                transform-style: preserve-3d;
-                position: relative;
-                margin: 0 !important;
-                aspect-ratio: 1/1.2;
-                perspective: 1000px;
-                cursor: pointer;
-                border-radius: 8px;
-                overflow: hidden;
-            }
-            
-            .memory-card.matched {
-                opacity: 0.7;
-                transform: scale(0.95);
-            }
-            
-            .memory-card.flipped .card-inner {
-                transform: rotateY(180deg);
-            }
-            
-            .card-inner {
-                width: 100%;
-                height: 100%;
-                transition: transform 0.6s;
-                transform-style: preserve-3d;
-                position: relative;
-            }
-            
-            .card-front, .card-back {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                backface-visibility: hidden;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                border-width: 2px;
-            }
-            
-            .card-front {
-                background-color: #5d4037;
-                border: 2px solid #5d4037;
-            }
-            
-            .card-back {
-                transform: rotateY(180deg);
-                background: white;
-                border: 2px solid #ffd8a6;
-            }
-            
-            .memory-chinese-character {
-                font-size: 2.5rem;
-                font-weight: bold;
-                color: #5d4037;
-                text-align: center;
-                line-height: 1;
-                margin: 0;
-                padding: 0.5rem;
-            }
-            
-            .memory-pinyin {
-                font-size: 1rem;
-                color: #795548;
-                font-style: italic;
-                margin-top: 0.25rem;
-            }
-            
-            .image-container {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #ffd8a6;
-                border-radius: 6px;
-                overflow: hidden;
-            }
-            
-            .image-container img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-            }
-            
-            /* Popup de resultados */
-            .memory-results-popup {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.7);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 2000;
-                animation: memory-fadeIn 0.3s ease;
-            }
-            
-            .memory-results-content {
-                background: white;
-                padding: 2rem;
-                border-radius: 16px;
-                max-width: 90%;
-                max-height: 90vh;
-                overflow-y: auto;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-                animation: memory-slideUp 0.4s ease;
-            }
-            
-            .memory-results-title {
-                color: #5d4037;
-                text-align: center;
-                margin-bottom: 1.5rem;
-                font-size: 2rem;
-            }
-            
-            .memory-results-message {
-                text-align: center;
-                font-size: 1.5rem;
-                margin-bottom: 2rem;
-                padding: 1rem;
-                background: linear-gradient(135deg, #ffd8a6, #fff9c4);
-                border-radius: 12px;
-                color: #5d4037;
-                font-weight: bold;
-            }
-            
-            .memory-results-stats {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-            
-            .memory-result-stat {
-                display: flex;
-                justify-content: space-between;
-                padding: 0.75rem;
-                background: #f9f5f0;
-                border-radius: 8px;
-                border-left: 4px solid #c8e6c9;
-            }
-            
-            .memory-stat-label {
-                font-weight: bold;
-                color: #795548;
-            }
-            
-            .memory-stat-value {
-                font-weight: bold;
-                color: #5d4037;
-            }
-            
-            .memory-results-buttons {
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .memory-results-btn {
-                padding: 0.75rem 2rem;
-                border: none;
-                border-radius: 8px;
-                font-size: 1.1rem;
-                font-weight: bold;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                min-width: 140px;
-            }
-            
-            .memory-results-btn.play-again {
-                background: #c8e6c9;
-                color: #5d4037;
-            }
-            
-            .memory-results-btn.back-menu {
-                background: #ffd8a6;
-                color: #5d4037;
-            }
-            
-            .memory-results-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-            
-            /* Animaciones */
-            @keyframes memory-fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            
-            @keyframes memory-slideUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .memory-chinese-character {
-                    font-size: 2rem !important;
-                }
-                
-                .memory-pinyin {
-                    font-size: 0.9rem !important;
-                }
-                
-                .memory-results-content {
-                    padding: 1.5rem;
-                }
-                
-                .memory-results-title {
-                    font-size: 1.5rem;
-                }
-                
-                .memory-results-message {
-                    font-size: 1.2rem;
-                }
-                
-                .memory-results-stats {
-                    grid-template-columns: 1fr;
-                }
-                
-                .memory-results-buttons {
-                    flex-direction: column;
-                }
-                
-                .memory-results-btn {
-                    width: 100%;
-                }
-                
-                .memory-card {
-                    max-width: 140px !important;
-                    max-height: 168px !important;
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .memory-grid {
-                    gap: 0.125rem !important;
-                    padding: 0.125rem;
-                }
-                
-                .memory-card {
-                    max-width: 110px !important;
-                    max-height: 132px !important;
-                }
-                
-                .memory-chinese-character {
-                    font-size: 1.8rem !important;
-                }
-                
-                .memory-pinyin {
-                    font-size: 0.8rem !important;
-                }
-            }
-            
-            @media (max-width: 360px) {
-                .memory-card {
-                    max-width: 95px !important;
-                    max-height: 114px !important;
-                }
-                
-                .memory-chinese-character {
-                    font-size: 1.5rem !important;
-                }
-            }
-        `;
-        
-        document.head.appendChild(style);
-    }
-
+    // Añadir este nuevo método:
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
@@ -774,6 +453,12 @@ class Game5 {
         // Contenedor principal que usa TODO el espacio disponible
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container';
+        gameContainer.style.display = 'flex';
+        gameContainer.style.flexDirection = 'column';
+        gameContainer.style.height = 'calc(100vh - 120px)'; // Altura completa menos header y footer
+        gameContainer.style.padding = '0.5rem';
+        gameContainer.style.boxSizing = 'border-box';
+        gameContainer.style.overflow = 'hidden';
         
         // Título compacto
         const gameTitle = document.createElement('h2');
@@ -782,12 +467,12 @@ class Game5 {
         gameTitle.style.margin = '0.5rem 0';
         gameTitle.style.color = '#5d4037';
         gameTitle.style.fontSize = '1.2rem';
-        gameTitle.style.flexShrink = '0';
+        gameTitle.style.flexShrink = '0'; // No se encoje
         
         // Contenedor del grid que se expande
         const gridWrapper = document.createElement('div');
-        gridWrapper.style.flex = '1';
-        gridWrapper.style.minHeight = '0';
+        gridWrapper.style.flex = '1'; // Ocupa todo el espacio restante
+        gridWrapper.style.minHeight = '0'; // IMPORTANTE: Permite que se encoja
         gridWrapper.style.display = 'flex';
         gridWrapper.style.flexDirection = 'column';
         gridWrapper.style.overflow = 'hidden';
@@ -808,20 +493,15 @@ class Game5 {
         
         // Botón de reinicio (fuera del área de scroll)
         const buttonContainer = document.createElement('div');
-        buttonContainer.style.flexShrink = '0';
+        buttonContainer.style.flexShrink = '0'; // No se encoje
         buttonContainer.style.padding = '0.5rem 0';
         buttonContainer.style.textAlign = 'center';
         
         const resetButton = document.createElement('button');
         resetButton.textContent = '🔄 Restart';
+        resetButton.className = 'btn';
         resetButton.style.padding = '0.5rem 1rem';
-        resetButton.style.backgroundColor = '#ffd8a6';
-        resetButton.style.color = '#5d4037';
-        resetButton.style.border = 'none';
-        resetButton.style.borderRadius = '8px';
-        resetButton.style.cursor = 'pointer';
         resetButton.style.fontSize = '0.9rem';
-        resetButton.style.fontWeight = 'bold';
         resetButton.addEventListener('click', () => {
             this.cleanup();
             this.startGameSession();
@@ -891,114 +571,112 @@ class Game5 {
         return shuffled.slice(0, Math.min(count, shuffled.length));
     }
     
+    // Añadir nuevos métodos para manejo responsive:
     setupGridLayout(gridContainer) {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const isLandscape = viewportWidth > viewportHeight;
         const isMobile = viewportWidth < 768;
         
-        // Calcular número óptimo de columnas
+        console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
+        
+        // AUMENTAR número de columnas para aprovechar espacio
         let columns;
         
-        // Determinar número de columnas basado en orientación y tamaño
         if (isLandscape) {
-            // Horizontal
-            if (viewportWidth >= 1600) columns = 8;
-            else if (viewportWidth >= 1200) columns = 6;
-            else if (viewportWidth >= 768) columns = 5;
-            else columns = 4;
+            // MODO APAISADO - más columnas
+            if (viewportWidth >= 1600) {
+                columns = 8;  // Aumentado de 6
+            } else if (viewportWidth >= 1200) {
+                columns = 6;  // Aumentado de 5
+            } else if (viewportWidth >= 768) {
+                columns = 5;  // Aumentado de 4
+            } else {
+                columns = 4;  // Aumentado de 3
+            }
         } else {
-            // Vertical
-            if (viewportWidth >= 1024) columns = 5;
-            else if (viewportWidth >= 768) columns = 4;
-            else columns = 3; // Móviles
+            // MODO VERTICAL
+            if (viewportWidth >= 1024) {
+                columns = 5;  // Aumentado de 4
+            } else if (viewportWidth >= 768) {
+                columns = 4;  // Aumentado de 3
+            } else {
+                columns = 3;  // Aumentado de 2 (móviles)
+            }
         }
         
         // Asegurar mínimo de columnas
         columns = Math.max(2, columns);
         
-        // Ajustar si tenemos pocas cartas
+        // Si tenemos pocas cartas, ajustar
         if (this.gridSize < columns * 2) {
             columns = Math.max(2, Math.floor(this.gridSize / 2));
         }
         
-        // Reducir más si es móvil
+        // Reducir más si es móvil y muchas columnas
         if (isMobile && columns > 4) {
             columns = 4;
         }
         
-        // Calcular filas necesarias
         const rows = Math.ceil(this.gridSize / columns);
         
-        // Configurar grid
+        console.log(`Grid: ${columns}x${rows} (${columns * rows} cells)`);
+        
+        // Configurar grid con gaps mínimos
         gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         gridContainer.style.gridAutoRows = '1fr';
-        
-        // Ajustar gap según tamaño
-        const gapSize = Math.max(0.125, 0.5 - (columns * 0.1));
-        gridContainer.style.gap = `${gapSize}rem`;
+        gridContainer.style.gap = '0.25rem'; // Gap mínimo
         
         // Asegurar que no haya overflow
         gridContainer.style.overflow = 'hidden';
         gridContainer.style.width = '100%';
         gridContainer.style.height = '100%';
+        
+        this.applyCardSizeConstraints();
     }
     
     applyCardSizeConstraints() {
         const style = document.createElement('style');
-        style.id = 'memory-card-dynamic-styles';
+        style.id = 'memory-card-styles';
         
-        const oldStyle = document.getElementById('memory-card-dynamic-styles');
+        const oldStyle = document.getElementById('memory-card-styles');
         if (oldStyle) oldStyle.remove();
         
-        // Calcular tamaño dinámico
+        // Calcular tamaño más agresivo para aprovechar espacio
         const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
         const isMobile = viewportWidth < 768;
         
-        // Obtener configuración actual del grid
-        const gridContainer = document.getElementById('memory-grid');
-        if (!gridContainer) return;
+        // Tamaño más pequeño en móviles
+        const maxCardWidth = isMobile 
+            ? Math.min(140, viewportWidth / 4)  // Más pequeño en móviles
+            : Math.min(160, viewportWidth / 6); // Más pequeño en desktop
         
-        const computedStyle = getComputedStyle(gridContainer);
-        const columns = computedStyle.gridTemplateColumns.split(' ').length;
-        const rows = Math.ceil(this.gridSize / columns);
-        
-        // Calcular tamaño máximo por carta
-        const availableWidth = gridContainer.clientWidth;
-        const availableHeight = gridContainer.clientHeight;
-        
-        // Calcular gaps en píxeles (asumiendo 1rem = 16px)
-        const gapHorizontal = (columns - 1) * 4; // 0.25rem en px
-        const gapVertical = (rows - 1) * 4;
-        
-        // Calcular tamaño disponible para cartas
-        const cardWidth = Math.floor((availableWidth - gapHorizontal) / columns);
-        const cardHeight = Math.floor((availableHeight - gapVertical) / rows);
-        
-        // Usar la dimensión más pequeña para mantener cuadrado
-        const minDimension = Math.min(cardWidth, cardHeight * 0.85); // Factor 0.85 para aspecto
-        
-        // Limitar tamaño máximo y mínimo
-        const finalSize = Math.max(70, Math.min(180, minDimension));
+        const maxCardHeight = maxCardWidth * 1.2;
         
         style.textContent = `
             .memory-card {
-                max-width: ${finalSize}px !important;
-                max-height: ${finalSize * 1.2}px !important;
-                min-width: ${Math.min(70, finalSize)}px;
-                min-height: ${Math.min(84, finalSize * 1.2)}px;
+                max-width: ${maxCardWidth}px !important;
+                max-height: ${maxCardHeight}px !important;
+                min-width: 80px;
+                min-height: 96px;
             }
             
             .memory-chinese-character {
-                font-size: ${Math.min(2.5, finalSize / 20)}rem !important;
+                font-size: ${Math.min(2.2, maxCardWidth / 25)}rem !important;
             }
             
             .memory-pinyin {
-                font-size: ${Math.min(1, finalSize / 35)}rem !important;
+                font-size: ${Math.min(0.9, maxCardWidth / 50)}rem !important;
             }
             
             .card-front div:first-child {
-                font-size: ${Math.min(2, finalSize / 25)}rem !important;
+                font-size: ${Math.min(2, maxCardWidth / 30)}rem !important;
+            }
+            
+            /* Ajustar gaps según tamaño */
+            .memory-grid {
+                gap: ${Math.max(0.125, 0.5 - (maxCardWidth / 100))}rem !important;
             }
         `;
         
@@ -1020,19 +698,41 @@ class Game5 {
         cardElement.dataset.word = card.word.ch;
         cardElement.dataset.type = card.type;
         
+        // Estilos básicos de la carta
+        cardElement.style.aspectRatio = '1/1.2';
+        cardElement.style.perspective = '1000px';
+        cardElement.style.cursor = 'pointer';
+        cardElement.style.borderRadius = '8px';
+        cardElement.style.overflow = 'hidden';
+        
         // Contenedor interno para efecto 3D
         const innerContainer = document.createElement('div');
         innerContainer.className = 'card-inner';
+        innerContainer.style.position = 'relative';
+        innerContainer.style.width = '100%';
+        innerContainer.style.height = '100%';
+        innerContainer.style.transition = 'transform 0.6s';
+        innerContainer.style.transformStyle = 'preserve-3d';
         
         // Cara frontal (reverso)
         const frontFace = document.createElement('div');
         frontFace.className = 'card-front';
+        frontFace.style.position = 'absolute';
+        frontFace.style.width = '100%';
+        frontFace.style.height = '100%';
+        frontFace.style.backfaceVisibility = 'hidden';
+        frontFace.style.backgroundColor = 'var(--pastel-brown-dark)';
+        frontFace.style.borderRadius = '8px';
+        frontFace.style.display = 'flex';
+        frontFace.style.alignItems = 'center';
+        frontFace.style.justifyContent = 'center';
+        frontFace.style.border = '2px solid #5d4037';
         
         // Diseño para el reverso
         const patternContainer = document.createElement('div');
         patternContainer.style.width = '80%';
         patternContainer.style.height = '80%';
-        patternContainer.style.backgroundImage = `radial-gradient(circle, #ffd8a6 2px, transparent 2px)`;
+        patternContainer.style.backgroundImage = `radial-gradient(circle, var(--pastel-orange) 2px, transparent 2px)`;
         patternContainer.style.backgroundSize = '20px 20px';
         patternContainer.style.opacity = '0.7';
         patternContainer.style.borderRadius = '6px';
@@ -1049,4 +749,359 @@ class Game5 {
         // Cara trasera (contenido)
         const backFace = document.createElement('div');
         backFace.className = 'card-back';
-        backFace
+        backFace.style.position = 'absolute';
+        backFace.style.width = '100%';
+        backFace.style.height = '100%';
+        backFace.style.backfaceVisibility = 'hidden';
+        backFace.style.backgroundColor = 'white';
+        backFace.style.borderRadius = '8px';
+        backFace.style.transform = 'rotateY(180deg)';
+        backFace.style.display = 'flex';
+        backFace.style.flexDirection = 'column';
+        backFace.style.alignItems = 'center';
+        backFace.style.justifyContent = 'center';
+        backFace.style.padding = '0.5rem';
+        backFace.style.border = '2px solid var(--pastel-orange)';
+        backFace.style.overflow = 'hidden';
+        backFace.style.boxSizing = 'border-box';
+        
+        if (card.type === 'image') {
+            // Crear contenedor cuadrado para la imagen
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+            imageContainer.style.width = '100%';
+            imageContainer.style.height = '100%';
+            imageContainer.style.display = 'flex';
+            imageContainer.style.alignItems = 'center';
+            imageContainer.style.justifyContent = 'center';
+            imageContainer.style.backgroundColor = 'var(--pastel-orange)';
+            imageContainer.style.borderRadius = '6px';
+            imageContainer.style.overflow = 'hidden';
+            
+            this.getImageUrl(card.word).then(imageUrl => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imageUrl;
+                imgElement.alt = card.word.ch;
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.maxHeight = '100%';
+                imgElement.style.objectFit = 'contain';
+                
+                imgElement.onload = () => {
+                    imageContainer.style.backgroundColor = 'transparent';
+                };
+                imgElement.onerror = () => {
+                    imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(card.word.ch.substring(0, 2))}`;
+                    imageContainer.style.backgroundColor = 'transparent';
+                };
+                
+                imageContainer.appendChild(imgElement);
+            }).catch(() => {
+                // En caso de error, mostrar placeholder
+                const placeholder = document.createElement('div');
+                placeholder.textContent = card.word.ch.substring(0, 2);
+                placeholder.style.fontSize = '2rem';
+                placeholder.style.color = '#5d4037';
+                imageContainer.appendChild(placeholder);
+            });
+            
+            backFace.appendChild(imageContainer);
+        } else {
+            // Mostrar texto chino
+            const fontClass = this.settings.get('chineseFont') || 'noto-serif';
+            
+            const chineseElement = document.createElement('div');
+            chineseElement.className = `memory-chinese-character ${fontClass}`;
+            chineseElement.textContent = card.word.ch || '';
+            chineseElement.style.fontSize = '2.5rem';
+            chineseElement.style.fontWeight = 'bold';
+            chineseElement.style.color = '#5d4037';
+            chineseElement.style.marginBottom = '0.25rem';
+            chineseElement.style.textAlign = 'center';
+            chineseElement.style.lineHeight = '1';
+            
+            backFace.appendChild(chineseElement);
+            
+            // Mostrar pinyin si está configurado
+            if (this.settings.get('showPinyin') && card.word.pin) {
+                const pinyinElement = document.createElement('div');
+                pinyinElement.className = 'memory-pinyin';
+                pinyinElement.textContent = card.word.pin;
+                pinyinElement.style.fontSize = '1rem';
+                pinyinElement.style.color = '#795548';
+                pinyinElement.style.fontStyle = 'italic';
+                backFace.appendChild(pinyinElement);
+            }
+        }
+        
+        // Añadir caras al contenedor interno
+        innerContainer.appendChild(frontFace);
+        innerContainer.appendChild(backFace);
+        
+        // Añadir contenedor interno a la carta
+        cardElement.appendChild(innerContainer);
+        
+        // Event listener para clic
+        cardElement.addEventListener('click', () => this.handleCardClick(cardElement));
+        
+        return cardElement;
+    }
+
+    handleCardClick(cardElement) {
+        if (!this.canSelect) return;
+        if (cardElement.classList.contains('matched')) return;
+        if (this.selectedCards.includes(cardElement)) return;
+        if (this.selectedCards.length >= 2) return;
+        
+        // Iniciar juego si es la primera selección
+        if (!this.gameStarted) {
+            this.gameStarted = true;
+        }
+        
+        // Voltear carta
+        this.flipCard(cardElement);
+        
+        // Añadir a cartas seleccionadas
+        this.selectedCards.push(cardElement);
+        
+        // Registrar movimiento
+        this.moves++;
+        this.updateStats();
+        
+        // Verificar si hay un par completo
+        if (this.selectedCards.length === 2) {
+            this.canSelect = false;
+            
+            const card1 = this.selectedCards[0];
+            const card2 = this.selectedCards[1];
+            
+            const word1 = card1.dataset.word;
+            const word2 = card2.dataset.word;
+            const type1 = card1.dataset.type;
+            const type2 = card2.dataset.type;
+            
+            // Verificar si es un par válido (misma palabra, diferente tipo)
+            if (word1 === word2 && type1 !== type2) {
+                // ¡Par encontrado!
+                setTimeout(() => {
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    this.selectedCards = [];
+                    this.canSelect = true;
+                    this.matchedPairs++;
+                    this.score += 10;
+                    this.updateStats();
+                    
+                    // Sonido de éxito
+                    if (this.ui.soundManager) {
+                        this.ui.soundManager.play('correct');
+                    }
+                    
+                    // Verificar si el juego ha terminado
+                    if (this.matchedPairs === this.totalPairs) {
+                        setTimeout(() => this.endGame(), 500);
+                    }
+                }, 500);
+            } else {
+                // No es un par, voltear de nuevo
+                setTimeout(() => {
+                    this.flipCard(card1);
+                    this.flipCard(card2);
+                    this.selectedCards = [];
+                    this.canSelect = true;
+                    
+                    // Penalización por movimiento incorrecto
+                    this.score = Math.max(0, this.score - 1);
+                    this.updateStats();
+                    
+                    // Sonido de error
+                    if (this.ui.soundManager) {
+                        this.ui.soundManager.play('wrong');
+                    }
+                }, 1000);
+            }
+        }
+    }
+
+    flipCard(cardElement) {
+        const innerContainer = cardElement.querySelector('.card-inner');
+        if (!innerContainer) return; // Añadir esta verificación
+        
+        if (cardElement.classList.contains('flipped')) {
+            innerContainer.style.transform = 'rotateY(0deg)';
+            cardElement.classList.remove('flipped');
+        } else {
+            innerContainer.style.transform = 'rotateY(180deg)';
+            cardElement.classList.add('flipped');
+        }
+    }
+
+    startTimer() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+        
+        this.timer = setInterval(() => {
+            if (this.gameStarted) {
+                this.timeElapsed++;
+                this.updateStats();
+            }
+        }, 1000);
+    }
+
+    updateStats() {
+        const timeElement = document.getElementById('time');
+        const movesElement = document.getElementById('moves');
+        const pairsElement = document.getElementById('pairs');
+        const scoreElement = document.getElementById('score');
+        
+        if (timeElement) timeElement.textContent = `⏱️ ${this.timeElapsed}s`;
+        if (movesElement) movesElement.textContent = `👣 ${this.moves}`;
+        if (pairsElement) pairsElement.textContent = `✨ ${this.matchedPairs}/${this.totalPairs}`;
+        if (scoreElement) scoreElement.textContent = `🏅 ${this.score}`;
+    }
+
+    endGame() {
+        // Detener timer
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        
+        // Registrar juego en estadísticas si se completó
+        if (this.matchedPairs > 0) {
+            this.stats.recordGame();
+        }
+        
+        // Calcular estadísticas finales solo si el juego estaba activo
+        if (this.gameStarted) {
+            const accuracy = this.totalPairs > 0 ? Math.round((this.matchedPairs / this.totalPairs) * 100) : 0;
+            const efficiency = this.moves > 0 ? Math.round((this.matchedPairs / this.moves) * 100) : 0;
+            
+            // Mostrar popup de resultados
+            this.showResultsPopup(accuracy, efficiency);
+        } else {
+            // Si el juego no había empezado, solo volver al menú
+            this.ui.goToHome();
+        }
+    }
+
+    showResultsPopup(accuracy, efficiency) {
+        const lang = this.settings.get('language');
+        const labels = this.labels ? this.labels[lang]?.gameResults : null;
+        
+        const popup = document.createElement('div');
+        popup.className = 'results-popup';
+        
+        // Determinar mensaje según puntuación
+        let message;
+        if (this.matchedPairs === this.totalPairs) {
+            message = labels?.perfectGame || '🎉 Perfect Game! 🎉';
+        } else if (accuracy >= 80) {
+            message = labels?.excellent || '🌟 Excellent! 🌟';
+        } else if (accuracy >= 60) {
+            message = labels?.goodJob || '😊 Good Job!';
+        } else {
+            message = labels?.keepPracticing || '💪 Keep Practicing!';
+        }
+        
+        popup.innerHTML = `
+            <div class="results-content">
+                <h2 class="results-title">${labels?.title || 'Game Results'}</h2>
+                <div class="results-message">${message}</div>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value">${this.timeElapsed}s</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Moves:</span>
+                        <span class="stat-value">${this.moves}</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Pairs Matched:</span>
+                        <span class="stat-value">${this.matchedPairs}/${this.totalPairs}</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Accuracy:</span>
+                        <span class="stat-value">${accuracy}%</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Efficiency:</span>
+                        <span class="stat-value">${efficiency}%</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label">Final Score:</span>
+                        <span class="stat-value">${this.score}</span>
+                    </div>
+                </div>
+                
+                <div class="results-buttons">
+                    <button class="results-btn play-again">${labels?.playAgain || '🔄 Play Again'}</button>
+                    <button class="results-btn back-menu">${labels?.backToMenu || '🏠 Back to Menu'}</button>
+                </div>
+            </div>
+        `;
+        
+        // Event listeners
+        popup.querySelector('.play-again').addEventListener('click', () => {
+            document.body.removeChild(popup);
+            this.cleanup(); // Limpiar antes de reiniciar
+            this.startGameSession();
+        });
+        
+        popup.querySelector('.back-menu').addEventListener('click', () => {
+            document.body.removeChild(popup);
+            this.cleanup();
+            this.ui.goToHome();
+        });
+        
+        // Cerrar al hacer click fuera
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                document.body.removeChild(popup);
+                this.cleanup();
+                this.ui.goToHome();
+            }
+        });
+        
+        document.body.appendChild(popup);
+    }
+
+   shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+    }
+    
+    cleanup() {
+        // Restaurar manejador original del header
+        const headerHome = document.getElementById('header-home');
+        if (headerHome && this.originalHeaderClick) {
+            headerHome.onclick = this.originalHeaderClick;
+        }
+        
+        // Detener timer
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        
+        // Limpiar listeners de redimensionamiento
+        window.removeEventListener('resize', this.handleResize);
+        
+        // Limpiar estado del juego (esto es suficiente)
+        this.selectedCards = [];
+        this.canSelect = false;
+        this.gameStarted = false;
+        
+        // Opcional: también limpiar el contenedor del juego
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            gameScreen.innerHTML = '';
+        }
+    }
+}

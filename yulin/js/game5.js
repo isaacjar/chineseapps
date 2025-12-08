@@ -678,13 +678,15 @@ class Game5 {
     createCardElement(card) {
         const cardElement = document.createElement('div');
         cardElement.className = 'memory-card';
+        innerContainer.className = 'card-inner';  
+        frontFace.className = 'card-front';  
+        backFace.className = 'card-back';  
+        
         cardElement.dataset.id = card.id;
         cardElement.dataset.word = card.word.ch;
         cardElement.dataset.type = card.type;
         
         // Estilos de la carta
-        cardElement.style.aspectRatio = '1/1.2';
-        cardElement.style.perspective = '1000px';
         cardElement.style.cursor = 'pointer';
         cardElement.style.borderRadius = '12px';
         cardElement.style.overflow = 'hidden';
@@ -704,7 +706,6 @@ class Game5 {
         frontFace.style.position = 'absolute';
         frontFace.style.width = '100%';
         frontFace.style.height = '100%';
-        frontFace.style.backfaceVisibility = 'hidden';
         frontFace.style.backgroundColor = 'var(--pastel-brown-dark)';
         frontFace.style.borderRadius = '12px';
         frontFace.style.display = 'flex';
@@ -736,10 +737,8 @@ class Game5 {
         backFace.style.position = 'absolute';
         backFace.style.width = '100%';
         backFace.style.height = '100%';
-        backFace.style.backfaceVisibility = 'hidden';
         backFace.style.backgroundColor = 'white';
         backFace.style.borderRadius = '12px';
-        backFace.style.transform = 'rotateY(180deg)';
         backFace.style.display = 'flex';
         backFace.style.flexDirection = 'column';
         backFace.style.alignItems = 'center';

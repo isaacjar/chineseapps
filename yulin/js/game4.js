@@ -351,6 +351,11 @@ class Game4 {
         this.usedIndices.clear(); // Limpiar índices usados para nueva sesión
      
         this.ui.showScreen('game-screen');
+        // Agregar clase específica para Game4
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            gameScreen.classList.add('game4');
+        }
         this.ui.showGameStats();
         this.enableKeyboardControls();
         this.nextQuestion();
@@ -685,6 +690,12 @@ class Game4 {
 
         this.disableKeyboardControls();
 
+        // Remover clase específica de Game4
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            gameScreen.classList.remove('game4');
+        }
+        
         const missedWords = this.getMissedWords();
      
         // Mostrar popup de resultados

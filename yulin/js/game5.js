@@ -427,7 +427,7 @@ class Game5 {
         // Ensamblar todo
         gridWrapper.appendChild(gridContainer);
         
-        gameContainer.appendChild(gameTitle);
+        //gameContainer.appendChild(gameTitle);
         gameContainer.appendChild(gridWrapper);
         gameContainer.appendChild(buttonContainer);
         gameScreen.appendChild(gameContainer);

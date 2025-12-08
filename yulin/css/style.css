@@ -1185,152 +1185,269 @@ input:checked + .slider:before {
 }
 
 /* ============================================
-   ESTILOS ESPECÍFICOS PARA GAME4 - IMÁGENES PNG TRANSPARENTES
+   GAME4 - COMBINACIÓN DE BOTÓN VERDE + IMAGEN 3D FLOTANTE
    ============================================ */
 
-/* Botón NORMAL en Game4 - SIN FONDO */
+/* Botón NORMAL en Game4 - CON FONDO VERDE COMO LOS DEMÁS BOTONES */
 #game-screen.game4 .option-btn {
-    background-color: transparent !important;
+    background-color: var(--pastel-green) !important;
     border: none !important;
-    box-shadow: none !important;
-    padding: 0.5rem !important;
-    min-height: 180px !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow) !important;
+    padding: 1.2rem !important;
+    min-height: 200px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    position: relative !important;
+    cursor: pointer !important;
+    border: 3px solid transparent !important;
+    transition: var(--transition) !important;
 }
 
-/* Hover normal (sin fondo) */
+/* Hover normal - igual que otros botones */
 #game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled) {
-    background-color: transparent !important;
+    background-color: var(--pastel-green-dark) !important;
     transform: translateY(-2px) !important;
 }
 
-/* ESTADOS DE FEEDBACK CON FONDO DE COLOR */
-/* ACIERTO - VERDE */
+/* Contenedor de la imagen con efecto 3D FLOTANTE */
+#game-screen.game4 .option-btn .image-3d-container {
+    position: relative !important;
+    width: 160px !important;
+    height: 160px !important;
+    transform-style: preserve-3d !important;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Efecto 3D adicional en hover - la imagen flota más */
+#game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled) .image-3d-container {
+    transform: translateY(-10px) translateZ(20px) rotateX(5deg) !important;
+}
+
+/* Imágenes PNG con efecto 3D potente que flota sobre el botón verde */
+#game-screen.game4 .option-btn .image-3d-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    
+    /* EFECTO 3D POTENTE - Sombra de silueta multicapa */
+    filter: 
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05))
+        drop-shadow(0 0 0 2px rgba(255, 255, 255, 0.3)) /* Borde luminoso interno */
+        !important;
+    
+    transform: translateZ(15px) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    display: block !important;
+}
+
+/* Efecto hover potente para imágenes - flota más */
+#game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled) .image-3d-container img {
+    transform: translateZ(30px) scale(1.05) !important;
+    filter: 
+        drop-shadow(0 15px 20px rgba(0, 0, 0, 0.35)) 
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15))
+        drop-shadow(0 0 0 3px rgba(255, 255, 255, 0.5)) /* Borde luminoso más intenso */
+        !important;
+}
+
+/* Sombra debajo del contenedor para profundidad adicional */
+#game-screen.game4 .option-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60% !important;
+    height: 15px !important;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 70%) !important;
+    border-radius: 50% !important;
+    opacity: 0.5 !important;
+    transition: all 0.3s ease !important;
+    z-index: -1 !important;
+}
+
+/* Sombra más grande al hacer hover */
+#game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled)::before {
+    width: 70% !important;
+    height: 20px !important;
+    opacity: 0.7 !important;
+    bottom: -10px !important;
+}
+
+/* ============================================
+   ESTADOS DE FEEDBACK - IGUAL QUE BOTONES NORMALES
+   ============================================ */
+
+/* ACIERTO - VERDE (más oscuro) */
 #game-screen.game4 .option-btn.correct {
-    background-color: #4caf50 !important; /* Verde */
-    border: 3px solid #2e7d32 !important;
-    border-radius: 12px !important;
+    background-color: #4caf50 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
     animation: pulse-green 0.6s !important;
 }
 
 /* ERROR - ROJO */
 #game-screen.game4 .option-btn.incorrect {
-    background-color: #f44336 !important; /* Rojo */
-    border: 3px solid #c62828 !important;
-    border-radius: 12px !important;
+    background-color: #f44336 !important;
+    color: white !important;
+    border-color: #c62828 !important;
     animation: shake 0.5s !important;
 }
 
 /* TIMEOUT - AMARILLO */
 #game-screen.game4 .option-btn.correct-answer {
-    background-color: #ffeb3b !important; /* Amarillo */
-    border: 3px solid #fbc02d !important;
-    border-radius: 12px !important;
+    background-color: #ffeb3b !important;
+    color: #5d4037 !important;
+    border-color: #fbc02d !important;
     animation: pulse-yellow 0.6s !important;
 }
 
-/* Deshabilitado (mantiene el color de feedback) */
+/* Deshabilitado */
 #game-screen.game4 .option-btn:disabled {
+    cursor: not-allowed !important;
     opacity: 0.9 !important;
 }
 
-/* Especificidad para estados deshabilitados */
-#game-screen.game4 button.option-btn.correct:disabled {
-    background-color: #4caf50 !important;
-    border-color: #2e7d32 !important;
-}
-
-#game-screen.game4 button.option-btn.incorrect:disabled {
-    background-color: #f44336 !important;
-    border-color: #c62828 !important;
-}
-
-#game-screen.game4 button.option-btn.correct-answer:disabled {
-    background-color: #ffeb3b !important;
-    border-color: #fbc02d !important;
-}
-
-/* Estilos para las imágenes PNG en Game4 */
-#game-screen.game4 .option-btn img {
-    width: 160px !important;
-    height: 160px !important;
-    object-fit: contain !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    
-    /* Sombra que sigue la silueta de la imagen transparente */
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) 
-            drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1)) !important;
-    
-    transform: translateY(0) !important;
-    transition: transform 0.2s ease, filter 0.2s ease !important;
-    display: block !important;
-}
-
-/* Efecto hover para imágenes (solo en estado normal) */
-#game-screen.game4 .option-btn:not(:disabled):hover img {
-    transform: translateY(-4px) !important;
-    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) 
-            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15)) !important;
-}
-
-/* En estados de feedback, eliminar efectos hover */
-#game-screen.game4 .option-btn.correct:hover img,
-#game-screen.game4 .option-btn.incorrect:hover img,
-#game-screen.game4 .option-btn.correct-answer:hover img,
-#game-screen.game4 .option-btn:disabled:hover img {
+#game-screen.game4 .option-btn:disabled:hover {
     transform: none !important;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) 
-            drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1)) !important;
 }
 
-/* Placeholders con fondo naranja claro (solo para imágenes que fallan) */
+/* En estados de feedback, eliminar efectos hover 3D */
+#game-screen.game4 .option-btn.correct .image-3d-container,
+#game-screen.game4 .option-btn.incorrect .image-3d-container,
+#game-screen.game4 .option-btn.correct-answer .image-3d-container,
+#game-screen.game4 .option-btn:disabled .image-3d-container {
+    transform: none !important;
+}
+
+#game-screen.game4 .option-btn.correct .image-3d-container img,
+#game-screen.game4 .option-btn.incorrect .image-3d-container img,
+#game-screen.game4 .option-btn.correct-answer .image-3d-container img,
+#game-screen.game4 .option-btn:disabled .image-3d-container img {
+    transform: translateZ(15px) !important;
+    filter: 
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))
+        !important;
+}
+
+/* Ocultar sombra de suelo en estados de feedback */
+#game-screen.game4 .option-btn.correct::before,
+#game-screen.game4 .option-btn.incorrect::before,
+#game-screen.game4 .option-btn.correct-answer::before,
+#game-screen.game4 .option-btn:disabled::before {
+    opacity: 0 !important;
+}
+
+/* ============================================
+   PLACEHOLDERS CON EFECTO 3D (dentro del botón verde)
+   ============================================ */
+
 #game-screen.game4 .option-btn img[src*="placeholder.com"] {
-    background-color: var(--pastel-orange) !important;
+    background: linear-gradient(135deg, var(--pastel-orange), var(--pastel-orange-dark)) !important;
     border-radius: 12px !important;
-    padding: 1rem !important;
+    padding: 1.2rem !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 
+        inset 0 3px 6px rgba(255, 255, 255, 0.5),
+        0 6px 12px rgba(0, 0, 0, 0.15) !important;
     filter: none !important;
 }
 
-/* Números de opción más visibles en Game4 */
-#game-screen.game4 .option-btn div[style*="position: absolute"] {
-    background-color: var(--pastel-brown-dark) !important;
+/* ============================================
+   NÚMEROS DE OPCIÓN (solo dificultad 2)
+   ============================================ */
+
+#game-screen.game4 .option-btn .option-number-3d {
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    background: linear-gradient(135deg, var(--pastel-brown-dark), var(--pastel-brown-ultra-dark)) !important;
     color: white !important;
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 0.9rem !important;
-    z-index: 10 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    z-index: 20 !important;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.25),
+        inset 0 1px 3px rgba(255, 255, 255, 0.2) !important;
+    transform: translateZ(25px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Asegurar que los números sean visibles sobre fondos de colores */
-#game-screen.game4 .option-btn.correct div[style*="position: absolute"],
-#game-screen.game4 .option-btn.incorrect div[style*="position: absolute"],
-#game-screen.game4 .option-btn.correct-answer div[style*="position: absolute"] {
-    background-color: rgba(0, 0, 0, 0.6) !important;
+/* Números visibles sobre fondos de colores en feedback */
+#game-screen.game4 .option-btn.correct .option-number-3d,
+#game-screen.game4 .option-btn.incorrect .option-number-3d,
+#game-screen.game4 .option-btn.correct-answer .option-number-3d {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)) !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
 }
 
-/* Ajustes responsive para Game4 */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
 @media (max-width: 768px) {
-    #game-screen.game4 .option-btn img {
-        width: 120px !important;
-        height: 120px !important;
+    #game-screen.game4 .option-btn {
+        padding: 1rem !important;
+        min-height: 160px !important;
     }
     
-    #game-screen.game4 .option-btn {
-        min-height: 140px !important;
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 130px !important;
+        height: 130px !important;
+    }
+    
+    #game-screen.game4 .option-btn::before {
+        bottom: -6px !important;
+        height: 12px !important;
+    }
+    
+    #game-screen.game4 .option-btn:hover:not(.correct):not(.incorrect):not(.correct-answer):not(:disabled)::before {
+        bottom: -8px !important;
+        height: 15px !important;
+    }
+    
+    #game-screen.game4 .option-btn .option-number-3d {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.85rem !important;
+        top: 8px !important;
+        left: 8px !important;
     }
 }
 
 @media (max-width: 480px) {
-    #game-screen.game4 .option-btn img {
-        width: 100px !important;
-        height: 100px !important;
+    #game-screen.game4 .option-btn {
+        padding: 0.8rem !important;
+        min-height: 140px !important;
     }
     
-    #game-screen.game4 .option-btn {
-        min-height: 120px !important;
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 110px !important;
+        height: 110px !important;
+    }
+    
+    #game-screen.game4 .option-btn .option-number-3d {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.8rem !important;
+        top: 6px !important;
+        left: 6px !important;
     }
 }

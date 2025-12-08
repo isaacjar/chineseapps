@@ -242,6 +242,57 @@ class Game4 {
         preloadNext();
     }
 
+    createGameInterface() {
+        const gameScreen = document.getElementById('game-screen');
+        if (!gameScreen) return;
+        
+        // Limpiar pantalla
+        gameScreen.innerHTML = '';
+        
+        // Crear estructura del juego
+        const gameContainer = document.createElement('div');
+        gameContainer.className = 'game4-container';
+        gameContainer.style.display = 'flex';
+        gameContainer.style.flexDirection = 'column';
+        gameContainer.style.height = '100%';
+        gameContainer.style.padding = '1rem';
+        gameContainer.style.boxSizing = 'border-box';
+        gameContainer.style.gap = '1rem';
+        
+        // Área de la pregunta
+        const questionArea = document.createElement('div');
+        questionArea.id = 'question-area';
+        questionArea.style.flex = '1';
+        questionArea.style.display = 'flex';
+        questionArea.style.alignItems = 'center';
+        questionArea.style.justifyContent = 'center';
+        
+        const questionElement = document.createElement('div');
+        questionElement.id = 'question-text';
+        questionElement.style.textAlign = 'center';
+        questionElement.style.width = '100%';
+        
+        questionArea.appendChild(questionElement);
+        
+        // Área de opciones
+        const optionsArea = document.createElement('div');
+        optionsArea.id = 'options-area';
+        optionsArea.style.flex = '2';
+        optionsArea.style.overflow = 'auto';
+        
+        const optionsContainer = document.createElement('div');
+        optionsContainer.id = 'options-container';
+        optionsContainer.style.display = 'grid';
+        optionsContainer.style.gap = '1rem';
+        optionsContainer.style.padding = '0.5rem';
+        
+        optionsArea.appendChild(optionsContainer);
+        
+        gameContainer.appendChild(questionArea);
+        gameContainer.appendChild(optionsArea);
+        gameScreen.appendChild(gameContainer);
+    }
+        
     async getImageUrl(word) {
         const cacheKey = word.ch;
         
@@ -278,9 +329,13 @@ class Game4 {
         this.missedWords = [];
      
         this.ui.showScreen('game-screen');
-        this.ui.showGameStats();
-        this.enableKeyboardControls();
-        this.nextQuestion();
+        // CREAR LA INTERFAZ DINÁMICAMENTE
+        setTimeout(() => {
+            this.createGameInterface();
+            this.ui.showGameStats();
+            this.enableKeyboardControls();
+            this.nextQuestion();
+        }, 50);
 
         // 🔥 Nueva precarga progresiva
         this.startProgressivePreload();
@@ -359,6 +414,13 @@ class Game4 {
 
     displayQuestion(word) {
         const questionElement = document.getElementById('question-text');
+         // VERIFICAR QUE EL ELEMENTO EXISTE
+        if (!questionElement) {
+            console.warn('Elemento question-text no encontrado, reintentando...');
+            setTimeout(() => this.displayQuestion(word), 100);
+            return;
+        }
+        
         questionElement.innerHTML = '';
         
         const fontClass = this.settings.get('chineseFont') || 'noto-serif';
@@ -383,6 +445,13 @@ class Game4 {
 
     async displayOptions(options) {
         const optionsContainer = document.getElementById('options-container');
+        // VERIFICAR QUE EL ELEMENTO EXISTE
+        if (!optionsContainer) {
+            console.warn('Elemento options-container no encontrado, reintentando...');
+            setTimeout(() => this.displayOptions(options), 100);
+            return;
+        }
+        
         optionsContainer.innerHTML = '';
         
         const difficulty = this.settings.get('difficulty');

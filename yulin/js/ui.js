@@ -1,69 +1,3 @@
-// ui.js
-// Clase para manejar sonidos
-class SoundManager {
-    constructor() {
-        this.sounds = {};
-        this.enabled = true;
-        this.soundsLoaded = false;
-    }
-
-    async loadSound(name, url) {
-        try {
-            const audio = new Audio();
-            
-            // Configurar el audio
-            audio.preload = 'auto';
-            audio.volume = 0.7; // Volumen moderado
-            
-            return new Promise((resolve) => {
-                audio.addEventListener('canplaythrough', () => {
-                    this.sounds[name] = audio;
-                    // console.log(`Sonido cargado: ${name}`);
-                    resolve(true);
-                });
-                
-                audio.addEventListener('error', () => {
-                    console.warn(`No se pudo cargar el sonido: ${name} desde ${url}`);
-                    this.sounds[name] = null;
-                    resolve(false);
-                });
-                
-                audio.src = url;
-            });
-            
-        } catch (error) {
-            console.warn(`Error cargando sonido ${name}:`, error);
-            this.sounds[name] = null;
-            return false;
-        }
-    }
-
-    play(name) {
-        // Si los sonidos no están habilitados, salir
-        if (!this.enabled) return;
-        
-        // Si el sonido no existe o no se cargó, salir silenciosamente
-        if (!this.sounds[name]) return;
-        
-        try {
-            // Reiniciar si ya se está reproduciendo
-            this.sounds[name].currentTime = 0;
-            this.sounds[name].play().catch(error => {
-                // Silenciar errores de reproducción (comunes en móviles)
-                console.log('Error reproduciendo sonido (puede ignorarse):', error);
-            });
-        } catch (error) {
-            // Capturar cualquier otro error silenciosamente
-            console.log('Error inesperado reproduciendo sonido:', error);
-        }
-    }
-
-    toggle() {
-        this.enabled = !this.enabled;
-        return this.enabled;
-    }
-}
-
 class UI {
     constructor(settings, game, stats) {
         this.settings = settings;
@@ -76,14 +10,10 @@ class UI {
         this.currentFilter = 'all';
         this.game2 = new Game2(settings, stats, this);
         this.game4 = new Game4(settings, stats, this);
-        this.game5 = new Game5(settings, stats, this);
-
-        this.soundManager = new SoundManager();
         
         this.setupEventListeners();
         this.loadVocabLists().then(() => {
             this.updateLabels();
-            this.loadSounds();
         });
     }
     
@@ -100,7 +30,6 @@ class UI {
         const game2Btn = document.getElementById('game2-btn');
         const game3Btn = document.getElementById('game3-btn'); 
         const game4Btn = document.getElementById('game4-btn');
-        const game5Btn = document.getElementById('game5-btn');
         const wordsBtn = document.getElementById('words-btn');
         const statsBtn = document.getElementById('stats-btn');
         const settingsBtn = document.getElementById('settings-btn');
@@ -110,7 +39,6 @@ class UI {
         if (game2Btn) game2Btn.addEventListener('click', () => this.game.startGame('game2'));
         if (game3Btn) game3Btn.addEventListener('click', () => this.game2.startGame());
         if (game4Btn) game4Btn.addEventListener('click', () => this.game4.startGame());
-        if (game5Btn) game5Btn.addEventListener('click', () => this.game5.startGame());
         if (wordsBtn) wordsBtn.addEventListener('click', () => this.showWordsList());
         if (statsBtn) statsBtn.addEventListener('click', () => {
             this.stats.updateUI();
@@ -189,17 +117,6 @@ class UI {
                 this.settings.set('showPinyin', e.target.checked);
             });
         }
-
-        const soundSwitch = document.getElementById('sound-switch');
-        if (soundSwitch) {
-            soundSwitch.checked = this.settings.get('soundEnabled');
-            soundSwitch.addEventListener('change', (e) => {
-                this.settings.set('soundEnabled', e.target.checked);
-                if (this.soundManager) {
-                    this.soundManager.enabled = e.target.checked;
-                }
-            });
-        }
       
         const fontSelect = document.getElementById('font-select');
         if (fontSelect) {
@@ -225,24 +142,6 @@ class UI {
             clearTimeout(this.game4.timer);
             this.game4.timer = null;
         }
-        if (this.game5 && this.game5.timer) {
-            clearInterval(this.game5.timer); // Game5 usa setInterval, no setTimeout
-            this.game5.timer = null;
-        }
-        
-        // Deshabilitar controles de teclado de todos los juegos
-        if (this.game.disableKeyboardControls) {
-            this.game.disableKeyboardControls();
-        }
-        if (this.game2 && this.game2.disableKeyboardControls) {
-            this.game2.disableKeyboardControls();
-        }
-        if (this.game4 && this.game4.disableKeyboardControls) {
-            this.game4.disableKeyboardControls();
-        }
-        if (this.game5 && this.game5.cleanup) {
-            this.game5.cleanup();
-        }
         
         // Ocultar estadísticas del juego
         this.hideGameStats();
@@ -251,9 +150,9 @@ class UI {
         this.showScreen('menu-screen');
         
         // Mostrar feedback visual
-        //this.showToast('Volviendo al menú principal', 'info');
+        this.showToast('Volviendo al menú principal', 'info');
         
-        //console.log('Navegación al menú principal');
+        console.log('Navegación al menú principal');
     }
     
     showWordsList() {
@@ -335,7 +234,7 @@ class UI {
             container.appendChild(wordElement);
         });
         
-        //console.log('Palabras mostradas:', this.game.vocabulary.length);
+        console.log('Palabras mostradas:', this.game.vocabulary.length);
     }
     
     updateLabels() {
@@ -453,7 +352,7 @@ class UI {
             this.useFallbackLists();
         }
         
-        //this.displayVocabLists();
+        this.displayVocabLists();
         this.createFilterButtons();
     }
     
@@ -566,14 +465,14 @@ class UI {
         console.log('Listados filtrados mostrados:', this.filteredLists.length, 'para nivel:', this.currentFilter);
     }
     
-    /*displayVocabLists() {
+    displayVocabLists() {
         // Este método ahora es manejado por displayFilteredLists
         console.log('Display de listados manejado por sistema de filtros');
-    }*/
+    }
     
     async selectVocabList(list) {
-        //console.log('Seleccionando listado:', list.filename);
-        this.showToast(`Loading "${list.title}"...`, 'info');
+        console.log('Seleccionando listado:', list.filename);
+        this.showToast(`Cargando "${list.title}"...`, 'info');
         
         // Cargar el listado tanto en Game como en Game2
         const successGame1 = await this.game.loadVocabularyList(list.filename);
@@ -643,13 +542,9 @@ class UI {
         if (livesSlider) this.settings.set('lives', parseInt(livesSlider.value));
         if (difficultySlider) this.settings.set('difficulty', parseInt(difficultySlider.value));
         if (fontSelect) this.settings.set('chineseFont', fontSelect.value);
-
-        if (this.soundManager) {
-            this.soundManager.enabled = this.settings.get('soundEnabled');
-        }
         
         this.updateLabels();
-        //this.showToast('Setting guardada', 'success');
+        this.showToast('Configuración guardada', 'success');
         this.showScreen('menu-screen');
     }
     
@@ -657,7 +552,7 @@ class UI {
         this.settings.reset();
         this.settings.updateUI();
         this.updateLabels();
-        //this.showToast('Configuración restablecida', 'info');
+        this.showToast('Configuración restablecida', 'info');
     }
     
     showToast(message, type = 'info') {
@@ -682,12 +577,6 @@ class UI {
     }
     
     showRandomSuccessMessage() {
-        if (this.soundManager) { this.soundManager.play('correct'); }
-        
-        if (Math.random() > 0.3) {
-            return; // No mostrar nada el 70% de las veces
-        }
-    
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].successMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -695,12 +584,6 @@ class UI {
     }
     
     showRandomFailMessage() {
-        if (this.soundManager) { this.soundManager.play('wrong'); }
-        
-        if (Math.random() > 0.3) {
-            return; // No mostrar nada el 70% de las veces
-        }
-        
         const lang = this.settings.get('language');
         const messages = Object.values(this.labels[lang].failMessages);
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -724,113 +607,5 @@ class UI {
             fontPreview.classList.add(font);
         }
     }
-
-    // POPUP FINAL
-    showGameResults(score, totalQuestions, missedWords, gameType, playAgainCallback) {
-        const lang = this.settings.get('language');
-        const labels = this.labels[lang].gameResults;
-        
-        // Crear popup
-        const popup = document.createElement('div');
-        popup.className = 'results-popup';
-        
-        // Determinar mensaje según puntuación
-        let message;
-        if (score === totalQuestions) {
-            message = labels.perfectGame;
-        } else if (score >= totalQuestions * 0.8) {
-            message = labels.excellent;
-        } else if (score >= totalQuestions * 0.6) {
-            message = labels.goodJob;
-        } else {
-            message = labels.keepPracticing;
-        }
-        
-        // Crear contenido
-        /* <span class="word-chinese">${word.ch || ''}</span>
-           <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>*/
-        popup.innerHTML = `
-            <div class="results-content">
-                <h2 class="results-title">${labels.title}</h2>
-                <div class="results-message">${message}</div>
-                
-                <div class="results-stats">
-                    <div class="results-score">
-                        ${labels.score}: <strong>${score}/${totalQuestions}</strong>
-                    </div>
-                    ${missedWords.length > 0 ? `
-                        <div class="results-missed">
-                            <strong>${labels.missedWords}:</strong>
-                            ${missedWords.map(word => `
-                                <div class="missed-word">
-                                    <span class="word-chinese">${word.ch || ''}</span>
-                                    ${word.pin ? `<span class="word-pinyin">[${word.pin}]</span>` : ''}
-                                    <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-                
-                <div class="results-buttons">
-                    <button class="results-btn play-again">${labels.playAgain}</button>
-                    <button class="results-btn back-menu">${labels.backToMenu}</button>
-                </div>
-            </div>
-        `;
-        
-        // Event listeners
-        popup.querySelector('.play-again').addEventListener('click', () => {
-            document.body.removeChild(popup);
-            playAgainCallback();
-        });
-        
-        popup.querySelector('.back-menu').addEventListener('click', () => {
-            document.body.removeChild(popup);
-            this.goToHome();
-        });
-        
-        // Cerrar al hacer click fuera
-        popup.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                document.body.removeChild(popup);
-                this.goToHome();
-            }
-        });
-        
-        document.body.appendChild(popup);
-    }
-
-    showTimeUpMessage() {
-        const lang = this.settings.get('language');
-        const timeUpMessage = this.labels[lang].game.timeUp;
-        this.showToast(timeUpMessage, 'error');
-        
-        // También reproducir sonido de error
-        if (this.soundManager) { this.soundManager.play('wrong'); }
-    }
-
-    async loadSounds() {
-        try {
-            // URLs base - ajusta según tu estructura de carpetas
-            const baseUrl = 'https://isaacjar.github.io/chineseapps/yulin/sound/';
-            
-            // Cargar sonidos de forma asíncrona
-            const loadPromises = [
-                this.soundManager.loadSound('correct', baseUrl + 'correct.mp3'),
-                this.soundManager.loadSound('wrong', baseUrl + 'wrong.mp3')
-            ];
-            
-            // Esperar a que todos se carguen (o fallen silenciosamente)
-            await Promise.allSettled(loadPromises);
-            
-            this.soundManager.soundsLoaded = true;
-            console.log('Carga de sonidos completada');
-            
-        } catch (error) {
-            // Capturar cualquier error en la carga general
-            console.warn('Error en la carga general de sonidos:', error);
-            // El programa continúa normalmente
-        }
-    }
+    
 }

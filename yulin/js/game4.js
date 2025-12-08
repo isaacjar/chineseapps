@@ -213,11 +213,33 @@ class Game4 {
     }
 
     async preloadImages() {
-        const wordsToPreload = this.vocabulary.slice(0, 10);
+        // Precargar solo las primeras 3 para que el juego arranque rápido
+        const wordsToPreload = this.vocabulary.slice(0, 3);
+    
         const preloadPromises = wordsToPreload.map(word => this.getImageUrl(word));
-        
         await Promise.allSettled(preloadPromises);
-        console.log('Precarga de imágenes completada');
+    
+        console.log('Precarga mínima completada');
+    }
+
+
+    /** 🔥 Precarga progresiva: carga imágenes poco a poco en segundo plano */
+    startProgressivePreload() {
+        let index = 0;
+    
+        const preloadNext = () => {
+            if (index >= this.vocabulary.length) return;
+    
+            const word = this.vocabulary[index];
+            this.getImageUrl(word); // esto usa cache automáticamente
+    
+            index++;
+    
+            // Carga una imagen cada 150 ms para no bloquear la app
+            setTimeout(preloadNext, 150);
+        };
+    
+        preloadNext();
     }
 
     async getImageUrl(word) {
@@ -259,6 +281,9 @@ class Game4 {
         this.ui.showGameStats();
         this.enableKeyboardControls();
         this.nextQuestion();
+
+        // 🔥 Nueva precarga progresiva
+        this.startProgressivePreload();
     }
 
     async nextQuestion() {

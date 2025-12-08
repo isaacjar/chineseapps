@@ -390,9 +390,9 @@ class Game5 {
         gameContainer.className = 'memory-game-container game5-container';
         
         // Título compacto
-        const gameTitle = document.createElement('h2');
+        /*const gameTitle = document.createElement('h2');
         gameTitle.textContent = '🧠 Memory Match';
-        gameTitle.className = 'game5-title';
+        gameTitle.className = 'game5-title';*/
         
         // Contenedor del grid que se expande
         const gridWrapper = document.createElement('div');

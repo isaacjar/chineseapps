@@ -1184,51 +1184,43 @@ input:checked + .slider:before {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos para el juego de memoria */
-.memory-game-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 120px);
-    padding: 1rem;
-}
-
+/* ===== MEMORY GAME SPECIFIC STYLES ===== */
 .memory-grid {
     display: grid;
-    gap: 0.75rem;
     width: 100%;
     height: 100%;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    place-items: center; /* Centrar cartas en sus celdas */
-    overflow: hidden !important; /* Forzar sin scroll */
+    overflow: hidden !important;
+    place-items: center;
 }
 
 .memory-card {
     width: 100%;
     height: 100%;
-    max-width: 160px; /* Tamaño máximo por defecto */
-    max-height: 192px; /* 160 * 1.2 */
-    aspect-ratio: 1/1.2;
-    perspective: 1000px;
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-width: 180px;
+    max-height: 216px; /* 180 * 1.2 */
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.memory-card.matched {
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
 }
 
 .card-inner {
     width: 100%;
     height: 100%;
-    position: relative;
     transition: transform 0.6s;
     transform-style: preserve-3d;
+    position: relative;
 }
 
-.card-front,
-.card-back {
+.card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -1237,92 +1229,210 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
-}
-
-.card-front {
-    background: linear-gradient(135deg, var(--pastel-brown-dark), var(--pastel-brown));
-    border: 3px solid #5d4037;
+    overflow: hidden;
 }
 
 .card-back {
-    background-color: white;
     transform: rotateY(180deg);
+    background: white;
     border: 3px solid var(--pastel-orange);
-    padding: 0.5rem;
-    flex-direction: column;
-    overflow: hidden;
-    text-align: center;
 }
 
-/* Asegurar que las imágenes se ajusten */
-.card-back img {
+.memory-chinese-character {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #5d4037;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.memory-pinyin {
+    font-size: 1.2rem;
+    color: #795548;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* Popup de resultados */
+.results-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
 }
 
-/* Responsive simple */
+.results-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s ease;
+}
+
+.results-title {
+    color: var(--pastel-brown-dark);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.results-message {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--pastel-orange), var(--pastel-yellow));
+    border-radius: 12px;
+    color: white;
+}
+
+.results-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.result-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: #f9f5f0;
+    border-radius: 8px;
+    border-left: 4px solid var(--pastel-green);
+}
+
+.stat-label {
+    font-weight: bold;
+    color: #795548;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: var(--pastel-brown-dark);
+}
+
+.results-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.results-btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.results-btn.play-again {
+    background: var(--pastel-green);
+    color: white;
+}
+
+.results-btn.back-menu {
+    background: var(--pastel-orange);
+    color: white;
+}
+
+.results-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .memory-grid {
-        gap: 0.5rem;
-        padding: 0.25rem;
+    .memory-chinese-character {
+        font-size: 2rem;
     }
     
+    .memory-pinyin {
+        font-size: 1rem;
+    }
+    
+    .results-content {
+        padding: 1.5rem;
+    }
+    
+    .results-title {
+        font-size: 1.5rem;
+    }
+    
+    .results-message {
+        font-size: 1.2rem;
+    }
+    
+    .results-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-buttons {
+        flex-direction: column;
+    }
+    
+    .results-btn {
+        width: 100%;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
     .memory-card {
         max-width: 120px;
         max-height: 144px;
     }
-}
-
-@media (max-width: 480px) {
-    .memory-grid {
-        gap: 0.25rem;
-        padding: 0.1rem;
+    
+    .memory-chinese-character {
+        font-size: 1.5rem;
     }
     
-    .memory-card {
-        max-width: 100px;
-        max-height: 120px;
+    .card-front div:first-child {
+        font-size: 1.5rem !important;
     }
-}
-
-/* Para pantallas grandes */
-@media (min-width: 1200px) {
-    .memory-card {
-        max-width: 180px;
-        max-height: 216px;
-    }
-}
-
-#game-screen {
-    overflow: hidden !important;
 }
 
 .memory-game-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    padding: 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#memory-grid {
+    display: grid;
+    place-items: center;
     overflow: hidden !important;
-}
-
-.memory-grid-wrapper {
-    overflow: hidden !important;
-}
-
-/* Forzar que las cartas se ajusten */
-.memory-card * {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-/* Si hay muchas cartas, hacerlas más pequeñas automáticamente */
-.memory-grid:has(> :nth-child(13)) {
-    gap: 0.4rem !important;
-}
-
-.memory-grid:has(> :nth-child(17)) {
-    gap: 0.3rem !important;
-}
-
-.memory-grid:has(> :nth-child(21)) {
-    gap: 0.2rem !important;
 }

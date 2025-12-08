@@ -76,7 +76,7 @@ class UI {
         this.currentFilter = 'all';
         this.game2 = new Game2(settings, stats, this);
         this.game4 = new Game4(settings, stats, this);
-
+        this.game5 = new Game5(settings, stats, this);
         this.soundManager = new SoundManager();
         
         this.setupEventListeners();
@@ -99,6 +99,7 @@ class UI {
         const game2Btn = document.getElementById('game2-btn');
         const game3Btn = document.getElementById('game3-btn'); 
         const game4Btn = document.getElementById('game4-btn');
+        const game5Btn = document.getElementById('game5-btn');
         const wordsBtn = document.getElementById('words-btn');
         const statsBtn = document.getElementById('stats-btn');
         const settingsBtn = document.getElementById('settings-btn');
@@ -108,6 +109,7 @@ class UI {
         if (game2Btn) game2Btn.addEventListener('click', () => this.game.startGame('game2'));
         if (game3Btn) game3Btn.addEventListener('click', () => this.game2.startGame());
         if (game4Btn) game4Btn.addEventListener('click', () => this.game4.startGame());
+        if (game5Btn) game5Btn.addEventListener('click', () => this.game5.startGame());
         if (wordsBtn) wordsBtn.addEventListener('click', () => this.showWordsList());
         if (statsBtn) statsBtn.addEventListener('click', () => {
             this.stats.updateUI();

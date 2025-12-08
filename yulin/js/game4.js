@@ -40,7 +40,7 @@ class Game4 {
 
     async loadPictureLists() {
         try {
-            console.log('Cargando listado de archivos de imágenes...');
+            //console.log('Cargando listado de archivos de imágenes...');
             const response = await fetch(this.picturesBaseUrl + 'index.js');
             
             if (!response.ok) {
@@ -54,7 +54,7 @@ class Game4 {
             if (match && match[1]) {
                 try {
                     this.availablePictureLists = eval(`(${match[1]})`);
-                    console.log('Listados de imágenes cargados:', this.availablePictureLists);
+                    //console.log('Listados de imágenes cargados:', this.availablePictureLists);
                 } catch (e) {
                     console.error('Error parseando listados de imágenes:', e);
                     this.useFallbackPictureLists();
@@ -71,10 +71,10 @@ class Game4 {
 
     useFallbackPictureLists() {
         this.availablePictureLists = [
-            { filename: "animals", title: "Animales", level: "A1", misc: "Basic" },
-            { filename: "food", title: "Comida", level: "A1", misc: "Basic" },
-            { filename: "objects", title: "Objetos", level: "A1", misc: "Basic" },
-            { filename: "nature", title: "Naturaleza", level: "A1", misc: "Basic" }
+            { filename: "hsk1_basic1_40", title: "HSK 1 A (40 words)", level: "H1", misc: "Isaac" },
+            { filename: "hsk1_basic_60", title: "HSK 1 Full (60 words)", level: "H1", misc: "Isaac" },
+            { filename: "hsk2_basic_150", title: "HSK 2 Full (150 words)", level: "H2", misc: "Isaac" },
+            { filename: "hsk3_full_360", title: "HSK 3 Full (360 words)", level: "H3", misc: "Isaac" }
         ];
     }
 
@@ -171,7 +171,7 @@ class Game4 {
 
     async loadPictureList(filename) {
         try {
-            console.log('Cargando listado de imágenes:', filename);
+            //console.log('Cargando listado de imágenes:', filename);
             const response = await fetch(`${this.picturesBaseUrl}${filename}`);
             
             if (!response.ok) {
@@ -200,11 +200,11 @@ class Game4 {
             console.error('Error cargando listado de imágenes:', error);
             
             this.vocabulary = [
-                { ch: "猫", pin: "māo", en: "cat", es: "gato", pic: "cat.png" },
-                { ch: "狗", pin: "gǒu", en: "dog", es: "perro", pic: "dog.png" },
-                { ch: "苹果", pin: "píngguǒ", en: "apple", es: "manzana", pic: "apple.png" },
-                { ch: "书", pin: "shū", en: "book", es: "libro", pic: "book.png" },
-                { ch: "水", pin: "shuǐ", en: "water", es: "agua", pic: "water.png" }
+                { ch: "猫", pin: "māo", en: "cat", es: "gato" },
+                { ch: "狗", pin: "gǒu", en: "dog", es: "perro" },
+                { ch: "苹果", pin: "píngguǒ", en: "apple", es: "manzana" },
+                { ch: "书", pin: "shū", en: "book", es: "libro" },
+                { ch: "水", pin: "shuǐ", en: "water", es: "agua" }
             ];
             
             this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
@@ -219,7 +219,7 @@ class Game4 {
         const preloadPromises = wordsToPreload.map(word => this.getImageUrl(word));
         await Promise.allSettled(preloadPromises);
     
-        console.log('Precarga mínima completada');
+        //console.log('Precarga mínima completada');
     }
 
 

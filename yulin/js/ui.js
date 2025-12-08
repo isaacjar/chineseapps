@@ -18,7 +18,6 @@ class SoundManager {
             return new Promise((resolve) => {
                 audio.addEventListener('canplaythrough', () => {
                     this.sounds[name] = audio;
-                    // console.log(`Sonido cargado: ${name}`);
                     resolve(true);
                 });
                 
@@ -153,7 +152,7 @@ class UI {
         const timeSlider = document.getElementById('time-slider');
         const livesSlider = document.getElementById('lives-slider');
         const difficultySwitch = document.getElementById('difficulty-switch');
-        const pinyinSwitch = document.getElementById('pinyin-switch'); // Nuevo
+        const pinyinSwitch = document.getElementById('pinyin-switch');
         
         if (questionsSlider) {
             questionsSlider.addEventListener('input', (e) => {
@@ -204,10 +203,9 @@ class UI {
         if (fontSelect) {
             fontSelect.addEventListener('change', (e) => {
                 this.settings.set('chineseFont', e.target.value);
-                this.applyChineseFont(); // Aplicar la fuente inmediatamente
+                this.applyChineseFont();
             });
-        }       
-                
+        }
     }
         
     goToHome() {
@@ -241,11 +239,6 @@ class UI {
         
         // Mostrar pantalla de menú
         this.showScreen('menu-screen');
-        
-        // Mostrar feedback visual
-        //this.showToast('Volviendo al menú principal', 'info');
-        
-        //console.log('Navegación al menú principal');
     }
     
     showWordsList() {
@@ -276,10 +269,9 @@ class UI {
         countElement.textContent = `${this.game.vocabulary.length} palabras`;
         
         // Usar el listado actual si está disponible, sino buscar en los parámetros URL
-        let listTitle = 'Lista de Palabras'; // Valor por defecto
+        let listTitle = 'Lista de Palabras';
         
         if (this.currentList) {
-            // Usar el listado actualmente seleccionado
             listTitle = this.currentList.title;
         } else if (this.vocabLists.length > 0 && this.game.vocabulary.length > 0) {
             // Buscar en los parámetros URL como fallback
@@ -292,7 +284,6 @@ class UI {
                     listTitle = foundList.title;
                 }
             } else {
-                // Si no hay parámetro URL, usar el primer listado como referencia
                 listTitle = this.vocabLists[0].title;
             }
         }
@@ -326,8 +317,6 @@ class UI {
             
             container.appendChild(wordElement);
         });
-        
-        console.log('Palabras mostradas:', this.game.vocabulary.length);
     }
     
     updateLabels() {
@@ -360,7 +349,7 @@ class UI {
         if (wordsText) wordsText.textContent = currentLabels.menu.words;  
         if (statsText) statsText.textContent = currentLabels.menu.stats;
         
-        // Actualizar pantalla de palabras (nueva)
+        // Actualizar pantalla de palabras
         const wordsTitle = document.querySelector('#words-screen h2');
         const closeWordsBtn = document.getElementById('close-words-btn');
         
@@ -409,6 +398,7 @@ class UI {
         if (accuracyLabel) accuracyLabel.textContent = currentLabels.stats.accuracy;
         if (resetStatsBtn) resetStatsBtn.textContent = currentLabels.stats.reset;
         if (closeStatsBtn) closeStatsBtn.textContent = currentLabels.stats.close;
+        
         this.applyChineseFont();
     }
     
@@ -427,17 +417,14 @@ class UI {
                         const voclists = eval(`(${match[1]})`);
                         this.vocabLists = voclists;
                         this.filteredLists = [...this.vocabLists]; // Inicialmente mostrar todos
-                        console.log('Listados cargados desde servidor:', this.vocabLists.length);
                     } catch (e) {
                         console.error('Error parseando listados:', e);
                         this.useFallbackLists();
                     }
                 } else {
-                    console.warn('No se pudo encontrar el array voclists, usando listados de ejemplo');
                     this.useFallbackLists();
                 }
             } else {
-                console.warn('No se pudo cargar index.js, usando listados de ejemplo');
                 this.useFallbackLists();
             }
         } catch (error) {
@@ -554,32 +541,22 @@ class UI {
             button.addEventListener('click', () => this.selectVocabList(list));
             this.listsContent.appendChild(button);
         });
-        
-        console.log('Listados filtrados mostrados:', this.filteredLists.length, 'para nivel:', this.currentFilter);
     }
     
     displayVocabLists() {
         // Este método ahora es manejado por displayFilteredLists
-        console.log('Display de listados manejado por sistema de filtros');
     }
     
     async selectVocabList(list) {
-        //console.log('Seleccionando listado:', list.filename);
         this.showToast(`Loading "${list.title}"...`, 'info');
         
         // Cargar el listado tanto en Game como en Game2
         const successGame1 = await this.game.loadVocabularyList(list.filename);
         const successGame2 = await this.game2.loadVocabularyList(list.filename);
-        if (this.game4) {
-            // Game4 se carga mediante su propio sistema de popups
-            // Solo guardamos el listado actual para referencia
-            this.currentList = list;
-        }
         
         if (successGame1 && successGame2) {
             this.currentList = list;
             const totalWords = this.game.vocabulary.length;
-            const wordsWithPinyin = this.game2.vocabulary.length;
             this.showToast(`List "${list.title}" loaded (${totalWords} words)`, 'success');
             this.showScreen('menu-screen');
         } else {
@@ -641,7 +618,6 @@ class UI {
         }
         
         this.updateLabels();
-        //this.showToast('Setting guardada', 'success');
         this.showScreen('menu-screen');
     }
     
@@ -649,7 +625,6 @@ class UI {
         this.settings.reset();
         this.settings.updateUI();
         this.updateLabels();
-        //this.showToast('Configuración restablecida', 'info');
     }
     
     showToast(message, type = 'info') {
@@ -739,8 +714,6 @@ class UI {
         }
         
         // Crear contenido
-        /* <span class="word-chinese">${word.ch || ''}</span>
-           <span class="word-translation">${lang === 'es' && word.es ? word.es : word.en}</span>*/
         popup.innerHTML = `
             <div class="results-content">
                 <h2 class="results-title">${labels.title}</h2>
@@ -817,12 +790,8 @@ class UI {
             await Promise.allSettled(loadPromises);
             
             this.soundManager.soundsLoaded = true;
-            console.log('Carga de sonidos completada');
-            
         } catch (error) {
-            // Capturar cualquier error en la carga general
             console.warn('Error en la carga general de sonidos:', error);
-            // El programa continúa normalmente
         }
     }
 }

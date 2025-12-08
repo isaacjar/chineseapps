@@ -411,9 +411,12 @@ class Game4 {
         }
         
         const incorrectOptions = this.getIncorrectOptions(randomIndex);
+    
+        // Verificar que tenemos suficientes opciones según la dificultad
+        const totalOptionsNeeded = this.settings.get('difficulty') === 1 ? 4 : 6; // 2x2 o 3x2
         
-        if (incorrectOptions.length < (this.settings.get('difficulty') === 1 ? 3 : 5)) {
-            console.warn('No hay suficientes opciones, buscando otra palabra...');
+        if (incorrectOptions.length < (totalOptionsNeeded - 1)) {
+            console.warn(`No hay suficientes opciones para dificultad ${this.settings.get('difficulty')}, buscando otra palabra...`);
             this.usedIndices.delete(randomIndex); // Liberar índice
             this.nextQuestion();
             return;
@@ -438,9 +441,9 @@ class Game4 {
         await Promise.allSettled(imagePromises);
     }
 
-    getIncorrectOptions(correctIndex) {
+   getIncorrectOptions(correctIndex) {
         const difficulty = this.settings.get('difficulty');
-        const numOptions = difficulty === 1 ? 3 : 5;
+        const numOptionsNeeded = difficulty === 1 ? 3 : 5; // 1 correcta + 3/5 incorrectas = 4/6 total
         
         const incorrectOptions = [];
         const usedIndices = new Set([correctIndex]);
@@ -451,8 +454,7 @@ class Game4 {
             if (i !== correctIndex && this.vocabulary[i].ch) {
                 candidateWords.push({
                     word: this.vocabulary[i],
-                    index: i,
-                    similarity: this.calculateSimilarity(this.vocabulary[correctIndex], this.vocabulary[i])
+                    index: i
                 });
             }
         }
@@ -460,7 +462,7 @@ class Game4 {
         // Mezclar y seleccionar opciones aleatorias
         this.shuffleArray(candidateWords);
         
-        for (let i = 0; i < Math.min(numOptions, candidateWords.length); i++) {
+        for (let i = 0; i < Math.min(numOptionsNeeded, candidateWords.length); i++) {
             incorrectOptions.push(candidateWords[i].word);
         }
         
@@ -504,30 +506,48 @@ class Game4 {
         }
     }
 
-    async displayOptions(options) {
+   async displayOptions(options) {
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
         const difficulty = this.settings.get('difficulty');
-        const isMobile = window.innerHeight > window.innerWidth;
         
-        if (isMobile) {
-            optionsContainer.style.gridTemplateColumns = difficulty === 1 ? '1fr 1fr' : '1fr 1fr';
+        // Determinar el grid según la dificultad
+        if (difficulty === 1) {
+            // Dificultad 1: 2x2 grid (2 filas, 2 columnas) = 4 opciones
+            optionsContainer.style.gridTemplateColumns = '1fr 1fr';
+            optionsContainer.style.gridTemplateRows = '1fr 1fr';
+            optionsContainer.style.gap = '1rem';
         } else {
-            optionsContainer.style.gridTemplateColumns = difficulty === 1 ? '1fr 1fr 1fr 1fr' : '1fr 1fr 1fr 1fr 1fr 1fr';
+            // Dificultad 2: 3x2 grid (2 filas, 3 columnas) = 6 opciones
+            optionsContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
+            optionsContainer.style.gridTemplateRows = '1fr 1fr';
+            optionsContainer.style.gap = '0.8rem';
         }
-
-        // Crear todos los botones primero
+        
+        // Asegurarnos de que tenemos el número correcto de opciones
+        const numOptionsNeeded = difficulty === 1 ? 4 : 6;
+        if (options.length < numOptionsNeeded) {
+            console.warn(`No hay suficientes opciones. Necesitamos ${numOptionsNeeded}, tenemos ${options.length}`);
+            // Si faltan opciones, repetir algunas para completar
+            while (options.length < numOptionsNeeded) {
+                const randomIndex = Math.floor(Math.random() * this.vocabulary.length);
+                options.push(this.vocabulary[randomIndex]);
+            }
+        }
+    
+        // Crear todos los botones
         const buttonPromises = options.map(async (option, index) => {
             const button = document.createElement('button');
             button.className = 'option-btn';
             button.dataset.index = index;
+            button.style.position = 'relative';
             button.style.padding = '0.5rem';
             button.style.display = 'flex';
             button.style.flexDirection = 'column';
             button.style.alignItems = 'center';
             button.style.justifyContent = 'center';
-            button.style.minHeight = '140px';
+            button.style.minHeight = '180px';
             button.style.gap = '0.5rem';
             
             // Obtener URL de la imagen (ya debería estar en cache)
@@ -536,34 +556,51 @@ class Game4 {
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
             imgElement.alt = option.ch;
-            imgElement.style.width = '128px';
-            imgElement.style.height = '128px';
-            imgElement.style.objectFit = 'cover';
-            imgElement.style.borderRadius = '8px';
+            imgElement.style.width = '160px';
+            imgElement.style.height = '160px';
+            imgElement.style.objectFit = 'contain';
+            imgElement.style.borderRadius = '0';
             imgElement.style.border = 'none'; 
             
             // Mostrar placeholder mientras carga
-            imgElement.style.background = 'var(--pastel-orange)';
+            imgElement.style.background = 'transparent';
+            
+            // Agregar loader para placeholders
+            imgElement.onload = () => {
+                imgElement.style.background = 'none';
+            };
+            
+            imgElement.onerror = () => {
+                // Si falla la imagen, mostrar placeholder
+                imgElement.src = `https://via.placeholder.com/160.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch)}`;
+                imgElement.style.background = 'var(--pastel-orange)';
+                imgElement.style.borderRadius = '12px';
+                imgElement.style.padding = '1rem';
+            };
             
             button.appendChild(imgElement);
             
-            // Agregar número de opción (1-9)
-            const numberElement = document.createElement('div');
-            numberElement.textContent = `${index + 1}`;
-            numberElement.style.position = 'absolute';
-            numberElement.style.top = '5px';
-            numberElement.style.left = '5px';
-            numberElement.style.backgroundColor = 'var(--pastel-brown-dark)';
-            numberElement.style.color = 'white';
-            numberElement.style.width = '24px';
-            numberElement.style.height = '24px';
-            numberElement.style.borderRadius = '50%';
-            numberElement.style.display = 'flex';
-            numberElement.style.alignItems = 'center';
-            numberElement.style.justifyContent = 'center';
-            numberElement.style.fontSize = '0.8rem';
-            numberElement.style.fontWeight = 'bold';
-            button.appendChild(numberElement);
+            // Agregar número de opción (1-9) solo para dificultad 2
+            if (difficulty === 2) {
+                const numberElement = document.createElement('div');
+                numberElement.textContent = `${index + 1}`;
+                numberElement.style.position = 'absolute';
+                numberElement.style.top = '5px';
+                numberElement.style.left = '5px';
+                numberElement.style.backgroundColor = 'var(--pastel-brown-dark)';
+                numberElement.style.color = 'white';
+                numberElement.style.width = '28px';
+                numberElement.style.height = '28px';
+                numberElement.style.borderRadius = '50%';
+                numberElement.style.display = 'flex';
+                numberElement.style.alignItems = 'center';
+                numberElement.style.justifyContent = 'center';
+                numberElement.style.fontSize = '0.9rem';
+                numberElement.style.fontWeight = 'bold';
+                numberElement.style.zIndex = '10';
+                numberElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                button.appendChild(numberElement);
+            }
             
             return { button, option, index };
         });

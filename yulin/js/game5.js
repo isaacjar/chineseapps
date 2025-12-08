@@ -553,57 +553,96 @@ class Game5 {
         const viewportHeight = window.innerHeight;
         const isLandscape = viewportWidth > viewportHeight;
         
-        console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Landscape: ${isLandscape}, Grid size: ${this.gridSize}`);
+        console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
         
-        // Calcular tamaño máximo del grid
-        const maxGridWidth = Math.min(viewportWidth - 40, 1400); // 40px de padding
-        const maxGridHeight = viewportHeight - 200; // Restar header, título y botones
+        // Calcular número óptimo de columnas basado en el espacio disponible
+        let columns;
         
         if (isLandscape) {
-            // MODO APAISADO (LANDSCAPE) - Priorizar ancho
-            if (this.gridSize <= 12) {
-                // Grid pequeño: 4 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
-            } else if (this.gridSize <= 20) {
-                // Grid mediano: 5 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
+            // MODO APAISADO - más columnas
+            if (viewportWidth >= 1600) {
+                columns = 6;
+            } else if (viewportWidth >= 1200) {
+                columns = 5;
+            } else if (viewportWidth >= 768) {
+                columns = 4;
             } else {
-                // Grid grande: 6 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(6, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
+                columns = 3;
             }
         } else {
-            // MODO RETRATO (PORTRAIT) - Priorizar alto
-            if (this.gridSize <= 12) {
-                // Grid pequeño: 3 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
-            } else if (this.gridSize <= 20) {
-                // Grid mediano: 4 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
+            // MODO VERTICAL - menos columnas
+            if (viewportWidth >= 1024) {
+                columns = 4;
+            } else if (viewportWidth >= 768) {
+                columns = 3;
             } else {
-                // Grid grande: 5 columnas
-                gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
-                gridContainer.style.gridTemplateRows = 'auto';
+                columns = 2;
             }
         }
         
-        // Calcular tamaño de cartas dinámicamente
-        this.calculateCardSize(gridContainer, maxGridWidth, maxGridHeight, isLandscape);
+        // Ajustar columnas si tenemos pocas cartas
+        if (this.gridSize < columns * 2) {
+            columns = Math.max(2, Math.floor(this.gridSize / 2));
+        }
         
-        // Ajustar gap entre cartas
-        gridContainer.style.gap = '0.75rem';
+        // Calcular filas necesarias
+        const rows = Math.ceil(this.gridSize / columns);
         
-        // Asegurar que el grid use todo el espacio disponible
+        console.log(`Grid: ${columns}x${rows} (${columns * rows} cells)`);
+        
+        // Configurar grid
+        gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        gridContainer.style.gridAutoRows = '1fr'; // Las filas también se ajustan
+        
+        // Ajustar gap según tamaño
+        const gapSize = Math.min(1, 16 / columns); // Gap más pequeño con más columnas
+        gridContainer.style.gap = `${gapSize}rem`;
+        
+        // Asegurar que el grid ocupe todo el espacio SIN scroll
         gridContainer.style.width = '100%';
         gridContainer.style.height = '100%';
-        gridContainer.style.justifyContent = 'center';
-        gridContainer.style.alignContent = 'center';
+        gridContainer.style.overflow = 'hidden';
+        
+        // Aplicar tamaño máximo a las cartas
+        this.applyCardSizeConstraints();
     }
-    
+
+    applyCardSizeConstraints() {
+        // Establecer tamaño máximo para las cartas
+        const style = document.createElement('style');
+        style.id = 'memory-card-styles';
+        
+        // Eliminar estilos anteriores si existen
+        const oldStyle = document.getElementById('memory-card-styles');
+        if (oldStyle) oldStyle.remove();
+        
+        // Calcular tamaño máximo basado en viewport
+        const maxCardWidth = Math.min(180, window.innerWidth / 6); // Máximo 180px, mínimo 1/6 del ancho
+        const maxCardHeight = maxCardWidth * 1.2;
+        
+        style.textContent = `
+            .memory-card {
+                max-width: ${maxCardWidth}px;
+                max-height: ${maxCardHeight}px;
+                margin: 0 auto;
+            }
+            
+            .memory-chinese-character {
+                font-size: ${Math.min(3, maxCardWidth / 25)}rem !important;
+            }
+            
+            .memory-pinyin {
+                font-size: ${Math.min(1.2, maxCardWidth / 40)}rem;
+            }
+            
+            .card-front div:first-child {
+                font-size: ${Math.min(2.5, maxCardWidth / 30)}rem;
+            }
+        `;
+        
+        document.head.appendChild(style);
+    }
+        
     calculateCardSize(gridContainer, maxWidth, maxHeight, isLandscape) {
         // Obtener configuración actual del grid
         const computedStyle = getComputedStyle(gridContainer);
@@ -652,11 +691,11 @@ class Game5 {
     }
     
     handleResize(gridContainer) {
-        // Redimensionar después de un pequeño delay para evitar múltiples cálculos
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => {
             this.setupGridLayout(gridContainer);
-        }, 250);
+            this.applyCardSizeConstraints();
+        }, 100);
     }
 
     createCardElement(card) {

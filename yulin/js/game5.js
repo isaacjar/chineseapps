@@ -576,92 +576,107 @@ class Game5 {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const isLandscape = viewportWidth > viewportHeight;
+        const isMobile = viewportWidth < 768;
         
         console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
         
-        // Calcular número óptimo de columnas basado en el espacio disponible
+        // AUMENTAR número de columnas para aprovechar espacio
         let columns;
         
         if (isLandscape) {
             // MODO APAISADO - más columnas
             if (viewportWidth >= 1600) {
-                columns = 6;
+                columns = 8;  // Aumentado de 6
             } else if (viewportWidth >= 1200) {
-                columns = 5;
+                columns = 6;  // Aumentado de 5
             } else if (viewportWidth >= 768) {
-                columns = 4;
+                columns = 5;  // Aumentado de 4
             } else {
-                columns = 3;
+                columns = 4;  // Aumentado de 3
             }
         } else {
-            // MODO VERTICAL - menos columnas
+            // MODO VERTICAL
             if (viewportWidth >= 1024) {
-                columns = 4;
+                columns = 5;  // Aumentado de 4
             } else if (viewportWidth >= 768) {
-                columns = 3;
+                columns = 4;  // Aumentado de 3
             } else {
-                columns = 2;
+                columns = 3;  // Aumentado de 2 (móviles)
             }
         }
         
-        // Ajustar columnas si tenemos pocas cartas
+        // Asegurar mínimo de columnas
+        columns = Math.max(2, columns);
+        
+        // Si tenemos pocas cartas, ajustar
         if (this.gridSize < columns * 2) {
             columns = Math.max(2, Math.floor(this.gridSize / 2));
         }
         
-        // Calcular filas necesarias
+        // Reducir más si es móvil y muchas columnas
+        if (isMobile && columns > 4) {
+            columns = 4;
+        }
+        
         const rows = Math.ceil(this.gridSize / columns);
         
         console.log(`Grid: ${columns}x${rows} (${columns * rows} cells)`);
         
-        // Configurar grid
+        // Configurar grid con gaps mínimos
         gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        gridContainer.style.gridAutoRows = '1fr'; // Las filas también se ajustan
+        gridContainer.style.gridAutoRows = '1fr';
+        gridContainer.style.gap = '0.25rem'; // Gap mínimo
         
-        // Ajustar gap según tamaño
-        const gapSize = Math.min(1, 16 / columns); // Gap más pequeño con más columnas
-        gridContainer.style.gap = `${gapSize}rem`;
-        
-        // Asegurar que el grid ocupe todo el espacio SIN scroll
+        // Asegurar que no haya overflow
+        gridContainer.style.overflow = 'hidden';
         gridContainer.style.width = '100%';
         gridContainer.style.height = '100%';
-        gridContainer.style.overflow = 'hidden';
         
-        // Aplicar tamaño máximo a las cartas
         this.applyCardSizeConstraints();
-        this.debugGridLayout(gridContainer);
     }
     
     applyCardSizeConstraints() {
-        // Establecer tamaño máximo para las cartas
         const style = document.createElement('style');
         style.id = 'memory-card-styles';
         
-        // Eliminar estilos anteriores si existen
         const oldStyle = document.getElementById('memory-card-styles');
         if (oldStyle) oldStyle.remove();
         
-        // Calcular tamaño máximo basado en viewport
-        const maxCardWidth = Math.min(180, window.innerWidth / 6); // Máximo 180px, mínimo 1/6 del ancho
+        // Calcular tamaño más agresivo para aprovechar espacio
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const isMobile = viewportWidth < 768;
+        
+        // Tamaño más pequeño en móviles
+        const maxCardWidth = isMobile 
+            ? Math.min(140, viewportWidth / 4)  // Más pequeño en móviles
+            : Math.min(160, viewportWidth / 6); // Más pequeño en desktop
+        
         const maxCardHeight = maxCardWidth * 1.2;
         
         style.textContent = `
             .memory-card {
-                max-width: ${maxCardWidth}px;
-                max-height: ${maxCardHeight}px;
-                margin: 0 auto;
+                max-width: ${maxCardWidth}px !important;
+                max-height: ${maxCardHeight}px !important;
+                min-width: 80px;
+                min-height: 96px;
             }
             
             .memory-chinese-character {
-                font-size: ${Math.min(3, maxCardWidth / 25)}rem !important;
+                font-size: ${Math.min(2.2, maxCardWidth / 25)}rem !important;
             }
             
             .memory-pinyin {
-                font-size: ${Math.min(1.2, maxCardWidth / 40)}rem;
+                font-size: ${Math.min(0.9, maxCardWidth / 50)}rem !important;
             }
             
             .card-front div:first-child {
-                font-size: ${Math.min(2.5, maxCardWidth / 30)}rem;
+                font-size: ${Math.min(2, maxCardWidth / 30)}rem !important;
+            }
+            
+            /* Ajustar gaps según tamaño */
+            .memory-grid {
+                gap: ${Math.max(0.125, 0.5 - (maxCardWidth / 100))}rem !important;
             }
         `;
         
@@ -748,28 +763,29 @@ class Game5 {
         backFace.style.overflow = 'hidden';
         
         if (card.type === 'image') {
-            // Mostrar imagen
+            // Crear contenedor cuadrado para la imagen
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+            
             this.getImageUrl(card.word).then(imageUrl => {
                 const imgElement = document.createElement('img');
                 imgElement.src = imageUrl;
                 imgElement.alt = card.word.ch;
-                imgElement.style.width = '100%';
-                imgElement.style.height = '100%';
-                imgElement.style.objectFit = 'cover';
-                imgElement.style.borderRadius = '8px';
+                imgElement.loading = 'lazy';
                 
                 // Placeholder mientras carga
-                imgElement.style.backgroundColor = 'var(--pastel-orange)';
                 imgElement.onload = () => {
-                    imgElement.style.backgroundColor = 'transparent';
+                    imageContainer.style.backgroundColor = 'transparent';
                 };
                 imgElement.onerror = () => {
                     imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(card.word.ch.substring(0, 2))}`;
-                    imgElement.style.backgroundColor = 'transparent';
+                    imageContainer.style.backgroundColor = 'transparent';
                 };
                 
-                backFace.appendChild(imgElement);
+                imageContainer.appendChild(imgElement);
             });
+            
+            backFace.appendChild(imageContainer);
         } else {
             // Mostrar texto chino
             const fontClass = this.settings.get('chineseFont') || 'noto-serif';

@@ -340,14 +340,24 @@ class Game5 {
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            // Guardar el manejador original
-            this.originalHeaderClick = headerHome.onclick;
+            // Guardar el manejador original de forma segura
+            this.originalHeaderClick = headerHome.onclick || null;
             
-            // Sobrescribir con nuestro manejador
+            // Crear un nuevo manejador
             headerHome.onclick = (e) => {
                 this.cleanup();
-                if (this.originalHeaderClick) {
-                    this.originalHeaderClick(e);
+                
+                // Si había un manejador original, ejecutarlo
+                if (this.originalHeaderClick && typeof this.originalHeaderClick === 'function') {
+                    // Llamar al manejador original con el contexto correcto
+                    try {
+                        this.originalHeaderClick.call(headerHome, e);
+                    } catch (error) {
+                        console.warn('Error ejecutando manejador original del header:', error);
+                    }
+                } else {
+                    // Si no hay manejador original, usar el comportamiento por defecto del UI
+                    this.ui.goToHome();
                 }
             };
         }
@@ -974,10 +984,16 @@ class Game5 {
     }
     
    cleanup() {
-        // Restaurar manejador original del header
+        // Restaurar manejador original del header de forma segura
         const headerHome = document.getElementById('header-home');
-        if (headerHome && this.originalHeaderClick) {
-            headerHome.onclick = this.originalHeaderClick;
+        if (headerHome) {
+            if (this.originalHeaderClick && typeof this.originalHeaderClick === 'function') {
+                headerHome.onclick = this.originalHeaderClick;
+            } else {
+                // Si no había manejador original, establecer null
+                headerHome.onclick = null;
+            }
+            this.originalHeaderClick = null; // Limpiar referencia
         }
         
         // Detener timer

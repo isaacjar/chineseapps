@@ -393,8 +393,28 @@ class Game5 {
         
         // Iniciar timer
         this.startTimer();
+
+         // Guardar referencia al manejador original del header
+        this.saveOriginalHeaderHandler();
     }
 
+    // Añadir este nuevo método:
+    saveOriginalHeaderHandler() {
+        const headerHome = document.getElementById('header-home');
+        if (headerHome) {
+            // Guardar el manejador original
+            this.originalHeaderClick = headerHome.onclick;
+            
+            // Sobrescribir con nuestro manejador
+            headerHome.onclick = (e) => {
+                this.cleanup();
+                if (this.originalHeaderClick) {
+                    this.originalHeaderClick(e);
+                }
+            };
+        }
+    }
+        
     setupGameStats() {
         // Limpiar estadísticas anteriores
         const gameStats = document.getElementById('game-stats');
@@ -500,6 +520,7 @@ class Game5 {
         resetButton.style.display = 'block';
         
         resetButton.addEventListener('click', () => {
+            this.cleanup();
             this.startGameSession();
         });
         
@@ -770,15 +791,22 @@ class Game5 {
             this.timer = null;
         }
         
-        // Registrar juego en estadísticas
-        this.stats.recordGame();
+        // Registrar juego en estadísticas si se completó
+        if (this.matchedPairs > 0) {
+            this.stats.recordGame();
+        }
         
-        // Calcular estadísticas finales
-        const accuracy = this.totalPairs > 0 ? Math.round((this.matchedPairs / this.totalPairs) * 100) : 0;
-        const efficiency = this.moves > 0 ? Math.round((this.matchedPairs / this.moves) * 100) : 0;
-        
-        // Mostrar popup de resultados
-        this.showResultsPopup(accuracy, efficiency);
+        // Calcular estadísticas finales solo si el juego estaba activo
+        if (this.gameStarted) {
+            const accuracy = this.totalPairs > 0 ? Math.round((this.matchedPairs / this.totalPairs) * 100) : 0;
+            const efficiency = this.moves > 0 ? Math.round((this.matchedPairs / this.moves) * 100) : 0;
+            
+            // Mostrar popup de resultados
+            this.showResultsPopup(accuracy, efficiency);
+        } else {
+            // Si el juego no había empezado, solo volver al menú
+            this.ui.goToHome();
+        }
     }
 
     showResultsPopup(accuracy, efficiency) {
@@ -842,11 +870,13 @@ class Game5 {
         // Event listeners
         popup.querySelector('.play-again').addEventListener('click', () => {
             document.body.removeChild(popup);
+            this.cleanup(); // Limpiar antes de reiniciar
             this.startGameSession();
         });
         
         popup.querySelector('.back-menu').addEventListener('click', () => {
             document.body.removeChild(popup);
+            this.cleanup();
             this.ui.goToHome();
         });
         
@@ -854,6 +884,7 @@ class Game5 {
         popup.addEventListener('click', (e) => {
             if (e.target === popup) {
                 document.body.removeChild(popup);
+                this.cleanup();
                 this.ui.goToHome();
             }
         });
@@ -868,4 +899,36 @@ class Game5 {
         }
         return array;
     }
+
+cleanup() {
+    // Restaurar manejador original del header
+    const headerHome = document.getElementById('header-home');
+    if (headerHome && this.originalHeaderClick) {
+        headerHome.onclick = this.originalHeaderClick;
+    }
+    
+    // Detener timer
+    if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+    }
+    
+    // Limpiar listeners de cartas
+    const cards = document.querySelectorAll('.memory-card');
+    cards.forEach(card => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+    });
+    
+    // Limpiar estado del juego
+    this.selectedCards = [];
+    this.canSelect = false;
+    this.gameStarted = false;
+}
+
+exitGame() {
+    this.cleanup();
+    this.ui.goToHome();
+}
+    
 }

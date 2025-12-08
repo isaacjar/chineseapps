@@ -631,25 +631,6 @@ class Game5 {
         this.applyCardSizeConstraints();
         this.debugGridLayout(gridContainer);
     }
-
-    // DEBUG 
-    debugGridLayout(gridContainer) {
-        console.log('=== GRID DEBUG ===');
-        console.log('Viewport:', window.innerWidth, 'x', window.innerHeight);
-        console.log('Grid cells:', this.gridSize);
-        console.log('Grid container size:', gridContainer.offsetWidth, 'x', gridContainer.offsetHeight);
-        console.log('Computed grid:', getComputedStyle(gridContainer).gridTemplateColumns);
-        
-        // Verificar si hay overflow
-        const hasOverflow = gridContainer.scrollHeight > gridContainer.clientHeight || 
-                           gridContainer.scrollWidth > gridContainer.clientWidth;
-        console.log('Has overflow:', hasOverflow);
-        
-        if (hasOverflow) {
-            console.log('Scroll dimensions:', gridContainer.scrollWidth, 'x', gridContainer.scrollHeight);
-            console.log('Client dimensions:', gridContainer.clientWidth, 'x', gridContainer.clientHeight);
-        }
-    }
     
     applyCardSizeConstraints() {
         // Establecer tamaño máximo para las cartas
@@ -685,53 +666,6 @@ class Game5 {
         `;
         
         document.head.appendChild(style);
-    }
-        
-    calculateCardSize(gridContainer, maxWidth, maxHeight, isLandscape) {
-        // Obtener configuración actual del grid
-        const computedStyle = getComputedStyle(gridContainer);
-        const columns = computedStyle.gridTemplateColumns.split(' ').length;
-        const rows = Math.ceil(this.gridSize / columns);
-        
-        // Calcular tamaño máximo por carta
-        const horizontalGap = 0.75 * (columns - 1); // rem
-        const verticalGap = 0.75 * (rows - 1); // rem
-        
-        // Convertir rem a px (asumiendo 1rem = 16px)
-        const gapHorizontalPx = horizontalGap * 16;
-        const gapVerticalPx = verticalGap * 16;
-        
-        // Calcular tamaño disponible para cartas
-        const availableWidth = maxWidth - gapHorizontalPx;
-        const availableHeight = maxHeight - gapVerticalPx;
-        
-        // Calcular tamaño de carta basado en la dimensión más restrictiva
-        const cardWidth = Math.min(
-            availableWidth / columns,
-            availableHeight / rows * 0.8 // Factor de aspecto ~1/1.2
-        );
-        
-        const cardHeight = cardWidth * 1.2; // Mantener aspecto 1:1.2
-        
-        console.log(`Grid: ${columns}x${rows}, Card size: ${cardWidth.toFixed(0)}x${cardHeight.toFixed(0)}px`);
-        
-        // Aplicar tamaño mínimo y máximo
-        const minCardSize = 80; // px
-        const maxCardSize = 180; // px
-        
-        const finalCardWidth = Math.max(minCardSize, Math.min(maxCardSize, cardWidth));
-        const finalCardHeight = finalCardWidth * 1.2;
-        
-        // Aplicar tamaño a las cartas
-        gridContainer.style.gridAutoRows = `${finalCardHeight}px`;
-        
-        // También aplicar tamaño mínimo a las columnas
-        gridContainer.style.gridTemplateColumns = `repeat(${columns}, minmax(${finalCardWidth}px, 1fr))`;
-        
-        // Ajustar padding interno del grid si es necesario
-        if (finalCardWidth < 100) {
-            gridContainer.style.gap = '0.5rem';
-        }
     }
     
     handleResize(gridContainer) {
@@ -1102,6 +1036,7 @@ class Game5 {
         }
         return newArray;
     }
+    
     cleanup() {
         // Restaurar manejador original del header
         const headerHome = document.getElementById('header-home');
@@ -1115,25 +1050,18 @@ class Game5 {
             this.timer = null;
         }
         
-        // Limpiar listeners de cartas
-        const cards = document.querySelectorAll('.memory-card');
-        cards.forEach(card => {
-            const newCard = card.cloneNode(true);
-            card.parentNode.replaceChild(newCard, card);
-        });
-        
         // Limpiar listeners de redimensionamiento
         window.removeEventListener('resize', this.handleResize);
         
-        // Limpiar estado del juego
+        // Limpiar estado del juego (esto es suficiente)
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
+        
+        // Opcional: también limpiar el contenedor del juego
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            gameScreen.innerHTML = '';
+        }
     }
-
-exitGame() {
-    this.cleanup();
-    this.ui.goToHome();
-}
-    
 }

@@ -9,6 +9,7 @@ const LABELS = {
             "game2": "Chinese Hunt",
             "game3": "Pinyin Match",
             "game4": "Picture Grab",
+            "game5": "Picture Match"
             "stats": "Statistics"
         },
         "lists": {
@@ -90,6 +91,7 @@ const LABELS = {
             "game2": "Caza el chino",
             "game3": "Empareja el pinyin",
             "game4": "Atrapa la imagen", 
+            "game5": "Imágenes en la memoria",
             "stats": "Estadísticas"
         },
         "lists": {

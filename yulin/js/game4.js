@@ -37,6 +37,8 @@ class Game4 {
         // Para precarga de siguientes preguntas
         this.nextQuestionPool = [];
         this.isPreloadingNext = false;
+
+        this.handleOrientationChange = this.handleOrientationChange.bind(this);
     }
 
     async startGame() {
@@ -416,9 +418,17 @@ class Game4 {
         const gameScreen = document.getElementById('game-screen');
         if (gameScreen) {
             gameScreen.classList.add('game4');
+            if (this.settings.get('difficulty') === 1) {
+                gameScreen.classList.add('game4-easy');
+            } else {
+                gameScreen.classList.remove('game4-easy');
+            }
         }
         this.ui.showGameStats();
         this.enableKeyboardControls();
+        window.addEventListener('resize', this.handleOrientationChange);
+        window.addEventListener('orientationchange', this.handleOrientationChange);
+        
         this.nextQuestion();
     }
 
@@ -626,20 +636,7 @@ class Game4 {
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
-        const difficulty = this.settings.get('difficulty');
-        
-        // Determinar el grid según la dificultad
-        if (difficulty === 1) {
-            optionsContainer.style.gridTemplateColumns = '1fr 1fr';
-            optionsContainer.style.gridTemplateRows = '1fr 1fr';
-            optionsContainer.style.gap = '1rem';
-        } else {
-            optionsContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
-            optionsContainer.style.gridTemplateRows = '1fr 1fr';
-            optionsContainer.style.gap = '0.8rem';
-        }
-        
-        // Asegurarnos de que tenemos el número correcto de opciones
+        const difficulty = this.settings.get('difficulty');        
         const numOptionsNeeded = difficulty === 1 ? 4 : 6;
         if (options.length < numOptionsNeeded) {
             while (options.length < numOptionsNeeded) {
@@ -650,17 +647,12 @@ class Game4 {
     
         // Crear todos los botones (SINCRONO ahora, las imágenes ya están precargadas)
         const buttons = options.map((option, index) => {
-            const button = document.createElement('button');
-            button.className = 'option-btn';
-            button.dataset.index = index;
-            button.style.position = 'relative';
-            button.style.padding = '0.5rem';
-            button.style.display = 'flex';
-            button.style.flexDirection = 'column';
-            button.style.alignItems = 'center';
-            button.style.justifyContent = 'center';
-            button.style.minHeight = '180px';
-            button.style.gap = '0.5rem';
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.dataset.index = index;
+
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'image-3d-container';
             
             // NUEVO: Verificar si la imagen está precargada en memoria
             const cacheKey = option.ch;
@@ -854,6 +846,10 @@ class Game4 {
 
         this.disableKeyboardControls();
 
+        // Remover listener de orientación
+        window.removeEventListener('resize', this.handleOrientationChange);
+        window.removeEventListener('orientationchange', this.handleOrientationChange);
+
         // Remover clase específica de Game4
         const gameScreen = document.getElementById('game-screen');
         if (gameScreen) {
@@ -918,4 +914,16 @@ class Game4 {
     getMissedWords() {
         return this.missedWords;
     }
+
+    handleOrientationChange() {
+        // Forzar un reflow para que CSS se aplique correctamente
+        const optionsContainer = document.getElementById('options-container');
+        if (optionsContainer) {
+            // Solo necesita un trigger para que CSS se recalcule
+            optionsContainer.style.display = 'none';
+            optionsContainer.offsetHeight; // Trigger reflow
+            optionsContainer.style.display = 'grid';
+        }
+    }
+
 }

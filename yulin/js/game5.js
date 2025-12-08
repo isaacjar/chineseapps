@@ -449,101 +449,73 @@ class Game5 {
         // Limpiar contenido anterior
         gameScreen.innerHTML = '';
         
-        // Crear contenedor principal
+        // Contenedor principal que usa TODO el espacio disponible
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container';
         gameContainer.style.display = 'flex';
         gameContainer.style.flexDirection = 'column';
-        gameContainer.style.height = '100%';
-        gameContainer.style.padding = '1rem';
-        gameContainer.style.overflow = 'hidden'; // Evitar scroll en el contenedor
+        gameContainer.style.height = 'calc(100vh - 120px)'; // Altura completa menos header y footer
+        gameContainer.style.padding = '0.5rem';
+        gameContainer.style.boxSizing = 'border-box';
+        gameContainer.style.overflow = 'hidden';
         
-        // Título del juego
+        // Título compacto
         const gameTitle = document.createElement('h2');
         gameTitle.textContent = '🧠 Memory Match';
         gameTitle.style.textAlign = 'center';
-        gameTitle.style.marginBottom = '1rem';
+        gameTitle.style.margin = '0.5rem 0';
         gameTitle.style.color = '#5d4037';
-        gameTitle.style.fontSize = '1.5rem';
+        gameTitle.style.fontSize = '1.2rem';
+        gameTitle.style.flexShrink = '0'; // No se encoje
         
-        // Contenedor para el grid que se expandirá
+        // Contenedor del grid que se expande
         const gridWrapper = document.createElement('div');
-        gridWrapper.className = 'memory-grid-wrapper';
-        gridWrapper.style.flex = '1';
+        gridWrapper.style.flex = '1'; // Ocupa todo el espacio restante
+        gridWrapper.style.minHeight = '0'; // IMPORTANTE: Permite que se encoja
         gridWrapper.style.display = 'flex';
         gridWrapper.style.flexDirection = 'column';
-        gridWrapper.style.minHeight = '0'; // Importante para flexbox
+        gridWrapper.style.overflow = 'hidden';
         
         // Crear grid de cartas
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid';
         gridContainer.id = 'memory-grid';
-        
-        // Configurar grid responsive dinámico
-        this.setupGridLayout(gridContainer);
-        
         gridContainer.style.flex = '1';
-        gridContainer.style.minHeight = '0'; // Importante para flexbox
-        gridContainer.style.overflow = 'auto';
-        gridContainer.style.padding = '0.5rem';
+        gridContainer.style.minHeight = '0';
         
-        // Seleccionar palabras para el juego
-        const selectedWords = this.vocabulary.slice(0, this.totalPairs);
+        // ... resto del código para crear cartas ...
         
-        // Crear pares de cartas
-        const cards = [];
-        selectedWords.forEach(word => {
-            // Crear dos cartas por palabra (imagen y texto)
-            cards.push({
-                type: 'image',
-                word: word,
-                id: `img-${word.ch}`
-            });
-            
-            cards.push({
-                type: 'text',
-                word: word,
-                id: `txt-${word.ch}`
-            });
-        });
+        // Botón de reinicio (fuera del área de scroll)
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.flexShrink = '0'; // No se encoje
+        buttonContainer.style.padding = '0.5rem 0';
+        buttonContainer.style.textAlign = 'center';
         
-        // Mezclar cartas
-        this.shuffleArray(cards);
-        
-        // Crear elementos de cartas
-        cards.forEach(card => {
-            const cardElement = this.createCardElement(card);
-            gridContainer.appendChild(cardElement);
-        });
-        
-        // Botón de reinicio
         const resetButton = document.createElement('button');
-        resetButton.textContent = '🔄 Restart Game';
+        resetButton.textContent = '🔄 Restart';
         resetButton.className = 'btn';
-        resetButton.style.margin = '1rem auto';
-        resetButton.style.padding = '0.75rem 1.5rem';
-        resetButton.style.backgroundColor = 'var(--pastel-orange)';
-        resetButton.style.fontSize = '1rem';
-        resetButton.style.display = 'block';
-        resetButton.style.minWidth = '200px';
+        resetButton.style.padding = '0.5rem 1rem';
+        resetButton.style.fontSize = '0.9rem';
         
-        resetButton.addEventListener('click', () => {
-            this.cleanup();
-            this.startGameSession();
-        });
+        buttonContainer.appendChild(resetButton);
         
-        // Añadir elementos al DOM
+        // Ensamblar todo
         gridWrapper.appendChild(gridContainer);
         
         gameContainer.appendChild(gameTitle);
         gameContainer.appendChild(gridWrapper);
-        gameContainer.appendChild(resetButton);
+        gameContainer.appendChild(buttonContainer);
         gameScreen.appendChild(gameContainer);
         
-        // Redimensionar al cambiar tamaño de ventana
+        // Configurar grid después de añadirlo al DOM
+        setTimeout(() => {
+            this.setupGridLayout(gridContainer);
+            this.applyCardSizeConstraints();
+        }, 50);
+        
+        // Redimensionar al cambiar tamaño
         window.addEventListener('resize', () => this.handleResize(gridContainer));
         
-        // Añadir evento para volver al menú desde el header
         this.saveOriginalHeaderHandler();
     }
     
@@ -605,8 +577,28 @@ class Game5 {
         
         // Aplicar tamaño máximo a las cartas
         this.applyCardSizeConstraints();
+        this.debugGridLayout(gridContainer);
     }
 
+    // DEBUG 
+    debugGridLayout(gridContainer) {
+        console.log('=== GRID DEBUG ===');
+        console.log('Viewport:', window.innerWidth, 'x', window.innerHeight);
+        console.log('Grid cells:', this.gridSize);
+        console.log('Grid container size:', gridContainer.offsetWidth, 'x', gridContainer.offsetHeight);
+        console.log('Computed grid:', getComputedStyle(gridContainer).gridTemplateColumns);
+        
+        // Verificar si hay overflow
+        const hasOverflow = gridContainer.scrollHeight > gridContainer.clientHeight || 
+                           gridContainer.scrollWidth > gridContainer.clientWidth;
+        console.log('Has overflow:', hasOverflow);
+        
+        if (hasOverflow) {
+            console.log('Scroll dimensions:', gridContainer.scrollWidth, 'x', gridContainer.scrollHeight);
+            console.log('Client dimensions:', gridContainer.clientWidth, 'x', gridContainer.clientHeight);
+        }
+    }
+    
     applyCardSizeConstraints() {
         // Establecer tamaño máximo para las cartas
         const style = document.createElement('style');

@@ -632,7 +632,7 @@ class Game5 {
         const innerContainer = document.createElement('div');
         innerContainer.className = 'card-inner game5-card-inner';
         
-        // Cara frontal (reverso)
+        // Cara frontal (reverso) - ya tiene fondo marroncito oscuro
         const frontFace = document.createElement('div');
         frontFace.className = 'card-front game5-card-front';
         
@@ -652,9 +652,14 @@ class Game5 {
         backFace.className = 'card-back game5-card-back';
         
         if (card.type === 'image') {
-            // Crear contenedor cuadrado para la imagen
+            // Crear contenedor para imagen con fondo marroncito
             const imageContainer = document.createElement('div');
             imageContainer.className = 'image-container game5-image-container';
+            
+            // Añadir patrón de fondo
+            const imagePattern = document.createElement('div');
+            imagePattern.className = 'game5-image-pattern';
+            imageContainer.appendChild(imagePattern);
             
             this.getImageUrl(card.word).then(imageUrl => {
                 const imgElement = document.createElement('img');
@@ -666,37 +671,62 @@ class Game5 {
                     imageContainer.classList.add('loaded');
                 };
                 imgElement.onerror = () => {
-                    imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(card.word.ch.substring(0, 2))}`;
+                    // Si falla la imagen, mostrar el carácter chino
+                    const placeholder = document.createElement('div');
+                    placeholder.textContent = card.word.ch;
+                    placeholder.className = 'game5-chinese-character';
+                    placeholder.style.fontSize = '2rem';
+                    placeholder.style.zIndex = '3';
+                    placeholder.style.position = 'absolute';
+                    placeholder.style.color = '#5d4037';
+                    imageContainer.appendChild(placeholder);
                     imageContainer.classList.add('loaded');
                 };
                 
                 imageContainer.appendChild(imgElement);
             }).catch(() => {
-                // En caso de error, mostrar placeholder
+                // En caso de error, mostrar el carácter chino
                 const placeholder = document.createElement('div');
-                placeholder.textContent = card.word.ch.substring(0, 2);
-                placeholder.className = 'game5-image-placeholder';
+                placeholder.textContent = card.word.ch;
+                placeholder.className = 'game5-chinese-character';
+                placeholder.style.fontSize = '2rem';
+                placeholder.style.zIndex = '3';
+                placeholder.style.position = 'absolute';
+                placeholder.style.color = '#5d4037';
                 imageContainer.appendChild(placeholder);
+                imageContainer.classList.add('loaded');
             });
             
             backFace.appendChild(imageContainer);
         } else {
+            // Para cartas de texto: fondo marroncito con contenido
+            const textContainer = document.createElement('div');
+            textContainer.className = 'game5-text-content';
+            
+            // Añadir patrón de fondo
+            const textPattern = document.createElement('div');
+            textPattern.className = 'game5-image-pattern';
+            textContainer.appendChild(textPattern);
+            
             // Mostrar texto chino
             const fontClass = this.settings.get('chineseFont') || 'noto-serif';
             
             const chineseElement = document.createElement('div');
             chineseElement.className = `memory-chinese-character game5-chinese-character ${fontClass}`;
             chineseElement.textContent = card.word.ch || '';
-            
-            backFace.appendChild(chineseElement);
+            textContainer.appendChild(chineseElement);
             
             // Mostrar pinyin si está configurado
             if (this.settings.get('showPinyin') && card.word.pin) {
                 const pinyinElement = document.createElement('div');
                 pinyinElement.className = 'memory-pinyin game5-pinyin';
                 pinyinElement.textContent = card.word.pin;
-                backFace.appendChild(pinyinElement);
+                textContainer.appendChild(pinyinElement);
             }
+            
+            // Marcar como carta de texto
+            backFace.classList.add('text-card');
+            backFace.appendChild(textContainer);
         }
         
         // Añadir caras al contenedor interno

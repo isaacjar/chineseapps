@@ -325,7 +325,7 @@ class UI {
             container.appendChild(wordElement);
         });
         
-        console.log('Palabras mostradas:', this.game.vocabulary.length);
+        //console.log('Palabras mostradas:', this.game.vocabulary.length);
     }
     
     updateLabels() {
@@ -443,7 +443,7 @@ class UI {
             this.useFallbackLists();
         }
         
-        this.displayVocabLists();
+        //this.displayVocabLists();
         this.createFilterButtons();
     }
     
@@ -556,10 +556,10 @@ class UI {
         console.log('Listados filtrados mostrados:', this.filteredLists.length, 'para nivel:', this.currentFilter);
     }
     
-    displayVocabLists() {
+    /*displayVocabLists() {
         // Este método ahora es manejado por displayFilteredLists
         console.log('Display de listados manejado por sistema de filtros');
-    }
+    }*/
     
     async selectVocabList(list) {
         //console.log('Seleccionando listado:', list.filename);

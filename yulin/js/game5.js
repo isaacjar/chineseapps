@@ -82,75 +82,39 @@ class Game5 {
 
     showInitialSetupPopup() {
         const popup = document.createElement('div');
-        popup.className = 'popup-overlay';
-        popup.style.position = 'fixed';
-        popup.style.top = '0';
-        popup.style.left = '0';
-        popup.style.width = '100%';
-        popup.style.height = '100%';
-        popup.style.backgroundColor = 'rgba(0,0,0,0.5)';
-        popup.style.display = 'flex';
-        popup.style.justifyContent = 'center';
-        popup.style.alignItems = 'center';
-        popup.style.zIndex = '1000';
-
+        popup.className = 'popup-overlay game5-popup-overlay';
+        
         const content = document.createElement('div');
-        content.className = 'popup-content';
-        content.style.backgroundColor = 'white';
-        content.style.padding = '2rem';
-        content.style.borderRadius = '12px';
-        content.style.maxWidth = '90%';
-        content.style.maxHeight = '90%';
-        content.style.overflowY = 'auto';
-        content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-
+        content.className = 'popup-content game5-popup-content';
+        
         const title = document.createElement('h2');
         title.textContent = '🎮 Memory Game - Setup';
-        title.style.marginBottom = '1.5rem';
-        title.style.textAlign = 'center';
-        title.style.color = '#5d4037';
+        title.className = 'game5-popup-title';
 
         // Selector de listado
         const listSection = document.createElement('div');
-        listSection.style.marginBottom = '2rem';
+        listSection.className = 'game5-list-section';
         
         const listLabel = document.createElement('h3');
         listLabel.textContent = '1. Select Vocabulary List';
-        listLabel.style.marginBottom = '1rem';
-        listLabel.style.color = '#795548';
+        listLabel.className = 'game5-section-label';
         
         const listsContainer = document.createElement('div');
-        listsContainer.className = 'lists-container';
-        listsContainer.style.display = 'flex';
-        listsContainer.style.flexDirection = 'column';
-        listsContainer.style.gap = '0.5rem';
-        listsContainer.style.marginBottom = '1rem';
-        listsContainer.style.maxHeight = '200px';
-        listsContainer.style.overflowY = 'auto';
+        listsContainer.className = 'lists-container game5-lists-container';
 
         this.availablePictureLists.forEach(list => {
             const button = document.createElement('button');
-            button.className = 'vocab-list-btn';
+            button.className = 'vocab-list-btn game5-vocab-list-btn';
             button.textContent = `${list.title} (${list.level})`;
             button.dataset.filename = list.filename;
 
-            button.style.padding = '1rem';
-            button.style.backgroundColor = 'var(--pastel-orange)';
-            button.style.border = 'none';
-            button.style.borderRadius = '8px';
-            button.style.cursor = 'pointer';
-            button.style.transition = 'var(--transition)';
-            button.style.textAlign = 'left';
-            button.style.fontSize = '1rem';
-            button.style.color = '#5d4037';
-
             button.addEventListener('click', () => {
                 // Desmarcar todos los botones
-                document.querySelectorAll('.vocab-list-btn').forEach(btn => {
-                    btn.style.backgroundColor = 'var(--pastel-orange)';
+                document.querySelectorAll('.game5-vocab-list-btn').forEach(btn => {
+                    btn.classList.remove('selected');
                 });
                 // Marcar el seleccionado
-                button.style.backgroundColor = 'var(--pastel-brown-dark)';
+                button.classList.add('selected');
                 this.selectedList = list;
             });
 
@@ -162,42 +126,28 @@ class Game5 {
 
         // Selector de tamaño de grid
         const gridSection = document.createElement('div');
-        gridSection.style.marginBottom = '2rem';
+        gridSection.className = 'game5-grid-section';
         
         const gridLabel = document.createElement('h3');
         gridLabel.textContent = '2. Select Difficulty (Number of Cards)';
-        gridLabel.style.marginBottom = '1rem';
-        gridLabel.style.color = '#795548';
+        gridLabel.className = 'game5-section-label';
         
         const gridOptionsContainer = document.createElement('div');
-        gridOptionsContainer.className = 'grid-options';
-        gridOptionsContainer.style.display = 'flex';
-        gridOptionsContainer.style.flexWrap = 'wrap';
-        gridOptionsContainer.style.gap = '0.5rem';
-        gridOptionsContainer.style.justifyContent = 'center';
+        gridOptionsContainer.className = 'grid-options game5-grid-options';
 
         this.gridOptions.forEach(size => {
             const button = document.createElement('button');
-            button.className = 'grid-option-btn';
+            button.className = 'grid-option-btn game5-grid-option-btn';
             button.textContent = `${size} cards (${size/2} pairs)`;
             button.dataset.size = size;
 
-            button.style.padding = '0.75rem 1rem';
-            button.style.backgroundColor = 'var(--pastel-green)';
-            button.style.border = 'none';
-            button.style.borderRadius = '8px';
-            button.style.cursor = 'pointer';
-            button.style.transition = 'var(--transition)';
-            button.style.fontSize = '0.9rem';
-            button.style.color = '#5d4037';
-
             button.addEventListener('click', () => {
                 // Desmarcar todos los botones
-                document.querySelectorAll('.grid-option-btn').forEach(btn => {
-                    btn.style.backgroundColor = 'var(--pastel-green)';
+                document.querySelectorAll('.game5-grid-option-btn').forEach(btn => {
+                    btn.classList.remove('selected');
                 });
                 // Marcar el seleccionado
-                button.style.backgroundColor = 'var(--pastel-green-dark)';
+                button.classList.add('selected');
                 this.gridSize = size;
             });
 
@@ -209,33 +159,15 @@ class Game5 {
 
         // Botones de acción
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.style.display = 'flex';
-        buttonsContainer.style.gap = '1rem';
-        buttonsContainer.style.justifyContent = 'center';
-        buttonsContainer.style.marginTop = '2rem';
+        buttonsContainer.className = 'game5-buttons-container';
 
         const startButton = document.createElement('button');
         startButton.textContent = '🚀 Start Game';
-        startButton.className = 'btn';
-        startButton.style.padding = '0.75rem 2rem';
-        startButton.style.backgroundColor = 'var(--pastel-brown-dark)';
-        startButton.style.color = 'white';
-        startButton.style.border = 'none';
-        startButton.style.borderRadius = '8px';
-        startButton.style.cursor = 'pointer';
-        startButton.style.fontSize = '1.1rem';
-        startButton.style.fontWeight = 'bold';
+        startButton.className = 'btn game5-start-btn';
 
         const cancelButton = document.createElement('button');
         cancelButton.textContent = 'Cancel';
-        cancelButton.className = 'btn';
-        cancelButton.style.padding = '0.75rem 2rem';
-        cancelButton.style.backgroundColor = 'var(--pastel-orange)';
-        cancelButton.style.color = '#5d4037';
-        cancelButton.style.border = 'none';
-        cancelButton.style.borderRadius = '8px';
-        cancelButton.style.cursor = 'pointer';
-        cancelButton.style.fontSize = '1.1rem';
+        cancelButton.className = 'btn game5-cancel-btn';
 
         startButton.addEventListener('click', async () => {
             if (!this.selectedList) {
@@ -265,13 +197,13 @@ class Game5 {
         // Seleccionar primer listado y tamaño por defecto
         if (this.availablePictureLists.length > 0) {
             this.selectedList = this.availablePictureLists[0];
-            const firstListBtn = listsContainer.querySelector('.vocab-list-btn');
-            if (firstListBtn) firstListBtn.style.backgroundColor = 'var(--pastel-brown-dark)';
+            const firstListBtn = listsContainer.querySelector('.game5-vocab-list-btn');
+            if (firstListBtn) firstListBtn.classList.add('selected');
             
             // Seleccionar tamaño medio por defecto
             this.gridSize = 12;
             const mediumGridBtn = gridOptionsContainer.querySelector(`[data-size="12"]`);
-            if (mediumGridBtn) mediumGridBtn.style.backgroundColor = 'var(--pastel-green-dark)';
+            if (mediumGridBtn) mediumGridBtn.classList.add('selected');
         }
 
         content.appendChild(title);
@@ -374,7 +306,7 @@ class Game5 {
     }
 
     startGameSession() {
-    // Resetear estado del juego
+        // Resetear estado del juego
         this.score = 0;
         this.moves = 0;
         this.matchedPairs = 0;
@@ -400,7 +332,6 @@ class Game5 {
         this.saveOriginalHeaderHandler();
     }
 
-    // Añadir este nuevo método:
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
@@ -434,9 +365,8 @@ class Game5 {
             stats.forEach(stat => {
                 const statElement = document.createElement('span');
                 statElement.id = stat.id;
+                statElement.className = 'game5-stat';
                 statElement.innerHTML = `${stat.icon} ${stat.value}`;
-                statElement.style.marginLeft = '1rem';
-                statElement.style.fontSize = '1.1rem';
                 gameStats.appendChild(statElement);
             });
             
@@ -452,37 +382,21 @@ class Game5 {
         
         // Contenedor principal que usa TODO el espacio disponible
         const gameContainer = document.createElement('div');
-        gameContainer.className = 'memory-game-container';
-        gameContainer.style.display = 'flex';
-        gameContainer.style.flexDirection = 'column';
-        gameContainer.style.height = 'calc(100vh - 120px)'; // Altura completa menos header y footer
-        gameContainer.style.padding = '0.5rem';
-        gameContainer.style.boxSizing = 'border-box';
-        gameContainer.style.overflow = 'hidden';
+        gameContainer.className = 'memory-game-container game5-container';
         
         // Título compacto
         const gameTitle = document.createElement('h2');
         gameTitle.textContent = '🧠 Memory Match';
-        gameTitle.style.textAlign = 'center';
-        gameTitle.style.margin = '0.5rem 0';
-        gameTitle.style.color = '#5d4037';
-        gameTitle.style.fontSize = '1.2rem';
-        gameTitle.style.flexShrink = '0'; // No se encoje
+        gameTitle.className = 'game5-title';
         
         // Contenedor del grid que se expande
         const gridWrapper = document.createElement('div');
-        gridWrapper.style.flex = '1'; // Ocupa todo el espacio restante
-        gridWrapper.style.minHeight = '0'; // IMPORTANTE: Permite que se encoja
-        gridWrapper.style.display = 'flex';
-        gridWrapper.style.flexDirection = 'column';
-        gridWrapper.style.overflow = 'hidden';
+        gridWrapper.className = 'game5-grid-wrapper';
         
         // Crear grid de cartas
         const gridContainer = document.createElement('div');
-        gridContainer.className = 'memory-grid';
+        gridContainer.className = 'memory-grid game5-grid';
         gridContainer.id = 'memory-grid';
-        gridContainer.style.flex = '1';
-        gridContainer.style.minHeight = '0';
         
         // CREAR Y AÑADIR LAS CARTAS AL GRID
         const cards = this.generateCards();
@@ -493,15 +407,11 @@ class Game5 {
         
         // Botón de reinicio (fuera del área de scroll)
         const buttonContainer = document.createElement('div');
-        buttonContainer.style.flexShrink = '0'; // No se encoje
-        buttonContainer.style.padding = '0.5rem 0';
-        buttonContainer.style.textAlign = 'center';
+        buttonContainer.className = 'game5-button-container';
         
         const resetButton = document.createElement('button');
         resetButton.textContent = '🔄 Restart';
-        resetButton.className = 'btn';
-        resetButton.style.padding = '0.5rem 1rem';
-        resetButton.style.fontSize = '0.9rem';
+        resetButton.className = 'btn game5-reset-btn';
         resetButton.addEventListener('click', () => {
             this.cleanup();
             this.startGameSession();
@@ -521,7 +431,12 @@ class Game5 {
         setTimeout(() => {
             this.setupGridLayout(gridContainer);
             this.applyCardSizeConstraints();
-        }, 50);
+            
+            // Forzar un reflow para asegurar que el grid se renderice
+            gridContainer.style.display = 'none';
+            gridContainer.offsetHeight; // Trigger reflow
+            gridContainer.style.display = 'grid';
+        }, 100);
         
         // Redimensionar al cambiar tamaño
         window.addEventListener('resize', () => this.handleResize(gridContainer));
@@ -571,7 +486,6 @@ class Game5 {
         return shuffled.slice(0, Math.min(count, shuffled.length));
     }
     
-    // Añadir nuevos métodos para manejo responsive:
     setupGridLayout(gridContainer) {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
@@ -580,35 +494,35 @@ class Game5 {
         
         console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
         
-        // AUMENTAR número de columnas para aprovechar espacio
+        // Calcular número óptimo de columnas
         let columns;
         
         if (isLandscape) {
             // MODO APAISADO - más columnas
             if (viewportWidth >= 1600) {
-                columns = 8;  // Aumentado de 6
+                columns = 8;
             } else if (viewportWidth >= 1200) {
-                columns = 6;  // Aumentado de 5
+                columns = 6;
             } else if (viewportWidth >= 768) {
-                columns = 5;  // Aumentado de 4
+                columns = 5;
             } else {
-                columns = 4;  // Aumentado de 3
+                columns = 4;
             }
         } else {
             // MODO VERTICAL
             if (viewportWidth >= 1024) {
-                columns = 5;  // Aumentado de 4
+                columns = 5;
             } else if (viewportWidth >= 768) {
-                columns = 4;  // Aumentado de 3
+                columns = 4;
             } else {
-                columns = 3;  // Aumentado de 2 (móviles)
+                columns = 3;
             }
         }
         
         // Asegurar mínimo de columnas
         columns = Math.max(2, columns);
         
-        // Si tenemos pocas cartas, ajustar
+        // Ajustar columnas según número de cartas
         if (this.gridSize < columns * 2) {
             columns = Math.max(2, Math.floor(this.gridSize / 2));
         }
@@ -620,17 +534,19 @@ class Game5 {
         
         const rows = Math.ceil(this.gridSize / columns);
         
-        console.log(`Grid: ${columns}x${rows} (${columns * rows} cells)`);
+        console.log(`Grid: ${columns} columns x ${rows} rows (${columns * rows} cells)`);
         
-        // Configurar grid con gaps mínimos
+        // Configurar grid con CSS Grid
         gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        gridContainer.style.gridAutoRows = '1fr';
-        gridContainer.style.gap = '0.25rem'; // Gap mínimo
+        gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+        gridContainer.style.gap = '0.5rem';
+        gridContainer.style.padding = '0.5rem';
+        gridContainer.style.boxSizing = 'border-box';
         
-        // Asegurar que no haya overflow
-        gridContainer.style.overflow = 'hidden';
+        // Asegurar que el contenedor ocupe todo el espacio
         gridContainer.style.width = '100%';
         gridContainer.style.height = '100%';
+        gridContainer.style.placeItems = 'center';
         
         this.applyCardSizeConstraints();
     }
@@ -642,41 +558,50 @@ class Game5 {
         const oldStyle = document.getElementById('memory-card-styles');
         if (oldStyle) oldStyle.remove();
         
-        // Calcular tamaño más agresivo para aprovechar espacio
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const isMobile = viewportWidth < 768;
         
-        // Tamaño más pequeño en móviles
-        const maxCardWidth = isMobile 
-            ? Math.min(140, viewportWidth / 4)  // Más pequeño en móviles
-            : Math.min(160, viewportWidth / 6); // Más pequeño en desktop
+        // Calcular tamaño de carta más flexible
+        const viewportArea = viewportWidth * viewportHeight;
+        const cardArea = viewportArea / this.gridSize * 0.6; // 60% del área disponible por carta
         
+        const cardSize = Math.sqrt(cardArea) * 0.8; // Convertir área a tamaño lineal
+        
+        const maxCardWidth = Math.min(180, Math.max(80, cardSize));
         const maxCardHeight = maxCardWidth * 1.2;
         
         style.textContent = `
             .memory-card {
+                width: 100% !important;
+                height: 100% !important;
                 max-width: ${maxCardWidth}px !important;
                 max-height: ${maxCardHeight}px !important;
-                min-width: 80px;
-                min-height: 96px;
+                aspect-ratio: 1/1.2 !important;
+                margin: 0 auto;
+            }
+            
+            .memory-grid {
+                display: grid !important;
+                grid-auto-flow: row !important;
+                place-items: center !important;
             }
             
             .memory-chinese-character {
-                font-size: ${Math.min(2.2, maxCardWidth / 25)}rem !important;
+                font-size: ${Math.min(2.5, maxCardWidth / 20)}rem !important;
             }
             
             .memory-pinyin {
-                font-size: ${Math.min(0.9, maxCardWidth / 50)}rem !important;
+                font-size: ${Math.min(1, maxCardWidth / 40)}rem !important;
             }
             
             .card-front div:first-child {
-                font-size: ${Math.min(2, maxCardWidth / 30)}rem !important;
+                font-size: ${Math.min(2.2, maxCardWidth / 25)}rem !important;
             }
             
-            /* Ajustar gaps según tamaño */
-            .memory-grid {
-                gap: ${Math.max(0.125, 0.5 - (maxCardWidth / 100))}rem !important;
+            .card-inner {
+                width: 100% !important;
+                height: 100% !important;
             }
         `;
         
@@ -693,105 +618,51 @@ class Game5 {
     
     createCardElement(card) {
         const cardElement = document.createElement('div');
-        cardElement.className = 'memory-card';
+        cardElement.className = 'memory-card game5-memory-card';
         cardElement.dataset.id = card.id;
         cardElement.dataset.word = card.word.ch;
         cardElement.dataset.type = card.type;
         
-        // Estilos básicos de la carta
-        cardElement.style.aspectRatio = '1/1.2';
-        cardElement.style.perspective = '1000px';
-        cardElement.style.cursor = 'pointer';
-        cardElement.style.borderRadius = '8px';
-        cardElement.style.overflow = 'hidden';
-        
         // Contenedor interno para efecto 3D
         const innerContainer = document.createElement('div');
-        innerContainer.className = 'card-inner';
-        innerContainer.style.position = 'relative';
-        innerContainer.style.width = '100%';
-        innerContainer.style.height = '100%';
-        innerContainer.style.transition = 'transform 0.6s';
-        innerContainer.style.transformStyle = 'preserve-3d';
+        innerContainer.className = 'card-inner game5-card-inner';
         
         // Cara frontal (reverso)
         const frontFace = document.createElement('div');
-        frontFace.className = 'card-front';
-        frontFace.style.position = 'absolute';
-        frontFace.style.width = '100%';
-        frontFace.style.height = '100%';
-        frontFace.style.backfaceVisibility = 'hidden';
-        frontFace.style.backgroundColor = 'var(--pastel-brown-dark)';
-        frontFace.style.borderRadius = '8px';
-        frontFace.style.display = 'flex';
-        frontFace.style.alignItems = 'center';
-        frontFace.style.justifyContent = 'center';
-        frontFace.style.border = '2px solid #5d4037';
+        frontFace.className = 'card-front game5-card-front';
         
         // Diseño para el reverso
         const patternContainer = document.createElement('div');
-        patternContainer.style.width = '80%';
-        patternContainer.style.height = '80%';
-        patternContainer.style.backgroundImage = `radial-gradient(circle, var(--pastel-orange) 2px, transparent 2px)`;
-        patternContainer.style.backgroundSize = '20px 20px';
-        patternContainer.style.opacity = '0.7';
-        patternContainer.style.borderRadius = '6px';
+        patternContainer.className = 'game5-pattern-container';
         
         const yulinLogo = document.createElement('div');
+        yulinLogo.className = 'game5-yulin-logo';
         yulinLogo.textContent = '🌳';
-        yulinLogo.style.fontSize = '2rem';
-        yulinLogo.style.position = 'absolute';
-        yulinLogo.style.zIndex = '1';
         
         frontFace.appendChild(patternContainer);
         frontFace.appendChild(yulinLogo);
         
         // Cara trasera (contenido)
         const backFace = document.createElement('div');
-        backFace.className = 'card-back';
-        backFace.style.position = 'absolute';
-        backFace.style.width = '100%';
-        backFace.style.height = '100%';
-        backFace.style.backfaceVisibility = 'hidden';
-        backFace.style.backgroundColor = 'white';
-        backFace.style.borderRadius = '8px';
-        backFace.style.transform = 'rotateY(180deg)';
-        backFace.style.display = 'flex';
-        backFace.style.flexDirection = 'column';
-        backFace.style.alignItems = 'center';
-        backFace.style.justifyContent = 'center';
-        backFace.style.padding = '0.5rem';
-        backFace.style.border = '2px solid var(--pastel-orange)';
-        backFace.style.overflow = 'hidden';
-        backFace.style.boxSizing = 'border-box';
+        backFace.className = 'card-back game5-card-back';
         
         if (card.type === 'image') {
             // Crear contenedor cuadrado para la imagen
             const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container';
-            imageContainer.style.width = '100%';
-            imageContainer.style.height = '100%';
-            imageContainer.style.display = 'flex';
-            imageContainer.style.alignItems = 'center';
-            imageContainer.style.justifyContent = 'center';
-            imageContainer.style.backgroundColor = 'var(--pastel-orange)';
-            imageContainer.style.borderRadius = '6px';
-            imageContainer.style.overflow = 'hidden';
+            imageContainer.className = 'image-container game5-image-container';
             
             this.getImageUrl(card.word).then(imageUrl => {
                 const imgElement = document.createElement('img');
                 imgElement.src = imageUrl;
                 imgElement.alt = card.word.ch;
-                imgElement.style.maxWidth = '100%';
-                imgElement.style.maxHeight = '100%';
-                imgElement.style.objectFit = 'contain';
+                imgElement.className = 'game5-card-image';
                 
                 imgElement.onload = () => {
-                    imageContainer.style.backgroundColor = 'transparent';
+                    imageContainer.classList.add('loaded');
                 };
                 imgElement.onerror = () => {
                     imgElement.src = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(card.word.ch.substring(0, 2))}`;
-                    imageContainer.style.backgroundColor = 'transparent';
+                    imageContainer.classList.add('loaded');
                 };
                 
                 imageContainer.appendChild(imgElement);
@@ -799,8 +670,7 @@ class Game5 {
                 // En caso de error, mostrar placeholder
                 const placeholder = document.createElement('div');
                 placeholder.textContent = card.word.ch.substring(0, 2);
-                placeholder.style.fontSize = '2rem';
-                placeholder.style.color = '#5d4037';
+                placeholder.className = 'game5-image-placeholder';
                 imageContainer.appendChild(placeholder);
             });
             
@@ -810,25 +680,16 @@ class Game5 {
             const fontClass = this.settings.get('chineseFont') || 'noto-serif';
             
             const chineseElement = document.createElement('div');
-            chineseElement.className = `memory-chinese-character ${fontClass}`;
+            chineseElement.className = `memory-chinese-character game5-chinese-character ${fontClass}`;
             chineseElement.textContent = card.word.ch || '';
-            chineseElement.style.fontSize = '2.5rem';
-            chineseElement.style.fontWeight = 'bold';
-            chineseElement.style.color = '#5d4037';
-            chineseElement.style.marginBottom = '0.25rem';
-            chineseElement.style.textAlign = 'center';
-            chineseElement.style.lineHeight = '1';
             
             backFace.appendChild(chineseElement);
             
             // Mostrar pinyin si está configurado
             if (this.settings.get('showPinyin') && card.word.pin) {
                 const pinyinElement = document.createElement('div');
-                pinyinElement.className = 'memory-pinyin';
+                pinyinElement.className = 'memory-pinyin game5-pinyin';
                 pinyinElement.textContent = card.word.pin;
-                pinyinElement.style.fontSize = '1rem';
-                pinyinElement.style.color = '#795548';
-                pinyinElement.style.fontStyle = 'italic';
                 backFace.appendChild(pinyinElement);
             }
         }
@@ -923,8 +784,8 @@ class Game5 {
     }
 
     flipCard(cardElement) {
-        const innerContainer = cardElement.querySelector('.card-inner');
-        if (!innerContainer) return; // Añadir esta verificación
+        const innerContainer = cardElement.querySelector('.game5-card-inner');
+        if (!innerContainer) return;
         
         if (cardElement.classList.contains('flipped')) {
             innerContainer.style.transform = 'rotateY(0deg)';
@@ -990,7 +851,7 @@ class Game5 {
         const labels = this.labels ? this.labels[lang]?.gameResults : null;
         
         const popup = document.createElement('div');
-        popup.className = 'results-popup';
+        popup.className = 'results-popup game5-results-popup';
         
         // Determinar mensaje según puntuación
         let message;
@@ -1005,52 +866,52 @@ class Game5 {
         }
         
         popup.innerHTML = `
-            <div class="results-content">
-                <h2 class="results-title">${labels?.title || 'Game Results'}</h2>
-                <div class="results-message">${message}</div>
+            <div class="results-content game5-results-content">
+                <h2 class="results-title game5-results-title">${labels?.title || 'Game Results'}</h2>
+                <div class="results-message game5-results-message">${message}</div>
                 
-                <div class="results-stats">
-                    <div class="result-stat">
-                        <span class="stat-label">Time:</span>
-                        <span class="stat-value">${this.timeElapsed}s</span>
+                <div class="results-stats game5-results-stats">
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Time:</span>
+                        <span class="stat-value game5-stat-value">${this.timeElapsed}s</span>
                     </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Moves:</span>
-                        <span class="stat-value">${this.moves}</span>
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Moves:</span>
+                        <span class="stat-value game5-stat-value">${this.moves}</span>
                     </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Pairs Matched:</span>
-                        <span class="stat-value">${this.matchedPairs}/${this.totalPairs}</span>
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Pairs Matched:</span>
+                        <span class="stat-value game5-stat-value">${this.matchedPairs}/${this.totalPairs}</span>
                     </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Accuracy:</span>
-                        <span class="stat-value">${accuracy}%</span>
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Accuracy:</span>
+                        <span class="stat-value game5-stat-value">${accuracy}%</span>
                     </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Efficiency:</span>
-                        <span class="stat-value">${efficiency}%</span>
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Efficiency:</span>
+                        <span class="stat-value game5-stat-value">${efficiency}%</span>
                     </div>
-                    <div class="result-stat">
-                        <span class="stat-label">Final Score:</span>
-                        <span class="stat-value">${this.score}</span>
+                    <div class="result-stat game5-result-stat">
+                        <span class="stat-label game5-stat-label">Final Score:</span>
+                        <span class="stat-value game5-stat-value">${this.score}</span>
                     </div>
                 </div>
                 
-                <div class="results-buttons">
-                    <button class="results-btn play-again">${labels?.playAgain || '🔄 Play Again'}</button>
-                    <button class="results-btn back-menu">${labels?.backToMenu || '🏠 Back to Menu'}</button>
+                <div class="results-buttons game5-results-buttons">
+                    <button class="results-btn game5-play-again-btn">${labels?.playAgain || '🔄 Play Again'}</button>
+                    <button class="results-btn game5-back-menu-btn">${labels?.backToMenu || '🏠 Back to Menu'}</button>
                 </div>
             </div>
         `;
         
         // Event listeners
-        popup.querySelector('.play-again').addEventListener('click', () => {
+        popup.querySelector('.game5-play-again-btn').addEventListener('click', () => {
             document.body.removeChild(popup);
             this.cleanup(); // Limpiar antes de reiniciar
             this.startGameSession();
         });
         
-        popup.querySelector('.back-menu').addEventListener('click', () => {
+        popup.querySelector('.game5-back-menu-btn').addEventListener('click', () => {
             document.body.removeChild(popup);
             this.cleanup();
             this.ui.goToHome();
@@ -1093,12 +954,12 @@ class Game5 {
         // Limpiar listeners de redimensionamiento
         window.removeEventListener('resize', this.handleResize);
         
-        // Limpiar estado del juego (esto es suficiente)
+        // Limpiar estado del juego
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
         
-        // Opcional: también limpiar el contenedor del juego
+        // Limpiar el contenedor del juego
         const gameScreen = document.getElementById('game-screen');
         if (gameScreen) {
             gameScreen.innerHTML = '';

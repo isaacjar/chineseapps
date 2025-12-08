@@ -9,7 +9,7 @@ const LABELS = {
             "game2": "Chinese Hunt",
             "game3": "Pinyin Match",
             "game4": "Picture Grab",
-            "game5": "Picture Match"
+            "game5": "Picture Match",
             "stats": "Statistics"
         },
         "lists": {

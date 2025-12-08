@@ -29,7 +29,7 @@ class Game5 {
         
         // Configuración del juego
         this.gridSize = 12; // Número de tarjetas por defecto (6 pares)
-        this.gridOptions = [8, 12, 16, 20, 24]; // Opciones de tamaño de grid
+        this.gridOptions = [8, 12, 16, 24, 32]; // Opciones de tamaño de grid
         
         // Bind de métodos
         this.handleCardClick = this.handleCardClick.bind(this);

@@ -1451,3 +1451,203 @@ input:checked + .slider:before {
         left: 6px !important;
     }
 }
+
+/* ============================================
+   RESPONSIVE INTELIGENTE PARA GAME4
+   ============================================ */
+
+/* Grid base para Game4 */
+#game-screen.game4 .options-container {
+    display: grid !important;
+    gap: 1rem !important;
+}
+
+/* ============================================
+   DIFICULTAD 1 (FÁCIL) - SIEMPRE 2x2
+   ============================================ */
+#game-screen.game4.game4-easy .options-container {
+    grid-template-columns: 1fr 1fr !important; /* 2 columnas */
+    grid-template-rows: 1fr 1fr !important;    /* 2 filas */
+}
+
+/* ============================================
+   DIFICULTAD 2 (DIFÍCIL) - RESPONSIVE INTELIGENTE
+   ============================================ */
+
+/* POR DEFECTO: Si es más alto que ancho (PORTRAIT) */
+#game-screen.game4:not(.game4-easy) .options-container {
+    grid-template-columns: 1fr 1fr !important;   /* 2 columnas */
+    grid-template-rows: 1fr 1fr 1fr !important;  /* 3 filas */
+}
+
+/* Si es más ancho que alto (LANDSCAPE) - Tablets/Desktop horizontales */
+@media (min-aspect-ratio: 1/1) {
+    #game-screen.game4:not(.game4-easy) .options-container {
+        grid-template-columns: 1fr 1fr 1fr !important; /* 3 columnas */
+        grid-template-rows: 1fr 1fr !important;        /* 2 filas */
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES PARA TAMAÑOS ESPECÍFICOS
+   ============================================ */
+
+/* Pantallas pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
+    #game-screen.game4 .options-container {
+        gap: 0.6rem !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 120px !important;
+        padding: 0.3rem !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 90px !important;
+        height: 90px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 90px !important;
+        height: 90px !important;
+    }
+    
+    #game-screen.game4 .option-btn .option-number-3d {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Tablets y móviles grandes */
+@media (min-width: 481px) and (max-width: 768px) {
+    #game-screen.game4 .options-container {
+        gap: 0.8rem !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 140px !important;
+        padding: 0.4rem !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
+
+/* Desktop y tablets grandes */
+@media (min-width: 769px) {
+    #game-screen.game4 .options-container {
+        gap: 1rem !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 180px !important;
+        padding: 0.5rem !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 160px !important;
+        height: 160px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 160px !important;
+        height: 160px !important;
+    }
+}
+
+/* ============================================
+   AJUSTES PARA PANTALLAS MUY ALTAS O MUY ANCHAS
+   ============================================ */
+
+/* Pantallas muy altas (más de 1000px de altura) */
+@media (min-height: 1000px) {
+    #game-screen.game4 .option-btn {
+        min-height: 200px !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 180px !important;
+        height: 180px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 180px !important;
+        height: 180px !important;
+    }
+}
+
+/* Pantallas muy anchas (más de 1200px) */
+@media (min-width: 1200px) {
+    #game-screen.game4 .options-container {
+        gap: 1.2rem !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 200px !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 180px !important;
+        height: 180px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 180px !important;
+        height: 180px !important;
+    }
+}
+
+/* ============================================
+   AJUSTES PARA PREGUNTA Y TIMER
+   ============================================ */
+
+/* Pantallas altas pero no anchas (móviles en portrait) */
+@media (max-height: 700px) and (max-width: 768px) {
+    #game-screen.game4 .chinese-character {
+        font-size: 2.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    #game-screen.game4 .pinyin-text {
+        font-size: 1.3rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* Pantallas muy pequeñas (altura reducida) */
+@media (max-height: 600px) {
+    #game-screen.game4 .chinese-character {
+        font-size: 2.5rem !important;
+    }
+    
+    #game-screen.game4 .pinyin-text {
+        font-size: 1.2rem !important;
+    }
+    
+    #game-screen.game4 .options-container {
+        gap: 0.5rem !important;
+    }
+    
+    #game-screen.game4 .option-btn {
+        min-height: 110px !important;
+    }
+    
+    #game-screen.game4 .option-btn .image-3d-container {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    #game-screen.game4 .option-btn img {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}

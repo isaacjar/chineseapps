@@ -14,7 +14,6 @@ class Game4 {
         this.timeLeft = 0;
         this.currentWord = null;
         this.missedWords = [];
-        this.usedIndices = new Set(); // Para evitar repetir preguntas
         this.handleKeyPress = this.handleKeyPress.bind(this);
         
         // URL base para las imágenes
@@ -24,14 +23,20 @@ class Game4 {
         // Lista de archivos disponibles
         this.availablePictureLists = [];
         
-        // Cache para imágenes cargadas
+        // Cache para imágenes cargadas (IMPROVED)
         this.imageCache = new Map();
+        this.preloadedImages = new Map(); // Para imágenes ya precargadas en memoria
+        this.pendingPreloads = []; // Para gestionar precargas pendientes
         
         // Cache para almacenar las opciones actuales
         this.currentOptions = [];
         
         // Cache para índices ya usados
         this.usedIndices = new Set();
+        
+        // Para precarga de siguientes preguntas
+        this.nextQuestionPool = [];
+        this.isPreloadingNext = false;
     }
 
     async startGame() {
@@ -265,12 +270,15 @@ class Game4 {
             // Mezclar el vocabulario para orden aleatorio
             this.shuffleArray(this.vocabulary);
             
-            // Limpiar cache e índices usados
+            // Limpiar caches
             this.imageCache.clear();
+            this.preloadedImages.clear();
             this.usedIndices.clear();
+            this.nextQuestionPool = [];
+            this.pendingPreloads = [];
             
-            // Precargar las primeras imágenes
-            await this.preloadImages();
+            // Precargar las primeras imágenes (ahora con precarga más agresiva)
+            await this.preloadInitialImages();
             
             return true;
             
@@ -294,23 +302,75 @@ class Game4 {
             // Mezclar datos de ejemplo
             this.shuffleArray(this.vocabulary);
             
+            // Precargar imágenes de ejemplo
+            await this.preloadInitialImages();
+            
             this.ui.showToast(`No se pudo cargar "${filename}". Usando datos de ejemplo.`, 'error');
             return true;
         }
     }
 
-    async preloadImages() {
-        // Precargar imágenes para las primeras palabras
-        const wordsToPreload = this.vocabulary.slice(0, Math.min(15, this.vocabulary.length));
-        const preloadPromises = wordsToPreload.map(word => this.getImageUrl(word));
+    // NUEVO: Precarga inicial más agresiva
+    async preloadInitialImages() {
+        // Precargar más imágenes al inicio para tener buffer
+        const wordsToPreload = this.vocabulary.slice(0, Math.min(20, this.vocabulary.length));
+        const preloadPromises = wordsToPreload.map(word => this.preloadImageToMemory(word));
         
         await Promise.allSettled(preloadPromises);
+        console.log(`Precargadas ${wordsToPreload.length} imágenes iniciales`);
+    }
+
+    // NUEVO: Precargar imagen a memoria (no solo cache de URL)
+    async preloadImageToMemory(word) {
+        const cacheKey = word.ch;
+        
+        // Si ya está precargada en memoria, no hacer nada
+        if (this.preloadedImages.has(cacheKey)) {
+            return;
+        }
+        
+        try {
+            const imageUrl = await this.getImageUrl(word);
+            
+            // Crear elemento Image para precargar
+            const img = new Image();
+            
+            // Configurar para carga cross-origin si es necesario
+            img.crossOrigin = "anonymous";
+            
+            return new Promise((resolve) => {
+                img.onload = () => {
+                    this.preloadedImages.set(cacheKey, {
+                        url: imageUrl,
+                        element: img,
+                        loaded: true
+                    });
+                    resolve(true);
+                };
+                
+                img.onerror = () => {
+                    console.warn(`No se pudo precargar imagen: ${word.ch}`);
+                    this.preloadedImages.set(cacheKey, {
+                        url: imageUrl,
+                        element: null,
+                        loaded: false
+                    });
+                    resolve(false);
+                };
+                
+                img.src = imageUrl;
+            });
+            
+        } catch (error) {
+            console.warn(`Error precargando imagen ${word.ch}:`, error);
+            return false;
+        }
     }
 
     async getImageUrl(word) {
         const cacheKey = word.ch;
         
-        // Verificar si ya está en cache
+        // Verificar si ya está en cache de URL
         if (this.imageCache.has(cacheKey)) {
             return this.imageCache.get(cacheKey);
         }
@@ -325,7 +385,7 @@ class Game4 {
             imageUrl = `${this.picFolderUrl}${word.ch}.png`;
         }
         
-        // Verificar si la imagen existe
+        // Verificar si la imagen existe (HEAD request más rápido)
         try {
             const response = await fetch(imageUrl, { method: 'HEAD' });
             if (response.ok) {
@@ -333,10 +393,10 @@ class Game4 {
                 return imageUrl;
             }
         } catch (error) {
-            console.warn(`No se pudo cargar imagen ${imageUrl}:`, error);
+            console.warn(`No se pudo verificar imagen ${imageUrl}:`, error);
         }
         
-        // Si no existe, usar placeholder con el carácter chino
+        // Si no existe, usar placeholder
         const placeholderUrl = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(word.ch)}`;
         this.imageCache.set(cacheKey, placeholderUrl);
         return placeholderUrl;
@@ -349,6 +409,7 @@ class Game4 {
         this.streak = 0;
         this.missedWords = [];
         this.usedIndices.clear(); // Limpiar índices usados para nueva sesión
+        this.nextQuestionPool = []; // Reiniciar pool de precarga
      
         this.ui.showScreen('game-screen');
         // Agregar clase específica para Game4
@@ -383,7 +444,7 @@ class Game4 {
         this.currentQuestion++;
         this.updateGameStats();
         
-        // Seleccionar palabra aleatoria que no se haya usado recientemente
+        // Seleccionar palabra aleatoria
         let randomIndex;
         let attempts = 0;
         const maxAttempts = 20;
@@ -393,15 +454,12 @@ class Game4 {
             attempts++;
             
             if (attempts >= maxAttempts) {
-                // Si no encontramos palabra no usada, limpiar usedIndices
                 this.usedIndices.clear();
                 break;
             }
         } while (this.usedIndices.has(randomIndex));
         
-        // Marcar como usada
         this.usedIndices.add(randomIndex);
-        
         this.currentWord = this.vocabulary[randomIndex];
         
         if (!this.currentWord.ch) {
@@ -412,12 +470,12 @@ class Game4 {
         
         const incorrectOptions = this.getIncorrectOptions(randomIndex);
     
-        // Verificar que tenemos suficientes opciones según la dificultad
-        const totalOptionsNeeded = this.settings.get('difficulty') === 1 ? 4 : 6; // 2x2 o 3x2
+        // Verificar que tenemos suficientes opciones
+        const totalOptionsNeeded = this.settings.get('difficulty') === 1 ? 4 : 6;
         
         if (incorrectOptions.length < (totalOptionsNeeded - 1)) {
             console.warn(`No hay suficientes opciones para dificultad ${this.settings.get('difficulty')}, buscando otra palabra...`);
-            this.usedIndices.delete(randomIndex); // Liberar índice
+            this.usedIndices.delete(randomIndex);
             this.nextQuestion();
             return;
         }
@@ -428,25 +486,94 @@ class Game4 {
         // Guardar las opciones actuales
         this.currentOptions = allOptions;
         
-        // Precargar imágenes para todas las opciones
-        await this.preloadOptionsImages(allOptions);
+        // ANTES: Precargar imágenes de las opciones actuales
+        // AHORA: Las imágenes ya deberían estar precargadas en memoria
+        // Solo aseguramos que estén listas
         
+        // Obtener las imágenes (ya deberían estar en cache)
+        const imagePromises = allOptions.map(option => {
+            return this.ensureImageReady(option);
+        });
+        
+        // Esperar a que las imágenes estén listas
+        await Promise.allSettled(imagePromises);
+        
+        // Mostrar pregunta y opciones
         this.displayQuestion(this.currentWord);
         await this.displayOptions(allOptions);
         this.startTimer();
+        
+        // NUEVO: Iniciar precarga de la siguiente pregunta mientras el usuario responde
+        this.startPreloadingNextQuestion();
     }
 
-    async preloadOptionsImages(options) {
-        const imagePromises = options.map(option => this.getImageUrl(option));
-        await Promise.allSettled(imagePromises);
+    // NUEVO: Asegurar que la imagen esté lista para mostrar
+    async ensureImageReady(word) {
+        const cacheKey = word.ch;
+        
+        // Si ya está precargada en memoria, retornar inmediatamente
+        if (this.preloadedImages.has(cacheKey)) {
+            const preloaded = this.preloadedImages.get(cacheKey);
+            if (preloaded.loaded) {
+                return true;
+            }
+        }
+        
+        // Si no, precargarla ahora
+        return await this.preloadImageToMemory(word);
     }
 
-   getIncorrectOptions(correctIndex) {
+    // NUEVO: Precargar la siguiente pregunta en segundo plano
+    async startPreloadingNextQuestion() {
+        if (this.isPreloadingNext || this.currentQuestion >= this.settings.get('questions')) {
+            return;
+        }
+        
+        this.isPreloadingNext = true;
+        
+        try {
+            // Seleccionar posibles palabras para la siguiente pregunta
+            const candidates = [];
+            for (let i = 0; i < this.vocabulary.length; i++) {
+                if (!this.usedIndices.has(i) && this.vocabulary[i].ch) {
+                    candidates.push({
+                        word: this.vocabulary[i],
+                        index: i
+                    });
+                    
+                    // Limitar a 10 candidatos para no sobrecargar
+                    if (candidates.length >= 10) break;
+                }
+            }
+            
+            // Mezclar candidatos
+            this.shuffleArray(candidates);
+            
+            // Tomar algunas palabras para precargar (más de las necesarias por si acaso)
+            const wordsToPreload = candidates.slice(0, Math.min(8, candidates.length));
+            
+            // Precargar imágenes de estas palabras
+            const preloadPromises = wordsToPreload.map(candidate => 
+                this.preloadImageToMemory(candidate.word)
+            );
+            
+            // Ejecutar en segundo plano, no esperar
+            Promise.allSettled(preloadPromises).then(() => {
+                //console.log(`Precargadas ${wordsToPreload.length} imágenes para siguiente pregunta`);
+                this.isPreloadingNext = false;
+            });
+            
+        } catch (error) {
+            console.warn('Error en precarga de siguiente pregunta:', error);
+            this.isPreloadingNext = false;
+        }
+    }
+
+    getIncorrectOptions(correctIndex) {
         const difficulty = this.settings.get('difficulty');
-        const numOptionsNeeded = difficulty === 1 ? 3 : 5; // 1 correcta + 3/5 incorrectas = 4/6 total
+        const numOptionsNeeded = difficulty === 1 ? 3 : 5;
         
         const incorrectOptions = [];
-        const usedIndices = new Set([correctIndex]);
         
         // Crear lista de palabras candidatas
         const candidateWords = [];
@@ -467,17 +594,6 @@ class Game4 {
         }
         
         return incorrectOptions;
-    }
-    
-    calculateSimilarity(word1, word2) {
-        // Calcular similitud básica (misma longitud, mismos caracteres iniciales)
-        let similarity = 0;
-        
-        if (word1.ch.length === word2.ch.length) similarity += 1;
-        if (word1.ch[0] === word2.ch[0]) similarity += 2;
-        if (word1.pin && word2.pin && word1.pin[0] === word2.pin[0]) similarity += 1;
-        
-        return similarity;
     }
 
     displayQuestion(word) {
@@ -506,7 +622,7 @@ class Game4 {
         }
     }
 
-   async displayOptions(options) {
+    async displayOptions(options) {
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
@@ -514,12 +630,10 @@ class Game4 {
         
         // Determinar el grid según la dificultad
         if (difficulty === 1) {
-            // Dificultad 1: 2x2 grid (2 filas, 2 columnas) = 4 opciones
             optionsContainer.style.gridTemplateColumns = '1fr 1fr';
             optionsContainer.style.gridTemplateRows = '1fr 1fr';
             optionsContainer.style.gap = '1rem';
         } else {
-            // Dificultad 2: 3x2 grid (2 filas, 3 columnas) = 6 opciones
             optionsContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
             optionsContainer.style.gridTemplateRows = '1fr 1fr';
             optionsContainer.style.gap = '0.8rem';
@@ -528,16 +642,14 @@ class Game4 {
         // Asegurarnos de que tenemos el número correcto de opciones
         const numOptionsNeeded = difficulty === 1 ? 4 : 6;
         if (options.length < numOptionsNeeded) {
-            console.warn(`No hay suficientes opciones. Necesitamos ${numOptionsNeeded}, tenemos ${options.length}`);
-            // Si faltan opciones, repetir algunas para completar
             while (options.length < numOptionsNeeded) {
                 const randomIndex = Math.floor(Math.random() * this.vocabulary.length);
                 options.push(this.vocabulary[randomIndex]);
             }
         }
     
-        // Crear todos los botones
-        const buttonPromises = options.map(async (option, index) => {
+        // Crear todos los botones (SINCRONO ahora, las imágenes ya están precargadas)
+        const buttons = options.map((option, index) => {
             const button = document.createElement('button');
             button.className = 'option-btn';
             button.dataset.index = index;
@@ -550,8 +662,17 @@ class Game4 {
             button.style.minHeight = '180px';
             button.style.gap = '0.5rem';
             
-            // Obtener URL de la imagen (ya debería estar en cache)
-            const imageUrl = await this.getImageUrl(option);
+            // NUEVO: Verificar si la imagen está precargada en memoria
+            const cacheKey = option.ch;
+            let imageUrl;
+            
+            if (this.preloadedImages.has(cacheKey) && this.preloadedImages.get(cacheKey).loaded) {
+                // Usar imagen precargada
+                imageUrl = this.preloadedImages.get(cacheKey).url;
+            } else {
+                // Usar URL del cache (más lento, pero funciona)
+                imageUrl = this.imageCache.get(cacheKey) || `https://via.placeholder.com/160.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch)}`;
+            }
             
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
@@ -560,27 +681,30 @@ class Game4 {
             imgElement.style.height = '160px';
             imgElement.style.objectFit = 'contain';
             imgElement.style.borderRadius = '0';
-            imgElement.style.border = 'none'; 
+            imgElement.style.border = 'none';
             
-            // Mostrar placeholder mientras carga
-            imgElement.style.background = 'transparent';
-            
-            // Agregar loader para placeholders
-            imgElement.onload = () => {
-                imgElement.style.background = 'none';
-            };
-            
-            imgElement.onerror = () => {
-                // Si falla la imagen, mostrar placeholder
-                imgElement.src = `https://via.placeholder.com/160.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch)}`;
-                imgElement.style.background = 'var(--pastel-orange)';
-                imgElement.style.borderRadius = '12px';
-                imgElement.style.padding = '1rem';
-            };
+            // NUEVO: Si la imagen ya está en memoria, establecer loaded inmediatamente
+            if (this.preloadedImages.has(cacheKey) && this.preloadedImages.get(cacheKey).loaded) {
+                // Ya está cargada, no mostrar placeholder
+                imgElement.style.background = 'transparent';
+            } else {
+                // Mostrar placeholder mientras carga
+                imgElement.style.background = 'transparent';
+                imgElement.onload = () => {
+                    imgElement.style.background = 'none';
+                };
+                
+                imgElement.onerror = () => {
+                    imgElement.src = `https://via.placeholder.com/160.png/ffd8a6/5d4037?text=${encodeURIComponent(option.ch)}`;
+                    imgElement.style.background = 'var(--pastel-orange)';
+                    imgElement.style.borderRadius = '12px';
+                    imgElement.style.padding = '1rem';
+                };
+            }
             
             button.appendChild(imgElement);
             
-            // Agregar número de opción (1-9) solo para dificultad 2
+            // Agregar número de opción solo para dificultad 2
             if (difficulty === 2) {
                 const numberElement = document.createElement('div');
                 numberElement.textContent = `${index + 1}`;
@@ -605,11 +729,8 @@ class Game4 {
             return { button, option, index };
         });
         
-        // Esperar a que se creen todos los botones
-        const buttonData = await Promise.all(buttonPromises);
-        
-        // Agregar event listeners y añadir al DOM
-        buttonData.forEach(({ button, option, index }) => {
+        // Agregar botones al DOM inmediatamente
+        buttons.forEach(({ button, option, index }) => {
             button.addEventListener('click', () => {
                 this.checkAnswer(option);
             });
@@ -659,6 +780,12 @@ class Game4 {
         }
         
         this.updateGameStats();
+        
+        // NUEVO: Iniciar precarga de siguiente pregunta inmediatamente
+        // mientras el usuario ve el feedback (1500ms)
+        setTimeout(() => {
+            this.startPreloadingNextQuestion();
+        }, 500); // Empezar después de 500ms para no bloquear
         
         setTimeout(() => {
             if (this.lives <= 0) {
@@ -756,23 +883,18 @@ class Game4 {
         return array;
     }
 
-    // Método para manejar eventos de teclado
     handleKeyPress(event) {
-        // Solo procesar si estamos en pantalla de juego
         if (!document.getElementById('game-screen').classList.contains('active')) {
             return;
         }
         
         const key = event.key;
         
-        // Verificar si es un número del 1 al 9
         if (/^[1-9]$/.test(key)) {
-            const optionIndex = parseInt(key) - 1; // Convertir a índice (0-based)
+            const optionIndex = parseInt(key) - 1;
             const options = document.querySelectorAll('.option-btn:not(:disabled)');
             
-            // Verificar que el índice es válido
             if (optionIndex < options.length) {
-                // Encontrar la opción correspondiente
                 const optionButton = Array.from(options).find(btn => 
                     parseInt(btn.dataset.index) === optionIndex
                 );
@@ -785,12 +907,10 @@ class Game4 {
         }
     }
     
-    // Método para agregar event listener del teclado
     enableKeyboardControls() {
         document.addEventListener('keydown', this.handleKeyPress);
     }
     
-    // Método para remover event listener del teclado
     disableKeyboardControls() {
         document.removeEventListener('keydown', this.handleKeyPress);
     }

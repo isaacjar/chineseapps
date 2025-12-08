@@ -1295,3 +1295,34 @@ input:checked + .slider:before {
         max-height: 216px;
     }
 }
+
+#game-screen {
+    overflow: hidden !important;
+}
+
+.memory-game-container {
+    overflow: hidden !important;
+}
+
+.memory-grid-wrapper {
+    overflow: hidden !important;
+}
+
+/* Forzar que las cartas se ajusten */
+.memory-card * {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Si hay muchas cartas, hacerlas más pequeñas automáticamente */
+.memory-grid:has(> :nth-child(13)) {
+    gap: 0.4rem !important;
+}
+
+.memory-grid:has(> :nth-child(17)) {
+    gap: 0.3rem !important;
+}
+
+.memory-grid:has(> :nth-child(21)) {
+    gap: 0.2rem !important;
+}

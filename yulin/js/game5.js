@@ -690,20 +690,19 @@ class Game5 {
             this.applyCardSizeConstraints();
         }, 100);
     }
+    
     createCardElement(card) {
         const cardElement = document.createElement('div');
         cardElement.className = 'memory-card';
-        innerContainer.className = 'card-inner';  
-        frontFace.className = 'card-front';  
-        backFace.className = 'card-back';  
-        
         cardElement.dataset.id = card.id;
         cardElement.dataset.word = card.word.ch;
         cardElement.dataset.type = card.type;
         
-        // Estilos de la carta
+        // Estilos básicos de la carta
+        cardElement.style.aspectRatio = '1/1.2';
+        cardElement.style.perspective = '1000px';
         cardElement.style.cursor = 'pointer';
-        cardElement.style.borderRadius = '12px';
+        cardElement.style.borderRadius = '8px';
         cardElement.style.overflow = 'hidden';
         
         // Contenedor interno para efecto 3D
@@ -721,25 +720,26 @@ class Game5 {
         frontFace.style.position = 'absolute';
         frontFace.style.width = '100%';
         frontFace.style.height = '100%';
+        frontFace.style.backfaceVisibility = 'hidden';
         frontFace.style.backgroundColor = 'var(--pastel-brown-dark)';
-        frontFace.style.borderRadius = '12px';
+        frontFace.style.borderRadius = '8px';
         frontFace.style.display = 'flex';
         frontFace.style.alignItems = 'center';
         frontFace.style.justifyContent = 'center';
-        frontFace.style.border = '3px solid #5d4037';
+        frontFace.style.border = '2px solid #5d4037';
         
-        // Diseño bonito para el reverso
+        // Diseño para el reverso
         const patternContainer = document.createElement('div');
         patternContainer.style.width = '80%';
         patternContainer.style.height = '80%';
         patternContainer.style.backgroundImage = `radial-gradient(circle, var(--pastel-orange) 2px, transparent 2px)`;
         patternContainer.style.backgroundSize = '20px 20px';
         patternContainer.style.opacity = '0.7';
-        patternContainer.style.borderRadius = '8px';
+        patternContainer.style.borderRadius = '6px';
         
         const yulinLogo = document.createElement('div');
         yulinLogo.textContent = '🌳';
-        yulinLogo.style.fontSize = '2.5rem';
+        yulinLogo.style.fontSize = '2rem';
         yulinLogo.style.position = 'absolute';
         yulinLogo.style.zIndex = '1';
         
@@ -752,28 +752,40 @@ class Game5 {
         backFace.style.position = 'absolute';
         backFace.style.width = '100%';
         backFace.style.height = '100%';
+        backFace.style.backfaceVisibility = 'hidden';
         backFace.style.backgroundColor = 'white';
-        backFace.style.borderRadius = '12px';
+        backFace.style.borderRadius = '8px';
+        backFace.style.transform = 'rotateY(180deg)';
         backFace.style.display = 'flex';
         backFace.style.flexDirection = 'column';
         backFace.style.alignItems = 'center';
         backFace.style.justifyContent = 'center';
         backFace.style.padding = '0.5rem';
-        backFace.style.border = '3px solid var(--pastel-orange)';
+        backFace.style.border = '2px solid var(--pastel-orange)';
         backFace.style.overflow = 'hidden';
+        backFace.style.boxSizing = 'border-box';
         
         if (card.type === 'image') {
             // Crear contenedor cuadrado para la imagen
             const imageContainer = document.createElement('div');
             imageContainer.className = 'image-container';
+            imageContainer.style.width = '100%';
+            imageContainer.style.height = '100%';
+            imageContainer.style.display = 'flex';
+            imageContainer.style.alignItems = 'center';
+            imageContainer.style.justifyContent = 'center';
+            imageContainer.style.backgroundColor = 'var(--pastel-orange)';
+            imageContainer.style.borderRadius = '6px';
+            imageContainer.style.overflow = 'hidden';
             
             this.getImageUrl(card.word).then(imageUrl => {
                 const imgElement = document.createElement('img');
                 imgElement.src = imageUrl;
                 imgElement.alt = card.word.ch;
-                imgElement.loading = 'lazy';
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.maxHeight = '100%';
+                imgElement.style.objectFit = 'contain';
                 
-                // Placeholder mientras carga
                 imgElement.onload = () => {
                     imageContainer.style.backgroundColor = 'transparent';
                 };
@@ -783,6 +795,13 @@ class Game5 {
                 };
                 
                 imageContainer.appendChild(imgElement);
+            }).catch(() => {
+                // En caso de error, mostrar placeholder
+                const placeholder = document.createElement('div');
+                placeholder.textContent = card.word.ch.substring(0, 2);
+                placeholder.style.fontSize = '2rem';
+                placeholder.style.color = '#5d4037';
+                imageContainer.appendChild(placeholder);
             });
             
             backFace.appendChild(imageContainer);
@@ -793,11 +812,12 @@ class Game5 {
             const chineseElement = document.createElement('div');
             chineseElement.className = `memory-chinese-character ${fontClass}`;
             chineseElement.textContent = card.word.ch || '';
-            chineseElement.style.fontSize = '3rem';
+            chineseElement.style.fontSize = '2.5rem';
             chineseElement.style.fontWeight = 'bold';
             chineseElement.style.color = '#5d4037';
-            chineseElement.style.marginBottom = '0.5rem';
+            chineseElement.style.marginBottom = '0.25rem';
             chineseElement.style.textAlign = 'center';
+            chineseElement.style.lineHeight = '1';
             
             backFace.appendChild(chineseElement);
             
@@ -806,15 +826,18 @@ class Game5 {
                 const pinyinElement = document.createElement('div');
                 pinyinElement.className = 'memory-pinyin';
                 pinyinElement.textContent = card.word.pin;
-                pinyinElement.style.fontSize = '1.2rem';
+                pinyinElement.style.fontSize = '1rem';
                 pinyinElement.style.color = '#795548';
                 pinyinElement.style.fontStyle = 'italic';
                 backFace.appendChild(pinyinElement);
             }
         }
         
+        // Añadir caras al contenedor interno
         innerContainer.appendChild(frontFace);
         innerContainer.appendChild(backFace);
+        
+        // Añadir contenedor interno a la carta
         cardElement.appendChild(innerContainer);
         
         // Event listener para clic
@@ -901,6 +924,8 @@ class Game5 {
 
     flipCard(cardElement) {
         const innerContainer = cardElement.querySelector('.card-inner');
+        if (!innerContainer) return; // Añadir esta verificación
+        
         if (cardElement.classList.contains('flipped')) {
             innerContainer.style.transform = 'rotateY(0deg)';
             cardElement.classList.remove('flipped');

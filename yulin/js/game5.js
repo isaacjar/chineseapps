@@ -15,6 +15,7 @@ class Game5 {
         this.timer = null;
         this.timeElapsed = 0;
         this.gameStarted = false;
+        this.resizeTimeout = null;
         
         // URL base para las imágenes
         this.picturesBaseUrl = 'https://isaacjar.github.io/chineseapps/vocpicture/';
@@ -455,30 +456,36 @@ class Game5 {
         gameContainer.style.flexDirection = 'column';
         gameContainer.style.height = '100%';
         gameContainer.style.padding = '1rem';
+        gameContainer.style.overflow = 'hidden'; // Evitar scroll en el contenedor
+        
+        // Título del juego
+        const gameTitle = document.createElement('h2');
+        gameTitle.textContent = '🧠 Memory Match';
+        gameTitle.style.textAlign = 'center';
+        gameTitle.style.marginBottom = '1rem';
+        gameTitle.style.color = '#5d4037';
+        gameTitle.style.fontSize = '1.5rem';
+        
+        // Contenedor para el grid que se expandirá
+        const gridWrapper = document.createElement('div');
+        gridWrapper.className = 'memory-grid-wrapper';
+        gridWrapper.style.flex = '1';
+        gridWrapper.style.display = 'flex';
+        gridWrapper.style.flexDirection = 'column';
+        gridWrapper.style.minHeight = '0'; // Importante para flexbox
         
         // Crear grid de cartas
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid';
         gridContainer.id = 'memory-grid';
         
-        // Calcular tamaño de grid responsive
-        const isMobile = window.innerWidth < 768;
-        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+        // Configurar grid responsive dinámico
+        this.setupGridLayout(gridContainer);
         
-        let columns;
-        if (isMobile) {
-            columns = 4; // 4 columnas en móvil
-        } else if (isTablet) {
-            columns = this.gridSize <= 16 ? 4 : 6; // 4-6 columnas en tablet
-        } else {
-            columns = this.gridSize <= 16 ? 6 : 8; // 6-8 columnas en escritorio
-        }
-        
-        gridContainer.style.display = 'grid';
-        gridContainer.style.gap = '0.5rem';
-        gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         gridContainer.style.flex = '1';
+        gridContainer.style.minHeight = '0'; // Importante para flexbox
         gridContainer.style.overflow = 'auto';
+        gridContainer.style.padding = '0.5rem';
         
         // Seleccionar palabras para el juego
         const selectedWords = this.vocabulary.slice(0, this.totalPairs);
@@ -509,7 +516,7 @@ class Game5 {
             gridContainer.appendChild(cardElement);
         });
         
-        // Crear botón de reinicio
+        // Botón de reinicio
         const resetButton = document.createElement('button');
         resetButton.textContent = '🔄 Restart Game';
         resetButton.className = 'btn';
@@ -518,25 +525,138 @@ class Game5 {
         resetButton.style.backgroundColor = 'var(--pastel-orange)';
         resetButton.style.fontSize = '1rem';
         resetButton.style.display = 'block';
+        resetButton.style.minWidth = '200px';
         
         resetButton.addEventListener('click', () => {
             this.cleanup();
             this.startGameSession();
         });
         
-        gameContainer.appendChild(gridContainer);
+        // Añadir elementos al DOM
+        gridWrapper.appendChild(gridContainer);
+        
+        gameContainer.appendChild(gameTitle);
+        gameContainer.appendChild(gridWrapper);
         gameContainer.appendChild(resetButton);
         gameScreen.appendChild(gameContainer);
         
+        // Redimensionar al cambiar tamaño de ventana
+        window.addEventListener('resize', () => this.handleResize(gridContainer));
+        
         // Añadir evento para volver al menú desde el header
-        const headerHome = document.getElementById('header-home');
-        if (headerHome) {
-            const originalClick = headerHome.onclick;
-            headerHome.onclick = (e) => {
-                this.endGame();
-                if (originalClick) originalClick(e);
-            };
+        this.saveOriginalHeaderHandler();
+    }
+    
+    // Añadir nuevos métodos para manejo responsive:
+    setupGridLayout(gridContainer) {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const isLandscape = viewportWidth > viewportHeight;
+        
+        console.log(`Viewport: ${viewportWidth}x${viewportHeight}, Landscape: ${isLandscape}, Grid size: ${this.gridSize}`);
+        
+        // Calcular tamaño máximo del grid
+        const maxGridWidth = Math.min(viewportWidth - 40, 1400); // 40px de padding
+        const maxGridHeight = viewportHeight - 200; // Restar header, título y botones
+        
+        if (isLandscape) {
+            // MODO APAISADO (LANDSCAPE) - Priorizar ancho
+            if (this.gridSize <= 12) {
+                // Grid pequeño: 4 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            } else if (this.gridSize <= 20) {
+                // Grid mediano: 5 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            } else {
+                // Grid grande: 6 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(6, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            }
+        } else {
+            // MODO RETRATO (PORTRAIT) - Priorizar alto
+            if (this.gridSize <= 12) {
+                // Grid pequeño: 3 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            } else if (this.gridSize <= 20) {
+                // Grid mediano: 4 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            } else {
+                // Grid grande: 5 columnas
+                gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
+                gridContainer.style.gridTemplateRows = 'auto';
+            }
         }
+        
+        // Calcular tamaño de cartas dinámicamente
+        this.calculateCardSize(gridContainer, maxGridWidth, maxGridHeight, isLandscape);
+        
+        // Ajustar gap entre cartas
+        gridContainer.style.gap = '0.75rem';
+        
+        // Asegurar que el grid use todo el espacio disponible
+        gridContainer.style.width = '100%';
+        gridContainer.style.height = '100%';
+        gridContainer.style.justifyContent = 'center';
+        gridContainer.style.alignContent = 'center';
+    }
+    
+    calculateCardSize(gridContainer, maxWidth, maxHeight, isLandscape) {
+        // Obtener configuración actual del grid
+        const computedStyle = getComputedStyle(gridContainer);
+        const columns = computedStyle.gridTemplateColumns.split(' ').length;
+        const rows = Math.ceil(this.gridSize / columns);
+        
+        // Calcular tamaño máximo por carta
+        const horizontalGap = 0.75 * (columns - 1); // rem
+        const verticalGap = 0.75 * (rows - 1); // rem
+        
+        // Convertir rem a px (asumiendo 1rem = 16px)
+        const gapHorizontalPx = horizontalGap * 16;
+        const gapVerticalPx = verticalGap * 16;
+        
+        // Calcular tamaño disponible para cartas
+        const availableWidth = maxWidth - gapHorizontalPx;
+        const availableHeight = maxHeight - gapVerticalPx;
+        
+        // Calcular tamaño de carta basado en la dimensión más restrictiva
+        const cardWidth = Math.min(
+            availableWidth / columns,
+            availableHeight / rows * 0.8 // Factor de aspecto ~1/1.2
+        );
+        
+        const cardHeight = cardWidth * 1.2; // Mantener aspecto 1:1.2
+        
+        console.log(`Grid: ${columns}x${rows}, Card size: ${cardWidth.toFixed(0)}x${cardHeight.toFixed(0)}px`);
+        
+        // Aplicar tamaño mínimo y máximo
+        const minCardSize = 80; // px
+        const maxCardSize = 180; // px
+        
+        const finalCardWidth = Math.max(minCardSize, Math.min(maxCardSize, cardWidth));
+        const finalCardHeight = finalCardWidth * 1.2;
+        
+        // Aplicar tamaño a las cartas
+        gridContainer.style.gridAutoRows = `${finalCardHeight}px`;
+        
+        // También aplicar tamaño mínimo a las columnas
+        gridContainer.style.gridTemplateColumns = `repeat(${columns}, minmax(${finalCardWidth}px, 1fr))`;
+        
+        // Ajustar padding interno del grid si es necesario
+        if (finalCardWidth < 100) {
+            gridContainer.style.gap = '0.5rem';
+        }
+    }
+    
+    handleResize(gridContainer) {
+        // Redimensionar después de un pequeño delay para evitar múltiples cálculos
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
+            this.setupGridLayout(gridContainer);
+        }, 250);
     }
 
     createCardElement(card) {

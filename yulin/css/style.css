@@ -1332,3 +1332,101 @@ input:checked + .slider:before {
     font-weight: bold;
     color: #795548;
 }
+
+/* Mejoras para el juego de memoria en landscape */
+@media (orientation: landscape) and (min-width: 768px) {
+    .memory-game-container {
+        padding: 0.5rem;
+    }
+    
+    .memory-grid {
+        padding: 0.25rem;
+        gap: 0.5rem;
+    }
+    
+    .memory-chinese-character {
+        font-size: 2rem !important;
+    }
+    
+    .memory-pinyin {
+        font-size: 0.9rem;
+    }
+}
+
+/* Para pantallas muy anchas */
+@media (min-width: 1200px) {
+    .memory-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+}
+
+/* Asegurar que las cartas se redimensionen bien */
+.memory-card {
+    width: 100%;
+    height: 100%;
+    min-width: 0; /* Importante para flexbox/grid */
+    min-height: 0;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+}
+
+/* Mejorar scroll en grid */
+.memory-grid {
+    scrollbar-width: thin;
+    scrollbar-color: var(--pastel-brown) var(--pastel-orange);
+}
+
+.memory-grid::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.memory-grid::-webkit-scrollbar-track {
+    background: var(--pastel-orange);
+    border-radius: 4px;
+}
+
+.memory-grid::-webkit-scrollbar-thumb {
+    background: var(--pastel-brown);
+    border-radius: 4px;
+}
+
+.memory-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--pastel-brown-dark);
+}
+
+/* Optimizar para tablets en landscape */
+@media (orientation: landscape) and (max-height: 600px) {
+    .memory-game-container h2 {
+        display: none; /* Ocultar título en pantallas muy cortas */
+    }
+    
+    .memory-grid {
+        gap: 0.25rem;
+        padding: 0.1rem;
+    }
+    
+    .memory-chinese-character {
+        font-size: 1.5rem !important;
+    }
+    
+    .memory-pinyin {
+        font-size: 0.8rem;
+    }
+}
+
+/* Para pantallas extra anchas (monitores grandes) */
+@media (min-width: 1600px) {
+    .memory-grid {
+        max-width: 1200px;
+    }
+    
+    .memory-card {
+        max-width: 180px;
+        max-height: 216px;
+    }
+}

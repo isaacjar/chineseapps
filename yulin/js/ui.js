@@ -287,7 +287,31 @@ class UI {
             // Re-configurar el listener del UI
             newHeader.addEventListener('click', () => this.goToHome());
         }
+
+        // Asegurar que el contenedor base esté visible
+        const questionContainer = document.getElementById('question-game-container');
+        if (questionContainer) {
+            questionContainer.style.display = 'block';
+        }
         
+        // Eliminar cualquier contenedor de Game5
+        const game5Container = document.querySelector('.memory-game-container');
+        if (game5Container) {
+            game5Container.remove();
+        }
+        
+        // Restaurar elementos básicos si faltan
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            // Verificar que existan elementos básicos
+            const basicElements = ['question-text', 'options-container', 'timer-progress'];
+            basicElements.forEach(id => {
+                if (!document.getElementById(id)) {
+                    console.warn(`Elemento ${id} faltante, restaurando...`);
+                    // Aquí puedes recrear elementos básicos si es necesario
+                }
+            });
+        }
         // 6. Ocultar estadísticas del juego
         this.hideGameStats();
         

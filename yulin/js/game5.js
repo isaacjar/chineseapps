@@ -344,26 +344,16 @@ class Game5 {
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            // Guardar el manejador original de forma segura
-            this.originalHeaderClick = headerHome.onclick || null;
-            
-            // Crear un nuevo manejador
-            headerHome.onclick = (e) => {
+            // Crear y guardar nuestro manejador
+            this.game5HeaderHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.cleanup();
-                
-                // Si había un manejador original, ejecutarlo
-                if (this.originalHeaderClick && typeof this.originalHeaderClick === 'function') {
-                    // Llamar al manejador original con el contexto correcto
-                    try {
-                        this.originalHeaderClick.call(headerHome, e);
-                    } catch (error) {
-                        console.warn('Error ejecutando manejador original del header:', error);
-                    }
-                } else {
-                    // Si no hay manejador original, usar el comportamiento por defecto del UI
-                    this.ui.goToHome();
-                }
+                this.ui.goToHome();
             };
+            
+            // Añadir nuestro manejador
+            headerHome.addEventListener('click', this.game5HeaderHandler);
         }
     }
         
@@ -998,22 +988,11 @@ class Game5 {
     }
     
      cleanup() {
-        // Restaurar manejador original del header de forma segura
+        // Remover nuestro manejador del header
         const headerHome = document.getElementById('header-home');
-        if (headerHome) {
-            // Remover cualquier manejador actual
-            headerHome.onclick = null;
-            
-            // Restablecer el manejador original del UI si existe
-            if (typeof headerHome.onclick === 'function') {
-                // Limpiar primero
-                headerHome.onclick = null;
-            }
-            
-            // Configurar el manejador del UI
-            headerHome.addEventListener('click', () => {
-                this.ui.goToHome();
-            });
+        if (headerHome && this.game5HeaderHandler) {
+            headerHome.removeEventListener('click', this.game5HeaderHandler);
+            this.game5HeaderHandler = null;
         }
         
         // Detener timer

@@ -230,21 +230,19 @@ class UI {
         }
     }
         
-    goToHome() {
+   goToHome() {
         console.log('goToHome() - Limpieza inteligente');
         
         // Determinar qué juego está activo
         const hasMemoryGame = document.querySelector('.memory-game-container');
         
-        if (hasMemoryGame) {
-            // Game5 está activo
+        if (hasMemoryGame && this.game5) {
+            // Game5 está activo - usar su cleanup
             console.log('Limpiando Game5...');
-            if (this.game5 && typeof this.game5.cleanup === 'function') {
-                try {
-                    this.game5.cleanup();
-                } catch (e) {
-                    console.warn('Error limpiando Game5:', e);
-                }
+            try {
+                this.game5.cleanup();
+            } catch (e) {
+                console.warn('Error limpiando Game5:', e);
             }
         }
         

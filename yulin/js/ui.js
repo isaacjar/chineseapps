@@ -210,6 +210,16 @@ class UI {
         
     goToHome() {
         // Detener TODOS los juegos si están en curso
+        // Primero intentar limpiar Game5
+        if (this.game5 && this.game5.cleanup) {
+            try {
+                this.game5.cleanup();
+            } catch (e) {
+                console.log('Error limpiando Game5:', e);
+            }
+        }
+        
+        // Luego otros juegos
         if (this.game.timer) {
             clearTimeout(this.game.timer);
             this.game.timer = null;
@@ -222,7 +232,7 @@ class UI {
             clearTimeout(this.game4.timer);
             this.game4.timer = null;
         }
-
+    
         // Deshabilitar controles de teclado de todos los juegos
         if (this.game.disableKeyboardControls) {
             this.game.disableKeyboardControls();
@@ -232,6 +242,15 @@ class UI {
         }
         if (this.game4 && this.game4.disableKeyboardControls) {
             this.game4.disableKeyboardControls();
+        }
+        
+        // Asegurar que game5 también limpie controles si los tiene
+        if (this.game5 && this.game5.disableKeyboardControls) {
+            try {
+                this.game5.disableKeyboardControls();
+            } catch (e) {
+                console.log('Error deshabilitando controles de Game5:', e);
+            }
         }
             
         // Ocultar estadísticas del juego

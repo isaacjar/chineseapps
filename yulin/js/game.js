@@ -402,10 +402,36 @@ class Game {
     }
     
     updateGameStats() {
-        document.getElementById('question-progress').textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;
-        document.getElementById('score').textContent = `🏅 ${this.score}`;
-        document.getElementById('streak').textContent = `🔥 ${this.streak}`;
-        document.getElementById('lives').textContent = `❤️ ${this.lives}`;
+        // Verificar que realmente estamos en un juego que usa estas estadísticas
+        const gameScreen = document.getElementById('game-screen');
+        if (!gameScreen || !gameScreen.classList.contains('active')) {
+            // No estamos en pantalla de juego activa
+            return;
+        }
+        
+        // Verificar que tenemos un vocabulario cargado (es un juego de palabras)
+        if (!this.vocabulary || this.vocabulary.length === 0) {
+            return;
+        }
+        
+        // Verificar y actualizar cada elemento individualmente
+        try {
+            const elements = {
+                'question-progress': `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`,
+                'score': `🏅 ${this.score}`,
+                'streak': `🔥 ${this.streak}`,
+                'lives': `❤️ ${this.lives}`
+            };
+            
+            Object.entries(elements).forEach(([id, text]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = text;
+                }
+            });
+        } catch (error) {
+            console.warn('Error en updateGameStats (puede ignorarse):', error);
+        }
     }
     
     endGame() {

@@ -233,14 +233,14 @@ class UI {
     goToHome() {
         // Detener TODOS los juegos si están en curso
         // 1. Limpiar Game5 si existe
-        if (this.game5 && typeof this.game5.cleanup === 'function') {
+        /*if (this.game5 && typeof this.game5.cleanup === 'function') {
             console.log('Limpiando Game5...');
             try {
                 this.game5.cleanup();
             } catch (e) {
                 console.warn('Error limpiando Game5:', e);
             }
-        }
+        }*/
         
         // 2. Limpiar juego principal
         if (this.game && this.game.timer) {

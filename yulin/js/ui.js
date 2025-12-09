@@ -231,91 +231,36 @@ class UI {
     }
         
     goToHome() {
-        // Detener TODOS los juegos si están en curso
-        // 1. Limpiar Game5 si existe
-        /*if (this.game5 && typeof this.game5.cleanup === 'function') {
+        console.log('goToHome() - Limpieza inteligente');
+        
+        // Determinar qué juego está activo
+        const hasMemoryGame = document.querySelector('.memory-game-container');
+        
+        if (hasMemoryGame) {
+            // Game5 está activo
             console.log('Limpiando Game5...');
-            try {
-                this.game5.cleanup();
-            } catch (e) {
-                console.warn('Error limpiando Game5:', e);
-            }
-        }*/
-        
-        // 2. Limpiar juego principal
-        if (this.game && this.game.timer) {
-            console.log('Limpiando Game principal...');
-            clearTimeout(this.game.timer);
-            this.game.timer = null;
-            
-            if (this.game.disableKeyboardControls) {
-                this.game.disableKeyboardControls();
-            }
-        }
-        
-        // 3. Limpiar Game2
-        if (this.game2) {
-            console.log('Limpiando Game2...');
-            if (this.game2.timer) {
-                clearTimeout(this.game2.timer);
-                this.game2.timer = null;
-            }
-            if (this.game2.disableKeyboardControls) {
-                this.game2.disableKeyboardControls();
-            }
-        }
-        
-        // 4. Limpiar Game4
-        if (this.game4) {
-            console.log('Limpiando Game4...');
-            if (this.game4.timer) {
-                clearTimeout(this.game4.timer);
-                this.game4.timer = null;
-            }
-            if (this.game4.disableKeyboardControls) {
-                this.game4.disableKeyboardControls();
-            }
-        }
-        
-        // 5. Resetear el header a estado limpio
-        const headerHome = document.getElementById('header-home');
-        if (headerHome) {
-            // Clonar y reemplazar para limpiar todos los listeners
-            const newHeader = headerHome.cloneNode(true);
-            headerHome.parentNode.replaceChild(newHeader, headerHome);
-            
-            // Re-configurar el listener del UI
-            newHeader.addEventListener('click', () => this.goToHome());
-        }
-
-        // Asegurar que el contenedor base esté visible
-        const questionContainer = document.getElementById('question-game-container');
-        if (questionContainer) {
-            questionContainer.style.display = 'block';
-        }
-        
-        // Eliminar cualquier contenedor de Game5
-        const game5Container = document.querySelector('.memory-game-container');
-        if (game5Container) {
-            game5Container.remove();
-        }
-        
-        // Restaurar elementos básicos si faltan
-        const gameScreen = document.getElementById('game-screen');
-        if (gameScreen) {
-            // Verificar que existan elementos básicos
-            const basicElements = ['question-text', 'options-container', 'timer-progress'];
-            basicElements.forEach(id => {
-                if (!document.getElementById(id)) {
-                    console.warn(`Elemento ${id} faltante, restaurando...`);
-                    // Aquí puedes recrear elementos básicos si es necesario
+            if (this.game5 && typeof this.game5.cleanup === 'function') {
+                try {
+                    this.game5.cleanup();
+                } catch (e) {
+                    console.warn('Error limpiando Game5:', e);
                 }
-            });
+            }
         }
-        // 6. Ocultar estadísticas del juego
-        this.hideGameStats();
         
-        // 7. Mostrar pantalla de menú
+        // Limpiar timers de otros juegos
+        [this.game, this.game2, this.game4].forEach((game, index) => {
+            if (game && game.timer) {
+                clearTimeout(game.timer);
+                game.timer = null;
+                
+                if (game.disableKeyboardControls) {
+                    game.disableKeyboardControls();
+                }
+            }
+        });
+        
+        this.hideGameStats();
         this.showScreen('menu-screen');
     }
     

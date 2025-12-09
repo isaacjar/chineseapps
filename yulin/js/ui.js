@@ -89,7 +89,14 @@ class UI {
         // Header clickeable para volver al menú
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            headerHome.addEventListener('click', () => this.goToHome());
+            // Siempre usar addEventListener, NUNCA onclick
+            headerHome.addEventListener('click', (e) => {
+                // Solo ir al home si estamos en una pantalla de juego
+                const currentScreen = document.querySelector('.screen.active');
+                if (currentScreen && currentScreen.id === 'game-screen') {
+                    this.goToHome();
+                }
+            });
         }
         
         // Botones del menú
@@ -211,9 +218,13 @@ class UI {
     goToHome() {
         // Detener TODOS los juegos si están en curso
         // Primero intentar limpiar Game5
-        if (this.game5 && this.game5.cleanup) {
+        if (this.game5 && typeof this.game5.cleanup === 'function') {
             try {
-                this.game5.cleanup();
+                // Verificar si Game5 está activo
+                const gameScreen = document.getElementById('game-screen');
+                if (gameScreen && gameScreen.classList.contains('active')) {
+                    this.game5.cleanup();
+                }
             } catch (e) {
                 console.log('Error limpiando Game5:', e);
             }

@@ -190,7 +190,11 @@ class Game5 {
 
         cancelButton.addEventListener('click', () => {
             document.body.removeChild(popup);
-            this.ui.showScreen('menu-screen');
+            // Limpiar antes de volver al menú
+            this.cleanup();
+            setTimeout(() => {
+                this.ui.showScreen('menu-screen');
+            }, 50);
         });
 
         buttonsContainer.appendChild(startButton);
@@ -949,17 +953,24 @@ class Game5 {
             </div>
         `;
         
-        // Event listeners
+       // Event listeners
         popup.querySelector('.game5-play-again-btn').addEventListener('click', () => {
             document.body.removeChild(popup);
-            this.cleanup(); // Limpiar antes de reiniciar
-            this.startGameSession();
+            this.cleanup();
+            // Dar tiempo para limpiar antes de reiniciar
+            setTimeout(() => {
+                this.startGameSession();
+            }, 100);
         });
         
         popup.querySelector('.game5-back-menu-btn').addEventListener('click', () => {
             document.body.removeChild(popup);
             this.cleanup();
-            this.ui.goToHome();
+            
+            // Limpiar completamente antes de volver al menú
+            setTimeout(() => {
+                this.ui.showScreen('menu-screen');
+            }, 50);
         });
         
         // Cerrar al hacer click fuera
@@ -967,7 +978,10 @@ class Game5 {
             if (e.target === popup) {
                 document.body.removeChild(popup);
                 this.cleanup();
-                this.ui.goToHome();
+                // Usar showScreen directamente en lugar de goToHome
+                setTimeout(() => {
+                    this.ui.showScreen('menu-screen');
+                }, 50);
             }
         });
         
@@ -983,17 +997,23 @@ class Game5 {
         return newArray;
     }
     
-   cleanup() {
+     cleanup() {
         // Restaurar manejador original del header de forma segura
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            if (this.originalHeaderClick && typeof this.originalHeaderClick === 'function') {
-                headerHome.onclick = this.originalHeaderClick;
-            } else {
-                // Si no había manejador original, establecer null
+            // Remover cualquier manejador actual
+            headerHome.onclick = null;
+            
+            // Restablecer el manejador original del UI si existe
+            if (typeof headerHome.onclick === 'function') {
+                // Limpiar primero
                 headerHome.onclick = null;
             }
-            this.originalHeaderClick = null; // Limpiar referencia
+            
+            // Configurar el manejador del UI
+            headerHome.addEventListener('click', () => {
+                this.ui.goToHome();
+            });
         }
         
         // Detener timer
@@ -1015,5 +1035,9 @@ class Game5 {
         if (gameScreen) {
             gameScreen.innerHTML = '';
         }
+        
+        // Ocultar estadísticas del juego
+        this.ui.hideGameStats();
     }
+    
 }

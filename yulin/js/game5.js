@@ -344,16 +344,24 @@ class Game5 {
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            // Crear y guardar nuestro manejador
+            // Crear nuestro propio handler específico para Game5
             this.game5HeaderHandler = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                // Limpiar el juego actual
                 this.cleanup();
-                this.ui.goToHome();
+                
+                // Ir al menú principal
+                this.ui.showScreen('menu-screen');
+                this.ui.hideGameStats();
             };
             
-            // Añadir nuestro manejador
+            // Añadir nuestro handler sin interferir con los existentes
             headerHome.addEventListener('click', this.game5HeaderHandler);
+            
+            // Marcar que este handler es de Game5
+            this.hasGame5HeaderHandler = true;
         }
     }
         
@@ -881,7 +889,8 @@ class Game5 {
             this.showResultsPopup(accuracy, efficiency);
         } else {
             // Si el juego no había empezado, volver al menú y restaurar botón de configuración
-            this.ui.goToHome();
+           this.cleanup(); // Limpia primero
+           this.ui.showScreen('menu-screen');
         }
     }
 
@@ -988,11 +997,12 @@ class Game5 {
     }
     
      cleanup() {
-        // Remover nuestro manejador del header
+        // Remover nuestro manejador específico del header
         const headerHome = document.getElementById('header-home');
         if (headerHome && this.game5HeaderHandler) {
             headerHome.removeEventListener('click', this.game5HeaderHandler);
             this.game5HeaderHandler = null;
+            this.hasGame5HeaderHandler = false;
         }
         
         // Detener timer

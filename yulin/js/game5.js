@@ -403,72 +403,88 @@ class Game5 {
     createBoard() {
         const gameScreen = document.getElementById('game-screen');
         
-        // Limpiar contenido anterior
-        gameScreen.innerHTML = '';
+        // 1. Ocultar el contenedor de preguntas si existe
+        const questionContainer = document.getElementById('question-game-container');
+        if (questionContainer) {
+            questionContainer.style.display = 'none';
+        }
         
-        // Contenedor principal que usa TODO el espacio disponible
-        const gameContainer = document.createElement('div');
-        gameContainer.className = 'memory-game-container game5-container';
+        // 2. Verificar si ya existe un contenedor de Game5
+        let gameContainer = document.querySelector('.memory-game-container');
         
-        // Título compacto
-        /*const gameTitle = document.createElement('h2');
-        gameTitle.textContent = '🧠 Memory Match';
-        gameTitle.className = 'game5-title';*/
-        
-        // Contenedor del grid que se expande
-        const gridWrapper = document.createElement('div');
-        gridWrapper.className = 'game5-grid-wrapper';
-        
-        // Crear grid de cartas
-        const gridContainer = document.createElement('div');
-        gridContainer.className = 'memory-grid game5-grid';
-        gridContainer.id = 'memory-grid';
-        
-        // CREAR Y AÑADIR LAS CARTAS AL GRID
-        const cards = this.generateCards();
-        cards.forEach(card => {
-            const cardElement = this.createCardElement(card);
-            gridContainer.appendChild(cardElement);
-        });
-        
-        // Botón de reinicio (fuera del área de scroll)
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'game5-button-container';
-        
-        const resetButton = document.createElement('button');
-        resetButton.textContent = '🔄 Restart';
-        resetButton.className = 'btn game5-reset-btn';
-        resetButton.addEventListener('click', () => {
-            this.cleanup();
-            this.startGameSession();
-        });
-        
-        buttonContainer.appendChild(resetButton);
-        
-        // Ensamblar todo
-        gridWrapper.appendChild(gridContainer);
-        
-        //gameContainer.appendChild(gameTitle);
-        gameContainer.appendChild(gridWrapper);
-        gameContainer.appendChild(buttonContainer);
-        gameScreen.appendChild(gameContainer);
-        
-        // Configurar grid después de añadirlo al DOM
-        setTimeout(() => {
-            this.setupGridLayout(gridContainer);
-            this.applyCardSizeConstraints();
+        if (!gameContainer) {
+            // Crear contenedor para Game5
+            gameContainer = document.createElement('div');
+            gameContainer.className = 'memory-game-container game5-container';
             
-            // Forzar un reflow para asegurar que el grid se renderice
-            gridContainer.style.display = 'none';
-            gridContainer.offsetHeight; // Trigger reflow
-            gridContainer.style.display = 'grid';
+            // Crear grid wrapper
+            const gridWrapper = document.createElement('div');
+            gridWrapper.className = 'game5-grid-wrapper';
+            
+            // Crear grid de cartas
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'memory-grid game5-grid';
+            gridContainer.id = 'memory-grid';
+            
+            // Crear y añadir cartas
+            const cards = this.generateCards();
+            cards.forEach(card => {
+                const cardElement = this.createCardElement(card);
+                gridContainer.appendChild(cardElement);
+            });
+            
+            // Botón de reinicio
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'game5-button-container';
+            
+            const resetButton = document.createElement('button');
+            resetButton.textContent = '🔄 Restart';
+            resetButton.className = 'btn game5-reset-btn';
+            resetButton.addEventListener('click', () => {
+                this.cleanup();
+                this.startGameSession();
+            });
+            
+            buttonContainer.appendChild(resetButton);
+            
+            // Ensamblar todo
+            gridWrapper.appendChild(gridContainer);
+            gameContainer.appendChild(gridWrapper);
+            gameContainer.appendChild(buttonContainer);
+            
+            // Añadir al game-screen
+            gameScreen.appendChild(gameContainer);
+        } else {
+            // Limpiar y recrear el grid si ya existe
+            const gridContainer = document.getElementById('memory-grid');
+            if (gridContainer) {
+                gridContainer.innerHTML = '';
+                const cards = this.generateCards();
+                cards.forEach(card => {
+                    const cardElement = this.createCardElement(card);
+                    gridContainer.appendChild(cardElement);
+                });
+            }
+        }
+        
+        // Configurar layout del grid
+        setTimeout(() => {
+            const gridContainer = document.getElementById('memory-grid');
+            if (gridContainer) {
+                this.setupGridLayout(gridContainer);
+                this.applyCardSizeConstraints();
+                
+                gridContainer.style.display = 'none';
+                gridContainer.offsetHeight;
+                gridContainer.style.display = 'grid';
+            }
         }, 100);
         
-        // Redimensionar al cambiar tamaño
-        window.addEventListener('resize', () => this.handleResize(gridContainer));
-        
-        // Asegurar que el manejador del header esté configurado
-        this.saveOriginalHeaderHandler();
+        // Redimensionar
+        const gridContainer = document.getElementById('memory-grid');
+        if (gridContainer) {
+            window.addEventListener('resize', () => this.handleResize(gridContainer));
+        }
     }
 
     generateCards() {
@@ -1005,38 +1021,31 @@ class Game5 {
         return newArray;
     }
     
-     cleanup() {
-        // Remover nuestro manejador específico del header
-        this.ensureCleanHeader();
-        
-        const headerHome = document.getElementById('header-home');
-        if (headerHome && this.game5HeaderHandler) {
-            headerHome.removeEventListener('click', this.game5HeaderHandler);
-            this.game5HeaderHandler = null;
-            this.hasGame5HeaderHandler = false;
+    cleanup() {
+        // 1. Mostrar contenedor base para otros juegos
+        const questionContainer = document.getElementById('question-game-container');
+        if (questionContainer) {
+            questionContainer.style.display = 'block';
         }
         
-        // Detener timer
+        // 2. Ocultar/eliminar contenedor de Game5
+        const gameContainer = document.querySelector('.memory-game-container');
+        if (gameContainer) {
+            gameContainer.remove();
+        }
+        
+        // 3. Resto de la limpieza...
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
         
-        // Limpiar listeners de redimensionamiento
         window.removeEventListener('resize', this.handleResize);
         
-        // Limpiar estado del juego
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
         
-        // Limpiar el contenedor del juego
-        const gameScreen = document.getElementById('game-screen');
-        if (gameScreen) {
-            gameScreen.innerHTML = '';
-        }
-        
-        // Ocultar estadísticas del juego
         this.ui.hideGameStats();
     }
     

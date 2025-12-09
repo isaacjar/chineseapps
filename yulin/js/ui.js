@@ -79,6 +79,7 @@ class UI {
         this.soundManager = new SoundManager();
         
         this.setupEventListeners();
+        this.resetHeader(); // Asegurar header limpio
         this.loadVocabLists().then(() => {
             this.updateLabels();
             this.loadSounds();
@@ -89,12 +90,26 @@ class UI {
         // Header clickeable para volver al menú
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
-            // Siempre usar addEventListener, NUNCA onclick
-            headerHome.addEventListener('click', (e) => {
-                // Solo ir al home si estamos en una pantalla de juego
-                const currentScreen = document.querySelector('.screen.active');
-                if (currentScreen && currentScreen.id === 'game-screen') {
+            // Remover cualquier listener existente primero
+            headerHome.replaceWith(headerHome.cloneNode(true));
+            
+            // Obtener referencia fresca
+            const freshHeader = document.getElementById('header-home');
+            
+            // Configurar UN SOLO handler que maneje todos los casos
+            freshHeader.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Verificar qué juego está activo y limpiarlo apropiadamente
+                const activeScreen = document.querySelector('.screen.active');
+                
+                if (activeScreen && activeScreen.id === 'game-screen') {
+                    // Estamos en algún juego - usar goToHome que limpia todos
                     this.goToHome();
+                } else {
+                    // No estamos en juego, ir al menú directamente
+                    this.showScreen('menu-screen');
                 }
             });
         }
@@ -217,57 +232,66 @@ class UI {
         
     goToHome() {
         // Detener TODOS los juegos si están en curso
-        // Primero intentar limpiar Game5
+        // 1. Limpiar Game5 si existe
         if (this.game5 && typeof this.game5.cleanup === 'function') {
+            console.log('Limpiando Game5...');
             try {
-                // Verificar si Game5 está activo
-                const gameScreen = document.getElementById('game-screen');
-                if (gameScreen && gameScreen.classList.contains('active')) {
-                    this.game5.cleanup();
-                }
+                this.game5.cleanup();
             } catch (e) {
-                console.log('Error limpiando Game5:', e);
+                console.warn('Error limpiando Game5:', e);
             }
         }
         
-        // Luego otros juegos
-        if (this.game.timer) {
+        // 2. Limpiar juego principal
+        if (this.game && this.game.timer) {
+            console.log('Limpiando Game principal...');
             clearTimeout(this.game.timer);
             this.game.timer = null;
-        }
-        if (this.game2 && this.game2.timer) {
-            clearTimeout(this.game2.timer);
-            this.game2.timer = null;
-        }
-        if (this.game4 && this.game4.timer) {
-            clearTimeout(this.game4.timer);
-            this.game4.timer = null;
-        }
-    
-        // Deshabilitar controles de teclado de todos los juegos
-        if (this.game.disableKeyboardControls) {
-            this.game.disableKeyboardControls();
-        }
-        if (this.game2 && this.game2.disableKeyboardControls) {
-            this.game2.disableKeyboardControls();
-        }
-        if (this.game4 && this.game4.disableKeyboardControls) {
-            this.game4.disableKeyboardControls();
-        }
-        
-        // Asegurar que game5 también limpie controles si los tiene
-        if (this.game5 && this.game5.disableKeyboardControls) {
-            try {
-                this.game5.disableKeyboardControls();
-            } catch (e) {
-                console.log('Error deshabilitando controles de Game5:', e);
+            
+            if (this.game.disableKeyboardControls) {
+                this.game.disableKeyboardControls();
             }
         }
+        
+        // 3. Limpiar Game2
+        if (this.game2) {
+            console.log('Limpiando Game2...');
+            if (this.game2.timer) {
+                clearTimeout(this.game2.timer);
+                this.game2.timer = null;
+            }
+            if (this.game2.disableKeyboardControls) {
+                this.game2.disableKeyboardControls();
+            }
+        }
+        
+        // 4. Limpiar Game4
+        if (this.game4) {
+            console.log('Limpiando Game4...');
+            if (this.game4.timer) {
+                clearTimeout(this.game4.timer);
+                this.game4.timer = null;
+            }
+            if (this.game4.disableKeyboardControls) {
+                this.game4.disableKeyboardControls();
+            }
+        }
+        
+        // 5. Resetear el header a estado limpio
+        const headerHome = document.getElementById('header-home');
+        if (headerHome) {
+            // Clonar y reemplazar para limpiar todos los listeners
+            const newHeader = headerHome.cloneNode(true);
+            headerHome.parentNode.replaceChild(newHeader, headerHome);
             
-        // Ocultar estadísticas del juego
+            // Re-configurar el listener del UI
+            newHeader.addEventListener('click', () => this.goToHome());
+        }
+        
+        // 6. Ocultar estadísticas del juego
         this.hideGameStats();
         
-        // Mostrar pantalla de menú
+        // 7. Mostrar pantalla de menú
         this.showScreen('menu-screen');
     }
     
@@ -824,4 +848,24 @@ class UI {
             console.warn('Error en la carga general de sonidos:', error);
         }
     }
+
+    resetHeader() {
+        const headerHome = document.getElementById('header-home');
+        if (headerHome) {
+            // Clonar el elemento para remover todos los event listeners
+            const newHeader = headerHome.cloneNode(true);
+            headerHome.parentNode.replaceChild(newHeader, headerHome);
+            
+            // Configurar el listener limpio
+            newHeader.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.goToHome();
+            });
+            
+            return newHeader;
+        }
+        return null;
+    }
+        
 }

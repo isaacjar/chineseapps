@@ -338,9 +338,18 @@ class Game5 {
         this.startTimer();
     
         // Guardar referencia al manejador original del header
-        this.saveOriginalHeaderHandler();
+        this.ensureCleanHeader();    
     }
 
+    ensureCleanHeader() {
+        // Solo asegúrate de que el header tiene el comportamiento por defecto
+        const headerHome = document.getElementById('header-home');
+        if (headerHome) {
+            // Remover cualquier listener específico de Game5 que pudiera tener
+            headerHome.onclick = null;
+        }
+    }
+        
     saveOriginalHeaderHandler() {
         const headerHome = document.getElementById('header-home');
         if (headerHome) {
@@ -998,6 +1007,8 @@ class Game5 {
     
      cleanup() {
         // Remover nuestro manejador específico del header
+        this.ensureCleanHeader();
+        
         const headerHome = document.getElementById('header-home');
         if (headerHome && this.game5HeaderHandler) {
             headerHome.removeEventListener('click', this.game5HeaderHandler);

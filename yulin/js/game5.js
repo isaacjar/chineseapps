@@ -405,29 +405,72 @@ class Game5 {
     }
         
     setupGameStats() {
-        // Limpiar estadísticas anteriores
+        // Limpiar estadísticas anteriores del juego 5 si existen
         const gameStats = document.getElementById('game-stats');
-        if (gameStats) {
-            gameStats.innerHTML = '';
+        if (!gameStats) return;
+        
+        // Guardar los elementos ORIGINALES primero antes de modificarlos
+        const originalElements = {
+            questionProgress: document.getElementById('question-progress'),
+            score: document.getElementById('score'),
+            streak: document.getElementById('streak'),
+            lives: document.getElementById('lives')
+        };
+        
+        // Eliminar solo los elementos añadidos por Game5, no los originales
+        const game5Stats = gameStats.querySelectorAll('.game5-stat');
+        game5Stats.forEach(stat => stat.remove());
+        
+        // Si ya hay estadísticas de Game5, no hacer nada más
+        if (gameStats.querySelector('.game5-stat')) return;
+        
+        // Crear nuevos elementos de estadísticas PARA Game5
+        const stats = [
+            { id: 'game5-time', icon: '⏱️', value: '0s' },
+            { id: 'game5-moves', icon: '👣', value: '0' },
+            { id: 'game5-pairs', icon: '✨', value: `0/${this.totalPairs}` },
+            { id: 'game5-score', icon: '🏅', value: '0' }
+        ];
+        
+        stats.forEach(stat => {
+            const statElement = document.createElement('span');
+            statElement.id = stat.id;
+            statElement.className = 'game5-stat';
+            statElement.innerHTML = `${stat.icon} ${stat.value}`;
             
-            // Crear elementos de estadísticas
-            const stats = [
-                { id: 'time', icon: '⏱️', value: '0s' },
-                { id: 'moves', icon: '👣', value: '0' },
-                { id: 'pairs', icon: '✨', value: `0/${this.totalPairs}` },
-                { id: 'score', icon: '🏅', value: '0' }
-            ];
+            // Añadir clases específicas para Game5
+            statElement.style.marginLeft = '0.5rem';
+            statElement.style.display = 'inline-block';
             
-            stats.forEach(stat => {
-                const statElement = document.createElement('span');
-                statElement.id = stat.id;
-                statElement.className = 'game5-stat';
-                statElement.innerHTML = `${stat.icon} ${stat.value}`;
-                gameStats.appendChild(statElement);
-            });
-            
-            gameStats.classList.remove('hidden');
-        }
+            gameStats.appendChild(statElement);
+        });
+        
+        // Ocultar los elementos originales que no usa Game5
+        Object.values(originalElements).forEach(elem => {
+            if (elem) elem.style.display = 'none';
+        });
+        
+        gameStats.classList.remove('hidden');
+    }
+    
+    // Añade este nuevo método para restaurar el header
+    restoreGameStats() {
+        const gameStats = document.getElementById('game-stats');
+        if (!gameStats) return;
+        
+        // Eliminar solo las estadísticas de Game5
+        const game5Stats = gameStats.querySelectorAll('.game5-stat');
+        game5Stats.forEach(stat => stat.remove());
+        
+        // Mostrar los elementos originales
+        const originalIds = ['question-progress', 'score', 'streak', 'lives'];
+        originalIds.forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) elem.style.display = 'inline';
+        });
+        
+        // Asegurar que el contenedor se muestre
+        gameStats.classList.remove('hidden');
     }
 
     createBoard() {
@@ -1028,9 +1071,12 @@ class Game5 {
         // 2. Remover listeners de redimensionamiento
         window.removeEventListener('resize', this.handleResize);
         
-        // 3. Eliminar SOLO elementos de Game5 (NUNCA elementos ajenos)
+        // 3. Restaurar las estadísticas originales del header
+        this.restoreGameStats();
+        
+        // 4. Eliminar SOLO elementos de Game5 (NUNCA elementos ajenos)
         const game5Elements = document.querySelectorAll(
-            '.memory-game-container, .game5-container, .memory-grid, .game5-grid, .game5-memory-card'
+            '.memory-game-container, .game5-container, .memory-grid, .game5-grid, .game5-memory-card, .game5-stat'
         );
         
         game5Elements.forEach(element => {
@@ -1039,18 +1085,16 @@ class Game5 {
             }
         });
         
-        // 4. Restaurar elementos base de otros juegos
+        // 5. Restaurar elementos base de otros juegos
         this.restoreBaseGameElements();
         
-        // 5. Resetear estado interno
+        // 6. Resetear estado interno
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
         
-        // 6. Ocultar estadísticas del juego
-        if (this.ui && this.ui.hideGameStats) {
-            this.ui.hideGameStats();
-        }
+        // 7. Ocultar estadísticas del juego SI estamos saliendo a menú
+        // (pero NO restaurar el botón de configuración aquí, eso lo hace UI.goToHome)
         
         console.log('Game5.cleanup() - Limpieza completada');
     }

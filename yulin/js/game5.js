@@ -341,8 +341,9 @@ class Game5 {
         };*/
     }
     
-   /*restoreBaseGameElements() {
-        console.log('Game5: Restaurando elementos base');
+   restoreBaseGameElements() {
+        console.log('Game5: CSS restaura elementos base automáticamente');
+        /*console.log('Game5: Restaurando elementos base');
         
         // Solo asegurarse de que el game-container original sea visible
         // (esto es redundante con el CSS, pero por seguridad)
@@ -357,8 +358,8 @@ class Game5 {
         const optionsContainer = document.getElementById('options-container');
         
         if (questionContainer) questionContainer.style.cssText = '';
-        if (optionsContainer) optionsContainer.style.cssText = '';
-    }*/
+        if (optionsContainer) optionsContainer.style.cssText = '';*/
+    }
 
     ensureCriticalElements() {
         const gameScreen = document.getElementById('game-screen');
@@ -396,27 +397,19 @@ class Game5 {
         // Mostrar pantalla de juego
         this.ui.showScreen('game-screen');
         
+        // AÑADIR ESTA LÍNEA: Marcar que Game5 está activo
+        document.getElementById('game-screen').classList.add('game5-active');
+        
         // Ocultar botón de configuración y mostrar estadísticas
         this.ui.showGameStats();
         
-        // 1. PRIMERO: Ocultar elementos base de otros juegos
-        this.hideBaseGameElements();
-        
-        // 2. Asegurarse de que no haya game-containers duplicados
-        const existingGame5Containers = document.querySelectorAll('.memory-game-container, .game5-container');
-        existingGame5Containers.forEach(container => {
-            if (container && container.parentNode) {
-                container.parentNode.removeChild(container);
-            }
-        });
-        
-        // 3. Configurar estadísticas del juego
+        // Configurar estadísticas del juego
         this.setupGameStats();
         
-        // 4. Crear tablero
+        // Crear tablero
         this.createBoard();
         
-        // 5. Iniciar timer
+        // Iniciar timer
         this.startTimer();
     }
         
@@ -1082,21 +1075,24 @@ class Game5 {
     cleanup() {
         console.log('Game5.cleanup() - Iniciando limpieza segura');
         
-        // 1. Detener timer
+        // 1. Quitar la marca de Game5 activo
+        const gameScreen = document.getElementById('game-screen');
+        if (gameScreen) {
+            gameScreen.classList.remove('game5-active');
+        }
+        
+        // 2. Detener timer
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
         
-        // 2. Remover listeners de redimensionamiento
+        // 3. Remover listeners de redimensionamiento
         window.removeEventListener('resize', this.handleResize);
         
-        // 3. Restaurar las estadísticas originales del header
-        this.restoreGameStats();
-        
-        // 4. Eliminar SOLO elementos de Game5 (NUNCA elementos ajenos)
+        // 4. Eliminar elementos de Game5
         const game5Elements = document.querySelectorAll(
-            '.memory-game-container, .game5-container, .memory-grid, .game5-grid, .game5-memory-card, .game5-stat'
+            '.memory-game-container, .game5-container, .game5-grid-wrapper, .game5-memory-card'
         );
         
         game5Elements.forEach(element => {
@@ -1105,20 +1101,18 @@ class Game5 {
             }
         });
         
-        // 5. Restaurar elementos base de otros juegos
-        // this.restoreBaseGameElements(); Manejado en CSS
+        // 5. Restaurar estadísticas del header
+        if (this.restoreGameStats) {
+            this.restoreGameStats();
+        }
         
         // 6. Resetear estado interno
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
         
-        // 7. Ocultar estadísticas del juego SI estamos saliendo a menú
-        // (pero NO restaurar el botón de configuración aquí, eso lo hace UI.goToHome)
-        
         console.log('Game5.cleanup() - Limpieza completada');
     }
-
     shuffleArray(array) {
         const newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {

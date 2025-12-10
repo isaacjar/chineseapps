@@ -74,7 +74,7 @@ function updateHangmanSVG(parts) {
 
 async function loadVoclistsIndex() {
   try {
-    const res = await fetch("vocabulary/index.js");
+    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/index.js");
     const text = await res.text();
     eval(text);
     voclistsIndex = window.voclistsIndex || [];
@@ -85,7 +85,7 @@ async function loadVoclistsIndex() {
 
 async function loadVocabulary(listFile) {
   try {
-    const res = await fetch("vocabulary/" + listFile);
+    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/" + listFile);
     const text = await res.text();
     let data = {};
     eval("data = " + text);

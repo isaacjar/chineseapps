@@ -232,8 +232,12 @@ class UI {
         
    goToHome() {
         console.log('goToHome() - Limpieza inteligente');
-        
-        // Determinar qué juego está activo
+    
+        // Primero restaurar el botón de configuración SIEMPRE
+        const settingsBtn = document.getElementById('settings-btn');
+        if (settingsBtn) settingsBtn.classList.remove('hidden');
+    
+       // Determinar qué juego está activo
         const hasMemoryGame = document.querySelector('.memory-game-container');
         
         if (hasMemoryGame && this.game5) {
@@ -610,12 +614,17 @@ class UI {
         if (gameStats) gameStats.classList.remove('hidden');
     }
     
-    hideGameStats() {
+   hideGameStats() {
         const settingsBtn = document.getElementById('settings-btn');
         const gameStats = document.getElementById('game-stats');
         
         if (settingsBtn) settingsBtn.classList.remove('hidden');
-        if (gameStats) gameStats.classList.add('hidden');
+        if (gameStats) {
+            // Solo ocultar si está visible y no hay elementos Game5 activos
+            if (!gameStats.querySelector('.game5-stat')) {
+                gameStats.classList.add('hidden');
+            }
+        }
     }
     
     saveSettings() {

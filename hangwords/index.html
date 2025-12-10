@@ -1,199 +1,609 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ahorcado — Ejemplo SVG</title>
-<style>
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; display:flex; gap:20px;
-         align-items:flex-start; padding:24px; background:#f7fafc; color:#0f172a; }
-  .container { max-width:760px; }
-  svg { width:320px; height:420px; display:block; background: white; border-radius:8px; box-shadow:0 6px 20px rgba(2,6,23,0.08); }
-  .hidden { opacity: 0; transform-origin: center; transition: opacity .25s ease, transform .25s ease; pointer-events:none; }
-  .visible { opacity: 1; transform: none; }
-  /* pequeñas animaciones para aparecer */
-  .part { transform: translateY(-8px) scale(.98); }
-  .visible.part { transform: translateY(0) scale(1); }
-  /* estilo del UI demo */
-  .controls { display:flex; flex-direction:column; gap:8px; margin-left:12px; width:300px; }
-  button { padding:10px 12px; border-radius:8px; border:1px solid #e6e9ef; background:white; cursor:pointer; }
-  button:active { transform: translateY(1px); }
-  .status { font-weight:600; margin-top:8px; }
-  .small { font-size:0.9rem; color:#475569; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HangWords 🧍</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%A7%8D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <svg viewBox="0 0 200 260" aria-labelledby="title desc" role="img">
-      <title id="title">Ahorcado</title>
-      <desc id="desc">Gallows y muñeco para juego del ahorcado. Las partes del muñeco aparecen a medida que hay fallos.</desc>
-
-      <!-- Gallows (siempre visibles) -->
-      <g id="gallows" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="10" y1="250" x2="150" y2="250"/> <!-- base -->
-        <line x1="40" y1="250" x2="40" y2="30"/>   <!-- poste vertical -->
-        <line x1="40" y1="30" x2="110" y2="30"/>   <!-- travesaño -->
-        <line x1="110" y1="30" x2="110" y2="50"/>  <!-- cuerda -->
-      </g>
-
-      <!-- Partes del muñeco (ocultas al inicio) -->
-      <!-- 1 cabeza -->
-      <g id="part-head" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <circle cx="110" cy="70" r="16"/> 
-      </g>
-
-      <!-- 2 cuerpo -->
-      <g id="part-body" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <line x1="110" y1="86" x2="110" y2="140"/>
-      </g>
-
-      <!-- 3 brazo izquierdo -->
-      <g id="part-arm-left" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <line x1="110" y1="100" x2="86" y2="118"/>
-      </g>
-
-      <!-- 4 brazo derecho -->
-      <g id="part-arm-right" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <line x1="110" y1="100" x2="134" y2="118"/>
-      </g>
-
-      <!-- 5 pierna izquierda -->
-      <g id="part-leg-left" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <line x1="110" y1="140" x2="94" y2="180"/>
-      </g>
-
-      <!-- 6 pierna derecha -->
-      <g id="part-leg-right" class="hidden part" stroke="#0f172a" stroke-width="2" fill="none">
-        <line x1="110" y1="140" x2="126" y2="180"/>
-      </g>
-
-      <!-- detalles opcionales (ojos, boca) como etapas extra -->
-      <g id="part-face" class="hidden part" stroke="#0f172a" stroke-width="1.5" fill="none">
-        <line x1="104" y1="68" x2="106" y2="70"/> <!-- ojo izq (cruz) -->
-        <line x1="106" y1="68" x2="104" y2="70"/>
-        <line x1="114" y1="68" x2="116" y2="70"/> <!-- ojo dch -->
-        <line x1="116" y1="68" x2="114" y2="70"/>
-        <path d="M104 76 Q110 80 116 76" stroke-linecap="round"/> <!-- boca -->
-      </g>
-    </svg>
-  </div>
-
-  <div class="controls" aria-hidden="false">
-    <div class="small">Demo: muestra partes según errores. <br> Configurable a tu lógica de juego.</div>
-    <div>
-      <strong>Intentos máximos:</strong> <span id="maxAttemptsLabel">6</span>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🧍</div>
+      <h1 class="title">HangWords</h1>
     </div>
-    <div class="status">Errores: <span id="mistakes">0</span> / <span id="maxAttempts">6</span></div>
-    <div style="display:flex; gap:8px;">
-      <button id="btnWrong">Registrar fallo</button>
-      <button id="btnUndo">Deshacer fallo</button>
-      <button id="btnReset">Reiniciar</button>
+
+    <div class="status-panel" aria-live="polite">
+      <div class="stat">🏆 <span id="score">0</span></div>
+      <div class="stat">🎯 <span id="correctLetters">0</span></div>
+      <div class="stat">❤️ <span id="lives">7</span></div>
+      <button id="btnSettings" class="icon-btn" title="Settings">⚙️</button>
     </div>
-    <div style="margin-top:6px;">
-      <small class="small">Orden de aparición: cabeza → cuerpo → brazo izq → brazo dch → pierna izq → pierna dch → cara (opcional)</small>
-    </div>
-  </div>
+  </header>
 
-<script>
-/*
-  LÓGICA:
-  - parts: array con ids de las partes en el orden en que deben aparecer.
-  - mistakes: errores actuales.
-  - maxAttempts: número máximo de fallos permitidos (por ejemplo 6).
-  - call markWrong() cuando el jugador falle; call resetHangman() para reiniciar.
-*/
+  <main id="main" class="main">
+    <!-- Screens handled by ui.js -->
 
-const parts = [
-  'part-head',
-  'part-body',
-  'part-arm-left',
-  'part-arm-right',
-  'part-leg-left',
-  'part-leg-right',
-  // 'part-face' // si quieres la cara como etapa final, descomenta
-];
+    <!-- LISTS SCREEN (modal-like) -->
+    <section id="screen-lists" class="screen">
+      <div class="panel">
+        <h2 data-i18n="selectVoclist">Select vocabulary list</h2>
+        <div id="voclistsContainer" class="voclists"></div>
+        <div class="panel-actions">
+          <button id="btnCloseLists" class="btn">Close</button>
+        </div>
+      </div>
+    </section>
 
-let mistakes = 0;
-const maxAttempts = 6; // puedes cambiarlo o calcularlo dinámicamente
-document.getElementById('maxAttempts').textContent = maxAttempts;
-document.getElementById('maxAttemptsLabel').textContent = maxAttempts;
+    <!-- SETTINGS SCREEN -->
+    <section id="screen-settings" class="screen hidden">
+      <div class="panel">
+        <h2 data-i18n="settings">Settings</h2>
+        <label>
+          <span data-i18n="language">Language</span>
+          <select id="selectLang"></select>
+        </label>
 
-function showPart(index) {
-  const id = parts[index];
-  if (!id) return;
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.classList.remove('hidden');
-  el.classList.add('visible');
-}
+        <label>
+          <span data-i18n="gameType">Play with</span>
+          <select id="selectGameType">
+            <option value="chinese">Chinese</option>
+            <option value="spanish">Spanish / English</option>
+          </select>
+        </label>
 
-function hidePart(index) {
-  const id = parts[index];
-  if (!id) return;
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.classList.add('hidden');
-  el.classList.remove('visible');
-}
+        <label>
+          <span data-i18n="lives">Lives</span>
+          <input id="inputLives" type="range" min="1" max="20" />
+          <div class="range-value"><span id="livesValue">7</span></div>
+        </label>
 
-function updateView() {
-  // muestra las primeras `mistakes` partes
-  for (let i = 0; i < parts.length; i++) {
-    const el = document.getElementById(parts[i]);
-    if (!el) continue;
-    if (i < mistakes) {
-      el.classList.add('visible');
-      el.classList.remove('hidden');
-    } else {
-      el.classList.add('hidden');
-      el.classList.remove('visible');
-    }
-  }
-  document.getElementById('mistakes').textContent = mistakes;
-  // si se alcanza el máximo, puedes disparar game over aquí
-  if (mistakes >= maxAttempts) {
-    // ejemplo: bloquear botones y mostrar alerta (integra con tu lógica)
-    document.getElementById('btnWrong').disabled = true;
-    alert('¡Game over! Has alcanzado el número máximo de fallos.');
-  }
-}
+        <label>
+          <span data-i18n="questions">Questions</span>
+          <input id="inputQuestions" type="range" min="1" max="50" />
+          <div class="range-value"><span id="questionsValue">10</span></div>
+        </label>
 
-function markWrong() {
-  if (mistakes >= maxAttempts) return;
-  mistakes = Math.min(mistakes + 1, parts.length);
-  updateView();
-}
+        <div class="panel-actions">
+          <button id="btnSaveSettings" class="btn primary">💾 <span data-i18n="save">Save</span></button>
+          <button id="btnResetSettings" class="btn">🔄 <span data-i18n="reset">Reset</span></button>
+          <button id="btnCancelSettings" class="btn"><span data-i18n="cancel">Cancel</span></button>
+        </div>
+      </div>
+    </section>
 
-function undoWrong() {
-  if (mistakes <= 0) return;
-  mistakes = Math.max(mistakes - 1, 0);
-  updateView();
-}
+    <!-- STATS SCREEN -->
+    <section id="screen-stats" class="screen hidden">
+      <div class="panel">
+        <h2 data-i18n="statistics">Statistics</h2>
+        <div id="statsContainer" class="stats"></div>
+        <div class="panel-actions">
+          <button id="btnResetStats" class="btn">🔄 <span data-i18n="reset">Reset</span></button>
+          <button id="btnCloseStats" class="btn"><span data-i18n="cancel">Cancel</span></button>
+        </div>
+      </div>
+    </section>
 
-function resetHangman() {
-  mistakes = 0;
-  document.getElementById('btnWrong').disabled = false;
-  updateView();
-}
+    <!-- GAME SCREEN -->
+    <section id="screen-game" class="screen hidden">
+      <div class="game-layout">
+        <aside id="hangmanArea" class="hangman-area" aria-hidden="false">
+          <!-- SVG hangman — parts shown depending on mistakes -->
+          <svg id="hangmanSVG" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid meet"></svg>
+        </aside>
 
-// botones demo
-document.getElementById('btnWrong').addEventListener('click', markWrong);
-document.getElementById('btnUndo').addEventListener('click', undoWrong);
-document.getElementById('btnReset').addEventListener('click', resetHangman);
+        <section class="play-area">
+          <div class="word-area" id="wordArea" aria-live="polite"></div>
 
-// Inicializa vista
-resetHangman();
+          <div id="keyboard" class="keyboard"></div>
 
-/* 
-  INTEGRACIÓN con tu juego:
-  - Cuando el jugador acierte una letra: no llames a markWrong().
-  - Cuando falle: llama a markWrong().
-  - Si quieres otras reglas (p. ej. más etapas), edita `parts` y `maxAttempts`.
-  - Si tu juego tiene más etapas que partes visuales, puedes:
-      - añadir detalles (ojos, boca, manos, accesorios) como elementos SVG.
-      - cambiar el orden de aparición.
-  - Para animaciones más chulas: usa transformaciones CSS o SMIL/animate en SVG.
-*/
-</script>
+          <div class="controls-row">
+            <button id="btnNew" class="btn primary">New</button>
+            <button id="btnStats" class="btn">Statistics</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">HangWords 🧍 IJH 🧎Made for learning joy</footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="js/lang.json" type="application/json" id="langJson"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
+
+```
+
+---
+
+## `js/lang.json`
+
+```json
+{
+  "en":{
+    "selectVoclist":"Select vocabulary list",
+    "settings":"Settings",
+    "language":"Language",
+    "gameType":"Play with",
+    "lives":"Lives",
+    "questions":"Questions",
+    "save":"Save",
+    "reset":"Reset",
+    "cancel":"Cancel",
+    "statistics":"Statistics",
+    "successMessages":["🐼 Great!","🎉 Correct!","🌟 Well done!","💡 You got it!","🥳 Nice!","🐸 Perfect!","🚀 Nailed it!","🍀 Sweet!","🦄 Fantastic!","🔥 Unstoppable!"],
+    "failMessages":["😅 Ooops..","❌ No worries, keep going","🙈 Wrong!","🍂 Try again!","🤔 Not that one..","🌧️ Bad luck","🐌 It slipped away","🙃 Ups!","🍄 Another chance!","🐤 Not this one..."]
+  },
+  "es":{
+    "selectVoclist":"Selecciona listado de vocabulario",
+    "settings":"Ajustes",
+    "language":"Idioma",
+    "gameType":"Jugar con",
+    "lives":"Vidas",
+    "questions":"Preguntas",
+    "save":"Guardar",
+    "reset":"Resetear",
+    "cancel":"Cancelar",
+    "statistics":"Estadísticas",
+    "successMessages":["🐼 ¡Genial!","🎉 ¡Correcto!","🌟 ¡Bien hecho!","💡 ¡Lo pillaste!","🥳 ¡Acertaste!","🐸 ¡Perfecto!","🚀 ¡Lo clavaste!","🍀 ¡De lujo!","🦄 ¡Fantástico!","🔥 ¡Imparable!"],
+    "failMessages":["😅 Uy, casi...","❌ No pasa nada, ¡sigue!","🙈 ¡Fallaste!","🍂 ¡Inténtalo otra vez!","🤔 No era esa...","🌧️ Mala suerte...","🐌 ¡Se escapó esa!","🙃 Ups, ¡no!","🍄 ¡Otra oportunidad!","🐤 ¡Esa no era..."]
+  }
+}
+```
+
+---
+
+## `js/settings.js`
+
+```javascript
+// settings.js — manejo de configuración y parámetros URL
+const SETTINGS_KEY = 'hangwords_settings_v1';
+const DEFAULTS = {
+  lang: 'en',
+  gametype: 'chinese', // 'chinese' or 'spanish'
+  lives: 7,
+  questions: 10,
+  voclist: null
+};
+
+function readUrlParams(){
+  const params = new URLSearchParams(location.search);
+  const config = {};
+  ['lang','gametype','lives','questions','voclist'].forEach(k=>{
+    if (params.has(k)) config[k] = params.get(k);
+  });
+  return config;
+}
+
+function loadSettings(){
+  const raw = localStorage.getItem(SETTINGS_KEY);
+  let s = raw ? JSON.parse(raw) : {};
+  s = Object.assign({}, DEFAULTS, s);
+  // override with URL params if present
+  const url = readUrlParams();
+  if (url.lang) s.lang = url.lang;
+  if (url.gametype) s.gametype = url.gametype;
+  if (url.lives) s.lives = Number(url.lives);
+  if (url.questions) s.questions = Number(url.questions);
+  if (url.voclist) s.voclist = url.voclist;
+  return s;
+}
+
+function saveSettings(settings){
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function resetSettings(){
+  localStorage.removeItem(SETTINGS_KEY);
+}
+```
+
+---
+
+## `js/ui.js`
+
+```javascript
+// ui.js — mostrar/ocultar pantallas y pequeños helpers
+const screens = {
+  lists: document.getElementById('screen-lists'),
+  settings: document.getElementById('screen-settings'),
+  stats: document.getElementById('screen-stats'),
+  game: document.getElementById('screen-game')
+};
+
+function showScreen(name){
+  Object.values(screens).forEach(s=>s.classList.add('hidden'));
+  screens[name].classList.remove('hidden');
+}
+
+function toast(msg, timeout=1800){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  clearTimeout(t._to);
+  t._to = setTimeout(()=>t.classList.add('hidden'), timeout);
+}
+
+function setI18n(strings, selectedLang){
+  // fill simple labels: elements with data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if (strings[selectedLang] && strings[selectedLang][key]) el.textContent = strings[selectedLang][key];
+  });
+}
+```
+
+---
+
+## `js/stats.js`
+
+```javascript
+const STATS_KEY = 'hangwords_stats_v1';
+function loadStats(){
+  return JSON.parse(localStorage.getItem(STATS_KEY) || '{}');
+}
+function saveStats(stats){
+  localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+}
+function resetStats(){
+  localStorage.removeItem(STATS_KEY);
+}
+function updateStatsUI(){
+  const s = loadStats();
+  const container = document.getElementById('statsContainer');
+  container.innerHTML = '';
+  container.innerHTML = `
+    <div>Words played: ${s.played || 0}</div>
+    <div>Correct: ${s.correct || 0}</div>
+    <div>Incorrect: ${s.incorrect || 0}</div>
+    <div>Accuracy: ${((s.correct||0) / Math.max(1,(s.played||0)) * 100).toFixed(1)}%</div>
+  `;
+}
+```
+
+---
+
+## `js/game.js`
+
+```javascript
+// game.js — lógica principal del juego
+let settings = loadSettings();
+let langStrings = JSON.parse(document.getElementById('langJson').textContent);
+let voclistsIndex = [];
+let currentList = null; // array of items
+let currentWord = null;
+let currentWordDisplay = [];
+let mistakes = 0;
+let maxMistakes = settings.lives;
+let questionsLeft = settings.questions;
+let lettersGuessed = new Set();
+let stats = loadStats();
+
+async function fetchVoclists(){
+  const url = settings.gametype === 'chinese'
+    ? 'https://isaacjar.github.io/chineseapps/voclists/index.js'
+    : 'https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js';
+  try{
+    const res = await fetch(url);
+    const txt = await res.text();
+    // index.js defines const voclists = [ ... ]; so evaluate safely
+    const match = txt.match(/const\s+voclists\s*=\s*(\[([\s\S]*)\])/);
+    if (match){
+      const arrText = match[1];
+      voclistsIndex = eval(arrText); // small risk but expected structure
+    }
+  }catch(e){
+    console.warn('Could not fetch voclists index', e);
+  }
+}
+
+async function fetchAndShowLists(){
+  await fetchVoclists();
+  const container = document.getElementById('voclistsContainer');
+  container.innerHTML = '';
+  voclistsIndex.forEach(rec=>{
+    const b = document.createElement('button');
+    b.className = 'btn';
+    b.textContent = rec.title || rec.filename;
+    b.addEventListener('click', ()=>selectVoclist(rec.filename));
+    container.appendChild(b);
+  });
+  showScreen('lists');
+}
+
+async function selectVoclist(filename){
+  settings.voclist = filename;
+  saveSettings(settings);
+  // fetch file with words
+  const base = settings.gametype === 'chinese'
+    ? 'https://isaacjar.github.io/chineseapps/voclists/'
+    : 'https://isaacjar.github.io/spanishapps/spanishvoc/voclists/';
+  try{
+    const res = await fetch(base + filename + '.js');
+    const txt = await res.text();
+    // expect const words = [ ... ] with objects. Try to eval
+    const m = txt.match(/const\s+\w+\s*=\s*(\[([\s\S]*)\])/);
+    if (m){
+      currentList = eval(m[1]);
+      startGame();
+    }
+  }catch(e){
+    console.error('Error loading list',e);
+    toast('Error loading list');
+  }
+}
+
+function startGame(){
+  // reset
+  mistakes = 0; lettersGuessed = new Set();
+  maxMistakes = Number(settings.lives);
+  questionsLeft = Number(settings.questions);
+  document.getElementById('lives').textContent = maxMistakes;
+  updateHangmanSVG(maxMistakes);
+  showScreen('game');
+  nextWord();
+}
+
+function pickRandomWord(){
+  if (!Array.isArray(currentList) || currentList.length===0) return null;
+  const idx = Math.floor(Math.random()*currentList.length);
+  const item = currentList[idx];
+  // item could be string or object with fields depending on source
+  if (typeof item === 'string') return {ch:item};
+  return item;
+}
+
+function nextWord(){
+  if (questionsLeft<=0){
+    endGame(); return;
+  }
+  currentWord = pickRandomWord();
+  if (!currentWord) {toast('No words'); return}
+  // by default show Chinese word if playing chinese
+  const displayText = settings.gametype==='chinese' ? (currentWord.ch || currentWord.word || currentWord.filename || '') : (currentWord.es || currentWord.en || currentWord.word || '');
+  currentWord._raw = String(displayText || '');
+  // for simplicity treat as Latin letters when gametype != chinese, else each character
+  if (settings.gametype === 'chinese'){
+    currentWordDisplay = Array.from(currentWord._raw).map(c => (c.trim() ? '_' : ' '));
+  }else{
+    currentWordDisplay = currentWord._raw.split('').map(ch=> ch.match(/\s/) ? ' ' : '_');
+  }
+  renderWord();
+  renderKeyboard();
+}
+
+function renderWord(){
+  const wa = document.getElementById('wordArea');
+  wa.innerHTML = '';
+  currentWordDisplay.forEach((ch,i)=>{
+    const span = document.createElement('span');
+    span.className = 'word-ch';
+    span.textContent = ch + '\u00A0';
+    wa.appendChild(span);
+  });
+}
+
+function renderKeyboard(){
+  const kb = document.getElementById('keyboard'); kb.innerHTML = '';
+  const letters = settings.gametype === 'spanish' ? 'abcdefghijklmnopqrstuvwxyzñ' : 'abcdefghijklmnopqrstuvwxyz';
+  letters.split('').forEach(l=>{
+    const k = document.createElement('div');
+    k.className = 'key'; k.textContent = l;
+    if (lettersGuessed.has(l)) k.classList.add('disabled');
+    k.addEventListener('click', ()=>onLetter(l,k));
+    kb.appendChild(k);
+  });
+}
+
+function onLetter(letter, keyEl){
+  if (lettersGuessed.has(letter)) return;
+  lettersGuessed.add(letter);
+
+  // if chinese mode, we won't use keyboard letters; but keep for spanish/english
+  let success = false;
+  if (settings.gametype !== 'chinese'){
+    // compare lowercased
+    const idxs = [];
+    for (let i=0;i<currentWord._raw.length;i++){
+      if (currentWord._raw[i].toLowerCase() === letter.toLowerCase()) idxs.push(i);
+    }
+    if (idxs.length>0){
+      idxs.forEach(i=> currentWordDisplay[i] = currentWord._raw[i]);
+      success = true;
+    }
+  } else {
+    // chinese: interpret keyboard input as pinyin? For now treat as wrong
+    success = false;
+  }
+
+  if (success){
+    keyEl.classList.add('correct');
+    toast(randomFrom(langStrings[settings.lang].successMessages));
+    // update stats
+    stats.played = (stats.played||0) + 1; stats.correct = (stats.correct||0) + 1; saveStats(stats);
+    renderWord();
+    // check if finished
+    if (!currentWordDisplay.includes('_')){
+      questionsLeft--; setTimeout(()=>nextWord(), 600);
+    }
+  }else{
+    keyEl.classList.add('wrong');
+    mistakes++;
+    renderHangman(mistakes);
+    toast(randomFrom(langStrings[settings.lang].failMessages));
+    stats.played = (stats.played||0) + 1; stats.incorrect = (stats.incorrect||0) + 1; saveStats(stats);
+    if (mistakes >= maxMistakes){
+      // reveal word and end this word
+      revealWord();
+      questionsLeft--; setTimeout(()=>{
+        if (questionsLeft<=0) endGame(); else nextWord();
+      },900);
+    }
+  }
+}
+
+function revealWord(){
+  for (let i=0;i<currentWord._raw.length;i++) currentWordDisplay[i] = currentWord._raw[i];
+  renderWord();
+}
+
+function endGame(){
+  updateStatsUI();
+  showScreen('stats');
+}
+
+function randomFrom(arr){
+  if (!Array.isArray(arr)) return '';
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+/* HANGMAN SVG generation and update */
+function updateHangmanSVG(parts){
+  const svg = document.getElementById('hangmanSVG');
+  svg.innerHTML = '';
+  // draw gallows
+  const ns = 'http://www.w3.org/2000/svg';
+  function el(name, attrs){
+    const e = document.createElementNS(ns,name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  svg.appendChild(el('line',{x1:10,y1:240,x2:150,y2:240,stroke:'#0f172a', 'stroke-width':3, 'stroke-linecap':'round'}));
+  svg.appendChild(el('line',{x1:40,y1:240,x2:40,y2:30,stroke:'#0f172a', 'stroke-width':3,'stroke-linecap':'round'}));
+  svg.appendChild(el('line',{x1:40,y1:30,x2:110,y2:30,stroke:'#0f172a','stroke-width':3,'stroke-linecap':'round'}));
+  svg.appendChild(el('line',{x1:110,y1:30,x2:110,y2:50,stroke:'#0f172a','stroke-width':3,'stroke-linecap':'round'}));
+
+  // parts in order: head, body, left arm, right arm, left leg, right leg, face
+  const partsDraw = [
+    el('circle',{cx:110,cy:72,r:16,stroke:'#0f172a','stroke-width':2,fill:'none','class':'hpart','id':'p-head'}),
+    el('line',{x1:110,y1:88,x2:110,y2:140,stroke:'#0f172a','stroke-width':2,'class':'hpart','id':'p-body'}),
+    el('line',{x1:110,y1:100,x2:86,y2:118,stroke:'#0f172a','stroke-width':2,'class':'hpart','id':'p-al'}),
+    el('line',{x1:110,y1:100,x2:134,y2:118,stroke:'#0f172a','stroke-width':2,'class':'hpart','id':'p-ar'}),
+    el('line',{x1:110,y1:140,x2:94,y2:180,stroke:'#0f172a','stroke-width':2,'class':'hpart','id':'p-ll'}),
+    el('line',{x1:110,y1:140,x2:126,y2:180,stroke:'#0f172a','stroke-width':2,'class':'hpart','id':'p-lr'}),
+    el('g',{class:'hpart','id':'p-face'})
+  ];
+  partsDraw[6].innerHTML = `<line x1="104" y1="68" x2="106" y2="70" stroke="#0f172a" stroke-width="1.5"/><line x1="106" y1="68" x2="104" y2="70" stroke="#0f172a" stroke-width="1.5"/><line x1="114" y1="68" x2="116" y2="70" stroke="#0f172a" stroke-width="1.5"/><line x1="116" y1="68" x2="114" y2="70" stroke="#0f172a" stroke-width="1.5"/><path d="M104 76 Q110 80 116 76" stroke="#0f172a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+
+  partsDraw.forEach(p=>svg.appendChild(p));
+
+  // set visibility based on parts count
+  for (let i=0;i<partsDraw.length;i++){
+    const node = document.getElementById(partsDraw[i].id);
+    if (i < (parts || 0)) node.classList.add('visible');
+    else node.classList.remove('visible');
+  }
+}
+
+function renderHangman(mistakesCount){
+  const partsCount = Math.min(mistakesCount, 6);
+  const svg = document.getElementById('hangmanSVG');
+  // set classes
+  ['p-head','p-body','p-al','p-ar','p-ll','p-lr','p-face'].forEach((id,idx)=>{
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (idx < mistakesCount) el.classList.add('visible'); else el.classList.remove('visible');
+  });
+}
+```
+
+---
+
+## `js/app.js`
+
+```javascript
+// app.js — arranque y enlazado de UI
+let settingsLocal = loadSettings();
+let langStrings = JSON.parse(document.getElementById('langJson').textContent);
+
+function initUIBindings(){
+  // settings controls
+  const selectLang = document.getElementById('selectLang');
+  Object.keys(langStrings).forEach(k=>{
+    const o = document.createElement('option'); o.value=k; o.textContent = k; selectLang.appendChild(o);
+  });
+  selectLang.value = settingsLocal.lang;
+
+  document.getElementById('selectGameType').value = settingsLocal.gametype;
+  document.getElementById('inputLives').value = settingsLocal.lives; document.getElementById('livesValue').textContent = settingsLocal.lives;
+  document.getElementById('inputQuestions').value = settingsLocal.questions; document.getElementById('questionsValue').textContent = settingsLocal.questions;
+
+  document.getElementById('inputLives').addEventListener('input', e=>{document.getElementById('livesValue').textContent = e.target.value});
+  document.getElementById('inputQuestions').addEventListener('input', e=>{document.getElementById('questionsValue').textContent = e.target.value});
+
+  document.getElementById('btnSettings').addEventListener('click', ()=>{setI18n(langStrings, settingsLocal.lang); showScreen('settings')});
+  document.getElementById('btnCloseLists').addEventListener('click', ()=>{ showScreen('game'); });
+
+  document.getElementById('btnSaveSettings').addEventListener('click', ()=>{
+    settingsLocal.lang = selectLang.value;
+    settingsLocal.gametype = document.getElementById('selectGameType').value;
+    settingsLocal.lives = Number(document.getElementById('inputLives').value);
+    settingsLocal.questions = Number(document.getElementById('inputQuestions').value);
+    saveSettings(settingsLocal);
+    settings = loadSettings();
+    toast('Settings saved');
+    setI18n(langStrings, settingsLocal.lang);
+    showScreen('lists');
+  });
+
+  document.getElementById('btnCancelSettings').addEventListener('click', ()=>{ showScreen('lists'); });
+  document.getElementById('btnResetSettings').addEventListener('click', ()=>{ resetSettings(); settingsLocal = loadSettings(); toast('Settings reset'); });
+
+  document.getElementById('btnStats').addEventListener('click', ()=>{ updateStatsUI(); showScreen('stats'); });
+  document.getElementById('btnCloseStats').addEventListener('click', ()=>{ showScreen('game'); });
+  document.getElementById('btnResetStats').addEventListener('click', ()=>{ resetStats(); updateStatsUI(); toast('Stats reset'); });
+
+  document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
+
+  // keyboard events
+  document.addEventListener('keydown', (e)=>{
+    if (e.key && e.key.length===1){
+      const ch = e.key.toLowerCase();
+      const keyDiv = Array.from(document.querySelectorAll('.key')).find(k=>k.textContent.toLowerCase()===ch);
+      if (keyDiv) keyDiv.click();
+    }
+  });
+}
+
+async function startApp(){
+  setI18n(langStrings, settingsLocal.lang);
+  initUIBindings();
+  // load voclists and show lists (or auto-load from url)
+  await fetchVoclists();
+  if (settingsLocal.voclist){
+    // try to auto load
+    await selectVoclist(settingsLocal.voclist);
+  } else {
+    await fetchAndShowLists();
+  }
+}
+
+startApp();
+```
+
+---
+
+## Notas finales
+
+* He incluido `eval()` en un par de sitios para interpretar los `index.js` y los archivos de vocabulario remotos porque parecen exportar arrays con `const ... = [...]` (si prefieres, podemos parsear con un *parser* más seguro — dímelo y lo cambio).
+* Esto es una base funcional; se puede mejorar la separación de responsabilidades, añadir animaciones, y adaptar el manejo de palabras chinas (por pinyin o por caracteres) según lo necesites.
+
+Si quieres, puedo ahora:
+
+* adaptar la lógica para mostrar pinyin y traducciones cuando existan en las listas;
+* mejorar la accesibilidad (contrastes, ARIA), o
+* convertir el proyecto en un bundle (Vite) o React.
+
+---
+
+¡Dime cuál archivo quieres que refine primero o qué detalle añado a la jugabilidad!```

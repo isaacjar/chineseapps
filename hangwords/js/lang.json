@@ -1,0 +1,30 @@
+{
+  "en":{
+    "selectVoclist":"Select vocabulary list",
+    "settings":"Settings",
+    "language":"Language",
+    "gameType":"Play with",
+    "lives":"Lives",
+    "questions":"Questions",
+    "save":"Save",
+    "reset":"Reset",
+    "cancel":"Cancel",
+    "statistics":"Statistics",
+    "successMessages":["🐼 Great!","🎉 Correct!","🌟 Well done!","💡 You got it!","🥳 Nice!","🐸 Perfect!","🚀 Nailed it!","🍀 Sweet!","🦄 Fantastic!","🔥 Unstoppable!"],
+    "failMessages":["😅 Ooops..","❌ No worries, keep going","🙈 Wrong!","🍂 Try again!","🤔 Not that one..","🌧️ Bad luck","🐌 It slipped away","🙃 Ups!","🍄 Another chance!","🐤 Not this one..."]
+  },
+  "es":{
+    "selectVoclist":"Selecciona listado de vocabulario",
+    "settings":"Ajustes",
+    "language":"Idioma",
+    "gameType":"Jugar con",
+    "lives":"Vidas",
+    "questions":"Preguntas",
+    "save":"Guardar",
+    "reset":"Resetear",
+    "cancel":"Cancelar",
+    "statistics":"Estadísticas",
+    "successMessages":["🐼 ¡Genial!","🎉 ¡Correcto!","🌟 ¡Bien hecho!","💡 ¡Lo pillaste!","🥳 ¡Acertaste!","🐸 ¡Perfecto!","🚀 ¡Lo clavaste!","🍀 ¡De lujo!","🦄 ¡Fantástico!","🔥 ¡Imparable!"],
+    "failMessages":["😅 Uy, casi...","❌ No pasa nada, ¡sigue!","🙈 ¡Fallaste!","🍂 ¡Inténtalo otra vez!","🤔 No era esa...","🌧️ Mala suerte...","🐌 ¡Se escapó esa!","🙃 Ups, ¡no!","🍄 ¡Otra oportunidad!","🐤 ¡Esa no era..."]
+  }
+}

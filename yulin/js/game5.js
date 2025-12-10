@@ -313,44 +313,52 @@ class Game5 {
     // ========== MÉTODOS PRINCIPALES CORREGIDOS ==========
 
     hideBaseGameElements() {
-        console.log('Game5: Ocultando elementos base de otros juegos');
+        console.log('Game5: CSS maneja la visibilidad de elementos base');
+        //console.log('Game5: Ocultando elementos base de otros juegos');
         
-        // Guardar referencias a elementos base que los otros juegos necesitan
-        this.baseGameElements = {
-            questionText: document.getElementById('question-text'),
-            optionsContainer: document.getElementById('options-container'),
-            timerProgress: document.getElementById('timer-progress'),
-            timerContainer: document.getElementById('timer-container'),
-            gameContent: document.querySelector('.game-content'),
-            gameHeader: document.querySelector('.game-header')
-        };
+        // También ocultar otros elementos específicos
+        /*const elementsToHide = [
+            '#question-container',
+            '#options-container',
+            '.timer-bar',
+            '.question-text'
+        ];*/
         
-        // Ocultarlos (no eliminarlos)
-        Object.values(this.baseGameElements).forEach(element => {
+        /*elementsToHide.forEach(selector => {
+            const element = document.querySelector(selector);
             if (element) {
                 element.style.display = 'none';
                 element.style.visibility = 'hidden';
             }
-        });
-    }
-
-    restoreBaseGameElements() {
-        console.log('Game5: Restaurando elementos base de otros juegos');
+        });*/
         
-        // Mostrar elementos base que ocultamos
-        if (this.baseGameElements) {
-            Object.values(this.baseGameElements).forEach(element => {
-                if (element) {
-                    element.style.display = '';
-                    element.style.visibility = 'visible';
-                }
-            });
-            this.baseGameElements = null;
+        // Guardar referencias para restaurar después
+        /*this.hiddenElements = {
+            gameContainer: gameContainer,
+            questionContainer: document.getElementById('question-container'),
+            optionsContainer: document.getElementById('options-container'),
+            timerBar: document.querySelector('.timer-bar')
+        };*/
+    }
+    
+   /*restoreBaseGameElements() {
+        console.log('Game5: Restaurando elementos base');
+        
+        // Solo asegurarse de que el game-container original sea visible
+        // (esto es redundante con el CSS, pero por seguridad)
+        const gameContainer = document.querySelector('.game-container');
+        if (gameContainer) {
+            // Resetear todos los estilos que podríamos haber cambiado
+            gameContainer.style.cssText = '';
         }
         
-        // Asegurar que elementos críticos existan
-        this.ensureCriticalElements();
-    }
+        // También restablecer otros elementos específicos si los hubiéramos modificado
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        
+        if (questionContainer) questionContainer.style.cssText = '';
+        if (optionsContainer) optionsContainer.style.cssText = '';
+    }*/
 
     ensureCriticalElements() {
         const gameScreen = document.getElementById('game-screen');
@@ -394,13 +402,21 @@ class Game5 {
         // 1. PRIMERO: Ocultar elementos base de otros juegos
         this.hideBaseGameElements();
         
-        // 2. Configurar estadísticas del juego
+        // 2. Asegurarse de que no haya game-containers duplicados
+        const existingGame5Containers = document.querySelectorAll('.memory-game-container, .game5-container');
+        existingGame5Containers.forEach(container => {
+            if (container && container.parentNode) {
+                container.parentNode.removeChild(container);
+            }
+        });
+        
+        // 3. Configurar estadísticas del juego
         this.setupGameStats();
         
-        // 3. Crear tablero
+        // 4. Crear tablero
         this.createBoard();
         
-        // 4. Iniciar timer
+        // 5. Iniciar timer
         this.startTimer();
     }
         
@@ -476,33 +492,37 @@ class Game5 {
     createBoard() {
         const gameScreen = document.getElementById('game-screen');
         
-        // Eliminar cualquier juego anterior de Game5
-        const existingContainer = document.querySelector('.memory-game-container');
-        if (existingContainer) {
-            existingContainer.remove();
-        }
+        // 1. Limpiar contenedores anteriores de Game5
+        const existingContainers = document.querySelectorAll(
+            '.memory-game-container, .game5-container, .game5-grid-wrapper'
+        );
+        existingContainers.forEach(container => {
+            if (container && container.parentNode) {
+                container.parentNode.removeChild(container);
+            }
+        });
         
-        // Crear NUEVO contenedor para Game5
+        // 2. Crear NUEVO contenedor para Game5
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container game5-container';
         
-        // Crear grid wrapper
+        // 3. Crear grid wrapper
         const gridWrapper = document.createElement('div');
         gridWrapper.className = 'game5-grid-wrapper';
         
-        // Crear grid de cartas
+        // 4. Crear grid de cartas
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid game5-grid';
         gridContainer.id = 'memory-grid';
         
-        // CREAR Y AÑADIR LAS CARTAS AL GRID
+        // 5. CREAR Y AÑADIR LAS CARTAS AL GRID
         const cards = this.generateCards();
         cards.forEach(card => {
             const cardElement = this.createCardElement(card);
             gridContainer.appendChild(cardElement);
         });
         
-        // Botón de reinicio (fuera del área de scroll)
+        // 6. Botón de reinicio
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'game5-button-container';
         
@@ -516,13 +536,13 @@ class Game5 {
         
         buttonContainer.appendChild(resetButton);
         
-        // Ensamblar todo
+        // 7. Ensamblar todo
         gridWrapper.appendChild(gridContainer);
         gameContainer.appendChild(gridWrapper);
         gameContainer.appendChild(buttonContainer);
         gameScreen.appendChild(gameContainer);
         
-        // Configurar grid después de añadirlo al DOM
+        // 8. Configurar grid después de añadirlo al DOM
         setTimeout(() => {
             if (gridContainer) {
                 this.setupGridLayout(gridContainer);
@@ -530,7 +550,7 @@ class Game5 {
             }
         }, 100);
         
-        // Redimensionar al cambiar tamaño
+        // 9. Redimensionar al cambiar tamaño
         if (gridContainer) {
             window.addEventListener('resize', () => this.handleResize(gridContainer));
         }
@@ -1086,7 +1106,7 @@ class Game5 {
         });
         
         // 5. Restaurar elementos base de otros juegos
-        this.restoreBaseGameElements();
+        // this.restoreBaseGameElements(); Manejado en CSS
         
         // 6. Resetear estado interno
         this.selectedCards = [];

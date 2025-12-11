@@ -193,9 +193,9 @@ class Game5 {
 
         cancelButton.addEventListener('click', () => {
             document.body.removeChild(popup);
+            this.restoreMenuState(); // Añade esta línea
             this.ui.showScreen('menu-screen');
         });
-
         buttonsContainer.appendChild(startButton);
         buttonsContainer.appendChild(cancelButton);
 
@@ -456,14 +456,14 @@ class Game5 {
             const statElement = document.createElement('span');
             statElement.id = stat.id;
             statElement.className = 'game5-stat';
-            statElement.innerHTML = `${stat.icon} <span class="stat-value">${stat.value}</span>`;
+            statElement.textContent = `${stat.icon} ${stat.value}`;
             
             gameStats.appendChild(statElement);
         });
         
+        // Mostrar el contenedor de estadísticas
         gameStats.classList.remove('hidden');
     }
-    
     // Añade este nuevo método para restaurar el header
     restoreGameStats() {
         const gameStats = document.getElementById('game-stats');
@@ -484,6 +484,26 @@ class Game5 {
         gameStats.classList.remove('hidden');
     }
 
+    // Añade este método para restaurar el estado del menú
+    restoreMenuState() {
+        const gameStats = document.getElementById('game-stats');
+        if (!gameStats) return;
+        
+        // Eliminar solo las estadísticas de Game5
+        const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
+        game5Stats.forEach(stat => stat.remove());
+        
+        // Mostrar los elementos originales
+        const originalIds = ['question-progress', 'score', 'streak', 'lives'];
+        originalIds.forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) elem.style.display = 'inline';
+        });
+        
+        // Ocultar el contenedor de estadísticas (mostrar solo el botón ⚙️)
+        gameStats.classList.add('hidden');
+    }
+        
     createBoard() {
         const gameScreen = document.getElementById('game-screen');
         
@@ -1089,10 +1109,8 @@ class Game5 {
             }
         });
         
-        // 5. Restaurar estadísticas del header
-        if (this.restoreGameStats) {
-            this.restoreGameStats();
-        }
+        // 5. Restaurar el estado del menú (esto ocultará las estadísticas)
+        this.restoreMenuState();
         
         // 6. Resetear estado interno
         this.selectedCards = [];
@@ -1101,6 +1119,7 @@ class Game5 {
         
         console.log('Game5.cleanup() - Limpieza completada');
     }
+        
     shuffleArray(array) {
         const newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {

@@ -431,6 +431,19 @@ class Game5 {
             if (elem) elem.style.display = 'none';
         });
         
+        // Botón restart
+        const restartButton = document.createElement('button');
+        restartButton.id = 'game5-restart-btn';
+        restartButton.className = 'game5-stat game5-restart-btn';
+        restartButton.innerHTML = '🔄';
+        restartButton.title = 'Restart Game';
+        restartButton.addEventListener('click', () => {
+            this.cleanup();
+            this.startGameSession();
+        });
+        
+        gameStats.appendChild(restartButton);
+            
         // Crear nuevos elementos de estadísticas para Game5
         const stats = [
             { id: 'game5-time', icon: '⏱️', value: '0s' },
@@ -457,7 +470,7 @@ class Game5 {
         if (!gameStats) return;
         
         // Eliminar solo las estadísticas de Game5 usando la clase correcta
-        const game5Stats = gameStats.querySelectorAll('.game5-stat');
+        const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
         game5Stats.forEach(stat => stat.remove());
         
         // Mostrar los elementos originales usando sus IDs reales
@@ -504,27 +517,12 @@ class Game5 {
             gridContainer.appendChild(cardElement);
         });
         
-        // 6. Botón de reinicio
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'game5-button-container';
-        
-        const resetButton = document.createElement('button');
-        resetButton.textContent = '🔄 Restart';
-        resetButton.className = 'btn game5-reset-btn';
-        resetButton.addEventListener('click', () => {
-            this.cleanup();
-            this.startGameSession();
-        });
-        
-        buttonContainer.appendChild(resetButton);
-        
-        // 7. Ensamblar todo
+       // 6. ENSAMBLAR TODO (SIN BOTÓN DE REINICIO AQUÍ - ahora está en el header)
         gridWrapper.appendChild(gridContainer);
         gameContainer.appendChild(gridWrapper);
-        gameContainer.appendChild(buttonContainer);
         gameScreen.appendChild(gameContainer);
         
-        // 8. Configurar grid después de añadirlo al DOM
+        // 7. Configurar grid después de añadirlo al DOM
         setTimeout(() => {
             if (gridContainer) {
                 this.setupGridLayout(gridContainer);
@@ -532,7 +530,7 @@ class Game5 {
             }
         }, 100);
         
-        // 9. Redimensionar al cambiar tamaño
+        // 8. Redimensionar al cambiar tamaño
         if (gridContainer) {
             window.addEventListener('resize', () => this.handleResize(gridContainer));
         }

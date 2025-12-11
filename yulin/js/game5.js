@@ -525,35 +525,34 @@ class Game5 {
             }
         });
         
-        // 2. Crear contenedor principal CON POSICIONAMIENTO
+        // 2. Crear contenedor principal
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container game5-container';
-        gameContainer.style.position = 'relative';
         gameContainer.style.width = '100%';
         gameContainer.style.height = '100%';
-        gameContainer.style.minHeight = '100vh';
+        gameContainer.style.display = 'flex';
+        gameContainer.style.flexDirection = 'column';
         gameContainer.style.overflow = 'hidden';
         
-        // 3. Crear wrapper CON POSICIONAMIENTO ABSOLUTO
+        // 3. Crear wrapper FLEXIBLE
         const gridWrapper = document.createElement('div');
         gridWrapper.className = 'game5-grid-wrapper';
-        gridWrapper.style.position = 'absolute';
-        gridWrapper.style.top = '80px'; // Empezar debajo del header
-        gridWrapper.style.left = '0';
-        gridWrapper.style.right = '0';
-        gridWrapper.style.bottom = '0';
-        gridWrapper.style.width = '100%';
-        gridWrapper.style.height = 'calc(100% - 80px)';
+        gridWrapper.style.flex = '1'; // Ocupa el espacio restante
+        gridWrapper.style.minHeight = '0'; // Importante para flex
         gridWrapper.style.overflowY = 'auto';
         gridWrapper.style.overflowX = 'hidden';
-        gridWrapper.style.padding = '10px 5px';
+        gridWrapper.style.padding = '10px';
         gridWrapper.style.boxSizing = 'border-box';
-        gridWrapper.style.zIndex = '1';
+        gridWrapper.style.display = 'flex';
+        gridWrapper.style.justifyContent = 'center';
+        gridWrapper.style.alignItems = 'flex-start'; // Alinear al inicio
         
         // 4. Crear grid de cartas
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid game5-grid';
         gridContainer.id = 'memory-grid';
+        gridContainer.style.width = '100%';
+        gridContainer.style.maxWidth = '1200px'; // Ancho máximo
         
         // 5. Añadir cartas
         const cards = this.generateCards();
@@ -629,124 +628,113 @@ class Game5 {
         
         console.log(`Game5 - Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
         
-        // 1. OBTENER ALTURA REAL DEL HEADER
-        const header = document.querySelector('header');
-        const headerHeight = header ? header.offsetHeight : 80;
+        // 1. OBTENER DIMENSIONES DEL CONTENEDOR WRAPPER
+        const wrapper = gridContainer.closest('.game5-grid-wrapper');
+        const wrapperRect = wrapper ? wrapper.getBoundingClientRect() : null;
         
-        // 2. OBTENER POSICIÓN DEL CONTENEDOR DE JUEGO
-        const gameScreen = document.getElementById('game-screen');
-        const gameScreenRect = gameScreen ? gameScreen.getBoundingClientRect() : null;
+        let availableWidth, availableHeight;
         
-        // 3. CALCULAR ESPACIO DISPONIBLE REAL
-        let availableHeight, availableWidth;
-        
-        if (gameScreenRect) {
-            // Usar las dimensiones reales del game-screen
-            availableHeight = gameScreenRect.height - 20; // 10px de margen arriba y abajo
-            availableWidth = gameScreenRect.width - 20; // 10px de margen izquierda y derecha
+        if (wrapperRect) {
+            availableWidth = wrapperRect.width - 20; // 10px padding a cada lado
+            availableHeight = wrapperRect.height - 20; // 10px padding arriba y abajo
         } else {
-            // Fallback: calcular desde viewport menos header
+            // Fallback: calcular desde viewport menos header estimado
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 70;
             availableHeight = viewportHeight - headerHeight - 40;
             availableWidth = viewportWidth - 40;
         }
         
-        console.log(`Game5 - Available space: ${availableWidth}x${availableHeight}`);
+        console.log(`Game5 - Available: ${Math.round(availableWidth)}x${Math.round(availableHeight)}`);
         
-        // 4. CALCULAR GRID CON LÓGICA MÁS SIMPLE Y PREDECIBLE
-        let columns, rows;
+        // 2. CALCULAR COLUMNAS BASADO EN ANCHO
+        const minCardWidth = 75;
+        const maxCardWidth = 140;
+        const cardAspectRatio = 1.2;
         
-        // Primero determinar columnas basadas en ancho disponible
-        const minCardWidth = 75; // Ancho mínimo de carta
-        const maxCardWidth = 160; // Ancho máximo de carta
+        // Calcular columnas iniciales
+        let columns;
+        if (this.gridSize <= 12) columns = 3;
+        else if (this.gridSize <= 16) columns = 4;
+        else if (this.gridSize <= 20) columns = 4;
+        else if (this.gridSize <= 24) columns = 4;
+        else columns = 4; // Para 32 cartas
         
-        // Calcular máximo de columnas posibles
-        const maxColumnsByWidth = Math.floor(availableWidth / minCardWidth);
-        
-        // Determinar columnas según número de cartas
-        if (this.gridSize <= 12) {
-            columns = Math.min(4, maxColumnsByWidth);
-        } else if (this.gridSize <= 16) {
-            columns = Math.min(4, maxColumnsByWidth);
-        } else if (this.gridSize <= 20) {
-            columns = Math.min(5, maxColumnsByWidth);
-        } else if (this.gridSize <= 24) {
-            columns = Math.min(6, maxColumnsByWidth);
-        } else {
-            columns = Math.min(8, maxColumnsByWidth);
+        // Ajustar para móvil/vertical
+        if (!isLandscape || isMobile) {
+            columns = Math.min(columns, 3);
         }
         
-        // Asegurar mínimo de 2 columnas
+        // No más columnas de las que caben
+        const maxPossibleColumns = Math.floor(availableWidth / minCardWidth);
+        columns = Math.min(columns, maxPossibleColumns);
         columns = Math.max(2, columns);
         
-        // Calcular filas
-        rows = Math.ceil(this.gridSize / columns);
+        // 3. CALCULAR FILAS
+        let rows = Math.ceil(this.gridSize / columns);
         
-        console.log(`Game5 - Initial grid: ${columns}x${rows}`);
+        // 4. CALCULAR TAMAÑO DE CARTA
+        const horizontalGap = 6;
+        const verticalGap = 6;
         
-        // 5. AJUSTAR PARA QUE QUEPA VERTICALMENTE
-        const cardAspectRatio = 1.2; // altura = ancho * 1.2
-        const verticalGap = 6; // Gap vertical pequeño
-        const horizontalGap = 6; // Gap horizontal pequeño
+        let cardWidth = Math.min(
+            maxCardWidth,
+            Math.max(minCardWidth, Math.floor((availableWidth - (horizontalGap * (columns - 1))) / columns))
+        );
         
-        // Calcular altura mínima necesaria
-        let cardWidth, cardHeight;
-        let needsAdjustment = false;
+        let cardHeight = Math.round(cardWidth * cardAspectRatio);
         
-        // Intentar con ancho máximo primero
-        cardWidth = Math.min(maxCardWidth, Math.floor(availableWidth / columns) - horizontalGap);
-        cardHeight = cardWidth * cardAspectRatio;
-        
+        // 5. VERIFICAR SI CABE VERTICALMENTE
         const neededHeight = (cardHeight * rows) + (verticalGap * (rows - 1));
         
         if (neededHeight > availableHeight) {
-            needsAdjustment = true;
-            console.log(`Game5 - No cabe: necesita ${neededHeight}px, tiene ${availableHeight}px`);
+            console.log(`Game5 - Ajustando: necesita ${neededHeight}px, tiene ${availableHeight}px`);
             
-            // Calcular tamaño máximo que cabe verticalmente
-            const maxCardHeightByHeight = Math.floor((availableHeight - (verticalGap * (rows - 1))) / rows);
-            const maxCardWidthByHeight = maxCardHeightByHeight / cardAspectRatio;
+            // Reducir tamaño de carta para que quepa
+            const maxCardHeightBySpace = Math.floor((availableHeight - (verticalGap * (rows - 1))) / rows);
+            const maxCardWidthBySpace = maxCardHeightBySpace / cardAspectRatio;
             
-            cardWidth = Math.max(minCardWidth, Math.min(cardWidth, maxCardWidthByHeight));
-            cardHeight = cardWidth * cardAspectRatio;
+            cardWidth = Math.max(minCardWidth, Math.min(cardWidth, maxCardWidthBySpace));
+            cardHeight = Math.round(cardWidth * cardAspectRatio);
             
-            // Si todavía no cabe, aumentar columnas
+            // Si todavía es muy grande, reducir más
             const newNeededHeight = (cardHeight * rows) + (verticalGap * (rows - 1));
-            if (newNeededHeight > availableHeight && columns < maxColumnsByWidth) {
-                // Aumentar columnas para reducir filas
-                columns = Math.min(columns + 1, maxColumnsByWidth);
+            if (newNeededHeight > availableHeight && columns < maxPossibleColumns) {
+                // Intentar con una columna más
+                columns = Math.min(columns + 1, maxPossibleColumns);
                 rows = Math.ceil(this.gridSize / columns);
                 
                 // Recalcular
-                cardWidth = Math.min(maxCardWidth, Math.floor(availableWidth / columns) - horizontalGap);
-                cardHeight = cardWidth * cardAspectRatio;
+                cardWidth = Math.min(
+                    maxCardWidth,
+                    Math.max(minCardWidth, Math.floor((availableWidth - (horizontalGap * (columns - 1))) / columns))
+                );
+                cardHeight = Math.round(cardWidth * cardAspectRatio);
             }
         }
         
-        // Asegurar límites mínimos y máximos
+        // Asegurar límites
         cardWidth = Math.max(minCardWidth, Math.min(maxCardWidth, cardWidth));
         cardHeight = Math.round(cardWidth * cardAspectRatio);
         
-        console.log(`Game5 - Final grid: ${columns}x${rows}, Card: ${cardWidth}x${cardHeight}`);
+        console.log(`Game5 - Final: ${columns}x${rows}, Card: ${cardWidth}x${cardHeight}`);
         
-        // 6. APLICAR ESTILOS AL GRID
+        // 6. APLICAR ESTILOS
         gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, auto)`;
         gridContainer.style.gap = `${verticalGap}px ${horizontalGap}px`;
-        gridContainer.style.padding = '10px 5px'; // Padding interno
-        gridContainer.style.boxSizing = 'border-box';
+        gridContainer.style.padding = '5px';
         gridContainer.style.width = '100%';
         gridContainer.style.height = 'auto';
         gridContainer.style.minHeight = '0';
-        gridContainer.style.maxHeight = `${availableHeight}px`;
-        gridContainer.style.overflow = 'visible';
         gridContainer.style.placeItems = 'center';
-        gridContainer.style.alignContent = 'flex-start'; // Crucial: alinear al inicio
+        gridContainer.style.alignContent = 'flex-start';
         
-        // 7. APLICAR TAMAÑOS A LAS CARTAS
-        this.applyCardSizeConstraints(cardWidth, cardHeight, needsAdjustment);
+        // 7. APLICAR TAMAÑOS DE CARTA
+        this.applyCardSizeConstraints(cardWidth, cardHeight);
     }
     
-    applyCardSizeConstraints(cardWidth, cardHeight, isAdjusted = false) {
+    applyCardSizeConstraints(cardWidth, cardHeight) {
         const style = document.createElement('style');
         style.id = 'memory-card-styles';
         
@@ -754,11 +742,11 @@ class Game5 {
         if (oldStyle) oldStyle.remove();
         
         // Calcular tamaños de fuente
-        const chineseFontSize = Math.min(2.2, Math.max(1.2, cardWidth / 35));
-        const pinyinFontSize = Math.min(0.9, Math.max(0.7, cardWidth / 70));
+        const chineseFontSize = Math.min(2.0, Math.max(1.4, cardWidth / 40));
+        const pinyinFontSize = Math.min(0.85, Math.max(0.65, cardWidth / 80));
         
         style.textContent = `
-            /* ESTILOS PARA LAS CARTAS */
+            /* CARTAS */
             .memory-card {
                 width: 100% !important;
                 height: 100% !important;
@@ -768,72 +756,48 @@ class Game5 {
                 margin: 0 !important;
             }
             
-            /* CONTENEDOR GRID */
+            /* GRID */
             .memory-grid {
                 display: grid !important;
-                grid-auto-flow: row !important;
                 place-items: center !important;
-                align-content: flex-start !important; /* MUY IMPORTANTE */
-                width: 100% !important;
-                height: auto !important;
-                min-height: 0 !important;
-                margin-top: 0 !important;
+                align-content: flex-start !important;
             }
             
-            /* TEXTO CHINO */
+            /* TEXTO */
             .memory-chinese-character {
                 font-size: ${chineseFontSize}rem !important;
                 line-height: 1.1 !important;
-                margin: 0 !important;
-                padding: 0 !important;
             }
             
-            /* PINYIN */
             .memory-pinyin {
                 font-size: ${pinyinFontSize}rem !important;
                 line-height: 1 !important;
-                margin: 0 !important;
-                padding: 0 !important;
             }
             
-            /* CONTENEDOR WRAPPER - POSICIONAMIENTO ABSOLUTO */
+            /* WRAPPER - AHORA ES FLEX */
             .game5-grid-wrapper {
-                position: absolute !important;
-                top: ${isAdjusted ? '70px' : '80px'} !important; /* Empezar DEBAJO del header */
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                height: calc(100% - ${isAdjusted ? '70px' : '80px'}) !important;
+                flex: 1 !important;
+                min-height: 0 !important;
                 overflow-y: auto !important;
                 overflow-x: hidden !important;
-                padding: 10px 5px !important;
-                box-sizing: border-box !important;
-                z-index: 1 !important;
+                padding: 10px !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: flex-start !important;
             }
             
-            /* SCROLL SUAVE */
+            /* SCROLL */
             .game5-grid-wrapper::-webkit-scrollbar {
                 width: 6px;
             }
             
             .game5-grid-wrapper::-webkit-scrollbar-track {
                 background: rgba(93, 64, 55, 0.1);
-                border-radius: 3px;
             }
             
             .game5-grid-wrapper::-webkit-scrollbar-thumb {
                 background: rgba(93, 64, 55, 0.3);
                 border-radius: 3px;
-            }
-            
-            /* CONTENEDOR PRINCIPAL */
-            .memory-game-container.game5-container {
-                position: relative !important;
-                width: 100% !important;
-                height: 100% !important;
-                min-height: 100vh !important;
-                overflow: hidden !important;
             }
         `;
         

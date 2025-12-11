@@ -833,10 +833,32 @@ class Game4 {
     }
     
     updateGameStats() {
-        document.getElementById('question-progress').textContent = `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`;
-        document.getElementById('score').textContent = `🏅 ${this.score}`;
-        document.getElementById('streak').textContent = `🔥 ${this.streak}`;
-        document.getElementById('lives').textContent = `❤️ ${this.lives}`;
+        // Verificar que estamos en pantalla de juego activa
+        const gameScreen = document.getElementById('game-screen');
+        if (!gameScreen || !gameScreen.classList.contains('active')) {
+            return;
+        }
+        
+        // Verificar que no estamos en Game5
+        if (gameScreen.classList.contains('game5-active')) {
+            // Game5 está activo, no actualizar estas estadísticas
+            return;
+        }
+        
+        // Solo actualizar si los elementos existen
+        const elements = {
+            'question-progress': `🌱 ${this.currentQuestion}/${this.settings.get('questions')}`,
+            'score': `🏅 ${this.score}`,
+            'streak': `🔥 ${this.streak}`,
+            'lives': `❤️ ${this.lives}`
+        };
+        
+        Object.entries(elements).forEach(([id, text]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = text;
+            }
+        });
     }
     
     endGame() {
@@ -880,8 +902,14 @@ class Game4 {
     }
 
     handleKeyPress(event) {
-        if (!document.getElementById('game-screen').classList.contains('active')) {
+        const gameScreen = document.getElementById('game-screen');
+        if (!gameScreen || !gameScreen.classList.contains('active')) {
             return;
+        }
+        
+        // Verificar que no estamos en Game5
+        if (gameScreen.classList.contains('game5-active')) {
+            return; // Game5 tiene su propio sistema de controles
         }
         
         const key = event.key;

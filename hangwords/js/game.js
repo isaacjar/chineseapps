@@ -1,5 +1,4 @@
 let settings = loadSettings();
-let langStrings = {};         // Se cargará por fetch
 let voclistsIndex = [];
 let currentList = null;
 let currentWord = null;

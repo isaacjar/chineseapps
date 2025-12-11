@@ -84,7 +84,6 @@ class Game5 {
     }
 
     showInitialSetupPopup() {
-        this.ui.showGameStats(); // Esto ocultará el botón ⚙️
         
         const popup = document.createElement('div');
         popup.className = 'popup-overlay game5-popup-overlay';
@@ -400,14 +399,14 @@ class Game5 {
         // Marcar que Game5 está activo
         document.getElementById('game-screen').classList.add('game5-active');
         
-        // Ocultar botón de configuración y mostrar estadísticas
-        this.ui.showGameStats();
+        // NO usar ui.showGameStats() - Game5 maneja sus propias estadísticas
+        // this.ui.showGameStats(); // ← ¡ELIMINA ESTA LÍNEA!
         
-        // Configurar estadísticas del juego
+        // En su lugar, configurar estadísticas específicas de Game5
         this.setupGameStats();
         
         // Inicializar los valores en el header
-        this.updateStats();  // ¡AÑADE ESTA LÍNEA!
+        this.updateStats();
         
         // Crear tablero
         this.createBoard();
@@ -421,14 +420,18 @@ class Game5 {
         if (!gameStats) return;
         
         // Eliminar estadísticas anteriores de Game5 si existen
-        const existingGame5Stats = gameStats.querySelectorAll('.game5-stat');
+        const existingGame5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
         existingGame5Stats.forEach(stat => stat.remove());
         
-        // Ocultar elementos originales
+        // Ocultar elementos originales COMPLETAMENTE
         const originalIds = ['question-progress', 'score', 'streak', 'lives'];
         originalIds.forEach(id => {
             const elem = document.getElementById(id);
-            if (elem) elem.style.display = 'none';
+            if (elem) {
+                elem.style.display = 'none';
+                elem.style.visibility = 'hidden';
+                elem.style.opacity = '0';
+            }
         });
         
         // Botón restart
@@ -458,32 +461,21 @@ class Game5 {
             statElement.className = 'game5-stat';
             statElement.textContent = `${stat.icon} ${stat.value}`;
             
+            // Asegurar que sean visibles
+            statElement.style.display = 'inline-block';
+            statElement.style.visibility = 'visible';
+            statElement.style.opacity = '1';
+            
             gameStats.appendChild(statElement);
         });
         
         // Mostrar el contenedor de estadísticas
         gameStats.classList.remove('hidden');
+        gameStats.style.display = 'flex';
+        gameStats.style.visibility = 'visible';
+        gameStats.style.opacity = '1';
     }
-    // Añade este nuevo método para restaurar el header
-    /*restoreGameStats() {
-        const gameStats = document.getElementById('game-stats');
-        if (!gameStats) return;
-        
-        // Eliminar solo las estadísticas de Game5 usando la clase correcta
-        const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
-        game5Stats.forEach(stat => stat.remove());
-        
-        // Mostrar los elementos originales usando sus IDs reales
-        const originalIds = ['question-progress', 'score', 'streak', 'lives'];
-        originalIds.forEach(id => {
-            const elem = document.getElementById(id);
-            if (elem) elem.style.display = 'inline';
-        });
-        
-        // Asegurar que el contenedor se muestre
-        gameStats.classList.remove('hidden');
-    }*/
-
+    
     // Añade este método para restaurar el estado del menú
     restoreMenuState() {
         const gameStats = document.getElementById('game-stats');
@@ -1078,7 +1070,6 @@ class Game5 {
         document.body.appendChild(popup);
     }
 
-    // ========== MÉTODO CLEANUP CORREGIDO ==========
     cleanup() {
         console.log('Game5.cleanup() - Iniciando limpieza segura');
         
@@ -1108,20 +1099,31 @@ class Game5 {
             }
         });
         
-        // 5. Resetear estado interno
+        // 5. Limpiar estadísticas de Game5
+        const gameStats = document.getElementById('game-stats');
+        if (gameStats) {
+            const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
+            game5Stats.forEach(stat => stat.remove());
+            
+            // Mostrar los elementos originales
+            const originalIds = ['question-progress', 'score', 'streak', 'lives'];
+            originalIds.forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) {
+                    elem.style.display = 'inline';
+                    elem.style.visibility = 'visible';
+                    elem.style.opacity = '1';
+                }
+            });
+        }
+        
+        // 6. Resetear estado interno
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
         
         console.log('Game5.cleanup() - Limpieza completada');
     }
-        
-    shuffleArray(array) {
-        const newArray = [...array];
-        for (let i = newArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-        }
-        return newArray;
-    }
+
+    
 }

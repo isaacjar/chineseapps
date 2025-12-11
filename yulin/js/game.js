@@ -88,11 +88,15 @@ class Game {
         this.score = 0;
         this.lives = this.settings.get('lives');
         this.streak = 0;
-
         this.missedWords = [];
         
         this.ui.showScreen('game-screen');
-        this.ui.showGameStats();
+        
+        // Cambiar esto:
+        // this.ui.showGameStats(); // ← Eliminar esta línea
+        // Por esto:
+        this.ui.showGameStats(); // ← Esto llamará al método actualizado que muestra estadísticas estándar
+        
         // Habilitar controles de teclado
         this.enableKeyboardControls();
         this.nextQuestion();
@@ -414,6 +418,13 @@ class Game {
             return;
         }
         
+        // IMPORTANTE: También verificar que no estamos en Game5
+        // Game5 tiene su propio sistema de estadísticas
+        if (gameScreen.classList.contains('game5-active')) {
+            // Estamos en Game5, no actualizar estas estadísticas
+            return;
+        }
+        
         // Verificar y actualizar cada elemento individualmente
         try {
             const elements = {
@@ -438,7 +449,7 @@ class Game {
         this.stats.recordGame();
         clearTimeout(this.timer);
         this.timer = null; // Limpiar referencia al timer
-
+    
         // Deshabilitar controles de teclado
         this.disableKeyboardControls();
         
@@ -456,6 +467,10 @@ class Game {
                 this.startGame(this.currentGame);
             }
         );
+        
+        // Añadir esto para resetear cuando el juego termina completamente
+        // (cuando el usuario cierra el popup desde ui.showGameResults)
+        // No es necesario añadir nada aquí porque ui.showGameResults ya maneja el cleanup
     }
     
     shuffleArray(array) {

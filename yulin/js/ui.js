@@ -251,13 +251,18 @@ class UI {
             gameStats.classList.add('hidden');
             gameStats.style.display = 'none';
             
-            // Limpiar cualquier contenido existente
+            // Limpiar completamente su contenido
             gameStats.innerHTML = '';
         }
     }
+
+    // MÉTODO PARA OCULTAR ESTADÍSTICAS (mostrar solo ⚙️)
+    hideGameStats() {
+        this.showSettingsOnly();
+    }
     
     // Muestra las estadísticas de los juegos 1-4
-    showGameStats() {
+   showGameStats() {
         const settingsBtn = document.getElementById('settings-btn');
         const gameStats = document.getElementById('game-stats');
         
@@ -266,14 +271,14 @@ class UI {
         }
         
         if (gameStats) {
-            // Resetear contenido a las estadísticas estándar
+            // Asegurarse de que tenga el contenido correcto para juegos 1-4
             this.resetGameStatsContent();
             
             gameStats.classList.remove('hidden');
             gameStats.style.display = 'flex';
         }
     }
-    
+
     // Muestra estadísticas personalizadas para Game5
     showGame5Stats(statsHTML) {
         const settingsBtn = document.getElementById('settings-btn');
@@ -695,17 +700,6 @@ class UI {
         } else {
             console.error('No se encontró la pantalla:', screenId);
         }
-    }
-    
-    // Estos métodos se mantienen por compatibilidad pero usan los nuevos
-    showGameStats() {
-        // Usar el nuevo método
-        this.showGameStats();
-    }
-    
-    hideGameStats() {
-        // Usar el nuevo método que muestra solo ⚙️
-        this.showSettingsOnly();
     }
     
     saveSettings() {

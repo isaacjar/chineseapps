@@ -417,13 +417,21 @@ class Game5 {
         
     setupGameStats() {
         const gameStats = document.getElementById('game-stats');
+        const settingsBtn = document.getElementById('settings-btn');
+        
         if (!gameStats) return;
         
-        // Eliminar estadísticas anteriores de Game5 si existen
+        // 1. OCULTAR el botón de configuración ⚙️
+        if (settingsBtn) {
+            settingsBtn.classList.add('hidden');
+            settingsBtn.style.display = 'none';
+        }
+        
+        // 2. Eliminar estadísticas anteriores de Game5 si existen
         const existingGame5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
         existingGame5Stats.forEach(stat => stat.remove());
         
-        // Ocultar elementos originales COMPLETAMENTE
+        // 3. Ocultar elementos originales COMPLETAMENTE
         const originalIds = ['question-progress', 'score', 'streak', 'lives'];
         originalIds.forEach(id => {
             const elem = document.getElementById(id);
@@ -434,7 +442,7 @@ class Game5 {
             }
         });
         
-        // Botón restart
+        // 4. Botón restart
         const restartButton = document.createElement('button');
         restartButton.id = 'game5-restart-btn';
         restartButton.className = 'game5-stat game5-restart-btn';
@@ -447,7 +455,7 @@ class Game5 {
         
         gameStats.appendChild(restartButton);
             
-        // Crear nuevos elementos de estadísticas para Game5
+        // 5. Crear nuevos elementos de estadísticas para Game5
         const stats = [
             { id: 'game5-time', icon: '⏱️', value: '0s' },
             { id: 'game5-moves', icon: '👣', value: '0' },
@@ -469,16 +477,18 @@ class Game5 {
             gameStats.appendChild(statElement);
         });
         
-        // Mostrar el contenedor de estadísticas
+        // 6. Mostrar el contenedor de estadísticas
         gameStats.classList.remove('hidden');
         gameStats.style.display = 'flex';
         gameStats.style.visibility = 'visible';
         gameStats.style.opacity = '1';
     }
     
-    // Añade este método para restaurar el estado del menú
+   // Añade este método para restaurar el estado del menú
     restoreMenuState() {
         const gameStats = document.getElementById('game-stats');
+        const settingsBtn = document.getElementById('settings-btn');
+        
         if (!gameStats) return;
         
         // Eliminar solo las estadísticas de Game5
@@ -491,6 +501,12 @@ class Game5 {
             const elem = document.getElementById(id);
             if (elem) elem.style.display = 'inline';
         });
+        
+        // RESTAURAR el botón de configuración
+        if (settingsBtn) {
+            settingsBtn.classList.remove('hidden');
+            settingsBtn.style.display = 'inline-block';
+        }
         
         // Ocultar el contenedor de estadísticas (mostrar solo el botón ⚙️)
         gameStats.classList.add('hidden');
@@ -1099,8 +1115,10 @@ class Game5 {
             }
         });
         
-        // 5. Limpiar estadísticas de Game5
+        // 5. Limpiar estadísticas de Game5 y restaurar botón de configuración
         const gameStats = document.getElementById('game-stats');
+        const settingsBtn = document.getElementById('settings-btn');
+        
         if (gameStats) {
             const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
             game5Stats.forEach(stat => stat.remove());
@@ -1117,7 +1135,13 @@ class Game5 {
             });
         }
         
-        // 6. Resetear estado interno
+        // 6. RESTAURAR el botón de configuración ⚙️
+        if (settingsBtn) {
+            settingsBtn.classList.remove('hidden');
+            settingsBtn.style.display = 'inline-block';
+        }
+        
+        // 7. Resetear estado interno
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
@@ -1125,6 +1149,7 @@ class Game5 {
         console.log('Game5.cleanup() - Limpieza completada');
     }
 
+    // GENERACION ALEATORIA
     shuffleArray(array) {
         const newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {

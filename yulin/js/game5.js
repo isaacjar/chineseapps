@@ -397,7 +397,7 @@ class Game5 {
         // Mostrar pantalla de juego
         this.ui.showScreen('game-screen');
         
-        // AÑADIR ESTA LÍNEA: Marcar que Game5 está activo
+        // Marcar que Game5 está activo
         document.getElementById('game-screen').classList.add('game5-active');
         
         // Ocultar botón de configuración y mostrar estadísticas
@@ -405,6 +405,9 @@ class Game5 {
         
         // Configurar estadísticas del juego
         this.setupGameStats();
+        
+        // Inicializar los valores en el header
+        this.updateStats();  // ¡AÑADE ESTA LÍNEA!
         
         // Crear tablero
         this.createBoard();
@@ -414,26 +417,21 @@ class Game5 {
     }
         
     setupGameStats() {
-        // Limpiar estadísticas anteriores del juego 5 si existen
         const gameStats = document.getElementById('game-stats');
         if (!gameStats) return;
         
-        // Guardar los elementos ORIGINALES primero antes de modificarlos
-        const originalElements = {
-            questionProgress: document.getElementById('question-progress'),
-            score: document.getElementById('score'),
-            streak: document.getElementById('streak'),
-            lives: document.getElementById('lives')
-        };
+        // Eliminar estadísticas anteriores de Game5 si existen
+        const existingGame5Stats = gameStats.querySelectorAll('.game5-stat');
+        existingGame5Stats.forEach(stat => stat.remove());
         
-        // Eliminar solo los elementos añadidos por Game5, no los originales
-        const game5Stats = gameStats.querySelectorAll('.game5-stat');
-        game5Stats.forEach(stat => stat.remove());
+        // Ocultar elementos originales
+        const originalIds = ['question-progress', 'score', 'streak', 'lives'];
+        originalIds.forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) elem.style.display = 'none';
+        });
         
-        // Si ya hay estadísticas de Game5, no hacer nada más
-        if (gameStats.querySelector('.game5-stat')) return;
-        
-        // Crear nuevos elementos de estadísticas PARA Game5
+        // Crear nuevos elementos de estadísticas para Game5
         const stats = [
             { id: 'game5-time', icon: '⏱️', value: '0s' },
             { id: 'game5-moves', icon: '👣', value: '0' },
@@ -445,18 +443,9 @@ class Game5 {
             const statElement = document.createElement('span');
             statElement.id = stat.id;
             statElement.className = 'game5-stat';
-            statElement.innerHTML = `${stat.icon} ${stat.value}`;
-            
-            // Añadir clases específicas para Game5
-            statElement.style.marginLeft = '0.5rem';
-            statElement.style.display = 'inline-block';
+            statElement.innerHTML = `${stat.icon} <span class="stat-value">${stat.value}</span>`;
             
             gameStats.appendChild(statElement);
-        });
-        
-        // Ocultar los elementos originales que no usa Game5
-        Object.values(originalElements).forEach(elem => {
-            if (elem) elem.style.display = 'none';
         });
         
         gameStats.classList.remove('hidden');
@@ -467,11 +456,11 @@ class Game5 {
         const gameStats = document.getElementById('game-stats');
         if (!gameStats) return;
         
-        // Eliminar solo las estadísticas de Game5
+        // Eliminar solo las estadísticas de Game5 usando la clase correcta
         const game5Stats = gameStats.querySelectorAll('.game5-stat');
         game5Stats.forEach(stat => stat.remove());
         
-        // Mostrar los elementos originales
+        // Mostrar los elementos originales usando sus IDs reales
         const originalIds = ['question-progress', 'score', 'streak', 'lives'];
         originalIds.forEach(id => {
             const elem = document.getElementById(id);
@@ -945,12 +934,13 @@ class Game5 {
         }, 1000);
     }
 
-    updateStats() {
-        const timeElement = document.getElementById('time');
-        const movesElement = document.getElementById('moves');
-        const pairsElement = document.getElementById('pairs');
-        const scoreElement = document.getElementById('score');
+   updateStats() {
+        const timeElement = document.getElementById('game5-time');
+        const movesElement = document.getElementById('game5-moves');
+        const pairsElement = document.getElementById('game5-pairs');
+        const scoreElement = document.getElementById('game5-score');
         
+        // Actualiza solo si los elementos existen
         if (timeElement) timeElement.textContent = `⏱️ ${this.timeElapsed}s`;
         if (movesElement) movesElement.textContent = `👣 ${this.moves}`;
         if (pairsElement) pairsElement.textContent = `✨ ${this.matchedPairs}/${this.totalPairs}`;

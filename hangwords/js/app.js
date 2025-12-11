@@ -1,6 +1,5 @@
 // app.js — arranque y enlazado de UI
 let settingsLocal = loadSettings();
-let langStrings = {};   // se cargará vía fetch
 
 /* ===========================
       CARGA LANG.JSON
@@ -23,18 +22,18 @@ let voclists = [];     // lista de listados
 let currentVoc = [];   // vocabulario cargado para jugar
 
 // Carga estructura index.js o voclists.json
-async function fetchVoclists() {
-  try {
-    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/index.js");
-    const text = await res.text();
-    // el archivo define "const voclists = [...]"
-    // tenemos que evaluarlo en un contexto seguro
-    const match = text.match(/const voclists\s*=\s*(\[[\s\S]*?\]);/);
-    voclists = JSON.parse(match[1]);
-    console.log("✓ voclists cargados", voclists);
-  } catch (e) {
-    console.error("Error al cargar voclists", e);
-  }
+function fetchVoclists() {
+  return new Promise((resolve, reject) => {
+    // espera a que voclists.js haya cargado
+    if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
+      voclistsIndex = voclists;
+      console.log("Voclists cargadas:", voclistsIndex.length);
+      resolve(voclistsIndex);
+    } else {
+      console.error("voclists.js no ha inicializado voclists");
+      reject("voclists.js no inicializado");
+    }
+  });
 }
 
 // Muestra la selección de listados
@@ -160,13 +159,13 @@ function initUIBindings(){
       ARRANQUE DE LA APP
 =========================== */
 async function startApp(){
-  await loadLang();                  
+  await loadLang();                  // carga lang.json
   setI18n(langStrings, settingsLocal.lang);
   initUIBindings();
   
+  // cargamos voclists desde la variable global
   await fetchVoclists();
 
-  // Si ya había voclist seleccionado → cargarlo directamente
   if (settingsLocal.voclist){
     await selectVoclist(settingsLocal.voclist);
   } else {

@@ -1,7 +1,5 @@
 /* game.js — flujo del juego y lógica */
 
-let settings = loadSettings();
-let currentVoc = [];        // vocabulario cargado para jugar
 let currentWord = null;
 let currentWordDisplay = [];
 let mistakes = 0;

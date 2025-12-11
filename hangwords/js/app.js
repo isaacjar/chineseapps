@@ -154,13 +154,27 @@ async function startApp(){
 
   await fetchVoclists();
 
-  // si no hay voclist en settings, mostramos popup
-  if (settingsLocal.voclist){
-    await selectVoclist(settingsLocal.voclist);
+  // borramos vocabulario en memoria
+  window.currentVoc = [];
+
+  // si hay voclist por URL, la cargamos, si no mostramos popup
+  const urlParams = new URLSearchParams(window.location.search);
+  const vocParam = urlParams.get("voclist");
+
+  if (vocParam) {
+    settingsLocal.voclist = vocParam;
+    await selectVoclist(vocParam);
   } else {
-    window.currentVoc = []; // vaciamos memoria
+    settingsLocal.voclist = null;
     await fetchAndShowLists();
   }
 }
+
+// al cerrar o recargar la página, borramos vocabulario de memoria
+window.addEventListener('beforeunload', ()=>{
+  window.currentVoc = [];
+  settingsLocal.voclist = null;
+  saveSettings(settingsLocal);
+});
 
 startApp();

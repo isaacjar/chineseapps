@@ -583,6 +583,52 @@
     box-sizing: border-box;
     place-items: center;
 }
+
+/* Estilo para el botón de reinicio en el header */
+.game5-restart-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    opacity: 0.8;
+    display: inline-block !important;
+}
+
+.game5-restart-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.game5-restart-btn:active {
+    transform: scale(0.95);
+}
+
+/* Asegurar que los elementos de Game5 tengan display inline-block */
+.game5-stat {
+    display: inline-block !important;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Estilo para el contenedor de estadísticas del juego */
+#game-stats {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+/* Asegurar que los elementos originales se mantengan inline */
+#question-progress,
+#score,
+#streak,
+#lives {
+    display: inline !important;
+}
 /*
 #game-screen.active .game-container {
     display: none !important;

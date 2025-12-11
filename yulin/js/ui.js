@@ -232,18 +232,25 @@ class UI {
         
    goToHome() {
         console.log('goToHome() - Limpieza inteligente');
-    
+        
         // Primero restaurar el botón de configuración SIEMPRE
         const settingsBtn = document.getElementById('settings-btn');
         if (settingsBtn) settingsBtn.classList.remove('hidden');
-    
-       // Determinar qué juego está activo
+        
+        // Determinar qué juego está activo
         const hasMemoryGame = document.querySelector('.memory-game-container');
+        const gameScreen = document.getElementById('game-screen');
         
         if (hasMemoryGame && this.game5) {
             // Game5 está activo - usar su cleanup
             console.log('Limpiando Game5...');
             try {
+                // Remover la clase game5-active del game-screen
+                if (gameScreen) {
+                    gameScreen.classList.remove('game5-active');
+                }
+                
+                // Limpiar el juego
                 this.game5.cleanup();
             } catch (e) {
                 console.warn('Error limpiando Game5:', e);
@@ -262,7 +269,10 @@ class UI {
             }
         });
         
+        // Ocultar estadísticas del juego
         this.hideGameStats();
+        
+        // Mostrar pantalla de menú
         this.showScreen('menu-screen');
     }
     
@@ -601,6 +611,11 @@ class UI {
         if (screen) {
             screen.classList.remove('hidden');
             screen.classList.add('active');
+            
+            // Si estamos volviendo al menú, asegurarnos de que las estadísticas estén ocultas
+            if (screenId === 'menu-screen') {
+                this.hideGameStats();
+            }
         } else {
             console.error('No se encontró la pantalla:', screenId);
         }
@@ -619,11 +634,25 @@ class UI {
         const gameStats = document.getElementById('game-stats');
         
         if (settingsBtn) settingsBtn.classList.remove('hidden');
+        
         if (gameStats) {
-            // Solo ocultar si está visible y no hay elementos Game5 activos
-            if (!gameStats.querySelector('.game5-stat')) {
-                gameStats.classList.add('hidden');
-            }
+            // Ocultar siempre el contenedor de estadísticas cuando volvemos al menú
+            gameStats.classList.add('hidden');
+            
+            // Si hay estadísticas de Game5, eliminarlas
+            const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
+            game5Stats.forEach(stat => {
+                if (stat && stat.parentNode) {
+                    stat.parentNode.removeChild(stat);
+                }
+            });
+            
+            // Mostrar los elementos originales
+            const originalIds = ['question-progress', 'score', 'streak', 'lives'];
+            originalIds.forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) elem.style.display = 'inline';
+            });
         }
     }
     

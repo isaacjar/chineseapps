@@ -18,7 +18,7 @@ function randomFrom(arr) {
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
@@ -28,9 +28,8 @@ function saveStats(stats) {
 }
 
 function loadStats() {
-  let stored = localStorage.getItem("hangmanStats");
-  if (stored) return JSON.parse(stored);
-  return { correct: 0, wrong: 0 };
+  const stored = localStorage.getItem("hangmanStats");
+  return stored ? JSON.parse(stored) : { correct: 0, wrong: 0 };
 }
 
 /* ===========================
@@ -58,15 +57,15 @@ function updateHangmanSVG(parts) {
 =========================== */
 
 async function startGame() {
-  if (!window.currentVoc || window.currentVoc.length === 0) {
+  if (!window.currentVoc || Object.keys(window.currentVoc).length === 0) {
     toast("No vocabulary loaded!");
     return;
   }
 
   mistakes = 0;
   lettersGuessed.clear();
-  maxMistakes = window.settingsLocal.lives;
-  questionsLeft = window.settingsLocal.questions;
+  maxMistakes = window.settingsLocal?.lives || 5;
+  questionsLeft = window.settingsLocal?.questions || 10;
 
   updateHangmanSVG(0);
   nextWord();
@@ -110,13 +109,10 @@ function guessLetter(letter) {
     if (!currentWordDisplay.includes("_")) {
       setTimeout(nextWord, 800);
     }
-
   } else {
     mistakes++;
     updateHangmanSVG(mistakes);
-
     toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages || ["Fallaste"]));
-
     stats.wrong++;
     saveStats(stats);
 
@@ -172,8 +168,8 @@ function initKeyboard() {
       VOCABULARIO
 =========================== */
 
-function loadCurrentVoc(vocArray) {
-  window.currentVoc = vocArray;
+function loadCurrentVoc(vocObj) {
+  window.currentVoc = vocObj || {};
 }
 
 /* ===========================

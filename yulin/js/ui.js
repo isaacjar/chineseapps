@@ -80,6 +80,10 @@ class UI {
         
         this.setupEventListeners();
         this.resetHeader(); // Asegurar header limpio
+        
+        // Inicializar con solo el botón de configuración visible
+        this.showSettingsOnly();
+        
         this.loadVocabLists().then(() => {
             this.updateLabels();
             this.loadSounds();
@@ -229,13 +233,83 @@ class UI {
             });
         }
     }
+    
+    // ========== MÉTODOS PARA MANEJAR VISIBILIDAD DEL HEADER ==========
+    
+    // Muestra solo el botón de configuración ⚙️ en el menú
+    showSettingsOnly() {
+        const settingsBtn = document.getElementById('settings-btn');
+        const gameStats = document.getElementById('game-stats');
         
-   goToHome() {
+        if (settingsBtn) {
+            settingsBtn.classList.remove('hidden');
+            settingsBtn.style.display = 'inline-block';
+        }
+        
+        if (gameStats) {
+            // Ocultar completamente el contenedor de estadísticas
+            gameStats.classList.add('hidden');
+            gameStats.style.display = 'none';
+            
+            // Limpiar cualquier contenido existente
+            gameStats.innerHTML = '';
+        }
+    }
+    
+    // Muestra las estadísticas de los juegos 1-4
+    showGameStats() {
+        const settingsBtn = document.getElementById('settings-btn');
+        const gameStats = document.getElementById('game-stats');
+        
+        if (settingsBtn) {
+            settingsBtn.classList.add('hidden');
+        }
+        
+        if (gameStats) {
+            // Resetear contenido a las estadísticas estándar
+            this.resetGameStatsContent();
+            
+            gameStats.classList.remove('hidden');
+            gameStats.style.display = 'flex';
+        }
+    }
+    
+    // Muestra estadísticas personalizadas para Game5
+    showGame5Stats(statsHTML) {
+        const settingsBtn = document.getElementById('settings-btn');
+        const gameStats = document.getElementById('game-stats');
+        
+        if (settingsBtn) {
+            settingsBtn.classList.add('hidden');
+        }
+        
+        if (gameStats) {
+            // Limpiar y establecer contenido de Game5
+            gameStats.innerHTML = statsHTML;
+            
+            gameStats.classList.remove('hidden');
+            gameStats.style.display = 'flex';
+        }
+    }
+    
+    // Restablece el contenido de las estadísticas a las estándar
+    resetGameStatsContent() {
+        const gameStats = document.getElementById('game-stats');
+        if (!gameStats) return;
+        
+        gameStats.innerHTML = `
+            <span id="question-progress">🌱 1/15</span>
+            <span id="score">🏅 0</span>
+            <span id="streak">🔥 0</span>
+            <span id="lives">❤️ 3</span>
+        `;
+    }
+        
+    goToHome() {
         console.log('goToHome() - Limpieza inteligente');
         
-        // Primero restaurar el botón de configuración SIEMPRE
-        const settingsBtn = document.getElementById('settings-btn');
-        if (settingsBtn) settingsBtn.classList.remove('hidden');
+        // Mostrar solo el botón de configuración
+        this.showSettingsOnly();
         
         // Determinar qué juego está activo
         const hasMemoryGame = document.querySelector('.memory-game-container');
@@ -268,9 +342,6 @@ class UI {
                 }
             }
         });
-        
-        // Ocultar estadísticas del juego
-        this.hideGameStats();
         
         // Mostrar pantalla de menú
         this.showScreen('menu-screen');
@@ -612,48 +683,29 @@ class UI {
             screen.classList.remove('hidden');
             screen.classList.add('active');
             
-            // Si estamos volviendo al menú, asegurarnos de que las estadísticas estén ocultas
+            // Si estamos volviendo al menú, asegurarnos de que solo se vea ⚙️
             if (screenId === 'menu-screen') {
-                this.hideGameStats();
+                this.showSettingsOnly();
+            }
+            
+            // Si vamos a juego, preparar estadísticas apropiadas
+            if (screenId === 'game-screen') {
+                this.resetGameStatsContent();
             }
         } else {
             console.error('No se encontró la pantalla:', screenId);
         }
     }
     
+    // Estos métodos se mantienen por compatibilidad pero usan los nuevos
     showGameStats() {
-        const settingsBtn = document.getElementById('settings-btn');
-        const gameStats = document.getElementById('game-stats');
-        
-        if (settingsBtn) settingsBtn.classList.add('hidden');
-        if (gameStats) gameStats.classList.remove('hidden');
+        // Usar el nuevo método
+        this.showGameStats();
     }
     
-   hideGameStats() {
-        const settingsBtn = document.getElementById('settings-btn');
-        const gameStats = document.getElementById('game-stats');
-        
-        if (settingsBtn) settingsBtn.classList.remove('hidden');
-        
-        if (gameStats) {
-            // Ocultar siempre el contenedor de estadísticas cuando volvemos al menú
-            gameStats.classList.add('hidden');
-            
-            // Si hay estadísticas de Game5, eliminarlas
-            const game5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
-            game5Stats.forEach(stat => {
-                if (stat && stat.parentNode) {
-                    stat.parentNode.removeChild(stat);
-                }
-            });
-            
-            // Mostrar los elementos originales
-            const originalIds = ['question-progress', 'score', 'streak', 'lives'];
-            originalIds.forEach(id => {
-                const elem = document.getElementById(id);
-                if (elem) elem.style.display = 'inline';
-            });
-        }
+    hideGameStats() {
+        // Usar el nuevo método que muestra solo ⚙️
+        this.showSettingsOnly();
     }
     
     saveSettings() {

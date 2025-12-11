@@ -1,7 +1,7 @@
 // app.js — arranque y enlazado de UI
 let settingsLocal = loadSettings();
-let currentVoc = [];   // vocabulario cargado para jugar
-let voclistsIndex = []; // copia local de la lista de listados
+let currentVoc = [];      // vocabulario cargado para jugar
+let voclistsIndex = [];   // copia local de la lista de listados
 
 /* ===========================
       CARGA LANG.JSON
@@ -19,7 +19,6 @@ async function loadLang() {
 /* ===========================
       CARGA LISTADOS VOCAB
 =========================== */
-
 // Espera a que voclists global (index.js) esté cargado
 function fetchVoclists() {
   return new Promise((resolve, reject) => {
@@ -47,7 +46,7 @@ async function fetchAndShowLists() {
   voclistsIndex.forEach(list => {
     const btn = document.createElement("button");
     btn.className = "voclistItem";
-    btn.textContent = `${list.title}`;
+    btn.textContent = list.title;
     btn.addEventListener("click", () => selectVoclist(list.filename));
     container.appendChild(btn);
   });
@@ -61,10 +60,10 @@ async function selectVoclist(filename) {
     const url = `../voclists/${filename}.json`; // ruta relativa desde hangwords/
 
     const res = await fetch(url);
-    currentVoc = await res.json();
+    currentVoc = await res.json(); // solo en memoria actual
     console.log("✓ vocabulario cargado", filename, currentVoc.length, "palabras");
 
-    settingsLocal.voclist = filename;
+    settingsLocal.voclist = filename; // guardamos solo configuración
     saveSettings(settingsLocal);
 
     startGame();
@@ -73,6 +72,14 @@ async function selectVoclist(filename) {
   } catch (e) {
     console.error("Error al cargar vocabulario", e);
   }
+}
+
+/* ===========================
+      URL PARAM
+=========================== */
+function getVoclistFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("voclist"); // retorna null si no hay
 }
 
 /* ===========================
@@ -153,10 +160,11 @@ async function startApp(){
 
   await fetchVoclists();
 
-  if (settingsLocal.voclist){
-    await selectVoclist(settingsLocal.voclist);
+  const vocFromURL = getVoclistFromURL();
+  if (vocFromURL) {
+    await selectVoclist(vocFromURL);
   } else {
-    await fetchAndShowLists();
+    await fetchAndShowLists(); // siempre mostrar popup al recargar
   }
 }
 

@@ -1,6 +1,7 @@
+/* game.js — flujo del juego y lógica */
+
 let settings = loadSettings();
-let voclistsIndex = [];
-let currentList = null;
+let currentVoc = [];        // vocabulario cargado para jugar
 let currentWord = null;
 let currentWordDisplay = [];
 let mistakes = 0;
@@ -8,19 +9,6 @@ let maxMistakes = settings.lives;
 let questionsLeft = settings.questions;
 let lettersGuessed = new Set();
 let stats = loadStats();
-
-/* ===========================
-      CARGA DE lang.json
-=========================== */
-async function loadLang() {
-  try {
-    const res = await fetch("js/lang.json");
-    langStrings = await res.json();
-    console.log("✓ lang.json cargado");
-  } catch(e) {
-    console.error("Error al cargar lang.json", e);
-  }
-}
 
 /* ===========================
       UTILIDADES
@@ -62,40 +50,23 @@ function loadStats() {
 =========================== */
 
 function updateHangmanSVG(parts) {
-  document.querySelectorAll(".hangman-part").forEach((el, index) => {
-    el.style.opacity = index < parts ? "1" : "0";
-  });
-}
+  const svg = document.getElementById("hangmanSVG");
+  if (!svg) return;
 
-/* ===========================
-      CARGA LISTAS
-=========================== */
-
-async function loadVoclistsIndex() {
-  try {
-    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/index.js");
-    const text = await res.text();
-    eval(text);
-    voclistsIndex = window.voclistsIndex || [];
-  } catch(e) {
-    console.error("Error al cargar index.js", e);
-  }
-}
-
-async function loadVocabulary(listFile) {
-  try {
-    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/" + listFile);
-    const text = await res.text();
-    let data = {};
-    eval("data = " + text);
-    return data;
-  } catch(e) {
-    console.error("Error al cargar vocabulario", e);
+  svg.innerHTML = "";
+  for (let i = 1; i <= parts; i++) {
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", 20*i);
+    line.setAttribute("y1", 0);
+    line.setAttribute("x2", 20*i);
+    line.setAttribute("y2", 50);
+    line.setAttribute("stroke", "black");
+    svg.appendChild(line);
   }
 }
 
 /* ===========================
-      FLUJO DEL JUEGO
+      JUEGO
 =========================== */
 
 async function startGame() {
@@ -106,8 +77,10 @@ async function startGame() {
 
   updateHangmanSVG(0);
 
-  let selected = document.getElementById("voclist").value;
-  currentList = await loadVocabulary(selected);
+  if (!currentVoc || currentVoc.length === 0) {
+    toast("No vocabulary loaded!");
+    return;
+  }
 
   nextWord();
 }
@@ -118,7 +91,7 @@ function nextWord() {
     return;
   }
 
-  let keys = Object.keys(currentList);
+  const keys = Object.keys(currentVoc);
   shuffleArray(keys);
 
   currentWord = keys[0];
@@ -143,9 +116,7 @@ function guessLetter(letter) {
   updateDisplay();
 
   if (correct) {
-    toast(
-      randomFrom(langStrings[settings.lang]?.successMessages || ["¡Bien!"])
-    );
+    toast(randomFrom(langStrings[settings.lang]?.successMessages || ["¡Bien!"]));
     stats.correct++;
     saveStats(stats);
 
@@ -157,9 +128,7 @@ function guessLetter(letter) {
     mistakes++;
     updateHangmanSVG(mistakes);
 
-    toast(
-      randomFrom(langStrings[settings.lang]?.failMessages || ["Fallaste"])
-    );
+    toast(randomFrom(langStrings[settings.lang]?.failMessages || ["Fallaste"]));
 
     stats.wrong++;
     saveStats(stats);
@@ -176,8 +145,16 @@ function showCorrectWord() {
 }
 
 function updateDisplay() {
-  document.getElementById("word").textContent = currentWordDisplay.join(" ");
-  document.getElementById("lettersUsed").textContent = [...lettersGuessed].join(" ");
+  const wordArea = document.getElementById("wordArea");
+  if (wordArea) wordArea.textContent = currentWordDisplay.join(" ");
+
+  let lettersUsed = document.getElementById("lettersUsed");
+  if (!lettersUsed) {
+    lettersUsed = document.createElement("div");
+    lettersUsed.id = "lettersUsed";
+    document.getElementById("wordArea")?.appendChild(lettersUsed);
+  }
+  lettersUsed.textContent = [...lettersGuessed].join(" ");
 }
 
 function endGame() {
@@ -185,11 +162,40 @@ function endGame() {
 }
 
 /* ===========================
-      INICIO DE LA APP
+      TECLADO
 =========================== */
 
-window.addEventListener("DOMContentLoaded", async () => {
-  await loadLang();
-  await loadVoclistsIndex();
-  document.getElementById("startBtn").addEventListener("click", startGame);
-});
+function initKeyboard() {
+  const keyboard = document.getElementById("keyboard");
+  if (!keyboard) return;
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  keyboard.innerHTML = "";
+
+  letters.forEach(l => {
+    const key = document.createElement("button");
+    key.className = "key";
+    key.textContent = l;
+    key.addEventListener("click", () => guessLetter(l));
+    keyboard.appendChild(key);
+  });
+}
+
+/* ===========================
+      VOCABULARIO
+=========================== */
+
+function loadCurrentVoc(vocArray) {
+  currentVoc = vocArray;
+}
+
+/* ===========================
+      INICIO DE APP
+=========================== */
+
+function initGameBindings() {
+  document.getElementById("btnNew")?.addEventListener("click", startGame);
+}
+
+initKeyboard();
+initGameBindings();

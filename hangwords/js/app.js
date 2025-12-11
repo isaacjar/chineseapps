@@ -16,13 +16,80 @@ async function loadLang() {
 }
 
 /* ===========================
+      CARGA LISTADOS VOCAB
+=========================== */
+
+let voclists = [];     // lista de listados
+let currentVoc = [];   // vocabulario cargado para jugar
+
+// Carga estructura index.js o voclists.json
+async function fetchVoclists() {
+  try {
+    const res = await fetch("https://isaacjar.github.io/chineseapps/voclists/index.js");
+    const text = await res.text();
+    // el archivo define "const voclists = [...]"
+    // tenemos que evaluarlo en un contexto seguro
+    const match = text.match(/const voclists\s*=\s*(\[[\s\S]*?\]);/);
+    voclists = JSON.parse(match[1]);
+    console.log("✓ voclists cargados", voclists);
+  } catch (e) {
+    console.error("Error al cargar voclists", e);
+  }
+}
+
+// Muestra la selección de listados
+async function fetchAndShowLists() {
+  const container = document.getElementById("voclistsContainer");
+  if (!container) {
+    console.warn("No existe #voclistsContainer");
+    return;
+  }
+
+  container.innerHTML = "";
+
+  voclists.forEach(list => {
+    const btn = document.createElement("button");
+    btn.className = "voclistItem";
+    btn.textContent = `${list.title}`;
+    btn.addEventListener("click", () => selectVoclist(list.filename));
+    container.appendChild(btn);
+  });
+
+  showScreen("lists");
+}
+
+// Carga un vocabulario concreto
+async function selectVoclist(filename) {
+  try {
+    const url = `https://isaacjar.github.io/chineseapps/voclists/${filename}.json`;
+
+    const res = await fetch(url);
+    currentVoc = await res.json();
+    console.log("✓ vocabulario cargado", filename, currentVoc.length, "palabras");
+
+    settingsLocal.voclist = filename;
+    saveSettings(settingsLocal);
+
+    startGame();
+    showScreen("game");
+
+  } catch (e) {
+    console.error("Error al cargar vocabulario", e);
+  }
+}
+
+
+/* ===========================
       BINDINGS UI
 =========================== */
 function initUIBindings(){
   // settings controls
   const selectLang = document.getElementById('selectLang');
   Object.keys(langStrings).forEach(k=>{
-    const o = document.createElement('option'); o.value=k; o.textContent = k; selectLang.appendChild(o);
+    const o = document.createElement('option'); 
+    o.value=k; 
+    o.textContent = k; 
+    selectLang.appendChild(o);
   });
   selectLang.value = settingsLocal.lang;
 
@@ -88,15 +155,18 @@ function initUIBindings(){
   });
 }
 
+
 /* ===========================
       ARRANQUE DE LA APP
 =========================== */
 async function startApp(){
-  await loadLang();                  // <---- carga JSON correctamente
+  await loadLang();                  
   setI18n(langStrings, settingsLocal.lang);
   initUIBindings();
   
   await fetchVoclists();
+
+  // Si ya había voclist seleccionado → cargarlo directamente
   if (settingsLocal.voclist){
     await selectVoclist(settingsLocal.voclist);
   } else {

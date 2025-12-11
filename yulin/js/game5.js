@@ -465,7 +465,7 @@ class Game5 {
         gameStats.classList.remove('hidden');
     }
     // Añade este nuevo método para restaurar el header
-    restoreGameStats() {
+    /*restoreGameStats() {
         const gameStats = document.getElementById('game-stats');
         if (!gameStats) return;
         
@@ -482,7 +482,7 @@ class Game5 {
         
         // Asegurar que el contenedor se muestre
         gameStats.classList.remove('hidden');
-    }
+    }*/
 
     // Añade este método para restaurar el estado del menú
     restoreMenuState() {
@@ -1079,7 +1079,6 @@ class Game5 {
     }
 
     // ========== MÉTODO CLEANUP CORREGIDO ==========
-    
     cleanup() {
         console.log('Game5.cleanup() - Iniciando limpieza segura');
         
@@ -1109,10 +1108,7 @@ class Game5 {
             }
         });
         
-        // 5. Restaurar el estado del menú (esto ocultará las estadísticas)
-        this.restoreMenuState();
-        
-        // 6. Resetear estado interno
+        // 5. Resetear estado interno
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;

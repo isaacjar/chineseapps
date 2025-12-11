@@ -3,8 +3,8 @@
 let currentWord = null;
 let currentWordDisplay = [];
 let mistakes = 0;
-let maxMistakes = settings.lives;
-let questionsLeft = settings.questions;
+let maxMistakes = 0;
+let questionsLeft = 0;
 let lettersGuessed = new Set();
 let stats = loadStats();
 
@@ -21,16 +21,6 @@ function shuffleArray(array) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-}
-
-function saveSettings(newSettings) {
-  localStorage.setItem("hangmanSettings", JSON.stringify(newSettings));
-}
-
-function loadSettings() {
-  let saved = localStorage.getItem("hangmanSettings");
-  if (saved) return JSON.parse(saved);
-  return { lang: "es", lives: 6, questions: 10 };
 }
 
 function saveStats(stats) {
@@ -68,18 +58,17 @@ function updateHangmanSVG(parts) {
 =========================== */
 
 async function startGame() {
-  mistakes = 0;
-  questionsLeft = settings.questions;
-  lettersGuessed.clear();
-  maxMistakes = settings.lives;
-
-  updateHangmanSVG(0);
-
-  if (!currentVoc || currentVoc.length === 0) {
+  if (!window.currentVoc || window.currentVoc.length === 0) {
     toast("No vocabulary loaded!");
     return;
   }
 
+  mistakes = 0;
+  lettersGuessed.clear();
+  maxMistakes = window.settingsLocal.lives;
+  questionsLeft = window.settingsLocal.questions;
+
+  updateHangmanSVG(0);
   nextWord();
 }
 
@@ -89,7 +78,7 @@ function nextWord() {
     return;
   }
 
-  const keys = Object.keys(currentVoc);
+  const keys = Object.keys(window.currentVoc);
   shuffleArray(keys);
 
   currentWord = keys[0];
@@ -114,7 +103,7 @@ function guessLetter(letter) {
   updateDisplay();
 
   if (correct) {
-    toast(randomFrom(langStrings[settings.lang]?.successMessages || ["¡Bien!"]));
+    toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages || ["¡Bien!"]));
     stats.correct++;
     saveStats(stats);
 
@@ -126,7 +115,7 @@ function guessLetter(letter) {
     mistakes++;
     updateHangmanSVG(mistakes);
 
-    toast(randomFrom(langStrings[settings.lang]?.failMessages || ["Fallaste"]));
+    toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages || ["Fallaste"]));
 
     stats.wrong++;
     saveStats(stats);
@@ -184,7 +173,7 @@ function initKeyboard() {
 =========================== */
 
 function loadCurrentVoc(vocArray) {
-  currentVoc = vocArray;
+  window.currentVoc = vocArray;
 }
 
 /* ===========================
@@ -195,5 +184,8 @@ function initGameBindings() {
   document.getElementById("btnNew")?.addEventListener("click", startGame);
 }
 
-initKeyboard();
-initGameBindings();
+/* inicializamos teclado y bindings una vez cargado el DOM */
+window.addEventListener("DOMContentLoaded", () => {
+  initKeyboard();
+  initGameBindings();
+});

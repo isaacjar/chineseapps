@@ -1,5 +1,7 @@
 // app.js — arranque y enlazado de UI
 let settingsLocal = loadSettings();
+let currentVoc = [];   // vocabulario cargado para jugar
+let voclistsIndex = []; // copia local de la lista de listados
 
 /* ===========================
       CARGA LANG.JSON
@@ -18,13 +20,9 @@ async function loadLang() {
       CARGA LISTADOS VOCAB
 =========================== */
 
-let voclists = [];     // lista de listados
-let currentVoc = [];   // vocabulario cargado para jugar
-
-// Carga estructura index.js o voclists.json
+// Espera a que voclists global (index.js) esté cargado
 function fetchVoclists() {
   return new Promise((resolve, reject) => {
-    // espera a que voclists.js haya cargado
     if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
       voclistsIndex = voclists;
       console.log("Voclists cargadas:", voclistsIndex.length);
@@ -46,7 +44,7 @@ async function fetchAndShowLists() {
 
   container.innerHTML = "";
 
-  voclists.forEach(list => {
+  voclistsIndex.forEach(list => {
     const btn = document.createElement("button");
     btn.className = "voclistItem";
     btn.textContent = `${list.title}`;
@@ -60,7 +58,7 @@ async function fetchAndShowLists() {
 // Carga un vocabulario concreto
 async function selectVoclist(filename) {
   try {
-    const url = `https://isaacjar.github.io/chineseapps/voclists/${filename}.json`;
+    const url = `../voclists/${filename}.json`; // ruta relativa desde hangwords/
 
     const res = await fetch(url);
     currentVoc = await res.json();
@@ -77,12 +75,10 @@ async function selectVoclist(filename) {
   }
 }
 
-
 /* ===========================
       BINDINGS UI
 =========================== */
 function initUIBindings(){
-  // settings controls
   const selectLang = document.getElementById('selectLang');
   Object.keys(langStrings).forEach(k=>{
     const o = document.createElement('option'); 
@@ -105,10 +101,7 @@ function initUIBindings(){
     document.getElementById('questionsValue').textContent = e.target.value;
   });
 
-  document.getElementById('btnSettings').addEventListener('click', ()=>{
-    setI18n(langStrings, settingsLocal.lang); 
-    showScreen('settings');
-  });
+  document.getElementById('btnSettings').addEventListener('click', ()=>{ setI18n(langStrings, settingsLocal.lang); showScreen('settings'); });
   document.getElementById('btnCloseLists').addEventListener('click', ()=>{ showScreen('game'); });
 
   document.getElementById('btnSaveSettings').addEventListener('click', ()=>{
@@ -117,7 +110,6 @@ function initUIBindings(){
     settingsLocal.lives = Number(document.getElementById('inputLives').value);
     settingsLocal.questions = Number(document.getElementById('inputQuestions').value);
     saveSettings(settingsLocal);
-    settings = loadSettings();
     toast('Settings saved');
     setI18n(langStrings, settingsLocal.lang);
     showScreen('lists');
@@ -130,10 +122,7 @@ function initUIBindings(){
     toast('Settings reset'); 
   });
 
-  document.getElementById('btnStats').addEventListener('click', ()=>{ 
-    updateStatsUI(); 
-    showScreen('stats'); 
-  });
+  document.getElementById('btnStats').addEventListener('click', ()=>{ updateStatsUI(); showScreen('stats'); });
   document.getElementById('btnCloseStats').addEventListener('click', ()=>{ showScreen('game'); });
   document.getElementById('btnResetStats').addEventListener('click', ()=>{
     resetStats(); 
@@ -154,16 +143,14 @@ function initUIBindings(){
   });
 }
 
-
 /* ===========================
       ARRANQUE DE LA APP
 =========================== */
 async function startApp(){
-  await loadLang();                  // carga lang.json
+  await loadLang();
   setI18n(langStrings, settingsLocal.lang);
   initUIBindings();
-  
-  // cargamos voclists desde la variable global
+
   await fetchVoclists();
 
   if (settingsLocal.voclist){

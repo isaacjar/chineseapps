@@ -15,7 +15,8 @@
     </div>
 
     <div class="status-panel" aria-live="polite">
-      <button id="btnNew" class="btn primary">New</button>
+      <button id="btnNew" class="btn primary">🆕</button>
+      <button id="btnAdd" class="btn primary">➕</button>
       <div class="stat">🏆 <span id="score">0</span></div>
       <div class="stat">🎯 <span id="correctLetters">0</span></div>
       <div class="stat">❤️ <span id="lives">7</span></div>
@@ -104,6 +105,21 @@
 
   </main>
 
+  <!-- Modal para introducir palabras -->
+  <div id="customWordsModal" class="custom-modal hidden">
+    <div class="custom-modal-content">
+      <h2>Introduce tus palabras</h2>
+      <p class="sub">Separadas por espacios, comas, punto y coma o puntos.</p>
+  
+      <textarea id="customWordsInput"></textarea>
+  
+      <div class="modal-buttons">
+        <button id="modalCancel">Cancelar</button>
+        <button id="modalOK" class="ok">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">HangWords 🧍 IJH 🧎Made for learning joy</footer>
 
   <!-- Toast -->
@@ -115,6 +131,6 @@
   <script src="js/stats.js" defer></script>
   <script src="js/game.js" defer></script>
   <script src="js/app.js" defer></script>
-
+  
 </body>
 </html>

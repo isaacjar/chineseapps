@@ -178,4 +178,13 @@ window.addEventListener('beforeunload', ()=>{
   saveSettings(settingsLocal);
 });
 
+// Refresca la app al pulsar sobre el logo o título
+const brand = document.querySelector(".brand");
+if (brand) {
+    brand.style.cursor = "pointer"; // cursor de mano para indicar que es clicable
+    brand.addEventListener("click", () => {
+        location.reload();
+    });
+}
+
 startApp();

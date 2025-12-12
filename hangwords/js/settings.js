@@ -38,3 +38,6 @@ function saveSettings(settings){
 function resetSettings(){
   localStorage.removeItem(SETTINGS_KEY);
 }
+
+// Inicializar configuración global
+window.settingsLocal = loadSettings();

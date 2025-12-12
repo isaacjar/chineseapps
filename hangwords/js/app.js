@@ -124,7 +124,7 @@ function initUIBindings(){
     toast('Settings reset'); 
   });
 
-  document.getElementById('btnStats').addEventListener('click', ()=>{ updateStatsUI(); showScreen('stats'); });
+  // document.getElementById('btnStats').addEventListener('click', ()=>{ updateStatsUI(); showScreen('stats'); });
   document.getElementById('btnCloseStats').addEventListener('click', ()=>{ showScreen('game'); });
   document.getElementById('btnResetStats').addEventListener('click', ()=>{
     resetStats(); 

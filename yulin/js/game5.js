@@ -1,4 +1,4 @@
-// game5.js - Memory Game
+// game5.js - Memory Game - VERSION LIMPIA Y CORREGIDA
 class Game5 {
     constructor(settings, stats, ui) {
         this.settings = settings;

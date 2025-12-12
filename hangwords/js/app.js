@@ -134,7 +134,13 @@ function initUIBindings(){
 
   document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
   
-  document.getElementById("btnAdd").addEventListener("click", () => { modalInput.value = ""; modal.classList.remove("hidden"); modalInput.focus(); });
+  document.getElementById("btnAdd").addEventListener("click", () => {
+    const modal = document.getElementById("customWordsModal");
+    const input = document.getElementById("customWordsInput");
+    input.value = "";
+    modal.classList.remove("hidden");
+    input.focus();
+  });
 
   // keyboard events
   document.addEventListener('keydown', (e)=>{

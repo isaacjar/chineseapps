@@ -1,5 +1,6 @@
 // app.js — arranque y enlazado de UI
-let settingsLocal = loadSettings();
+window.settingsLocal = loadSettings();
+let settingsLocal = window.settingsLocal;
 window.currentVoc = [];   // global para game.js
 let voclistsIndex = [];   // copia local de la lista de listados
 

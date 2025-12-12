@@ -15,10 +15,10 @@ let stats = loadStats();
 function randomFrom(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
 function shuffleArray(array){
-  for(let i=array.length-1;i>0;i--){
-    let j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
-  }
+    for(let i=array.length-1;i>0;i--){
+        let j=Math.floor(Math.random()*(i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+    }
 }
 
 function saveStats(stats){localStorage.setItem("hangmanStats",JSON.stringify(stats))}
@@ -26,7 +26,7 @@ function loadStats(){const stored=localStorage.getItem("hangmanStats");return st
 
 // Normaliza texto eliminando acentos
 function normalizeChar(c){
-  return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+    return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 }
 
 /* ===========================
@@ -64,21 +64,18 @@ async function startGame(){
     nextWord();
 }
 
-function nextWord() {
-    if (questionsLeft <= 0) { endGame(); return; }
+function nextWord(){
+    if(questionsLeft<=0){endGame(); return;}
 
-    const vocArray = Object.values(window.currentVoc); // obtenemos un array de objetos
-    const longWords = vocArray.filter(v => v.pin && v.pin.replace(/\s/g,'').length >= 5);
-
+    const vocArray=Object.values(window.currentVoc); // array de objetos
+    const longWords=vocArray.filter(v => v.pin && v.pin.replace(/\s/g,'').length >= 5);
     shuffleArray(longWords);
 
-    if(longWords.length === 0){
-        toast("No words with 5+ letters");
-        return;
-    }
+    if(longWords.length===0){toast("No words with 5+ letters"); return;}
 
-    currentWord = longWords[0].pin; // usamos el campo pin
-    console.log("Word selected:", currentWord);
+    currentWord = longWords[0].pin;
+    console.log("Word selected (raw):", currentWord);
+    console.log("Word normalized:", currentWord.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s/g,'')); 
 
     // Genera display con guiones _ ignorando espacios
     currentWordDisplay = Array.from(currentWord).map(c => c === " " ? c : "_");
@@ -100,6 +97,7 @@ function resetKeyboard(){
 function guessLetter(letter){
     if(!currentWord) return;
     if(lettersGuessed.has(letter)) return;
+
     lettersGuessed.add(letter);
 
     let correct=false;
@@ -119,12 +117,15 @@ function guessLetter(letter){
         if(keyBtn){keyBtn.classList.add("correct"); keyBtn.disabled=true;}
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages||["¡Bien!"]));
         stats.correct++; saveStats(stats);
+
         if(!currentWordDisplay.includes("_")) setTimeout(nextWord,800);
+
     } else {
         mistakes++; updateHangmanSVG(mistakes);
         if(keyBtn){keyBtn.classList.add("wrong"); keyBtn.disabled=true;}
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages||["Fallaste"]));
         stats.wrong++; saveStats(stats);
+
         if(mistakes>=maxMistakes) showCorrectWord();
     }
 }

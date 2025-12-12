@@ -91,7 +91,8 @@ function guessLetter(letter){
         toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.failMessages||["Fallaste"]));
         if(mistakes>=maxMistakes){ stats.wrong++; saveStats(); showCorrectWord(); }
     }
-    updateStatsDisplay();
+    updateScoreDisplay();
+    updateLivesDisplay();
 }
 
 /* ===========================

@@ -37,7 +37,7 @@ body{margin:0;padding:0;background:#f2f2f2;font-family:Arial,sans-serif;display:
 .game-layout{display:flex;gap:18px;align-items:stretch}
 .hangman-area{flex:0 0 auto;width:100%;max-width:420px;background:var(--card);border-radius:12px;padding:10px;box-shadow:var(--shadow);display:flex;align-items:flex-start;justify-content:center}
 .play-area{flex:1;display:flex;flex-direction:column;gap:18px}
-.word-area{font-size:36px;padding:26px;background:var(--card);border-radius:12px;min-height:160px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.word-area{font-size:5vw;padding:26px;background:var(--card);border-radius:12px;min-height:160px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
 .keyboard{display:flex;flex-wrap:wrap;gap:10px;padding:10px;align-items:center}
 .key{padding:12px 14px;border-radius:8px;border:1px solid #e6e9ef;background:white;min-width:42px;text-align:center;cursor:pointer;user-select:none}
 .key.disabled{opacity:.5;cursor:not-allowed}

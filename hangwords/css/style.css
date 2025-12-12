@@ -48,6 +48,11 @@ button.ok{background:#4CAF50;color:#fff;border:none}
 #customWordsModal { position: fixed; top:50%; left:50%; transform: translate(-50%,-50%); z-index:1000; background:white; padding:20px; border-radius:8px; }
 body.modal-open #main, body.modal-open header, body.modal-open footer { filter: blur(4px); pointer-events:none; user-select:none; }
 
+#wordListModal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;background:#fff;padding:20px;border-radius:12px;max-width:400px;width:90%;max-height:70vh;overflow-y:auto;box-shadow:0 4px 14px rgba(0,0,0,0.2);display:none}
+#wordListModal h2{text-align:center;margin-top:0}
+#wordListModal ul{list-style:none;padding:0}
+#wordListModal ul li{padding:4px 6px;border-bottom:1px solid #eee}
+
 /* GAME LAYOUT más ancho */
 .game-layout{display:flex;gap:18px;align-items:stretch}
 .hangman-area{flex:0 0 auto;width:100%;max-width:420px;background:var(--card);border-radius:12px;padding:10px;box-shadow:var(--shadow);display:flex;align-items:flex-start;justify-content:center}

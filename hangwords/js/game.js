@@ -163,6 +163,29 @@ document.getElementById("modalOK").addEventListener("click",()=>{
     nextWord();
 });
 
+const wordListModal=document.getElementById("wordListModal"),
+      wordListContainer=document.getElementById("wordListContainer"),
+      btnListWords=document.getElementById("btnListWords"),
+      btnWordListClose=document.getElementById("wordListClose");
+
+btnListWords.addEventListener("click",()=>{
+    wordListContainer.innerHTML="";
+    let words=[];
+    if(window.useCustomWords&&Array.isArray(window.customWordList)) words=window.customWordList;
+    else if(window.currentVoc) words=Object.values(window.currentVoc).map(v=>v.pin);
+    if(words.length===0) wordListContainer.innerHTML="<li>No words loaded</li>";
+    else words.forEach(w=>{const li=document.createElement("li");li.textContent=w;wordListContainer.appendChild(li);});
+    wordListModal.style.display="block";
+    overlay.style.display="block";
+    document.body.classList.add("modal-open");
+});
+
+btnWordListClose.addEventListener("click",()=>{
+    wordListModal.style.display="none";
+    overlay.style.display="none";
+    document.body.classList.remove("modal-open");
+});
+
 /* ===========================
       OTROS
 =========================== */

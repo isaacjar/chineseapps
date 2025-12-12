@@ -67,7 +67,7 @@
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible !important;
-    background-color: var(--pastel-green) !important;
+    background-color: var(--pastel-green-light) !important;
 }
 
 /* Contenedor principal - SIN ESPACIO EXTRA */
@@ -86,7 +86,7 @@
     margin: 0 !important;
     box-sizing: border-box !important;
     overflow: visible !important;
-    background-color: var(--pastel-green) !important;
+    background-color: var(--pastel-green-light) !important;
     z-index: 10 !important;
 }
 

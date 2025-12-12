@@ -131,11 +131,20 @@ function closeModal(modalEl){ modalEl.style.display="none"; if(!document.querySe
 safeAddEventListener("btnAdd","click",()=>openModal(modal));
 safeAddEventListener("modalCancel","click",()=>closeModal(modal));
 safeAddEventListener("modalOK","click",()=>{
-    const raw=document.getElementById("customWordsInput")?.value.trim(); if(!raw){ toast("No words entered"); return; }
-    const list=raw.split(/[\s,.;]+/).map(w=>w.trim().toLowerCase()).filter(w=>w.length>0);
-    if(list.length===0){ toast("Invalid list"); return; }
-    window.customWordList=list; window.useCustomWords=true;
-    closeModal(modal); toast("Custom list loaded: "+list.length+" words"); nextWord();
+    const raw = document.getElementById("customWordsInput")?.value.trim();
+    if(!raw){ toast("No words entered"); return; }
+
+    const list = raw.split(/[\s,.;]+/).map(w=>w.trim().toLowerCase()).filter(w=>w.length>0);
+    if(list.length === 0){ toast("Invalid list"); return; }
+
+    window.customWordList = list;
+    window.useCustomWords = true;
+
+    closeModal(modal); 
+    toast("Custom list loaded: "+list.length+" words");
+
+    // Arrancar el juego directamente como si se seleccionara un listado de vocabulario
+    startGame();
 });
 
 safeAddEventListener("btnListWords","click",()=>{

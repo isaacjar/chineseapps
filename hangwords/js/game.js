@@ -1,70 +1,56 @@
-/* game.js — flujo del juego y lógica */
+/* game.js — juego de Hangman depurado y compacto */
 
-let currentWord = null;
-let previousWord = null;
-let currentWordDisplay = [];
-let mistakes = 0;
-let maxMistakes = 0;
-let questionsLeft = 0;
-let lettersGuessed = new Set();
-let stats = loadStats();
+let currentWord = null, previousWord = null;
+let currentWordDisplay = [], mistakes = 0, maxMistakes = 0, questionsLeft = 0;
+let lettersGuessed = new Set(), stats = loadStats(), usedWords = [];
 
 /* ===========================
       UTILIDADES
 =========================== */
 function randomFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-function shuffleArray(array){for(let i=array.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]];}}
+function shuffleArray(a){ for(let i=a.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
 function saveStats(){ localStorage.setItem("hangmanStats",JSON.stringify(stats)); }
-function loadStats(){
-    const stored = localStorage.getItem("hangmanStats");
-    if(stored){ const s = JSON.parse(stored); s.score=s.score||0;s.correctLetters=s.correctLetters||0;s.correct=s.correct||0;s.wrong=s.wrong||0; return s;}
-    return {correct:0,wrong:0,score:0,correctLetters:0};
+function loadStats(){ 
+    const stored=localStorage.getItem("hangmanStats"); 
+    if(stored){ let s=JSON.parse(stored); s.score=s.score||0; s.correctLetters=s.correctLetters||0; s.correct=s.correct||0; s.wrong=s.wrong||0; return s; } 
+    return {correct:0,wrong:0,score:0,correctLetters:0}; 
 }
 function normalizeChar(c){ return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(); }
+function safeAddEventListener(id, ev, fn){ const el=document.getElementById(id); if(el) el.addEventListener(ev,fn); }
 
 /* ===========================
       DISPLAY
 =========================== */
-function updateDisplay(){
-    const wordArea = document.getElementById("wordArea");
-    if(wordArea) wordArea.textContent = currentWordDisplay.map(c=>c===" "?" ":c).join(" ");
-}
-function updateScoreDisplay(){
-    document.getElementById("score").textContent = stats.score;
-    document.getElementById("correctLetters").textContent = stats.correctLetters;
-}
-function updateLivesDisplay(){
-    const livesEl = document.getElementById("lives");
-    if(livesEl) livesEl.textContent = maxMistakes - mistakes;
-}
+function updateDisplay(){ const w=document.getElementById("wordArea"); if(w) w.textContent=currentWordDisplay.map(c=>c===" "?" ":c).join(" "); }
+function updateScoreDisplay(){ const s=document.getElementById("score"); const c=document.getElementById("correctLetters"); if(s) s.textContent=stats.score; if(c) c.textContent=stats.correctLetters; }
+function updateLivesDisplay(){ const l=document.getElementById("lives"); if(l) l.textContent=maxMistakes-mistakes; }
+function updateStatsDisplay(){ updateScoreDisplay(); updateLivesDisplay(); }
 
 /* ===========================
       HANGMAN SVG
 =========================== */
 function updateHangmanSVG(stage){
     const svg=document.getElementById("hangmanSVG"); if(!svg) return; svg.innerHTML="";
-    if(stage>=1){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",10); l.setAttribute("y1",190); l.setAttribute("x2",90); l.setAttribute("y2",190); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
-    if(stage>=2){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",50); l.setAttribute("y1",190); l.setAttribute("x2",50); l.setAttribute("y2",20); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
-    if(stage>=3){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",50); l.setAttribute("y1",20); l.setAttribute("x2",120); l.setAttribute("y2",20); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
-    if(stage>=4){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",20); l.setAttribute("x2",120); l.setAttribute("y2",50); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
-    if(stage>=5){ const c=document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",120); c.setAttribute("cy",70); c.setAttribute("r",20); c.setAttribute("stroke","black"); c.setAttribute("stroke-width",3); c.setAttribute("fill","none"); svg.appendChild(c);}
-    if(stage>=6){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",90); l.setAttribute("x2",120); l.setAttribute("y2",140); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
-    if(stage>=7){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",110); l.setAttribute("x2",90); l.setAttribute("y2",90); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
-    if(stage>=8){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",110); l.setAttribute("x2",150); l.setAttribute("y2",90); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
-    if(stage>=9){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",140); l.setAttribute("x2",90); l.setAttribute("y2",170); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
-    if(stage>=10){ const l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",140); l.setAttribute("x2",150); l.setAttribute("y2",170); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=1){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",10); l.setAttribute("y1",190); l.setAttribute("x2",90); l.setAttribute("y2",190); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
+    if(stage>=2){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",50); l.setAttribute("y1",190); l.setAttribute("x2",50); l.setAttribute("y2",20); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
+    if(stage>=3){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",50); l.setAttribute("y1",20); l.setAttribute("x2",120); l.setAttribute("y2",20); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",4); svg.appendChild(l);}
+    if(stage>=4){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",20); l.setAttribute("x2",120); l.setAttribute("y2",50); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=5){ let c=document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",120); c.setAttribute("cy",70); c.setAttribute("r",20); c.setAttribute("stroke","black"); c.setAttribute("stroke-width",3); c.setAttribute("fill","none"); svg.appendChild(c);}
+    if(stage>=6){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",90); l.setAttribute("x2",120); l.setAttribute("y2",140); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=7){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",110); l.setAttribute("x2",90); l.setAttribute("y2",90); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=8){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",110); l.setAttribute("x2",150); l.setAttribute("y2",90); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=9){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",140); l.setAttribute("x2",90); l.setAttribute("y2",170); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
+    if(stage>=10){ let l=document.createElementNS("http://www.w3.org/2000/svg","line"); l.setAttribute("x1",120); l.setAttribute("y1",140); l.setAttribute("x2",150); l.setAttribute("y2",170); l.setAttribute("stroke","black"); l.setAttribute("stroke-width",3); svg.appendChild(l);}
 }
 
 /* ===========================
       TECLADO
 =========================== */
-function initKeyboard(){
-    const keyboard = document.getElementById("keyboard"); if(!keyboard) return;
-    keyboard.innerHTML="";
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l=>{
-        const key=document.createElement("button"); key.className="key"; key.textContent=l;
-        key.addEventListener("click",()=>guessLetter(l));
-        keyboard.appendChild(key);
+function initKeyboard(){ 
+    const k=document.getElementById("keyboard"); if(!k) return; k.innerHTML="";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l=>{ 
+        const btn=document.createElement("button"); btn.className="key"; btn.textContent=l; 
+        btn.addEventListener("click",()=>guessLetter(l)); k.appendChild(btn);
     });
 }
 function resetKeyboard(){ document.querySelectorAll(".key").forEach(k=>{ k.classList.remove("correct","wrong"); k.disabled=false; }); }
@@ -85,14 +71,12 @@ function guessLetter(letter){
         toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.successMessages||["¡Bien!"]));
         if(!currentWordDisplay.includes("_")){ stats.score+=stats.correctLetters; stats.correct++; saveStats(); setTimeout(nextWord,800); }
     } else {
-        mistakes++;
-        updateHangmanSVG(mistakes);
+        mistakes++; updateHangmanSVG(mistakes);
         if(keyBtn){ keyBtn.classList.add("wrong"); keyBtn.disabled=true; }
         toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.failMessages||["Fallaste"]));
         if(mistakes>=maxMistakes){ stats.wrong++; saveStats(); showCorrectWord(); }
     }
-    updateScoreDisplay();
-    updateLivesDisplay();
+    updateStatsDisplay();
 }
 
 /* ===========================
@@ -100,14 +84,15 @@ function guessLetter(letter){
 =========================== */
 async function startGame(){
     if(!window.currentVoc || Object.keys(window.currentVoc).length===0){ toast("No vocabulary loaded!"); return; }
-    mistakes=0; lettersGuessed.clear();
-    maxMistakes=window.settingsLocal?.lives||5;
-    questionsLeft=window.settingsLocal?.questions||10;
+    mistakes=0; lettersGuessed.clear(); usedWords=[];
+    maxMistakes=window.settingsLocal?.lives||5; questionsLeft=window.settingsLocal?.questions||10;
     resetKeyboard(); updateHangmanSVG(0); nextWord();
 }
+
 function nextWord(){
     mistakes=0; stats.correctLetters=0; lettersGuessed.clear();
-    updateLivesDisplay(); updateHangmanSVG(0);
+    updateHangmanSVG(0); updateStatsDisplay();
+
     if(questionsLeft<=0){ endGame(); return; }
 
     let vocArray = (window.useCustomWords && Array.isArray(window.customWordList))
@@ -115,76 +100,52 @@ function nextWord(){
         : Object.values(window.currentVoc);
 
     const longWords = vocArray.filter(v=>v.pin && v.pin.replace(/\s/g,'').length>=5);
+    const availableWords = longWords.filter(w=>!usedWords.includes(w.pin));
+    if(availableWords.length===0) usedWords=[]; // reset usedWords si se acabaron
     shuffleArray(longWords);
 
-    let next = longWords.find(w=>w.pin!==previousWord);
-    if(!next) next=longWords[0];
+    let next = availableWords[0] || longWords[0];
     currentWord = next.pin; previousWord=currentWord;
+    usedWords.push(currentWord);
 
-    console.log("Playing word:", currentWord);
-
-    currentWordDisplay = Array.from(currentWord).map(c=>c===" "?" ":"_");
-    resetKeyboard(); updateDisplay(); updateScoreDisplay();
+    currentWordDisplay = Array.from(currentWord).map(c=>"_" );
+    resetKeyboard(); updateDisplay(); updateStatsDisplay();
     questionsLeft--;
 }
 
 /* ===========================
-      MODAL BLOQUEANTE
+      MODALES Y OVERLAY
 =========================== */
-const modal = document.getElementById("customWordsModal");
-const overlay = document.createElement("div");
-overlay.id="modalOverlay"; overlay.style.display="none";
-overlay.style.position="fixed"; overlay.style.top="0"; overlay.style.left="0";
-overlay.style.width="100%"; overlay.style.height="100%";
-overlay.style.background="rgba(0,0,0,0.5)"; overlay.style.zIndex="999";
+const modal=document.getElementById("customWordsModal"),
+      wordListModal=document.getElementById("wordListModal"),
+      wordListContainer=document.getElementById("wordListContainer"),
+      overlay=document.createElement("div");
+
+overlay.id="modalOverlay"; overlay.style.display="none"; overlay.style.position="fixed"; overlay.style.top="0"; overlay.style.left="0";
+overlay.style.width="100%"; overlay.style.height="100%"; overlay.style.background="rgba(0,0,0,0.5)"; overlay.style.zIndex="999";
 document.body.appendChild(overlay);
 
-function openCustomWordsModal(){
-    modal.classList.remove("hidden"); overlay.style.display="block";
-    document.body.classList.add("modal-open");
-    document.querySelectorAll(".key, #btnNew, #btnAdd").forEach(el=>el.disabled=true);
-    modal.focus();
-}
-function closeCustomWordsModal(){
-    modal.classList.add("hidden"); overlay.style.display="none";
-    document.body.classList.remove("modal-open");
-    document.querySelectorAll(".key, #btnNew, #btnAdd").forEach(el=>el.disabled=false);
-}
+function openModal(modalEl){ modalEl.style.display="block"; overlay.style.display="block"; document.body.classList.add("modal-open"); }
+function closeModal(modalEl){ modalEl.style.display="none"; if(!document.querySelector(".custom-modal:not(.hidden), #wordListModal[style*='block']")){ overlay.style.display="none"; document.body.classList.remove("modal-open"); } }
 
-document.getElementById("btnAdd").addEventListener("click",openCustomWordsModal);
-document.getElementById("modalCancel").addEventListener("click",closeCustomWordsModal);
-document.getElementById("modalOK").addEventListener("click",()=>{
-    const raw=document.getElementById("customWordsInput").value.trim();
-    if(!raw){ toast("No words entered"); return; }
+safeAddEventListener("btnAdd","click",()=>openModal(modal));
+safeAddEventListener("modalCancel","click",()=>closeModal(modal));
+safeAddEventListener("modalOK","click",()=>{
+    const raw=document.getElementById("customWordsInput")?.value.trim(); if(!raw){ toast("No words entered"); return; }
     const list=raw.split(/[\s,.;]+/).map(w=>w.trim().toLowerCase()).filter(w=>w.length>0);
     if(list.length===0){ toast("Invalid list"); return; }
     window.customWordList=list; window.useCustomWords=true;
-    closeCustomWordsModal(); toast("Custom list loaded: "+list.length+" words");
-    nextWord();
+    closeModal(modal); toast("Custom list loaded: "+list.length+" words"); nextWord();
 });
 
-const wordListModal=document.getElementById("wordListModal"),
-      wordListContainer=document.getElementById("wordListContainer"),
-      btnListWords=document.getElementById("btnListWords"),
-      btnWordListClose=document.getElementById("wordListClose");
-
-btnListWords.addEventListener("click",()=>{
-    wordListContainer.innerHTML="";
-    let words=[];
-    if(window.useCustomWords&&Array.isArray(window.customWordList)) words=window.customWordList;
-    else if(window.currentVoc) words=Object.values(window.currentVoc).map(v=>v.pin);
+safeAddEventListener("btnListWords","click",()=>{
+    if(!wordListContainer) return; wordListContainer.innerHTML="";
+    let words = window.useCustomWords&&Array.isArray(window.customWordList) ? window.customWordList : window.currentVoc ? Object.values(window.currentVoc).map(v=>v.pin) : [];
     if(words.length===0) wordListContainer.innerHTML="<li>No words loaded</li>";
-    else words.forEach(w=>{const li=document.createElement("li");li.textContent=w;wordListContainer.appendChild(li);});
-    wordListModal.style.display="block";
-    overlay.style.display="block";
-    document.body.classList.add("modal-open");
+    else words.forEach(w=>{ const li=document.createElement("li"); li.textContent=w; wordListContainer.appendChild(li); });
+    openModal(wordListModal);
 });
-
-btnWordListClose.addEventListener("click",()=>{
-    wordListModal.style.display="none";
-    overlay.style.display="none";
-    document.body.classList.remove("modal-open");
-});
+safeAddEventListener("wordListClose","click",()=>closeModal(wordListModal));
 
 /* ===========================
       OTROS
@@ -192,11 +153,9 @@ btnWordListClose.addEventListener("click",()=>{
 function showCorrectWord(){ toast("❗ La palabra era: "+currentWord); document.querySelectorAll(".key").forEach(k=>k.disabled=true); setTimeout(nextWord,3000); }
 function endGame(){ toast("🏁 ¡Juego terminado!"); }
 function loadCurrentVoc(vocObj){ window.currentVoc=vocObj||{}; }
-function initGameBindings(){ const btnNew=document.getElementById("btnNew"); if(btnNew) btnNew.addEventListener("click",startGame); }
+function initGameBindings(){ safeAddEventListener("btnNew","click",startGame); }
 
 /* ===========================
       INIT
 =========================== */
-window.addEventListener("DOMContentLoaded",()=>{
-    initKeyboard(); initGameBindings();
-});
+window.addEventListener("DOMContentLoaded",()=>{ initKeyboard(); initGameBindings(); });

@@ -1,4 +1,4 @@
-// game5.js - Memory Game - VERSION OPTIMIZADA PARA CSS COMPACTO
+// game5.js - Memory Game
 class Game5 {
     constructor(settings, stats, ui) {
         this.settings = settings;
@@ -28,8 +28,8 @@ class Game5 {
         this.imageCache = new Map();
         
         // Configuración del juego
-        this.gridSize = 12; // Número de tarjetas por defecto (6 pares)
-        this.gridOptions = [8, 12, 16, 24, 32]; // Opciones de tamaño de grid
+        this.gridSize = 12;
+        this.gridOptions = [8, 12, 16, 24, 32];
         
         // Bind de métodos
         this.handleCardClick = this.handleCardClick.bind(this);
@@ -37,10 +37,7 @@ class Game5 {
     }
 
     async startGame() {
-        // Cargar listados de imágenes
         await this.loadPictureLists();
-        
-        // Mostrar popup de configuración inicial
         this.showInitialSetupPopup();
     }
 
@@ -48,15 +45,13 @@ class Game5 {
         try {
             const response = await fetch(this.picturesBaseUrl + 'index.js');
             if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            
             const scriptContent = await response.text();
             const match = scriptContent.match(/const vocpiclists\s*=\s*(\[.*?\]);/s);
-            
             if (match && match[1]) {
                 try { this.availablePictureLists = eval(`(${match[1]})`); }
-                catch (e) { console.error('Error parseando listados:', e); this.useFallbackPictureLists(); }
+                catch (e) { this.useFallbackPictureLists(); }
             } else { this.useFallbackPictureLists(); }
-        } catch (error) { console.error('Error cargando listados:', error); this.useFallbackPictureLists(); }
+        } catch (error) { this.useFallbackPictureLists(); }
     }
 
     useFallbackPictureLists() {
@@ -71,10 +66,8 @@ class Game5 {
     showInitialSetupPopup() {
         const popup = document.createElement('div');
         popup.className = 'popup-overlay game5-popup-overlay';
-        
         const content = document.createElement('div');
         content.className = 'popup-content game5-popup-content';
-        
         const title = document.createElement('h2');
         title.textContent = '🎮 Memory Game - Setup';
         title.className = 'game5-popup-title';
@@ -134,11 +127,18 @@ class Game5 {
         cancelButton.className = 'btn game5-cancel-btn';
 
         startButton.addEventListener('click', async () => {
-            if (!this.selectedList) { this.ui.showToast('Please select a vocabulary list', 'error'); return; }
+            if (!this.selectedList) { 
+                this.ui.showToast('Please select a vocabulary list', 'error'); 
+                return; 
+            }
             this.ui.showToast(`Loading "${this.selectedList.title}"...`, 'info');
             const success = await this.loadPictureList(this.selectedList.filename);
-            if (success) { document.body.removeChild(popup); this.startGameSession(); }
-            else { this.ui.showToast(`Error loading "${this.selectedList.title}"`, 'error'); }
+            if (success) { 
+                document.body.removeChild(popup); 
+                this.startGameSession(); 
+            } else { 
+                this.ui.showToast(`Error loading "${this.selectedList.title}"`, 'error'); 
+            }
         });
 
         cancelButton.addEventListener('click', () => {
@@ -223,7 +223,10 @@ class Game5 {
         
         try {
             const response = await fetch(imageUrl, { method: 'HEAD' });
-            if (response.ok) { this.imageCache.set(cacheKey, imageUrl); return imageUrl; }
+            if (response.ok) { 
+                this.imageCache.set(cacheKey, imageUrl); 
+                return imageUrl; 
+            }
         } catch {}
         
         const placeholderUrl = `https://via.placeholder.com/128.png/ffd8a6/5d4037?text=${encodeURIComponent(word.ch.substring(0, 2))}`;
@@ -231,9 +234,7 @@ class Game5 {
         return placeholderUrl;
     }
 
-   startGameSession() {
-        console.log('🚀 startGameSession() INICIADO');
-        
+    startGameSession() {
         this.score = 0;
         this.moves = 0;
         this.matchedPairs = 0;
@@ -243,42 +244,12 @@ class Game5 {
         this.timeElapsed = 0;
         this.gameStarted = false;
         
-        console.log('📺 Mostrando pantalla de juego...');
         this.ui.showScreen('game-screen');
-        
-        const gameScreen = document.getElementById('game-screen');
-        console.log('🖥️ game-screen encontrado:', !!gameScreen);
-        
-        console.log('🏷️ Añadiendo clase game5-active...');
-        gameScreen.classList.add('game5-active');
-        console.log('✅ Clase añadida:', gameScreen.classList.contains('game5-active'));
-        
-        console.log('📊 Configurando estadísticas...');
+        document.getElementById('game-screen').classList.add('game5-active');
         this.setupGameStats();
         this.updateStats();
-        
-        console.log('🎲 Creando tablero...');
         this.createBoard();
-        
-        console.log('⏰ Iniciando timer...');
         this.startTimer();
-        
-        console.log('✅ startGameSession() COMPLETADO');
-        
-        // DEPURACIÓN EXTRA - Verificar después de 1 segundo
-        setTimeout(() => {
-            console.log('🔍 VERIFICACIÓN FINAL (1s después):');
-            console.log('- Elementos .game5-container:', document.querySelectorAll('.game5-container').length);
-            console.log('- Elementos .game5-grid:', document.querySelectorAll('.game5-grid').length);
-            console.log('- Elementos .game5-memory-card:', document.querySelectorAll('.game5-memory-card').length);
-            
-            // Forzar un color rojo para ver si los elementos existen
-            const cards = document.querySelectorAll('.game5-memory-card');
-            cards.forEach(card => {
-                card.style.backgroundColor = 'red !important';
-                card.style.border = '3px solid yellow !important';
-            });
-        }, 1000);
     }
         
     setupGameStats() {
@@ -286,7 +257,10 @@ class Game5 {
         const settingsBtn = document.getElementById('settings-btn');
         if (!gameStats) return;
         
-        if (settingsBtn) { settingsBtn.classList.add('hidden'); settingsBtn.style.display = 'none'; }
+        if (settingsBtn) { 
+            settingsBtn.classList.add('hidden'); 
+            settingsBtn.style.display = 'none'; 
+        }
         
         const existingGame5Stats = gameStats.querySelectorAll('.game5-stat, .game5-restart-btn');
         existingGame5Stats.forEach(stat => stat.remove());
@@ -294,7 +268,11 @@ class Game5 {
         const originalIds = ['question-progress', 'score', 'streak', 'lives'];
         originalIds.forEach(id => {
             const elem = document.getElementById(id);
-            if (elem) { elem.style.display = 'none'; elem.style.visibility = 'hidden'; elem.style.opacity = '0'; }
+            if (elem) { 
+                elem.style.display = 'none'; 
+                elem.style.visibility = 'hidden'; 
+                elem.style.opacity = '0'; 
+            }
         });
         
         const restartButton = document.createElement('button');
@@ -302,7 +280,10 @@ class Game5 {
         restartButton.className = 'game5-stat game5-restart-btn';
         restartButton.innerHTML = '🔄';
         restartButton.title = 'Restart Game';
-        restartButton.addEventListener('click', () => { this.cleanup(); this.startGameSession(); });
+        restartButton.addEventListener('click', () => { 
+            this.cleanup(); 
+            this.startGameSession(); 
+        });
         gameStats.appendChild(restartButton);
             
         const stats = [
@@ -343,85 +324,43 @@ class Game5 {
             if (elem) elem.style.display = 'inline';
         });
         
-        if (settingsBtn) { settingsBtn.classList.remove('hidden'); settingsBtn.style.display = 'inline-block'; }
+        if (settingsBtn) { 
+            settingsBtn.classList.remove('hidden'); 
+            settingsBtn.style.display = 'inline-block'; 
+        }
         gameStats.classList.add('hidden');
     }
         
-   createBoard() {
+    createBoard() {
         const gameScreen = document.getElementById('game-screen');
-        console.log('🔍 createBoard() - gameScreen:', gameScreen ? 'ENCONTRADO' : 'NO ENCONTRADO');
-        console.log('🔍 gameScreen tiene clase game5-active:', gameScreen.classList.contains('game5-active'));
         
         const existingContainers = document.querySelectorAll('.memory-game-container, .game5-container, .game5-grid-wrapper');
-        console.log('🗑️ Contenedores existentes a eliminar:', existingContainers.length);
-        
         existingContainers.forEach(container => {
-            if (container && container.parentNode) {
-                console.log('Eliminando contenedor:', container.className);
-                container.parentNode.removeChild(container);
-            }
+            if (container && container.parentNode) container.parentNode.removeChild(container);
         });
         
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container game5-container';
-        console.log('📦 Creado gameContainer con clases:', gameContainer.className);
         
         const gridWrapper = document.createElement('div');
         gridWrapper.className = 'game5-grid-wrapper';
-        gridWrapper.style.cssText = 'width: 100%; height: auto; max-height: calc(100vh - 100px); overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2px; box-sizing: border-box; scroll-behavior: smooth; background-color: rgba(255,0,0,0.1) !important;'; // Color temporal para debug
         
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid game5-grid';
         gridContainer.id = 'memory-grid';
-        gridContainer.style.cssText = 'flex: 1; min-height: 0; max-height: 100%; width: 100%; background-color: rgba(0,255,0,0.1) !important;'; // Color temporal para debug
         
         const cards = this.generateCards();
-        console.log('🎴 Cartas generadas:', cards.length);
-        
         cards.forEach(card => {
             const cardElement = this.createCardElement(card);
             gridContainer.appendChild(cardElement);
         });
         
-        console.log('🎴 Cartas añadidas al grid:', gridContainer.children.length);
-        
         gridWrapper.appendChild(gridContainer);
         gameContainer.appendChild(gridWrapper);
         gameScreen.appendChild(gameContainer);
         
-        console.log('✅ Elementos añadidos al DOM:');
-        console.log('- gameContainer añadido:', document.contains(gameContainer));
-        console.log('- gridWrapper añadido:', document.contains(gridWrapper));
-        console.log('- gridContainer añadido:', document.contains(gridContainer));
-        
-        // Verificar estilos inmediatamente
-        setTimeout(() => {
-            console.log('🔍 Verificación de estilos CSS:');
-            console.log('- gameContainer display:', window.getComputedStyle(gameContainer).display);
-            console.log('- gridContainer display:', window.getComputedStyle(gridContainer).display);
-            console.log('- gridContainer grid:', window.getComputedStyle(gridContainer).gridTemplateColumns);
-            
-            const cardsInGrid = gridContainer.querySelectorAll('.game5-memory-card');
-            console.log('- Cartas en grid:', cardsInGrid.length);
-            
-            if (cardsInGrid.length > 0) {
-                const firstCard = cardsInGrid[0];
-                console.log('- Primera carta:', {
-                    width: window.getComputedStyle(firstCard).width,
-                    height: window.getComputedStyle(firstCard).height,
-                    display: window.getComputedStyle(firstCard).display,
-                    visibility: window.getComputedStyle(firstCard).visibility
-                });
-            }
-        }, 50);
-        
         setTimeout(() => { 
-            if (gridContainer) {
-                console.log('⚙️ Configurando layout del grid...');
-                this.setupGridLayout(gridContainer); 
-            } else {
-                console.error('❌ gridContainer es null o undefined');
-            }
+            if (gridContainer) this.setupGridLayout(gridContainer); 
         }, 100);
         
         if (gridContainer) {
@@ -455,40 +394,38 @@ class Game5 {
         const viewportHeight = window.innerHeight;
         const isLandscape = viewportWidth > viewportHeight;
         
-        console.log(`Game5 - Viewport: ${viewportWidth}x${viewportHeight}, Cards: ${this.gridSize}`);
+        // Ajustar para header (60px) y footer (60px)
+        const headerHeight = 60;
+        const footerHeight = 60;
+        const availableHeight = viewportHeight - headerHeight - footerHeight - 20;
+        const availableWidth = viewportWidth - 20;
         
-        // ALTURAS OPTIMIZADAS PARA CSS COMPACTO
-        const headerHeight = 50; // Reducido de 80px para CSS compacto
-        const availableHeight = viewportHeight - headerHeight - 30; // Menos margen
-        const availableWidth = viewportWidth - 20; // Menos margen horizontal
+        // Espacios más agradables visualmente
+        const horizontalGap = 8;
+        const verticalGap = 8;
         
-        // ESPACIOS COMPACTOS
-        const horizontalGap = 2; // Ultra compacto (CSS tiene 2px)
-        const verticalGap = 2;   // Ultra compacto
-        
-        // Cálculo de columnas más agresivo para aprovechar espacio
+        // Cálculo de columnas equilibrado
         let columns, rows;
         
-        // Lógica más agresiva para aprovechar espacio horizontal
         if (this.gridSize <= 12) {
-            columns = isLandscape ? 6 : 4; // Más columnas en landscape
+            columns = isLandscape ? 4 : 3;
         } else if (this.gridSize <= 16) {
-            columns = isLandscape ? 6 : 4;
+            columns = isLandscape ? 4 : 4;
         } else if (this.gridSize <= 20) {
-            columns = isLandscape ? 7 : 5;
+            columns = isLandscape ? 5 : 4;
         } else if (this.gridSize <= 24) {
-            columns = isLandscape ? 8 : 6;
+            columns = isLandscape ? 6 : 4;
         } else {
-            columns = isLandscape ? 10 : 6; // Más columnas para 32 cartas
+            columns = isLandscape ? 8 : 6;
         }
         
-        // Tamaño mínimo de carta más pequeño para CSS compacto
-        const minCardWidth = 60; // Reducido de 70px
-        const maxCardWidth = 120; // Reducido de 180px
+        // Tamaños de carta más apropiados
+        const minCardWidth = 80;
+        const maxCardWidth = 140;
         
         const maxColumnsByWidth = Math.floor(availableWidth / (minCardWidth + horizontalGap));
         columns = Math.min(columns, maxColumnsByWidth);
-        columns = Math.max(3, columns); // Mínimo 3 columnas
+        columns = Math.max(2, columns);
         
         rows = Math.ceil(this.gridSize / columns);
         
@@ -500,11 +437,9 @@ class Game5 {
         }
         
         columns = Math.min(columns, maxColumnsByWidth);
-        columns = Math.max(3, columns);
+        columns = Math.max(2, columns);
         
-        console.log(`Game5 Compacto - Grid: ${columns} columns x ${rows} rows`);
-        
-        // Calcular tamaño con gaps ultra compactos
+        // Calcular tamaño de carta
         const cardWidth = Math.max(
             minCardWidth,
             Math.min(maxCardWidth, Math.floor((availableWidth - (columns - 1) * horizontalGap) / columns))
@@ -520,13 +455,10 @@ class Game5 {
             if (adjustedCardWidth >= minCardWidth) {
                 const finalCardWidth = Math.min(cardWidth, adjustedCardWidth);
                 const finalCardHeight = finalCardWidth * 1.2;
-                console.log(`Game5 - Ajustado por altura: ${finalCardWidth}px x ${finalCardHeight}px`);
                 this.applyCardSizeConstraints(finalCardWidth, finalCardHeight);
             } else {
                 columns = Math.min(columns + 1, maxColumnsByWidth);
                 rows = Math.ceil(this.gridSize / columns);
-                console.log(`Game5 - Recalculado: ${columns} columns x ${rows} rows`);
-                
                 const newCardWidth = Math.max(
                     minCardWidth,
                     Math.min(maxCardWidth, Math.floor((availableWidth - (columns - 1) * horizontalGap) / columns))
@@ -535,17 +467,16 @@ class Game5 {
                 this.applyCardSizeConstraints(newCardWidth, newCardHeight);
             }
         } else {
-            console.log(`Game5 - Card size: ${cardWidth}px x ${cardHeight}px`);
             this.applyCardSizeConstraints(cardWidth, cardHeight);
         }
         
-        // Configurar grid con espacios ultra compactos
+        // Configurar grid con espacios agradables
         gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
         gridContainer.style.gap = `${verticalGap}px ${horizontalGap}px`;
-        gridContainer.style.padding = '2px'; // Ultra compacto
+        gridContainer.style.padding = '0';
         gridContainer.style.boxSizing = 'border-box';
-        gridContainer.style.width = 'auto'; // Importante para centrado
+        gridContainer.style.width = 'auto';
         gridContainer.style.height = 'auto';
         gridContainer.style.minHeight = '0';
         gridContainer.style.maxHeight = `${Math.min(neededHeight, availableHeight)}px`;
@@ -562,148 +493,31 @@ class Game5 {
         const oldStyle = document.getElementById('memory-card-styles');
         if (oldStyle) oldStyle.remove();
         
-        const maxCardWidth = cardWidth || 80;
-        const maxCardHeight = cardHeight || 96;
+        const maxCardWidth = cardWidth || 100;
+        const maxCardHeight = cardHeight || 120;
         
-        // FUENTES MÁS PEQUEÑAS PARA CSS COMPACTO
-        const chineseFontSize = Math.min(1.5, maxCardWidth / 30);
-        const pinyinFontSize = Math.min(0.7, maxCardWidth / 60);
+        // Tamaños de fuente equilibrados
+        const chineseFontSize = Math.min(2, maxCardWidth / 25);
+        const pinyinFontSize = Math.min(0.9, maxCardWidth / 45);
         
         style.textContent = `
-            /* ESTILOS ESPECÍFICOS CUANDO GAME5 ESTÁ ACTIVO */
-            #game-screen.game5-active .memory-card,
             #game-screen.game5-active .game5-memory-card {
                 width: ${maxCardWidth}px !important;
                 height: ${maxCardHeight}px !important;
                 min-width: ${maxCardWidth}px !important;
                 min-height: ${maxCardHeight}px !important;
-                aspect-ratio: 1/1.2 !important;
-                margin: 0 !important;
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
             }
             
-            #game-screen.game5-active .memory-grid,
-            #game-screen.game5-active .game5-grid {
-                display: grid !important;
-                place-items: center !important;
-                align-content: center !important;
-                justify-content: center !important;
-                width: auto !important;
-                max-width: 100% !important;
-                margin: 0 auto !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            
-            #game-screen.game5-active .memory-chinese-character,
             #game-screen.game5-active .game5-chinese-character {
                 font-size: ${chineseFontSize}rem !important;
-                line-height: 1 !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                visibility: visible !important;
             }
             
-            #game-screen.game5-active .memory-pinyin,
             #game-screen.game5-active .game5-pinyin {
                 font-size: ${pinyinFontSize}rem !important;
-                line-height: 1 !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                visibility: visible !important;
-            }
-            
-            #game-screen.game5-active .card-front div:first-child {
-                font-size: ${Math.min(1.5, maxCardWidth / 40)}rem !important;
-            }
-            
-            #game-screen.game5-active .card-inner,
-            #game-screen.game5-active .game5-card-inner {
-                width: 100% !important;
-                height: 100% !important;
-            }
-            
-            /* Wrapper ultra compacto */
-            #game-screen.game5-active .game5-grid-wrapper {
-                width: 100% !important;
-                height: auto !important;
-                max-height: calc(100vh - 100px) !important;
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                align-items: center !important;
-                padding: 2px !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            
-            /* Contenedor principal */
-            #game-screen.game5-active .memory-game-container.game5-container {
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            
-            /* Scroll fino */
-            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar {
-                width: 4px;
-            }
-            
-            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar-track {
-                background: rgba(93, 64, 55, 0.05);
-                border-radius: 2px;
-            }
-            
-            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar-thumb {
-                background: rgba(93, 64, 55, 0.2);
-                border-radius: 2px;
-            }
-            
-            #game-screen.game5-active .memory-grid {
-                flex: 0 1 auto !important;
-                min-height: 0 !important;
-            }
-            
-            /* Ajustes específicos para cartas compactas */
-            #game-screen.game5-active .game5-card-back {
-                padding: 1px !important;
-                border-width: 1px !important;
-            }
-            
-            #game-screen.game5-active .game5-text-content {
-                padding: 1px !important;
-            }
-            
-            #game-screen.game5-active .game5-card-image {
-                max-width: 70% !important;
-                max-height: 70% !important;
-            }
-            
-            /* Asegurar que las cartas sean visibles */
-            #game-screen.game5-active .game5-memory-card {
-                background-color: var(--pastel-brown-dark) !important;
-                border-radius: 4px !important;
-                overflow: hidden !important;
-            }
-            
-            #game-screen.game5-active .game5-card-front {
-                background-color: var(--pastel-brown-dark) !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-            }
-            
-            #game-screen.game5-active .game5-card-back {
-                background-color: white !important;
             }
         `;
         
         document.head.appendChild(style);
-        console.log('✅ Estilos CSS aplicados para Game5 activo');
     }
     
     handleResize(gridContainer) {
@@ -755,7 +569,7 @@ class Game5 {
                     const placeholder = document.createElement('div');
                     placeholder.textContent = card.word.ch;
                     placeholder.className = 'game5-chinese-character';
-                    placeholder.style.cssText = 'font-size: 1.2rem !important; z-index: 3; position: absolute; color: #5d4037;';
+                    placeholder.style.cssText = 'font-size: 1.5rem !important; z-index: 3; position: absolute; color: #5d4037;';
                     imageContainer.appendChild(placeholder);
                     imageContainer.classList.add('loaded');
                 };
@@ -764,7 +578,7 @@ class Game5 {
                 const placeholder = document.createElement('div');
                 placeholder.textContent = card.word.ch;
                 placeholder.className = 'game5-chinese-character';
-                placeholder.style.cssText = 'font-size: 1.2rem !important; z-index: 3; position: absolute; color: #5d4037;';
+                placeholder.style.cssText = 'font-size: 1.5rem !important; z-index: 3; position: absolute; color: #5d4037;';
                 imageContainer.appendChild(placeholder);
                 imageContainer.classList.add('loaded');
             });
@@ -864,7 +678,10 @@ class Game5 {
     startTimer() {
         if (this.timer) clearInterval(this.timer);
         this.timer = setInterval(() => {
-            if (this.gameStarted) { this.timeElapsed++; this.updateStats(); }
+            if (this.gameStarted) { 
+                this.timeElapsed++; 
+                this.updateStats(); 
+            }
         }, 1000);
     }
 
@@ -881,8 +698,10 @@ class Game5 {
     }
 
     endGame() {
-        console.log('Game5: Fin del juego');
-        if (this.timer) { clearInterval(this.timer); this.timer = null; }
+        if (this.timer) { 
+            clearInterval(this.timer); 
+            this.timer = null; 
+        }
         if (this.matchedPairs > 0) this.stats.recordGame();
         
         if (this.gameStarted) {
@@ -951,12 +770,13 @@ class Game5 {
     }
 
     cleanup() {
-        console.log('Game5.cleanup() - Iniciando limpieza segura');
-        
         const gameScreen = document.getElementById('game-screen');
         if (gameScreen) gameScreen.classList.remove('game5-active');
         
-        if (this.timer) { clearInterval(this.timer); this.timer = null; }
+        if (this.timer) { 
+            clearInterval(this.timer); 
+            this.timer = null; 
+        }
         window.removeEventListener('resize', this.handleResize);
         
         const game5Elements = document.querySelectorAll('.memory-game-container, .game5-container, .game5-grid-wrapper, .game5-memory-card');
@@ -974,17 +794,22 @@ class Game5 {
             const originalIds = ['question-progress', 'score', 'streak', 'lives'];
             originalIds.forEach(id => {
                 const elem = document.getElementById(id);
-                if (elem) { elem.style.display = 'inline'; elem.style.visibility = 'visible'; elem.style.opacity = '1'; }
+                if (elem) { 
+                    elem.style.display = 'inline'; 
+                    elem.style.visibility = 'visible'; 
+                    elem.style.opacity = '1'; 
+                }
             });
         }
         
-        if (settingsBtn) { settingsBtn.classList.remove('hidden'); settingsBtn.style.display = 'inline-block'; }
+        if (settingsBtn) { 
+            settingsBtn.classList.remove('hidden'); 
+            settingsBtn.style.display = 'inline-block'; 
+        }
         
         this.selectedCards = [];
         this.canSelect = false;
         this.gameStarted = false;
-        
-        console.log('Game5.cleanup() - Limpieza completada');
     }
 
     shuffleArray(array) {
@@ -995,41 +820,4 @@ class Game5 {
         }
         return newArray;
     }
-
-// Añade este método a la clase Game5
-debugCheckVisibility() {
-    console.log('=== DEBUG VISIBILIDAD ===');
-    
-    const gameScreen = document.getElementById('game-screen');
-    console.log('1. game-screen:', gameScreen ? 'EXISTE' : 'NO EXISTE');
-    console.log('2. Tiene clase game5-active:', gameScreen?.classList.contains('game5-active'));
-    
-    const containers = [
-        '.game5-container',
-        '.game5-grid-wrapper', 
-        '.game5-grid',
-        '.game5-memory-card'
-    ];
-    
-    containers.forEach(selector => {
-        const element = document.querySelector(selector);
-        console.log(`${selector}:`, element ? 'EXISTE' : 'NO EXISTE');
-        if (element) {
-            const style = window.getComputedStyle(element);
-            console.log(`  - display: ${style.display}`);
-            console.log(`  - visibility: ${style.visibility}`);
-            console.log(`  - opacity: ${style.opacity}`);
-            console.log(`  - width: ${style.width}`);
-            console.log(`  - height: ${style.height}`);
-        }
-    });
-    
-    // Verificar estilos dinámicos
-    const dynamicStyle = document.getElementById('memory-card-styles');
-    console.log('Estilo dinámico memory-card-styles:', dynamicStyle ? 'EXISTE' : 'NO EXISTE');
-    if (dynamicStyle) {
-        console.log('Contenido del estilo:', dynamicStyle.textContent.substring(0, 200) + '...');
-    }
-}
-    
 }

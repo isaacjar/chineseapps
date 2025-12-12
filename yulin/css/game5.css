@@ -1,643 +1,306 @@
-/* game5.css - Estilos para el Memory Game */
+/* game5.css - Estilos para el Memory Game - VERSION ULTRA COMPACTA */
 
-/* Popup de configuración inicial */
+/* ========== POPUP DE CONFIGURACIÓN ========== */
 .game5-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5); display: flex; justify-content: center;
+    align-items: center; z-index: 1000;
 }
-
 .game5-popup-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: white; padding: 1.5rem; border-radius: 8px;
+    max-width: 90%; max-height: 90%; overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .game5-popup-title {
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: #5d4037;
+    margin: 0 0 1rem 0; text-align: center; color: #5d4037; font-size: 1.1rem;
 }
 
 /* Secciones del popup */
-.game5-list-section,
-.game5-grid-section {
-    margin-bottom: 1rem;
-}
-
-.game5-section-label {
-    margin-bottom: 1rem;
-    color: #795548;
-}
+.game5-list-section, .game5-grid-section { margin-bottom: 0.75rem; }
+.game5-section-label { margin: 0 0 0.5rem 0; color: #795548; font-size: 0.9rem; }
 
 /* Contenedor de listas */
 .game5-lists-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    max-height: 250px;
-    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.75rem;
+    max-height: 200px; overflow-y: auto;
 }
-
-/* Botones de listas */
 .game5-vocab-list-btn {
-    padding: 1rem;
-    background-color: var(--pastel-orange);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--transition);
-    text-align: left;
-    font-size: 1rem;
-    color: #5d4037;
+    padding: 0.5rem; background-color: var(--pastel-orange); border: none;
+    border-radius: 6px; cursor: pointer; transition: var(--transition);
+    text-align: left; font-size: 0.85rem; color: #5d4037;
 }
-
-.game5-vocab-list-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.game5-vocab-list-btn.selected {
-    background-color: var(--pastel-brown-dark);
-    color: white;
-}
+.game5-vocab-list-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.game5-vocab-list-btn.selected { background-color: var(--pastel-brown-dark); color: white; }
 
 /* Opciones de grid */
-.game5-grid-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
+.game5-grid-options { display: flex; flex-wrap: wrap; gap: 0.25rem; justify-content: center; }
 .game5-grid-option-btn {
-    padding: 0.75rem 1rem;
-    background-color: var(--pastel-green);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 0.9rem;
-    color: #5d4037;
+    padding: 0.5rem 0.75rem; background-color: var(--pastel-green); border: none;
+    border-radius: 6px; cursor: pointer; transition: var(--transition);
+    font-size: 0.8rem; color: #5d4037;
 }
-
-.game5-grid-option-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.game5-grid-option-btn.selected {
-    background-color: var(--pastel-green-dark);
-    color: white;
-}
+.game5-grid-option-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.game5-grid-option-btn.selected { background-color: var(--pastel-green-dark); color: white; }
 
 /* Botones de acción */
-.game5-buttons-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
+.game5-buttons-container { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
 .game5-start-btn {
-    padding: 0.75rem 2rem;
-    background-color: var(--pastel-brown-dark);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
+    padding: 0.5rem 1.5rem; background-color: var(--pastel-brown-dark); color: white;
+    border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: bold;
 }
-
 .game5-cancel-btn {
-    padding: 0.75rem 2rem;
-    background-color: var(--pastel-orange);
-    color: #5d4037;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem; background-color: var(--pastel-orange); color: #5d4037;
+    border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;
 }
 
-/* Estadísticas del juego */
+/* ========== ESTADÍSTICAS COMPACTAS ========== */
 .game5-stat {
-    margin-left: 1rem;
-    font-size: 1.1rem;
+    margin-left: 0.5rem; font-size: 0.9rem; display: inline-block !important;
+    vertical-align: middle;
 }
+#game-stats { display: flex !important; align-items: center !important; gap: 0.25rem !important; }
+#question-progress, #score, #streak, #lives { display: inline !important; font-size: 0.9rem; }
 
-/* Contenedor principal del juego */
-/* Contenedor principal del juego */
+/* ========== CONTENEDOR PRINCIPAL ULTRA COMPACTO ========== */
 .game5-container {
-    position: absolute; /* AÑADIR ESTO */
-    top: 60px;  
-    left: 0;  
-    width: 100%;  
-    height: calc(100vh - 100px); /* MODIFICAR: 100vh - (header + footer) */
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    overflow: hidden;
-    z-index: 10;  
+    position: absolute; top: 50px !important; left: 0; width: 100%;
+    height: calc(100vh - 80px) !important; display: flex; flex-direction: column;
+    padding: 2px !important; box-sizing: border-box; overflow: hidden; z-index: 10;
 }
-
 .game5-title {
-    text-align: center;
-    margin: 0.5rem 0;
-    color: #5d4037;
-    font-size: 1.2rem;
-    flex-shrink: 0;
+    text-align: center; margin: 2px 0; color: #5d4037; font-size: 1rem; flex-shrink: 0;
 }
 
+/* GRID WRAPPER COMPACTO */
 .game5-grid-wrapper {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: calc(100% - 50px);  
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; overflow: auto;
+    padding: 2px !important; width: 100%; height: 100%; box-sizing: border-box;
 }
 
-/* Grid de cartas */
+/* ========== GRID DE CARTAS ULTRA COMPACTO ========== */
 .game5-grid {
-    display: grid;
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    place-items: center;
+    display: grid; width: auto !important; height: auto !important;
+    min-height: 0; overflow: visible !important; gap: 2px !important;
+    padding: 2px !important; box-sizing: border-box; place-items: center;
+    justify-content: center; align-content: center; margin: 0 auto;
+    max-width: 100%;
 }
 
-/* Botón de reinicio */
-.game5-button-container {
-    flex-shrink: 0;
-    padding: 0.5rem 0;
-    text-align: center;
-    position: sticky;  
-    bottom: 0;  
-    background: white;
-    z-index: 5;  
-}
-
-.game5-reset-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-}
-
-/* Cartas de memoria */
+/* ========== CARTAS DE MEMORIA COMPACTAS ========== */
 .game5-memory-card {
-    aspect-ratio: 1/1.2;
-    perspective: 1000px;
-    cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+    aspect-ratio: 1/1.2; perspective: 800px; cursor: pointer; border-radius: 4px;
+    overflow: hidden; width: 100%; height: 100%; margin: 0 !important;
 }
-
 .game5-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.4s; transform-style: preserve-3d;
 }
 
 /* Cara frontal (reverso) */
 .game5-card-front {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background-color: var(--pastel-brown-dark);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #5d4037;
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    background-color: var(--pastel-brown-dark); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; border: 1px solid #5d4037;
 }
-
 .game5-pattern-container {
-    width: 80%;
-    height: 80%;
-    background-image: radial-gradient(circle, var(--pastel-orange) 2px, transparent 2px);
-    background-size: 20px 20px;
-    opacity: 0.7;
-    border-radius: 6px;
+    width: 80%; height: 80%;
+    background-image: radial-gradient(circle, var(--pastel-orange) 1px, transparent 1px);
+    background-size: 12px 12px; opacity: 0.7; border-radius: 3px;
 }
+.game5-yulin-logo { font-size: 1.2rem; position: absolute; z-index: 1; }
 
-.game5-yulin-logo {
-    font-size: 2rem;
-    position: absolute;
-    z-index: 1;
-}
-
-/* Cara trasera (contenido) */
+/* Cara trasera (contenido) - COMPACTA */
 .game5-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background-color: white;
-    border-radius: 8px;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    border: 2px solid var(--pastel-orange);
-    overflow: hidden;
-    box-sizing: border-box;
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    background-color: white; border-radius: 4px; transform: rotateY(180deg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1px !important; border: 1px solid var(--pastel-orange);
+    overflow: hidden; box-sizing: border-box;
 }
 
-/* Contenedor de imagen */
+/* Contenedor de imagen compacto */
 .game5-image-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--pastel-orange);
-    border-radius: 6px;
-    overflow: hidden;
+    width: 100%; height: 100%; display: flex; align-items: center;
+    justify-content: center; background-color: var(--pastel-brown);
+    border-radius: 3px; overflow: hidden; position: relative;
+}
+.game5-image-container.loaded { background-color: var(--pastel-brown); }
+.game5-card-image { max-width: 75%; max-height: 75%; object-fit: contain; z-index: 2; }
+.game5-image-pattern {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 0.5px, transparent 0.5px);
+    background-size: 8px 8px; border-radius: 3px; z-index: 1;
 }
 
-.game5-image-container.loaded {
-    background-color: transparent;
+/* Para las cartas de texto */
+.game5-card-back.text-card { background-color: var(--pastel-brown); }
+
+/* Contenedor de texto chino COMPACTO */
+.game5-text-content {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; background-color: var(--pastel-brown);
+    border-radius: 3px; position: relative; padding: 1px;
 }
 
-.game5-card-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.game5-image-placeholder {
-    font-size: 2rem;
-    color: #5d4037;
-}
-
-/* Texto chino y pinyin */
+/* Texto chino y pinyin COMPACTOS */
 .game5-chinese-character {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #5d4037;
-    margin-bottom: 0.25rem;
-    text-align: center;
-    line-height: 1;
+    font-size: 1.2rem !important; font-weight: bold; color: #5d4037;
+    margin: 0 !important; text-align: center; line-height: 1; z-index: 2;
 }
-
 .game5-pinyin {
-    font-size: 1rem;
-    color: #795548;
-    font-style: italic;
+    font-size: 0.7rem !important; color: #795548; font-style: italic;
+    z-index: 2; margin: 0 !important;
 }
 
 /* Estados de las cartas */
-.game5-memory-card.flipped .game5-card-inner {
-    transform: rotateY(180deg);
-}
+.game5-memory-card.flipped .game5-card-inner { transform: rotateY(180deg); }
+.game5-memory-card.matched { opacity: 0.6; cursor: default; }
+.game5-memory-card.matched .game5-card-back { border-color: var(--pastel-green-dark); }
 
-.game5-memory-card.matched {
-    opacity: 0.7;
-    cursor: default;
-}
-
-.game5-memory-card.matched .game5-card-back {
-    border-color: var(--pastel-green-dark);
-}
-
-/* Popup de resultados */
+/* ========== POPUP DE RESULTADOS COMPACTO ========== */
 .game5-results-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); display: flex; justify-content: center;
+    align-items: center; z-index: 2000;
 }
-
 .game5-results-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background-color: white; padding: 1rem; border-radius: 8px;
+    max-width: 400px; width: 90%; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
 .game5-results-title {
-    text-align: center;
-    color: #5d4037;
-    margin-bottom: 1rem;
+    text-align: center; color: #5d4037; margin: 0 0 0.5rem 0; font-size: 1rem;
 }
-
 .game5-results-message {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 8px;
-    background-color: var(--pastel-orange);
+    text-align: center; font-size: 0.9rem; margin-bottom: 1rem;
+    padding: 0.25rem; border-radius: 4px; background-color: var(--pastel-orange);
 }
-
-.game5-results-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-}
-
+.game5-results-stats { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
 .game5-result-stat {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--pastel-orange);
+    display: flex; justify-content: space-between; padding: 0.25rem;
+    border-bottom: 1px solid var(--pastel-orange); font-size: 0.85rem;
+}
+.game5-stat-label { font-weight: bold; color: #795548; }
+.game5-stat-value { color: #5d4037; font-weight: bold; }
+.game5-results-buttons { display: flex; gap: 0.5rem; justify-content: center; }
+.game5-play-again-btn, .game5-back-menu-btn {
+    padding: 0.4rem 0.8rem; border: none; border-radius: 4px;
+    cursor: pointer; font-size: 0.8rem; transition: var(--transition);
+}
+.game5-play-again-btn { background-color: var(--pastel-green-dark); color: white; }
+.game5-back-menu-btn { background-color: var(--pastel-orange); color: #5d4037; }
+.game5-play-again-btn:hover, .game5-back-menu-btn:hover {
+    transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.game5-stat-label {
-    font-weight: bold;
-    color: #795548;
+/* ========== BOTÓN DE REINICIO COMPACTO ========== */
+.game5-restart-btn {
+    background: none; border: none; font-size: 0.9rem; cursor: pointer;
+    padding: 0.1rem 0.2rem; margin-right: 0.25rem; border-radius: 2px;
+    transition: all 0.1s; opacity: 0.8; display: inline-block !important;
 }
+.game5-restart-btn:hover { background-color: rgba(255, 255, 255, 0.1); opacity: 1; transform: scale(1.05); }
+.game5-restart-btn:active { transform: scale(0.95); }
 
-.game5-stat-value {
-    color: #5d4037;
-    font-weight: bold;
-}
-
-.game5-results-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-.game5-play-again-btn,
-.game5-back-menu-btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.game5-play-again-btn {
-    background-color: var(--pastel-green-dark);
-    color: white;
-}
-
-.game5-back-menu-btn {
-    background-color: var(--pastel-orange);
-    color: #5d4037;
-}
-
-.game5-play-again-btn:hover,
-.game5-back-menu-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* Responsive adjustments */
+/* ========== RESPONSIVE ADJUSTMENTS ULTRA COMPACTOS ========== */
 @media (max-width: 768px) {
-    .game5-popup-content {
-        padding: 1rem;
-    }
+    .game5-popup-content { padding: 0.75rem; }
+    .game5-grid-options { flex-direction: column; }
+    .game5-grid-option-btn, .game5-start-btn, .game5-cancel-btn,
+    .game5-play-again-btn, .game5-back-menu-btn { width: 100%; }
+    .game5-buttons-container, .game5-results-buttons { flex-direction: column; gap: 0.25rem; }
     
-    .game5-grid-options {
-        flex-direction: column;
-    }
-    
-    .game5-grid-option-btn {
-        width: 100%;
-    }
-    
-    .game5-buttons-container {
-        flex-direction: column;
-    }
-    
-    .game5-start-btn,
-    .game5-cancel-btn {
-        width: 100%;
-    }
-    
-    .game5-results-buttons {
-        flex-direction: column;
-    }
-    
-    .game5-play-again-btn,
-    .game5-back-menu-btn {
-        width: 100%;
-    }
+    /* Más compacto en móviles */
+    .game5-grid { gap: 1px !important; padding: 1px !important; }
+    .game5-chinese-character { font-size: 1rem !important; }
+    .game5-pinyin { font-size: 0.6rem !important; }
+    .game5-container { top: 45px !important; height: calc(100vh - 70px) !important; }
 }
 
-/* Contenedor de imagen con fondo marroncito */
-.game5-image-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--pastel-brown); /* Fondo marroncito */
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
+/* ========== OPTIMIZACIONES PARA PANTALLAS APAISADAS ========== */
+@media (min-width: 768px) and (orientation: landscape) {
+    .game5-grid { gap: 3px !important; padding: 3px !important; }
+    .game5-chinese-character { font-size: 1rem !important; }
+    .game5-pinyin { font-size: 0.6rem !important; }
+    .game5-container { top: 45px !important; height: calc(100vh - 70px) !important; }
 }
 
-.game5-image-container.loaded {
-    background-color: var(--pastel-brown); /* Mantener el fondo marroncito */
+/* Para pantallas muy grandes */
+@media (min-width: 1200px) {
+    .game5-grid { max-width: 95% !important; gap: 3px !important; }
+    .game5-chinese-character { font-size: 1.4rem !important; }
+    .game5-pinyin { font-size: 0.8rem !important; }
 }
 
-.game5-card-image {
-    max-width: 80%; /* Reducir un poco el tamaño de la imagen */
-    max-height: 80%;
-    object-fit: contain;
-    z-index: 2;
-}
-
-/* Fondo de patrón para las imágenes (similar a las cartas de texto) */
-.game5-image-pattern {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-    background-size: 15px 15px;
-    border-radius: 6px;
-    z-index: 1;
-}
-
-/* Para las cartas de texto, también agregar fondo marroncito */
-.game5-card-back.text-card {
-    background-color: var(--pastel-brown);
-}
-
-/* Contenedor de texto chino */
-.game5-text-content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--pastel-brown);
-    border-radius: 6px;
-    position: relative;
-}
-
-/* Ajustar tamaño del texto chino */
-.game5-chinese-character {
-    font-size: 2.2rem; /* Reducir un poco */
-    font-weight: bold;
-    color: #5d4037;
-    margin-bottom: 0.25rem;
-    text-align: center;
-    line-height: 1;
-    z-index: 2;
-}
-
-/* Ajustar pinyin */
-.game5-pinyin {
-    font-size: 1rem;
-    color: #795548;
-    font-style: italic;
-    z-index: 2;
-}
-
-/* Cuando Game5 está activo, ocultar los elementos de otros juegos */
-#game-screen.game5-active .game-container {
-    display: none !important;
-}
-
+/* ========== ESTILOS PARA GAME5 ACTIVO ========== */
+#game-screen.game5-active .game-container,
 #game-screen.game5-active #question-container,
 #game-screen.game5-active #options-container,
 #game-screen.game5-active .timer-bar {
     display: none !important;
 }
 
-/* Mostrar el contenedor de Game5 */
 #game-screen.game5-active .memory-game-container.game5-container {
-    display: flex !important;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 100px);
-    padding: 0.5rem;
-    box-sizing: border-box;
-    overflow: hidden;
-    z-index: 10;
+    display: flex !important; flex-direction: column; position: absolute;
+    top: 50px !important; left: 0; width: 100%;
+    height: calc(100vh - 80px) !important; padding: 2px !important;
+    box-sizing: border-box; overflow: hidden; z-index: 10;
 }
 
-/* Asegurar que el grid-wrapper ocupe espacio correcto */
 #game-screen.game5-active .game5-grid-wrapper {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: calc(100% - 50px);
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    justify-content: center !important; align-items: center !important;
+    overflow: auto; padding: 2px !important;
+}
+
+#game-screen.game5-active .game5-grid {
+    display: grid; width: auto !important; height: auto !important;
+    gap: 2px !important; padding: 2px !important; box-sizing: border-box;
+    place-items: center; justify-content: center !important;
+    align-content: center !important; margin: 0 auto !important;
 }
 
 /* Botón sticky en Game5 */
 #game-screen.game5-active .game5-button-container {
-    flex-shrink: 0;
-    padding: 0.5rem 0;
-    text-align: center;
-    position: sticky;
-    bottom: 0;
-    background: white;
-    z-index: 5;
+    flex-shrink: 0; padding: 0.25rem 0; text-align: center;
+    position: sticky; bottom: 0; background: white; z-index: 5;
+}
+.game5-reset-btn { padding: 0.25rem 0.5rem; font-size: 0.8rem; }
+
+/* ========== REGLAS ESPECÍFICAS PARA MEJOR CENTRADO ========== */
+.memory-grid.game5-grid {
+    align-content: center !important; justify-content: center !important;
+}
+.game5-memory-card, .memory-card { margin: 0 !important; }
+
+/* Scroll suave y compacto */
+.game5-grid-wrapper::-webkit-scrollbar { width: 4px; }
+.game5-grid-wrapper::-webkit-scrollbar-track { background: rgba(93, 64, 55, 0.05); border-radius: 2px; }
+.game5-grid-wrapper::-webkit-scrollbar-thumb { background: rgba(93, 64, 55, 0.2); border-radius: 2px; }
+.game5-grid-wrapper::-webkit-scrollbar-thumb:hover { background: rgba(93, 64, 55, 0.3); }
+
+/* ========== ESTILOS DE FUENTE PARA CARTAS DE TEXTO ========== */
+.game5-text-content .game5-chinese-character.noto-serif { font-family: 'Noto Serif SC', serif; }
+.game5-text-content .game5-chinese-character.noto-sans { font-family: 'Noto Sans SC', sans-serif; }
+.game5-text-content .game5-chinese-character.maoken { font-family: 'Maoken', 'Noto Sans SC', sans-serif; }
+
+/* ========== ANIMACIONES SUAVES ========== */
+.game5-memory-card { transition: transform 0.2s, opacity 0.2s; }
+.game5-memory-card:hover { transform: scale(1.02); }
+.game5-memory-card.matched:hover { transform: scale(1); }
+
+/* ========== ESTILOS PARA CARTAS VOLTEADAS ========== */
+.game5-card-inner { transform-origin: center; }
+.game5-memory-card.flipped { z-index: 2; }
+.game5-memory-card.flipped .game5-card-inner { transform: rotateY(180deg); }
+
+/* ========== ESTILOS PARA IMÁGENES FALLIDAS ========== */
+.game5-image-container .game5-image-placeholder {
+    font-size: 1rem; color: #5d4037; z-index: 3; position: absolute;
 }
 
-/* Grid de cartas en Game5 */
-#game-screen.game5-active .game5-grid {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    place-items: center;
+/* ========== ESTILOS PARA EL TÍTULO DEL JUEGO ========== */
+.game5-title span {
+    display: inline-block; padding: 0.1rem 0.3rem; background: var(--pastel-orange);
+    border-radius: 3px; font-size: 0.8rem; margin-left: 0.2rem;
 }
-
-/* Estilo para el botón de reinicio en el header */
-.game5-restart-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.2rem 0.4rem;
-    margin-right: 0.5rem;
-    border-radius: 4px;
-    transition: all 0.2s;
-    opacity: 0.8;
-    display: inline-block !important;
-}
-
-.game5-restart-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.game5-restart-btn:active {
-    transform: scale(0.95);
-}
-
-/* Asegurar que los elementos de Game5 tengan display inline-block */
-.game5-stat {
-    display: inline-block !important;
-    margin-left: 0.5rem;
-    vertical-align: middle;
-}
-
-/* Estilo para el contenedor de estadísticas del juego */
-#game-stats {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-}
-
-/* Asegurar que los elementos originales se mantengan inline */
-#question-progress,
-#score,
-#streak,
-#lives {
-    display: inline !important;
-}
-/*
-#game-screen.active .game-container {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    overflow: hidden !important;
-}
-
-.memory-game-container.game5-container {
-    display: block !important;
-    visibility: visible !important;
-}*/

@@ -58,6 +58,22 @@ function updateHangmanSVG(stage) {
     if (stage >= 10) { const legR = document.createElementNS("http://www.w3.org/2000/svg","line"); legR.setAttribute("x1",120); legR.setAttribute("y1",140); legR.setAttribute("x2",150); legR.setAttribute("y2",170); legR.setAttribute("stroke","black"); legR.setAttribute("stroke-width",3); svg.appendChild(legR);}
 }
 
+function updateStatsDisplay() {
+    const scoreEl = document.getElementById("score");
+    const correctEl = document.getElementById("correctLetters");
+    const livesEl = document.getElementById("lives");
+    
+    if(scoreEl) scoreEl.textContent = stats.correct + stats.wrong;
+    if(correctEl) correctEl.textContent = stats.correct;
+    if(livesEl) livesEl.textContent = maxMistakes - mistakes;
+}
+
+// Alias para claridad
+function updateLivesDisplay() {
+    const livesEl = document.getElementById("lives");
+    if(livesEl) livesEl.textContent = maxMistakes - mistakes;
+}
+
 /* ===========================
       GUESS LETTER (actualizado)
 =========================== */
@@ -84,6 +100,7 @@ function guessLetter(letter) {
         if (keyBtn) { keyBtn.classList.add("correct"); keyBtn.disabled = true; }
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages || ["¡Bien!"]));
         stats.correct++; saveStats(stats);
+        updateStatsDisplay();
 
         if (!currentWordDisplay.includes("_")) setTimeout(nextWord, 800);
 
@@ -97,6 +114,7 @@ function guessLetter(letter) {
         if (keyBtn) { keyBtn.classList.add("wrong"); keyBtn.disabled = true; }
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages || ["Fallaste"]));
         stats.wrong++; saveStats(stats);
+        updateStatsDisplay();
 
         if (mistakes >= maxMistakes) showCorrectWord();
     }
@@ -121,6 +139,12 @@ async function startGame() {
 }
 
 function nextWord() {
+    
+    // Reinicia errores para la nueva palabra
+    mistakes = 0;
+    // Actualiza el marcador de vidas
+    updateLivesDisplay();
+
     if (questionsLeft <= 0) { endGame(); return; }
 
     const vocArray = Object.values(window.currentVoc); // array de objetos

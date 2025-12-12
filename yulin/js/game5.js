@@ -29,7 +29,7 @@ class Game5 {
         
         // Configuración del juego
         this.gridSize = 12;
-        this.gridOptions = [8, 12, 16, 24, 32];
+        this.gridOptions = [8, 12, 16, 24, 32, 48];
         
         // Bind de métodos
         this.handleCardClick = this.handleCardClick.bind(this);

@@ -24,6 +24,11 @@ function shuffleArray(array){
 function saveStats(stats){localStorage.setItem("hangmanStats",JSON.stringify(stats))}
 function loadStats(){const stored=localStorage.getItem("hangmanStats");return stored?JSON.parse(stored):{correct:0,wrong:0}}
 
+// Normaliza texto eliminando acentos
+function normalizeChar(c){
+  return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+}
+
 /* ===========================
       HANGMAN SVG
 =========================== */
@@ -59,15 +64,25 @@ async function startGame(){
     nextWord();
 }
 
-function nextWord(){
-    if(questionsLeft<=0){endGame(); return;}
-    const keys=Object.keys(window.currentVoc);
-    const longWords=keys.filter(k=>k.replace(/\s/g,'').length>=5);
+function nextWord() {
+    if (questionsLeft <= 0) { endGame(); return; }
+
+    const vocArray = Object.values(window.currentVoc); // obtenemos un array de objetos
+    const longWords = vocArray.filter(v => v.pin && v.pin.replace(/\s/g,'').length >= 5);
+
     shuffleArray(longWords);
-    if(longWords.length===0){toast("No words with 5+ letters"); return;}
-    currentWord=longWords[0];
-    console.log("Word selected:",currentWord);
-    currentWordDisplay=Array.from(currentWord).map(c=>c===" "? " ": "_");
+
+    if(longWords.length === 0){
+        toast("No words with 5+ letters");
+        return;
+    }
+
+    currentWord = longWords[0].pin; // usamos el campo pin
+    console.log("Word selected:", currentWord);
+
+    // Genera display con guiones _ ignorando espacios
+    currentWordDisplay = Array.from(currentWord).map(c => c === " " ? c : "_");
+
     lettersGuessed.clear();
     resetKeyboard();
     updateDisplay();
@@ -89,7 +104,7 @@ function guessLetter(letter){
 
     let correct=false;
     currentWord.split("").forEach((c,i)=>{
-        if(c.toLowerCase()===letter.toLowerCase()){
+        if(normalizeChar(c)===normalizeChar(letter)){
             currentWordDisplay[i]=c;
             correct=true;
         }
@@ -98,7 +113,8 @@ function guessLetter(letter){
     updateDisplay();
 
     const keyBtn=Array.from(document.querySelectorAll(".key"))
-        .find(k=>k.textContent.toLowerCase()===letter.toLowerCase());
+        .find(k=>normalizeChar(k.textContent)===normalizeChar(letter));
+
     if(correct){
         if(keyBtn){keyBtn.classList.add("correct"); keyBtn.disabled=true;}
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages||["¡Bien!"]));
@@ -115,14 +131,13 @@ function guessLetter(letter){
 
 function showCorrectWord(){
     toast("❗ La palabra era: "+currentWord);
-    // Bloquea todas las teclas hasta nueva palabra
     document.querySelectorAll(".key").forEach(k=>k.disabled=true);
     setTimeout(nextWord,2000);
 }
 
 function updateDisplay(){
     const wordArea=document.getElementById("wordArea");
-    if(wordArea) wordArea.textContent=currentWordDisplay.join(" ");
+    if(wordArea) wordArea.textContent=currentWordDisplay.join("");
 
     let lettersUsed=document.getElementById("lettersUsed");
     if(!lettersUsed){
@@ -133,9 +148,7 @@ function updateDisplay(){
     lettersUsed.textContent=[...lettersGuessed].join(" ");
 }
 
-function endGame(){
-    toast("🏁 ¡Juego terminado!");
-}
+function endGame(){toast("🏁 ¡Juego terminado!")}
 
 /* ===========================
       TECLADO

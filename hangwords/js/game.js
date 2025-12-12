@@ -139,29 +139,41 @@ async function startGame() {
 }
 
 function nextWord() {
-    
-    // Reinicia errores para la nueva palabra
+    // Reinicia errores y muñeco
     mistakes = 0;
-    // Actualiza el marcador de vidas
+    updateHangmanSVG(mistakes);
+
+    // Actualiza vidas en la UI
     updateLivesDisplay();
 
-    if (questionsLeft <= 0) { endGame(); return; }
+    if (questionsLeft <= 0) { 
+        endGame(); 
+        return; 
+    }
 
     const vocArray = Object.values(window.currentVoc); // array de objetos
     const longWords = vocArray.filter(v => v.pin && v.pin.replace(/\s/g, '').length >= 5);
     shuffleArray(longWords);
 
-    if (longWords.length === 0) { toast("No words with 5+ letters"); return; }
+    if (longWords.length === 0) { 
+        toast("No words with 5+ letters"); 
+        return; 
+    }
 
     currentWord = longWords[0].pin;
     console.log("Word selected (raw):", currentWord);
 
-    // Genera display con guiones _ solo para letras, espacios se conservan
+    // Genera display con guiones solo para letras, espacios se conservan
     currentWordDisplay = Array.from(currentWord).map(c => c === " " ? " " : "_");
 
+    // Reinicia teclado y letras usadas
     lettersGuessed.clear();
     resetKeyboard();
+
+    // Actualiza la palabra en pantalla
     updateDisplay();
+
+    // Reduce contador de preguntas
     questionsLeft--;
 }
 

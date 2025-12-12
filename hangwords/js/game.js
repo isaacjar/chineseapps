@@ -36,21 +36,133 @@ function loadStats() {
       HANGMAN SVG
 =========================== */
 
-function updateHangmanSVG(parts) {
-  const svg = document.getElementById("hangmanSVG");
-  if (!svg) return;
+function updateHangmanSVG(stage) {
+        const svg = document.getElementById("hangmanSVG");
+        if (!svg) return;
+      
+        svg.innerHTML = ""; // limpiar
+      
+        // Base del ahorcado
+        if (stage >= 1) {
+          const base = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          base.setAttribute("x1", 10);
+          base.setAttribute("y1", 190);
+          base.setAttribute("x2", 90);
+          base.setAttribute("y2", 190);
+          base.setAttribute("stroke", "black");
+          base.setAttribute("stroke-width", 4);
+          svg.appendChild(base);
+        }
+      
+        // Palo vertical
+        if (stage >= 2) {
+          const pole = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          pole.setAttribute("x1", 50);
+          pole.setAttribute("y1", 190);
+          pole.setAttribute("x2", 50);
+          pole.setAttribute("y2", 20);
+          pole.setAttribute("stroke", "black");
+          pole.setAttribute("stroke-width", 4);
+          svg.appendChild(pole);
+        }
+      
+        // Palo superior
+        if (stage >= 3) {
+          const top = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          top.setAttribute("x1", 50);
+          top.setAttribute("y1", 20);
+          top.setAttribute("x2", 120);
+          top.setAttribute("y2", 20);
+          top.setAttribute("stroke", "black");
+          top.setAttribute("stroke-width", 4);
+          svg.appendChild(top);
+        }
+      
+        // Cuerda
+        if (stage >= 4) {
+          const rope = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          rope.setAttribute("x1", 120);
+          rope.setAttribute("y1", 20);
+          rope.setAttribute("x2", 120);
+          rope.setAttribute("y2", 50);
+          rope.setAttribute("stroke", "black");
+          rope.setAttribute("stroke-width", 3);
+          svg.appendChild(rope);
+        }
+      
+        // Cabeza
+        if (stage >= 5) {
+          const head = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          head.setAttribute("cx", 120);
+          head.setAttribute("cy", 70);
+          head.setAttribute("r", 20);
+          head.setAttribute("stroke", "black");
+          head.setAttribute("stroke-width", 3);
+          head.setAttribute("fill", "none");
+          svg.appendChild(head);
+        }
+      
+        // Cuerpo
+        if (stage >= 6) {
+          const body = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          body.setAttribute("x1", 120);
+          body.setAttribute("y1", 90);
+          body.setAttribute("x2", 120);
+          body.setAttribute("y2", 140);
+          body.setAttribute("stroke", "black");
+          body.setAttribute("stroke-width", 3);
+          svg.appendChild(body);
+        }
+      
+        // Brazo izquierdo
+        if (stage >= 7) {
+          const armL = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          armL.setAttribute("x1", 120);
+          armL.setAttribute("y1", 110);
+          armL.setAttribute("x2", 90);
+          armL.setAttribute("y2", 90);
+          armL.setAttribute("stroke", "black");
+          armL.setAttribute("stroke-width", 3);
+          svg.appendChild(armL);
+        }
+      
+        // Brazo derecho
+        if (stage >= 8) {
+          const armR = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          armR.setAttribute("x1", 120);
+          armR.setAttribute("y1", 110);
+          armR.setAttribute("x2", 150);
+          armR.setAttribute("y2", 90);
+          armR.setAttribute("stroke", "black");
+          armR.setAttribute("stroke-width", 3);
+          svg.appendChild(armR);
+        }
+      
+        // Pierna izquierda
+        if (stage >= 9) {
+          const legL = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          legL.setAttribute("x1", 120);
+          legL.setAttribute("y1", 140);
+          legL.setAttribute("x2", 90);
+          legL.setAttribute("y2", 170);
+          legL.setAttribute("stroke", "black");
+          legL.setAttribute("stroke-width", 3);
+          svg.appendChild(legL);
+        }
+      
+        // Pierna derecha
+        if (stage >= 10) {
+          const legR = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          legR.setAttribute("x1", 120);
+          legR.setAttribute("y1", 140);
+          legR.setAttribute("x2", 150);
+          legR.setAttribute("y2", 170);
+          legR.setAttribute("stroke", "black");
+          legR.setAttribute("stroke-width", 3);
+          svg.appendChild(legR);
+        }
+      }
 
-  svg.innerHTML = "";
-  for (let i = 1; i <= parts; i++) {
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 20*i);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", 20*i);
-    line.setAttribute("y2", 50);
-    line.setAttribute("stroke", "black");
-    svg.appendChild(line);
-  }
-}
 
 /* ===========================
       JUEGO

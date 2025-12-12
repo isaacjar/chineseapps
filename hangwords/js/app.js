@@ -132,7 +132,7 @@ function initUIBindings(){
     toast('Stats reset'); 
   });
 
-  document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
+  //document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
   
   document.getElementById("btnAdd").addEventListener("click", () => {
     const modal = document.getElementById("customWordsModal");

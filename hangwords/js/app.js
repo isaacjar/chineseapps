@@ -133,6 +133,8 @@ function initUIBindings(){
   });
 
   document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
+  
+  document.getElementById("btnAdd").addEventListener("click", () => { modalInput.value = ""; modal.classList.remove("hidden"); modalInput.focus(); });
 
   // keyboard events
   document.addEventListener('keydown', (e)=>{

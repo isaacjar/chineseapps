@@ -240,29 +240,12 @@
     display: none !important;
 }
 
-#game-screen.game5-active .memory-game-container.game5-container {
-    display: flex !important; flex-direction: column; position: absolute;
-    top: 60px !important; left: 0; width: 100%;
-    height: calc(100vh - 120px) !important; padding: 0 !important;
-    box-sizing: border-box; overflow: hidden; z-index: 10;
+/* Solo mantener esto para asegurar que Game5 esté visible */
+#game-screen.game5-active {
     background-color: var(--pastel-green) !important;
 }
 
-#game-screen.game5-active .game5-grid-wrapper {
-    flex: 1; min-height: 0; display: flex; flex-direction: column;
-    justify-content: center !important; align-items: center !important;
-    overflow: auto; padding: 10px !important;
-    background-color: transparent !important;
-}
-
-#game-screen.game5-active .game5-grid {
-    display: grid !important; width: auto !important; height: auto !important;
-    gap: 6px !important; padding: 0 !important; box-sizing: border-box;
-    place-items: center; justify-content: center !important;
-    align-content: center !important; margin: 0 auto !important;
-    background-color: transparent !important; border: none !important;
-}
-
+/* El resto de estilos los maneja el JavaScript dinámicamente */
 /* Scrollbar sutil */
 .game5-grid-wrapper::-webkit-scrollbar { width: 6px; }
 .game5-grid-wrapper::-webkit-scrollbar-track { background: rgba(93, 64, 55, 0.05); border-radius: 3px; }

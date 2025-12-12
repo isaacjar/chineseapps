@@ -105,9 +105,9 @@ function nextWord(){
     shuffleArray(longWords);
 
     let next = availableWords[0] || longWords[0];
-    currentWord = next.pin; previousWord=currentWord;
+    currentWord = next.pin; previousWord=currentWord; console.log("Playing word:", currentWord); 
     usedWords.push(currentWord);
-
+    
     currentWordDisplay = Array.from(currentWord).map(c=>"_" );
     resetKeyboard(); updateDisplay(); updateStatsDisplay();
     questionsLeft--;

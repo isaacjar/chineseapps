@@ -232,6 +232,50 @@ function initGameBindings() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+
     initKeyboard();
     initGameBindings();
+
+    // === CUSTOM WORDS MODAL LOGIC (sin duplicar btnAdd) ===
+    const modal = document.getElementById("customWordsModal");
+    const input = document.getElementById("customWordsInput");
+    const btnOK = document.getElementById("modalOk");
+    const btnCancel = document.getElementById("modalCancel");
+
+    // Cerrar modal
+    btnCancel?.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    // Confirmar lista de palabras
+    btnOK?.addEventListener("click", () => {
+        const raw = input.value.trim();
+
+        if (!raw) {
+            toast("No words entered");
+            return;
+        }
+
+        // Separar por espacios, comas, punto y coma y puntos
+        const list = raw
+            .split(/[\s,.;]+/)
+            .map(w => w.trim().toLowerCase())
+            .filter(w => w.length > 0);
+
+        if (list.length === 0) {
+            toast("Invalid list");
+            return;
+        }
+
+        // Guardamos la nueva lista personalizada
+        window.customWordList = list;
+        window.useCustomWords = true;
+
+        toast("Custom list loaded: " + list.length + " words");
+        modal.classList.add("hidden");
+
+        // Arrancar nueva palabra usando esta lista
+        nextWord();
+    });
+
 });

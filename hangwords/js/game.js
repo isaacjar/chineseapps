@@ -208,19 +208,11 @@ function showCorrectWord() {
 
 function updateDisplay() {
     const wordArea = document.getElementById("wordArea");
-    if (wordArea) {
-        // Guiones separados por espacios
-        const displayText = currentWordDisplay.map(c => c === " " ? " " : c).join(" ");
-        wordArea.textContent = displayText;
-    }
+    if (!wordArea) return;
 
-    let lettersUsed = document.getElementById("lettersUsed");
-    if (!lettersUsed) {
-        lettersUsed = document.createElement("div");
-        lettersUsed.id = "lettersUsed";
-        document.getElementById("wordArea")?.appendChild(lettersUsed);
-    }
-    lettersUsed.textContent = [...lettersGuessed].join(" ");
+    // Mostrar guiones separados por espacios, sustituyendo por letras acertadas
+    const displayText = currentWordDisplay.map(c => c === " " ? " " : c).join(" ");
+    wordArea.textContent = displayText;
 }
 
 function endGame() { toast("🏁 ¡Juego terminado!"); }

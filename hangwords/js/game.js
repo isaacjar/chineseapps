@@ -140,7 +140,9 @@ safeAddEventListener("modalOK","click",()=>{
 
 safeAddEventListener("btnListWords","click",()=>{
     if(!wordListContainer) return; wordListContainer.innerHTML="";
-    let words = window.useCustomWords&&Array.isArray(window.customWordList) ? window.customWordList : window.currentVoc ? Object.values(window.currentVoc).map(v=>v.pin) : [];
+    let words = (window.useCustomWords && Array.isArray(window.customWordList))
+    ? window.customWordList.filter(w=>w.replace(/\s/g,'').length>=5)
+    : window.currentVoc ? Object.values(window.currentVoc).map(v=>v.pin).filter(w=>w.replace(/\s/g,'').length>=5) : [];
     if(words.length===0) wordListContainer.innerHTML="<li>No words loaded</li>";
     else words.forEach(w=>{ const li=document.createElement("li"); li.textContent=w; wordListContainer.appendChild(li); });
     openModal(wordListModal);

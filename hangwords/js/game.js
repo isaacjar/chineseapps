@@ -203,7 +203,7 @@ function guessLetter(letter) {
 function showCorrectWord() {
     toast("❗ La palabra era: " + currentWord);
     document.querySelectorAll(".key").forEach(k => k.disabled = true);
-    setTimeout(nextWord, 2000);
+    setTimeout(nextWord, 3000);
 }
 
 function updateDisplay() {

@@ -1,6 +1,7 @@
 /* game.js — flujo del juego y lógica */
 
 let currentWord = null;
+let previousWord = null;         // para no repetir la palabra anterior
 let currentWordDisplay = [];
 let mistakes = 0;
 let maxMistakes = 0;
@@ -12,9 +13,7 @@ let stats = loadStats();
       UTILIDADES
 =========================== */
 
-function randomFrom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
+function randomFrom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -23,14 +22,7 @@ function shuffleArray(array) {
     }
 }
 
-// Normaliza texto eliminando acentos
-function normalizeChar(c) {
-    return c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
-
-/* ===========================
-      ESTADÍSTICAS GAMIFICADAS
-=========================== */
+function saveStats(stats) { localStorage.setItem("hangmanStats", JSON.stringify(stats)); }
 
 function loadStats() {
     const stored = localStorage.getItem("hangmanStats");
@@ -45,24 +37,8 @@ function loadStats() {
     return { correct: 0, wrong: 0, score: 0, correctLetters: 0 };
 }
 
-function saveStats() {
-    localStorage.setItem("hangmanStats", JSON.stringify(stats));
-}
-
-function updateStatsDisplay() {
-    const scoreEl = document.getElementById("score");
-    const correctEl = document.getElementById("correctLetters");
-    const livesEl = document.getElementById("lives");
-    
-    if(scoreEl) scoreEl.textContent = stats.score;
-    if(correctEl) correctEl.textContent = stats.correctLetters;
-    if(livesEl) livesEl.textContent = maxMistakes - mistakes;
-}
-
-function updateScoreDisplay() {
-    document.getElementById("score").textContent = stats.score;
-    document.getElementById("correctLetters").textContent = stats.correctLetters;
-}
+// Normaliza texto eliminando acentos
+function normalizeChar(c) { return c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
 
 /* ===========================
       HANGMAN SVG (10 etapas)
@@ -85,7 +61,20 @@ function updateHangmanSVG(stage) {
 }
 
 /* ===========================
-      ADIVINAR LETRA GAMIFICADO
+      ESTADÍSTICAS
+=========================== */
+function updateStatsDisplay() {
+    const scoreEl = document.getElementById("score");
+    const correctEl = document.getElementById("correctLetters");
+    const livesEl = document.getElementById("lives");
+    
+    if(scoreEl) scoreEl.textContent = stats.score;
+    if(correctEl) correctEl.textContent = stats.correctLetters;
+    if(livesEl) livesEl.textContent = maxMistakes - mistakes;
+}
+
+/* ===========================
+      GUESS LETTER
 =========================== */
 function guessLetter(letter) {
     if (!currentWord) return;
@@ -93,44 +82,39 @@ function guessLetter(letter) {
 
     lettersGuessed.add(letter);
     let correct = false;
-    let lettersFoundThisGuess = 0;
 
-    currentWord.split("").forEach((c, i) => {
-        if (normalizeChar(c) === normalizeChar(letter) && currentWordDisplay[i] === "_") {
+    currentWord.split("").forEach((c,i) => {
+        if (normalizeChar(c) === normalizeChar(letter)) {
             currentWordDisplay[i] = c;
             correct = true;
-            lettersFoundThisGuess++;
         }
     });
 
     updateDisplay();
 
-    const keyBtn = Array.from(document.querySelectorAll(".key"))
-        .find(k => normalizeChar(k.textContent) === normalizeChar(letter));
+    const keyBtn = Array.from(document.querySelectorAll(".key")).find(k=>normalizeChar(k.textContent)===normalizeChar(letter));
 
-    if (correct) {
-        if (keyBtn) { keyBtn.classList.add("correct"); keyBtn.disabled = true; }
+    if(correct){
+        if(keyBtn){ keyBtn.classList.add("correct"); keyBtn.disabled=true; }
+        stats.correctLetters++;
 
-        stats.correctLetters += lettersFoundThisGuess; // letras acertadas
-        stats.score += lettersFoundThisGuess;          // 1 punto por letra
-        toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages || ["¡Bien!"]));
+        toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.successMessages || ["¡Bien!"]));
 
-        if (!currentWordDisplay.includes("_")) {
-            stats.score += 5;   // bonus por completar palabra
-            stats.correct += 1; // palabra completada
+        if(!currentWordDisplay.includes("_")){
+            stats.score += stats.correctLetters;
+            stats.correct++;
             saveStats();
-            setTimeout(nextWord, 800);
+            setTimeout(nextWord,800);
         }
 
     } else {
         mistakes++;
         updateHangmanSVG(mistakes);
-        if (keyBtn) { keyBtn.classList.add("wrong"); keyBtn.disabled = true; }
+        if(keyBtn){ keyBtn.classList.add("wrong"); keyBtn.disabled=true; }
+        toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.failMessages || ["Fallaste"]));
 
-        toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages || ["Fallaste"]));
-
-        if (mistakes >= maxMistakes) {
-            stats.wrong += 1; // palabra fallida
+        if(mistakes >= maxMistakes){
+            stats.wrong++;
             saveStats();
             showCorrectWord();
         }
@@ -143,7 +127,7 @@ function guessLetter(letter) {
       JUEGO
 =========================== */
 async function startGame() {
-    if (!window.currentVoc || Object.keys(window.currentVoc).length === 0) {
+    if(!window.currentVoc || Object.keys(window.currentVoc).length===0){
         toast("No vocabulary loaded!");
         return;
     }
@@ -156,54 +140,40 @@ async function startGame() {
     nextWord();
 }
 
-function nextWord() {
-    mistakes = 0;
-    stats.correctLetters = 0;
+function nextWord(){
+    mistakes=0;
+    stats.correctLetters=0;
     lettersGuessed.clear();
     updateLivesDisplay();
     updateHangmanSVG(0);
 
-    if (questionsLeft <= 0) { 
-        endGame(); 
-        return; 
-    }
+    if(questionsLeft<=0){ endGame(); return; }
 
     const vocArray = Object.values(window.currentVoc);
-    const longWords = vocArray.filter(v => v.pin && v.pin.replace(/\s/g, '').length >= 5);
+    const longWords = vocArray.filter(v=>v.pin && v.pin.replace(/\s/g,'').length>=5);
     shuffleArray(longWords);
 
-    if (longWords.length === 0) { 
-        toast("No words with 5+ letters"); 
-        return; 
-    }
+    // Evitar repetir palabra anterior
+    let next = longWords.find(w=>w.pin!==previousWord);
+    if(!next) next = longWords[0];  // fallback
+    currentWord = next.pin;
+    previousWord = currentWord;
 
-    currentWord = longWords[0].pin;
-    currentWordDisplay = Array.from(currentWord).map(c => c === " " ? " " : "_");
+    console.log("Playing word:", currentWord); // log para pruebas
 
+    currentWordDisplay = Array.from(currentWord).map(c=>c===" "?" ":"_");
     resetKeyboard();
     updateDisplay();
     updateScoreDisplay();
     questionsLeft--;
 }
 
-function resetKeyboard() {
-    document.querySelectorAll(".key").forEach(k => {
-        k.classList.remove("correct", "wrong");
-        k.disabled = false;
-    });
-}
-
-function showCorrectWord() {
-    toast("❗ La palabra era: " + currentWord);
-    document.querySelectorAll(".key").forEach(k => k.disabled = true);
-    setTimeout(nextWord, 3000);
-}
-
-function updateDisplay() {
-    const wordArea = document.getElementById("wordArea");
-    if (!wordArea) return;
-    const displayText = currentWordDisplay.map(c => c === " " ? " " : c).join(" ");
-    wordArea.textContent = displayText;
+/* ===========================
+      SCORE & DISPLAY
+=========================== */
+function updateScoreDisplay() {
+    document.getElementById("score").textContent = stats.score;
+    document.getElementById("correctLetters").textContent = stats.correctLetters;
 }
 
 function updateLivesDisplay() {
@@ -211,65 +181,94 @@ function updateLivesDisplay() {
     if(livesEl) livesEl.textContent = maxMistakes - mistakes;
 }
 
-function endGame() { toast("🏁 ¡Juego terminado!"); }
-
 /* ===========================
       TECLADO
 =========================== */
-function initKeyboard() {
+function initKeyboard(){
     const keyboard = document.getElementById("keyboard");
-    if (!keyboard) return;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    keyboard.innerHTML = "";
-    letters.forEach(l => {
+    if(!keyboard) return;
+    keyboard.innerHTML="";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l=>{
         const key = document.createElement("button");
-        key.className = "key";
-        key.textContent = l;
-        key.addEventListener("click", () => guessLetter(l));
+        key.className="key";
+        key.textContent=l;
+        key.addEventListener("click",()=>guessLetter(l));
         keyboard.appendChild(key);
     });
 }
 
-/* ===========================
-      VOCABULARIO
-=========================== */
-function loadCurrentVoc(vocObj) { window.currentVoc = vocObj || {}; }
-
-/* ===========================
-      INICIO DE APP
-=========================== */
-function initGameBindings() {
-    const btnNew = document.getElementById("btnNew");
-    if (btnNew) btnNew.addEventListener("click", startGame);
+function resetKeyboard(){
+    document.querySelectorAll(".key").forEach(k=>{
+        k.classList.remove("correct","wrong");
+        k.disabled=false;
+    });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+/* ===========================
+      MODAL PALABRAS BLOQUEANTE
+=========================== */
+const modal = document.getElementById("customWordsModal");
+const overlay = document.createElement("div");
+overlay.id="modalOverlay";
+overlay.style.display="none";
+overlay.style.position="fixed";
+overlay.style.top="0";
+overlay.style.left="0";
+overlay.style.width="100%";
+overlay.style.height="100%";
+overlay.style.background="rgba(0,0,0,0.5)";
+overlay.style.zIndex="999";
+document.body.appendChild(overlay);
+
+function openCustomWordsModal(){
+    modal.classList.remove("hidden");
+    overlay.style.display="block";
+    document.body.classList.add("modal-open");
+    document.querySelectorAll(".key, #btnNew, #btnAdd").forEach(el=>el.disabled=true);
+}
+
+function closeCustomWordsModal(){
+    modal.classList.add("hidden");
+    overlay.style.display="none";
+    document.body.classList.remove("modal-open");
+    document.querySelectorAll(".key, #btnNew, #btnAdd").forEach(el=>el.disabled=false);
+}
+
+document.getElementById("btnAdd").addEventListener("click", openCustomWordsModal);
+document.getElementById("modalCancel").addEventListener("click", closeCustomWordsModal);
+document.getElementById("modalOK").addEventListener("click", ()=>{
+    const raw = document.getElementById("customWordsInput").value.trim();
+    if(!raw){ toast("No words entered"); return; }
+    const list = raw.split(/[\s,.;]+/).map(w=>w.trim().toLowerCase()).filter(w=>w.length>0);
+    window.customWordList=list;
+    window.useCustomWords=true;
+    closeCustomWordsModal();
+    toast("Custom list loaded: "+list.length+" words");
+    nextWord();
+});
+
+/* ===========================
+      OTROS
+=========================== */
+function showCorrectWord(){
+    toast("❗ La palabra era: "+currentWord);
+    document.querySelectorAll(".key").forEach(k=>k.disabled=true);
+    setTimeout(nextWord,3000);
+}
+
+function endGame(){ toast("🏁 ¡Juego terminado!"); }
+
+function loadCurrentVoc(vocObj){ window.currentVoc=vocObj||{}; }
+
+function initGameBindings(){
+    const btnNew = document.getElementById("btnNew");
+    if(btnNew) btnNew.addEventListener("click",startGame);
+}
+
+/* ===========================
+      INIT
+=========================== */
+window.addEventListener("DOMContentLoaded",()=>{
     initKeyboard();
     initGameBindings();
-
-    const modal = document.getElementById("customWordsModal");
-    const input = document.getElementById("customWordsInput");
-    const btnOK = document.getElementById("modalOk");
-    const btnCancel = document.getElementById("modalCancel");
-
-    btnCancel?.addEventListener("click", () => { modal.classList.add("hidden"); });
-
-    btnOK?.addEventListener("click", () => {
-        const raw = input.value.trim();
-        if (!raw) { toast("No words entered"); return; }
-
-        const list = raw
-            .split(/[\s,.;]+/)
-            .map(w => w.trim().toLowerCase())
-            .filter(w => w.length > 0);
-
-        if (list.length === 0) { toast("Invalid list"); return; }
-
-        window.customWordList = list;
-        window.useCustomWords = true;
-
-        toast("Custom list loaded: " + list.length + " words");
-        modal.classList.add("hidden");
-        nextWord();
-    });
 });

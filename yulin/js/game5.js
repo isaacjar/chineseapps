@@ -231,7 +231,9 @@ class Game5 {
         return placeholderUrl;
     }
 
-    startGameSession() {
+   startGameSession() {
+        console.log('🚀 startGameSession() INICIADO');
+        
         this.score = 0;
         this.moves = 0;
         this.matchedPairs = 0;
@@ -241,12 +243,42 @@ class Game5 {
         this.timeElapsed = 0;
         this.gameStarted = false;
         
+        console.log('📺 Mostrando pantalla de juego...');
         this.ui.showScreen('game-screen');
-        document.getElementById('game-screen').classList.add('game5-active');
+        
+        const gameScreen = document.getElementById('game-screen');
+        console.log('🖥️ game-screen encontrado:', !!gameScreen);
+        
+        console.log('🏷️ Añadiendo clase game5-active...');
+        gameScreen.classList.add('game5-active');
+        console.log('✅ Clase añadida:', gameScreen.classList.contains('game5-active'));
+        
+        console.log('📊 Configurando estadísticas...');
         this.setupGameStats();
         this.updateStats();
+        
+        console.log('🎲 Creando tablero...');
         this.createBoard();
+        
+        console.log('⏰ Iniciando timer...');
         this.startTimer();
+        
+        console.log('✅ startGameSession() COMPLETADO');
+        
+        // DEPURACIÓN EXTRA - Verificar después de 1 segundo
+        setTimeout(() => {
+            console.log('🔍 VERIFICACIÓN FINAL (1s después):');
+            console.log('- Elementos .game5-container:', document.querySelectorAll('.game5-container').length);
+            console.log('- Elementos .game5-grid:', document.querySelectorAll('.game5-grid').length);
+            console.log('- Elementos .game5-memory-card:', document.querySelectorAll('.game5-memory-card').length);
+            
+            // Forzar un color rojo para ver si los elementos existen
+            const cards = document.querySelectorAll('.game5-memory-card');
+            cards.forEach(card => {
+                card.style.backgroundColor = 'red !important';
+                card.style.border = '3px solid yellow !important';
+            });
+        }, 1000);
     }
         
     setupGameStats() {
@@ -315,40 +347,88 @@ class Game5 {
         gameStats.classList.add('hidden');
     }
         
-    createBoard() {
+   createBoard() {
         const gameScreen = document.getElementById('game-screen');
+        console.log('🔍 createBoard() - gameScreen:', gameScreen ? 'ENCONTRADO' : 'NO ENCONTRADO');
+        console.log('🔍 gameScreen tiene clase game5-active:', gameScreen.classList.contains('game5-active'));
         
         const existingContainers = document.querySelectorAll('.memory-game-container, .game5-container, .game5-grid-wrapper');
+        console.log('🗑️ Contenedores existentes a eliminar:', existingContainers.length);
+        
         existingContainers.forEach(container => {
-            if (container && container.parentNode) container.parentNode.removeChild(container);
+            if (container && container.parentNode) {
+                console.log('Eliminando contenedor:', container.className);
+                container.parentNode.removeChild(container);
+            }
         });
         
         const gameContainer = document.createElement('div');
         gameContainer.className = 'memory-game-container game5-container';
+        console.log('📦 Creado gameContainer con clases:', gameContainer.className);
         
         const gridWrapper = document.createElement('div');
         gridWrapper.className = 'game5-grid-wrapper';
-        gridWrapper.style.cssText = 'width: 100%; height: auto; max-height: calc(100vh - 100px); overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2px; box-sizing: border-box; scroll-behavior: smooth;';
+        gridWrapper.style.cssText = 'width: 100%; height: auto; max-height: calc(100vh - 100px); overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2px; box-sizing: border-box; scroll-behavior: smooth; background-color: rgba(255,0,0,0.1) !important;'; // Color temporal para debug
         
         const gridContainer = document.createElement('div');
         gridContainer.className = 'memory-grid game5-grid';
         gridContainer.id = 'memory-grid';
-        gridContainer.style.cssText = 'flex: 1; min-height: 0; max-height: 100%; width: 100%;';
+        gridContainer.style.cssText = 'flex: 1; min-height: 0; max-height: 100%; width: 100%; background-color: rgba(0,255,0,0.1) !important;'; // Color temporal para debug
         
         const cards = this.generateCards();
+        console.log('🎴 Cartas generadas:', cards.length);
+        
         cards.forEach(card => {
             const cardElement = this.createCardElement(card);
             gridContainer.appendChild(cardElement);
         });
         
+        console.log('🎴 Cartas añadidas al grid:', gridContainer.children.length);
+        
         gridWrapper.appendChild(gridContainer);
         gameContainer.appendChild(gridWrapper);
         gameScreen.appendChild(gameContainer);
         
-        setTimeout(() => { if (gridContainer) this.setupGridLayout(gridContainer); }, 100);
-        if (gridContainer) window.addEventListener('resize', () => this.handleResize(gridContainer));
+        console.log('✅ Elementos añadidos al DOM:');
+        console.log('- gameContainer añadido:', document.contains(gameContainer));
+        console.log('- gridWrapper añadido:', document.contains(gridWrapper));
+        console.log('- gridContainer añadido:', document.contains(gridContainer));
+        
+        // Verificar estilos inmediatamente
+        setTimeout(() => {
+            console.log('🔍 Verificación de estilos CSS:');
+            console.log('- gameContainer display:', window.getComputedStyle(gameContainer).display);
+            console.log('- gridContainer display:', window.getComputedStyle(gridContainer).display);
+            console.log('- gridContainer grid:', window.getComputedStyle(gridContainer).gridTemplateColumns);
+            
+            const cardsInGrid = gridContainer.querySelectorAll('.game5-memory-card');
+            console.log('- Cartas en grid:', cardsInGrid.length);
+            
+            if (cardsInGrid.length > 0) {
+                const firstCard = cardsInGrid[0];
+                console.log('- Primera carta:', {
+                    width: window.getComputedStyle(firstCard).width,
+                    height: window.getComputedStyle(firstCard).height,
+                    display: window.getComputedStyle(firstCard).display,
+                    visibility: window.getComputedStyle(firstCard).visibility
+                });
+            }
+        }, 50);
+        
+        setTimeout(() => { 
+            if (gridContainer) {
+                console.log('⚙️ Configurando layout del grid...');
+                this.setupGridLayout(gridContainer); 
+            } else {
+                console.error('❌ gridContainer es null o undefined');
+            }
+        }, 100);
+        
+        if (gridContainer) {
+            window.addEventListener('resize', () => this.handleResize(gridContainer));
+        }
     }
-
+    
     generateCards() {
         const cards = [];
         const selectedWords = this.getRandomWords(this.totalPairs);
@@ -482,69 +562,148 @@ class Game5 {
         const oldStyle = document.getElementById('memory-card-styles');
         if (oldStyle) oldStyle.remove();
         
-        const maxCardWidth = cardWidth || 80; // Más pequeño por defecto
+        const maxCardWidth = cardWidth || 80;
         const maxCardHeight = cardHeight || 96;
         
         // FUENTES MÁS PEQUEÑAS PARA CSS COMPACTO
-        const chineseFontSize = Math.min(1.5, maxCardWidth / 30); // Más pequeño
-        const pinyinFontSize = Math.min(0.7, maxCardWidth / 60); // Más pequeño
+        const chineseFontSize = Math.min(1.5, maxCardWidth / 30);
+        const pinyinFontSize = Math.min(0.7, maxCardWidth / 60);
         
         style.textContent = `
-            .memory-card, .game5-memory-card {
-                width: 100% !important; height: 100% !important;
-                max-width: ${maxCardWidth}px !important; max-height: ${maxCardHeight}px !important;
-                aspect-ratio: 1/1.2 !important; margin: 0 !important;
+            /* ESTILOS ESPECÍFICOS CUANDO GAME5 ESTÁ ACTIVO */
+            #game-screen.game5-active .memory-card,
+            #game-screen.game5-active .game5-memory-card {
+                width: ${maxCardWidth}px !important;
+                height: ${maxCardHeight}px !important;
+                min-width: ${maxCardWidth}px !important;
+                min-height: ${maxCardHeight}px !important;
+                aspect-ratio: 1/1.2 !important;
+                margin: 0 !important;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
             
-            .memory-grid, .game5-grid {
-                display: grid !important; place-items: center !important;
-                align-content: center !important; justify-content: center !important;
-                width: auto !important; max-width: 100% !important;
+            #game-screen.game5-active .memory-grid,
+            #game-screen.game5-active .game5-grid {
+                display: grid !important;
+                place-items: center !important;
+                align-content: center !important;
+                justify-content: center !important;
+                width: auto !important;
+                max-width: 100% !important;
                 margin: 0 auto !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
             
-            .memory-chinese-character, .game5-chinese-character {
-                font-size: ${chineseFontSize}rem !important; line-height: 1 !important;
-                margin: 0 !important; padding: 0 !important;
+            #game-screen.game5-active .memory-chinese-character,
+            #game-screen.game5-active .game5-chinese-character {
+                font-size: ${chineseFontSize}rem !important;
+                line-height: 1 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
             }
             
-            .memory-pinyin, .game5-pinyin {
-                font-size: ${pinyinFontSize}rem !important; line-height: 1 !important;
-                margin: 0 !important; padding: 0 !important;
+            #game-screen.game5-active .memory-pinyin,
+            #game-screen.game5-active .game5-pinyin {
+                font-size: ${pinyinFontSize}rem !important;
+                line-height: 1 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
             }
             
-            .card-front div:first-child {
+            #game-screen.game5-active .card-front div:first-child {
                 font-size: ${Math.min(1.5, maxCardWidth / 40)}rem !important;
             }
             
-            .card-inner, .game5-card-inner {
-                width: 100% !important; height: 100% !important;
+            #game-screen.game5-active .card-inner,
+            #game-screen.game5-active .game5-card-inner {
+                width: 100% !important;
+                height: 100% !important;
             }
             
             /* Wrapper ultra compacto */
-            .game5-grid-wrapper {
-                width: 100% !important; height: auto !important;
+            #game-screen.game5-active .game5-grid-wrapper {
+                width: 100% !important;
+                height: auto !important;
                 max-height: calc(100vh - 100px) !important;
-                overflow-y: auto !important; overflow-x: hidden !important;
-                display: flex !important; flex-direction: column !important;
-                justify-content: center !important; align-items: center !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
                 padding: 2px !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+            /* Contenedor principal */
+            #game-screen.game5-active .memory-game-container.game5-container {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
             
             /* Scroll fino */
-            .game5-grid-wrapper::-webkit-scrollbar { width: 4px; }
-            .game5-grid-wrapper::-webkit-scrollbar-track { background: rgba(93, 64, 55, 0.05); border-radius: 2px; }
-            .game5-grid-wrapper::-webkit-scrollbar-thumb { background: rgba(93, 64, 55, 0.2); border-radius: 2px; }
+            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar {
+                width: 4px;
+            }
             
-            .memory-grid { flex: 0 1 auto !important; min-height: 0 !important; }
+            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar-track {
+                background: rgba(93, 64, 55, 0.05);
+                border-radius: 2px;
+            }
+            
+            #game-screen.game5-active .game5-grid-wrapper::-webkit-scrollbar-thumb {
+                background: rgba(93, 64, 55, 0.2);
+                border-radius: 2px;
+            }
+            
+            #game-screen.game5-active .memory-grid {
+                flex: 0 1 auto !important;
+                min-height: 0 !important;
+            }
             
             /* Ajustes específicos para cartas compactas */
-            .game5-card-back { padding: 1px !important; border-width: 1px !important; }
-            .game5-text-content { padding: 1px !important; }
-            .game5-card-image { max-width: 70% !important; max-height: 70% !important; }
+            #game-screen.game5-active .game5-card-back {
+                padding: 1px !important;
+                border-width: 1px !important;
+            }
+            
+            #game-screen.game5-active .game5-text-content {
+                padding: 1px !important;
+            }
+            
+            #game-screen.game5-active .game5-card-image {
+                max-width: 70% !important;
+                max-height: 70% !important;
+            }
+            
+            /* Asegurar que las cartas sean visibles */
+            #game-screen.game5-active .game5-memory-card {
+                background-color: var(--pastel-brown-dark) !important;
+                border-radius: 4px !important;
+                overflow: hidden !important;
+            }
+            
+            #game-screen.game5-active .game5-card-front {
+                background-color: var(--pastel-brown-dark) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            #game-screen.game5-active .game5-card-back {
+                background-color: white !important;
+            }
         `;
         
         document.head.appendChild(style);
+        console.log('✅ Estilos CSS aplicados para Game5 activo');
     }
     
     handleResize(gridContainer) {
@@ -836,4 +995,41 @@ class Game5 {
         }
         return newArray;
     }
+
+// Añade este método a la clase Game5
+debugCheckVisibility() {
+    console.log('=== DEBUG VISIBILIDAD ===');
+    
+    const gameScreen = document.getElementById('game-screen');
+    console.log('1. game-screen:', gameScreen ? 'EXISTE' : 'NO EXISTE');
+    console.log('2. Tiene clase game5-active:', gameScreen?.classList.contains('game5-active'));
+    
+    const containers = [
+        '.game5-container',
+        '.game5-grid-wrapper', 
+        '.game5-grid',
+        '.game5-memory-card'
+    ];
+    
+    containers.forEach(selector => {
+        const element = document.querySelector(selector);
+        console.log(`${selector}:`, element ? 'EXISTE' : 'NO EXISTE');
+        if (element) {
+            const style = window.getComputedStyle(element);
+            console.log(`  - display: ${style.display}`);
+            console.log(`  - visibility: ${style.visibility}`);
+            console.log(`  - opacity: ${style.opacity}`);
+            console.log(`  - width: ${style.width}`);
+            console.log(`  - height: ${style.height}`);
+        }
+    });
+    
+    // Verificar estilos dinámicos
+    const dynamicStyle = document.getElementById('memory-card-styles');
+    console.log('Estilo dinámico memory-card-styles:', dynamicStyle ? 'EXISTE' : 'NO EXISTE');
+    if (dynamicStyle) {
+        console.log('Contenido del estilo:', dynamicStyle.textContent.substring(0, 200) + '...');
+    }
+}
+    
 }

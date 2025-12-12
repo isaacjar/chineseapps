@@ -13,7 +13,7 @@ body{margin:0;padding:0;background:#f2f2f2;font-family:Arial,sans-serif;display:
 .icon-btn{background:transparent;border:none;font-size:20px;cursor:pointer}
 
 /* CONTENEDOR PRINCIPAL más grande */
-#gameContainer{width:95vw;max-width:1400px;margin-top:15px;margin-bottom:20px;padding:30px;background:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+#gameContainer{width:95vw;max-width:1400px;margin:15px 0;padding:30px;background:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 
 /* SETTINGS */
 #screen-settings label{display:flex;flex-direction:column;margin-bottom:12px}
@@ -41,8 +41,8 @@ body{margin:0;padding:0;background:#f2f2f2;font-family:Arial,sans-serif;display:
 .keyboard{display:flex;flex-wrap:wrap;gap:10px;padding:10px;align-items:center}
 .key{padding:12px 14px;border-radius:8px;border:1px solid #e6e9ef;background:white;min-width:42px;text-align:center;cursor:pointer;user-select:none}
 .key.disabled{opacity:.5;cursor:not-allowed}
-.key.correct{background:var(--success);color:white}
-.key.wrong{background:var(--danger);color:white}
+.key.correct{background-color:#c8f7c5 !important;color:white}
+.key.wrong{background-color:#f7c5c5 !important;color:white}
 .controls-row{display:flex;gap:8px}
 
 /* FOOTER fijado abajo */
@@ -60,4 +60,3 @@ body{margin:0;padding:0;background:#f2f2f2;font-family:Arial,sans-serif;display:
 .hpart.visible{opacity:1;transform:none}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;padding:12px 16px;background:rgba(0,0,0,.8);color:white;border-radius:12px;box-shadow:var(--shadow);z-index:1000}
 @media(max-width:480px){.title{font-size:18px}.word-area{font-size:24px;min-height:100px}.key{min-width:34px;padding:8px}}
-

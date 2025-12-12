@@ -239,11 +239,18 @@ document.getElementById("modalCancel").addEventListener("click", closeCustomWord
 document.getElementById("modalOK").addEventListener("click", ()=>{
     const raw = document.getElementById("customWordsInput").value.trim();
     if(!raw){ toast("No words entered"); return; }
+
     const list = raw.split(/[\s,.;]+/).map(w=>w.trim().toLowerCase()).filter(w=>w.length>0);
-    window.customWordList=list;
-    window.useCustomWords=true;
+    if(list.length===0){ toast("Invalid list"); return; }
+
+    // Guardamos la lista personalizada y activamos su uso
+    window.customWordList = list;
+    window.useCustomWords = true;
+
     closeCustomWordsModal();
     toast("Custom list loaded: "+list.length+" words");
+
+    // Arrancar la primera palabra usando la lista personalizada
     nextWord();
 });
 

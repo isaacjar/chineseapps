@@ -30,6 +30,10 @@ function saveStats(stats) {
 function loadStats() {
     const stored = localStorage.getItem("hangmanStats");
     return stored ? JSON.parse(stored) : { correct: 0, wrong: 0 };
+    let stats = {
+          score: 0,             // puntos totales
+          correctLetters: 0     // letras acertadas en la palabra actual
+    };
 }
 
 // Normaliza texto eliminando acentos
@@ -82,8 +86,8 @@ function guessLetter(letter) {
     if (lettersGuessed.has(letter)) return;
 
     lettersGuessed.add(letter);
-
     let correct = false;
+
     currentWord.split("").forEach((c, i) => {
         if (normalizeChar(c) === normalizeChar(letter)) {
             currentWordDisplay[i] = c;
@@ -98,23 +102,21 @@ function guessLetter(letter) {
 
     if (correct) {
         if (keyBtn) { keyBtn.classList.add("correct"); keyBtn.disabled = true; }
+
+        stats.correctLetters++;      // incrementa letras correctas
+        stats.score++;               // incrementa score global
+        updateScoreDisplay();        // actualizar marcadores
+
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.successMessages || ["¡Bien!"]));
-        stats.correct++; saveStats(stats);
-        updateStatsDisplay();
 
         if (!currentWordDisplay.includes("_")) setTimeout(nextWord, 800);
 
     } else {
         mistakes++;
-        // Calcula la etapa proporcional al número de vidas
-        const hangmanStages = 10;
-        const stageToDraw = Math.ceil(mistakes * hangmanStages / maxMistakes);
-        updateHangmanSVG(stageToDraw);
-
+        updateHangmanSVG(mistakes);
         if (keyBtn) { keyBtn.classList.add("wrong"); keyBtn.disabled = true; }
+
         toast(randomFrom(langStrings[window.settingsLocal.lang]?.failMessages || ["Fallaste"]));
-        stats.wrong++; saveStats(stats);
-        updateStatsDisplay();
 
         if (mistakes >= maxMistakes) showCorrectWord();
     }
@@ -139,42 +141,36 @@ async function startGame() {
 }
 
 function nextWord() {
-    // Reinicia errores y muñeco
+    // Reinicia errores y vidas para la nueva palabra
     mistakes = 0;
-    updateHangmanSVG(mistakes);
-
-    // Actualiza vidas en la UI
+    stats.correctLetters = 0;        // reset letras acertadas para la nueva palabra
     updateLivesDisplay();
+    updateHangmanSVG(0);             // resetea el muñeco
 
-    if (questionsLeft <= 0) { 
-        endGame(); 
-        return; 
-    }
+    if (questionsLeft <= 0) { endGame(); return; }
 
     const vocArray = Object.values(window.currentVoc); // array de objetos
     const longWords = vocArray.filter(v => v.pin && v.pin.replace(/\s/g, '').length >= 5);
     shuffleArray(longWords);
 
-    if (longWords.length === 0) { 
-        toast("No words with 5+ letters"); 
-        return; 
-    }
+    if (longWords.length === 0) { toast("No words with 5+ letters"); return; }
 
     currentWord = longWords[0].pin;
     console.log("Word selected (raw):", currentWord);
 
-    // Genera display con guiones solo para letras, espacios se conservan
+    // Genera display con guiones _ solo para letras, espacios se conservan
     currentWordDisplay = Array.from(currentWord).map(c => c === " " ? " " : "_");
 
-    // Reinicia teclado y letras usadas
     lettersGuessed.clear();
     resetKeyboard();
-
-    // Actualiza la palabra en pantalla
     updateDisplay();
-
-    // Reduce contador de preguntas
+    updateScoreDisplay();           // actualizar marcadores
     questionsLeft--;
+}
+
+function updateScoreDisplay() {
+    document.getElementById("score").textContent = stats.score;
+    document.getElementById("correctLetters").textContent = stats.correctLetters;
 }
 
 /* Elimina clases de color de teclas y desbloquea todas */

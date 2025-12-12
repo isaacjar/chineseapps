@@ -3,28 +3,28 @@
     "selectVoclist":"Select vocabulary list",
     "settings":"Settings",
     "language":"Language",
-    "gameType":"Play with",
+    "gameType":"Words in",
     "lives":"Lives",
-    "questions":"Questions",
+    "questions":"Number of Words",
     "save":"Save",
     "reset":"Reset",
     "cancel":"Cancel",
     "statistics":"Statistics",
-    "successMessages":["🐼 Great!","🎉 Correct!","🌟 Well done!","💡 You got it!","🥳 Nice!","🐸 Perfect!","🚀 Nailed it!","🍀 Sweet!","🦄 Fantastic!","🔥 Unstoppable!"],
-    "failMessages":["😅 Ooops..","❌ No worries, keep going","🙈 Wrong!","🍂 Try again!","🤔 Not that one..","🌧️ Bad luck","🐌 It slipped away","🙃 Ups!","🍄 Another chance!","🐤 Not this one..."]
+    "successMessages":["🐼 Great!","🎉 Correct!","🌟 Well done!","💡 You got it!","🥳 Nice!","🐸 Perfect!","🚀 Nailed it!","🍀 Sweet!","🦄 Fantastic!","🔥 Unstoppable!","🦁 Roared it!","🐙 Clever!","🎯 Bullseye!","🌈 Amazing!","🍩 Delicious win!","🦋 Beautiful!","🏄‍♂️ Riding high!","🎶 Harmonious!","⚡ Electrifying!","🛡️ Brave!"],
+    "failMessages":["😅 Ooops..","❌ No worries, keep going","🙈 Wrong!","🍂 Try again!","🤔 Not that one..","🌧️ Bad luck","🐌 It slipped away","🙃 Ups!","🍄 Another chance!","🐤 Not this one...","💀 Missed it!","🐍 Slipped!","🕳️ Fell short!","🍋 Sour one!","🌀 Confused!","🦖 Try again, dino!","🎭 Oopsie!","🛶 Drifted away!","🐙 Tentacle miss!","🥶 Cold guess!"]
   },
   "es":{
     "selectVoclist":"Selecciona listado de vocabulario",
     "settings":"Ajustes",
     "language":"Idioma",
-    "gameType":"Jugar con",
+    "gameType":"Jugar palabras en ",
     "lives":"Vidas",
     "questions":"Preguntas",
     "save":"Guardar",
     "reset":"Resetear",
     "cancel":"Cancelar",
     "statistics":"Estadísticas",
-    "successMessages":["🐼 ¡Genial!","🎉 ¡Correcto!","🌟 ¡Bien hecho!","💡 ¡Lo pillaste!","🥳 ¡Acertaste!","🐸 ¡Perfecto!","🚀 ¡Lo clavaste!","🍀 ¡De lujo!","🦄 ¡Fantástico!","🔥 ¡Imparable!"],
-    "failMessages":["😅 Uy, casi...","❌ No pasa nada, ¡sigue!","🙈 ¡Fallaste!","🍂 ¡Inténtalo otra vez!","🤔 No era esa...","🌧️ Mala suerte...","🐌 ¡Se escapó esa!","🙃 Ups, ¡no!","🍄 ¡Otra oportunidad!","🐤 ¡Esa no era..."]
+    "successMessages":["🐼 ¡Genial!","🎉 ¡Correcto!","🌟 ¡Bien hecho!","💡 ¡Lo pillaste!","🥳 ¡Acertaste!","🐸 ¡Perfecto!","🚀 ¡Lo clavaste!","🍀 ¡De lujo!","🦄 ¡Fantástico!","🔥 ¡Imparable!","🦁 ¡Lo hiciste rugir!","🐙 ¡Ingenioso!","🎯 ¡Directo al blanco!","🌈 ¡Increíble!","🍩 ¡Dulce victoria!","🦋 ¡Hermoso!","🏄‍♂️ ¡A lo grande!","🎶 ¡Armonioso!","⚡ ¡Electrizante!","🛡️ ¡Valiente!"],
+    "failMessages":["😅 Uy, casi...","❌ No pasa nada, ¡sigue!","🙈 ¡Fallaste!","🍂 ¡Inténtalo otra vez!","🤔 No era esa...","🌧️ Mala suerte...","🐌 ¡Se escapó esa!","🙃 Ups, ¡no!","🍄 ¡Otra oportunidad!","🐤 ¡Esa no era...","💀 ¡Fallido!","🐍 ¡Se deslizó!","🕳️ ¡Cayó corto!","🍋 ¡Ácida esa!","🌀 ¡Confundido!","🦖 ¡Intenta otra vez, dino!","🎭 ¡Ups!","🛶 ¡A la deriva!","🐙 ¡Tentáculo fallido!","🥶 ¡Frío intento!"]
   }
 }

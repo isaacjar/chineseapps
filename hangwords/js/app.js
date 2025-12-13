@@ -11,7 +11,7 @@ async function loadLang() {
   try {
     const res = await fetch("js/lang.json");
     langStrings = await res.json();
-    console.log("✓ lang.json cargado");
+    //console.log("✓ lang.json cargado");
   } catch(e) {
     console.error("Error al cargar lang.json", e);
   }
@@ -26,7 +26,7 @@ function fetchVoclists() {
   return new Promise((resolve, reject) => {
     if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
       voclistsIndex = voclists;
-      console.log("Voclists cargadas:", voclistsIndex.length);
+      console.log("📄Voclists cargados:", voclistsIndex.length);
       resolve(voclistsIndex);
     } else {
       console.error("voclists.js no ha inicializado voclists");
@@ -64,7 +64,7 @@ async function selectVoclist(filename) {
     const res = await fetch(url);
     const vocData = await res.json();
     window.currentVoc = vocData; // asignamos global
-    console.log("✓ vocabulario cargado", filename, window.currentVoc.length, "palabras");
+    console.log("✓ vocabulario cargado", filename, window.currentVoc.length, "palabras total");
 
     settingsLocal.voclist = filename;
     saveSettings(settingsLocal);

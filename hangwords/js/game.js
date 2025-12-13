@@ -11,7 +11,7 @@ function normalizeChar(c){return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"
 const safeAddEventListener=(i,e,f)=>document.getElementById(i)?.addEventListener(e,f);
 
 /* =========================== DISPLAY ============================ */
-function updateDisplay(){document.getElementById("score") && (document.getElementById("score").textContent = stats.score);}
+function updateDisplay(){ const w = document.getElementById("wordArea"); if (w) w.textContent = currentWordDisplay?.join(" ") || ""; const s = document.getElementById("score");  if (s) s.textContent = stats.score;}
 function updateScoreDisplay(){document.getElementById("score")&&(document.getElementById("score").textContent=stats.score);document.getElementById("correctLetters")&&(document.getElementById("correctLetters").textContent=stats.correctLetters);}
 function updateLivesDisplay(){document.getElementById("lives")&&(document.getElementById("lives").textContent=maxMistakes-mistakes);}
 

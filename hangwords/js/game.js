@@ -8,6 +8,7 @@ function shuffleArray(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.ran
 function saveStats(){localStorage.setItem("hangmanStats",JSON.stringify(stats));}
 function loadStats(){const s=JSON.parse(localStorage.getItem("hangmanStats")||"{}");return {score:s.score||0,correctLetters:s.correctLetters||0,correct:s.correct||0,wrong:s.wrong||0};}
 function normalizeChar(c){return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();}
+const safeAddEventListener=(i,e,f)=>document.getElementById(i)?.addEventListener(e,f);
 
 /* =========================== DISPLAY ============================ */
 function updateDisplay(){document.getElementById("score") && (document.getElementById("score").textContent = stats.score);}

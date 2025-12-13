@@ -10,7 +10,7 @@ function loadStats(){const s=JSON.parse(localStorage.getItem("hangmanStats")||"{
 function normalizeChar(c){return c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();}
 
 /* =========================== DISPLAY ============================ */
-function updateDisplay(){document.getElementById("wordArea")?.textContent=currentWordDisplay.map(c=>c===" "?" ":c).join(" ");}
+function updateDisplay(){document.getElementById("score") && (document.getElementById("score").textContent = stats.score);}
 function updateScoreDisplay(){document.getElementById("score")&&(document.getElementById("score").textContent=stats.score);document.getElementById("correctLetters")&&(document.getElementById("correctLetters").textContent=stats.correctLetters);}
 function updateLivesDisplay(){document.getElementById("lives")&&(document.getElementById("lives").textContent=maxMistakes-mistakes);}
 

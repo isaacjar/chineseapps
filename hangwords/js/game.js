@@ -27,7 +27,7 @@ function guessLetter(letter){
     if(!currentWord||lettersGuessed.has(letter))return;lettersGuessed.add(letter);let correct=false;
     currentWord.split("").forEach((c,i)=>{if(normalizeChar(c)===normalizeChar(letter)){currentWordDisplay[i]=c;correct=true;}});
     updateDisplay();const keyBtn=Array.from(document.querySelectorAll(".key")).find(k=>normalizeChar(k.textContent)===normalizeChar(letter));
-    if(correct){if(keyBtn){keyBtn.classList.add("correct");keyBtn.disabled=true;}stats.correctLetters++;toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.successMessages||["¡Bien!"]));if(!currentWordDisplay.includes("_")){stats.score+=stats.correctLetters;stats.correct++;saveStats();setTimeout(nextWord,800);}}
+    if(correct){if(keyBtn){keyBtn.classList.add("correct");keyBtn.disabled=true;}stats.correctLetters++;toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.successMessages||["¡Bien!"]));if(!currentWordDisplay.includes("_")){stats.score+=stats.correctLetters;stats.correct++;saveStats();setTimeout(nextWord,3000);}}
     else{mistakes++;updateHangmanSVG(mistakes);if(keyBtn){keyBtn.classList.add("wrong");keyBtn.disabled=true;}toast(randomFrom(langStrings?.[window.settingsLocal?.lang]?.failMessages||["Fallaste"]));if(mistakes>=maxMistakes){stats.wrong++;saveStats();showCorrectWord();}}
     updateScoreDisplay();updateLivesDisplay();
 }
@@ -41,14 +41,17 @@ function startGame(customList){
 }
 
 function nextWord(){
-    mistakes=0;stats.correctLetters=0;lettersGuessed.clear();updateLivesDisplay();updateHangmanSVG(0);
-    if(questionsLeft<=0){endGame();return;}
-    let vocArray=(window.useCustomWords&&Array.isArray(window.customWordList))?window.customWordList.map(w=>({pin:w})):Object.values(window.currentVoc);
-    let longWords=vocArray.filter(v=>v.pin&&v.pin.replace(/\s/g,'').length>=5);
-    let available=longWords.filter(w=>!usedWords.includes(w.pin));if(available.length===0){usedWords=[];available=longWords;}
-    shuffleArray(available);let next=available[0];currentWord=next.pin;previousWord=currentWord;usedWords.push(currentWord);
+    mistakes=0; stats.correctLetters=0; lettersGuessed.clear(); updateLivesDisplay(); updateHangmanSVG(0);
+    if(questionsLeft<=0){endGame(); return;}
+    let vocArray=(window.useCustomWords&&Array.isArray(window.customWordList))?window.customWordList.map(w=>({pin:w})):Object.values(window.currentVoc),
+        longWords=vocArray.filter(v=>v.pin&&v.pin.replace(/\s/g,'').length>=5),
+        available=longWords.filter(w=>!usedWords.includes(w.pin));
+    if(!available.length){usedWords=[]; available=longWords;}
+    const next=available[Math.floor(Math.random()*available.length)];
+    currentWord=next.pin; previousWord=currentWord; usedWords.push(currentWord);
     console.log("Playing word:",currentWord);
-    currentWordDisplay=Array.from(currentWord).map(c=>c===" "?" ":"_");resetKeyboard();updateDisplay();updateScoreDisplay();questionsLeft--;
+    currentWordDisplay=Array.from(currentWord).map(c=>c===" "?" ":"_");
+    resetKeyboard(); updateDisplay(); updateScoreDisplay(); questionsLeft--;
 }
 
 /* =========================== MODALES ============================ */

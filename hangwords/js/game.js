@@ -161,14 +161,13 @@ function finishRound(win){
 }
 
 function revealWrongLetters(){
-  currentWordDisplay = [...currentWord].map((c,i)=>{
-    if(c === " ") return " ";
-    // Si ya estaba acertada, mantenerla en negro
-    if(currentWordDisplay[i] !== "_") return c;
-    // Si no estaba acertada, mostrar en rojo
-    return `<span style="color:red">${c}</span>`;
+  const display = [...currentWord].map((c, i) => {
+    if(c === " ") return " "; // espacio
+    if(currentWordDisplay[i] !== "_") return c; // letra ya acertada
+    return `<span style="color:red">${c}</span>`; // letra nueva en rojo
   });
-  updateDisplay();
+  
+  $("wordArea").innerHTML = display.join(""); // <-- no añadimos espacios extra
 }
 
 /* ================= MODO APRENDIZAJE ================= */

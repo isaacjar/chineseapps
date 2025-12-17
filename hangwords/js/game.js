@@ -46,6 +46,10 @@ function onVocabularyLoaded(words) {
   const hint = $("selectVocHint");
   hint?.classList.add("hidden");
 
+  // ocultar botón de listado de palabras
+  const btnList = $("btnListWords");
+  if (btnList) btnList.style.display = "none";
+
   // reset counters
   wordsSolved = 0;
   lettersHitCount = 0;
@@ -60,6 +64,9 @@ function updateDisplay() {
   $("wordArea") && ($("wordArea").innerHTML = currentWordDisplay.join(" "));
   $("score") && ($("score").textContent = stats.score);
   $("lives") && ($("lives").textContent = maxMistakes - mistakes);
+
+  // log de palabra actual en consola
+  if (currentWord) console.log("Palabra actual:", currentWord);
 }
 
 function updateCounters() {
@@ -315,36 +322,4 @@ window.addEventListener("DOMContentLoaded", () => {
   initKeyboard();
   startGame();
   updateNewButtonState();
-
-  if (hasVocabularyLoaded()) {
-    startNewRound();
-  }
-
-  // Ejemplo de binding para botones de carga manual o JSON
-  safe("btnAddManual", () => {
-    const input = $("customWordsInput")?.value.split(/[\s,;.\r\n]+/).map(w=>w.trim()).filter(w=>w.length >=5);
-    if (!input || !input.length) return;
-    onVocabularyLoaded(input);
-    startNewRound();
-  });
-
-  safe("btnAddFromFileES", async () => {
-    try {
-      const res = await fetch("words_es.json");
-      const data = await res.json();
-      const words = data.map(w=>w.trim()).filter(w=>w.length>=5);
-      onVocabularyLoaded(words);
-      startNewRound();
-    } catch(e){ console.error(e); toast("Error cargando words_es.json"); }
-  });
-
-  safe("btnAddFromFileEN", async () => {
-    try {
-      const res = await fetch("words_en.json");
-      const data = await res.json();
-      const words = data.map(w=>w.trim()).filter(w=>w.length>=5);
-      onVocabularyLoaded(words);
-      startNewRound();
-    } catch(e){ console.error(e); toast("Error cargando words_en.json"); }
-  });
 });

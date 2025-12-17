@@ -11,7 +11,6 @@ async function loadLang() {
   try {
     const res = await fetch("js/lang.json");
     langStrings = await res.json();
-    //console.log("✓ lang.json cargado");
   } catch(e) {
     console.error("Error al cargar lang.json", e);
   }
@@ -20,8 +19,6 @@ async function loadLang() {
 /* ===========================
       CARGA LISTADOS VOCAB
 =========================== */
-
-// Espera a que voclists global (index.js) esté cargado
 function fetchVoclists() {
   return new Promise((resolve, reject) => {
     if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
@@ -35,7 +32,6 @@ function fetchVoclists() {
   });
 }
 
-// Muestra la selección de listados
 async function fetchAndShowLists() {
   const container = document.getElementById("voclistsContainer");
   if (!container) return;
@@ -53,15 +49,14 @@ async function fetchAndShowLists() {
   showScreen("lists");
 }
 
-// Carga un vocabulario concreto
 async function selectVoclist(filename) {
   try {
     const url = `../voclists/${filename}.json`;
     const res = await fetch(url);
     const vocData = await res.json();
 
-    // Usamos la función centralizada de game.js
-    onVocabularyLoaded(vocData.map(w=>w.pin || w));
+    // llamamos a game.js
+    onVocabularyLoaded(vocData.map(w => w.pin || w));
 
     settingsLocal.voclist = filename;
     saveSettings(settingsLocal);
@@ -78,7 +73,7 @@ async function selectVoclist(filename) {
 /* ===========================
       BINDINGS UI
 =========================== */
-function initUIBindings(){
+function initUIBindings() {
   const overlay = $("modalOverlay");
 
   const bind = (id, fn) => {
@@ -87,9 +82,9 @@ function initUIBindings(){
     el.addEventListener("click", fn);
   };
 
-  /* ========= Idioma ========= */
+  /* Idioma */
   const selectLang = $("selectLang");
-  Object.keys(langStrings).forEach(k=>{
+  Object.keys(langStrings).forEach(k => {
     const o = document.createElement("option");
     o.value = k;
     o.textContent = k;
@@ -97,17 +92,17 @@ function initUIBindings(){
   });
   selectLang.value = settingsLocal.lang;
 
-  /* ========= Inputs ========= */
+  /* Inputs */
   $("selectGameType").value = settingsLocal.gametype || "chinese";
   $("inputLives").value = settingsLocal.lives;
   $("livesValue").textContent = settingsLocal.lives;
   $("inputQuestions").value = settingsLocal.questions;
   $("questionsValue").textContent = settingsLocal.questions;
 
-  $("inputLives").addEventListener("input", e=>$("livesValue").textContent=e.target.value);
-  $("inputQuestions").addEventListener("input", e=>$("questionsValue").textContent=e.target.value);
+  $("inputLives").addEventListener("input", e => $("livesValue").textContent = e.target.value);
+  $("inputQuestions").addEventListener("input", e => $("questionsValue").textContent = e.target.value);
 
-  /* ========= Settings ========= */
+  /* Settings */
   bind("btnSettings", ()=>{ setI18n(langStrings, settingsLocal.lang); showScreen("settings"); });
   bind("btnCloseLists", ()=> showScreen("game"));
 
@@ -128,7 +123,7 @@ function initUIBindings(){
   bind("btnCloseStats", ()=> showScreen("game"));
   bind("btnResetStats", ()=>{ resetStats(); updateStatsUI(); toast("Stats reset"); });
 
-  /* ========= Añadir palabras manualmente ========= */
+  /* Añadir palabras manualmente */
   bind("btnAdd", ()=>{
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
 
@@ -153,7 +148,6 @@ function initUIBindings(){
 
     if (!words.length) return toast("No hay palabras válidas");
 
-    // llamamos a game.js
     onVocabularyLoaded(words);
 
     $("customWordsModal").classList.add("hidden");
@@ -164,7 +158,7 @@ function initUIBindings(){
     toast(`${words.length} palabras añadidas`);
   });
 
-  /* ========= Añadir palabras desde JSON ========= */
+  /* Añadir palabras desde JSON */
   const addWordsFromJSON = async file=>{
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
 
@@ -173,7 +167,7 @@ function initUIBindings(){
       const data = await res.json();
       if (!Array.isArray(data)) return toast("Formato incorrecto");
 
-      const words = data.map(w=>String(w).trim()).filter(w=>w.length>=5);
+      const words = data.map(w => String(w).trim()).filter(w => w.length >= 5);
       if (!words.length) return toast("No hay palabras válidas");
 
       onVocabularyLoaded(words);
@@ -188,7 +182,7 @@ function initUIBindings(){
   bind("btnAddFromFileES", ()=>addWordsFromJSON("words_es.json"));
   bind("btnAddFromFileEN", ()=>addWordsFromJSON("words_en.json"));
 
-  /* ========= Ver palabras ========= */
+  /* Ver palabras */
   bind("btnListWords", ()=>{
     if (roundActive && !confirm("¿Desea mostrar las palabras de juego?")) return;
 
@@ -196,14 +190,24 @@ function initUIBindings(){
     list.innerHTML = "";
 
     let words = [];
-    if (window.useCustomWords && Array.isArray(window.customWordList)) {
+    if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) {
       words = window.customWordList;
-    } else if (window.currentVoc) {
-      words = Object.values(window.currentVoc).map(v=>v.pin).filter(Boolean);
+    } else if (window.currentVoc && Object.keys(window.currentVoc).length) {
+      words = Object.values(window.currentVoc)
+        .map(v => v.pin || v)
+        .filter(Boolean);
     }
 
-    if (!words.length) list.innerHTML = "<li>No words loaded</li>";
-    else words.forEach(w=>{ const li = document.createElement("li"); li.textContent=w; list.appendChild(li); });
+    if (!words.length) {
+      list.innerHTML = "<li>No words loaded</li>";
+      return; // no aplicamos blur si no hay palabras
+    }
+
+    words.forEach(w=>{
+      const li = document.createElement("li");
+      li.textContent = w;
+      list.appendChild(li);
+    });
 
     $("wordListModal").classList.remove("hidden");
     overlay.classList.remove("hidden");
@@ -216,10 +220,11 @@ function initUIBindings(){
     document.body.classList.remove("modal-open");
   });
 
-  /* ========= Teclado ========= */
+  /* Teclado */
   document.addEventListener("keydown", e=>{
-    if (e.key?.length===1){
-      const btn=[...document.querySelectorAll(".key")].find(b=>b.textContent.toLowerCase()===e.key.toLowerCase());
+    if (e.key?.length === 1){
+      const btn = [...document.querySelectorAll(".key")]
+        .find(b => b.textContent.toLowerCase() === e.key.toLowerCase());
       btn?.click();
     }
   });
@@ -234,10 +239,8 @@ async function startApp(){
   initUIBindings();
   await fetchVoclists();
 
-  // borramos vocabulario en memoria
   window.currentVoc = [];
 
-  // cargamos voclist por URL si existe
   const urlParams = new URLSearchParams(window.location.search);
   const vocParam = urlParams.get("voclist");
 
@@ -255,14 +258,12 @@ async function startApp(){
   }
 }
 
-// al cerrar o recargar la página, borramos vocabulario de memoria
 window.addEventListener('beforeunload', ()=>{
   window.currentVoc = [];
   settingsLocal.voclist = null;
   saveSettings(settingsLocal);
 });
 
-// recargar app al pulsar sobre el logo
 const brand = document.querySelector(".brand");
 if (brand) {
   brand.style.cursor = "pointer";

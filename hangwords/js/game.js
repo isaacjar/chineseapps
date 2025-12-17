@@ -302,10 +302,8 @@ function showLearningInfo() {
 function updateNewButtonState() {
   const btn = $("btnNew");
   if (!btn) return;
-
-  const enabled = hasVocabularyLoaded();
-  btn.disabled = !enabled;
-  btn.classList.toggle("disabled", !enabled);
+  btn.disabled = false; // ✅ Nunca deshabilitar
+  btn.classList.remove("disabled");
 }
 
 /* ================= BINDINGS ================= */

@@ -47,32 +47,15 @@
     <section id="screen-settings" class="screen hidden">
       <div class="panel">
         <h2 data-i18n="settings">Settings</h2>
+        
         <label>
           <span data-i18n="language">Language</span>
           <select id="selectLang"></select>
         </label>
-
-        <label hidden>
-          <span data-i18n="gameType">Play with</span>
-          <select id="selectGameType">
-            <option value="chinese">Chinese</option>
-            <option value="spanish">Spanish</option>
-            <option value="english">English</option>
-          </select>
-        </label>
-
-        <label>
-          <span data-i18n="lives">Lives</span>
-          <input id="inputLives" type="range" min="1" max="20" />
-          <div class="range-value"><span id="livesValue">7</span></div>
-        </label>
-
-        <label>
-          <span data-i18n="questions">Questions</span>
-          <input id="inputQuestions" type="range" min="1" max="50" />
-          <div class="range-value"><span id="questionsValue">10</span></div>
-        </label>
-
+    
+        <!-- contenedor de estadísticas en settings -->
+        <div id="settingsStats" class="settings-stats"></div>
+    
         <div class="panel-actions">
           <button id="btnSaveSettings" class="btn primary">💾 <span data-i18n="save">Save</span></button>
           <button id="btnResetSettings" class="btn">🔄 <span data-i18n="reset">Reset</span></button>

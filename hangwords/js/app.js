@@ -23,7 +23,7 @@ function fetchVoclists() {
   return new Promise((resolve, reject) => {
     if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
       voclistsIndex = voclists;
-      console.log("📄 Voclists cargados:", voclistsIndex.length);
+      console.log("📄Voclists cargados:", voclistsIndex.length);
       resolve(voclistsIndex);
     } else {
       console.error("voclists.js no ha inicializado voclists");
@@ -33,11 +33,10 @@ function fetchVoclists() {
 }
 
 async function fetchAndShowLists() {
-  const container = document.getElementById("voclistsContainer");
+  const container = $("voclistsContainer");
   if (!container) return;
 
   container.innerHTML = "";
-
   voclistsIndex.forEach(list => {
     const btn = document.createElement("button");
     btn.className = "voclistItem";
@@ -54,28 +53,26 @@ async function selectVoclist(filename) {
     const url = `../voclists/${filename}.json`;
     const res = await fetch(url);
     const vocData = await res.json();
-
-    // llamamos a game.js
-    onVocabularyLoaded(vocData.map(w => w.pin || w));
+    window.currentVoc = vocData;
+    console.log("✓ vocabulario cargado", filename, vocData.length, "palabras total");
 
     settingsLocal.voclist = filename;
     saveSettings(settingsLocal);
 
+    startGame();
     startNewRound();
     showScreen("game");
-    console.log("✓ vocabulario cargado:", filename, vocData.length, "palabras total");
+
   } catch(e) {
     console.error("Error al cargar vocabulario", e);
-    toast("Error cargando vocabulario");
   }
 }
 
 /* ===========================
       BINDINGS UI
 =========================== */
-function initUIBindings() {
+function initUIBindings(){
   const overlay = $("modalOverlay");
-
   const bind = (id, fn) => {
     const el = $(id);
     if (!el || typeof fn !== "function") return;
@@ -84,7 +81,7 @@ function initUIBindings() {
 
   /* Idioma */
   const selectLang = $("selectLang");
-  Object.keys(langStrings).forEach(k => {
+  Object.keys(langStrings).forEach(k=>{
     const o = document.createElement("option");
     o.value = k;
     o.textContent = k;
@@ -92,25 +89,28 @@ function initUIBindings() {
   });
   selectLang.value = settingsLocal.lang;
 
-  /* Inputs */
-  $("selectGameType").value = settingsLocal.gametype || "chinese";
-  $("inputLives").value = settingsLocal.lives;
-  $("livesValue").textContent = settingsLocal.lives;
-  $("inputQuestions").value = settingsLocal.questions;
-  $("questionsValue").textContent = settingsLocal.questions;
+  /* ====== SETTINGS ====== */
+  // Función para mostrar estadísticas en settings
+  function updateSettingsStatsUI() {
+    const container = $("settingsStats");
+    if (!container) return;
 
-  $("inputLives").addEventListener("input", e => $("livesValue").textContent = e.target.value);
-  $("inputQuestions").addEventListener("input", e => $("questionsValue").textContent = e.target.value);
+    const stats = loadStats ? loadStats() : {}; // loadStats viene de stats.js
+    container.innerHTML = `
+      <div>Games played: ${stats.gamesPlayed || 0}</div>
+      <div>Words guessed: ${stats.wordsGuessed || 0}</div>
+      <div>Correct letters: ${stats.correctLetters || 0}</div>
+    `;
+  }
 
-  /* Settings */
-  bind("btnSettings", ()=>{ setI18n(langStrings, settingsLocal.lang); showScreen("settings"); });
-  bind("btnCloseLists", ()=> showScreen("game"));
+  bind("btnSettings", ()=>{
+    setI18n(langStrings, settingsLocal.lang);
+    updateSettingsStatsUI();
+    showScreen("settings");
+  });
 
   bind("btnSaveSettings", ()=>{
     settingsLocal.lang = selectLang.value;
-    settingsLocal.gametype = $("selectGameType").value;
-    settingsLocal.lives = Number($("inputLives").value);
-    settingsLocal.questions = Number($("inputQuestions").value);
     saveSettings(settingsLocal);
     toast("Settings saved");
     setI18n(langStrings, settingsLocal.lang);
@@ -118,15 +118,21 @@ function initUIBindings() {
   });
 
   bind("btnCancelSettings", ()=> showScreen("lists"));
-  bind("btnResetSettings", ()=>{ resetSettings(); settingsLocal = loadSettings(); toast("Settings reset"); });
 
-  bind("btnCloseStats", ()=> showScreen("game"));
-  bind("btnResetStats", ()=>{ resetStats(); updateStatsUI(); toast("Stats reset"); });
+  bind("btnResetSettings", ()=>{
+    resetSettings();
+    if (resetStats) resetStats(); // borrar estadísticas guardadas
+    settingsLocal = loadSettings();
+    updateSettingsStatsUI();
+    toast("Settings and stats reset");
+  });
 
-  /* Añadir palabras manualmente */
+  /* ====== LISTS ====== */
+  bind("btnCloseLists", ()=> showScreen("game"));
+
+  /* ====== Añadir palabras manualmente ====== */
   bind("btnAdd", ()=>{
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
-
     $("customWordsInput").value = "";
     $("customWordsModal").classList.remove("hidden");
     overlay.classList.remove("hidden");
@@ -146,9 +152,10 @@ function initUIBindings() {
       .map(w=>w.trim())
       .filter(w=>w.length >= 5);
 
-    if (!words.length) return toast("No hay palabras válidas");
+    if (!words.length) return;
 
-    onVocabularyLoaded(words);
+    window.customWordList = words;
+    window.useCustomWords = true;
 
     $("customWordsModal").classList.add("hidden");
     overlay.classList.add("hidden");
@@ -158,19 +165,20 @@ function initUIBindings() {
     toast(`${words.length} palabras añadidas`);
   });
 
-  /* Añadir palabras desde JSON */
+  /* ====== Añadir palabras desde JSON ====== */
   const addWordsFromJSON = async file=>{
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
-
     try{
       const res = await fetch(file);
       const data = await res.json();
       if (!Array.isArray(data)) return toast("Formato incorrecto");
 
-      const words = data.map(w => String(w).trim()).filter(w => w.length >= 5);
+      const words = data.map(w=>String(w).trim()).filter(w=>w.length>=5);
       if (!words.length) return toast("No hay palabras válidas");
 
-      onVocabularyLoaded(words);
+      window.customWordList = words;
+      window.useCustomWords = true;
+
       startNewRound();
       toast(`${words.length} palabras cargadas`);
     } catch(e){
@@ -182,7 +190,7 @@ function initUIBindings() {
   bind("btnAddFromFileES", ()=>addWordsFromJSON("words_es.json"));
   bind("btnAddFromFileEN", ()=>addWordsFromJSON("words_en.json"));
 
-  /* Ver palabras */
+  /* ====== Ver palabras ====== */
   bind("btnListWords", ()=>{
     if (roundActive && !confirm("¿Desea mostrar las palabras de juego?")) return;
 
@@ -190,20 +198,16 @@ function initUIBindings() {
     list.innerHTML = "";
 
     let words = [];
-    if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) {
+    if (window.useCustomWords && Array.isArray(window.customWordList)) {
       words = window.customWordList;
-    } else if (window.currentVoc && Object.keys(window.currentVoc).length) {
+    } else if (window.currentVoc) {
       words = Object.values(window.currentVoc)
-        .map(v => v.pin || v)
+        .map(v=>v.pin)
         .filter(Boolean);
     }
 
-    if (!words.length) {
-      list.innerHTML = "<li>No words loaded</li>";
-      return; // no aplicamos blur si no hay palabras
-    }
-
-    words.forEach(w=>{
+    if (!words.length) list.innerHTML = "<li>No words loaded</li>";
+    else words.forEach(w=>{
       const li = document.createElement("li");
       li.textContent = w;
       list.appendChild(li);
@@ -220,11 +224,11 @@ function initUIBindings() {
     document.body.classList.remove("modal-open");
   });
 
-  /* Teclado */
+  /* ====== Teclado ====== */
   document.addEventListener("keydown", e=>{
-    if (e.key?.length === 1){
-      const btn = [...document.querySelectorAll(".key")]
-        .find(b => b.textContent.toLowerCase() === e.key.toLowerCase());
+    if (e.key?.length===1){
+      const btn=[...document.querySelectorAll(".key")]
+        .find(b=>b.textContent.toLowerCase()===e.key.toLowerCase());
       btn?.click();
     }
   });

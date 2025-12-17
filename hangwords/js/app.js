@@ -241,7 +241,14 @@ async function startApp(){
 
   if (vocParam) {
     settingsLocal.voclist = vocParam;
+    saveSettings(settingsLocal);
     await selectVoclist(vocParam);
+    // startNewRound() ya se llama dentro de selectVoclist
+  } else if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) {
+    // Si hay lista personalizada previamente cargada
+    startGame(window.customWordList);
+    startNewRound();
+    showScreen("game");
   } else {
     settingsLocal.voclist = null;
     await fetchAndShowLists();

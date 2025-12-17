@@ -70,6 +70,7 @@ async function selectVoclist(filename) {
     saveSettings(settingsLocal);
 
     startGame();
+    startNewRound();
     showScreen("game");
 
   } catch (e) {

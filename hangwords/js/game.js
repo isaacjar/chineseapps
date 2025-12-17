@@ -88,10 +88,18 @@ function startGame(customList){
 }
 
 function startNewRound(){
-  if(roundActive) return;
-  mistakes=0; lettersGuessed.clear();
-  roundActive=true; roundFinished=false;
-  resetKeyboard(); resetWordStyles();
+  if(roundActive){
+    const proceed = confirm("¿Desea interrumpir la partida actual?");
+    if(!proceed) return;          // si cancela, no hacemos nada
+    finishRound(false);            // si confirma, terminamos la ronda como fallida
+  }
+
+  mistakes = 0; 
+  lettersGuessed.clear();
+  roundActive = true; 
+  roundFinished = false;
+  resetKeyboard(); 
+  resetWordStyles();
   updateHangmanSVG(0);
   nextWord();
 }

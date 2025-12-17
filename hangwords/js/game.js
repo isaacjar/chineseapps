@@ -109,6 +109,8 @@ function nextWord(){
   currentWord = currentWordObj.pin;
   usedWords.push(currentWord);
 
+  console.log("➡️ ", currentWord);
+    
   currentWordDisplay = [...currentWord].map(c=>c===" "?" ":"_");
   updateDisplay();
 }
@@ -174,12 +176,7 @@ function revealWrongLetters(){
 function showLearningInfo(){
   const box = $("learningBox"); if(!box||!currentWordObj) return;
   const {ch,pin,en,es} = currentWordObj;
-  box.innerHTML = `
-    ${ch?`<div><b>字符:</b> ${ch}</div>`:""}
-    ${pin?`<div><b>Pinyin:</b> ${pin}</div>`:""}
-    ${en?`<div><b>EN:</b> ${en}</div>`:""}
-    ${es?`<div><b>ES:</b> ${es}</div>`:""}
-  `;
+  box.innerHTML = `${ch?`<div><b>${ch} [ ${pin} ]</b>  ${en} - ${es} </div>`:""}`;
   box.classList.remove("hidden");
 }
 

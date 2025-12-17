@@ -139,9 +139,7 @@ function initUIBindings(){
 
   // --- Añadir palabras personalizadas ---
   safe("btnAdd", () => {
-    if (roundActive) {
-      if (!confirm("¿Desea interrumpir la partida actual?")) return;
-    }
+    if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
 
     const modal = $("customWordsModal");
     const input = $("customWordsInput");
@@ -166,7 +164,8 @@ function initUIBindings(){
     const words = input.value.split(/[\s,;.\r\n]+/).map(w=>w.trim()).filter(Boolean);
     if (!words.length) return;
 
-    window.customWordList = words;
+    if (!Array.isArray(window.customWordList)) window.customWordList = [];
+    window.customWordList.push(...words);
     window.useCustomWords = true;
 
     $("customWordsModal")?.classList.add("hidden");
@@ -177,11 +176,42 @@ function initUIBindings(){
     toast(`${words.length} palabras añadidas`);
   });
 
+  // --- Añadir palabras desde archivos JSON ---
+  const addWordsFromJSON = async (file) => {
+    if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
+
+    try {
+      const res = await fetch(file);
+      const words = await res.json();
+      if (!Array.isArray(words) || words.length === 0) {
+        toast("No se han cargado palabras desde el archivo.");
+        return;
+      }
+
+      const filteredWords = words.map(w => w.trim()).filter(w => w.length >= 5);
+      if (!filteredWords.length) {
+        toast("No hay palabras válidas en el archivo.");
+        return;
+      }
+
+      if (!Array.isArray(window.customWordList)) window.customWordList = [];
+      window.customWordList.push(...filteredWords);
+      window.useCustomWords = true;
+
+      startNewRound();
+      toast(`${filteredWords.length} palabras añadidas desde ${file}`);
+    } catch (e) {
+      console.error(`Error al cargar ${file}`, e);
+      toast(`Error al cargar el archivo ${file}`);
+    }
+  };
+
+  safe("btnAddFromFileES", () => addWordsFromJSON("words_es.json"));
+  safe("btnAddFromFileEN", () => addWordsFromJSON("words_en.json"));
+
   // --- Ver palabras cargadas ---
   safe("btnListWords", ()=>{
-    if (roundActive) {
-      if (!confirm("¿Desea mostrar las palabras de juego?")) return;
-    }
+    if (roundActive && !confirm("¿Desea mostrar las palabras de juego?")) return;
 
     const wordListContainer = $("wordListContainer");
     wordListContainer.innerHTML = "";

@@ -192,6 +192,51 @@ function showLearningInfo(){
 const safe = (id, fn) => $(id)?.addEventListener("click", fn);
 safe("btnNew", startNewRound);
 
+/* -- Ver palabras cargadas -- */
+const wordListContainer = $("wordListContainer");
+const wordListModal = $("wordListModal");
+const overlay = $("overlay");
+
+safe("btnListWords", "click", () => {
+  if (!wordListContainer || !wordListModal || !overlay) return;
+
+  // si hay partida activa, preguntar
+  if (roundActive) {
+    if (!confirm("¿Desea mostrar las palabras de juego?")) return;
+  }
+
+  wordListContainer.innerHTML = "";
+  let words = [];
+
+  if (window.useCustomWords && Array.isArray(window.customWordList)) {
+    words = window.customWordList.filter(w => w.replace(/\s/g, "").length >= 5);
+  } else if (window.currentVoc) {
+    words = Object.values(window.currentVoc).map(v => v.pin).filter(w => w.replace(/\s/g, "").length >= 5);
+  }
+
+  if (words.length === 0) {
+    wordListContainer.innerHTML = "<li>No words loaded</li>";
+  } else {
+    words.forEach(w => {
+      const li = document.createElement("li");
+      li.textContent = w;
+      wordListContainer.appendChild(li);
+    });
+  }
+
+  wordListModal.style.display = "block";
+  overlay.style.display = "block";
+  document.body.classList.add("modal-open");
+});
+
+safe("wordListClose", "click", () => {
+  if (!wordListModal || !overlay) return;
+
+  wordListModal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.classList.remove("modal-open");
+});
+
 /* ================= INIT ================= */
 window.addEventListener("DOMContentLoaded", ()=>{
   initKeyboard(); 

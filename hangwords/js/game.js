@@ -25,6 +25,32 @@ function loadStats() {
   return { score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
 }
 
+/* ================= VOCABULARIO ================= */
+function hasVocabularyLoaded() {
+  if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) {
+    return true;
+  }
+  if (window.currentVoc && Object.keys(window.currentVoc).length) {
+    return true;
+  }
+  return false;
+}
+
+function setCustomVocabulary(words) {
+  if (!Array.isArray(words) || !words.length) return;
+
+  window.customWordList = words;
+  window.useCustomWords = true;
+
+  // eliminamos estado de “seleccione vocabulario”
+  window.currentVoc = null;
+
+  const hint = $("selectVocHint");
+  hint?.classList.add("hidden");
+
+  updateNewButtonState();
+}
+
 /* ================= DISPLAY ================= */
 function updateDisplay() {
   $("wordArea") && ($("wordArea").innerHTML = currentWordDisplay.join(" "));
@@ -100,9 +126,9 @@ const resetKeyboard = () =>
 /* ================= JUEGO ================= */
 function startGame(customList) {
   if (Array.isArray(customList)) {
-    window.customWordList = customList;
-    window.useCustomWords = true;
+    setCustomVocabulary(customList);
   }
+
   maxMistakes = window.settingsLocal?.lives || 7;
   usedWords = [];
   roundActive = false;
@@ -112,6 +138,11 @@ function startGame(customList) {
 }
 
 function startNewRound() {
+  if (!hasVocabularyLoaded()) {
+    toast("Primero cargue un listado de vocabulario");
+    return;
+  }
+
   if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
 
   mistakes = 0;
@@ -224,6 +255,16 @@ function showLearningInfo() {
   box.classList.remove("hidden");
 }
 
+/* ================= BOTÓN NEW ================= */
+function updateNewButtonState() {
+  const btn = $("btnNew");
+  if (!btn) return;
+
+  const enabled = hasVocabularyLoaded();
+  btn.disabled = !enabled;
+  btn.classList.toggle("disabled", !enabled);
+}
+
 /* ================= BINDINGS ================= */
 const safe = (id, fn) => {
   const el = $(id);
@@ -237,11 +278,9 @@ safe("btnNew", startNewRound);
 window.addEventListener("DOMContentLoaded", () => {
   initKeyboard();
   startGame();
+  updateNewButtonState();
 
-  if (
-    window.currentVoc?.length ||
-    (window.useCustomWords && window.customWordList?.length)
-  ) {
+  if (hasVocabularyLoaded()) {
     startNewRound();
   }
 });

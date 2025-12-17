@@ -71,7 +71,7 @@ async function selectVoclist(filename) {
 /* ===========================
       BINDINGS UI
 =========================== */
-function initUIBindings(){
+function initUIBindings() {
   const overlay = $("modalOverlay");
   const bind = (id, fn) => {
     const el = $(id);
@@ -81,7 +81,7 @@ function initUIBindings(){
 
   /* Idioma */
   const selectLang = $("selectLang");
-  Object.keys(langStrings).forEach(k=>{
+  Object.keys(langStrings).forEach(k => {
     const o = document.createElement("option");
     o.value = k;
     o.textContent = k;
@@ -90,12 +90,11 @@ function initUIBindings(){
   selectLang.value = settingsLocal.lang;
 
   /* ====== SETTINGS ====== */
-  // Función para mostrar estadísticas en settings
   function updateSettingsStatsUI() {
     const container = $("settingsStats");
     if (!container) return;
 
-    const stats = loadStats ? loadStats() : {}; // loadStats viene de stats.js
+    const stats = loadStats ? loadStats() : {};
     container.innerHTML = `
       <div>Games played: ${stats.gamesPlayed || 0}</div>
       <div>Words guessed: ${stats.wordsGuessed || 0}</div>
@@ -103,13 +102,13 @@ function initUIBindings(){
     `;
   }
 
-  bind("btnSettings", ()=>{
+  bind("btnSettings", () => {
     setI18n(langStrings, settingsLocal.lang);
     updateSettingsStatsUI();
     showScreen("settings");
   });
 
-  bind("btnSaveSettings", ()=>{
+  bind("btnSaveSettings", () => {
     settingsLocal.lang = selectLang.value;
     saveSettings(settingsLocal);
     toast("Settings saved");
@@ -117,21 +116,21 @@ function initUIBindings(){
     showScreen("lists");
   });
 
-  bind("btnCancelSettings", ()=> showScreen("lists"));
+  bind("btnCancelSettings", () => showScreen("lists"));
 
-  bind("btnResetSettings", ()=>{
+  bind("btnResetSettings", () => {
     resetSettings();
-    if (resetStats) resetStats(); // borrar estadísticas guardadas
+    if (resetStats) resetStats();
     settingsLocal = loadSettings();
     updateSettingsStatsUI();
     toast("Settings and stats reset");
   });
 
   /* ====== LISTS ====== */
-  bind("btnCloseLists", ()=> showScreen("game"));
+  bind("btnCloseLists", () => showScreen("game"));
 
   /* ====== Añadir palabras manualmente ====== */
-  bind("btnAdd", ()=>{
+  bind("btnAdd", () => {
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
     $("customWordsInput").value = "";
     $("customWordsModal").classList.remove("hidden");
@@ -140,58 +139,66 @@ function initUIBindings(){
     $("customWordsInput").focus();
   });
 
-  bind("modalCancel", ()=>{
+  bind("modalCancel", () => {
     $("customWordsModal").classList.add("hidden");
     overlay.classList.add("hidden");
     document.body.classList.remove("modal-open");
   });
 
-  bind("modalOK", ()=>{
+  bind("modalOK", () => {
     const words = $("customWordsInput").value
       .split(/[\s,;.\r\n]+/)
-      .map(w=>w.trim())
-      .filter(w=>w.length >= 5);
+      .map(w => w.trim())
+      .filter(w => w.length >= 5);
 
     if (!words.length) return;
 
     window.customWordList = words;
     window.useCustomWords = true;
+    window.currentVoc = null; // Limpiamos vocabulario antiguo
 
     $("customWordsModal").classList.add("hidden");
     overlay.classList.add("hidden");
     document.body.classList.remove("modal-open");
 
+    startGame(window.customWordList);
     startNewRound();
+    showScreen("game");
+
     toast(`${words.length} palabras añadidas`);
   });
 
   /* ====== Añadir palabras desde JSON ====== */
-  const addWordsFromJSON = async file=>{
+  const addWordsFromJSON = async file => {
     if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
-    try{
+    try {
       const res = await fetch(file);
       const data = await res.json();
       if (!Array.isArray(data)) return toast("Formato incorrecto");
 
-      const words = data.map(w=>String(w).trim()).filter(w=>w.length>=5);
+      const words = data.map(w => String(w).trim()).filter(w => w.length >= 5);
       if (!words.length) return toast("No hay palabras válidas");
 
       window.customWordList = words;
       window.useCustomWords = true;
+      window.currentVoc = null; // Limpiamos vocabulario antiguo
 
+      startGame(window.customWordList);
       startNewRound();
+      showScreen("game");
+
       toast(`${words.length} palabras cargadas`);
-    } catch(e){
+    } catch (e) {
       console.error(e);
       toast(`Error cargando ${file}`);
     }
   };
 
-  bind("btnAddFromFileES", ()=>addWordsFromJSON("words_es.json"));
-  bind("btnAddFromFileEN", ()=>addWordsFromJSON("words_en.json"));
+  bind("btnAddFromFileES", () => addWordsFromJSON("words_es.json"));
+  bind("btnAddFromFileEN", () => addWordsFromJSON("words_en.json"));
 
   /* ====== Ver palabras ====== */
-  bind("btnListWords", ()=>{
+  bind("btnListWords", () => {
     if (roundActive && !confirm("¿Desea mostrar las palabras de juego?")) return;
 
     const list = $("wordListContainer");
@@ -202,12 +209,12 @@ function initUIBindings(){
       words = window.customWordList;
     } else if (window.currentVoc) {
       words = Object.values(window.currentVoc)
-        .map(v=>v.pin)
+        .map(v => v.pin)
         .filter(Boolean);
     }
 
     if (!words.length) list.innerHTML = "<li>No words loaded</li>";
-    else words.forEach(w=>{
+    else words.forEach(w => {
       const li = document.createElement("li");
       li.textContent = w;
       list.appendChild(li);
@@ -218,17 +225,17 @@ function initUIBindings(){
     document.body.classList.add("modal-open");
   });
 
-  bind("wordListClose", ()=>{
+  bind("wordListClose", () => {
     $("wordListModal").classList.add("hidden");
     overlay.classList.add("hidden");
     document.body.classList.remove("modal-open");
   });
 
   /* ====== Teclado ====== */
-  document.addEventListener("keydown", e=>{
-    if (e.key?.length===1){
-      const btn=[...document.querySelectorAll(".key")]
-        .find(b=>b.textContent.toLowerCase()===e.key.toLowerCase());
+  document.addEventListener("keydown", e => {
+    if (e.key?.length === 1) {
+      const btn = [...document.querySelectorAll(".key")]
+        .find(b => b.textContent.toLowerCase() === e.key.toLowerCase());
       btn?.click();
     }
   });

@@ -82,7 +82,10 @@ async function selectVoclist(filename) {
       BINDINGS UI
 =========================== */
 function initUIBindings(){
-  const selectLang = document.getElementById('selectLang');
+  const overlay = $("modalOverlay");
+
+  // --- Selección de idioma ---
+  const selectLang = $("selectLang");
   Object.keys(langStrings).forEach(k=>{
     const o = document.createElement('option'); 
     o.value=k; 
@@ -91,59 +94,124 @@ function initUIBindings(){
   });
   selectLang.value = settingsLocal.lang;
 
-  document.getElementById('selectGameType').value = settingsLocal.gametype || 'chinese';
-  document.getElementById('inputLives').value = settingsLocal.lives; 
-  document.getElementById('livesValue').textContent = settingsLocal.lives;
-  document.getElementById('inputQuestions').value = settingsLocal.questions; 
-  document.getElementById('questionsValue').textContent = settingsLocal.questions;
+  // --- Otros inputs ---
+  $("selectGameType").value = settingsLocal.gametype || 'chinese';
+  $("inputLives").value = settingsLocal.lives; 
+  $("livesValue").textContent = settingsLocal.lives;
+  $("inputQuestions").value = settingsLocal.questions; 
+  $("questionsValue").textContent = settingsLocal.questions;
 
-  document.getElementById('inputLives').addEventListener('input', e=>{
-    document.getElementById('livesValue').textContent = e.target.value;
+  $("inputLives").addEventListener('input', e=>{
+    $("livesValue").textContent = e.target.value;
   });
-  document.getElementById('inputQuestions').addEventListener('input', e=>{
-    document.getElementById('questionsValue').textContent = e.target.value;
+  $("inputQuestions").addEventListener('input', e=>{
+    $("questionsValue").textContent = e.target.value;
   });
 
-  document.getElementById('btnSettings').addEventListener('click', ()=>{ setI18n(langStrings, settingsLocal.lang); showScreen('settings'); });
-  document.getElementById('btnCloseLists').addEventListener('click', ()=>{ showScreen('game'); });
+  // --- Botones de settings ---
+  safe("btnSettings", ()=>{ setI18n(langStrings, settingsLocal.lang); showScreen('settings'); });
+  safe("btnCloseLists", ()=>{ showScreen('game'); });
 
-  document.getElementById('btnSaveSettings').addEventListener('click', ()=>{
+  safe("btnSaveSettings", ()=>{
     settingsLocal.lang = selectLang.value;
-    settingsLocal.gametype = document.getElementById('selectGameType').value;
-    settingsLocal.lives = Number(document.getElementById('inputLives').value);
-    settingsLocal.questions = Number(document.getElementById('inputQuestions').value);
+    settingsLocal.gametype = $("selectGameType").value;
+    settingsLocal.lives = Number($("inputLives").value);
+    settingsLocal.questions = Number($("inputQuestions").value);
     saveSettings(settingsLocal);
     toast('Settings saved');
     setI18n(langStrings, settingsLocal.lang);
     showScreen('lists');
   });
 
-  document.getElementById('btnCancelSettings').addEventListener('click', ()=>{ showScreen('lists'); });
-  document.getElementById('btnResetSettings').addEventListener('click', ()=>{
+  safe("btnCancelSettings", ()=>{ showScreen('lists'); });
+  safe("btnResetSettings", ()=>{
     resetSettings(); 
     settingsLocal = loadSettings(); 
     toast('Settings reset'); 
   });
 
-  // document.getElementById('btnStats').addEventListener('click', ()=>{ updateStatsUI(); showScreen('stats'); });
-  document.getElementById('btnCloseStats').addEventListener('click', ()=>{ showScreen('game'); });
-  document.getElementById('btnResetStats').addEventListener('click', ()=>{
+  safe("btnCloseStats", ()=>{ showScreen('game'); });
+  safe("btnResetStats", ()=>{
     resetStats(); 
     updateStatsUI(); 
     toast('Stats reset'); 
   });
 
-  //document.getElementById('btnNew').addEventListener('click', ()=>{ startGame(); });
-  
-  document.getElementById("btnAdd").addEventListener("click", () => {
-    const modal = document.getElementById("customWordsModal");
-    const input = document.getElementById("customWordsInput");
+  // --- Añadir palabras personalizadas ---
+  safe("btnAdd", () => {
+    if (roundActive) {
+      if (!confirm("¿Desea interrumpir la partida actual?")) return;
+    }
+
+    const modal = $("customWordsModal");
+    const input = $("customWordsInput");
+    if (!modal || !input) return;
+
     input.value = "";
     modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+    document.body.classList.add("modal-open");
     input.focus();
   });
 
-  // keyboard events
+  safe("modalCancel", ()=>{
+    $("customWordsModal")?.classList.add("hidden");
+    overlay.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  });
+
+  safe("modalOK", ()=>{
+    const input = $("customWordsInput");
+    if (!input) return;
+    const words = input.value.split(/[\s,;.\r\n]+/).map(w=>w.trim()).filter(Boolean);
+    if (!words.length) return;
+
+    window.customWordList = words;
+    window.useCustomWords = true;
+
+    $("customWordsModal")?.classList.add("hidden");
+    overlay.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+
+    startNewRound();
+    toast(`${words.length} palabras añadidas`);
+  });
+
+  // --- Ver palabras cargadas ---
+  safe("btnListWords", ()=>{
+    if (roundActive) {
+      if (!confirm("¿Desea mostrar las palabras de juego?")) return;
+    }
+
+    const wordListContainer = $("wordListContainer");
+    wordListContainer.innerHTML = "";
+
+    let words = [];
+    if (window.useCustomWords && Array.isArray(window.customWordList)) {
+      words = window.customWordList.filter(w => w.replace(/\s/g,'').length>=5);
+    } else if (window.currentVoc) {
+      words = Object.values(window.currentVoc).map(v=>v.pin).filter(w => w.replace(/\s/g,'').length>=5);
+    }
+
+    if (!words.length) wordListContainer.innerHTML = "<li>No words loaded</li>";
+    else words.forEach(w=>{
+      const li = document.createElement("li");
+      li.textContent = w;
+      wordListContainer.appendChild(li);
+    });
+
+    $("wordListModal")?.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+  });
+
+  safe("wordListClose", ()=>{
+    $("wordListModal")?.classList.add("hidden");
+    overlay.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  });
+
+  // --- Keyboard events ---
   document.addEventListener('keydown', (e)=>{
     if (e.key && e.key.length===1){
       const ch = e.key.toLowerCase();

@@ -4,11 +4,13 @@ let currentWord = null,
     currentWordObj = null,
     currentWordDisplay = [],
     mistakes = 0,
-    maxMistakes = 7,
+    maxMistakes = 10,
     lettersGuessed = new Set(),
     usedWords = [],
     roundActive = false,
     roundFinished = false,
+    wordsSolved = 0,      // 🏆 palabras acertadas del listado actual
+    lettersHitCount = 0,  // 🎯 letras correctas en la palabra actual
     stats = loadStats();
 
 /* ================= UTILIDADES ================= */
@@ -27,27 +29,29 @@ function loadStats() {
 
 /* ================= VOCABULARIO ================= */
 function hasVocabularyLoaded() {
-  if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) {
-    return true;
-  }
-  if (window.currentVoc && Object.keys(window.currentVoc).length) {
-    return true;
-  }
+  if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) return true;
+  if (window.currentVoc && Object.keys(window.currentVoc).length) return true;
   return false;
 }
 
-function setCustomVocabulary(words) {
+// centraliza la carga de vocabulario desde cualquier origen
+function onVocabularyLoaded(words) {
   if (!Array.isArray(words) || !words.length) return;
 
   window.customWordList = words;
   window.useCustomWords = true;
+  window.currentVoc = null; // eliminamos vocabulario anterior
 
-  // eliminamos estado de “seleccione vocabulario”
-  window.currentVoc = null;
-
+  // ocultar hint "selecciona listado de vocabulario"
   const hint = $("selectVocHint");
   hint?.classList.add("hidden");
 
+  // reset counters
+  wordsSolved = 0;
+  lettersHitCount = 0;
+  updateCounters();
+
+  // activar botón New
   updateNewButtonState();
 }
 
@@ -56,6 +60,13 @@ function updateDisplay() {
   $("wordArea") && ($("wordArea").innerHTML = currentWordDisplay.join(" "));
   $("score") && ($("score").textContent = stats.score);
   $("lives") && ($("lives").textContent = maxMistakes - mistakes);
+}
+
+function updateCounters() {
+  const solvedEl = $("counterWordsSolved");
+  const lettersEl = $("counterLettersHit");
+  if (solvedEl) solvedEl.textContent = wordsSolved;
+  if (lettersEl) lettersEl.textContent = lettersHitCount;
 }
 
 const resetWordStyles = () => {
@@ -126,10 +137,10 @@ const resetKeyboard = () =>
 /* ================= JUEGO ================= */
 function startGame(customList) {
   if (Array.isArray(customList)) {
-    setCustomVocabulary(customList);
+    onVocabularyLoaded(customList);
   }
 
-  maxMistakes = window.settingsLocal?.lives || 7;
+  maxMistakes = window.settingsLocal?.lives || 10;
   usedWords = [];
   roundActive = false;
   roundFinished = false;
@@ -147,6 +158,7 @@ function startNewRound() {
 
   mistakes = 0;
   lettersGuessed.clear();
+  lettersHitCount = 0;
   roundActive = true;
   roundFinished = false;
   resetKeyboard();
@@ -174,7 +186,9 @@ function nextWord() {
   usedWords.push(currentWord);
 
   currentWordDisplay = [...currentWord].map(c => (c === " " ? " " : "_"));
+  lettersHitCount = 0;
   updateDisplay();
+  updateCounters();
 }
 
 /* ================= LETRAS ================= */
@@ -187,6 +201,7 @@ function guessLetter(letter) {
     if (normalize(c) === normalize(letter)) {
       currentWordDisplay[i] = c;
       hit = true;
+      lettersHitCount++;
     }
   });
 
@@ -198,6 +213,7 @@ function guessLetter(letter) {
     btn.classList.add(hit ? "correct" : "wrong");
   }
 
+  updateCounters();
   hit ? onHit() : onFail();
 }
 
@@ -224,6 +240,7 @@ function finishRound(win) {
   if (win) {
     stats.score += currentWord.replace(/\s/g, "").length;
     stats.correct++;
+    wordsSolved++;
     wordArea?.classList.add("word-success");
     setTimeout(() => wordArea?.classList.remove("word-success"), 400);
   } else {
@@ -232,6 +249,7 @@ function finishRound(win) {
     wordArea?.classList.add("word-fail");
   }
 
+  updateCounters();
   saveStats();
   showLearningInfo();
 }
@@ -283,4 +301,32 @@ window.addEventListener("DOMContentLoaded", () => {
   if (hasVocabularyLoaded()) {
     startNewRound();
   }
+
+  // Ejemplo de binding para botones de carga manual o JSON
+  safe("btnAddManual", () => {
+    const input = $("customWordsInput")?.value.split(/[\s,;.\r\n]+/).map(w=>w.trim()).filter(w=>w.length >=5);
+    if (!input || !input.length) return;
+    onVocabularyLoaded(input);
+    startNewRound();
+  });
+
+  safe("btnAddFromFileES", async () => {
+    try {
+      const res = await fetch("words_es.json");
+      const data = await res.json();
+      const words = data.map(w=>w.trim()).filter(w=>w.length>=5);
+      onVocabularyLoaded(words);
+      startNewRound();
+    } catch(e){ console.error(e); toast("Error cargando words_es.json"); }
+  });
+
+  safe("btnAddFromFileEN", async () => {
+    try {
+      const res = await fetch("words_en.json");
+      const data = await res.json();
+      const words = data.map(w=>w.trim()).filter(w=>w.length>=5);
+      onVocabularyLoaded(words);
+      startNewRound();
+    } catch(e){ console.error(e); toast("Error cargando words_en.json"); }
+  });
 });

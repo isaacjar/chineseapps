@@ -63,10 +63,7 @@ function onVocabularyLoaded(words) {
 function updateDisplay() {
   $("wordArea") && ($("wordArea").innerHTML = currentWordDisplay.join(" "));
   $("score") && ($("score").textContent = stats.score);
-  $("lives") && ($("lives").textContent = maxMistakes - mistakes);
-
-  // log de palabra actual en consola
-  if (currentWord) console.log("Palabra actual:", currentWord);
+  $("lives") && ($("lives").textContent = maxMistakes - mistakes);  
 }
 
 function updateCounters() {
@@ -209,7 +206,7 @@ function nextWord() {
   currentWordObj = randomFrom(avail);
   currentWord = currentWordObj.pin;
   usedWords.push(currentWord);
-
+  console.log("Palabra actual:", currentWord);
   currentWordDisplay = [...currentWord].map(c => (c === " " ? " " : "_"));
   lettersHitCount = 0;
   updateDisplay();

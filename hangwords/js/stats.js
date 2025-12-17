@@ -2,9 +2,12 @@ const STATS_KEY = 'hangwords_stats_v1';
 function loadStats(){
   return JSON.parse(localStorage.getItem(STATS_KEY) || '{}');
 }
-function saveStats(stats){
+
+/*function saveStats(stats){
   localStorage.setItem(STATS_KEY, JSON.stringify(stats));
-}
+}*/
+function saveStatsToStorage(stats){ localStorage.setItem(STATS_KEY, JSON.stringify(stats)); }
+
 function resetStats(){
   localStorage.removeItem(STATS_KEY);
 }

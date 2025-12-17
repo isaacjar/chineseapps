@@ -161,9 +161,12 @@ function finishRound(win){
 }
 
 function revealWrongLetters(){
-  currentWordDisplay = [...currentWord].map(c=>{
-    if(c===" ") return " ";
-    return lettersGuessed.has(normalize(c)) ? c : `<span class="missed">${c}</span>`;
+  currentWordDisplay = [...currentWord].map((c,i)=>{
+    if(c === " ") return " ";
+    // Si ya estaba acertada, mantenerla en negro
+    if(currentWordDisplay[i] !== "_") return c;
+    // Si no estaba acertada, mostrar en rojo
+    return `<span style="color:red">${c}</span>`;
   });
   updateDisplay();
 }

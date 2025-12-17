@@ -176,7 +176,7 @@ function startNewRound() {
     return;
   }
 
-  if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
+  if (roundActive && !confirm("¿Desea interrumpir la palabra actual?")) return;
 
   mistakes = 0;
   lettersGuessed.clear();

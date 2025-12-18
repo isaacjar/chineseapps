@@ -100,3 +100,23 @@ body.modal-open #main, body.modal-open header, body.modal-open footer { filter: 
   color: var(--muted);
   margin: 12px 0;
 }
+/* Botón NEW WORD – rojo pastel */
+#btnNew {
+  background-color: #f6b1b1;        /* rojo pastel */
+  color: #5a1f1f;                   /* texto oscuro suave */
+  border: 1px solid #e89a9a;
+}
+
+#btnNew:hover {
+  background-color: #f2a1a1;
+}
+
+#btnNew:active {
+  transform: translateY(1px);
+}
+
+#btnNew:disabled {
+  background-color: #f3d6d6;
+  color: #9b6a6a;
+  cursor: not-allowed;
+}

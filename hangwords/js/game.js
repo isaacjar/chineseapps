@@ -5,7 +5,7 @@ let currentWord = null,
     currentWordObj = null,
     currentWordDisplay = [],
     mistakes = 0,
-    maxMistakes = 10,
+    maxMistakes = 8,
     lettersGuessed = new Set(),
     usedWords = [],
     roundActive = false,
@@ -95,7 +95,7 @@ const resetKeyboard = () =>
 function startGame(customList) {
   if (Array.isArray(customList)) onVocabularyLoaded(customList);
 
-  maxMistakes = window.settingsLocal?.lives || 10;
+  maxMistakes = window.settingsLocal?.lives || 8;
   usedWords = [];
   roundActive = false;
   roundFinished = false;

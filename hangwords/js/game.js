@@ -141,7 +141,7 @@ function nextWord() {
   currentWordObj = randomFrom(avail);
   currentWord = currentWordObj.pin;
   usedWords.push(currentWord);
-
+  console.log("💬 ",currentWord);
   currentWordDisplay = [...currentWord].map(c => (c === " " ? " " : "_"));
   lettersHitCount = 0;
 

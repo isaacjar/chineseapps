@@ -43,6 +43,9 @@ function shake(el) {
   );
 }
 
+/* evita duplicar animación final */
+let finalAnimationPlayed = false;
+
 /* ================= MAIN DRAW ================= */
 function updateHangmanSVG(stage) {
   const svg = $("hangmanSVG");
@@ -50,6 +53,9 @@ function updateHangmanSVG(stage) {
 
   svg.innerHTML = "";
   svg.setAttribute("viewBox", "0 0 200 260");
+
+  /* reset al comenzar nueva ronda */
+  if (stage === 0) finalAnimationPlayed = false;
 
   /* ===== GALLOWS (STATIC) ===== */
   const gallows = svgEl("g");
@@ -62,7 +68,13 @@ function updateHangmanSVG(stage) {
   svg.appendChild(gallows);
 
   /* ===== SHADOW (FAKE 3D) ===== */
-  const shadow = svgEl("ellipse", { cx: 140, cy: 215, rx: 26, ry: 8, fill: "rgba(0,0,0,0.15)" });
+  const shadow = svgEl("ellipse", {
+    cx: 140,
+    cy: 215,
+    rx: 26,
+    ry: 8,
+    fill: "rgba(0,0,0,0.15)"
+  });
   svg.appendChild(shadow);
 
   /* ===== BODY GROUP (ANIMATED) ===== */
@@ -70,16 +82,24 @@ function updateHangmanSVG(stage) {
   body.style.transformOrigin = "140px 80px";
   svg.appendChild(body);
 
-  const add = el => { body.appendChild(el); popIn(el); };
+  const add = el => {
+    body.appendChild(el);
+    popIn(el);
+  };
 
   /* ===== HEAD ===== */
   if (stage >= 1) {
-    add(svgEl("circle", { cx: 140, cy: 80, r: 22, fill: "#FFD9C9", stroke: "#333", "stroke-width": 3 }));
+    add(svgEl("circle", {
+      cx: 140, cy: 80, r: 22,
+      fill: "#FFD9C9",
+      stroke: "#333",
+      "stroke-width": 3
+    }));
   }
 
   /* ===== EYES ===== */
   if (stage >= 2) {
-    const eyesClosed = stage >= 9; // 👀 cerrar ojos al perder
+    const eyesClosed = stage >= 9;
     if (eyesClosed) {
       add(svgEl("line", { x1: 129, y1: 75, x2: 135, y2: 75, stroke: "#333", "stroke-width": 2, "stroke-linecap": "round" }));
       add(svgEl("line", { x1: 145, y1: 75, x2: 151, y2: 75, stroke: "#333", "stroke-width": 2, "stroke-linecap": "round" }));
@@ -92,8 +112,14 @@ function updateHangmanSVG(stage) {
   /* ===== MOUTH ===== */
   if (stage >= 3) {
     const isSad = stage >= 7;
+    const isKO = stage >= 9;
+
     add(svgEl("path", {
-      d: isSad ? "M132 92 Q140 86 148 92" : "M132 88 Q140 94 148 88",
+      d: isKO
+        ? "M132 90 L148 90"               // boca KO
+        : isSad
+          ? "M132 92 Q140 86 148 92"      // triste
+          : "M132 88 Q140 94 148 88",     // feliz
       fill: "none",
       stroke: "#333",
       "stroke-width": 3,
@@ -113,7 +139,8 @@ function updateHangmanSVG(stage) {
   if (stage >= 6 && stage < 9) shake(body);
 
   /* ===== FINAL LOSE ANIMATION ===== */
-  if (stage >= 9) {
+  if (stage >= 9 && !finalAnimationPlayed) {
+    finalAnimationPlayed = true;
     body.animate(
       [
         { transform: "rotate(0deg)" },

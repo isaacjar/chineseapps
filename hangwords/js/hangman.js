@@ -62,13 +62,7 @@ function updateHangmanSVG(stage) {
   svg.appendChild(gallows);
 
   /* ===== SHADOW (FAKE 3D) ===== */
-  const shadow = svgEl("ellipse", {
-    cx: 140,
-    cy: 215,
-    rx: 26,
-    ry: 8,
-    fill: "rgba(0,0,0,0.15)"
-  });
+  const shadow = svgEl("ellipse", { cx: 140, cy: 215, rx: 26, ry: 8, fill: "rgba(0,0,0,0.15)" });
   svg.appendChild(shadow);
 
   /* ===== BODY GROUP (ANIMATED) ===== */
@@ -76,34 +70,30 @@ function updateHangmanSVG(stage) {
   body.style.transformOrigin = "140px 80px";
   svg.appendChild(body);
 
-  const add = el => {
-    body.appendChild(el);
-    popIn(el);
-  };
+  const add = el => { body.appendChild(el); popIn(el); };
 
   /* ===== HEAD ===== */
   if (stage >= 1) {
-    add(svgEl("circle", {
-      cx: 140, cy: 80, r: 22,
-      fill: "#FFD9C9",
-      stroke: "#333",
-      "stroke-width": 3
-    }));
+    add(svgEl("circle", { cx: 140, cy: 80, r: 22, fill: "#FFD9C9", stroke: "#333", "stroke-width": 3 }));
   }
 
   /* ===== EYES ===== */
   if (stage >= 2) {
-    add(svgEl("circle", { cx: 132, cy: 75, r: 3, fill: "#333" }));
-    add(svgEl("circle", { cx: 148, cy: 75, r: 3, fill: "#333" }));
+    const eyesClosed = stage >= 9; // 👀 cerrar ojos al perder
+    if (eyesClosed) {
+      add(svgEl("line", { x1: 129, y1: 75, x2: 135, y2: 75, stroke: "#333", "stroke-width": 2, "stroke-linecap": "round" }));
+      add(svgEl("line", { x1: 145, y1: 75, x2: 151, y2: 75, stroke: "#333", "stroke-width": 2, "stroke-linecap": "round" }));
+    } else {
+      add(svgEl("circle", { cx: 132, cy: 75, r: 3, fill: "#333" }));
+      add(svgEl("circle", { cx: 148, cy: 75, r: 3, fill: "#333" }));
+    }
   }
 
-  /* ===== MOUTH (HAPPY / SAD) ===== */
+  /* ===== MOUTH ===== */
   if (stage >= 3) {
-    const isLosing = stage >= 7;
+    const isSad = stage >= 7;
     add(svgEl("path", {
-      d: isLosing
-        ? "M132 92 Q140 86 148 92"
-        : "M132 88 Q140 94 148 88",
+      d: isSad ? "M132 92 Q140 86 148 92" : "M132 88 Q140 94 148 88",
       fill: "none",
       stroke: "#333",
       "stroke-width": 3,
@@ -112,45 +102,11 @@ function updateHangmanSVG(stage) {
   }
 
   /* ===== BODY ===== */
-  if (stage >= 4) {
-    add(svgEl("line", {
-      x1: 140, y1: 102, x2: 140, y2: 155,
-      stroke: "#333", "stroke-width": 4,
-      "stroke-linecap": "round"
-    }));
-  }
-
-  if (stage >= 5) {
-    add(svgEl("line", {
-      x1: 140, y1: 115, x2: 115, y2: 135,
-      stroke: "#333", "stroke-width": 4,
-      "stroke-linecap": "round"
-    }));
-  }
-
-  if (stage >= 6) {
-    add(svgEl("line", {
-      x1: 140, y1: 115, x2: 165, y2: 135,
-      stroke: "#333", "stroke-width": 4,
-      "stroke-linecap": "round"
-    }));
-  }
-
-  if (stage >= 7) {
-    add(svgEl("line", {
-      x1: 140, y1: 155, x2: 120, y2: 190,
-      stroke: "#333", "stroke-width": 4,
-      "stroke-linecap": "round"
-    }));
-  }
-
-  if (stage >= 8) {
-    add(svgEl("line", {
-      x1: 140, y1: 155, x2: 160, y2: 190,
-      stroke: "#333", "stroke-width": 4,
-      "stroke-linecap": "round"
-    }));
-  }
+  if (stage >= 4) add(svgEl("line", { x1: 140, y1: 102, x2: 140, y2: 155, stroke: "#333", "stroke-width": 4, "stroke-linecap": "round" }));
+  if (stage >= 5) add(svgEl("line", { x1: 140, y1: 115, x2: 115, y2: 135, stroke: "#333", "stroke-width": 4, "stroke-linecap": "round" }));
+  if (stage >= 6) add(svgEl("line", { x1: 140, y1: 115, x2: 165, y2: 135, stroke: "#333", "stroke-width": 4, "stroke-linecap": "round" }));
+  if (stage >= 7) add(svgEl("line", { x1: 140, y1: 155, x2: 120, y2: 190, stroke: "#333", "stroke-width": 4, "stroke-linecap": "round" }));
+  if (stage >= 8) add(svgEl("line", { x1: 140, y1: 155, x2: 160, y2: 190, stroke: "#333", "stroke-width": 4, "stroke-linecap": "round" }));
 
   /* ===== ANIMATIONS ===== */
   if (stage > 0 && stage < 9) wobble(body);

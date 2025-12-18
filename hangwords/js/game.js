@@ -201,16 +201,28 @@ function finishRound(win) {
     wordsSolved++;
     wordArea?.classList.add("word-success");
     setTimeout(() => wordArea?.classList.remove("word-success"), 400);
+
+    // Animación final: torre intacta + confetti
+    if (window.updateHangmanSVG) {
+      updateHangmanSVG(0, true, false); // finalWin = true
+    }
   } else {
     stats.wrong++;
     revealWrongLetters();
     wordArea?.classList.add("word-fail");
+
+    // Animación final: derrumbe de torre
+    if (window.updateHangmanSVG) {
+      const mistakesMade = maxMistakes; // o la cantidad de errores actual
+      updateHangmanSVG(mistakesMade, false, true); // finalLose = true
+    }
   }
 
   updateCounters();
   saveStats();
   showLearningInfo();
 }
+
 
 function revealWrongLetters() {
   const display = [...currentWord].map((c, i) => {

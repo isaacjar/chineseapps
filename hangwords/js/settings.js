@@ -3,7 +3,7 @@ const SETTINGS_KEY = 'hangwords_settings_v1';
 const DEFAULTS = {
   lang: 'en',
   gametype: 'chinese', // 'chinese' or 'spanish'
-  lives: 7,
+  lives: 10,
   questions: 10,
   voclist: null
 };

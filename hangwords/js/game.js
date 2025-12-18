@@ -2,7 +2,7 @@
 
 let currentWord = null,
     currentWordRaw = null,
-    currentWordObj = null,
+    currentWordObj = null, 
     currentWordDisplay = [],
     mistakes = 0,
     maxMistakes = 10,

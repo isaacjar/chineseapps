@@ -1,7 +1,7 @@
 /* game.js — modo palabra a palabra + modo aprendizaje */
 
 let currentWord = null,
-    currentWordRaw = null,       // 🔹 palabra original
+    currentWordRaw = null,
     currentWordObj = null,
     currentWordDisplay = [],
     mistakes = 0,
@@ -18,8 +18,6 @@ let currentWord = null,
 const $ = id => document.getElementById(id);
 const randomFrom = a => a[Math.floor(Math.random() * a.length)];
 const normalize = c => c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-// elimina símbolos que NO deben jugarse
 const stripSymbols = w => w.replace(/[()'’]/g, "");
 
 function saveStats() {
@@ -31,52 +29,68 @@ function loadStats() {
   return { score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
 }
 
-/* ================= VOCABULARIO ================= */
-function hasVocabularyLoaded() {
-  if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) return true;
-  if (window.currentVoc && Object.keys(window.currentVoc).length) return true;
-  return false;
+/* ================= HANGMAN SVG ================= */
+function updateHangmanSVG(stage) {
+  const svg = $("hangmanSVG");
+  if (!svg) return;
+  svg.innerHTML = "";
+
+  const line = (x1, y1, x2, y2, w, shadow = false) => {
+    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    if (shadow) {
+      l.setAttribute("x1", x1 + 2);
+      l.setAttribute("y1", y1 + 2);
+      l.setAttribute("x2", x2 + 2);
+      l.setAttribute("y2", y2 + 2);
+      l.setAttribute("stroke", "#999");
+      l.setAttribute("stroke-width", w + 1);
+    } else {
+      l.setAttribute("x1", x1);
+      l.setAttribute("y1", y1);
+      l.setAttribute("x2", x2);
+      l.setAttribute("y2", y2);
+      l.setAttribute("stroke", "black");
+      l.setAttribute("stroke-width", w);
+    }
+    svg.appendChild(l);
+  };
+
+  const circle = (cx, cy, r, w, shadow = false) => {
+    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    if (shadow) {
+      c.setAttribute("cx", cx + 2);
+      c.setAttribute("cy", cy + 2);
+      c.setAttribute("r", r);
+      c.setAttribute("stroke", "#999");
+      c.setAttribute("stroke-width", w + 1);
+      c.setAttribute("fill", "#ddd");
+    } else {
+      c.setAttribute("cx", cx);
+      c.setAttribute("cy", cy);
+      c.setAttribute("r", r);
+      c.setAttribute("stroke", "black");
+      c.setAttribute("stroke-width", w);
+      c.setAttribute("fill", "none");
+    }
+    svg.appendChild(c);
+  };
+
+  if (stage >= 1) { line(10, 190, 90, 190, 4, true); line(10, 190, 90, 190, 4); }
+  if (stage >= 2) { line(50, 190, 50, 20, 4, true); line(50, 190, 50, 20, 4); }
+  if (stage >= 3) { line(50, 20, 120, 20, 4, true); line(50, 20, 120, 20, 4); }
+  if (stage >= 4) { line(120, 20, 120, 50, 3, true); line(120, 20, 120, 50, 3); }
+  if (stage >= 5) { circle(120, 70, 20, 3, true); circle(120, 70, 20, 3); }
+  if (stage >= 6) { line(120, 90, 120, 140, 3, true); line(120, 90, 120, 140, 3); }
+  if (stage >= 7) { line(120, 110, 90, 90, 3, true); line(120, 110, 90, 90, 3); }
+  if (stage >= 8) { line(120, 110, 150, 90, 3, true); line(120, 110, 150, 90, 3); }
+  if (stage >= 9) { line(120, 140, 90, 170, 3, true); line(120, 140, 90, 170, 3); }
+  if (stage >= 10) { line(120, 140, 150, 170, 3, true); line(120, 140, 150, 170, 3); }
 }
-
-function onVocabularyLoaded(words) {
-  if (!Array.isArray(words) || !words.length) return;
-
-  window.customWordList = words;
-  window.useCustomWords = true;
-  window.currentVoc = null;
-
-  $("selectVocHint")?.classList.add("hidden");
-  const btnList = $("btnListWords");
-  if (btnList) btnList.style.display = "none";
-
-  wordsSolved = 0;
-  lettersHitCount = 0;
-  updateCounters();
-  updateNewButtonState();
-}
-
-/* ================= DISPLAY ================= */
-function updateDisplay() {
-  $("wordArea") && ($("wordArea").innerHTML = currentWordDisplay.join(" "));
-  $("score") && ($("score").textContent = stats.score);
-  $("lives") && ($("lives").textContent = maxMistakes - mistakes);  
-}
-
-function updateCounters() {
-  $("counterWordsSolved") && ($("counterWordsSolved").textContent = wordsSolved);
-  $("counterLettersHit") && ($("counterLettersHit").textContent = lettersHitCount);
-}
-
-const resetWordStyles = () => {
-  $("wordArea")?.classList.remove("word-success", "word-fail");
-  $("learningBox")?.classList.add("hidden");
-};
 
 /* ================= TECLADO ================= */
 function shouldShowÑ() {
   if (window.settingsLocal?.lang === "ES") return true;
-  const list = window.customWordList || [];
-  return list.some(w => /ñ/i.test(w));
+  return (window.customWordList || []).some(w => /ñ/i.test(w));
 }
 
 function initKeyboard() {
@@ -104,153 +118,17 @@ const resetKeyboard = () =>
 
 /* ================= JUEGO ================= */
 function startGame(customList) {
-  if (Array.isArray(customList)) onVocabularyLoaded(customList);
-
   maxMistakes = window.settingsLocal?.lives || 10;
   usedWords = [];
   roundActive = false;
   roundFinished = false;
   updateHangmanSVG(0);
   updateDisplay();
-  initKeyboard(); // 🔹 refresca teclado según idioma
+  initKeyboard();
 }
-
-function startNewRound() {
-  if (!hasVocabularyLoaded()) return toast("Primero cargue un listado de vocabulario");
-  if (roundActive && !confirm("¿Desea interrumpir la palabra actual?")) return;
-
-  mistakes = 0;
-  lettersGuessed.clear();
-  lettersHitCount = 0;
-  roundActive = true;
-  roundFinished = false;
-  resetKeyboard();
-  resetWordStyles();
-  updateHangmanSVG(0);
-  nextWord();
-}
-
-function nextWord() {
-  const voc = (window.useCustomWords && Array.isArray(window.customWordList))
-    ? window.customWordList.map(w => ({ pin: w }))
-    : Object.values(window.currentVoc || {});
-
-  const words = voc.filter(v => v.pin && stripSymbols(v.pin).replace(/\s/g, "").length >= 5);
-  if (!words.length) return;
-
-  let avail = words.filter(w => !usedWords.includes(w.pin));
-  if (!avail.length) { usedWords = []; avail = words; }
-
-  currentWordObj = randomFrom(avail);
-  currentWordRaw = currentWordObj.pin;
-  currentWord = stripSymbols(currentWordRaw);
-  usedWords.push(currentWordObj.pin);
-
-  currentWordDisplay = [...currentWordRaw].map(c =>
-    /[()'’]/.test(c) ? c : (c === " " ? " " : "_")
-  );
-
-  lettersHitCount = 0;
-  updateDisplay();
-  updateCounters();
-}
-
-/* ================= LETRAS ================= */
-function guessLetter(letter) {
-  if (!roundActive || lettersGuessed.has(letter)) return;
-  lettersGuessed.add(letter);
-
-  let hit = false;
-  [...currentWordRaw].forEach((c, i) => {
-    if (/[()'’]/.test(c)) return;
-    if (normalize(c) === normalize(letter)) {
-      currentWordDisplay[i] = c;
-      hit = true;
-      lettersHitCount++;
-    }
-  });
-
-  const btn = [...document.querySelectorAll(".key")]
-    .find(b => normalize(b.textContent) === normalize(letter));
-
-  if (btn) {
-    btn.disabled = true;
-    btn.classList.add(hit ? "correct" : "wrong");
-  }
-
-  updateCounters();
-  hit ? onHit() : onFail();
-}
-
-function onHit() {
-  updateDisplay();
-  if (!currentWordDisplay.includes("_")) finishRound(true);
-}
-
-function onFail() {
-  mistakes++;
-  updateHangmanSVG(mistakes);
-  updateDisplay();
-  if (mistakes >= maxMistakes) finishRound(false);
-}
-
-/* ================= FIN DE RONDA ================= */
-function finishRound(win) {
-  roundActive = false;
-  roundFinished = true;
-  document.querySelectorAll(".key").forEach(b => (b.disabled = true));
-
-  const wordArea = $("wordArea");
-
-  if (win) {
-    stats.score += stripSymbols(currentWordRaw).replace(/\s/g, "").length;
-    stats.correct++;
-    wordsSolved++;
-    wordArea?.classList.add("word-success");
-    setTimeout(() => wordArea?.classList.remove("word-success"), 400);
-  } else {
-    stats.wrong++;
-    revealWrongLetters();
-    wordArea?.classList.add("word-fail");
-  }
-
-  updateCounters();
-  saveStats();
-  showLearningInfo();
-}
-
-function revealWrongLetters() {
-  const display = [...currentWordRaw].map((c, i) => {
-    if (/[()'’]/.test(c)) return c;
-    if (currentWordDisplay[i] !== "_") return c;
-    return `<span style="color:red">${c}</span>`;
-  });
-  $("wordArea").innerHTML = display.join("");
-}
-
-/* ================= APRENDIZAJE ================= */
-function showLearningInfo() {
-  const box = $("learningBox");
-  if (!box || !currentWordObj?.ch) return;
-  const { ch, pin, en, es } = currentWordObj;
-  box.innerHTML = `<div><b>${ch} [ ${pin} ]</b> ${en} - ${es}</div>`;
-  box.classList.remove("hidden");
-}
-
-/* ================= BOTÓN NEW ================= */
-function updateNewButtonState() {
-  const btn = $("btnNew");
-  if (!btn) return;
-  btn.disabled = false;
-  btn.classList.remove("disabled");
-}
-
-/* ================= BINDINGS ================= */
-$("btnNew")?.addEventListener("click", startNewRound);
 
 /* ================= INIT ================= */
 window.addEventListener("DOMContentLoaded", () => {
   initKeyboard();
   startGame();
-  updateNewButtonState();
 });

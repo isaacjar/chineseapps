@@ -182,8 +182,17 @@ function onHit() {
 
 function onFail() {
   mistakes++;
-  window.updateHangmanSVG && updateHangmanSVG(mistakes);
+
+  if (mistakes < maxMistakes) {
+    // fallo normal → cae un bloque
+    window.updateHangmanSVG && updateHangmanSVG(mistakes);
+  } else {
+    // último fallo → derrumbe final
+    window.updateHangmanSVG && updateHangmanSVG(mistakes, false, true);
+  }
+
   updateDisplay();
+
   if (mistakes >= maxMistakes) finishRound(false);
 }
 

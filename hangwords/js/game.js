@@ -12,7 +12,7 @@ let currentWord = null,
     roundFinished = false,
     wordsSolved = 0,      // 🏆 palabras acertadas del listado actual
     lettersHitCount = 0,  // 🎯 letras correctas en la palabra actual
-    let stats = Object.assign(
+    stats = Object.assign(
       { played: 0, correct: 0, incorrect: 0, letters: 0 },
       loadStats()
     );

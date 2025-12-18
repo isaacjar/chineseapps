@@ -29,6 +29,23 @@ function loadStats() {
   return { score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
 }
 
+function updateDisplay() {
+  const wordArea = $("wordArea");
+  if (wordArea) {
+    wordArea.innerHTML = currentWordDisplay.join(" ");
+  }
+
+  const scoreEl = $("score");
+  if (scoreEl) {
+    scoreEl.textContent = stats.score;
+  }
+
+  const livesEl = $("lives");
+  if (livesEl) {
+    livesEl.textContent = maxMistakes - mistakes;
+  }
+}
+
 /* ================= TECLADO ================= */
 function shouldShowÑ() {
   if (window.settingsLocal?.lang === "ES") return true;

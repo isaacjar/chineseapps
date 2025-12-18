@@ -12,16 +12,15 @@ let currentWord = null,
     roundFinished = false,
     wordsSolved = 0,      // 🏆 palabras acertadas del listado actual
     lettersHitCount = 0,  // 🎯 letras correctas en la palabra actual
-    stats = loadStats();
+    let stats = Object.assign(
+      { played: 0, correct: 0, incorrect: 0, letters: 0 },
+      loadStats()
+    );
 
 /* ================= UTILIDADES ================= */
 const $ = id => document.getElementById(id);
 const randomFrom = a => a[Math.floor(Math.random() * a.length)];
 const normalize = c => c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-function saveStats() {
-  localStorage.setItem("hangmanStats", JSON.stringify(stats));
-}
 
 function loadStats() {
   const s = JSON.parse(localStorage.getItem("hangmanStats") || "{}");
@@ -171,6 +170,8 @@ function guessLetter(letter) {
     btn.classList.add(hit ? "correct" : "wrong");
   }
 
+  if (hit) {stats.letters = (stats.letters || 0) + 1;}
+    
   updateCounters();
   hit ? onHit() : onFail();
 }
@@ -189,6 +190,7 @@ function onFail() {
 
 /* ================= FIN DE RONDA ================= */
 function finishRound(win) {
+  stats.played++;
   roundActive = false;
   roundFinished = true;
   document.querySelectorAll(".key").forEach(b => b.disabled = true);
@@ -202,13 +204,13 @@ function finishRound(win) {
     wordArea?.classList.add("word-success");
     setTimeout(() => wordArea?.classList.remove("word-success"), 400);
   } else {
-    stats.wrong++;
+    stats.incorrect++;
     revealWrongLetters();
     wordArea?.classList.add("word-fail");
   }
 
   updateCounters();
-  saveStats();
+  saveStatsToStorage(stats);
   showLearningInfo();
 }
 

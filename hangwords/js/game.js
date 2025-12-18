@@ -57,7 +57,7 @@ function updateDisplay() {
 
 function updateCounters() {
   const solvedEl = $("counterWordsSolved");
-  const lettersEl = $("counterLettersHit");
+  const lettersEl = $("correctLetters");
   if (solvedEl) solvedEl.textContent = wordsSolved;
   if (lettersEl) lettersEl.textContent = lettersHitCount;
 }

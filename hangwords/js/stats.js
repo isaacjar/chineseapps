@@ -8,7 +8,7 @@ function loadStats() {
 function saveStatsToStorage(stats){ localStorage.setItem(STATS_KEY, JSON.stringify(stats)); }
 
 function resetStats(){
-  localStorage.removeItem(STATS_KEY);
+  localStorage.removeItem(STATS_KEY); 
 }
 
 function updateStatsUI() {

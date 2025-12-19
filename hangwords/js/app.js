@@ -90,21 +90,8 @@ function initUIBindings() {
   selectLang.value = settingsLocal.lang;
 
   /* ====== SETTINGS ====== */
-  /*function updateSettingsStatsUI() {
-    const container = $("settingsStats");
-    if (!container) return;
-
-    const stats = loadStats ? loadStats() : {};
-    container.innerHTML = `
-      <div>Games played: ${stats.gamesPlayed || 0}</div>
-      <div>Words guessed: ${stats.wordsGuessed || 0}</div>
-      <div>Correct letters: ${stats.correctLetters || 0}</div>
-    `;
-  }*/
-
   bind("btnSettings", () => {
     setI18n(langStrings, settingsLocal.lang);
-    //updateSettingsStatsUI();
     updateStatsUI();
     showScreen("settings");
   });
@@ -123,7 +110,7 @@ function initUIBindings() {
     resetSettings();
     if (resetStats) resetStats();
     settingsLocal = loadSettings();
-    updateSettingsStatsUI();
+    updateStatsUI();
     toast("Settings and stats reset");
   });
 

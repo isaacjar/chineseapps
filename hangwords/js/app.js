@@ -79,15 +79,21 @@ function initUIBindings() {
     el.addEventListener("click", fn);
   };
 
-  /* Idioma */
-  const selectLang = $("selectLang");
-  Object.keys(langStrings).forEach(k => {
-    const o = document.createElement("option");
-    o.value = k;
-    o.textContent = k;
-    selectLang.appendChild(o);
-  });
-  selectLang.value = settingsLocal.lang;
+      /* Idioma */
+      const selectLang = $("selectLang");
+      selectLang.innerHTML = "";   
+      const LANG_LABELS = {
+        en: "English",
+        es: "Español"
+      };
+      Object.keys(langStrings).forEach(k => {
+        const o = document.createElement("option");
+        o.value = k;
+        o.textContent = LANG_LABELS[k] || k;
+        selectLang.appendChild(o);
+      });
+      selectLang.value = settingsLocal.lang;
+
 
   /* ====== SETTINGS ====== */
   bind("btnSettings", () => {

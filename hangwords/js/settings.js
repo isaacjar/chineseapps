@@ -1,5 +1,6 @@
 // settings.js — manejo de configuración y parámetros URL
 const SETTINGS_KEY = 'hangwords_settings_v1';
+const STATS_KEY = 'hangwords_stats_v1';
 const DEFAULTS = {
   lang: 'en',
   gametype: 'chinese', // 'chinese' or 'spanish'

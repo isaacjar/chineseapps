@@ -90,7 +90,7 @@ function initUIBindings() {
   selectLang.value = settingsLocal.lang;
 
   /* ====== SETTINGS ====== */
-  function updateSettingsStatsUI() {
+  /*function updateSettingsStatsUI() {
     const container = $("settingsStats");
     if (!container) return;
 
@@ -100,11 +100,12 @@ function initUIBindings() {
       <div>Words guessed: ${stats.wordsGuessed || 0}</div>
       <div>Correct letters: ${stats.correctLetters || 0}</div>
     `;
-  }
+  }*/
 
   bind("btnSettings", () => {
     setI18n(langStrings, settingsLocal.lang);
-    updateSettingsStatsUI();
+    //updateSettingsStatsUI();
+    updateStatsUI();
     showScreen("settings");
   });
 

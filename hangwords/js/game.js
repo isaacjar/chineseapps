@@ -1,4 +1,4 @@
-/* game.js — modo palabra a palabra + modo aprendizaje */
+/* game.js */
 
 /* ================= ESTADO GLOBAL ================= */
 let currentWord = null,

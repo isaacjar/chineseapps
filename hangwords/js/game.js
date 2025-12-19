@@ -24,6 +24,14 @@ function loadStats() {
   return {score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
 }
 
+function vocabularyUsesEnye() {
+  const list = window.useCustomWords && Array.isArray(window.customWordList)
+    ? window.customWordList
+    : Object.values(window.currentVoc || {}).map(v => v.pin || "");
+
+  return list.some(w => /ñ/i.test(w));
+}
+
 /* ================= VOCABULARIO ================= */
 function hasVocabularyLoaded() {
   if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) return true;
@@ -46,6 +54,8 @@ function onVocabularyLoaded(words) {
   updateCounters();
 
   updateNewButtonState();
+  
+  initKeyboard();
 }
 
 /* ================= DISPLAY ================= */
@@ -72,7 +82,12 @@ function initKeyboard() {
   const k = $("keyboard");
   if (!k) return;
   k.innerHTML = "";
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l => {
+
+  const letters = vocabularyUsesEnye()
+    ? "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+    : "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  letters.split("").forEach(l => {
     const b = document.createElement("button");
     b.className = "key";
     b.textContent = l;

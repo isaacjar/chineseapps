@@ -9,6 +9,11 @@ const DEFAULTS = {
   voclist: null
 };
 
+const LANG_OPTIONS = {
+  en: 'English',
+  es: 'Español'
+};
+
 function readUrlParams(){
   const params = new URLSearchParams(location.search);
   const config = {};
@@ -29,6 +34,7 @@ function loadSettings(){
   if (url.lives) s.lives = Number(url.lives);
   if (url.questions) s.questions = Number(url.questions);
   if (url.voclist) s.voclist = url.voclist;
+  initLanguageSelect();
   return s;
 }
 
@@ -38,6 +44,23 @@ function saveSettings(settings){
 
 function resetSettings(){
   localStorage.removeItem(SETTINGS_KEY);
+}
+
+function initLanguageSelect() {
+  const select = document.getElementById('selectLang');
+  if (!select) return;
+
+  select.innerHTML = '';
+
+  Object.entries(LANG_OPTIONS).forEach(([value, label]) => {
+    const opt = document.createElement('option');
+    opt.value = value;        // en / es
+    opt.textContent = label; // English / Español
+    select.appendChild(opt);
+  });
+
+  // seleccionar el idioma actual
+  select.value = window.settingsLocal?.lang || 'en';
 }
 
 // Inicializar configuración global

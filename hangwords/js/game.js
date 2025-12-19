@@ -20,8 +20,8 @@ const randomFrom = a => a[Math.floor(Math.random() * a.length)];
 const normalize = c => c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
 function loadStats() {
-  const s = JSON.parse(localStorage.getItem("hangmanStats") || "{}");
-  return { score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
+  const s = JSON.parse(localStorage.getItem('hangwords_stats_v1') || '{}');
+  return {score: s.score || 0, correct: s.correct || 0, wrong: s.wrong || 0 };
 }
 
 /* ================= VOCABULARIO ================= */

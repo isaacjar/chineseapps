@@ -1,5 +1,4 @@
 // stats.js
-const STATS_KEY = 'hangwords_stats_v1';
 
 function loadStats() {
   const s = JSON.parse(localStorage.getItem(STATS_KEY) || '{}');

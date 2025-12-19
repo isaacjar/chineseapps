@@ -6,7 +6,7 @@ function loadStats(){
 /*function saveStats(stats){
   localStorage.setItem(STATS_KEY, JSON.stringify(stats));
 }*/
-function saveStatsToStorage(stats){ localStorage.setItem(STATS_KEY, JSON.stringify(stats)); }
+function saveStatsToStorage(stats){ localStorage.setItem(STATS_KEY, JSON.stringify(stats)); localStorage.setItem('hangwords_stats_v1', JSON.stringify(stats));}
 
 function resetStats(){
   localStorage.removeItem(STATS_KEY);

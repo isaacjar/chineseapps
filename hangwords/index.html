@@ -15,8 +15,8 @@
     </div>
 
     <div class="status-panel" aria-live="polite">
-      <button id="btnNew" class="btn primary"> ➕ NEW WORD</button>
-      <button id="btnListWords" class="btn primary" title="Show words" hidden>📄</button>
+      <button id="btnNew" class="btn primary" data-i18n="new_word">➕</button>
+      <button id="btnListWords" class="btn primary" data-i18n-title="show_words" hidden>📄</button>
       <button id="btnAdd" class="btn primary">📄</button>
       <button id="btnAddFromFileES" class="btn primary">🇪🇸</button>
       <button id="btnAddFromFileEN" class="btn primary">🇺🇸</button>
@@ -37,7 +37,7 @@
         <h2 data-i18n="selectVoclist">Select vocabulary list</h2>
         <div id="voclistsContainer" class="voclists"></div>
         <div class="panel-actions">
-          <button id="btnCloseLists" class="btn">Close</button>
+          <button id="btnCloseLists" class="btn" data-i18n="close">Close</button>
         </div>
       </div>
     </section>
@@ -96,23 +96,23 @@
   <!-- Modal para introducir palabras -->
   <div id="customWordsModal" class="custom-modal hidden">
     <div class="custom-modal-content">
-      <h2>Introduce tus palabras</h2>
-      <p class="sub">Separadas por espacios, comas, punto y coma o puntos.</p>
+      <h2 data-i18n="custom_words_title">Introduce tus palabras</h2>
+      <p class="sub" data-i18n="custom_words_help"></p>
   
       <textarea id="customWordsInput"></textarea>
   
       <div class="modal-buttons">
-        <button id="modalCancel">Cancelar</button>
-        <button id="modalOK" class="ok">Aceptar</button>
+        <button id="modalCancel" data-i18n="cancel">Cancelar</button>
+        <button id="modalOK" class="ok" data-i18n="accept">Aceptar</button>
       </div>
     </div>
   </div>
 
   <div id="wordListModal">
-    <h2>Word List</h2>
+    <h2 data-i18n="word_list">Word List</h2>
     <ul id="wordListContainer"></ul>
     <div class="panel-actions">
-      <button id="wordListClose">Close</button>
+      <button id="wordListClose" data-i18n="close">Close</button>
     </div>
   </div>
     

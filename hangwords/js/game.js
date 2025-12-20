@@ -33,6 +33,14 @@ function vocabularyUsesEnye() {
   return list.some(w => /ñ/i.test(w));
 }
 
+function t(key, fallback) {
+  try {
+    return window.i18n?.[settingsLocal.lang]?.messages?.[key] || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 /* ================= VOCABULARIO ================= */
 function hasVocabularyLoaded() {
   if (window.useCustomWords && Array.isArray(window.customWordList) && window.customWordList.length) return true;
@@ -118,11 +126,11 @@ function startGame(customList) {
 
 function startNewRound() {
   if (!hasVocabularyLoaded()) {
-    toast(MSG.loadVocab);
+    toast(t("loadVocab", "Primero cargue un listado de vocabulario"));
     return;
   }
 
-  if (roundActive && !confirm(MSG.interruptWord)) return;
+  if (roundActive && !confirm(window.MSG?.interruptWord || "¿Desea interrumpir la palabra actual?")) return;    
 
   mistakes = 0;
   lettersGuessed.clear();

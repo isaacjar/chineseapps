@@ -16,6 +16,14 @@ async function loadLang() {
   }
 }
 
+function t(key, vars = {}) {
+  let str = langStrings?.[settingsLocal.lang]?.[key] || key;
+  Object.entries(vars).forEach(([k, v]) => {
+    str = str.replace(`{${k}}`, v);
+  });
+  return str;
+}
+
 /* ===========================
       CARGA LISTADOS VOCAB
 =========================== */
@@ -105,7 +113,7 @@ function initUIBindings() {
   bind("btnSaveSettings", () => {
     settingsLocal.lang = selectLang.value;
     saveSettings(settingsLocal);
-    toast("Settings saved");
+    toast(t("settings_saved"));
     setI18n(langStrings, settingsLocal.lang);
     showScreen("lists");
   });
@@ -117,7 +125,7 @@ function initUIBindings() {
     if (resetStats) resetStats();
     settingsLocal = loadSettings();
     updateStatsUI();
-    toast("Settings and stats reset");
+    toast(t("settings_reset"));
   });
 
   /* ====== LISTS ====== */
@@ -125,7 +133,7 @@ function initUIBindings() {
 
   /* ====== Añadir palabras manualmente ====== */
   bind("btnAdd", () => {
-    if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
+    if (roundActive && !confirm(t("confirm_interrupt"))) return;
     $("customWordsInput").value = "";
     $("customWordsModal").classList.remove("hidden");
     overlay.classList.remove("hidden");
@@ -159,19 +167,19 @@ function initUIBindings() {
     startNewRound();
     showScreen("game");
 
-    toast(`${words.length} palabras añadidas`);
+    toast(t("words_added", { n: words.length }));
   });
 
   /* ====== Añadir palabras desde JSON ====== */
   const addWordsFromJSON = async file => {
-    if (roundActive && !confirm("¿Desea interrumpir la partida actual?")) return;
+    if (roundActive && !confirm(t("confirm_interrupt"))) return;
     try {
       const res = await fetch(file);
       const data = await res.json();
-      if (!Array.isArray(data)) return toast("Formato incorrecto");
+      if (!Array.isArray(data)) return toast(t("invalid_format"));
 
       const words = data.map(w => String(w).trim()).filter(w => w.length >= 5);
-      if (!words.length) return toast("No hay palabras válidas");
+      if (!words.length) return toast(t("no_valid_words"));
 
       window.customWordList = words;
       window.useCustomWords = true;
@@ -181,10 +189,10 @@ function initUIBindings() {
       startNewRound();
       showScreen("game");
 
-      toast(`${words.length} palabras cargadas`);
+      toast(t("words_loaded", { n: words.length }));
     } catch (e) {
       console.error(e);
-      toast(`Error cargando ${file}`);
+      toast(`${t("error_loading")}: ${file}`);
     }
   };
 
@@ -193,7 +201,7 @@ function initUIBindings() {
 
   /* ====== Ver palabras ====== */
   bind("btnListWords", () => {
-    if (roundActive && !confirm("¿Desea mostrar las palabras de juego?")) return;
+    if (roundActive && !confirm(t("confirm_show_words"))) return;
 
     const list = $("wordListContainer");
     list.innerHTML = "";
@@ -207,7 +215,7 @@ function initUIBindings() {
         .filter(Boolean);
     }
 
-    if (!words.length) list.innerHTML = "<li>No words loaded</li>";
+    if (!words.length) list.innerHTML = `<li>${t("no_words_loaded")}</li>`;
     else words.forEach(w => {
       const li = document.createElement("li");
       li.textContent = w;

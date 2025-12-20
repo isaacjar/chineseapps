@@ -18,7 +18,6 @@ let currentWord = null,
 const $ = id => document.getElementById(id);
 const randomFrom = a => a[Math.floor(Math.random() * a.length)];
 const normalize = c => c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-const MSG = langStrings[settingsLocal.lang].messages;
 
 function loadStats() {
   const s = JSON.parse(localStorage.getItem('hangwords_stats_v1') || '{}');

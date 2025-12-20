@@ -18,6 +18,7 @@ let currentWord = null,
 const $ = id => document.getElementById(id);
 const randomFrom = a => a[Math.floor(Math.random() * a.length)];
 const normalize = c => c.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const MSG = langStrings[settingsLocal.lang].messages;
 
 function loadStats() {
   const s = JSON.parse(localStorage.getItem('hangwords_stats_v1') || '{}');
@@ -117,11 +118,11 @@ function startGame(customList) {
 
 function startNewRound() {
   if (!hasVocabularyLoaded()) {
-    toast("Primero cargue un listado de vocabulario");
+    toast(MSG.loadVocab);
     return;
   }
 
-  if (roundActive && !confirm("¿Desea interrumpir la palabra actual?")) return;
+  if (roundActive && !confirm(MSG.interruptWord)) return;
 
   mistakes = 0;
   lettersGuessed.clear();

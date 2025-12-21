@@ -16,12 +16,11 @@ const App = {
 
 showLists() {
     const p = document.getElementById("popupLists");
-    p.classList.remove("hidden");
 
     // Limpiar contenido anterior
     p.innerHTML = "";
 
-    // Caja del popup
+    // Crear caja del popup
     const box = document.createElement("div");
     box.className = "popup-box";
 
@@ -34,7 +33,9 @@ showLists() {
     const closeBtn = document.createElement("button");
     closeBtn.className = "close-btn";
     closeBtn.textContent = "×";
-    closeBtn.onclick = () => p.classList.add("hidden");
+    closeBtn.addEventListener("click", () => {
+        p.classList.add("hidden");
+    });
     box.appendChild(closeBtn);
 
     // Contenedor de botones
@@ -44,10 +45,12 @@ showLists() {
     voclists.forEach(v => {
         const b = document.createElement("button");
         b.textContent = v.title;
-        b.onclick = async () => {
-            await this.loadVoc(v.filename); // espera que cargue la lista
-            p.classList.add("hidden");      // ocultar popup
-        };
+
+        // Cuando se selecciona un listado
+        b.addEventListener("click", async () => {
+            await this.loadVoc(v.filename);  // carga la lista
+            p.classList.add("hidden");       // oculta popup
+        });
 
         // efecto ripple
         b.addEventListener("click", e => {
@@ -56,10 +59,10 @@ showLists() {
             const rect = b.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             circle.style.width = circle.style.height = size + "px";
-            circle.style.left = (e.clientX - rect.left - size/2) + "px";
-            circle.style.top = (e.clientY - rect.top - size/2) + "px";
+            circle.style.left = (e.clientX - rect.left - size / 2) + "px";
+            circle.style.top = (e.clientY - rect.top - size / 2) + "px";
             b.appendChild(circle);
-            setTimeout(()=>circle.remove(), 600);
+            setTimeout(() => circle.remove(), 600);
         });
 
         container.appendChild(b);
@@ -67,6 +70,9 @@ showLists() {
 
     box.appendChild(container);
     p.appendChild(box);
+
+    // Mostrar popup
+    p.classList.remove("hidden");
 },
 
    async loadVoc(name) {

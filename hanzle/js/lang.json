@@ -1,0 +1,16 @@
+{
+  "en": {
+    "chooseList": "Choose a vocabulary list",
+    "settings": "Settings",
+    "win": "🎉 Correct!",
+    "lose": "❌ The word was",
+    "enter": "Enter letters"
+  },
+  "es": {
+    "chooseList": "Elige un listado",
+    "settings": "Configuración",
+    "win": "🎉 ¡Correcto!",
+    "lose": "❌ La palabra era",
+    "enter": "Introduce letras"
+  }
+}

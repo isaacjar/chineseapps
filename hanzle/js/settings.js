@@ -89,13 +89,9 @@ const Settings = {
     document.getElementById("cancelSettings").onclick = () => { p.classList.add("hidden"); };
   },
 
-  updateStats() {
-    document.getElementById("statPlayed")?.textContent = this.stats.played;
-    document.getElementById("statWon")?.textContent = this.stats.won;
-  },
-
-  incrementPlayed() { this.stats.played++; this.save(); this.updateStats(); },
-  incrementWon() { this.stats.won++; this.save(); this.updateStats(); }
+  updateStats(){let e=document.getElementById("statPlayed");if(e)e.textContent=this.stats.played;let w=document.getElementById("statWon");if(w)w.textContent=this.stats.won;},
+  incrementPlayed(){this.stats.played++;this.save();this.updateStats();},
+  incrementWon(){this.stats.won++;this.save();this.updateStats();}
 };
 
 // Conectar botón de Settings

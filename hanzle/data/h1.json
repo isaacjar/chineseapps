@@ -1,95 +1,94 @@
-{"num": 4, "ch": "爸爸", "pin": "bàba", "nor": "baba", "en": "dad", "es": "papá"}
-{"num": 4, "ch": "弟弟", "pin": "dìdi", "nor": "didi", "en": "younger brother", "es": "hermano menor"}
-{"num": 4, "ch": "儿子", "pin": "érzi", "nor": "erzi", "en": "son", "es": "hijo"}
-{"num": 4, "ch": "哥哥", "pin": "gēge", "nor": "gege", "en": "older brother", "es": "hermano mayor"}
-{"num": 4, "ch": "叫", "pin": "jiào", "nor": "jiao", "en": "to be called", "es": "llamarse"}
-{"num": 4, "ch": "块", "pin": "kuài", "nor": "kuai", "en": "piece", "es": "pieza"}
-{"num": 4, "ch": "冷", "pin": "lěng", "nor": "leng", "en": "cold", "es": "frío"}
-{"num": 4, "ch": "零", "pin": "líng", "nor": "ling", "en": "zero", "es": "cero"}
-{"num": 4, "ch": "妈妈", "pin": "māma", "nor": "mama", "en": "mom", "es": "mamá"}
-{"num": 4, "ch": "哪个", "pin": "nǎge", "nor": "nage", "en": "which", "es": "cuál"}
-{"num": 4, "ch": "能", "pin": "néng", "nor": "neng", "en": "to be able to", "es": "poder"}
-{"num": 4, "ch": "年", "pin": "nián", "nor": "nian", "en": "year", "es": "año"}
-{"num": 4, "ch": "钱", "pin": "qián", "nor": "qian", "en": "money", "es": "dinero"}
-{"num": 4, "ch": "请", "pin": "qǐng", "nor": "qing", "en": "please", "es": "por favor"}
-{"num": 4, "ch": "少", "pin": "shǎo", "nor": "shao", "en": "few", "es": "poco"}
-{"num": 4, "ch": "谁", "pin": "shéi", "nor": "shei", "en": "who", "es": "quién"}
-{"num": 4, "ch": "水", "pin": "shuǐ", "nor": "shui", "en": "water", "es": "agua"}
-{"num": 4, "ch": "天", "pin": "tiān", "nor": "tian", "en": "day", "es": "día"}
-{"num": 4, "ch": "王", "pin": "Wáng", "nor": "Wang", "en": "surname Wang", "es": "apellido Wang"}
-{"num": 4, "ch": "小", "pin": "xiǎo", "nor": "xiao", "en": "small", "es": "pequeño"}
-{"num": 4, "ch": "衣服", "pin": "yīfu", "nor": "yifu", "en": "clothes", "es": "ropa"}
-{"num": 4, "ch": "椅子", "pin": "yǐzi", "nor": "yizi", "en": "chair", "es": "silla"}
-{"num": 4, "ch": "这儿", "pin": "zhèr", "nor": "zher", "en": "here", "es": "aquí"}
-
-{"num": 5, "ch": "杯子", "pin": "bēizi", "nor": "beizi", "en": "cup", "es": "taza"}
-{"num": 5, "ch": "大学", "pin": "dàxué", "nor": "daxue", "en": "university", "es": "universidad"}
-{"num": 5, "ch": "飞机", "pin": "fēijī", "nor": "feiji", "en": "airplane", "es": "avión"}
-{"num": 5, "ch": "汉语", "pin": "Hànyǔ", "nor": "Hanyu", "en": "Chinese language", "es": "idioma chino"}
-{"num": 5, "ch": "汉字", "pin": "Hànzì", "nor": "Hanzi", "en": "Chinese character", "es": "carácter chino"}
-{"num": 5, "ch": "两", "pin": "liǎng", "nor": "liang", "en": "two (used for counting)", "es": "dos (para contar)"}
-{"num": 5, "ch": "你们", "pin": "nǐmen", "nor": "nimen", "en": "you (plural)", "es": "ustedes (vosotros)"}
-{"num": 5, "ch": "米饭", "pin": "mǐfàn", "nor": "mifan", "en": "rice", "es": "arroz (cocido)"}
-{"num": 5, "ch": "他们", "pin": "tāmen", "nor": "tamen", "en": "they", "es": "ellos"}
-{"num": 5, "ch": "我们", "pin": "wǒmen", "nor": "women", "en": "we", "es": "nosotros"}
-{"num": 5, "ch": "下午", "pin": "xiàwǔ", "nor": "xiawu", "en": "afternoon", "es": "tarde"}
-{"num": 5, "ch": "下雨", "pin": "xiàyǔ", "nor": "xiayu", "en": "to rain", "es": "llover"}
-{"num": 5, "ch": "想", "pin": "xiǎng", "nor": "xiang", "en": "to think", "es": "pensar"}
-{"num": 5, "ch": "学习", "pin": "xuéxí", "nor": "xuexi", "en": "to study", "es": "estudiar"}
-{"num": 5, "ch": "怎么", "pin": "zěnme", "nor": "zenme", "en": "how", "es": "cómo"}
-{"num": 5, "ch": "这个", "pin": "zhège", "nor": "zhege", "en": "this", "es": "este"}
-{"num": 5, "ch": "这么", "pin": "zhème", "nor": "zheme", "en": "so", "es": "tan"}
-
-{"num": 6, "ch": "不客气", "pin": "bú kèqi", "nor": "bukeqi", "en": "you're welcome", "es": "de nada"}
-{"num": 6, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa"}
-{"num": 6, "ch": "好吃", "pin": "hǎochī", "nor": "haochi", "en": "delicious", "es": "delicioso"}
-{"num": 6, "ch": "火车", "pin": "huǒchē", "nor": "huoche", "en": "train", "es": "tren"}
-{"num": 6, "ch": "姐姐", "pin": "jiějie", "nor": "jiejie", "en": "older sister", "es": "hermana mayor"}
-{"num": 6, "ch": "快乐", "pin": "kuàilè", "nor": "kuaile", "en": "happy", "es": "feliz"}
-{"num": 6, "ch": "老师", "pin": "lǎoshī", "nor": "laoshi", "en": "teacher", "es": "profesor"}
-{"num": 6, "ch": "里面", "pin": "lǐmiàn", "nor": "limian", "en": "inside", "es": "dentro"}
-{"num": 6, "ch": "妹妹", "pin": "mèimei", "nor": "meimei", "en": "younger sister", "es": "hermana menor"}
-{"num": 6, "ch": "美国", "pin": "Měiguó", "nor": "Meiguo", "en": "United States", "es": "Estados Unidos"}
-{"num": 6, "ch": "名字", "pin": "míngzi", "nor": "mingzi", "en": "name", "es": "nombre"}
-{"num": 6, "ch": "您们", "pin": "nínmen", "nor": "ninmen", "en": "you (polite, plural)", "es": "ustedes (formal, plural)"}
-{"num": 6, "ch": "认识", "pin": "rènshi", "nor": "renshi", "en": "to know", "es": "conocer"}
-{"num": 6, "ch": "什么", "pin": "shénme", "nor": "shenme", "en": "what", "es": "qué"}
-{"num": 6, "ch": "身体", "pin": "shēntǐ", "nor": "shenti", "en": "body", "es": "cuerpo"}
-{"num": 6, "ch": "时候", "pin": "shíhou", "nor": "shihou", "en": "time", "es": "tiempo/hora"}
-{"num": 6, "ch": "天气", "pin": "tiānqì", "nor": "tianqi", "en": "weather", "es": "clima"}
-{"num": 6, "ch": "喜欢", "pin": "xǐhuan", "nor": "xihuan", "en": "to like", "es": "gustar"}
-{"num": 6, "ch": "谢谢", "pin": "xièxie", "nor": "xiexie", "en": "thank you", "es": "gracias"}
-{"num": 6, "ch": "星期", "pin": "xīngqī", "nor": "xingqi", "en": "week", "es": "semana"}
-{"num": 6, "ch": "一会儿", "pin": "yíhuìr", "nor": "yihuir", "en": "a moment", "es": "un momento"}
-{"num": 6, "ch": "医院", "pin": "yīyuàn", "nor": "yiyuan", "en": "hospital", "es": "hospital"}
-{"num": 6, "ch": "桌子", "pin": "zhuōzi", "nor": "zhuozi", "en": "table", "es": "mesa"}
-
-{"num": 7, "ch": "北京", "pin": "Běijīng", "nor": "Beijing", "en": "Beijing", "es": "Pekín"}
-{"num": 7, "ch": "电话", "pin": "diànhuà", "nor": "dianhua", "en": "phone", "es": "teléfono"}
-{"num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "computadora"}
-{"num": 7, "ch": "电视", "pin": "diànshì", "nor": "dianshi", "en": "television", "es": "televisión"}
-{"num": 7, "ch": "对不起", "pin": "duìbuqǐ", "nor": "duibuqi", "en": "sorry", "es": "lo siento"}
-{"num": 7, "ch": "多少", "pin": "duōshao", "nor": "duoshao", "en": "how many", "es": "cuántos"}
-{"num": 7, "ch": "饭店", "pin": "fàndiàn", "nor": "fandian", "en": "restaurant", "es": "restaurante"}
-{"num": 7, "ch": "高兴", "pin": "gāoxìng", "nor": "gaoxing", "en": "happy", "es": "contento"}
-{"num": 7, "ch": "工作", "pin": "gōngzuò", "nor": "gongzuo", "en": "to work", "es": "trabajar"}
-{"num": 7, "ch": "后面", "pin": "hòumiàn", "nor": "houmian", "en": "behind", "es": "detrás"}
-{"num": 7, "ch": "今年", "pin": "jīnnián", "nor": "jinnian", "en": "this year", "es": "este año"}
-{"num": 7, "ch": "今天", "pin": "jīntiān", "nor": "jintian", "en": "today", "es": "hoy"}
-{"num": 7, "ch": "看见", "pin": "kànjiàn", "nor": "kanjian", "en": "to see", "es": "ver"}
-{"num": 7, "ch": "朋友", "pin": "péngyou", "nor": "pengyou", "en": "friend", "es": "amigo"}
-{"num": 7, "ch": "请问", "pin": "qǐngwèn", "nor": "qingwen", "en": "excuse me", "es": "disculpe"}
-{"num": 7, "ch": "上午", "pin": "shàngwǔ", "nor": "shangwu", "en": "morning", "es": "mañana"}
-{"num": 7, "ch": "书店", "pin": "shūdiàn", "nor": "shudian", "en": "bookshop", "es": "librería"}
-{"num": 7, "ch": "水果", "pin": "shuǐguǒ", "nor": "shuiguo", "en": "fruit", "es": "fruta"}
-{"num": 7, "ch": "说话", "pin": "shuōhuà", "nor": "shuohua", "en": "to speak", "es": "hablar"}
-{"num": 7, "ch": "同学", "pin": "tóngxué", "nor": "tongxue", "en": "classmate", "es": "compañero de clase"}
-{"num": 7, "ch": "下面", "pin": "xiàmiàn", "nor": "xiamian", "en": "below", "es": "debajo"}
-{"num": 7, "ch": "现在", "pin": "xiànzài", "nor": "xianzai", "en": "now", "es": "ahora"}
-{"num": 7, "ch": "小姐", "pin": "xiǎojiě", "nor": "xiaojie", "en": "Miss", "es": "señorita"}
-{"num": 7, "ch": "西班牙", "pin": "Xībānyá", "nor": "Xibanya", "en": "Spain", "es": "España"}
-{"num": 7, "ch": "学校", "pin": "xuéxiào", "nor": "xuexiao", "en": "school", "es": "escuela"}
-{"num": 7, "ch": "医生", "pin": "yīshēng", "nor": "yisheng", "en": "doctor", "es": "médico"}
-{"num": 7, "ch": "再见", "pin": "zàijiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"}
-{"num": 7, "ch": "中午", "pin": "zhōngwǔ", "nor": "zhongwu", "en": "noon", "es": "mediodía"}
+[
+{"num": 4, "ch": "爸爸", "pin": "bàba", "nor": "baba", "en": "dad", "es": "papá"},
+{"num": 4, "ch": "弟弟", "pin": "dìdi", "nor": "didi", "en": "younger brother", "es": "hermano menor"},
+{"num": 4, "ch": "儿子", "pin": "érzi", "nor": "erzi", "en": "son", "es": "hijo"},
+{"num": 4, "ch": "哥哥", "pin": "gēge", "nor": "gege", "en": "older brother", "es": "hermano mayor"},
+{"num": 4, "ch": "叫", "pin": "jiào", "nor": "jiao", "en": "to be called", "es": "llamarse"},
+{"num": 4, "ch": "块", "pin": "kuài", "nor": "kuai", "en": "piece", "es": "pieza"},
+{"num": 4, "ch": "冷", "pin": "lěng", "nor": "leng", "en": "cold", "es": "frío"},
+{"num": 4, "ch": "零", "pin": "líng", "nor": "ling", "en": "zero", "es": "cero"},
+{"num": 4, "ch": "妈妈", "pin": "māma", "nor": "mama", "en": "mom", "es": "mamá"},
+{"num": 4, "ch": "哪个", "pin": "nǎge", "nor": "nage", "en": "which", "es": "cuál"},
+{"num": 4, "ch": "能", "pin": "néng", "nor": "neng", "en": "to be able to", "es": "poder"},
+{"num": 4, "ch": "年", "pin": "nián", "nor": "nian", "en": "year", "es": "año"},
+{"num": 4, "ch": "钱", "pin": "qián", "nor": "qian", "en": "money", "es": "dinero"},
+{"num": 4, "ch": "请", "pin": "qǐng", "nor": "qing", "en": "please", "es": "por favor"},
+{"num": 4, "ch": "少", "pin": "shǎo", "nor": "shao", "en": "few", "es": "poco"},
+{"num": 4, "ch": "谁", "pin": "shéi", "nor": "shei", "en": "who", "es": "quién"},
+{"num": 4, "ch": "水", "pin": "shuǐ", "nor": "shui", "en": "water", "es": "agua"},
+{"num": 4, "ch": "天", "pin": "tiān", "nor": "tian", "en": "day", "es": "día"},
+{"num": 4, "ch": "王", "pin": "Wáng", "nor": "Wang", "en": "surname Wang", "es": "apellido Wang"},
+{"num": 4, "ch": "小", "pin": "xiǎo", "nor": "xiao", "en": "small", "es": "pequeño"},
+{"num": 4, "ch": "衣服", "pin": "yīfu", "nor": "yifu", "en": "clothes", "es": "ropa"},
+{"num": 4, "ch": "椅子", "pin": "yǐzi", "nor": "yizi", "en": "chair", "es": "silla"},
+{"num": 4, "ch": "这儿", "pin": "zhèr", "nor": "zher", "en": "here", "es": "aquí"},
+{"num": 5, "ch": "杯子", "pin": "bēizi", "nor": "beizi", "en": "cup", "es": "taza"},
+{"num": 5, "ch": "大学", "pin": "dàxué", "nor": "daxue", "en": "university", "es": "universidad"},
+{"num": 5, "ch": "飞机", "pin": "fēijī", "nor": "feiji", "en": "airplane", "es": "avión"},
+{"num": 5, "ch": "汉语", "pin": "Hànyǔ", "nor": "Hanyu", "en": "Chinese language", "es": "idioma chino"},
+{"num": 5, "ch": "汉字", "pin": "Hànzì", "nor": "Hanzi", "en": "Chinese character", "es": "carácter chino"},
+{"num": 5, "ch": "两", "pin": "liǎng", "nor": "liang", "en": "two (used for counting)", "es": "dos (para contar)"},
+{"num": 5, "ch": "你们", "pin": "nǐmen", "nor": "nimen", "en": "you (plural)", "es": "ustedes (vosotros)"},
+{"num": 5, "ch": "米饭", "pin": "mǐfàn", "nor": "mifan", "en": "rice", "es": "arroz (cocido)"},
+{"num": 5, "ch": "他们", "pin": "tāmen", "nor": "tamen", "en": "they", "es": "ellos"},
+{"num": 5, "ch": "我们", "pin": "wǒmen", "nor": "women", "en": "we", "es": "nosotros"},
+{"num": 5, "ch": "下午", "pin": "xiàwǔ", "nor": "xiawu", "en": "afternoon", "es": "tarde"},
+{"num": 5, "ch": "下雨", "pin": "xiàyǔ", "nor": "xiayu", "en": "to rain", "es": "llover"},
+{"num": 5, "ch": "想", "pin": "xiǎng", "nor": "xiang", "en": "to think", "es": "pensar"},
+{"num": 5, "ch": "学习", "pin": "xuéxí", "nor": "xuexi", "en": "to study", "es": "estudiar"},
+{"num": 5, "ch": "怎么", "pin": "zěnme", "nor": "zenme", "en": "how", "es": "cómo"},
+{"num": 5, "ch": "这个", "pin": "zhège", "nor": "zhege", "en": "this", "es": "este"},
+{"num": 5, "ch": "这么", "pin": "zhème", "nor": "zheme", "en": "so", "es": "tan"}, 
+{"num": 6, "ch": "不客气", "pin": "bú kèqi", "nor": "bukeqi", "en": "you're welcome", "es": "de nada"},
+{"num": 6, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa"},
+{"num": 6, "ch": "好吃", "pin": "hǎochī", "nor": "haochi", "en": "delicious", "es": "delicioso"},
+{"num": 6, "ch": "火车", "pin": "huǒchē", "nor": "huoche", "en": "train", "es": "tren"},
+{"num": 6, "ch": "姐姐", "pin": "jiějie", "nor": "jiejie", "en": "older sister", "es": "hermana mayor"},
+{"num": 6, "ch": "快乐", "pin": "kuàilè", "nor": "kuaile", "en": "happy", "es": "feliz"},
+{"num": 6, "ch": "老师", "pin": "lǎoshī", "nor": "laoshi", "en": "teacher", "es": "profesor"},
+{"num": 6, "ch": "里面", "pin": "lǐmiàn", "nor": "limian", "en": "inside", "es": "dentro"},
+{"num": 6, "ch": "妹妹", "pin": "mèimei", "nor": "meimei", "en": "younger sister", "es": "hermana menor"},
+{"num": 6, "ch": "美国", "pin": "Měiguó", "nor": "Meiguo", "en": "United States", "es": "Estados Unidos"},
+{"num": 6, "ch": "名字", "pin": "míngzi", "nor": "mingzi", "en": "name", "es": "nombre"},
+{"num": 6, "ch": "您们", "pin": "nínmen", "nor": "ninmen", "en": "you (polite, plural)", "es": "ustedes (formal, plural)"},
+{"num": 6, "ch": "认识", "pin": "rènshi", "nor": "renshi", "en": "to know", "es": "conocer"},
+{"num": 6, "ch": "什么", "pin": "shénme", "nor": "shenme", "en": "what", "es": "qué"},
+{"num": 6, "ch": "身体", "pin": "shēntǐ", "nor": "shenti", "en": "body", "es": "cuerpo"},
+{"num": 6, "ch": "时候", "pin": "shíhou", "nor": "shihou", "en": "time", "es": "tiempo/hora"},
+{"num": 6, "ch": "天气", "pin": "tiānqì", "nor": "tianqi", "en": "weather", "es": "clima"},
+{"num": 6, "ch": "喜欢", "pin": "xǐhuan", "nor": "xihuan", "en": "to like", "es": "gustar"},
+{"num": 6, "ch": "谢谢", "pin": "xièxie", "nor": "xiexie", "en": "thank you", "es": "gracias"},
+{"num": 6, "ch": "星期", "pin": "xīngqī", "nor": "xingqi", "en": "week", "es": "semana"},
+{"num": 6, "ch": "一会儿", "pin": "yíhuìr", "nor": "yihuir", "en": "a moment", "es": "un momento"},
+{"num": 6, "ch": "医院", "pin": "yīyuàn", "nor": "yiyuan", "en": "hospital", "es": "hospital"},
+{"num": 6, "ch": "桌子", "pin": "zhuōzi", "nor": "zhuozi", "en": "table", "es": "mesa"},
+{"num": 7, "ch": "北京", "pin": "Běijīng", "nor": "Beijing", "en": "Beijing", "es": "Pekín"},
+{"num": 7, "ch": "电话", "pin": "diànhuà", "nor": "dianhua", "en": "phone", "es": "teléfono"},
+{"num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "computadora"},
+{"num": 7, "ch": "电视", "pin": "diànshì", "nor": "dianshi", "en": "television", "es": "televisión"},
+{"num": 7, "ch": "对不起", "pin": "duìbuqǐ", "nor": "duibuqi", "en": "sorry", "es": "lo siento"},
+{"num": 7, "ch": "多少", "pin": "duōshao", "nor": "duoshao", "en": "how many", "es": "cuántos"},
+{"num": 7, "ch": "饭店", "pin": "fàndiàn", "nor": "fandian", "en": "restaurant", "es": "restaurante"},
+{"num": 7, "ch": "高兴", "pin": "gāoxìng", "nor": "gaoxing", "en": "happy", "es": "contento"},
+{"num": 7, "ch": "工作", "pin": "gōngzuò", "nor": "gongzuo", "en": "to work", "es": "trabajar"},
+{"num": 7, "ch": "后面", "pin": "hòumiàn", "nor": "houmian", "en": "behind", "es": "detrás"},
+{"num": 7, "ch": "今年", "pin": "jīnnián", "nor": "jinnian", "en": "this year", "es": "este año"},
+{"num": 7, "ch": "今天", "pin": "jīntiān", "nor": "jintian", "en": "today", "es": "hoy"},
+{"num": 7, "ch": "看见", "pin": "kànjiàn", "nor": "kanjian", "en": "to see", "es": "ver"},
+{"num": 7, "ch": "朋友", "pin": "péngyou", "nor": "pengyou", "en": "friend", "es": "amigo"},
+{"num": 7, "ch": "请问", "pin": "qǐngwèn", "nor": "qingwen", "en": "excuse me", "es": "disculpe"},
+{"num": 7, "ch": "上午", "pin": "shàngwǔ", "nor": "shangwu", "en": "morning", "es": "mañana"},
+{"num": 7, "ch": "书店", "pin": "shūdiàn", "nor": "shudian", "en": "bookshop", "es": "librería"},
+{"num": 7, "ch": "水果", "pin": "shuǐguǒ", "nor": "shuiguo", "en": "fruit", "es": "fruta"},
+{"num": 7, "ch": "说话", "pin": "shuōhuà", "nor": "shuohua", "en": "to speak", "es": "hablar"},
+{"num": 7, "ch": "同学", "pin": "tóngxué", "nor": "tongxue", "en": "classmate", "es": "compañero de clase"},
+{"num": 7, "ch": "下面", "pin": "xiàmiàn", "nor": "xiamian", "en": "below", "es": "debajo"},
+{"num": 7, "ch": "现在", "pin": "xiànzài", "nor": "xianzai", "en": "now", "es": "ahora"},
+{"num": 7, "ch": "小姐", "pin": "xiǎojiě", "nor": "xiaojie", "en": "Miss", "es": "señorita"},
+{"num": 7, "ch": "西班牙", "pin": "Xībānyá", "nor": "Xibanya", "en": "Spain", "es": "España"},
+{"num": 7, "ch": "学校", "pin": "xuéxiào", "nor": "xuexiao", "en": "school", "es": "escuela"},
+{"num": 7, "ch": "医生", "pin": "yīshēng", "nor": "yisheng", "en": "doctor", "es": "médico"},
+{"num": 7, "ch": "再见", "pin": "zàijiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"},
+{"num": 7, "ch": "中午", "pin": "zhōngwǔ", "nor": "zhongwu", "en": "noon", "es": "mediodía"},
 {"num": 7, "ch": "昨天", "pin": "zuótiān", "nor": "zuotian", "en": "yesterday", "es": "ayer"}
+]

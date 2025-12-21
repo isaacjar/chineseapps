@@ -54,12 +54,42 @@ const App = {
   },
 
   async loadVoc(name) {
-    Settings.voclist = name;
-    Settings.save();
-    const txt = await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`).then(r=>r.text());
-    this.vocData = txt.trim().split("\n").map(l=>JSON.parse(l));
-    document.getElementById("popupLists").classList.add("hidden");
-    this.newWord();
+    try {
+      Settings.voclist = name;
+      Settings.save();
+  
+      const response = await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`);
+      if (!response.ok) throw new Error(`No se pudo cargar el archivo: ${response.status}`);
+  
+      const txt = await response.text();
+  
+      // Convertir solo líneas con contenido
+      this.vocData = txt
+        .trim()
+        .split("\n")
+        .filter(line => line.trim() !== "")
+        .map(line => {
+          try {
+            return JSON.parse(line);
+          } catch (err) {
+            console.error("Error al parsear línea JSON:", line, err);
+            return null;
+          }
+        })
+        .filter(item => item !== null); // eliminar líneas inválidas
+  
+      if (this.vocData.length === 0) {
+        this.msg("⚠️ La lista está vacía o contiene errores.");
+        return;
+      }
+  
+      document.getElementById("popupLists").classList.add("hidden");
+      this.newWord();
+  
+    } catch (err) {
+      console.error("Error cargando vocabulario:", err);
+      this.msg("❌ No se pudo cargar la lista. Revisa tu conexión o el archivo.");
+    }
   },
 
   newWord() {

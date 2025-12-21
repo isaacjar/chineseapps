@@ -3,7 +3,7 @@ const App = {
 
   async init() {
     Settings.load();
-    this.langData = await fetch("lang.json").then(r=>r.json());
+    this.langData = await fetch("js/lang.json").then(r=>r.json());
     document.getElementById("appHome")?.addEventListener("click",()=>this.restartApp());
     document.getElementById("btnNew")?.addEventListener("click",()=>this.newWord());
     if(Settings.voclist) await this.loadVoc(Settings.voclist); else this.showLists();

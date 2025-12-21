@@ -32,10 +32,40 @@ const App = {
   onGameStart(){ this.clearMsg(); },
   onInvalidWord(){ this.msg("❌ Word not in list"); Game.shakeRow(); },
 
-  onWin(solution){ Settings.incrementPlayed(); Settings.incrementWon(); this.showSolution(solution); this.msg(this.langData[Settings.lang].win); if (typeof launchFireworks === "function") launchFireworks(); document.getElementById("btnNew").classList.remove("hidden"); },
+  onWin(solution){ Settings.incrementPlayed(); Settings.incrementWon(); this.showSolution(solution); this.msg(this.langData[Settings.lang].win); launchFireworks(); document.getElementById("btnNew").classList.remove("hidden"); },
   onLose(solution){ Settings.incrementPlayed(); this.showSolution(solution); this.msg(this.langData[Settings.lang].lose); document.getElementById("btnNew").classList.remove("hidden"); },
 
   showSolution(w){ if(!w) return; const sol=document.getElementById("solution"); sol.querySelector(".ch").textContent=w.ch; sol.querySelector(".pin").textContent=w.pin; sol.querySelector(".en").textContent=w.en; sol.querySelector(".es").textContent=w.es; sol.classList.remove("hidden"); }
 };
 
 App.init();
+
+function launchFireworks() {
+  const colors = ["#81c784","#fff176","#ff8a65","#64b5f6","#ba68c8"];
+  const duration = 1500;
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement("div");
+    particle.style.position = "fixed";
+    particle.style.width = particle.style.height = "8px";
+    particle.style.borderRadius = "50%";
+    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.left = Math.random() * window.innerWidth + "px";
+    particle.style.top = Math.random() * window.innerHeight / 2 + "px";
+    particle.style.pointerEvents = "none";
+    particle.style.zIndex = 9999;
+    document.body.appendChild(particle);
+
+    // Animación simple: caer y desaparecer
+    const dx = (Math.random() - 0.5) * 200;
+    const dy = 200 + Math.random() * 200;
+    const rotation = Math.random() * 720;
+
+    particle.animate([
+      { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(${rotation}deg)`, opacity: 0 }
+    ], { duration: duration, easing: "ease-out" });
+
+    setTimeout(() => particle.remove(), duration);
+  }
+}

@@ -16,6 +16,7 @@ const Game = {
 
     this.solutionObj = this.words[Math.floor(Math.random() * this.words.length)];
     this.solution = this.solutionObj.nor;
+    console.log("📝 ", this.solutionObj);
     this.row = 0;
     this.col = 0;
     this.board = Array.from({ length: Settings.numAttempts }, () => Array(Settings.numLetters).fill(""));

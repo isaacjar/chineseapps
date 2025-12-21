@@ -15,90 +15,85 @@ const App = {
   clearMsg(){ document.getElementById("messages").innerHTML=""; },
 
 showLists() {
-    const p = document.getElementById("popupLists");
+  const p = document.getElementById("popupLists");
+  p.classList.remove("hidden");
 
-    // Limpiar contenido anterior
-    p.innerHTML = "";
+  // Limpiar contenido previo
+  p.innerHTML = "";
 
-    // Crear caja del popup
-    const box = document.createElement("div");
-    box.className = "popup-box";
+  // Caja del popup
+  const box = document.createElement("div");
+  box.className = "popup-box";
 
-    // Cabecera
-    const header = document.createElement("h2");
-    header.textContent = this.langData[Settings.lang]?.chooseList || "Choose List";
-    box.appendChild(header);
+  // Cabecera
+  const header = document.createElement("h2");
+  header.textContent = this.langData[Settings.lang]?.chooseList || "Choose List";
+  box.appendChild(header);
 
-    // Botón de cerrar
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "close-btn";
-    closeBtn.textContent = "×";
-    closeBtn.addEventListener("click", () => {
-        p.classList.add("hidden");
-    });
-    box.appendChild(closeBtn);
+  // Botón de cerrar
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "close-btn";
+  closeBtn.textContent = "×";
+  closeBtn.addEventListener("click", () => p.classList.add("hidden"));
+  box.appendChild(closeBtn);
 
-    // Contenedor de botones
-    const container = document.createElement("div");
-    container.className = "list-container";
+  // Contenedor de botones con scroll
+  const container = document.createElement("div");
+  container.className = "list-container";
 
-    voclists.forEach(v => {
-        const b = document.createElement("button");
-        b.textContent = v.title;
+  // Botones de cada listado
+  voclists.forEach(v => {
+    const btn = document.createElement("button");
+    btn.textContent = v.title;
+    btn.onclick = async () => {
+      await this.loadVoc(v.filename); // carga la lista
+      p.classList.add("hidden");      // cierra el popup
+    };
 
-        // Cuando se selecciona un listado
-        b.addEventListener("click", async () => {
-            await this.loadVoc(v.filename);  // carga la lista
-            p.classList.add("hidden");       // oculta popup
-        });
-
-        // efecto ripple
-        b.addEventListener("click", e => {
-            const circle = document.createElement("span");
-            circle.className = "ripple";
-            const rect = b.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            circle.style.width = circle.style.height = size + "px";
-            circle.style.left = (e.clientX - rect.left - size / 2) + "px";
-            circle.style.top = (e.clientY - rect.top - size / 2) + "px";
-            b.appendChild(circle);
-            setTimeout(() => circle.remove(), 600);
-        });
-
-        container.appendChild(b);
+    // Ripple effect opcional
+    btn.addEventListener("click", e => {
+      const circle = document.createElement("span");
+      circle.className = "ripple";
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + "px";
+      circle.style.left = (e.clientX - rect.left - size / 2) + "px";
+      circle.style.top = (e.clientY - rect.top - size / 2) + "px";
+      btn.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
     });
 
-    box.appendChild(container);
-    p.appendChild(box);
+    container.appendChild(btn);
+  });
 
-    // Mostrar popup
-    p.classList.remove("hidden");
+  box.appendChild(container);
+  p.appendChild(box);
 },
 
-   async loadVoc(name) {
-    try {
-      Settings.voclist = name;
-      Settings.save();
-  
-      const response = await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`);
-      if (!response.ok) throw new Error(`No se pudo cargar el archivo: ${response.status}`);
-  
-      // Parsear directamente el array completo
-      this.vocData = await response.json();
-  
-      if (!Array.isArray(this.vocData) || this.vocData.length === 0) {
-        this.msg("⚠️ La lista está vacía o no es un array válido.");
-        return;
-      }
-  
-      document.getElementById("popupLists").classList.add("hidden");
-      this.newWord();
-  
-    } catch (err) {
-      console.error("Error cargando vocabulario:", err);
-      this.msg("❌ No se pudo cargar la lista. Revisa tu conexión o el archivo.");
+async loadVoc(name) {
+  try {
+    Settings.voclist = name;
+    Settings.save();
+
+    const response = await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`);
+    if (!response.ok) throw new Error(`No se pudo cargar el archivo: ${response.status}`);
+
+    // Parsear JSON completo
+    this.vocData = await response.json();
+
+    if (!Array.isArray(this.vocData) || this.vocData.length === 0) {
+      this.msg("⚠️ La lista está vacía o no es un array válido.");
+      return;
     }
-  },
+
+    document.getElementById("popupLists").classList.add("hidden");
+    this.newWord();
+
+  } catch (err) {
+    console.error("Error cargando vocabulario:", err);
+    this.msg("❌ No se pudo cargar la lista. Revisa tu conexión o el archivo.");
+  }
+},
 
   newWord() {
     document.getElementById("btnNew").classList.add("hidden");

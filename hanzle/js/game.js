@@ -57,30 +57,37 @@ const Game = {
 
   checkGuess(guess) {
     const rowEl = document.querySelectorAll(".row")[this.row];
-    const result = [];
-
-    [...guess].forEach((l, i) => {
+    const letters = [...guess].map((l, i) => {
       let state = "absent";
       if (l === this.solution[i]) state = "correct";
       else if (this.solution.includes(l)) state = "present";
-
-      rowEl.children[i].classList.add("flip", state); // animación
-      App.updateKey(l, state);
-      result.push({ char: l, state });
+      return { char: l, state };
     });
-
-    App.onGuessResult({ row: this.row, letters: result });
-
-    if (guess === this.solution) {
-      this.active = false;
-      this.fireworks();
-      App.onWin(this.solutionObj);
-    } else if (++this.row === Settings.numAttempts) {
-      this.active = false;
-      App.onLose(this.solutionObj);
-    } else {
-      this.col = 0;
-    }
+  
+    // animación secuencial tipo Wordle
+    letters.forEach((l, i) => {
+      const cell = rowEl.children[i];
+      setTimeout(() => {
+        cell.classList.add("flip");
+        cell.classList.add(l.state);
+        App.updateKey(l.char, l.state);
+      }, i * 250); // cada letra 250ms después de la anterior
+    });
+  
+    // después de animación completa
+    setTimeout(() => {
+      const win = guess === this.solution;
+      if (win) {
+        this.active = false;
+        this.fireworks();
+        App.onWin(this.solutionObj);
+      } else if (++this.row === Settings.numAttempts) {
+        this.active = false;
+        App.onLose(this.solutionObj);
+      } else {
+        this.col = 0;
+      }
+    }, letters.length * 250 + 100);
   },
 
   renderBoard() {

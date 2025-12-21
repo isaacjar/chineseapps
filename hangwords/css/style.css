@@ -106,7 +106,7 @@ button#btnNew.btn.primary {
   color:#fff;
   border:1px solid #218838;
 }
-button#btnNew.btn.primary:hover {background-color:#218838;}
+button#btnNew.btn.primary:hover {background-color:#218838; background-image:none;}
 button#btnNew.btn.primary:active {transform:translateY(1px);}
 button#btnNew.btn.primary:disabled {background-color:#94d3a2;color:#eee;cursor:not-allowed;}
 

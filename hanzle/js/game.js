@@ -1,7 +1,7 @@
 const Game = {
   words: [],
-  solutionObj: null,   // palabra completa con todos los campos
-  solution: "",        // palabra normalizada para el juego
+  solutionObj: null,     // palabra completa con todos los campos
+  solution: "",          // palabra normalizada para el juego
   row: 0,
   col: 0,
   board: [],
@@ -9,14 +9,10 @@ const Game = {
 
   init(words) {
     this.words = words.filter(w => w.num === Settings.numLetters);
-    if (this.words.length === 0) {
-      App.msg("⚠️ No words with current length");
-      return;
-    }
+    if (this.words.length === 0) { App.msg("⚠️ No words with current length"); return; }
 
     this.solutionObj = this.words[Math.floor(Math.random() * this.words.length)];
     this.solution = this.solutionObj.nor;
-
     this.row = 0;
     this.col = 0;
     this.board = Array.from({ length: Settings.numAttempts }, () => Array(Settings.numLetters).fill(""));
@@ -44,14 +40,12 @@ const Game = {
 
   enter() {
     if (!this.active) return;
-
     const guess = this.board[this.row].join("");
     if (!this.words.find(w => w.nor === guess)) {
       App.onInvalidWord();
       this.shakeRow();
       return;
     }
-
     this.checkGuess(guess);
   },
 
@@ -63,7 +57,7 @@ const Game = {
       else if (this.solution.includes(l)) state = "present";
       return { char: l, state };
     });
-  
+
     // animación secuencial tipo Wordle
     letters.forEach((l, i) => {
       const cell = rowEl.children[i];
@@ -71,9 +65,9 @@ const Game = {
         cell.classList.add("flip");
         cell.classList.add(l.state);
         App.updateKey(l.char, l.state);
-      }, i * 250); // cada letra 250ms después de la anterior
+      }, i * 250);
     });
-  
+
     // después de animación completa
     setTimeout(() => {
       const win = guess === this.solution;
@@ -94,7 +88,6 @@ const Game = {
     const b = document.getElementById("board");
     b.innerHTML = "";
     b.style.gridTemplateRows = `repeat(${Settings.numAttempts},1fr)`;
-
     this.board.forEach(r => {
       const row = document.createElement("div");
       row.className = "row";
@@ -142,12 +135,11 @@ const Game = {
         p.x += p.vx;
         p.y += p.vy;
         p.life--;
-        ctx.fillStyle = "rgba(255,200,100,.8)";
+        ctx.fillStyle = `rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},0.8)`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, 3, 0, Math.PI*2);
         ctx.fill();
       });
-
       if (particles.some(p => p.life > 0)) requestAnimationFrame(anim);
       else c.remove();
     };

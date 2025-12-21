@@ -2,7 +2,7 @@
 * { box-sizing:border-box; margin:0; padding:0; }
 body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; height:100vh; }
 header,footer { background:var(--card); padding:10px; display:flex; align-items:center; }
-footer { text-align:center; }
+footer { display:flex; align-items:center; justify-content:center; text-align:center; }
 header.topbar { justify-content:space-between; }
 header .left { display:flex; align-items:center; gap:6px; font-size:1.6rem; cursor:pointer; font-weight:900; }
 header .right { display:flex; align-items:center; gap:8px; }

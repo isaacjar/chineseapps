@@ -16,7 +16,7 @@ const App = {
 
   showLists(){ const p=document.getElementById("popupLists"); p.classList.remove("hidden"); const box=document.createElement("div"); voclists.forEach(v=>{ const b=document.createElement("button"); b.textContent=v.title; b.onclick=()=>this.loadVoc(v.filename); box.appendChild(b); }); p.innerHTML=""; p.appendChild(box); },
 
-  async loadVoc(name){ Settings.voclist=name; Settings.save(); const txt=await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.js`).then(r=>r.text()); this.vocData=txt.trim().split("\n").map(l=>JSON.parse(l)); document.getElementById("popupLists").classList.add("hidden"); this.newWord(); },
+  async loadVoc(name){ Settings.voclist=name; Settings.save(); const txt=await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`).then(r=>r.text()); this.vocData=txt.trim().split("\n").map(l=>JSON.parse(l)); document.getElementById("popupLists").classList.add("hidden"); this.newWord(); },
 
   newWord(){ document.getElementById("btnNew").classList.add("hidden"); this.clearMsg(); this.clearKeyboardState(); document.getElementById("solution").classList.add("hidden"); Game.init(this.vocData); },
 

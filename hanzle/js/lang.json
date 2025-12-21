@@ -1,16 +1,18 @@
 {
   "en": {
-    "chooseList": "Choose a vocabulary list",
+    "chooseList": "Choose a vocabulary list...",
     "settings": "Settings",
+    "save": "💾 Save", "reset": "🔄 Reset", "cancel": "Cancel",
     "win": "🎉 Correct!",
     "lose": "❌ The word was",
-    "enter": "Enter letters"
+    "enter": "Enter letters..."
   },
   "es": {
-    "chooseList": "Elige un listado",
+    "chooseList": "Elige lista de vocabulario...",
     "settings": "Configuración",
+    "save": "💾 Guardar", "reset": "🔄 Restablecer", "cancel": "Cancelar",
     "win": "🎉 ¡Correcto!",
     "lose": "❌ La palabra era",
-    "enter": "Introduce letras"
+    "enter": "Introduce letras..."
   }
 }

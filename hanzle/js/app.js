@@ -14,30 +14,62 @@ const App = {
   msg(html){ document.getElementById("messages").innerHTML=html; },
   clearMsg(){ document.getElementById("messages").innerHTML=""; },
 
-  showLists() {
+ showLists() {
     const p = document.getElementById("popupLists");
     p.classList.remove("hidden");
   
-    // Limpiar el contenedor de la lista (sin eliminar el popup completo)
-    const container = p.querySelector(".list-container") || document.createElement("div");
-    container.className = "list-container";
-    container.innerHTML = "";
+    // Limpiar contenido previo
+    p.innerHTML = "";
   
-    // Crear botones de listas
+    // Caja interna del popup
+    const box = document.createElement("div");
+    box.className = "popup-box";
+  
+    // Cabecera
+    const header = document.createElement("h2");
+    header.textContent = this.langData[Settings.lang]?.chooseList || "Choose List";
+    box.appendChild(header);
+  
+    // Contenedor de botones con scroll
+    const container = document.createElement("div");
+    container.className = "list-container";
+  
     voclists.forEach(v => {
-      const b = document.createElement("button");
-      b.textContent = v.title;
-      b.onclick = () => {
+      const btn = document.createElement("button");
+      btn.textContent = v.title;
+  
+      // Al pulsar, carga vocabulario y oculta popup
+      btn.onclick = () => {
         this.loadVoc(v.filename);
-        p.classList.add("hidden"); // ocultar popup al seleccionar
+        p.classList.add("hidden");
       };
-      container.appendChild(b);
+  
+      // Efecto ripple
+      btn.addEventListener("click", e => {
+        const circle = document.createElement("span");
+        circle.className = "ripple";
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.style.width = circle.style.height = size + "px";
+        circle.style.left = (e.clientX - rect.left - size / 2) + "px";
+        circle.style.top = (e.clientY - rect.top - size / 2) + "px";
+        btn.appendChild(circle);
+        setTimeout(() => circle.remove(), 600);
+      });
+  
+      container.appendChild(btn);
     });
   
-    // Añadir el contenedor al popup si no existía
-    if (!p.contains(container)) {
-      p.appendChild(container);
-    }
+    box.appendChild(container);
+  
+    // Botón de cierre en la esquina superior derecha
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "close-btn";
+    closeBtn.textContent = "×";
+    closeBtn.onclick = () => p.classList.add("hidden");
+    box.appendChild(closeBtn);
+  
+    p.appendChild(box);
   },
 
    async loadVoc(name) {

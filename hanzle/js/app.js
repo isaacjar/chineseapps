@@ -14,7 +14,53 @@ const App = {
   msg(html){ document.getElementById("messages").innerHTML=html; },
   clearMsg(){ document.getElementById("messages").innerHTML=""; },
 
-  showLists(){ const p=document.getElementById("popupLists"); p.classList.remove("hidden"); const box=document.createElement("div"); voclists.forEach(v=>{ const b=document.createElement("button"); b.textContent=v.title; b.onclick=()=>this.loadVoc(v.filename); box.appendChild(b); }); p.innerHTML=""; p.appendChild(box); },
+ showLists() {
+    const p = document.getElementById("popupLists");
+    p.classList.remove("hidden");
+  
+    // Limpiar contenido anterior
+    p.innerHTML = "";
+  
+    // Crear el contenedor interno del popup
+    const box = document.createElement("div");
+    box.className = "popup-box";
+  
+    // Cabecera
+    const header = document.createElement("h2");
+    header.className = "popup-header";
+    header.textContent = this.langData[Settings.lang]?.chooseList || "Choose List";
+    box.appendChild(header);
+  
+    // Contenedor de botones con scroll automático
+    const container = document.createElement("div");
+    container.className = "list-container";
+  
+    // Crear botones de listas
+    voclists.forEach(v => {
+      const b = document.createElement("button");
+      b.className = "list-btn";
+      b.textContent = v.title;
+      b.onclick = () => this.loadVoc(v.filename);
+  
+      // Efecto ripple
+      b.addEventListener("click", e => {
+        const circle = document.createElement("span");
+        circle.className = "ripple";
+        const rect = b.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.style.width = circle.style.height = size + "px";
+        circle.style.left = (e.clientX - rect.left - size / 2) + "px";
+        circle.style.top = (e.clientY - rect.top - size / 2) + "px";
+        b.appendChild(circle);
+        setTimeout(() => circle.remove(), 600);
+      });
+  
+      container.appendChild(b);
+    });
+  
+    box.appendChild(container);
+    p.appendChild(box);
+  }
 
   async loadVoc(name){ Settings.voclist=name; Settings.save(); const txt=await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`).then(r=>r.text()); this.vocData=txt.trim().split("\n").map(l=>JSON.parse(l)); document.getElementById("popupLists").classList.add("hidden"); this.newWord(); },
 

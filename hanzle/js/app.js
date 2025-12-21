@@ -32,8 +32,8 @@ const App = {
   onGameStart(){ this.clearMsg(); },
   onInvalidWord(){ this.msg("❌ Word not in list"); Game.shakeRow(); },
 
-  onWin(solution){ this.showSolution(solution); this.msg(this.langData[Settings.lang].win); document.getElementById("btnNew").classList.remove("hidden"); },
-  onLose(solution){ this.showSolution(solution); this.msg(this.langData[Settings.lang].lose); document.getElementById("btnNew").classList.remove("hidden"); },
+  onWin(solution){ Settings.incrementPlayed(); Settings.incrementWon(); this.showSolution(solution); this.msg(this.langData[Settings.lang].win); document.getElementById("btnNew").classList.remove("hidden"); },
+  onLose(solution){ Settings.incrementPlayed(); this.showSolution(solution); this.msg(this.langData[Settings.lang].lose); document.getElementById("btnNew").classList.remove("hidden"); },
 
   showSolution(w){ if(!w) return; const sol=document.getElementById("solution"); sol.querySelector(".ch").textContent=w.ch; sol.querySelector(".pin").textContent=w.pin; sol.querySelector(".en").textContent=w.en; sol.querySelector(".es").textContent=w.es; sol.classList.remove("hidden"); }
 };

@@ -45,8 +45,8 @@ const Settings = {
         <input type="range" min="4" max="10" value="${this.numAttempts}" id="settingAttempts">
       </label>
       <hr>
-      <p>Words played: ${this.stats.played}</p>
-      <p>Words won: ${this.stats.won}</p>
+      <p>Words played: <span id="statPlayed">${this.stats.played}</span></p>
+      <p>Words won: <span id="statWon">${this.stats.won}</span></p>
       <div style="display:flex;gap:10px; margin-top:10px;">
         <button id="saveSettings">💾 Save</button>
         <button id="resetSettings">🔄 Reset</button>
@@ -55,16 +55,15 @@ const Settings = {
     `;
     p.appendChild(box);
 
-    // Set current values
     document.getElementById("settingLang").value = this.lang;
     document.getElementById("settingLetters").value = this.numLetters;
     document.getElementById("settingAttempts").value = this.numAttempts;
 
-    // Update labels
+    // Actualizar etiquetas mientras se mueve el slider
     document.getElementById("settingLetters").oninput = e => { document.getElementById("labelLetters").textContent = e.target.value; };
     document.getElementById("settingAttempts").oninput = e => { document.getElementById("labelAttempts").textContent = e.target.value; };
 
-    // Buttons
+    // Botón Guardar
     document.getElementById("saveSettings").onclick = () => {
       this.lang = document.getElementById("settingLang").value;
       this.numLetters = +document.getElementById("settingLetters").value;
@@ -74,6 +73,7 @@ const Settings = {
       App.restartApp();
     };
 
+    // Botón Reset
     document.getElementById("resetSettings").onclick = () => {
       this.lang = "en";
       this.numLetters = 5;
@@ -85,12 +85,18 @@ const Settings = {
       App.restartApp();
     };
 
+    // Botón Cancelar
     document.getElementById("cancelSettings").onclick = () => { p.classList.add("hidden"); };
   },
 
-  incrementPlayed() { this.stats.played++; this.save(); },
-  incrementWon() { this.stats.won++; this.save(); }
+  updateStats() {
+    document.getElementById("statPlayed")?.textContent = this.stats.played;
+    document.getElementById("statWon")?.textContent = this.stats.won;
+  },
+
+  incrementPlayed() { this.stats.played++; this.save(); this.updateStats(); },
+  incrementWon() { this.stats.won++; this.save(); this.updateStats(); }
 };
 
-// Conectar botón de settings
+// Conectar botón de Settings
 document.getElementById("btnSettings")?.addEventListener("click", () => Settings.showPopup());

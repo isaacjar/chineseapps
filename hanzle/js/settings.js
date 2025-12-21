@@ -32,25 +32,28 @@ const Settings = {
     const box = document.createElement("div");
     box.innerHTML = `
       <h2>Settings</h2>
-      <label>Language:
+      <div>
+        <label>Language:</label>
         <select id="settingLang">
           <option value="en">English</option>
           <option value="es">Español</option>
         </select>
-      </label>
-      <label>Letters: <span id="labelLetters">${this.numLetters}</span>
+      </div>
+      <div>
+        <label>Letters: <span id="labelLetters">${this.numLetters}</span></label>
         <input type="range" min="4" max="7" value="${this.numLetters}" id="settingLetters">
-      </label>
-      <label>Attempts: <span id="labelAttempts">${this.numAttempts}</span>
+      </div>
+      <div>
+        <label>Attempts: <span id="labelAttempts">${this.numAttempts}</span></label>
         <input type="range" min="4" max="10" value="${this.numAttempts}" id="settingAttempts">
-      </label>
+      </div>
       <hr>
       <p>Words played: <span id="statPlayed">${this.stats.played}</span></p>
       <p>Words won: <span id="statWon">${this.stats.won}</span></p>
       <div style="display:flex;gap:10px; margin-top:10px;">
-        <button id="saveSettings">💾 Save</button>
-        <button id="resetSettings">🔄 Reset</button>
-        <button id="cancelSettings">Cancel</button>
+        <button id="saveSettings">${App.langData[Settings.lang].save}</button>
+        <button id="resetSettings">${App.langData[Settings.lang].reset}</button>
+        <button id="cancelSettings">${App.langData[Settings.lang].cancel}</button>
       </div>
     `;
     p.appendChild(box);

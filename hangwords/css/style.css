@@ -103,6 +103,7 @@ body.modal-open #main, body.modal-open header, body.modal-open footer { filter: 
 
 button#btnNew.btn.primary {
   background-color:#28a745;
+  background-image:none;
   color:#fff;
   border:1px solid #218838;
 }

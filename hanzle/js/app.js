@@ -53,7 +53,7 @@ const App = {
     p.appendChild(box);
   },
 
-  async loadVoc(name) {
+   async loadVoc(name) {
     try {
       Settings.voclist = name;
       Settings.save();
@@ -61,25 +61,11 @@ const App = {
       const response = await fetch(`https://isaacjar.github.io/chineseapps/hanzle/data/${name}.json`);
       if (!response.ok) throw new Error(`No se pudo cargar el archivo: ${response.status}`);
   
-      const txt = await response.text();
+      // Parsear directamente el array completo
+      this.vocData = await response.json();
   
-      // Convertir solo líneas con contenido
-      this.vocData = txt
-        .trim()
-        .split("\n")
-        .filter(line => line.trim() !== "")
-        .map(line => {
-          try {
-            return JSON.parse(line);
-          } catch (err) {
-            console.error("Error al parsear línea JSON:", line, err);
-            return null;
-          }
-        })
-        .filter(item => item !== null); // eliminar líneas inválidas
-  
-      if (this.vocData.length === 0) {
-        this.msg("⚠️ La lista está vacía o contiene errores.");
+      if (!Array.isArray(this.vocData) || this.vocData.length === 0) {
+        this.msg("⚠️ La lista está vacía o no es un array válido.");
         return;
       }
   

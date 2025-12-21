@@ -10,7 +10,7 @@ const Settings = {
     this.lang = p.get("lang") || localStorage.lang || "en";
     this.numLetters = +p.get("numlet") || +localStorage.numLetters || 5;
     this.numAttempts = +p.get("numint") || +localStorage.numAttempts || 6;
-    this.voclist = p.get("voclist") || localStorage.voclist || null;
+    this.voclist = p.get("voclist") || null;
     this.stats.played = +localStorage.statsPlayed || 0;
     this.stats.won = +localStorage.statsWon || 0;
   },
@@ -19,7 +19,7 @@ const Settings = {
     localStorage.lang = this.lang;
     localStorage.numLetters = this.numLetters;
     localStorage.numAttempts = this.numAttempts;
-    localStorage.voclist = this.voclist;
+    //localStorage.voclist = this.voclist;
     localStorage.statsPlayed = this.stats.played;
     localStorage.statsWon = this.stats.won;
   },

@@ -1,3 +1,49 @@
-<html>
-  <body>HANZLE coming soon</body>
+<!--
+URL PARAMS DISPONIBLES:
+?lang=en|es
+&voclist=H1L1
+&numlet=4-7
+&numint=4-10
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hanzle 🔠</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,🔠">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header class="topbar">
+  <div class="left">
+    <button id="btnNew" class="hidden">+ WORD</button>
+  </div>
+  <h1>🔠 Hanzle</h1>
+  <div class="right">
+    <button id="btnSettings">⚙️</button>
+  </div>
+</header>
+
+<main id="app">
+  <section id="board"></section>
+  <section id="keyboard"></section>
+  <section id="messages"></section>
+</main>
+
+<footer>
+  Hanzle 🔠 IJH 🆎 Made for learning joy
+</footer>
+
+<!-- POPUPS -->
+<div id="popupLists" class="popup hidden"></div>
+<div id="popupSettings" class="popup hidden"></div>
+
+<script src="https://isaacjar.github.io/chineseapps/hanzle/data/index.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/game.js"></script>
+<script src="js/app.js"></script>
+</body>
 </html>

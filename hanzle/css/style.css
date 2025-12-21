@@ -1,48 +1,66 @@
-:root { --bg:#f7f6f3; --card:#ffffff; --text:#263238; --muted:#607d8b; --green:#81c784; --yellow:#fff176; --gray:#cfd8dc; }
+:root { --bg:#f7f6f3; --card:#ffffff; --text:#263238; --muted:#607d8b; --green:#81c784; --yellow:#fff176; --gray:#cfd8dc; --correct:#4caf50; --present:#ffeb3b; --absent:#cfd8dc; --transition:.3s; }
 
-* { box-sizing:border-box; }
+* { box-sizing:border-box; margin:0; padding:0; }
 
-body { margin:0; font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; height:100vh; }
+body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; height:100vh; }
 
 header, footer { background:var(--card); padding:10px; display:flex; align-items:center; }
 
-header.topbar { justify-content:flex-start; gap:10px; }
+header.topbar { justify-content:space-between; }
 
 header .left { display:flex; align-items:center; gap:6px; font-size:1.6rem; cursor:pointer; }
 
-header .right { margin-left:auto; display:flex; align-items:center; gap:8px; }
+header .right { display:flex; align-items:center; gap:8px; }
 
-.logo { font-size:1.8rem; }
+#btnNew, #btnSettings { padding:6px 14px; border-radius:20px; cursor:pointer; font-weight:600; }
 
-.title { font-weight:600; }
+#btnNew { background:var(--green); border:none; }
 
-.clickable { cursor:pointer; }
-
-.clickable:hover { opacity:0.85; }
-
-#btnNew { background:var(--green); border:none; border-radius:20px; padding:6px 14px; font-weight:600; cursor:pointer; }
-
-h1 { margin:0; }
+#btnSettings { background:#eee; border:none; }
 
 #app { flex:1; display:flex; flex-direction:column; padding:10px; gap:10px; }
 
 #board { display:grid; gap:6px; justify-content:center; }
 
-.row { display:grid; gap:6px; }
+.row { display:grid; gap:6px; grid-template-columns:repeat(5,1fr); }
 
-.cell { width:48px; height:48px; border-radius:6px; background:var(--card); display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
+.cell { width:48px; height:48px; border-radius:6px; background:var(--card); display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:600; transition: background var(--transition), transform var(--transition); }
 
-.correct { background:var(--green); }
+.cell.correct { background:var(--correct); color:#fff; }
 
-.present { background:var(--yellow); }
+.cell.present { background:var(--present); color:#000; }
 
-.absent { background:var(--gray); }
+.cell.absent { background:var(--absent); color:#000; }
+
+.cell.flip { animation:flip 0.6s ease forwards; }
+
+.row.shake { animation:shake 0.5s; }
+
+@keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
+
+@keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-10px); } 50% { transform:translateX(10px); } 75% { transform:translateX(-10px); } }
 
 #keyboard { display:grid; grid-template-columns:repeat(10,1fr); gap:6px; }
 
-.key { padding:10px; border-radius:6px; background:var(--card); text-align:center; cursor:pointer; }
+.key { padding:10px; border-radius:6px; background:var(--card); text-align:center; cursor:pointer; font-weight:600; user-select:none; transition:background var(--transition), transform var(--transition); }
 
-#messages { min-height:40px; text-align:center; }
+.key:hover { transform:scale(1.1); }
+
+.key.key-correct { background:var(--correct); color:#fff; }
+
+.key.key-present { background:var(--present); color:#000; }
+
+.key.key-absent { background:var(--absent); color:#000; }
+
+#messages { min-height:40px; text-align:center; margin-top:10px; }
+
+.solution { margin-top:10px; font-weight:600; display:flex; flex-direction:column; gap:4px; align-items:center; }
+
+.solution .ch { font-size:1.8rem; }
+
+.solution .pin { font-size:1.2rem; color:var(--muted); }
+
+.solution .tr { font-size:1rem; color:var(--text); }
 
 .popup { position:fixed; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; }
 
@@ -51,7 +69,7 @@ h1 { margin:0; }
 .hidden { display:none; }
 
 @media (min-width:800px) {
-  #app { flex-direction:row; }
+  #app { flex-direction:row; gap:10px; }
   #board { flex:1; }
-  #keyboard { flex:1; }
+  #keyboard { flex:1; grid-template-columns:repeat(10,1fr); }
 }

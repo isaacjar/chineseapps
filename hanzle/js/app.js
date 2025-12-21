@@ -17,40 +17,27 @@ const App = {
   showLists() {
     const p = document.getElementById("popupLists");
     p.classList.remove("hidden");
-    p.innerHTML = "";
-
-    const box = document.createElement("div");
-    box.className = "popup-box";
-
-    const header = document.createElement("h2");
-    header.textContent = this.langData[Settings.lang]?.chooseList || "Choose List";
-    box.appendChild(header);
-
-    const container = document.createElement("div");
+  
+    // Limpiar el contenedor de la lista (sin eliminar el popup completo)
+    const container = p.querySelector(".list-container") || document.createElement("div");
     container.className = "list-container";
-
+    container.innerHTML = "";
+  
+    // Crear botones de listas
     voclists.forEach(v => {
       const b = document.createElement("button");
       b.textContent = v.title;
-      b.onclick = () => this.loadVoc(v.filename);
-
-      b.addEventListener("click", e => {
-        const circle = document.createElement("span");
-        circle.className = "ripple";
-        const rect = b.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        circle.style.width = circle.style.height = size + "px";
-        circle.style.left = (e.clientX - rect.left - size/2) + "px";
-        circle.style.top = (e.clientY - rect.top - size/2) + "px";
-        b.appendChild(circle);
-        setTimeout(()=>circle.remove(),600);
-      });
-
+      b.onclick = () => {
+        this.loadVoc(v.filename);
+        p.classList.add("hidden"); // ocultar popup al seleccionar
+      };
       container.appendChild(b);
     });
-
-    box.appendChild(container);
-    p.appendChild(box);
+  
+    // Añadir el contenedor al popup si no existía
+    if (!p.contains(container)) {
+      p.appendChild(container);
+    }
   },
 
    async loadVoc(name) {

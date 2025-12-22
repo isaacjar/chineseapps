@@ -14,14 +14,20 @@ const Game = {
       return;
     }
 
-    this.solutionObj = this.words[Math.floor(Math.random() * this.words.length)];
+    // Inicializamos el mazo si no existe o está vacío
+    if (!this.wordDeck || this.wordDeck.length === 0) {
+      this.wordDeck = [...this.words];
+    }
+
+    // Elegimos una palabra aleatoria del mazo
+    const index = Math.floor(Math.random() * this.wordDeck.length);
+    this.solutionObj = this.wordDeck.splice(index, 1)[0]; // La eliminamos del mazo
     this.solution = this.solutionObj.nor;
-    console.log("📝 ", this.solutionObj?.pin);
+    console.log("📝 ", this.solutionObj.pin);
 
     this.row = 0;
     this.col = 0;
-    // Inicializamos el tablero con objetos vacíos
-    this.board = Array.from({ length: Settings.numAttempts }, () => Array.from({ length: Settings.numLetters }, () => ({ char: "", state: "" })));
+    this.board = Array.from({ length: Settings.numAttempts }, () => Array(Settings.numLetters).fill(""));
     this.active = true;
 
     this.renderBoard();

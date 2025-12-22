@@ -27,10 +27,10 @@ const Settings = {
     const p = document.getElementById("popupSettings");
     p.classList.remove("hidden");
     p.innerHTML = "";
-
+  
     // Cerrar al hacer clic fuera
     p.addEventListener("click", e => { if(e.target === p) p.classList.add("hidden"); });
-
+  
     const box = document.createElement("div");
     box.className = "popup-box settings-box";
     box.innerHTML = `
@@ -53,28 +53,28 @@ const Settings = {
       <hr>
       <p>Words played: <span id="statPlayed">${this.stats.played}</span></p>
       <p>Words won: <span id="statWon">${this.stats.won}</span></p>
-      <div class="settings-buttons">
+      <div class="buttons-container">
         <button id="saveSettings">${App.langData[Settings.lang].save}</button>
         <button id="resetSettings">${App.langData[Settings.lang].reset}</button>
         <button id="cancelSettings">${App.langData[Settings.lang].cancel}</button>
       </div>
     `;
     p.appendChild(box);
-
+  
     // Actualizar sliders y etiquetas
     const lettersSlider = document.getElementById("settingLetters");
     const attemptsSlider = document.getElementById("settingAttempts");
     const labelLetters = document.getElementById("labelLetters");
     const labelAttempts = document.getElementById("labelAttempts");
-
+  
     lettersSlider.value = this.numLetters;
     attemptsSlider.value = this.numAttempts;
-
+  
     lettersSlider.oninput = e => labelLetters.textContent = e.target.value;
     attemptsSlider.oninput = e => labelAttempts.textContent = e.target.value;
-
+  
     document.getElementById("settingLang").value = this.lang;
-
+  
     // Botón Guardar
     document.getElementById("saveSettings").onclick = () => {
       this.lang = document.getElementById("settingLang").value;
@@ -84,7 +84,7 @@ const Settings = {
       p.classList.add("hidden");
       App.restartApp();
     };
-
+  
     // Botón Reset
     document.getElementById("resetSettings").onclick = () => {
       this.lang = "en";
@@ -96,7 +96,7 @@ const Settings = {
       p.classList.add("hidden");
       App.restartApp();
     };
-
+  
     // Botón Cancelar
     document.getElementById("cancelSettings").onclick = () => { p.classList.add("hidden"); };
   },

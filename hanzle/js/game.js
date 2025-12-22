@@ -16,7 +16,7 @@ const Game = {
 
     this.solutionObj = this.words[Math.floor(Math.random() * this.words.length)];
     this.solution = this.solutionObj.nor;
-    console.log("📝 ", this.solutionObj);
+    console.log("📝 ", this.solutionObj?.pin);
 
     this.row = 0;
     this.col = 0;

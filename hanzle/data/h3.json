@@ -1,1 +1,42 @@
-d
+[
+  { "num": 4, "ch": "爸爸", "pin": "bàba", "nor": "baba", "en": "dad", "es": "papá" },
+  { "num": 4, "ch": "弟弟", "pin": "dìdi", "nor": "didi", "en": "younger brother", "es": "hermano menor" },
+  { "num": 4, "ch": "儿子", "pin": "érzi", "nor": "erzi", "en": "son", "es": "hijo" },
+  { "num": 4, "ch": "哥哥", "pin": "gēge", "nor": "gege", "en": "older brother", "es": "hermano mayor" },
+  { "num": 4, "ch": "姐姐", "pin": "jiějie", "nor": "jiejie", "en": "older sister", "es": "hermana mayor" },
+  { "num": 4, "ch": "妹妹", "pin": "mèimei", "nor": "meimei", "en": "younger sister", "es": "hermana menor" },
+  { "num": 4, "ch": "鼻子", "pin": "bízi", "nor": "bizi", "en": "nose", "es": "nariz" },
+  { "num": 4, "ch": "杯子", "pin": "bēizi", "nor": "beizi", "en": "cup", "es": "taza" },
+  { "num": 4, "ch": "地方", "pin": "dìfāng", "nor": "difang", "en": "place", "es": "lugar" },
+  { "num": 4, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa" },
+
+  { "num": 5, "ch": "爱好", "pin": "àihào", "nor": "aihao", "en": "hobby", "es": "afición" },
+  { "num": 5, "ch": "办法", "pin": "bànfǎ", "nor": "banfa", "en": "method", "es": "método" },
+  { "num": 5, "ch": "报纸", "pin": "bàozhǐ", "nor": "baozhi", "en": "newspaper", "es": "periódico" },
+  { "num": 5, "ch": "比赛", "pin": "bǐsài", "nor": "bisai", "en": "competition", "es": "competición" },
+  { "num": 5, "ch": "表示", "pin": "biǎoshì", "nor": "biaoshi", "en": "to express", "es": "expresar" },
+  { "num": 5, "ch": "菜单", "pin": "càidān", "nor": "caidan", "en": "menu", "es": "menú" },
+  { "num": 5, "ch": "迟到", "pin": "chídào", "nor": "chidao", "en": "to be late", "es": "llegar tarde" },
+  { "num": 5, "ch": "词典", "pin": "cídiǎn", "nor": "cidian", "en": "dictionary", "es": "diccionario" },
+  { "num": 5, "ch": "打算", "pin": "dǎsuàn", "nor": "dasuan", "en": "to plan", "es": "planear" },
+  { "num": 5, "ch": "担心", "pin": "dānxīn", "nor": "danxin", "en": "to worry", "es": "preocuparse" },
+
+  { "num": 6, "ch": "帮助", "pin": "bāngzhù", "nor": "bangzhu", "en": "to help", "es": "ayudar" },
+  { "num": 6, "ch": "比较", "pin": "bǐjiào", "nor": "bijiao", "en": "to compare", "es": "comparar" },
+  { "num": 6, "ch": "变化", "pin": "biànhuà", "nor": "bianhua", "en": "change", "es": "cambio" },
+  { "num": 6, "ch": "参加", "pin": "cānjiā", "nor": "canjia", "en": "to participate", "es": "participar" },
+  { "num": 6, "ch": "成绩", "pin": "chéngjī", "nor": "chengji", "en": "grade", "es": "nota" },
+  { "num": 6, "ch": "城市", "pin": "chéngshì", "nor": "chengshi", "en": "city", "es": "ciudad" },
+  { "num": 6, "ch": "厨房", "pin": "chúfáng", "nor": "chufang", "en": "kitchen", "es": "cocina" },
+  { "num": 6, "ch": "锻炼", "pin": "duànliàn", "nor": "duanlian", "en": "to exercise", "es": "hacer ejercicio" },
+  { "num": 6, "ch": "发现", "pin": "fāxiàn", "nor": "faxian", "en": "to discover", "es": "descubrir" },
+  { "num": 6, "ch": "放心", "pin": "fàngxīn", "nor": "fangxin", "en": "to feel relieved", "es": "quedarse tranquilo" },
+
+  { "num": 7, "ch": "安静", "pin": "ānjìng", "nor": "anjing", "en": "quiet", "es": "tranquilo" },
+  { "num": 7, "ch": "当然", "pin": "dāngrán", "nor": "dangran", "en": "of course", "es": "por supuesto" },
+  { "num": 7, "ch": "地铁", "pin": "dìtiě", "nor": "ditie", "en": "subway", "es": "metro" },
+  { "num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "ordenador" },
+  { "num": 7, "ch": "电影", "pin": "diànyǐng", "nor": "dianying", "en": "movie", "es": "película" },
+  { "num": 7, "ch": "非常", "pin": "fēicháng", "nor": "feichang", "en": "very", "es": "muy" },
+  { "num": 7, "ch": "附近", "pin": "fùjìn", "nor": "fujin", "en": "nearby", "es": "cerca" }
+]

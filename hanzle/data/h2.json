@@ -12,6 +12,7 @@
   {"num": 4, "ch": "一起", "pin": "yìqǐ", "nor": "yiqi", "en": "together", "es": "juntos"},
   {"num": 4, "ch": "衣服", "pin": "yīfu", "nor": "yifu", "en": "clothes", "es": "ropa"},
   {"num": 4, "ch": "椅子", "pin": "yǐzi", "nor": "yizi", "en": "chair", "es": "silla"},
+  
   {"num": 5, "ch": "白色", "pin": "báisè", "nor": "baise", "en": "white", "es": "blanco"},
   {"num": 5, "ch": "帮", "pin": "bāng", "nor": "bang", "en": "to help", "es": "ayudar"},
   {"num": 5, "ch": "杯子", "pin": "bēizi", "nor": "beizi", "en": "cup", "es": "vaso"},
@@ -45,6 +46,7 @@
   {"num": 5, "ch": "一下", "pin": "yíxià", "nor": "yixia", "en": "a bit", "es": "un poco"},
   {"num": 5, "ch": "一些", "pin": "yìxiē", "nor": "yixie", "en": "some", "es": "algunos"},
   {"num": 5, "ch": "怎么", "pin": "zěnme", "nor": "zenme", "en": "how", "es": "cómo"},
+  
   {"num": 6, "ch": "报纸", "pin": "bàozhǐ", "nor": "baozhi", "en": "newspaper", "es": "periódico"},
   {"num": 6, "ch": "但是", "pin": "dànshì", "nor": "danshi", "en": "but", "es": "pero"},
   {"num": 6, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa"},
@@ -86,6 +88,7 @@
   {"num": 6, "ch": "知道", "pin": "zhīdào", "nor": "zhidao", "en": "to know", "es": "saber"},
   {"num": 6, "ch": "周末", "pin": "zhōumò", "nor": "zhoumo", "en": "weekend", "es": "fin de semana"},
   {"num": 6, "ch": "桌子", "pin": "zhuōzi", "nor": "zhuozi", "en": "table", "es": "mesa"},
+ 
   {"num": 7, "ch": "帮助", "pin": "bāngzhù", "nor": "bangzhu", "en": "to help", "es": "ayudar"},
   {"num": 7, "ch": "北京", "pin": "Běijīng", "nor": "Beijing", "en": "Beijing", "es": "Pekín"},
   {"num": 7, "ch": "唱歌", "pin": "chànggē", "nor": "changge", "en": "to sing", "es": "cantar"},

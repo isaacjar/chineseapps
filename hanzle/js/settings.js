@@ -19,7 +19,6 @@ const Settings = {
     localStorage.lang = this.lang;
     localStorage.numLetters = this.numLetters;
     localStorage.numAttempts = this.numAttempts;
-    //localStorage.voclist = this.voclist;
     localStorage.statsPlayed = this.stats.played;
     localStorage.statsWon = this.stats.won;
   },
@@ -29,28 +28,32 @@ const Settings = {
     p.classList.remove("hidden");
     p.innerHTML = "";
 
+    // Cerrar al hacer clic fuera
+    p.addEventListener("click", e => { if(e.target === p) p.classList.add("hidden"); });
+
     const box = document.createElement("div");
+    box.className = "popup-box settings-box";
     box.innerHTML = `
       <h2>Settings</h2>
-      <div>
+      <div class="setting-row">
         <label>Language:</label>
         <select id="settingLang">
           <option value="en">English</option>
           <option value="es">Español</option>
         </select>
       </div>
-      <div>
+      <div class="setting-row">
         <label>Letters: <span id="labelLetters">${this.numLetters}</span></label>
         <input type="range" min="4" max="7" value="${this.numLetters}" id="settingLetters">
       </div>
-      <div>
+      <div class="setting-row">
         <label>Attempts: <span id="labelAttempts">${this.numAttempts}</span></label>
         <input type="range" min="4" max="10" value="${this.numAttempts}" id="settingAttempts">
       </div>
       <hr>
       <p>Words played: <span id="statPlayed">${this.stats.played}</span></p>
       <p>Words won: <span id="statWon">${this.stats.won}</span></p>
-      <div style="display:flex;gap:10px; margin-top:10px;">
+      <div class="settings-buttons">
         <button id="saveSettings">${App.langData[Settings.lang].save}</button>
         <button id="resetSettings">${App.langData[Settings.lang].reset}</button>
         <button id="cancelSettings">${App.langData[Settings.lang].cancel}</button>
@@ -58,19 +61,25 @@ const Settings = {
     `;
     p.appendChild(box);
 
-    document.getElementById("settingLang").value = this.lang;
-    document.getElementById("settingLetters").value = this.numLetters;
-    document.getElementById("settingAttempts").value = this.numAttempts;
+    // Actualizar sliders y etiquetas
+    const lettersSlider = document.getElementById("settingLetters");
+    const attemptsSlider = document.getElementById("settingAttempts");
+    const labelLetters = document.getElementById("labelLetters");
+    const labelAttempts = document.getElementById("labelAttempts");
 
-    // Actualizar etiquetas mientras se mueve el slider
-    document.getElementById("settingLetters").oninput = e => { document.getElementById("labelLetters").textContent = e.target.value; };
-    document.getElementById("settingAttempts").oninput = e => { document.getElementById("labelAttempts").textContent = e.target.value; };
+    lettersSlider.value = this.numLetters;
+    attemptsSlider.value = this.numAttempts;
+
+    lettersSlider.oninput = e => labelLetters.textContent = e.target.value;
+    attemptsSlider.oninput = e => labelAttempts.textContent = e.target.value;
+
+    document.getElementById("settingLang").value = this.lang;
 
     // Botón Guardar
     document.getElementById("saveSettings").onclick = () => {
       this.lang = document.getElementById("settingLang").value;
-      this.numLetters = +document.getElementById("settingLetters").value;
-      this.numAttempts = +document.getElementById("settingAttempts").value;
+      this.numLetters = +lettersSlider.value;
+      this.numAttempts = +attemptsSlider.value;
       this.save();
       p.classList.add("hidden");
       App.restartApp();
@@ -92,9 +101,13 @@ const Settings = {
     document.getElementById("cancelSettings").onclick = () => { p.classList.add("hidden"); };
   },
 
-  updateStats(){let e=document.getElementById("statPlayed");if(e)e.textContent=this.stats.played;let w=document.getElementById("statWon");if(w)w.textContent=this.stats.won;},
-  incrementPlayed(){this.stats.played++;this.save();this.updateStats();},
-  incrementWon(){this.stats.won++;this.save();this.updateStats();}
+  updateStats() {
+    const e = document.getElementById("statPlayed"); if(e) e.textContent = this.stats.played;
+    const w = document.getElementById("statWon"); if(w) w.textContent = this.stats.won;
+  },
+
+  incrementPlayed() { this.stats.played++; this.save(); this.updateStats(); },
+  incrementWon() { this.stats.won++; this.save(); this.updateStats(); }
 };
 
 // Conectar botón de Settings

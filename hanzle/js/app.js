@@ -152,7 +152,7 @@ async loadVoc(name) {
   showSolution(w) {
     if (!w) return;
     const sol = document.getElementById("solution");
-    sol.textContent = `${w.ch} [ ${w.pin} ] ${w.en} / ${w.es}`;
+    sol.innerHTML = `${w.ch} [ ${w.pin} ] <i>${w.en}</i> / <i>${w.es}</i>`;
     sol.classList.remove("hidden");
     sol.classList.add("compact");
   }

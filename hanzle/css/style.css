@@ -54,3 +54,36 @@ button:focus,input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0
 #popupLists .list-container button:focus,#popupSettings .list-container button:focus{background-color:#d0f0d0;color:#000}
 button:focus::after{content:'';position:absolute;border-radius:50%;width:100%;height:100%;top:0;left:0;background-color:rgba(100,181,246,0.2);animation:ripple-focus 0.3s ease-out}
 @keyframes ripple-focus{from{transform:scale(0.5);opacity:1}to{transform:scale(1.5);opacity:0}}
+
+/* Contenedor de botones del popupSettings */
+#popupSettings .popup-box .buttons-container {
+  display: flex;
+  gap: 12px;
+  margin-top: auto; /* Empuja los botones hacia abajo */
+  justify-content: space-between;
+}
+
+/* Botones de Settings */
+#popupSettings .popup-box .buttons-container button {
+  flex: 1; /* Cada botón ocupa el mismo espacio */
+  padding: 14px 0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Colores diferenciados */
+#popupSettings .popup-box .buttons-container button#saveSettings { background: var(--green); color: #fff; }
+#popupSettings .popup-box .buttons-container button#resetSettings { background: #ff5252; color: #fff; }
+#popupSettings .popup-box .buttons-container button#cancelSettings { background: #607d8b; color: #fff; }
+
+/* Hover efectos */
+#popupSettings .popup-box .buttons-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}

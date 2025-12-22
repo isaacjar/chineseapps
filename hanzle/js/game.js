@@ -82,6 +82,7 @@ const Game = {
       if (win) {
         this.active = false;
         App.onWin(this.solutionObj);
+        document.getElementById("btnNew").focus();
       } else if (++this.row === Settings.numAttempts) {
         this.active = false;
         App.onLose(this.solutionObj);

@@ -150,13 +150,11 @@ async loadVoc(name) {
   },
 
   showSolution(w) {
-    if(!w) return;
-    const sol=document.getElementById("solution");
-    sol.querySelector(".ch").textContent=w.ch;
-    sol.querySelector(".pin").textContent=w.pin;
-    sol.querySelector(".en").textContent=w.en;
-    sol.querySelector(".es").textContent=w.es;
+    if (!w) return;
+    const sol = document.getElementById("solution");
+    sol.textContent = `${w.ch} [ ${w.pin} ] ${w.en} / ${w.es}`;
     sol.classList.remove("hidden");
+    sol.classList.add("compact");
   }
 };
 

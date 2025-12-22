@@ -1,7 +1,7 @@
 [
 {"num": 4, "ch": "爸爸", "pin": "bàba", "nor": "baba", "en": "dad", "es": "papá"},
 {"num": 4, "ch": "帮", "pin": "bāng", "nor": "bang", "en": "to help", "es": "ayudar"},
-{ "num": 4, "ch": "鼻子", "pin": "bízi", "nor": "bizi", "en": "nose", "es": "nariz" }, 
+{"num": 4, "ch": "鼻子", "pin": "bízi", "nor": "bizi", "en": "nose", "es": "nariz" }, 
 {"num": 4, "ch": "从", "pin": "cóng", "nor": "cong", "en": "from", "es": "desde"},
 {"num": 4, "ch": "点", "pin": "diǎn", "nor": "dian", "en": "o'clock", "es": "en punto"},
 {"num": 4, "ch": "等", "pin": "děng", "nor": "deng", "en": "to wait", "es": "esperar"},

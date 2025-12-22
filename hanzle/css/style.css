@@ -1,89 +1,346 @@
-:root{--bg:#f7f6f3;--card:#fff;--text:#263238;--muted:#607d8b;--green:#81c784;--yellow:#fff176;--gray:#cfd8dc;--correct:#4caf50;--present:#ffeb3b;--absent:#cfd8dc;--transition:.3s}
+:root{
+  --bg:#f7f6f3;
+  --card:#fff;
+  --text:#263238;
+  --muted:#607d8b;
+  --green:#81c784;
+  --yellow:#fff176;
+  --gray:#cfd8dc;
+  --correct:#4caf50;
+  --present:#ffeb3b;
+  --absent:#cfd8dc;
+  --transition:.3s
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;height:100vh}
-header,footer{background:var(--card);padding:10px;display:flex;align-items:center}
-footer{display:flex;align-items:center;justify-content:center;text-align:center}
+
+body{
+  font-family:system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  height:100vh
+}
+
+header,footer{
+  background:var(--card);
+  padding:10px;
+  display:flex;
+  align-items:center
+}
+
+footer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center
+}
+
 header.topbar{justify-content:space-between}
-header .left{display:flex;align-items:center;gap:6px;font-size:1.6rem;cursor:pointer;font-weight:900}
+
+header .left{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:1.6rem;
+  cursor:pointer;
+  font-weight:900
+}
+
 header .right{display:flex;align-items:center;gap:8px}
-#btnNew,#btnSettings{padding:6px 14px;border-radius:20px;cursor:pointer;font-weight:600;text-transform:uppercase}
+
+#btnNew,#btnSettings{
+  padding:6px 14px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+  text-transform:uppercase
+}
+
 #btnNew{background:var(--green);border:none}
 #btnSettings{background:#eee;border:none}
-#app{flex:1;display:flex;flex-direction:column;padding:10px;gap:10px}
-#board{display:grid;gap:6px;justify-content:center}
-.row{display:grid;gap:6px;grid-template-columns:repeat(5,1fr)}
-.cell{width:48px;height:48px;border-radius:6px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:600;transition:background var(--transition),transform var(--transition);text-transform:uppercase}
+
+#app{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:10px;
+  gap:10px
+}
+
+#board{
+  display:grid;
+  gap:6px;
+  justify-content:center
+}
+
+.row{
+  display:grid;
+  gap:6px;
+  grid-template-columns:repeat(5,1fr)
+}
+
+.cell{
+  width:48px;
+  height:48px;
+  border-radius:6px;
+  background:var(--card);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5rem;
+  font-weight:600;
+  transition:background var(--transition),transform var(--transition);
+  text-transform:uppercase
+}
+
 .cell.correct{background:var(--correct);color:#fff}
 .cell.present{background:var(--present);color:#000}
 .cell.absent{background:var(--absent);color:#000}
 .cell.flip{animation:flip 0.6s ease forwards;transform-origin:top}
 .row.shake{animation:shake 0.5s}
+
 @keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}50%{transform:translateX(10px)}75%{transform:translateX(-10px)}}
-#keyboard{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
-.key{padding:10px;border-radius:6px;background:var(--card);text-align:center;cursor:pointer;font-weight:600;user-select:none;transition:background var(--transition),transform var(--transition);text-transform:uppercase;position:relative}
+
+#keyboard{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:6px
+}
+
+.key{
+  padding:10px;
+  border-radius:6px;
+  background:var(--card);
+  text-align:center;
+  cursor:pointer;
+  font-weight:600;
+  user-select:none;
+  transition:background var(--transition),transform var(--transition);
+  text-transform:uppercase;
+  position:relative
+}
+
 .key:hover{transform:scale(1.1)}
 .key.key-correct{background:var(--correct);color:#fff}
 .key.key-present{background:var(--present);color:#000}
 .key.key-absent{background:var(--absent);color:#000}
+
 #messages{min-height:40px;text-align:center;margin-top:10px}
-.solution{margin-top:10px;font-weight:600;display:flex;flex-direction:column;gap:4px;align-items:center}
+
+.solution{
+  margin-top:10px;
+  font-weight:600;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  align-items:center
+}
+
 .solution .ch{font-size:1.8rem}
 .solution .pin{font-size:1.2rem;color:var(--muted)}
 .solution .tr{font-size:1rem;color:var(--text)}
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:9999}
-.popup > div{background:#fff;padding:25px;border-radius:16px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;gap:15px}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999
+}
+
+.popup > div{
+  background:#fff;
+  padding:25px;
+  border-radius:16px;
+  max-height:80vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:15px
+}
+
 .hidden{display:none!important}
-@media(min-width:800px){#app{flex-direction:row;gap:10px}#board{flex:1}#keyboard{flex:1;grid-template-columns:repeat(10,1fr)}}
+
 /* Popups */
-#popupLists,#popupSettings{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999}
-#popupLists .popup-box,#popupSettings .popup-box{background:var(--card);border-radius:16px;box-shadow:0 10px 20px rgba(0,0,0,0.2);width:95%;max-width:500px;padding:25px;display:flex;flex-direction:column;max-height:80vh;position:relative;gap:15px}
-#popupLists .popup-box h2,#popupSettings .popup-box h2{text-align:center;margin-bottom:15px;font-size:1.5rem;font-weight:700}
+#popupLists,#popupSettings{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999
+}
+
+#popupLists .popup-box,#popupSettings .popup-box{
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  width:95%;
+  max-width:500px;
+  padding:25px;
+  display:flex;
+  flex-direction:column;
+  max-height:80vh;
+  position:relative;
+  gap:15px
+}
+
+#popupLists .popup-box h2,#popupSettings .popup-box h2{
+  text-align:center;
+  margin-bottom:15px;
+  font-size:1.5rem;
+  font-weight:700
+}
+
 /* Contenedor scroll interno */
-#popupLists .list-container,#popupSettings .list-container{overflow-y:auto;flex:1;padding:0 5px;display:flex;flex-direction:column;gap:10px}
+#popupLists .list-container,#popupSettings .list-container{
+  overflow-y:auto;
+  flex:1;
+  padding:0 5px;
+  display:flex;
+  flex-direction:column;
+  gap:10px
+}
+
 /* Botones */
-#popupLists .list-container button,#popupSettings .list-container button{display:block;width:100%;padding:14px;border:none;border-radius:12px;background-color:#f0f0f0;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden;text-transform:uppercase}
-#popupLists .list-container button:hover,#popupSettings .list-container button:hover{background-color:#e0e0e0;transform:translateY(-2px);box-shadow:0 6px 8px rgba(0,0,0,0.15)}
-#popupLists .list-container .ripple,#popupSettings .list-container .ripple{position:absolute;border-radius:50%;transform:scale(0);animation:ripple-animation 0.6s linear;background-color:rgba(0,0,0,0.2);pointer-events:none}
+#popupLists .list-container button,#popupSettings .list-container button{
+  display:block;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background-color:#f0f0f0;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  position:relative;
+  overflow:hidden;
+  text-transform:uppercase
+}
+
+#popupLists .list-container button:hover,#popupSettings .list-container button:hover{
+  background-color:#e0e0e0;
+  transform:translateY(-2px);
+  box-shadow:0 6px 8px rgba(0,0,0,0.15)
+}
+
+#popupLists .list-container .ripple,#popupSettings .list-container .ripple{
+  position:absolute;
+  border-radius:50%;
+  transform:scale(0);
+  animation:ripple-animation 0.6s linear;
+  background-color:rgba(0,0,0,0.2);
+  pointer-events:none
+}
+
 @keyframes ripple-animation{to{transform:scale(4);opacity:0}}
+
 /* Cerrar botón */
-#popupLists .popup-box .close-btn,#popupSettings .popup-box .close-btn{position:absolute;top:10px;right:10px;background:var(--gray);border:none;border-radius:50%;width:28px;height:28px;font-size:1.2rem;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background 0.2s ease}
+#popupLists .popup-box .close-btn,#popupSettings .popup-box .close-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:var(--gray);
+  border:none;
+  border-radius:50%;
+  width:28px;
+  height:28px;
+  font-size:1.2rem;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  transition:background 0.2s ease
+}
+
 #popupLists .popup-box .close-btn:hover,#popupSettings .popup-box .close-btn:hover{background:#b0b0b0}
+
 /* Focus animado */
-button:focus,input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 3px rgba(100,181,246,0.7);transition:box-shadow 0.2s ease-in-out,transform 0.2s ease;transform:scale(1.05)}
-#popupLists .list-container button:focus,#popupSettings .list-container button:focus{background-color:#d0f0d0;color:#000}
-button:focus::after{content:'';position:absolute;border-radius:50%;width:100%;height:100%;top:0;left:0;background-color:rgba(100,181,246,0.2);animation:ripple-focus 0.3s ease-out}
+button:focus,input:focus,select:focus,textarea:focus{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(100,181,246,0.7);
+  transition:box-shadow 0.2s ease-in-out,transform 0.2s ease;
+  transform:scale(1.05)
+}
+
+#popupLists .list-container button:focus,#popupSettings .list-container button:focus{
+  background-color:#d0f0d0;
+  color:#000
+}
+
+button:focus::after{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  background-color:rgba(100,181,246,0.2);
+  animation:ripple-focus 0.3s ease-out
+}
+
 @keyframes ripple-focus{from{transform:scale(0.5);opacity:1}to{transform:scale(1.5);opacity:0}}
 
 /* Contenedor de botones del popupSettings */
-#popupSettings .popup-box .buttons-container {
-  display: flex;
-  gap: 12px;
-  margin-top: auto;
-  justify-content: space-between;
+#popupSettings .popup-box .buttons-container{
+  display:flex;
+  gap:12px;
+  margin-top:auto;
+  justify-content:space-between
 }
 
 /* Botones de Settings */
-#popupSettings .popup-box .buttons-container button {
-  flex: 1;
-  padding: 14px 0;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-transform: uppercase;
-  border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+#popupSettings .popup-box .buttons-container button{
+  flex:1;
+  padding:14px 0;
+  border-radius:12px;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  text-transform:uppercase;
+  border:none;
+  transition:all 0.3s ease;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1)
 }
 
 /* Colores diferenciados */
-#popupSettings .popup-box .buttons-container button#saveSettings { background: var(--green); color: #fff; }
-#popupSettings .popup-box .buttons-container button#resetSettings { background: #ff5252; color: #fff; }
-#popupSettings .popup-box .buttons-container button#cancelSettings { background: #607d8b; color: #fff; }
+#popupSettings .popup-box .buttons-container button#saveSettings{background:var(--green);color:#fff}
+#popupSettings .popup-box .buttons-container button#resetSettings{background:#ff5252;color:#fff}
+#popupSettings .popup-box .buttons-container button#cancelSettings{background:#607d8b;color:#fff}
 
 /* Hover efectos */
-#popupSettings .popup-box .buttons-container button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+#popupSettings .popup-box .buttons-container button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.15)
+}
+
+/* Ajustes modo apaisado y centrar verticalmente */
+@media(min-width:800px){
+  #app{
+    flex-direction:row;
+    gap:10px;
+    align-items:center; /* centrado vertical */
+    justify-content:center
+  }
+  #board{
+    flex:0 0 auto;
+    max-width:300px;
+    margin:auto
+  }
+  #keyboard{
+    flex:0 0 auto;
+    max-width:480px;
+    grid-template-columns:repeat(10,minmax(48px,1fr));
+  }
 }

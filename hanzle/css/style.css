@@ -59,13 +59,13 @@ button:focus::after{content:'';position:absolute;border-radius:50%;width:100%;he
 #popupSettings .popup-box .buttons-container {
   display: flex;
   gap: 12px;
-  margin-top: auto; /* Empuja los botones hacia abajo */
+  margin-top: auto;
   justify-content: space-between;
 }
 
 /* Botones de Settings */
 #popupSettings .popup-box .buttons-container button {
-  flex: 1; /* Cada botón ocupa el mismo espacio */
+  flex: 1;
   padding: 14px 0;
   border-radius: 12px;
   font-size: 1rem;

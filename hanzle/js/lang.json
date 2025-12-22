@@ -4,15 +4,15 @@
     "settings": "Settings",
     "save": "💾 Save", "reset": "🔄 Reset", "cancel": "Cancel",
     "win": "🎉 Correct!",
-    "lose": "❌ The word was",
-    "enter": "Enter letters..."
+    "lose": "❌ The word was ",
+    "enter": "Enter letters... (NIHAO)"
   },
   "es": {
     "chooseList": "Elige lista de vocabulario...",
     "settings": "Configuración",
-    "save": "💾 Guardar", "reset": "🔄 Restablecer", "cancel": "Cancelar",
+    "save": "💾 Guardar", "reset": "🔄 Restab.", "cancel": "Cancelar",
     "win": "🎉 ¡Correcto!",
-    "lose": "❌ La palabra era",
-    "enter": "Introduce letras..."
+    "lose": "❌ La palabra era ",
+    "enter": "Introduce letras... (NIHAO)"
   }
 }

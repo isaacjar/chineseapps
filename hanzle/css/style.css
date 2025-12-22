@@ -33,7 +33,7 @@ header .right { display:flex; align-items:center; gap:8px; }
 .solution .tr { font-size:1rem; color:var(--text); }
 .popup { position:fixed; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; }
 .popup > div { background:#fff; padding:20px; border-radius:12px; max-height:80vh; overflow:auto; }
-.hidden { display:none; }
+.hidden { display:none; !important}
 @media (min-width:800px) { #app { flex-direction:row; gap:10px; } #board { flex:1; } #keyboard { flex:1; grid-template-columns:repeat(10,1fr); } }
 /* Popup overlay */
 #popupLists { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:9999; }

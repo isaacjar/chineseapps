@@ -31,6 +31,7 @@
 {"num": 4, "ch": "椅子", "pin": "yǐzi", "nor": "yizi", "en": "chair", "es": "silla"},
 {"num": 4, "ch": "这儿", "pin": "zhèr", "nor": "zher", "en": "here", "es": "aquí"},
 {"num": 4, "ch": "中", "pin": "zhōng", "nor": "zhong", "en": "middle", "es": "medio"},
+
 {"num": 5, "ch": "杯子", "pin": "bēizi", "nor": "beizi", "en": "cup", "es": "taza"},
 {"num": 5, "ch": "大学", "pin": "dàxué", "nor": "daxue", "en": "university", "es": "universidad"},
 {"num": 5, "ch": "飞机", "pin": "fēijī", "nor": "feiji", "en": "airplane", "es": "avión"},
@@ -47,12 +48,13 @@
 {"num": 5, "ch": "学习", "pin": "xuéxí", "nor": "xuexi", "en": "to study", "es": "estudiar"},
 {"num": 5, "ch": "怎么", "pin": "zěnme", "nor": "zenme", "en": "how", "es": "cómo"},
 {"num": 5, "ch": "这个", "pin": "zhège", "nor": "zhege", "en": "this", "es": "este"},
+
 {"num": 6, "ch": "不客气", "pin": "bú kèqi", "nor": "bukeqi", "en": "you're welcome", "es": "de nada"},
 {"num": 6, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa"},
 {"num": 6, "ch": "好吃", "pin": "hǎochī", "nor": "haochi", "en": "delicious", "es": "delicioso"},
 {"num": 6, "ch": "火车", "pin": "huǒchē", "nor": "huoche", "en": "train", "es": "tren"},
 {"num": 6, "ch": "姐姐", "pin": "jiějie", "nor": "jiejie", "en": "older sister", "es": "hermana mayor"},
-{"num": 5, "ch": "看见", "pin": "kànjiàn", "nor": "kanjian", "en": "to see", "es": "ver"},
+{"num": 6, "ch": "看见", "pin": "kànjiàn", "nor": "kanjian", "en": "to see", "es": "ver"},
 {"num": 6, "ch": "快乐", "pin": "kuàilè", "nor": "kuaile", "en": "happy", "es": "feliz"},
 {"num": 6, "ch": "老师", "pin": "lǎoshī", "nor": "laoshi", "en": "teacher", "es": "profesor"},
 {"num": 6, "ch": "里面", "pin": "lǐmiàn", "nor": "limian", "en": "inside", "es": "dentro"},
@@ -71,6 +73,7 @@
 {"num": 6, "ch": "一会儿", "pin": "yíhuìr", "nor": "yihuir", "en": "a moment", "es": "un momento"},
 {"num": 6, "ch": "医院", "pin": "yīyuàn", "nor": "yiyuan", "en": "hospital", "es": "hospital"},
 {"num": 6, "ch": "桌子", "pin": "zhuōzi", "nor": "zhuozi", "en": "table", "es": "mesa"},
+
 {"num": 7, "ch": "北京", "pin": "Běijīng", "nor": "beijing", "en": "Beijing", "es": "Pekín"},
 {"num": 7, "ch": "电话", "pin": "diànhuà", "nor": "dianhua", "en": "phone", "es": "teléfono"},
 {"num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "computadora"},

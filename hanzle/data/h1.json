@@ -51,6 +51,7 @@
 {"num": 5, "ch": "怎么", "pin": "zěnme", "nor": "zenme", "en": "how", "es": "cómo"},
 {"num": 5, "ch": "这个", "pin": "zhège", "nor": "zhege", "en": "this", "es": "este"},
 {"num": 5, "ch": "这里", "pin": "zhèlǐ", "nor": "zheli", "en": "here", "es": "aquí"},
+{"num": 5, "ch": "中", "pin": "zhōng", "nor": "zhong", "en": "middle", "es": "medio"},
 
 {"num": 6, "ch": "不客气", "pin": "bú kèqi", "nor": "bukeqi", "en": "you're welcome", "es": "de nada"},
 {"num": 6, "ch": "吃饭", "pin": "chī fàn", "nor": "chifan", "en": "to eat", "es": "comer"}
@@ -66,7 +67,7 @@
 {"num": 6, "ch": "妹妹", "pin": "mèimei", "nor": "meimei", "en": "younger sister", "es": "hermana menor"},
 {"num": 6, "ch": "美国", "pin": "Měiguó", "nor": "meiguo", "en": "United States", "es": "Estados Unidos"},
 {"num": 6, "ch": "名字", "pin": "míngzi", "nor": "mingzi", "en": "name", "es": "nombre"},
-{"num": 6, "ch": "您们", "pin": "nínmen", "nor": "ninmen", "en": "you (polite, plural)", "es": "ustedes (formal, plural)"},
+{"num": 6, "ch": "您们", "pin": "nínmen", "nor": "ninmen", "en": "you (polite, plural)", "es": "ustedes"},
 {"num": 6, "ch": "认识", "pin": "rènshi", "nor": "renshi", "en": "to know", "es": "conocer"},
 {"num": 6, "ch": "什么", "pin": "shénme", "nor": "shenme", "en": "what", "es": "qué"},
 {"num": 6, "ch": "身体", "pin": "shēntǐ", "nor": "shenti", "en": "body", "es": "cuerpo"},

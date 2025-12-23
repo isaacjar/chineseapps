@@ -80,6 +80,8 @@
   {"num": 5, "ch": "中", "pin": "zhōng", "nor": "zhong", "en": "middle", "es": "medio"},
   
   {"num": 6, "ch": "报纸", "pin": "bàozhǐ", "nor": "baozhi", "en": "newspaper", "es": "periódico"},
+  {"num": 6, "ch": "不客气", "pin": "bú kèqi", "nor": "bukeqi", "en": "you're welcome", "es": "de nada"},
+  {"num": 6, "ch": "吃饭", "pin": "chī fàn", "nor": "chifan", "en": "to eat", "es": "comer"}
   {"num": 6, "ch": "但是", "pin": "dànshì", "nor": "danshi", "en": "but", "es": "pero"},
   {"num": 6, "ch": "东西", "pin": "dōngxi", "nor": "dongxi", "en": "thing", "es": "cosa"},
   {"num": 6, "ch": "公司", "pin": "gōngsī", "nor": "gongsi", "en": "company", "es": "empresa"},

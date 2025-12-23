@@ -64,6 +64,7 @@
   {"num": 5, "ch": "你好", "pin": "Nǐ hǎo", "nor": "nihao", "en": "hello", "es": "hola"},
   {"num": 5, "ch": "女人", "pin": "nǚrén", "nor": "nuren", "en": "woman", "es": "mujer"},
   {"num": 5, "ch": "跑步", "pin": "pǎobù", "nor": "paobu", "en": "to run", "es": "correr"},
+  {"num": 5, "ch": "汽车", "pin": "qìchē", "nor": "qiche", "en": "car", "es": "coche"}
   {"num": 5, "ch": "上", "pin": "shàng", "nor": "shang", "en": "up", "es": "arriba"},
   {"num": 5, "ch": "所以", "pin": "suǒyǐ", "nor": "suoyi", "en": "so, therefore", "es": "por eso"},
   {"num": 5, "ch": "问题", "pin": "wèntí", "nor": "wenti", "en": "problem", "es": "problema"},

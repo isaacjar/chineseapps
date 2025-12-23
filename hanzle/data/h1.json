@@ -83,7 +83,7 @@
 {"num": 7, "ch": "电话", "pin": "diànhuà", "nor": "dianhua", "en": "phone", "es": "teléfono"},
 {"num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "computadora"},
 {"num": 7, "ch": "电视", "pin": "diànshì", "nor": "dianshi", "en": "television", "es": "televisión"},
-{"num": 7, "ch": "对不起", "pin": "duìbuqǐ", "nor": "duibuqi", "en": "sorry", "es": "lo siento"},
+{"num": 7, "ch": "对不起", "pin": "duì buqǐ", "nor": "duibuqi", "en": "sorry", "es": "lo siento"},
 {"num": 7, "ch": "多少", "pin": "duōshao", "nor": "duoshao", "en": "how many", "es": "cuántos"},
 {"num": 7, "ch": "饭店", "pin": "fàndiàn", "nor": "fandian", "en": "restaurant", "es": "restaurante"},
 {"num": 7, "ch": "高兴", "pin": "gāoxìng", "nor": "gaoxing", "en": "happy", "es": "contento"},
@@ -98,7 +98,7 @@
 {"num": 7, "ch": "生日", "pin": "shēngrì", "nor": "shengri", "en": "birthday", "es": "cumpleaños"},
 {"num": 7, "ch": "书店", "pin": "shūdiàn", "nor": "shudian", "en": "bookshop", "es": "librería"},
 {"num": 7, "ch": "水果", "pin": "shuǐguǒ", "nor": "shuiguo", "en": "fruit", "es": "fruta"},
-{"num": 7, "ch": "说话", "pin": "shuōhuà", "nor": "shuohua", "en": "to speak", "es": "hablar"},
+{"num": 7, "ch": "说话", "pin": "shuō huà", "nor": "shuohua", "en": "to speak", "es": "hablar"},
 {"num": 7, "ch": "同学", "pin": "tóngxué", "nor": "tongxue", "en": "classmate", "es": "compañero de clase"},
 {"num": 7, "ch": "下面", "pin": "xiàmiàn", "nor": "xiamian", "en": "below", "es": "debajo"},
 {"num": 7, "ch": "现在", "pin": "xiànzài", "nor": "xianzai", "en": "now", "es": "ahora"},
@@ -107,7 +107,7 @@
 {"num": 7, "ch": "学校", "pin": "xuéxiào", "nor": "xuexiao", "en": "school", "es": "escuela"},
 {"num": 7, "ch": "眼睛", "pin": "yǎnjing", "nor": "yanjing", "en": "eyes", "es": "ojos"},
 {"num": 7, "ch": "医生", "pin": "yīshēng", "nor": "yisheng", "en": "doctor", "es": "médico"},
-{"num": 7, "ch": "再见", "pin": "zàijiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"},
+{"num": 7, "ch": "再见", "pin": "zài jiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"},
 {"num": 7, "ch": "中午", "pin": "zhōngwǔ", "nor": "zhongwu", "en": "noon", "es": "mediodía"},
 {"num": 7, "ch": "昨天", "pin": "zuótiān", "nor": "zuotian", "en": "yesterday", "es": "ayer"}
 ]

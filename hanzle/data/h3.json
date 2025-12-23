@@ -48,7 +48,7 @@
 {"num": 5, "ch": "大家", "pin": "dàjiā", "nor": "dajia", "en": "everyone", "es": "todos"},
 {"num": 5, "ch": "地铁", "pin": "dìtiě", "nor": "ditie", "en": "subway", "es": "metro" },
 {"num": 5, "ch": "飞机", "pin": "fēijī", "nor": "feiji", "en": "airplane", "es": "avión"},
-{"num": 5, "ch": "附近", "pin": "fùjìn", "nor": "fujin", "en": "nearby", "es": "cerca" }
+{"num": 5, "ch": "附近", "pin": "fùjìn", "nor": "fujin", "en": "nearby", "es": "cerca" },
 {"num": 5, "ch": "告诉", "pin": "gàosu", "nor": "gaosu", "en": "to tell", "es": "decir"},
 {"num": 5, "ch": "孩子", "pin": "háizi", "nor": "haizi", "en": "child", "es": "niño"},
 {"num": 5, "ch": "汉语", "pin": "Hànyǔ", "nor": "hanyu", "en": "Chinese language", "es": "chino mandarín"},
@@ -171,7 +171,7 @@
 {"num": 7, "ch": "右边", "pin": "yòubiān", "nor": "youbian", "en": "right side", "es": "derecha"},
 {"num": 7, "ch": "再见", "pin": "zàijiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"},
 {"num": 7, "ch": "丈夫", "pin": "zhàngfu", "nor": "zhangfu", "en": "husband", "es": "marido"},
-{"num": 6, "ch": "找到", "pin": "zhǎodào", "nor": "zhaodao", "en": "to find", "es": "encontrar"},
+{"num": 7, "ch": "找到", "pin": "zhǎodào", "nor": "zhaodao", "en": "to find", "es": "encontrar"},
 {"num": 7, "ch": "中午", "pin": "zhōngwǔ", "nor": "zhongwu", "en": "noon", "es": "mediodía"},
 {"num": 7, "ch": "准备", "pin": "zhǔnbèi", "nor": "zhunbei", "en": "to prepare", "es": "preparar"},
 {"num": 7, "ch": "左边", "pin": "zuǒbiān", "nor": "zuobian", "en": "left side", "es": "izquierda"},

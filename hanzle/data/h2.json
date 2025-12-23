@@ -55,6 +55,7 @@
   {"num": 5, "ch": "两", "pin": "liǎng", "nor": "liang", "en": "two (for counting)", "es": "dos (para contar)"},
   {"num": 5, "ch": "旅游", "pin": "lǚyóu", "nor": "luyou", "en": "travel", "es": "viajar"},
   {"num": 5, "ch": "米饭", "pin": "mǐfàn", "nor": "mifan", "en": "cooked rice", "es": "arroz hervido"},
+  {"num": 5, "ch": "你好", "pin": "Nǐ hǎo", "nor": "nihao", "en": "hello", "es": "hola"},
   {"num": 5, "ch": "女人", "pin": "nǚrén", "nor": "nuren", "en": "woman", "es": "mujer"},
   {"num": 5, "ch": "跑步", "pin": "pǎobù", "nor": "paobu", "en": "to run", "es": "correr"},
   {"num": 5, "ch": "上", "pin": "shàng", "nor": "shang", "en": "up", "es": "arriba"},

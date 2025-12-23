@@ -111,6 +111,7 @@
   {"num": 6, "ch": "喜欢", "pin": "xǐhuan", "nor": "xihuan", "en": "to like", "es": "gustar"},
   {"num": 6, "ch": "谢谢", "pin": "xièxie", "nor": "xiexie", "en": "thanks", "es": "gracias"},
   {"num": 6, "ch": "星期", "pin": "xīngqī", "nor": "xingqi", "en": "week", "es": "semana"},
+  {"num": 6, "ch": "音乐", "pin": "yīnyuè", "nor": "yinyue", "en": "music", "es": "música"},
   {"num": 6, "ch": "一样", "pin": "yíyàng", "nor": "yiyang", "en": "same", "es": "igual"},
   {"num": 6, "ch": "医院", "pin": "yīyuàn", "nor": "yiyuan", "en": "hospital", "es": "hospital"},
   {"num": 6, "ch": "已经", "pin": "yǐjing", "nor": "yijing", "en": "already", "es": "ya"},
@@ -120,6 +121,7 @@
  
   {"num": 7, "ch": "帮助", "pin": "bāngzhù", "nor": "bangzhu", "en": "to help", "es": "ayudar"},
   {"num": 7, "ch": "北京", "pin": "Běijīng", "nor": "beijing", "en": "Beijing", "es": "Pekín"},
+  {"num": 7, "ch": "宾馆", "pin": "bīnguǎn", "nor": "binguan", "en": "hotel", "es": "hotel"},
   {"num": 7, "ch": "唱歌", "pin": "chànggē", "nor": "changge", "en": "to sing", "es": "cantar"},
   {"num": 7, "ch": "电话", "pin": "diànhuà", "nor": "dianhua", "en": "phone", "es": "teléfono"},
   {"num": 7, "ch": "电脑", "pin": "diànnǎo", "nor": "diannao", "en": "computer", "es": "ordenador"},
@@ -155,6 +157,7 @@
   {"num": 7, "ch": "医生", "pin": "yīshēng", "nor": "yisheng", "en": "doctor", "es": "médico"},
   {"num": 7, "ch": "游泳", "pin": "yóuyǒng", "nor": "youyong", "en": "to swim", "es": "nadar"},
   {"num": 7, "ch": "右边", "pin": "yòubiān", "nor": "youbian", "en": "right side", "es": "derecha"},
+  {"num": 7, "ch": "运动", "pin": "yùndòng", "nor": "yundong", "en": "sports", "es": "deporte"},
   {"num": 7, "ch": "再见", "pin": "zàijiàn", "nor": "zaijian", "en": "goodbye", "es": "adiós"},
   {"num": 7, "ch": "丈夫", "pin": "zhàngfu", "nor": "zhangfu", "en": "husband", "es": "marido"},
   {"num": 6, "ch": "找到", "pin": "zhǎodào", "nor": "zhaodao", "en": "to find", "es": "encontrar"},

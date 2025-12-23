@@ -29,6 +29,7 @@
 {"num": 4, "ch": "小", "pin": "xiǎo", "nor": "xiao", "en": "small", "es": "pequeño"},
 {"num": 4, "ch": "衣服", "pin": "yīfu", "nor": "yifu", "en": "clothes", "es": "ropa"},
 {"num": 4, "ch": "椅子", "pin": "yǐzi", "nor": "yizi", "en": "chair", "es": "silla"},
+{"num": 4, "ch": "元", "pin": "yuán", "nor": "yuan", "en": "yuan (Chinese currency)", "es": "yuan (moneda china)"}
 {"num": 4, "ch": "这儿", "pin": "zhèr", "nor": "zher", "en": "here", "es": "aquí"},
 {"num": 4, "ch": "中", "pin": "zhōng", "nor": "zhong", "en": "middle", "es": "medio"},
 

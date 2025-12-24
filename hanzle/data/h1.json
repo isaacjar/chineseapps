@@ -39,6 +39,7 @@
 {"num": 5, "ch": "飞机", "pin": "fēijī", "nor": "feiji", "en": "airplane", "es": "avión"},
 {"num": 5, "ch": "汉语", "pin": "Hànyǔ", "nor": "hanyu", "en": "Chinese language", "es": "idioma chino"},
 {"num": 5, "ch": "汉字", "pin": "Hànzì", "nor": "hanzi", "en": "Chinese character", "es": "carácter chino"},
+{"num": 5, "ch": "好吗", "pin": "hǎo ma", "nor": "haoma", "en": "is it ok?", "es": "¿está bien?"},
 {"num": 5, "ch": "你好", "pin": "Nǐ hǎo", "nor": "nihao", "en": "hello", "es": "hola"},
 {"num": 5, "ch": "你们", "pin": "nǐmen", "nor": "nimen", "en": "you (plural)", "es": "vosotros"},
 {"num": 5, "ch": "米饭", "pin": "mǐfàn", "nor": "mifan", "en": "rice", "es": "arroz"},

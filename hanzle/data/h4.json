@@ -68,6 +68,7 @@
 {"num": 5, "ch": "孩子", "pin": "háizi", "nor": "haizi", "en": "child", "es": "niño"},
 {"num": 5, "ch": "汉语", "pin": "Hànyǔ", "nor": "hanyu", "en": "Chinese language", "es": "chino mandarín"},
 {"num": 5, "ch": "汉字", "pin": "Hànzì", "nor": "hanzi", "en": "Chinese character", "es": "carácter chino"},
+{"num": 5, "ch": "好吗", "pin": "hǎo ma", "nor": "haoma", "en": "is it ok?", "es": "¿está bien?"},
 {"num": 5, "ch": "黑色", "pin": "hēisè", "nor": "heise", "en": "black", "es": "negro"},
 {"num": 5, "ch": "回答", "pin": "huídá", "nor": "huida", "en": "to answer", "es": "responder"},
 {"num": 5, "ch": "鸡蛋", "pin": "jīdàn", "nor": "jidan", "en": "egg", "es": "huevo"},

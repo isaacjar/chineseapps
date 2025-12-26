@@ -101,6 +101,7 @@
 {"num": 5, "ch": "这个", "pin": "zhège", "nor": "zhege", "en": "this", "es": "este"},
 {"num": 5, "ch": "这里", "pin": "zhèlǐ", "nor": "zheli", "en": "here", "es": "aquí"},
 {"num": 5, "ch": "中", "pin": "zhōng", "nor": "zhong", "en": "middle", "es": "medio"},
+{"num": 5, "ch": "足球", "pin": "zúqiú", "nor": "zuqiu", "en": "soccer", "es": "fútbol"},
 
 {"num": 6, "ch": "安静", "pin": "ānjìng", "nor": "anjing", "en": "quiet", "es": "tranquilo" },
 {"num": 6, "ch": "报纸", "pin": "bàozhǐ", "nor": "baozhi", "en": "newspaper", "es": "periódico"},

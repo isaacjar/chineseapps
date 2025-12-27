@@ -68,6 +68,7 @@
 {"num": 6, "ch": "里面", "pin": "lǐmiàn", "nor": "limian", "en": "inside", "es": "dentro"},
 {"num": 6, "ch": "妹妹", "pin": "mèimei", "nor": "meimei", "en": "younger sister", "es": "hermana menor"},
 {"num": 6, "ch": "美国", "pin": "Měiguó", "nor": "meiguo", "en": "United States", "es": "Estados Unidos"},
+{"num": 5, "ch": "没有", "pin": "méiyǒu", "nor": "meiyou", "en": "to not have", "es": "no tener"},
 {"num": 6, "ch": "名字", "pin": "míngzi", "nor": "mingzi", "en": "name", "es": "nombre"},
 {"num": 6, "ch": "您们", "pin": "nínmen", "nor": "ninmen", "en": "you (polite, plural)", "es": "ustedes"},
 {"num": 6, "ch": "认识", "pin": "rènshi", "nor": "renshi", "en": "to know", "es": "conocer"},

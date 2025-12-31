@@ -1,0 +1,16 @@
+{
+  "es":{
+    "newGameConfirm":"¿Desea terminar la partida actual?",
+    "successMessages":{
+      "s1":"🐼 ¡Genial!",
+      "s2":"🎉 ¡Correcto!"
+    },
+    "failMessages":{
+      "f1":"😅 Uy, casi...",
+      "f2":"❌ No era esa..."
+    }
+  },
+  "en":{
+    "newGameConfirm":"Do you want to end the current game?"
+  }
+}

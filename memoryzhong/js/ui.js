@@ -32,3 +32,28 @@ export const UI = {
     setTimeout(()=>t.remove(),2000);
   }
 };
+
+export async function showVoclistPopup(lists, onSelect){
+  const modal = document.createElement("div");
+  modal.className = "modal";
+
+  const box = document.createElement("div");
+  box.className = "modal-content";
+
+  box.innerHTML = `<h2>📚 Selecciona vocabulario</h2>`;
+
+  lists.forEach(l=>{
+    const btn = document.createElement("button");
+    btn.className = "card-btn";
+    btn.style.margin = "8px";
+    btn.textContent = l.title;
+    btn.onclick = ()=>{
+      modal.remove();
+      onSelect(l);
+    };
+    box.appendChild(btn);
+  });
+
+  modal.appendChild(box);
+  document.body.appendChild(modal);
+}

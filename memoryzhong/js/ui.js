@@ -1,65 +1,75 @@
+// ui.js
 import { Game } from "./game.js";
+import { Settings } from "./settings.js";
 
 export const UI = {
 
   renderBoard(container, count){
-    container.innerHTML="";
-    for(let i=0;i<count;i++){
-      const b=document.createElement("button");
-      b.className="card-btn";
-      b.dataset.index=i;
+    container.innerHTML = "";
+    for(let i = 0; i < count; i++){
+      const b = document.createElement("button");
+      b.className = "card-btn";
+      b.dataset.index = i;
       container.appendChild(b);
     }
   },
 
   showWords(container, words){
-    [...container.children].forEach((b,i)=>{
-      b.textContent=words[i];
+    [...container.children].forEach((b, i)=>{
+      b.textContent = words[i];
     });
   },
 
   showNumbers(container){
-    [...container.children].forEach((b,i)=>{
-      b.textContent=i+1;
+    [...container.children].forEach((b, i)=>{
+      b.textContent = i + 1;
     });
   },
 
   toast(msg){
-    const t=document.createElement("div");
-    t.className="toast";
-    t.textContent=msg;
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
     document.body.appendChild(t);
-    setTimeout(()=>t.remove(),2000);
+    setTimeout(()=>t.remove(), 2000);
   }
 };
 
-export async function showVoclistPopup(lists, onSelect){
+/* =========================
+   POPUP VOCABULARIOS
+========================= */
+export function showVoclistPopup(lists, onSelect){
   const modal = document.createElement("div");
   modal.className = "modal";
 
   const box = document.createElement("div");
   box.className = "modal-content";
 
-  box.innerHTML = `<h2>📚 Selecciona vocabulario</h2>`;
+  box.innerHTML = `
+    <h2>📚 Selecciona vocabulario</h2>
+    <div class="voclist-container"></div>
+  `;
+
+  const listContainer = box.querySelector(".voclist-container");
 
   lists.forEach(l=>{
     const btn = document.createElement("button");
     btn.className = "card-btn";
-    btn.style.margin = "8px";
     btn.textContent = l.title;
     btn.onclick = ()=>{
       modal.remove();
       onSelect(l);
     };
-    box.appendChild(btn);
+    listContainer.appendChild(btn);
   });
 
   modal.appendChild(box);
   document.body.appendChild(modal);
 }
 
-import { Settings } from "./settings.js";
-
+/* =========================
+   POPUP OPCIONES
+========================= */
 export function showSettingsPopup(onClose){
   const modal = document.createElement("div");
   modal.className = "modal";
@@ -105,7 +115,7 @@ export function showSettingsPopup(onClose){
   modal.appendChild(box);
   document.body.appendChild(modal);
 
-  /* ====== Inicializar valores ====== */
+  /* ===== Inicializar valores ===== */
   box.querySelector("#optLang").value = Settings.data.lang;
 
   const nw = box.querySelector("#optNumWords");
@@ -125,7 +135,7 @@ export function showSettingsPopup(onClose){
   box.querySelector("#minGame").value = mins;
   box.querySelector("#secGame").value = secs;
 
-  /* ====== Botones ====== */
+  /* ===== Botones ===== */
   box.querySelector("#btnSave").onclick = ()=>{
     Settings.data.lang = box.querySelector("#optLang").value;
     Settings.data.numwords = +nw.value;

@@ -2,6 +2,13 @@ import { Settings } from "./settings.js";
 import { Game } from "./game.js";
 import { UI } from "./ui.js";
 import { showVoclistPopup } from "./ui.js";
+import { showSettingsPopup } from "./ui.js";
+
+document.getElementById("btnSettings").onclick = ()=>{
+  showSettingsPopup(()=>{
+    location.reload(); // reaplica settings limpios
+  });
+};
 
 const params = new URLSearchParams(location.search);
 Settings.init(params);

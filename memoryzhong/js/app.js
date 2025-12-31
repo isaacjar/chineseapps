@@ -3,6 +3,9 @@ import { Game } from "./game.js";
 import { UI } from "./ui.js";
 import { showVoclistPopup } from "./ui.js";
 import { showSettingsPopup } from "./ui.js";
+import { enableKeyboardInput } from "./ui.js";
+
+let disableKeyboard = null;
 
 document.getElementById("btnSettings").onclick = ()=>{
   showSettingsPopup(()=>{
@@ -89,16 +92,33 @@ function nextQuestion(){
   const word = Game.pickTarget();
   wordBox.textContent = word;
 
-  board.onclick = e=>{
-    if(!e.target.dataset.index) return;
-    if(Game.check(Number(e.target.dataset.index))){
-      UI.toast("🎉 ¡Correcto!");
+  if(disableKeyboard) disableKeyboard();
+
+  disableKeyboard = enableKeyboardInput(
+    Settings.data.numwords,
+    handleAnswer
+  );
+}
+
+function handleAnswer(index){
+  const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
+  if(!btn) return;
+
+  if(Game.check(index)){
+    btn.classList.add("correct");
+    UI.toast("🎉 ¡Correcto!");
+    setTimeout(()=>{
+      btn.classList.remove("correct");
       nextQuestion();
-    }else{
-      UI.toast("❌ Fallaste");
+    },300);
+  }else{
+    btn.classList.add("wrong");
+    UI.toast("❌ Fallaste");
+    setTimeout(()=>{
+      btn.classList.remove("wrong");
       startGame();
-    }
-  };
+    },600);
+  }
 }
 
 // 🔥 ARRANQUE

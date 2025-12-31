@@ -23,3 +23,9 @@ export const Game = {
     return index === this.targetIndex;
   }
 };
+
+export function isValidInput(key, max){
+  if(!/^[0-9]$/.test(key)) return false;
+  const n = Number(key);
+  return n >= 1 && n <= max;
+}

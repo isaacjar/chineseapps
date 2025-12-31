@@ -135,3 +135,33 @@ body{
   width:100%;
   font-size:1.1em;
 }
+
+.modal-content label{
+  display:block;
+  margin-top:12px;
+  font-weight:500;
+}
+
+.modal-content select,
+.modal-content input[type="range"],
+.modal-content input[type="number"]{
+  width:100%;
+  margin-top:6px;
+}
+
+.time-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+  margin-top:16px;
+}
+
+.actions button{
+  flex:1;
+  margin:0 4px;
+}

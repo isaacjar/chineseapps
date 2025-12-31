@@ -5,23 +5,38 @@ import { showVoclistPopup } from "./ui.js";
 import { showSettingsPopup } from "./ui.js";
 import { enableKeyboardInput } from "./ui.js";
 
-let disableKeyboard = null;
-
-document.getElementById("btnSettings").onclick = ()=>{
-  showSettingsPopup(()=>{
-    location.reload(); // reaplica settings limpios
-  });
-};
+/* =========================
+   SETTINGS
+========================= */
 
 const params = new URLSearchParams(location.search);
 Settings.init(params);
 
-const board = document.getElementById("board");
+document.getElementById("btnSettings").onclick = ()=>{
+  showSettingsPopup(()=>{
+    location.reload();
+  });
+};
+
+/* =========================
+   DOM
+========================= */
+
+const board   = document.getElementById("board");
 const wordBox = document.getElementById("wordBox");
 const timerEl = document.getElementById("timer");
 
+/* =========================
+   STATE
+========================= */
+
 let vocab = [];
 let currentLang = Settings.data.lang || "zh";
+let disableKeyboard = null;
+
+/* =========================
+   VOCABULARY SOURCES
+========================= */
 
 const VOC_SOURCES = {
   zh: {
@@ -37,6 +52,10 @@ const VOC_SOURCES = {
     base:  "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/"
   }
 };
+
+/* =========================
+   LOAD VOCABULARY
+========================= */
 
 async function loadIndex(lang){
   const txt = await fetch(VOC_SOURCES[lang].index).then(r=>r.text());
@@ -56,7 +75,6 @@ async function loadVoclist(lang, filename){
 async function selectVocabulary(){
   const lists = await loadIndex(currentLang);
 
-  // URL voclist → carga directa
   if(params.get("voclist")){
     vocab = await loadVoclist(currentLang, params.get("voclist"));
     startGame();
@@ -69,7 +87,17 @@ async function selectVocabulary(){
   });
 }
 
+/* =========================
+   GAME FLOW
+========================= */
+
 function startGame(){
+  // 🔒 desactivar teclado previo
+  if(disableKeyboard){
+    disableKeyboard();
+    disableKeyboard = null;
+  }
+
   Game.start(vocab, Settings.data.numwords);
   UI.renderBoard(board, Settings.data.numwords);
   UI.showWords(board, Game.active);
@@ -80,6 +108,7 @@ function startGame(){
   const memInterval = setInterval(()=>{
     t--;
     timerEl.textContent = t;
+
     if(t <= 0){
       clearInterval(memInterval);
       UI.showNumbers(board);
@@ -101,19 +130,24 @@ function nextQuestion(){
 }
 
 function handleAnswer(index){
-  const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
+  const btn = document.querySelector(
+    `.card-btn[data-index="${index}"]`
+  );
   if(!btn) return;
 
   if(Game.check(index)){
     btn.classList.add("correct");
     UI.toast("🎉 ¡Correcto!");
+
     setTimeout(()=>{
       btn.classList.remove("correct");
       nextQuestion();
     },300);
+
   }else{
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
+
     setTimeout(()=>{
       btn.classList.remove("wrong");
       startGame();
@@ -121,5 +155,17 @@ function handleAnswer(index){
   }
 }
 
-// 🔥 ARRANQUE
+/* =========================
+   CLICK HANDLER (UNA SOLA VEZ)
+========================= */
+
+board.onclick = e=>{
+  if(!e.target.dataset.index) return;
+  handleAnswer(Number(e.target.dataset.index));
+};
+
+/* =========================
+   START
+========================= */
+
 selectVocabulary();

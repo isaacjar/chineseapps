@@ -125,3 +125,13 @@ body{
   0%{opacity:1}
   100%{opacity:0}
 }
+
+.modal-content h2{
+  margin-top:0;
+  text-align:center;
+}
+
+.modal-content button{
+  width:100%;
+  font-size:1.1em;
+}

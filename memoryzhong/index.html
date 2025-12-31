@@ -1,1 +1,40 @@
-<html><head><title>🧠 MemoryZhong</title></head><body>🧠 MemoryZhong (próximamente)</body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MemoryZhong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header class="app-header">
+  <div class="left">
+    <button id="btnNew">NUEVO</button>
+    <button class="lang-toggle" data-lang="zh">🇨🇳</button>
+    <button class="lang-toggle" data-lang="es">🇪🇸</button>
+    <button class="lang-toggle" data-lang="en">🇺🇸</button>
+  </div>
+  <div class="title">🧠 MemoryZhong</div>
+  <div class="right">
+    <button id="btnSettings">⚙️</button>
+  </div>
+</header>
+
+<main id="app">
+  <div id="wordBox" class="word-box"></div>
+  <div id="timer" class="timer"></div>
+  <div id="board" class="board"></div>
+</main>
+
+<footer class="app-footer">
+  <strong>MemoryZhong</strong> 🅰️ IJH 🅱️ Made for learning joy
+</footer>
+
+<div id="modalContainer"></div>
+<div id="toastContainer"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

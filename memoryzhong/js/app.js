@@ -136,14 +136,13 @@ function handleAnswer(index){
   if(!btn) return;
 
   if(Game.check(index)){
-    btn.classList.add("correct");
-    UI.toast("🎉 ¡Correcto!");
-
-    setTimeout(()=>{
-      btn.classList.remove("correct");
-      nextQuestion();
-    },300);
-
+     btn.classList.add("correct");
+     UI.toast("🎉 ¡Correcto!");
+     UI.celebrate([...board.children]);
+     setTimeout(()=>{
+       btn.classList.remove("correct");
+       nextQuestion();
+     },300);
   }else{
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");

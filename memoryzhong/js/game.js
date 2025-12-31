@@ -29,3 +29,29 @@ export function isValidInput(key, max){
   const n = Number(key);
   return n >= 1 && n <= max;
 }
+
+export function enableKeyboardInput(max, onPress){
+  function handler(e){
+    e.preventDefault();
+
+    // bloquear letras, símbolos, etc.
+    if(!/^[0-9]$/.test(e.key)) return;
+
+    const n = Number(e.key);
+    if(n < 1 || n > max) return;
+
+    const index = n - 1;
+    const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
+
+    if(btn){
+      btn.classList.add("jump");
+      setTimeout(()=>btn.classList.remove("jump"),200);
+    }
+
+    onPress(index);
+  }
+
+  document.addEventListener("keydown", handler);
+
+  return () => document.removeEventListener("keydown", handler);
+}

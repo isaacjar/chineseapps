@@ -165,3 +165,22 @@ body{
   flex:1;
   margin:0 4px;
 }
+
+@keyframes jump {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-8px); }
+  60%  { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+
+.card-btn.jump {
+  animation: jump 180ms ease;
+}
+
+.card-btn.correct {
+  background: #b8e0d2;
+}
+
+.card-btn.wrong {
+  background: #f3b0a2;
+}

@@ -10,14 +10,14 @@ import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
 const params = new URLSearchParams(location.search);
 Settings.init(params);
 
-document.getElementById("btnSettings").onclick = ()=>{
-  showSettingsPopup(()=>{ location.reload(); });
+document.getElementById("btnSettings").onclick = () => {
+  showSettingsPopup(() => { location.reload(); });
 };
 
 /* =========================
    DOM
 ========================= */
-const board   = document.getElementById("board");
+const board = document.getElementById("board");
 const wordBox = document.getElementById("wordBox");
 const timerEl = document.getElementById("timer");
 
@@ -28,53 +28,62 @@ let vocab = [];
 let currentLang = Settings.data.lang || "zh";
 let disableKeyboard = null;
 let memPhase = false;
-let orderRandom = Settings.data.orderRandom || false;
-let roundInterval = null;
+let orderRandom = Settings.data.showOrdered !== true; // si showOrdered=false → aleatorio
 
 /* =========================
    VOCABULARY SOURCES
 ========================= */
 const VOC_SOURCES = {
-  zh:{ index:"https://isaacjar.github.io/chineseapps/voclists/index.js", base:"https://isaacjar.github.io/chineseapps/voclists/" },
-  es:{ index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js", base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/" },
-  en:{ index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js", base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/" }
+  zh: { index: "https://isaacjar.github.io/chineseapps/voclists/index.js", base: "https://isaacjar.github.io/chineseapps/voclists/" },
+  es: { index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js", base: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/" },
+  en: { index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js", base: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/" }
 };
 
 /* =========================
    LOAD VOCABULARY
 ========================= */
-async function loadIndex(lang){
-  const res = await fetch(VOC_SOURCES[lang].index);
-  if(!res.ok) throw new Error(`No se pudo cargar ${VOC_SOURCES[lang].index}`);
-  const txt = await res.text();
-  return Function(txt + "; return voclists;")();
-}
-
-async function loadVoclist(lang, filename){
-  let url;
-  if(lang === "zh"){
-    url = `${VOC_SOURCES[lang].base}${filename}.json`;
-    const res = await fetch(url);
-    if(!res.ok) throw new Error(`No se pudo cargar ${url}`);
-    const list = await res.json();
-    return list.map(w=>w.ch).filter(Boolean);
+async function loadIndex(lang) {
+  const url = VOC_SOURCES[lang].index;
+  if (lang === "zh") {
+    // JS que exporta voclists
+    const txt = await fetch(url).then(r => r.text());
+    return Function(txt + "; return voclists;")();
   } else {
-    url = `${VOC_SOURCES[lang].base}${filename}`;
+    // JSON puro o sin extensión
     const res = await fetch(url);
-    if(!res.ok) throw new Error(`No se pudo cargar ${url}`);
-    const list = await res.json();
-    return list.map(w=>w[lang]).filter(Boolean);
+    if (!res.ok) throw new Error(`No se pudo cargar ${url}`);
+    return await res.json();
   }
 }
 
-async function selectVocabulary(){
+async function loadVoclist(lang, filename) {
+  const base = VOC_SOURCES[lang].base;
+  let url;
+  if (lang === "zh") {
+    url = `${base}${filename}.json`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`No se pudo cargar ${url}`);
+    const list = await res.json();
+    return list.map(w => w.ch).filter(Boolean);
+  } else {
+    url = `${base}${filename}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`No se pudo cargar ${url}`);
+    const list = await res.json();
+    return list.map(w => w[lang]).filter(Boolean);
+  }
+}
+
+async function selectVocabulary() {
   const lists = await loadIndex(currentLang);
-  if(params.get("voclist")){
+
+  if (params.get("voclist")) {
     vocab = await loadVoclist(currentLang, params.get("voclist"));
     startGame();
     return;
   }
-  showVoclistPopup(lists, async l=>{
+
+  showVoclistPopup(lists, async l => {
     vocab = await loadVoclist(currentLang, l.filename);
     startGame();
   });
@@ -83,15 +92,13 @@ async function selectVocabulary(){
 /* =========================
    GAME FLOW
 ========================= */
-function startGame(){
-  if(disableKeyboard){ disableKeyboard(); disableKeyboard=null; }
-  if(roundInterval) clearInterval(roundInterval);
-
+function startGame() {
+  if (disableKeyboard) { disableKeyboard(); disableKeyboard = null; }
   memPhase = true;
 
   Game.start(vocab, Settings.data.numwords);
   let words = [...Game.active];
-  if(orderRandom) words.sort(()=>Math.random()-0.5);
+  if (orderRandom) words.sort(() => Math.random() - 0.5);
 
   UI.renderBoard(board, Settings.data.numwords);
   UI.showWords(board, words);
@@ -99,69 +106,63 @@ function startGame(){
   let t = Settings.data.timemem;
   timerEl.textContent = `Mem: ${t}s`;
 
-  const memInterval = setInterval(()=>{
+  const memInterval = setInterval(() => {
     t--;
     timerEl.textContent = `Mem: ${t}s`;
-    if(t<=0){
+    if (t <= 0) {
       clearInterval(memInterval);
-      memPhase=false;
+      memPhase = false;
       UI.showNumbers(board);
       startRound();
     }
-  },1000);
+  }, 1000);
 }
 
-function startRound(){
-  nextQuestion();
-
+function startRound() {
   let totalTime = Settings.data.time;
-  roundInterval = setInterval(()=>{
-    const mins = Math.floor(totalTime/60);
-    const secs = totalTime%60;
-    timerEl.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+  const roundInterval = setInterval(() => {
+    const mins = Math.floor(totalTime / 60);
+    const secs = totalTime % 60;
+    timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
     totalTime--;
-    if(totalTime<0){
-      clearInterval(roundInterval);
-      UI.toast("⏰ Tiempo terminado");
-      startGame();
-    }
-  },1000);
+    if (totalTime < 0) clearInterval(roundInterval);
+  }, 1000);
+  nextQuestion();
 }
 
-function nextQuestion(){
+function nextQuestion() {
   const word = Game.pickTarget();
   wordBox.textContent = word;
 
-  if(disableKeyboard) disableKeyboard();
+  if (disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
 
-function handleAnswer(index){
-  if(memPhase) return;
+function handleAnswer(index) {
+  if (memPhase) return;
 
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
-  if(!btn) return;
+  if (!btn) return;
 
-  if(Game.check(index)){
+  if (Game.check(index)) {
     btn.classList.add("correct");
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
-    new Audio("./sounds/correct.mp3").play();
-    setTimeout(()=>{btn.classList.remove("correct"); nextQuestion();},300);
+    const audio = new Audio("./sounds/correct.mp3"); audio.play();
+    setTimeout(() => { btn.classList.remove("correct"); nextQuestion(); }, 300);
   } else {
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
-    new Audio("./sounds/wrong.mp3").play();
-    setTimeout(()=>{btn.classList.remove("wrong"); startGame();},600);
+    const audio = new Audio("./sounds/wrong.mp3"); audio.play();
+    setTimeout(() => { btn.classList.remove("wrong"); startGame(); }, 600);
   }
 }
 
 /* =========================
    CLICK HANDLER
 ========================= */
-board.onclick = e=>{
-  if(memPhase) return;
-  if(!e.target.dataset.index) return;
+board.onclick = e => {
+  if (!e.target.dataset.index) return;
   handleAnswer(Number(e.target.dataset.index));
 };
 

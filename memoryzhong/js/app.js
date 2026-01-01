@@ -29,6 +29,7 @@ let currentLang = Settings.data.lang || "zh";
 let disableKeyboard = null;
 let memPhase = false;
 let orderRandom = Settings.data.orderRandom || false;
+let roundInterval = null;
 
 /* =========================
    VOCABULARY SOURCES
@@ -68,13 +69,11 @@ async function loadVoclist(lang, filename){
 
 async function selectVocabulary(){
   const lists = await loadIndex(currentLang);
-
   if(params.get("voclist")){
     vocab = await loadVoclist(currentLang, params.get("voclist"));
     startGame();
     return;
   }
-
   showVoclistPopup(lists, async l=>{
     vocab = await loadVoclist(currentLang, l.filename);
     startGame();
@@ -86,6 +85,8 @@ async function selectVocabulary(){
 ========================= */
 function startGame(){
   if(disableKeyboard){ disableKeyboard(); disableKeyboard=null; }
+  if(roundInterval) clearInterval(roundInterval);
+
   memPhase = true;
 
   Game.start(vocab, Settings.data.numwords);
@@ -111,26 +112,33 @@ function startGame(){
 }
 
 function startRound(){
+  nextQuestion();
+
   let totalTime = Settings.data.time;
-  const roundInterval = setInterval(()=>{
+  roundInterval = setInterval(()=>{
     const mins = Math.floor(totalTime/60);
     const secs = totalTime%60;
     timerEl.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
     totalTime--;
-    if(totalTime<0) clearInterval(roundInterval);
+    if(totalTime<0){
+      clearInterval(roundInterval);
+      UI.toast("⏰ Tiempo terminado");
+      startGame();
+    }
   },1000);
-  nextQuestion();
 }
 
 function nextQuestion(){
   const word = Game.pickTarget();
   wordBox.textContent = word;
+
   if(disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
 
 function handleAnswer(index){
   if(memPhase) return;
+
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn) return;
 
@@ -138,12 +146,12 @@ function handleAnswer(index){
     btn.classList.add("correct");
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
-    const audio = new Audio("./sounds/correct.mp3"); audio.play();
+    new Audio("./sounds/correct.mp3").play();
     setTimeout(()=>{btn.classList.remove("correct"); nextQuestion();},300);
   } else {
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
-    const audio = new Audio("./sounds/wrong.mp3"); audio.play();
+    new Audio("./sounds/wrong.mp3").play();
     setTimeout(()=>{btn.classList.remove("wrong"); startGame();},600);
   }
 }
@@ -152,6 +160,7 @@ function handleAnswer(index){
    CLICK HANDLER
 ========================= */
 board.onclick = e=>{
+  if(memPhase) return;
   if(!e.target.dataset.index) return;
   handleAnswer(Number(e.target.dataset.index));
 };

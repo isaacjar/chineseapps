@@ -138,23 +138,31 @@ function nextQuestion() {
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
 
-function handleAnswer(index) {
-  if (memPhase) return;
-
+function handleAnswer(index){
+  if(memPhase) return;
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
-  if (!btn) return;
+  if(!btn) return;
 
-  if (Game.check(index)) {
+  const targetWord = Game.active[Game.targetIndex]; // palabra objetivo
+
+  if(Game.check(index)){
     btn.classList.add("correct");
+    wordBox.textContent = targetWord; // 🔹 mostrar palabra correcta
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
     const audio = new Audio("./sounds/correct.mp3"); audio.play();
-    setTimeout(() => { btn.classList.remove("correct"); nextQuestion(); }, 300);
+    setTimeout(()=>{
+      btn.classList.remove("correct");
+      nextQuestion();
+    },800); // dejar visible la palabra un poco más
   } else {
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
     const audio = new Audio("./sounds/wrong.mp3"); audio.play();
-    setTimeout(() => { btn.classList.remove("wrong"); startGame(); }, 600);
+    setTimeout(()=>{
+      btn.classList.remove("wrong");
+      startGame();
+    },800);
   }
 }
 

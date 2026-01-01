@@ -28,7 +28,7 @@ let vocab = [];
 let currentLang = Settings.data.lang || "zh";
 let disableKeyboard = null;
 let memPhase = false;
-let orderRandom = false;
+let orderRandom = Settings.data.orderRandom || false;
 
 /* =========================
    VOCABULARY SOURCES
@@ -85,7 +85,6 @@ async function selectVocabulary(){
    GAME FLOW
 ========================= */
 function startGame(){
-  // 🔒 bloquear teclado previo
   if(disableKeyboard){ disableKeyboard(); disableKeyboard=null; }
   memPhase = true;
 
@@ -131,7 +130,7 @@ function nextQuestion(){
 }
 
 function handleAnswer(index){
-  if(memPhase) return; // bloquear input durante memorización
+  if(memPhase) return;
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn) return;
 
@@ -139,14 +138,12 @@ function handleAnswer(index){
     btn.classList.add("correct");
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
-    const audio = new Audio("./sounds/correct.mp3");
-    audio.play();
+    const audio = new Audio("./sounds/correct.mp3"); audio.play();
     setTimeout(()=>{btn.classList.remove("correct"); nextQuestion();},300);
   } else {
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
-    const audio = new Audio("./sounds/wrong.mp3");
-    audio.play();
+    const audio = new Audio("./sounds/wrong.mp3"); audio.play();
     setTimeout(()=>{btn.classList.remove("wrong"); startGame();},600);
   }
 }

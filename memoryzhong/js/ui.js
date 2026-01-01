@@ -3,8 +3,21 @@
 import { Game } from "./game.js";
 import { Settings } from "./settings.js";
 
+/* =========================
+   AUDIO
+========================= */
+const AudioManager = {
+  correct: new Audio("sounds/correct.mp3"),
+  wrong: new Audio("sounds/wrong.mp3"),
+  playCorrect(){ this.correct.currentTime=0; this.correct.play(); },
+  playWrong(){ this.wrong.currentTime=0; this.wrong.play(); }
+};
+
+/* =========================
+   UI
+========================= */
 export const UI = {
-  renderBoard(container, count){
+  renderBoard(container,count){
     container.innerHTML="";
     for(let i=0;i<count;i++){
       const b=document.createElement("button");
@@ -13,27 +26,19 @@ export const UI = {
       container.appendChild(b);
     }
   },
-  showWords(container, words){
-    [...container.children].forEach((b,i)=>{b.textContent=words[i];});
-  },
-  showNumbers(container){
-    [...container.children].forEach((b,i)=>{b.textContent=i+1;});
-  },
-  toast(msg){
-    const t=document.createElement("div");
-    t.className="toast";
-    t.textContent=msg;
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(),2000);
+  showWords(container,words){ [...container.children].forEach((b,i)=>b.textContent=words[i]); },
+  showNumbers(container){ [...container.children].forEach((b,i)=>b.textContent=i+1); },
+  toast(msg){ 
+    const t=document.createElement("div"); 
+    t.className="toast"; 
+    t.textContent=msg; 
+    document.body.appendChild(t); 
+    setTimeout(()=>t.remove(),2000); 
   },
   celebrate(buttons){
-    // Saltos cortos
     buttons.forEach(b=>b.classList.add("jump"));
     setTimeout(()=>buttons.forEach(b=>b.classList.remove("jump")),300);
-
-    // Confeti simple
-    const confettiCount = 30;
-    for(let i=0;i<confettiCount;i++){
+    for(let i=0;i<30;i++){
       const c=document.createElement("div");
       c.className="confetti";
       c.style.left=Math.random()*100+"%";
@@ -42,13 +47,15 @@ export const UI = {
       document.body.appendChild(c);
       setTimeout(()=>c.remove(),1000);
     }
-  }
+  },
+  playCorrect(){ AudioManager.playCorrect(); },
+  playWrong(){ AudioManager.playWrong(); }
 };
 
 /* =========================
    POPUP VOCABULARIOS
 ========================= */
-export function showVoclistPopup(lists, onSelect){
+export function showVoclistPopup(lists,onSelect){
   const modal=document.createElement("div");
   modal.className="modal";
   const box=document.createElement("div");
@@ -91,6 +98,10 @@ export function showSettingsPopup(onClose){
       <input type="number" id="minGame" min="0" max="10"> :
       <input type="number" id="secGame" min="0" max="59">
     </div>
+    <label>
+      <input type="checkbox" id="optOrderRandom">
+      Orden aleatorio (mezclar palabras)
+    </label>
     <hr>
     <h3>📊 Estadísticas</h3>
     <p>Partidas jugadas: <b>${Settings.data.stats.played}</b></p>
@@ -104,25 +115,30 @@ export function showSettingsPopup(onClose){
   modal.appendChild(box);
   document.body.appendChild(modal);
 
-  box.querySelector("#optLang").value=Settings.data.lang;
-  const nw=box.querySelector("#optNumWords");
-  const tm=box.querySelector("#optTimeMem");
-  nw.value=Settings.data.numwords;
-  tm.value=Settings.data.timemem;
-  box.querySelector("#nwVal").textContent=nw.value;
-  box.querySelector("#tmVal").textContent=tm.value;
+  box.querySelector("#optLang").value = Settings.data.lang;
+  const nw = box.querySelector("#optNumWords");
+  const tm = box.querySelector("#optTimeMem");
+  const ord = box.querySelector("#optOrderRandom");
+
+  nw.value = Settings.data.numwords;
+  tm.value = Settings.data.timemem;
+  ord.checked = Settings.data.orderRandom || false;
+  box.querySelector("#nwVal").textContent = nw.value;
+  box.querySelector("#tmVal").textContent = tm.value;
   nw.oninput=()=>box.querySelector("#nwVal").textContent=nw.value;
   tm.oninput=()=>box.querySelector("#tmVal").textContent=tm.value;
+
   const mins=Math.floor(Settings.data.time/60);
   const secs=Settings.data.time%60;
   box.querySelector("#minGame").value=mins;
   box.querySelector("#secGame").value=secs;
 
   box.querySelector("#btnSave").onclick=()=>{
-    Settings.data.lang=box.querySelector("#optLang").value;
-    Settings.data.numwords=+nw.value;
-    Settings.data.timemem=+tm.value;
-    Settings.data.time=(+box.querySelector("#minGame").value*60)+(+box.querySelector("#secGame").value);
+    Settings.data.lang = box.querySelector("#optLang").value;
+    Settings.data.numwords = +nw.value;
+    Settings.data.timemem = +tm.value;
+    Settings.data.time = (+box.querySelector("#minGame").value*60)+(+box.querySelector("#secGame").value);
+    Settings.data.orderRandom = ord.checked;
     Settings.validate();
     Settings.save();
     modal.remove();
@@ -135,7 +151,7 @@ export function showSettingsPopup(onClose){
       onClose?.();
     }
   };
-  box.querySelector("#btnCancel").onclick=()=>{modal.remove();};
+  box.querySelector("#btnCancel").onclick = ()=>{ modal.remove(); };
 }
 
 /* =========================
@@ -144,7 +160,7 @@ export function showSettingsPopup(onClose){
 let keyListener=null;
 export function enableKeyboardInput(numButtons, callback){
   if(keyListener) document.removeEventListener("keydown", keyListener);
-  keyListener=function(e){
+  keyListener = function(e){
     const key=e.key;
     if(key>='1' && key<=String(numButtons)) callback(Number(key)-1);
   };

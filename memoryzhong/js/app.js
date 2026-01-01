@@ -1,7 +1,7 @@
 // app.js
 import { Settings } from "./settings.js";
 import { Game } from "./game.js";
-import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
+import { UI, showVoclistPopup, showSettingsPopup, enableKeyboardInput } from "./ui.js";
 import { loadVoclist } from "./vocloader.js";
 
 /* =========================
@@ -12,7 +12,9 @@ const params = new URLSearchParams(location.search);
 Settings.init(params);
 
 document.getElementById("btnSettings").onclick = ()=>{
-  showSettingsPopup(()=> location.reload());
+  showSettingsPopup(()=>{
+    location.reload();
+  });
 };
 
 /* =========================
@@ -29,7 +31,7 @@ const timerEl = document.getElementById("timer");
 
 let vocab = [];
 let currentLang = Settings.data.lang || "zh";
-let keyboardEnabled = false;
+let disableKeyboard = null;
 
 /* =========================
    VOCABULARY SOURCES
@@ -37,47 +39,43 @@ let keyboardEnabled = false;
 
 const VOC_SOURCES = {
   zh: {
-    index: "https://isaacjar.github.io/chineseapps/voclists/index.json",
+    index: "https://isaacjar.github.io/chineseapps/voclists/index.js",
     base:  "https://isaacjar.github.io/chineseapps/voclists/"
   },
   es: {
-    index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index",
+    index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",
     base:  "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/"
   },
   en: {
-    index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index",
+    index: "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",
     base:  "https://isaacjar.github.io/spanishapps/spanishvoc/voclists/"
   }
 };
 
 /* =========================
-   LOAD INDEX
+   LOAD VOCABULARY
 ========================= */
 
 async function loadIndex(lang){
-  const res = await fetch(VOC_SOURCES[lang].index);
-  return JSON.parse(await res.text());
+  const txt = await fetch(VOC_SOURCES[lang].index).then(r=>r.text());
+  return Function(txt + "; return voclists;")();
 }
-
-/* =========================
-   SELECT VOCABULARY
-========================= */
 
 async function selectVocabulary(){
   const lists = await loadIndex(currentLang);
 
+  // voclist por URL → carga directa
   if(params.get("voclist")){
-    vocab = await loadVoclist(
-      VOC_SOURCES[currentLang].base + params.get("voclist")
-    );
+    const filename = params.get("voclist");
+    const ext = currentLang === "zh" ? ".json" : "";
+    vocab = await loadVoclist(`${VOC_SOURCES[currentLang].base}${filename}${ext}`);
     startGame();
     return;
   }
 
   showVoclistPopup(lists, async l=>{
-    vocab = await loadVoclist(
-      VOC_SOURCES[currentLang].base + l.filename
-    );
+    const ext = currentLang === "zh" ? ".json" : "";
+    vocab = await loadVoclist(`${VOC_SOURCES[currentLang].base}${l.filename}${ext}`);
     startGame();
   });
 }
@@ -87,9 +85,14 @@ async function selectVocabulary(){
 ========================= */
 
 function startGame(){
-  keyboardEnabled = false;
+  // limpiar teclado previo
+  if(disableKeyboard){
+    disableKeyboard();
+    disableKeyboard = null;
+  }
 
   Game.start(vocab, Settings.data.numwords);
+
   UI.renderBoard(board, Settings.data.numwords);
   UI.showWords(board, Game.active);
 
@@ -111,22 +114,24 @@ function startGame(){
 function nextQuestion(){
   const word = Game.pickTarget();
   wordBox.textContent = word;
-  keyboardEnabled = true;
+
+  if(disableKeyboard) disableKeyboard();
+
+  disableKeyboard = enableKeyboardInput(
+    Settings.data.numwords,
+    handleAnswer
+  );
 }
 
 function handleAnswer(index){
-  if(!keyboardEnabled) return;
-
-  const btn = document.querySelector(
-    `.card-btn[data-index="${index}"]`
-  );
+  const btn = board.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn) return;
-
-  keyboardEnabled = false;
 
   if(Game.check(index)){
     btn.classList.add("correct");
     UI.toast("🎉 ¡Correcto!");
+    UI.celebrate([...board.children]);
+
     setTimeout(()=>{
       btn.classList.remove("correct");
       nextQuestion();
@@ -134,6 +139,7 @@ function handleAnswer(index){
   }else{
     btn.classList.add("wrong");
     UI.toast("❌ Fallaste");
+
     setTimeout(()=>{
       btn.classList.remove("wrong");
       startGame();
@@ -142,26 +148,15 @@ function handleAnswer(index){
 }
 
 /* =========================
-   CLICK INPUT
+   CLICK HANDLER (BOTONES)
 ========================= */
 
 board.onclick = e=>{
-  const i = e.target.dataset.index;
-  if(i !== undefined){
-    handleAnswer(Number(i));
+  const idx = e.target.dataset.index;
+  if(idx !== undefined){
+    handleAnswer(Number(idx));
   }
 };
-
-/* =========================
-   KEYBOARD INPUT (1–9)
-========================= */
-
-document.addEventListener("keydown", e=>{
-  if(!keyboardEnabled) return;
-  if(e.key >= "1" && e.key <= "9"){
-    handleAnswer(Number(e.key) - 1);
-  }
-});
 
 /* =========================
    START

@@ -4,6 +4,7 @@ export const DEFAULTS = {
   timemem: 10,
   time: 60,
   showOrdered: true,
+  orderRandom: false,
   stats: {
     played: 0,
     won: 0

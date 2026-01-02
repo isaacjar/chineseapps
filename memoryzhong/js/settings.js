@@ -51,8 +51,19 @@ export const Settings = {
     );
   },
 
-  reset(){
+  reset(includeStats = true){
     this.data = structuredClone(DEFAULTS);
+    if(!includeStats){
+      // conservar estadísticas
+      const saved = JSON.parse(localStorage.getItem("memoryzhong-settings"));
+      if(saved?.stats) this.data.stats = saved.stats;
+    }
+    this.save();
+  },
+
+  addPlayed(won = false){
+    this.data.stats.played++;
+    if(won) this.data.stats.won++;
     this.save();
   }
 };

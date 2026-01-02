@@ -223,26 +223,37 @@ function handleAnswer(index){
   if(memPhase || !running) return;
 
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
-  if(!btn) return;
+  if(!btn || btn.classList.contains("disabled")) return;
 
-  const targetWord = Game.active[Game.targetIndex];
+  // palabra actual (ANTES de hacer check)
+  const word = Game.active[Game.targetIndex];
 
   if(Game.check(index)){
-    btn.classList.add("correct");
-    wordBox.textContent = formatWord(targetWord);
+    // marcar botón como correcto y definitivo
+    btn.classList.add("correct", "disabled");
 
-    setTimeout(() => {
-      btn.classList.remove("correct");
-      if(Game.isFinished()){
-        resetGame();
-      } else {
-        nextQuestion();
+    // sustituir número por palabra
+    btn.innerHTML = `
+      <span class="ch">${word}</span>
+      ${
+        currentLang === "zh" && Settings.data.showPinyin
+          ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
+          : ""
       }
-    }, 700);
+    `;
+
+    // siguiente palabra o fin
+    if(Game.isFinished()){
+      setTimeout(resetGame, 600);
+    } else {
+      nextQuestion();
+    }
+
   } else {
+    // fallo → todo en rojo y reset
     [...board.children].forEach((b, i) => {
-      b.textContent = i + 1;
       b.classList.add("wrong");
+      b.textContent = i + 1;
     });
 
     setTimeout(resetGame, 900);

@@ -8,15 +8,8 @@ import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
 const params = new URLSearchParams(location.search);
 Settings.init(params);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const btnSettings = document.getElementById("btnSettings");
-  if (btnSettings) {
-    btnSettings.onclick = () => showSettingsPopup(() => location.reload());
-  }
-});
-
 /* =========================
-   DOM
+   DOM ELEMENTS
 ========================= */
 const board = document.getElementById("board");
 const wordBox = document.getElementById("wordBox");
@@ -32,9 +25,9 @@ let vocab = [];
 let vocabRaw = [];
 let currentLang = Settings.data.lang || "zh";
 let disableKeyboard = null;
-let memPhase = false;
+
 let running = false;
-let orderRandom = Settings.data.showOrdered !== true;
+let memPhase = false;
 let memInterval = null;
 let roundInterval = null;
 
@@ -42,6 +35,8 @@ let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
 let roundStartTime = null;
 let score = 0;
+let correctIndices = []; // índices acertados en esta ronda
+let orderRandom = Settings.data.showOrdered !== true;
 
 /* =========================
    VOCABULARY SOURCES
@@ -69,19 +64,10 @@ async function loadIndex(lang){
 
 async function loadVoclist(lang, filename){
   const base = VOC_SOURCES[lang].base;
-  let url;
-
-  if(lang === "zh"){
-    url = `${base}${filename}.json`;
-    const list = await fetch(url).then(r => r.json());
-    vocabRaw = list;
-    return list.map(w => w.ch);
-  } else {
-    url = `${base}${filename}`;
-    const list = await fetch(url).then(r => r.json());
-    vocabRaw = list;
-    return list.map(w => w[lang]);
-  }
+  const url = lang === "zh" ? `${base}${filename}.json` : `${base}${filename}`;
+  const list = await fetch(url).then(r => r.json());
+  vocabRaw = list;
+  return lang === "zh" ? list.map(w => w.ch) : list.map(w => w[lang]);
 }
 
 /* =========================
@@ -111,28 +97,17 @@ function formatWord(word){
 }
 
 /* =========================
-   BOARD AUTO LAYOUT
+   BOARD LAYOUT
 ========================= */
 function adjustBoardLayout(){
   const n = Settings.data.numwords;
-
-  let cols;
-  if(n <= 6) cols = 3;
-  else if(n <= 9) cols = 3;
-  else if(n <= 12) cols = 4;
-  else if(n <= 16) cols = 4;
-  else if(n <= 20) cols = 5;
-  else cols = 6;
-
-  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  let cols = n <= 6 ? 3 : n <= 12 ? 4 : n <= 20 ? 5 : 6;
+  board.style.gridTemplateColumns = `repeat(${cols},1fr)`;
 
   const rows = Math.ceil(n / cols);
   const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
-  const btnHeight = Math.floor(maxHeight / rows * 1.75); // 75% más alto
-
-  [...board.children].forEach(btn => {
-    btn.style.height = `${Math.min(btnHeight,350)}px`; // máximo 350px
-  });
+  const btnHeight = Math.floor(maxHeight / rows * 1.75);
+  [...board.children].forEach(b => b.style.height = `${Math.min(btnHeight,350)}px`);
 }
 
 /* =========================
@@ -145,10 +120,10 @@ function resetGame(){
   memTimeLeft = Settings.data.timemem;
   roundTimeLeft = Settings.data.time;
   roundStartTime = null;
+  correctIndices = [];
 
   UI.renderBoard(board, Settings.data.numwords);
   adjustBoardLayout();
-
   wordBox.textContent = "";
   timerEl.textContent = "";
   if(memBar) memBar.style.width = "0%";
@@ -162,7 +137,6 @@ function startMemPhase(resumeTime){
 
   if(!memInterval){
     Game.start(vocab, Settings.data.numwords);
-
     let words = [...Game.active];
     if(orderRandom) words.sort(() => Math.random() - 0.5);
 
@@ -195,21 +169,18 @@ function startMemPhase(resumeTime){
 
 function startRoundPhase(resumeTime){
   if(Game.active.length === 0) return;
-
   roundTimeLeft = resumeTime ?? roundTimeLeft;
   roundStartTime = Date.now();
 
   if(roundInterval) clearInterval(roundInterval);
   roundInterval = setInterval(() => {
     if(!running) return;
-
     roundTimeLeft--;
     if(roundTimeLeft <= 0){
       clearInterval(roundInterval);
       roundInterval = null;
       endGame(false);
     }
-
     const mins = Math.floor(roundTimeLeft/60);
     const secs = roundTimeLeft % 60;
     timerEl.textContent = `${mins}:${secs.toString().padStart(2,"0")}`;
@@ -219,14 +190,13 @@ function startRoundPhase(resumeTime){
 }
 
 function nextQuestion(){
-  if(Game.isFinished()) return endGame(true);
+  if(Game.isFinished(correctIndices)) return endGame(true);
 
-  const remainingIndices = [...board.children].map((b,i)=>i).filter(i => !board.children[i].classList.contains("correct"));
-  if(remainingIndices.length === 0) return endGame(true);
+  // Elegir índice aleatorio de palabras restantes
+  const idx = Game.pickRandomTarget(correctIndices);
+  if(idx === null) return endGame(true);
 
-  const idx = remainingIndices[Math.floor(Math.random()*remainingIndices.length)];
   Game.targetIndex = idx;
-
   const word = Game.active[idx];
   wordBox.textContent = formatWord(word);
 
@@ -236,14 +206,13 @@ function nextQuestion(){
 
 function handleAnswer(index){
   if(memPhase || !running) return;
-
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn || btn.classList.contains("disabled")) return;
 
-  const targetWord = Game.active[Game.targetIndex];
-
   if(Game.check(index)){
-    UI.markCorrect(btn, targetWord, Settings.data.showPinyin, vocabRaw);
+    correctIndices.push(index);
+    const word = Game.active[index];
+    UI.markCorrect(btn, word, Settings.data.showPinyin, vocabRaw);
     nextQuestion();
   } else {
     UI.markWrong(board);
@@ -257,10 +226,11 @@ function handleAnswer(index){
 function endGame(victory){
   running = false;
   clearInterval(roundInterval);
+  roundInterval = null;
 
   if(victory){
     const timeLeft = roundTimeLeft;
-    score = Math.floor(timeLeft * 10); // ejemplo puntuación
+    score = Math.floor(timeLeft*10); // puntuación ejemplo
     Settings.data.stats.played++;
     Settings.data.stats.won++;
     Settings.save();
@@ -281,14 +251,13 @@ board.onclick = e => {
 };
 
 /* =========================
-   START / PAUSE
+   START / PAUSE / RESUME
 ========================= */
 if(btnStart){
   btnStart.onclick = () => {
     if(!running){
       running = true;
       btnStart.textContent = "PAUSE";
-
       if(memPhase) startMemPhase(memTimeLeft);
       else if(roundStartTime) startRoundPhase(roundTimeLeft);
       else startMemPhase(memTimeLeft);

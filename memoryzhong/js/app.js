@@ -187,17 +187,12 @@ function startMemPhase(resumeTime){
       memInterval = null;
       memPhase = false;
 
-      if(memBar){
-        UI.resetProgress(memBar, () => {
-          UI.showNumbers(board);
-          adjustBoardLayout();
-          startRoundPhase();
-        });
-      } else {
-        UI.showNumbers(board);
-        adjustBoardLayout();
-        startRoundPhase();
-      }
+      // 🔹 reemplazo de UI.resetProgress
+      if(memBar) memBar.style.width = "0%";
+
+      UI.showNumbers(board);
+      adjustBoardLayout();
+      startRoundPhase();
     }
   },1000);
 }

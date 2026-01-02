@@ -158,10 +158,18 @@ function startRoundPhase(){
 }
 
 function nextQuestion(){
-  const word=Game.pickTarget();
-  if(wordBox) wordBox.textContent=formatWord(word);
+  const word = Game.pickTarget();
+  if(!wordBox) return;
+  wordBox.classList.add("fade-out");
+  setTimeout(()=>{
+    wordBox.textContent = formatWord(word);
+    wordBox.classList.remove("fade-out");
+    wordBox.classList.add("fade-in");
+    setTimeout(()=>wordBox.classList.remove("fade-in"),300);
+  },300);
+
   if(disableKeyboard) disableKeyboard();
-  disableKeyboard=enableKeyboardInput(Settings.data.numwords,handleAnswer);
+  disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
 
 function handleAnswer(index){

@@ -4,6 +4,7 @@ export const DEFAULTS = {
   timemem: 10,
   time: 60,
   showOrdered: true,
+  showPinyin: true,
   orderRandom: false,
   stats: {
     played: 0,

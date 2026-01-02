@@ -30,7 +30,7 @@ export function showSettingsPopup(onClose){
   const box=document.createElement("div");box.className="modal-content";
   box.innerHTML=`
     <h2>⚙️ Opciones</h2>
-    <label>Idioma de la app</label>
+    <label>Idioma de juego</label>
     <select id="optLang">
       <option value="es">Español</option>
       <option value="en">English</option>

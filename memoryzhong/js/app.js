@@ -1,4 +1,3 @@
-// app.js
 import { Settings } from "./settings.js";
 import { Game, enableKeyboardInput } from "./game.js";
 import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
@@ -39,11 +38,10 @@ let orderRandom = Settings.data.showOrdered !== true;
 let memInterval = null;
 let roundInterval = null;
 
-let currentWordIndex = null;
 let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
-let pendingWords = [];
-let totalScore = 0;
+let roundStartTime = null;
+let score = 0;
 
 /* =========================
    VOCABULARY SOURCES
@@ -72,6 +70,7 @@ async function loadIndex(lang){
 async function loadVoclist(lang, filename){
   const base = VOC_SOURCES[lang].base;
   let url;
+
   if(lang === "zh"){
     url = `${base}${filename}.json`;
     const list = await fetch(url).then(r => r.json());
@@ -116,16 +115,23 @@ function formatWord(word){
 ========================= */
 function adjustBoardLayout(){
   const n = Settings.data.numwords;
-  let cols = Math.min(6, Math.ceil(Math.sqrt(n)));
-  board.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
+
+  let cols;
+  if(n <= 6) cols = 3;
+  else if(n <= 9) cols = 3;
+  else if(n <= 12) cols = 4;
+  else if(n <= 16) cols = 4;
+  else if(n <= 20) cols = 5;
+  else cols = 6;
+
+  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
   const rows = Math.ceil(n / cols);
   const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
-  const btnHeight = Math.floor(maxHeight / rows * 1.75); // 75% más
+  const btnHeight = Math.floor(maxHeight / rows * 1.75); // 75% más alto
 
   [...board.children].forEach(btn => {
-    btn.style.height = `${btnHeight}px`;
-    btn.style.maxWidth = "350px";
+    btn.style.height = `${Math.min(btnHeight,350)}px`; // máximo 350px
   });
 }
 
@@ -135,11 +141,10 @@ function adjustBoardLayout(){
 function resetGame(){
   running = false;
   memPhase = false;
-  currentWordIndex = null;
+  score = 0;
   memTimeLeft = Settings.data.timemem;
   roundTimeLeft = Settings.data.time;
-  totalScore = 0;
-  pendingWords = [];
+  roundStartTime = null;
 
   UI.renderBoard(board, Settings.data.numwords);
   adjustBoardLayout();
@@ -155,9 +160,8 @@ function startMemPhase(resumeTime){
   memPhase = true;
   btnStart.textContent = "PAUSE";
 
-  if(!memInterval && currentWordIndex === null){
+  if(!memInterval){
     Game.start(vocab, Settings.data.numwords);
-    currentWordIndex = 0;
 
     let words = [...Game.active];
     if(orderRandom) words.sort(() => Math.random() - 0.5);
@@ -175,7 +179,7 @@ function startMemPhase(resumeTime){
     if(!running) return;
     memTimeLeft--;
     timerEl.textContent = `Mem: ${memTimeLeft}s`;
-    if(memBar) memBar.style.width = `${((total - memTimeLeft) / total) * 100}%`;
+    if(memBar) memBar.style.width = `${((total - memTimeLeft)/total)*100}%`;
 
     if(memTimeLeft <= 0){
       clearInterval(memInterval);
@@ -186,40 +190,44 @@ function startMemPhase(resumeTime){
       if(memBar) memBar.style.width = "0%";
       startRoundPhase();
     }
-  }, 1000);
+  },1000);
 }
 
 function startRoundPhase(resumeTime){
   if(Game.active.length === 0) return;
 
   roundTimeLeft = resumeTime ?? roundTimeLeft;
-  pendingWords = [...Game.active];
+  roundStartTime = Date.now();
 
+  if(roundInterval) clearInterval(roundInterval);
   roundInterval = setInterval(() => {
     if(!running) return;
-    const mins = Math.floor(roundTimeLeft / 60);
+
+    roundTimeLeft--;
+    if(roundTimeLeft <= 0){
+      clearInterval(roundInterval);
+      roundInterval = null;
+      endGame(false);
+    }
+
+    const mins = Math.floor(roundTimeLeft/60);
     const secs = roundTimeLeft % 60;
     timerEl.textContent = `${mins}:${secs.toString().padStart(2,"0")}`;
-    roundTimeLeft--;
-    if(roundTimeLeft < 0){
-      clearInterval(roundInterval);
-      UI.showGameOverPopup(totalScore);
-    }
-  }, 1000);
+  },1000);
 
   nextQuestion();
 }
 
 function nextQuestion(){
-  if(pendingWords.length === 0){
-    clearInterval(roundInterval);
-    UI.showVictoryPopup(totalScore, () => resetGame());
-    return;
-  }
+  if(Game.isFinished()) return endGame(true);
 
-  const randIdx = Math.floor(Math.random() * pendingWords.length);
-  currentWordIndex = Game.active.indexOf(pendingWords[randIdx]);
-  const word = pendingWords[randIdx];
+  const remainingIndices = [...board.children].map((b,i)=>i).filter(i => !board.children[i].classList.contains("correct"));
+  if(remainingIndices.length === 0) return endGame(true);
+
+  const idx = remainingIndices[Math.floor(Math.random()*remainingIndices.length)];
+  Game.targetIndex = idx;
+
+  const word = Game.active[idx];
   wordBox.textContent = formatWord(word);
 
   if(disableKeyboard) disableKeyboard();
@@ -228,28 +236,39 @@ function nextQuestion(){
 
 function handleAnswer(index){
   if(memPhase || !running) return;
+
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn || btn.classList.contains("disabled")) return;
 
-  const targetWord = Game.active[currentWordIndex];
+  const targetWord = Game.active[Game.targetIndex];
 
   if(Game.check(index)){
-    UI.markCorrect(btn, targetWord, vocabRaw, currentLang);
-    pendingWords = pendingWords.filter(w => w !== targetWord);
-    totalScore += roundTimeLeft;
-
-    UI.playSound("correct");
-
-    if(pendingWords.length === 0){
-      clearInterval(roundInterval);
-      UI.showVictoryPopup(totalScore, () => resetGame());
-    } else {
-      nextQuestion();
-    }
+    UI.markCorrect(btn, targetWord, Settings.data.showPinyin, vocabRaw);
+    nextQuestion();
   } else {
     UI.markWrong(board);
-    UI.playSound("wrong");
-    setTimeout(() => resetGame(), 900);
+    setTimeout(() => {
+      resetGame();
+      startMemPhase(memTimeLeft);
+    },900);
+  }
+}
+
+function endGame(victory){
+  running = false;
+  clearInterval(roundInterval);
+
+  if(victory){
+    const timeLeft = roundTimeLeft;
+    score = Math.floor(timeLeft * 10); // ejemplo puntuación
+    Settings.data.stats.played++;
+    Settings.data.stats.won++;
+    Settings.save();
+    UI.showVictoryPopup(score, () => resetGame());
+  } else {
+    Settings.data.stats.played++;
+    Settings.save();
+    resetGame();
   }
 }
 
@@ -270,9 +289,9 @@ if(btnStart){
       running = true;
       btnStart.textContent = "PAUSE";
 
-      if(currentWordIndex === null) startMemPhase(memTimeLeft);
-      else if(memPhase) startMemPhase(memTimeLeft);
-      else startRoundPhase(roundTimeLeft);
+      if(memPhase) startMemPhase(memTimeLeft);
+      else if(roundStartTime) startRoundPhase(roundTimeLeft);
+      else startMemPhase(memTimeLeft);
     } else {
       running = false;
       btnStart.textContent = "RESUME";

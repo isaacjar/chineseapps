@@ -39,6 +39,11 @@ let orderRandom = Settings.data.showOrdered !== true;
 let memInterval = null;
 let roundInterval = null;
 
+// Nuevas variables para pausa/reanudación
+let currentWordIndex = null;   // índice de la palabra actual
+let memTimeLeft = Settings.data.timemem;
+let roundTimeLeft = Settings.data.time;
+
 /* =========================
    VOCABULARY SOURCES
 ========================= */
@@ -117,6 +122,10 @@ function clearTimers(){
 function resetGame(){
   running=false;
   memPhase=false;
+  currentWordIndex = null;
+  memTimeLeft = Settings.data.timemem;
+  roundTimeLeft = Settings.data.time;
+
   UI.renderBoard(board, Settings.data.numwords);
   wordBox.textContent="";
   timerEl.textContent="";
@@ -129,23 +138,25 @@ function startMemPhase(resumeTime){
   memPhase = true;
   btnStart.textContent = "PAUSE";
 
-  Game.start(vocab, Settings.data.numwords);
-  let words = [...Game.active];
-  if(orderRandom) words.sort(()=>Math.random()-0.5);
-  UI.renderBoard(board, Settings.data.numwords);
-  UI.showWords(board, words.map(formatWord));
+  if (!memInterval && currentWordIndex === null) {
+    Game.start(vocab, Settings.data.numwords);
+    let words = [...Game.active];
+    if(orderRandom) words.sort(()=>Math.random()-0.5);
+    UI.renderBoard(board, Settings.data.numwords);
+    UI.showWords(board, words.map(formatWord));
+  }
 
-  // si resumeTime está definido, continuamos desde ahí
-  let t = resumeTime ?? Settings.data.timemem;
+  memTimeLeft = resumeTime ?? memTimeLeft;
   const total = Settings.data.timemem;
   if(memProgress) memProgress.classList.add("active");
 
-  memInterval = setInterval(() => {
-    if(!running) return; // respeta pausa
-    t--;
-    if(timerEl) timerEl.textContent = `Mem: ${t}s`;
-    if(memBar) memBar.style.width = `${((total - t)/total)*100}%`;
-    if(t <= 0){
+  memInterval = setInterval(()=>{
+    if(!running) return;
+    memTimeLeft--;
+    if(timerEl) timerEl.textContent = `Mem: ${memTimeLeft}s`;
+    if(memBar) memBar.style.width = `${((total-memTimeLeft)/total)*100}%`;
+
+    if(memTimeLeft <= 0){
       clearInterval(memInterval);
       memInterval = null;
       memPhase = false;
@@ -153,46 +164,42 @@ function startMemPhase(resumeTime){
       if(memBar) memBar.style.width = "0%";
       startRoundPhase();
     }
-  }, 1000);
+  },1000);
 }
 
 function startRoundPhase(resumeTime){
-  let totalTime = resumeTime ?? Settings.data.time;
+  roundTimeLeft = resumeTime ?? roundTimeLeft;
 
-  roundInterval = setInterval(() => {
-    if(!running) return; // respeta pausa
-    const mins = Math.floor(totalTime/60);
-    const secs = totalTime % 60;
+  roundInterval = setInterval(()=>{
+    if(!running) return;
+    const mins = Math.floor(roundTimeLeft/60);
+    const secs = roundTimeLeft%60;
     if(timerEl) timerEl.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
-    totalTime--;
-    if(totalTime < 0){
+    roundTimeLeft--;
+    if(roundTimeLeft < 0){
       clearInterval(roundInterval);
       roundInterval = null;
     }
-  }, 1000);
+  },1000);
 
-  nextQuestion();
+  if(currentWordIndex !== null) nextQuestion(currentWordIndex);
+  else nextQuestion();
 }
 
-function nextQuestion(){
-  const word = Game.pickTarget();
+function nextQuestion(indexToShow = null){
+  const word = indexToShow !== null ? Game.active[indexToShow] : Game.pickTarget();
+  currentWordIndex = indexToShow !== null ? indexToShow : Game.targetIndex;
+
   if(!wordBox) return;
 
-  // Fade-out
   wordBox.classList.add("fade-out");
-
   setTimeout(()=>{
-    // Cambiar palabra
     wordBox.textContent = formatWord(word);
-
-    // Fade-in
     wordBox.classList.remove("fade-out");
     wordBox.classList.add("fade-in");
-
     setTimeout(()=>wordBox.classList.remove("fade-in"),300);
   },300);
 
-  // Habilitar input
   if(disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
@@ -206,25 +213,20 @@ function handleAnswer(index){
   const targetWord = Game.active[Game.targetIndex];
 
   if(Game.check(index)){
-    // ✅ Acertaste
     btn.classList.add("correct");
-    if(wordBox) wordBox.textContent = formatWord(targetWord); // mostrar palabra correcta
+    if(wordBox) wordBox.textContent = formatWord(targetWord);
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
     new Audio("./sounds/correct.mp3").play();
 
-    // Mantener verde un instante antes de pasar a la siguiente palabra
     setTimeout(()=>{
       btn.classList.remove("correct");
       nextQuestion();
     },800);
-
   } else {
-    // ❌ Fallaste
     UI.toast("❌ Fallaste");
     new Audio("./sounds/wrong.mp3").play();
 
-    // Girar todos los botones mostrando los números
     [...board.children].forEach((b,i)=>{
       b.textContent = i+1;
       b.classList.add("wrong");
@@ -232,7 +234,7 @@ function handleAnswer(index){
 
     setTimeout(()=>{
       [...board.children].forEach(b=>b.classList.remove("wrong"));
-      resetGame(); // reinicia juego
+      resetGame();
     },1000);
   }
 }
@@ -240,7 +242,7 @@ function handleAnswer(index){
 /* =========================
    CLICK HANDLER
 ========================= */
-board.onclick=e=>{
+board.onclick = e => {
   if(!e.target.dataset.index) return;
   handleAnswer(Number(e.target.dataset.index));
 };
@@ -249,27 +251,20 @@ board.onclick=e=>{
    START/PAUSE BUTTON
 ========================= */
 if(btnStart){
-  btnStart.onclick = () => {
+  btnStart.onclick = ()=>{
     if(!running){
       // REANUDAR
       running = true;
       btnStart.textContent = "PAUSE";
 
-      if(memPhase && memInterval){
-        // ya está corriendo, solo sigue
-      } else if(memPhase && !memInterval){
-        // estaba en pausa, reanudar desde tiempo restante
-        startMemPhase(parseInt(timerEl.textContent.replace(/\D/g,'')));
-      } else {
-        // iniciar desde cero
-        startMemPhase();
-      }
+      if(memPhase) startMemPhase(memTimeLeft);
+      else startRoundPhase(roundTimeLeft);
 
     } else {
       // PAUSAR
       running = false;
       btnStart.textContent = "START";
-      // no hacemos clearTimers() para permitir reanudar
+      // No limpiamos timers para permitir reanudación
     }
   };
 }

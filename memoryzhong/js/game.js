@@ -1,57 +1,61 @@
-export const Game = {
-  words: [],
-  active: [],
-  targetIndex: null,
-  state: "idle",
+// game.js
 
-  start(words, num){
-    this.words = [...words];
-    this.active = [];
-    for(let i=0;i<num;i++){
-      this.active.push(words[Math.floor(Math.random()*words.length)]);
-    }
-    this.targetIndex = null;
-    this.state = "memorize";
+export const Game = {
+  active: [],
+  targetIndex: 0,
+
+  start(vocab, num){
+    // copiar vocab y tomar num palabras (ordenadas)
+    this.active = [...vocab].slice(0, num);
+    this.targetIndex = 0;
   },
 
   pickTarget(){
-    this.targetIndex = Math.floor(Math.random()*this.active.length);
+    if(this.targetIndex >= this.active.length) return null;
     return this.active[this.targetIndex];
   },
 
-  check(index){
-    return index === this.targetIndex;
+  check(buttonIndex){
+    const targetWord = this.active[this.targetIndex];
+    const btn = document.querySelector(`.card-btn[data-index="${buttonIndex}"]`);
+    if(!btn) return false;
+
+    const clickedText = btn.textContent;
+
+    // si el botón contiene la palabra objetivo (vale para pinyin debajo)
+    if(clickedText.includes(targetWord)){
+      this.targetIndex++;
+      return true;
+    }
+
+    return false;
+  },
+
+  isFinished(){
+    return this.targetIndex >= this.active.length;
   }
 };
 
-export function isValidInput(key, max){
-  if(!/^[0-9]$/.test(key)) return false;
-  const n = Number(key);
-  return n >= 1 && n <= max;
-}
+/* =========================
+   TECLADO
+========================= */
+let keyListener = null;
 
-export function enableKeyboardInput(max, onPress){
-  function handler(e){
-    e.preventDefault();
-
-    // bloquear letras, símbolos, etc.
-    if(!/^[0-9]$/.test(e.key)) return;
-
-    const n = Number(e.key);
-    if(n < 1 || n > max) return;
-
-    const index = n - 1;
-    const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
-
-    if(btn){
-      btn.classList.add("jump");
-      setTimeout(()=>btn.classList.remove("jump"),200);
-    }
-
-    onPress(index);
+export function enableKeyboardInput(numButtons, callback){
+  if(keyListener){
+    document.removeEventListener("keydown", keyListener);
   }
 
-  document.addEventListener("keydown", handler);
+  keyListener = (e) => {
+    if(e.key >= "1" && e.key <= String(numButtons)){
+      callback(Number(e.key) - 1);
+    }
+  };
 
-  return () => document.removeEventListener("keydown", handler);
+  document.addEventListener("keydown", keyListener);
+
+  return () => {
+    document.removeEventListener("keydown", keyListener);
+    keyListener = null;
+  };
 }

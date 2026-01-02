@@ -9,6 +9,13 @@ import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
 const params = new URLSearchParams(location.search);
 Settings.init(params);
 
+document.addEventListener("DOMContentLoaded", () => {
+  const btnSettings = document.getElementById("btnSettings");
+  if(btnSettings){
+    btnSettings.onclick = () => showSettingsPopup(() => location.reload());
+  }
+});
+
 /* =========================
    DOM
 ========================= */

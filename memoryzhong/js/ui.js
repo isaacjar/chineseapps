@@ -3,152 +3,233 @@ import { Game } from "./game.js";
 import { Settings } from "./settings.js";
 
 export const UI = {
-  renderBoard(container,count){container.innerHTML="";for(let i=0;i<count;i++){const b=document.createElement("button");b.className="card-btn fade-in";b.dataset.index=i;container.appendChild(b);}},
-  
+
+  renderBoard(container, count){
+    container.innerHTML = "";
+    for(let i = 0; i < count; i++){
+      const b = document.createElement("button");
+      b.className = "card-btn fade-in";
+      b.dataset.index = i;
+      container.appendChild(b);
+    }
+  },
+
   showWords(container, words){
-    [...container.children].forEach((b,i)=>{
-      b.innerHTML = ""; // limpiar
-      const lines = words[i].split("\n"); // separar ch/pinyin
+    [...container.children].forEach((b, i) => {
+      b.innerHTML = "";
+
+      const lines = words[i].split("\n");
+
       const chSpan = document.createElement("span");
+      chSpan.className = "ch";
       chSpan.textContent = lines[0];
-      chSpan.style.display = "block";
       b.appendChild(chSpan);
-  
+
       if(lines[1]){
         const pinSpan = document.createElement("span");
+        pinSpan.className = "pin";
         pinSpan.textContent = lines[1];
-        pinSpan.style.display = "block";
-        pinSpan.style.fontSize = "0.6em";
-        pinSpan.style.color = "rgba(0,0,0,0.6)";
         b.appendChild(pinSpan);
       }
-  
+
       b.classList.add("fade-in");
-      setTimeout(()=>b.classList.remove("fade-in"),300);
+      setTimeout(() => b.classList.remove("fade-in"), 300);
     });
   },
-  
-  showNumbers(container){[...container.children].forEach((b,i)=>{b.textContent=i+1;});},
-  toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000);},
-  celebrate(buttons){buttons.forEach(b=>b.classList.add("jump"));setTimeout(()=>buttons.forEach(b=>b.classList.remove("jump")),300);const confettiCount=30;for(let i=0;i<confettiCount;i++){const c=document.createElement("div");c.className="confetti";c.style.left=Math.random()*100+"%";c.style.background=`hsl(${Math.random()*360},70%,70%)`;c.style.animationDuration=0.6+Math.random()*0.4+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),1000);}}
+
+  showNumbers(container){
+    [...container.children].forEach((b, i) => {
+      b.textContent = i + 1;
+    });
+  },
+
+  toast(msg){
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  },
+
+  celebrate(buttons){
+    buttons.forEach(b => b.classList.add("jump"));
+    setTimeout(() => buttons.forEach(b => b.classList.remove("jump")), 300);
+
+    const confettiCount = 30;
+    for(let i = 0; i < confettiCount; i++){
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * 100 + "%";
+      c.style.background = `hsl(${Math.random()*360},70%,70%)`;
+      c.style.animationDuration = 0.6 + Math.random() * 0.4 + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 1000);
+    }
+  }
 };
 
 /* =========================
    POPUP VOCABULARIOS
 ========================= */
-export function showVoclistPopup(lists,onSelect){
-  const modal=document.createElement("div");modal.className="modal";
-  const box=document.createElement("div");box.className="modal-content";
-  box.innerHTML=`<h2>📚 Selecciona vocabulario</h2><div class="voclist-container"></div>`;
-  const listContainer=box.querySelector(".voclist-container");
-  lists.forEach(l=>{const btn=document.createElement("button");btn.className="card-btn";btn.textContent=l.title;btn.onclick=()=>{modal.remove();onSelect(l);};listContainer.appendChild(btn);});
-  modal.appendChild(box);document.body.appendChild(modal);
+export function showVoclistPopup(lists, onSelect){
+  const modal = document.createElement("div");
+  modal.className = "modal";
+
+  const box = document.createElement("div");
+  box.className = "modal-content";
+  box.innerHTML = `<h2>📚 Selecciona vocabulario</h2><div class="voclist-container"></div>`;
+
+  const listContainer = box.querySelector(".voclist-container");
+
+  lists.forEach(l => {
+    const btn = document.createElement("button");
+    btn.className = "card-btn";
+    btn.textContent = l.title;
+    btn.onclick = () => {
+      modal.remove();
+      onSelect(l);
+    };
+    listContainer.appendChild(btn);
+  });
+
+  modal.appendChild(box);
+  document.body.appendChild(modal);
 }
 
 /* =========================
    POPUP OPCIONES
 ========================= */
 export function showSettingsPopup(onClose){
-  const modal=document.createElement("div");modal.className="modal";
-  const box=document.createElement("div");box.className="modal-content";
-  box.innerHTML=`
+  const modal = document.createElement("div");
+  modal.className = "modal";
+
+  const box = document.createElement("div");
+  box.className = "modal-content";
+  box.innerHTML = `
     <h2>⚙️ Opciones</h2>
+
     <label>Idioma de juego</label>
     <select id="optLang">
       <option value="es">Español</option>
       <option value="en">English</option>
       <option value="zh">中文</option>
     </select>
-    <div id="pinyin-option" class="switch-row" style="display:none">
+
+    <div id="pinyin-option">
       <span>拼音 (Pinyin)</span>
       <label class="switch">
         <input type="checkbox" id="togglePinyin">
         <span class="slider"></span>
       </label>
     </div>
+
     <label>Número de palabras: <span id="nwVal"></span></label>
     <input type="range" id="optNumWords" min="4" max="25">
+
     <label>Segundos memorización: <span id="tmVal"></span></label>
     <input type="range" id="optTimeMem" min="5" max="60">
-    <label>
-      <input type="checkbox" id="optOrderRandom"> Orden aleatorio
-    </label>
+
+    <label><input type="checkbox" id="optOrderRandom"> Orden aleatorio</label>
+
     <label>Tiempo de juego</label>
     <div class="time-row">
       <input type="number" id="minGame" min="0" max="10"> :
       <input type="number" id="secGame" min="0" max="59">
     </div>
+
     <hr>
     <h3>📊 Estadísticas</h3>
     <p>Partidas jugadas: <b>${Settings.data.stats.played}</b></p>
     <p>Partidas ganadas: <b>${Settings.data.stats.won}</b></p>
+
     <div class="actions">
       <button id="btnSave">💾 Guardar</button>
       <button id="btnReset">🔄 Resetear</button>
       <button id="btnCancel">❌ Cancelar</button>
     </div>
   `;
-  modal.appendChild(box);document.body.appendChild(modal);
 
-  // Inicializar valores
-  box.querySelector("#optLang").value=Settings.data.lang;
-  const nw=box.querySelector("#optNumWords");
-  const tm=box.querySelector("#optTimeMem");
+  modal.appendChild(box);
+  document.body.appendChild(modal);
+
   const langSelect = box.querySelector("#optLang");
-  
   const pinyinRow = box.querySelector("#pinyin-option");
   const pinyinToggle = box.querySelector("#togglePinyin");
-  // estado inicial
+
   function updatePinyinVisibility(){
     if(langSelect.value === "zh"){
       pinyinRow.style.display = "flex";
       pinyinToggle.checked = Settings.data.showPinyin ?? true;
-    }else{
+    } else {
       pinyinRow.style.display = "none";
     }
   }
+
+  langSelect.value = Settings.data.lang;
   updatePinyinVisibility();
-  
-  // cambio de idioma en caliente
-  langSelect.onchange = () => {
-    updatePinyinVisibility();
+  langSelect.onchange = updatePinyinVisibility;
+
+  const nw = box.querySelector("#optNumWords");
+  const tm = box.querySelector("#optTimeMem");
+
+  nw.value = Settings.data.numwords;
+  tm.value = Settings.data.timemem;
+  box.querySelector("#nwVal").textContent = nw.value;
+  box.querySelector("#tmVal").textContent = tm.value;
+
+  nw.oninput = () => box.querySelector("#nwVal").textContent = nw.value;
+  tm.oninput = () => box.querySelector("#tmVal").textContent = tm.value;
+
+  const mins = Math.floor(Settings.data.time / 60);
+  const secs = Settings.data.time % 60;
+  box.querySelector("#minGame").value = mins;
+  box.querySelector("#secGame").value = secs;
+
+  box.querySelector("#btnSave").onclick = () => {
+    Settings.data.lang = langSelect.value;
+    Settings.data.numwords = +nw.value;
+    Settings.data.timemem = +tm.value;
+    Settings.data.time =
+      (+box.querySelector("#minGame").value * 60) +
+      (+box.querySelector("#secGame").value);
+    Settings.data.showPinyin = pinyinToggle.checked;
+    Settings.validate();
+    Settings.save();
+    modal.remove();
+    onClose?.();
   };
 
-  const orderCheckbox=box.querySelector("#optOrderRandom");
-  nw.value=Settings.data.numwords;tm.value=Settings.data.timemem;
-  box.querySelector("#nwVal").textContent=nw.value;
-  box.querySelector("#tmVal").textContent=tm.value;
-  orderCheckbox.checked=Settings.data.orderRandom;
-
-  nw.oninput=()=>box.querySelector("#nwVal").textContent=nw.value;
-  tm.oninput=()=>box.querySelector("#tmVal").textContent=tm.value;
-  orderCheckbox.onchange=()=>Settings.data.orderRandom=orderCheckbox.checked;
-
-  const mins=Math.floor(Settings.data.time/60);
-  const secs=Settings.data.time%60;
-  box.querySelector("#minGame").value=mins;
-  box.querySelector("#secGame").value=secs;
-
-  // Botones
-  box.querySelector("#btnSave").onclick=()=>{
-    Settings.data.lang=box.querySelector("#optLang").value;
-    Settings.data.numwords=+nw.value;
-    Settings.data.timemem=+tm.value;
-    Settings.data.time=(+box.querySelector("#minGame").value*60)+(+box.querySelector("#secGame").value);
-    Settings.data.showPinyin = pinyinToggle?.checked ?? true;
-    Settings.validate();Settings.save();modal.remove();onClose?.();
+  box.querySelector("#btnReset").onclick = () => {
+    if(confirm("¿Resetear opciones y estadísticas?")){
+      Settings.reset();
+      modal.remove();
+      onClose?.();
+    }
   };
-  box.querySelector("#btnReset").onclick=()=>{if(confirm("¿Resetear opciones y estadísticas?")){Settings.reset();modal.remove();onClose?.();}};
-  box.querySelector("#btnCancel").onclick=()=>{modal.remove();};
+
+  box.querySelector("#btnCancel").onclick = () => modal.remove();
 }
 
 /* =========================
    ENTRADA TECLADO
 ========================= */
-let keyListener=null;
-export function enableKeyboardInput(numButtons,callback){
-  if(keyListener) document.removeEventListener("keydown",keyListener);
-  keyListener=function(e){const key=e.key;if(key>='1' && key<=String(numButtons)) callback(Number(key)-1);};
-  document.addEventListener("keydown",keyListener);
-  return ()=>{document.removeEventListener("keydown",keyListener);keyListener=null;};
+let keyListener = null;
+
+export function enableKeyboardInput(numButtons, callback){
+  if(keyListener){
+    document.removeEventListener("keydown", keyListener);
+  }
+
+  keyListener = e => {
+    if(e.key >= "1" && e.key <= String(numButtons)){
+      callback(Number(e.key) - 1);
+    }
+  };
+
+  document.addEventListener("keydown", keyListener);
+
+  return () => {
+    document.removeEventListener("keydown", keyListener);
+    keyListener = null;
+  };
 }

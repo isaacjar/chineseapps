@@ -36,6 +36,13 @@ export function showSettingsPopup(onClose){
       <option value="en">English</option>
       <option value="zh">中文</option>
     </select>
+    <div id="pinyin-option" class="switch-row" style="display:none">
+      <span>拼音 (Pinyin)</span>
+      <label class="switch">
+        <input type="checkbox" id="togglePinyin">
+        <span class="slider"></span>
+      </label>
+    </div>
     <label>Número de palabras: <span id="nwVal"></span></label>
     <input type="range" id="optNumWords" min="4" max="25">
     <label>Segundos memorización: <span id="tmVal"></span></label>
@@ -64,6 +71,26 @@ export function showSettingsPopup(onClose){
   box.querySelector("#optLang").value=Settings.data.lang;
   const nw=box.querySelector("#optNumWords");
   const tm=box.querySelector("#optTimeMem");
+  const langSelect = box.querySelector("#optLang");
+  
+  const pinyinRow = box.querySelector("#pinyin-option");
+  const pinyinToggle = box.querySelector("#togglePinyin");
+  // estado inicial
+  function updatePinyinVisibility(){
+    if(langSelect.value === "zh"){
+      pinyinRow.style.display = "flex";
+      pinyinToggle.checked = Settings.data.showPinyin ?? true;
+    }else{
+      pinyinRow.style.display = "none";
+    }
+  }
+  updatePinyinVisibility();
+  
+  // cambio de idioma en caliente
+  langSelect.onchange = () => {
+    updatePinyinVisibility();
+  };
+
   const orderCheckbox=box.querySelector("#optOrderRandom");
   nw.value=Settings.data.numwords;tm.value=Settings.data.timemem;
   box.querySelector("#nwVal").textContent=nw.value;
@@ -85,6 +112,7 @@ export function showSettingsPopup(onClose){
     Settings.data.numwords=+nw.value;
     Settings.data.timemem=+tm.value;
     Settings.data.time=(+box.querySelector("#minGame").value*60)+(+box.querySelector("#secGame").value);
+    Settings.data.showPinyin = pinyinToggle?.checked ?? true;
     Settings.validate();Settings.save();modal.remove();onClose?.();
   };
   box.querySelector("#btnReset").onclick=()=>{if(confirm("¿Resetear opciones y estadísticas?")){Settings.reset();modal.remove();onClose?.();}};

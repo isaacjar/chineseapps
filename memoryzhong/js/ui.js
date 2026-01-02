@@ -144,7 +144,7 @@ export function showSettingsPopup(onClose){
 
     <div class="actions">
       <button id="btnSave">💾 Guardar</button>
-      <button id="btnReset">🔄 Resetear</button>
+      <button id="btnReset">🔄 Reset</button>
       <button id="btnCancel">❌ Cancelar</button>
     </div>
   `;

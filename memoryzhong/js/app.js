@@ -11,7 +11,7 @@ Settings.init(params);
 
 document.addEventListener("DOMContentLoaded", () => {
   const btnSettings = document.getElementById("btnSettings");
-  if(btnSettings){
+  if (btnSettings) {
     btnSettings.onclick = () => showSettingsPopup(() => location.reload());
   }
 });
@@ -39,7 +39,7 @@ let orderRandom = Settings.data.showOrdered !== true;
 let memInterval = null;
 let roundInterval = null;
 
-let currentWordIndex = null;   // índice actual de la palabra
+let currentWordIndex = null;
 let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
 
@@ -56,30 +56,31 @@ const VOC_SOURCES = {
    LOAD VOCABULARY
 ========================= */
 async function loadIndex(lang){
-  const url=VOC_SOURCES[lang].index;
-  if(lang==="zh"){
-    const txt=await fetch(url).then(r=>r.text());
-    return Function(txt+"; return voclists;")();
-  }else{
-    const res=await fetch(url);
+  const url = VOC_SOURCES[lang].index;
+  if(lang === "zh"){
+    const txt = await fetch(url).then(r => r.text());
+    return Function(txt + "; return voclists;")();
+  } else {
+    const res = await fetch(url);
     if(!res.ok) throw new Error(`No se pudo cargar ${url}`);
     return await res.json();
   }
 }
 
-async function loadVoclist(lang,filename){
-  const base=VOC_SOURCES[lang].base;
+async function loadVoclist(lang, filename){
+  const base = VOC_SOURCES[lang].base;
   let url;
-  if(lang==="zh"){
-    url=`${base}${filename}.json`;
-    const list=await fetch(url).then(r=>r.json());
-    vocabRaw=list;
-    return list.map(w=>w.ch);
-  }else{
-    url=`${base}${filename}`;
-    const list=await fetch(url).then(r=>r.json());
-    vocabRaw=list;
-    return list.map(w=>w[lang]);
+
+  if(lang === "zh"){
+    url = `${base}${filename}.json`;
+    const list = await fetch(url).then(r => r.json());
+    vocabRaw = list;
+    return list.map(w => w.ch);
+  } else {
+    url = `${base}${filename}`;
+    const list = await fetch(url).then(r => r.json());
+    vocabRaw = list;
+    return list.map(w => w[lang]);
   }
 }
 
@@ -87,14 +88,14 @@ async function loadVoclist(lang,filename){
    SELECT VOCABULARY
 ========================= */
 async function selectVocabulary(){
-  const lists=await loadIndex(currentLang);
+  const lists = await loadIndex(currentLang);
   if(params.get("voclist")){
-    vocab=await loadVoclist(currentLang,params.get("voclist"));
+    vocab = await loadVoclist(currentLang, params.get("voclist"));
     resetGame();
     return;
   }
-  showVoclistPopup(lists,async l=>{
-    vocab=await loadVoclist(currentLang,l.filename);
+  showVoclistPopup(lists, async l => {
+    vocab = await loadVoclist(currentLang, l.filename);
     resetGame();
   });
 }
@@ -103,46 +104,70 @@ async function selectVocabulary(){
    HELPERS
 ========================= */
 function formatWord(word){
-  if(currentLang!=="zh") return word;
-  const obj=vocabRaw.find(w=>w.ch===word);
+  if(currentLang !== "zh") return word;
+  const obj = vocabRaw.find(w => w.ch === word);
   if(!obj) return word;
-  if(Settings.data.showPinyin) return `${obj.ch}\n${obj.pin}`;
-  return obj.ch;
+  return Settings.data.showPinyin ? `${obj.ch}\n${obj.pin}` : obj.ch;
 }
 
-function clearTimers(){
-  if(memInterval){ clearInterval(memInterval); memInterval=null; }
-  if(roundInterval){ clearInterval(roundInterval); roundInterval=null; }
+/* =========================
+   BOARD AUTO LAYOUT
+========================= */
+function adjustBoardLayout(){
+  const n = Settings.data.numwords;
+
+  let cols;
+  if(n <= 6) cols = 3;
+  else if(n <= 9) cols = 3;
+  else if(n <= 12) cols = 4;
+  else if(n <= 16) cols = 4;
+  else if(n <= 20) cols = 5;
+  else cols = 6;
+
+  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+  const rows = Math.ceil(n / cols);
+  const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
+  const btnHeight = Math.floor(maxHeight / rows);
+
+  [...board.children].forEach(btn => {
+    btn.style.height = `${btnHeight}px`;
+  });
 }
 
 /* =========================
    GAME FLOW
 ========================= */
 function resetGame(){
-  running=false;
-  memPhase=false;
+  running = false;
+  memPhase = false;
   currentWordIndex = null;
   memTimeLeft = Settings.data.timemem;
   roundTimeLeft = Settings.data.time;
 
   UI.renderBoard(board, Settings.data.numwords);
-  wordBox.textContent="";
-  timerEl.textContent="";
-  if(memBar) memBar.style.width="0%";
-  if(btnStart) btnStart.textContent="START";
-  if(disableKeyboard){ disableKeyboard(); disableKeyboard=null; }
+  adjustBoardLayout();
+
+  wordBox.textContent = "";
+  timerEl.textContent = "";
+  if(memBar) memBar.style.width = "0%";
+  if(btnStart) btnStart.textContent = "START";
+  if(disableKeyboard){ disableKeyboard(); disableKeyboard = null; }
 }
 
 function startMemPhase(resumeTime){
   memPhase = true;
   btnStart.textContent = "PAUSE";
 
-  if (!memInterval && currentWordIndex === null) {
+  if(!memInterval && currentWordIndex === null){
     Game.start(vocab, Settings.data.numwords);
     currentWordIndex = 0;
+
     let words = [...Game.active];
-    if(orderRandom) words.sort(()=>Math.random()-0.5);
+    if(orderRandom) words.sort(() => Math.random() - 0.5);
+
     UI.renderBoard(board, Settings.data.numwords);
+    adjustBoardLayout();
     UI.showWords(board, words.map(formatWord));
   }
 
@@ -150,57 +175,45 @@ function startMemPhase(resumeTime){
   const total = Settings.data.timemem;
   if(memProgress) memProgress.classList.add("active");
 
-  memInterval = setInterval(()=>{
+  memInterval = setInterval(() => {
     if(!running) return;
     memTimeLeft--;
-    if(timerEl) timerEl.textContent = `Mem: ${memTimeLeft}s`;
-    if(memBar) memBar.style.width = `${((total-memTimeLeft)/total)*100}%`;
+    timerEl.textContent = `Mem: ${memTimeLeft}s`;
+    if(memBar) memBar.style.width = `${((total - memTimeLeft) / total) * 100}%`;
 
     if(memTimeLeft <= 0){
       clearInterval(memInterval);
       memInterval = null;
       memPhase = false;
       UI.showNumbers(board);
+      adjustBoardLayout();
       if(memBar) memBar.style.width = "0%";
       startRoundPhase();
     }
-  },1000);
+  }, 1000);
 }
 
 function startRoundPhase(resumeTime){
-  if(Game.active.length === 0) return; // proteger si no hay palabras
+  if(Game.active.length === 0) return;
 
   roundTimeLeft = resumeTime ?? roundTimeLeft;
 
-  roundInterval = setInterval(()=>{
+  roundInterval = setInterval(() => {
     if(!running) return;
-    const mins = Math.floor(roundTimeLeft/60);
-    const secs = roundTimeLeft%60;
-    if(timerEl) timerEl.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+    const mins = Math.floor(roundTimeLeft / 60);
+    const secs = roundTimeLeft % 60;
+    timerEl.textContent = `${mins}:${secs.toString().padStart(2,"0")}`;
     roundTimeLeft--;
-    if(roundTimeLeft < 0){
-      clearInterval(roundInterval);
-      roundInterval = null;
-    }
-  },1000);
+  }, 1000);
 
-  if(currentWordIndex !== null) nextQuestion(currentWordIndex);
-  else nextQuestion();
+  nextQuestion(currentWordIndex);
 }
 
-function nextQuestion(indexToShow = null){
-  const word = indexToShow !== null ? Game.active[indexToShow] : Game.pickTarget();
-  currentWordIndex = indexToShow !== null ? indexToShow : Game.targetIndex;
+function nextQuestion(index = null){
+  const word = index !== null ? Game.active[index] : Game.pickTarget();
+  currentWordIndex = index !== null ? index : Game.targetIndex;
 
-  if(!wordBox) return;
-
-  wordBox.classList.add("fade-out");
-  setTimeout(()=>{
-    wordBox.textContent = formatWord(word);
-    wordBox.classList.remove("fade-out");
-    wordBox.classList.add("fade-in");
-    setTimeout(()=>wordBox.classList.remove("fade-in"),300);
-  },300);
+  wordBox.textContent = formatWord(word);
 
   if(disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
@@ -216,28 +229,23 @@ function handleAnswer(index){
 
   if(Game.check(index)){
     btn.classList.add("correct");
-    if(wordBox) wordBox.textContent = formatWord(targetWord);
-    UI.toast("🎉 ¡Correcto!");
-    UI.celebrate([...board.children]);
-    new Audio("./sounds/correct.mp3").play();
+    wordBox.textContent = formatWord(targetWord);
 
-    setTimeout(()=>{
+    setTimeout(() => {
       btn.classList.remove("correct");
-      nextQuestion();
-    },800);
+      if(Game.isFinished()){
+        resetGame();
+      } else {
+        nextQuestion();
+      }
+    }, 700);
   } else {
-    UI.toast("❌ Fallaste");
-    new Audio("./sounds/wrong.mp3").play();
-
-    [...board.children].forEach((b,i)=>{
-      b.textContent = i+1;
+    [...board.children].forEach((b, i) => {
+      b.textContent = i + 1;
       b.classList.add("wrong");
     });
 
-    setTimeout(()=>{
-      [...board.children].forEach(b=>b.classList.remove("wrong"));
-      resetGame();
-    },1000);
+    setTimeout(resetGame, 900);
   }
 }
 
@@ -250,31 +258,25 @@ board.onclick = e => {
 };
 
 /* =========================
-   START/PAUSE BUTTON
+   START / PAUSE
 ========================= */
 if(btnStart){
-  btnStart.onclick = ()=>{
+  btnStart.onclick = () => {
     if(!running){
       running = true;
       btnStart.textContent = "PAUSE";
 
-      if(currentWordIndex === null){
-        startMemPhase(memTimeLeft);
-      } else if(memPhase){
-        startMemPhase(memTimeLeft);
-      } else {
-        startRoundPhase(roundTimeLeft);
-      }
-
+      if(currentWordIndex === null) startMemPhase(memTimeLeft);
+      else if(memPhase) startMemPhase(memTimeLeft);
+      else startRoundPhase(roundTimeLeft);
     } else {
       running = false;
       btnStart.textContent = "START";
-      // pausa sin perder timers
     }
   };
 }
 
 /* =========================
-   INITIAL LOAD
+   INIT
 ========================= */
 selectVocabulary();

@@ -2,37 +2,33 @@
 
 export const Game = {
   active: [],          // lista de palabras activas en la partida
-  targetIndex: 0,      // índice de la palabra que el usuario debe adivinar
+  targetIndex: null,   // índice actual a adivinar
 
   start(vocab, num){
-    // Copiar vocab y tomar num palabras (ordenadas)
+    // Copiar vocab y tomar num palabras
     this.active = [...vocab].slice(0, num);
-    this.targetIndex = 0;
+    this.targetIndex = null; // se asignará al iniciar la ronda
   },
 
-  pickTarget(){
-    if(this.targetIndex >= this.active.length) return null;
-    return this.active[this.targetIndex];
+  pickRandomTarget(exclude = []){
+    // Devuelve un índice aleatorio de las palabras no acertadas
+    const available = this.active.map((_, i) => i).filter(i => !exclude.includes(i));
+    if(available.length === 0) return null;
+    return available[Math.floor(Math.random() * available.length)];
   },
 
   check(buttonIndex){
-    const targetWord = this.active[this.targetIndex];
-    const btn = document.querySelector(`.card-btn[data-index="${buttonIndex}"]`);
-    if(!btn) return false;
-
-    const clickedText = btn.textContent;
-
-    // Si el botón contiene la palabra objetivo (vale para pinyin debajo)
-    if(clickedText.includes(targetWord)){
-      this.targetIndex++;
+    // Comprobación estricta por índice
+    if(buttonIndex === this.targetIndex){
+      this.targetIndex = null; // reseteamos target tras acierto
       return true;
     }
-
     return false;
   },
 
-  isFinished(){
-    return this.targetIndex >= this.active.length;
+  isFinished(correctIndices = []){
+    // Termina si todas las palabras han sido acertadas
+    return correctIndices.length >= this.active.length;
   }
 };
 

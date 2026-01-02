@@ -39,8 +39,7 @@ let orderRandom = Settings.data.showOrdered !== true;
 let memInterval = null;
 let roundInterval = null;
 
-// Nuevas variables para pausa/reanudación
-let currentWordIndex = null;   // índice de la palabra actual
+let currentWordIndex = null;   // índice actual de la palabra
 let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
 
@@ -169,8 +168,8 @@ function startMemPhase(resumeTime){
 }
 
 function startRoundPhase(resumeTime){
-  if(Game.active.length === 0) return; // ← proteger si no hay palabras
-   
+  if(Game.active.length === 0) return; // proteger si no hay palabras
+
   roundTimeLeft = resumeTime ?? roundTimeLeft;
 
   roundInterval = setInterval(()=>{
@@ -256,12 +255,10 @@ board.onclick = e => {
 if(btnStart){
   btnStart.onclick = ()=>{
     if(!running){
-      // REANUDAR
       running = true;
       btnStart.textContent = "PAUSE";
 
       if(currentWordIndex === null){
-        // inicio REAL del juego
         startMemPhase(memTimeLeft);
       } else if(memPhase){
         startMemPhase(memTimeLeft);
@@ -270,10 +267,9 @@ if(btnStart){
       }
 
     } else {
-      // PAUSAR
       running = false;
       btnStart.textContent = "START";
-      // No limpiamos timers para permitir reanudación
+      // pausa sin perder timers
     }
   };
 }

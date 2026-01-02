@@ -18,11 +18,11 @@ export const UI = {
     [...container.children].forEach((b, i) => {
       b.innerHTML = "";
 
-      const lines = words[i].split("\n");
+      const lines = (words[i] || "").split("\n");
 
       const chSpan = document.createElement("span");
       chSpan.className = "ch";
-      chSpan.textContent = lines[0];
+      chSpan.textContent = lines[0] || "";
       b.appendChild(chSpan);
 
       if(lines[1]){
@@ -39,6 +39,10 @@ export const UI = {
 
   showNumbers(container){
     [...container.children].forEach((b, i) => {
+      b.innerHTML = "";
+      const ch = b.querySelector(".ch")?.textContent || "";
+      const pin = b.querySelector(".pin")?.textContent || "";
+      // Mostrar solo el número, manteniendo info interna para pinyin si quieres
       b.textContent = i + 1;
     });
   },

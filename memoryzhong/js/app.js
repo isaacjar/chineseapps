@@ -167,36 +167,63 @@ function startRoundPhase(){
 function nextQuestion(){
   const word = Game.pickTarget();
   if(!wordBox) return;
+
+  // Fade-out
   wordBox.classList.add("fade-out");
+
   setTimeout(()=>{
+    // Cambiar palabra
     wordBox.textContent = formatWord(word);
+
+    // Fade-in
     wordBox.classList.remove("fade-out");
     wordBox.classList.add("fade-in");
+
     setTimeout(()=>wordBox.classList.remove("fade-in"),300);
   },300);
 
+  // Habilitar input
   if(disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
 }
 
 function handleAnswer(index){
   if(memPhase || !running) return;
-  const btn=document.querySelector(`.card-btn[data-index="${index}"]`);
+
+  const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn) return;
 
-  const targetWord=Game.active[Game.targetIndex];
+  const targetWord = Game.active[Game.targetIndex];
+
   if(Game.check(index)){
+    // ✅ Acertaste
     btn.classList.add("correct");
-    if(wordBox) wordBox.textContent=formatWord(targetWord);
+    if(wordBox) wordBox.textContent = formatWord(targetWord); // mostrar palabra correcta
     UI.toast("🎉 ¡Correcto!");
     UI.celebrate([...board.children]);
     new Audio("./sounds/correct.mp3").play();
-    setTimeout(()=>{ btn.classList.remove("correct"); nextQuestion(); },800);
-  }else{
-    btn.classList.add("wrong");
+
+    // Mantener verde un instante antes de pasar a la siguiente palabra
+    setTimeout(()=>{
+      btn.classList.remove("correct");
+      nextQuestion();
+    },800);
+
+  } else {
+    // ❌ Fallaste
     UI.toast("❌ Fallaste");
     new Audio("./sounds/wrong.mp3").play();
-    setTimeout(()=>{ btn.classList.remove("wrong"); resetGame(); },800);
+
+    // Girar todos los botones mostrando los números
+    [...board.children].forEach((b,i)=>{
+      b.textContent = i+1;
+      b.classList.add("wrong");
+    });
+
+    setTimeout(()=>{
+      [...board.children].forEach(b=>b.classList.remove("wrong"));
+      resetGame(); // reinicia juego
+    },1000);
   }
 }
 

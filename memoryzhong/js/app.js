@@ -139,7 +139,8 @@ function startMemPhase(){
   const total=Settings.data.timemem;
   if(memProgress) memProgress.classList.add("active");
   memInterval=setInterval(()=>{
-    t--;
+    if(!running) return;
+     t--;
     if(timerEl) timerEl.textContent=`Mem: ${t}s`;
     if(memBar) memBar.style.width=`${((total-t)/total)*100}%`;
     if(t<=0){
@@ -155,6 +156,7 @@ function startMemPhase(){
 function startRoundPhase(){
   let totalTime=Settings.data.time;
   roundInterval=setInterval(()=>{
+    if(!running) return;
     const mins=Math.floor(totalTime/60);
     const secs=totalTime%60;
     if(timerEl) timerEl.textContent=`${mins}:${secs.toString().padStart(2,'0')}`;
@@ -239,16 +241,23 @@ board.onclick=e=>{
    START/PAUSE BUTTON
 ========================= */
 if(btnStart){
-  btnStart.onclick=()=>{
+  btnStart.onclick = () => {
     if(!running){
-      running=true;
-      startMemPhase();
-    }else{
-      running=false;
-      clearTimers();
-      if(btnStart) btnStart.textContent="START";
-      if(wordBox) wordBox.textContent="";
-      UI.showNumbers(board); // mostrar solo los números
+      // START
+      running = true;
+      btnStart.textContent = "PAUSE";
+      if(memPhase){
+        // reanudar memPhase si estaba pausado
+        startMemPhase(); 
+      } else {
+        startMemPhase(); // iniciar desde cero
+      }
+    } else {
+      // PAUSE
+      running = false;
+      clearTimers(); // detener intervalos
+      btnStart.textContent = "START";
+      // opcional: mantener tablero visible pero congelar reloj y botones
     }
   };
 }

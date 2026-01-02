@@ -1,4 +1,3 @@
-// ui.js
 import { Settings } from "./settings.js";
 import { Game } from "./game.js";
 
@@ -14,7 +13,6 @@ export const UI = {
     }
   },
 
-  // words: array de strings formateadas según idioma/pinyin
   showWords(container, words){
     [...container.children].forEach((b, i) => {
       b.innerHTML = "";
@@ -41,11 +39,34 @@ export const UI = {
     });
   },
 
-  // fase de juego: mostrar solo números en los botones
   showNumbers(container){
     [...container.children].forEach((b, i) => {
       b.innerHTML = i + 1;
+      b.classList.remove("wrong","correct","disabled");
     });
+  },
+
+  markCorrect(button, word, showPinyin = true, vocabRaw = []){
+    if(!button) return;
+
+    button.classList.add("correct", "disabled");
+    button.innerHTML = `
+      <span class="ch">${word}</span>
+      ${
+        Settings.data.lang === "zh" && showPinyin
+          ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
+          : ""
+      }
+    `;
+    UI.playSound("correct");
+  },
+
+  markWrong(container){
+    [...container.children].forEach((b, i) => {
+      b.classList.add("wrong");
+      b.textContent = i + 1;
+    });
+    UI.playSound("wrong");
   },
 
   toast(msg){
@@ -70,14 +91,41 @@ export const UI = {
       document.body.appendChild(c);
       setTimeout(() => c.remove(), 1000);
     }
+  },
+
+  showVictoryPopup(score, onReplay){
+    const modal = document.createElement("div");
+    modal.className = "modal";
+
+    const box = document.createElement("div");
+    box.className = "modal-content";
+    box.innerHTML = `
+      <h2>🏆 ¡Victoria!</h2>
+      <p>Puntuación: <b>${score}</b></p>
+      <button id="btnReplay">Otra partida</button>
+    `;
+
+    modal.appendChild(box);
+    document.body.appendChild(modal);
+
+    box.querySelector("#btnReplay").onclick = () => {
+      modal.remove();
+      onReplay?.();
+    };
+  },
+
+  playSound(type){
+    let audio;
+    if(type === "correct") audio = new Audio("sounds/correct.mp3");
+    else if(type === "wrong") audio = new Audio("sounds/wrong.mp3");
+    if(audio) audio.play();
   }
+
 };
 
 /* =========================
-   FUNCIONES AUXILIARES
+   Formateo de palabra
 ========================= */
-
-// Formatear palabra según idioma y pinyin
 export function formatWord(word, vocabRaw = [], showPinyin = Settings.data.showPinyin){
   if(!word) return "";
 
@@ -198,9 +246,6 @@ export function showSettingsPopup(onClose){
   box.querySelector("#nwVal").textContent = nw.value;
   box.querySelector("#tmVal").textContent = tm.value;
 
-  nw.oninput = () => box.querySelector("#nwVal").textContent = nw.value;
-  tm.oninput = () => box.querySelector("#tmVal").textContent = tm.value;
-
   const mins = Math.floor(Settings.data.time / 60);
   const secs = Settings.data.time % 60;
   box.querySelector("#minGame").value = mins;
@@ -232,7 +277,7 @@ export function showSettingsPopup(onClose){
 }
 
 /* =========================
-   ENTRADA TECLADO
+   TECLADO
 ========================= */
 let keyListener = null;
 

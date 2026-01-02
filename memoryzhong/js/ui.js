@@ -119,8 +119,27 @@ export const UI = {
     if(type === "correct") audio = new Audio("sounds/correct.mp3");
     else if(type === "wrong") audio = new Audio("sounds/wrong.mp3");
     if(audio) audio.play();
-  }
+  },
 
+  /* =========================
+     Barra de progreso dinámica
+     phase: "mem" o "round"
+     value: segundos transcurridos
+     total: total de segundos de la fase
+  ========================= */
+  updateProgress(barEl, phase, value, total){
+    if(!barEl) return;
+    const percent = Math.min(100, Math.max(0, (value/total)*100));
+    barEl.style.width = percent + "%";
+
+    if(phase === "mem"){
+      barEl.classList.add("mem-phase");
+      barEl.classList.remove("round-phase");
+    } else {
+      barEl.classList.add("round-phase");
+      barEl.classList.remove("mem-phase");
+    }
+  }
 };
 
 /* =========================

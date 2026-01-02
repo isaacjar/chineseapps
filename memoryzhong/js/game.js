@@ -1,11 +1,11 @@
 // game.js
 
 export const Game = {
-  active: [],
-  targetIndex: 0,
+  active: [],          // lista de palabras activas en la partida
+  targetIndex: 0,      // índice de la palabra que el usuario debe adivinar
 
   start(vocab, num){
-    // copiar vocab y tomar num palabras (ordenadas)
+    // Copiar vocab y tomar num palabras (ordenadas)
     this.active = [...vocab].slice(0, num);
     this.targetIndex = 0;
   },
@@ -22,7 +22,7 @@ export const Game = {
 
     const clickedText = btn.textContent;
 
-    // si el botón contiene la palabra objetivo (vale para pinyin debajo)
+    // Si el botón contiene la palabra objetivo (vale para pinyin debajo)
     if(clickedText.includes(targetWord)){
       this.targetIndex++;
       return true;

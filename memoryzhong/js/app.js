@@ -140,6 +140,7 @@ function startMemPhase(resumeTime){
 
   if (!memInterval && currentWordIndex === null) {
     Game.start(vocab, Settings.data.numwords);
+    currentWordIndex = 0;
     let words = [...Game.active];
     if(orderRandom) words.sort(()=>Math.random()-0.5);
     UI.renderBoard(board, Settings.data.numwords);
@@ -168,6 +169,8 @@ function startMemPhase(resumeTime){
 }
 
 function startRoundPhase(resumeTime){
+  if(Game.active.length === 0) return; // ← proteger si no hay palabras
+   
   roundTimeLeft = resumeTime ?? roundTimeLeft;
 
   roundInterval = setInterval(()=>{
@@ -257,8 +260,14 @@ if(btnStart){
       running = true;
       btnStart.textContent = "PAUSE";
 
-      if(memPhase) startMemPhase(memTimeLeft);
-      else startRoundPhase(roundTimeLeft);
+      if(currentWordIndex === null){
+        // inicio REAL del juego
+        startMemPhase(memTimeLeft);
+      } else if(memPhase){
+        startMemPhase(memTimeLeft);
+      } else {
+        startRoundPhase(roundTimeLeft);
+      }
 
     } else {
       // PAUSAR

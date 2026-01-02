@@ -1,3 +1,5 @@
+// app.js 
+
 import { Settings } from "./settings.js";
 import { Game, enableKeyboardInput } from "./game.js";
 import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
@@ -35,8 +37,19 @@ let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
 let roundStartTime = null;
 let score = 0;
-let correctIndices = []; // índices acertados en esta ronda
+let correctIndices = [];
 let orderRandom = Settings.data.showOrdered !== true;
+
+/* =========================
+   SOUNDS PRELOAD
+========================= */
+const sounds = {
+  correct: new Audio("sounds/correct.mp3"),
+  wrong: new Audio("sounds/wrong.mp3")
+};
+
+// Preload
+Object.values(sounds).forEach(a => a.load());
 
 /* =========================
    VOCABULARY SOURCES
@@ -94,6 +107,10 @@ function formatWord(word){
   const obj = vocabRaw.find(w => w.ch === word);
   if(!obj) return word;
   return Settings.data.showPinyin ? `${obj.ch}\n${obj.pin}` : obj.ch;
+}
+
+function playSound(type){
+  if(sounds[type]) sounds[type].play();
 }
 
 /* =========================
@@ -191,8 +208,6 @@ function startRoundPhase(resumeTime){
 
 function nextQuestion(){
   if(Game.isFinished(correctIndices)) return endGame(true);
-
-  // Elegir índice aleatorio de palabras restantes
   const idx = Game.pickRandomTarget(correctIndices);
   if(idx === null) return endGame(true);
 
@@ -213,9 +228,11 @@ function handleAnswer(index){
     correctIndices.push(index);
     const word = Game.active[index];
     UI.markCorrect(btn, word, Settings.data.showPinyin, vocabRaw);
+    playSound("correct");
     nextQuestion();
   } else {
     UI.markWrong(board);
+    playSound("wrong");
     setTimeout(() => {
       resetGame();
       startMemPhase(memTimeLeft);
@@ -228,13 +245,15 @@ function endGame(victory){
   clearInterval(roundInterval);
   roundInterval = null;
 
+  const mins = Math.floor(roundTimeLeft/60);
+  const secs = roundTimeLeft % 60;
+
   if(victory){
-    const timeLeft = roundTimeLeft;
-    score = Math.floor(timeLeft*10); // puntuación ejemplo
+    score = Math.floor(roundTimeLeft*10);
     Settings.data.stats.played++;
     Settings.data.stats.won++;
     Settings.save();
-    UI.showVictoryPopup(score, () => resetGame());
+    UI.showVictoryPopup(`${score} pts (${mins}:${secs.toString().padStart(2,"0")})`, () => resetGame());
   } else {
     Settings.data.stats.played++;
     Settings.save();

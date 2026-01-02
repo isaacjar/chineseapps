@@ -1,6 +1,6 @@
 // ui.js
-import { Game } from "./game.js";
 import { Settings } from "./settings.js";
+import { Game } from "./game.js";
 
 export const UI = {
 
@@ -14,15 +14,19 @@ export const UI = {
     }
   },
 
+  // words: array de strings formateadas según idioma/pinyin
   showWords(container, words){
     [...container.children].forEach((b, i) => {
       b.innerHTML = "";
+      const w = words[i] || "";
 
-      const lines = (words[i] || "").split("\n");
+      if(!w) return;
+
+      const lines = w.split("\n");
 
       const chSpan = document.createElement("span");
       chSpan.className = "ch";
-      chSpan.textContent = lines[0] || "";
+      chSpan.textContent = lines[0];
       b.appendChild(chSpan);
 
       if(lines[1]){
@@ -37,13 +41,10 @@ export const UI = {
     });
   },
 
+  // fase de juego: mostrar solo números en los botones
   showNumbers(container){
     [...container.children].forEach((b, i) => {
-      b.innerHTML = "";
-      const ch = b.querySelector(".ch")?.textContent || "";
-      const pin = b.querySelector(".pin")?.textContent || "";
-      // Mostrar solo el número, manteniendo info interna para pinyin si quieres
-      b.textContent = i + 1;
+      b.innerHTML = i + 1;
     });
   },
 
@@ -71,6 +72,22 @@ export const UI = {
     }
   }
 };
+
+/* =========================
+   FUNCIONES AUXILIARES
+========================= */
+
+// Formatear palabra según idioma y pinyin
+export function formatWord(word, vocabRaw = [], showPinyin = Settings.data.showPinyin){
+  if(!word) return "";
+
+  if(Settings.data.lang !== "zh") return word;
+
+  const obj = vocabRaw.find(w => w.ch === word);
+  if(!obj) return word;
+
+  return showPinyin ? `${obj.ch}\n${obj.pin}` : obj.ch;
+}
 
 /* =========================
    POPUP VOCABULARIOS

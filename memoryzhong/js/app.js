@@ -125,44 +125,52 @@ function resetGame(){
   if(disableKeyboard){ disableKeyboard(); disableKeyboard=null; }
 }
 
-function startMemPhase(){
-  memPhase=true;
-  if(btnStart) btnStart.textContent="PAUSE";
+function startMemPhase(resumeTime){
+  memPhase = true;
+  btnStart.textContent = "PAUSE";
 
   Game.start(vocab, Settings.data.numwords);
-  let words=[...Game.active];
+  let words = [...Game.active];
   if(orderRandom) words.sort(()=>Math.random()-0.5);
-  UI.renderBoard(board,Settings.data.numwords);
-  UI.showWords(board,words.map(formatWord));
+  UI.renderBoard(board, Settings.data.numwords);
+  UI.showWords(board, words.map(formatWord));
 
-  let t=Settings.data.timemem;
-  const total=Settings.data.timemem;
+  // si resumeTime está definido, continuamos desde ahí
+  let t = resumeTime ?? Settings.data.timemem;
+  const total = Settings.data.timemem;
   if(memProgress) memProgress.classList.add("active");
-  memInterval=setInterval(()=>{
-    if(!running) return;
-     t--;
-    if(timerEl) timerEl.textContent=`Mem: ${t}s`;
-    if(memBar) memBar.style.width=`${((total-t)/total)*100}%`;
-    if(t<=0){
-      clearInterval(memInterval); memInterval=null;
-      memPhase=false;
+
+  memInterval = setInterval(() => {
+    if(!running) return; // respeta pausa
+    t--;
+    if(timerEl) timerEl.textContent = `Mem: ${t}s`;
+    if(memBar) memBar.style.width = `${((total - t)/total)*100}%`;
+    if(t <= 0){
+      clearInterval(memInterval);
+      memInterval = null;
+      memPhase = false;
       UI.showNumbers(board);
-      if(memBar) memBar.style.width="0%";
+      if(memBar) memBar.style.width = "0%";
       startRoundPhase();
     }
-  },1000);
+  }, 1000);
 }
 
-function startRoundPhase(){
-  let totalTime=Settings.data.time;
-  roundInterval=setInterval(()=>{
-    if(!running) return;
-    const mins=Math.floor(totalTime/60);
-    const secs=totalTime%60;
-    if(timerEl) timerEl.textContent=`${mins}:${secs.toString().padStart(2,'0')}`;
+function startRoundPhase(resumeTime){
+  let totalTime = resumeTime ?? Settings.data.time;
+
+  roundInterval = setInterval(() => {
+    if(!running) return; // respeta pausa
+    const mins = Math.floor(totalTime/60);
+    const secs = totalTime % 60;
+    if(timerEl) timerEl.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
     totalTime--;
-    if(totalTime<0){ clearInterval(roundInterval); roundInterval=null; }
-  },1000);
+    if(totalTime < 0){
+      clearInterval(roundInterval);
+      roundInterval = null;
+    }
+  }, 1000);
+
   nextQuestion();
 }
 
@@ -243,21 +251,25 @@ board.onclick=e=>{
 if(btnStart){
   btnStart.onclick = () => {
     if(!running){
-      // START
+      // REANUDAR
       running = true;
       btnStart.textContent = "PAUSE";
-      if(memPhase){
-        // reanudar memPhase si estaba pausado
-        startMemPhase(); 
+
+      if(memPhase && memInterval){
+        // ya está corriendo, solo sigue
+      } else if(memPhase && !memInterval){
+        // estaba en pausa, reanudar desde tiempo restante
+        startMemPhase(parseInt(timerEl.textContent.replace(/\D/g,'')));
       } else {
-        startMemPhase(); // iniciar desde cero
+        // iniciar desde cero
+        startMemPhase();
       }
+
     } else {
-      // PAUSE
+      // PAUSAR
       running = false;
-      clearTimers(); // detener intervalos
       btnStart.textContent = "START";
-      // opcional: mantener tablero visible pero congelar reloj y botones
+      // no hacemos clearTimers() para permitir reanudar
     }
   };
 }

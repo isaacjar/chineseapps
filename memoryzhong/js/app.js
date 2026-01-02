@@ -42,6 +42,8 @@ let roundInterval = null;
 let currentWordIndex = null;
 let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
+let pendingWords = [];
+let totalScore = 0;
 
 /* =========================
    VOCABULARY SOURCES
@@ -70,7 +72,6 @@ async function loadIndex(lang){
 async function loadVoclist(lang, filename){
   const base = VOC_SOURCES[lang].base;
   let url;
-
   if(lang === "zh"){
     url = `${base}${filename}.json`;
     const list = await fetch(url).then(r => r.json());
@@ -115,23 +116,16 @@ function formatWord(word){
 ========================= */
 function adjustBoardLayout(){
   const n = Settings.data.numwords;
-
-  let cols;
-  if(n <= 6) cols = 3;
-  else if(n <= 9) cols = 3;
-  else if(n <= 12) cols = 4;
-  else if(n <= 16) cols = 4;
-  else if(n <= 20) cols = 5;
-  else cols = 6;
-
-  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  let cols = Math.min(6, Math.ceil(Math.sqrt(n)));
+  board.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
 
   const rows = Math.ceil(n / cols);
   const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
-  const btnHeight = Math.floor(maxHeight / rows);
+  const btnHeight = Math.floor(maxHeight / rows * 1.75); // 75% más
 
   [...board.children].forEach(btn => {
     btn.style.height = `${btnHeight}px`;
+    btn.style.maxWidth = "350px";
   });
 }
 
@@ -144,6 +138,8 @@ function resetGame(){
   currentWordIndex = null;
   memTimeLeft = Settings.data.timemem;
   roundTimeLeft = Settings.data.time;
+  totalScore = 0;
+  pendingWords = [];
 
   UI.renderBoard(board, Settings.data.numwords);
   adjustBoardLayout();
@@ -197,6 +193,7 @@ function startRoundPhase(resumeTime){
   if(Game.active.length === 0) return;
 
   roundTimeLeft = resumeTime ?? roundTimeLeft;
+  pendingWords = [...Game.active];
 
   roundInterval = setInterval(() => {
     if(!running) return;
@@ -204,15 +201,25 @@ function startRoundPhase(resumeTime){
     const secs = roundTimeLeft % 60;
     timerEl.textContent = `${mins}:${secs.toString().padStart(2,"0")}`;
     roundTimeLeft--;
+    if(roundTimeLeft < 0){
+      clearInterval(roundInterval);
+      UI.showGameOverPopup(totalScore);
+    }
   }, 1000);
 
-  nextQuestion(currentWordIndex);
+  nextQuestion();
 }
 
-function nextQuestion(index = null){
-  const word = index !== null ? Game.active[index] : Game.pickTarget();
-  currentWordIndex = index !== null ? index : Game.targetIndex;
+function nextQuestion(){
+  if(pendingWords.length === 0){
+    clearInterval(roundInterval);
+    UI.showVictoryPopup(totalScore, () => resetGame());
+    return;
+  }
 
+  const randIdx = Math.floor(Math.random() * pendingWords.length);
+  currentWordIndex = Game.active.indexOf(pendingWords[randIdx]);
+  const word = pendingWords[randIdx];
   wordBox.textContent = formatWord(word);
 
   if(disableKeyboard) disableKeyboard();
@@ -221,42 +228,28 @@ function nextQuestion(index = null){
 
 function handleAnswer(index){
   if(memPhase || !running) return;
-
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn || btn.classList.contains("disabled")) return;
 
-  // palabra actual (ANTES de hacer check)
-  const word = Game.active[Game.targetIndex];
+  const targetWord = Game.active[currentWordIndex];
 
   if(Game.check(index)){
-    // marcar botón como correcto y definitivo
-    btn.classList.add("correct", "disabled");
+    UI.markCorrect(btn, targetWord, vocabRaw, currentLang);
+    pendingWords = pendingWords.filter(w => w !== targetWord);
+    totalScore += roundTimeLeft;
 
-    // sustituir número por palabra
-    btn.innerHTML = `
-      <span class="ch">${word}</span>
-      ${
-        currentLang === "zh" && Settings.data.showPinyin
-          ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
-          : ""
-      }
-    `;
+    UI.playSound("correct");
 
-    // siguiente palabra o fin
-    if(Game.isFinished()){
-      setTimeout(resetGame, 600);
+    if(pendingWords.length === 0){
+      clearInterval(roundInterval);
+      UI.showVictoryPopup(totalScore, () => resetGame());
     } else {
       nextQuestion();
     }
-
   } else {
-    // fallo → todo en rojo y reset
-    [...board.children].forEach((b, i) => {
-      b.classList.add("wrong");
-      b.textContent = i + 1;
-    });
-
-    setTimeout(resetGame, 900);
+    UI.markWrong(board);
+    UI.playSound("wrong");
+    setTimeout(() => resetGame(), 900);
   }
 }
 
@@ -282,7 +275,7 @@ if(btnStart){
       else startRoundPhase(roundTimeLeft);
     } else {
       running = false;
-      btnStart.textContent = "START";
+      btnStart.textContent = "RESUME";
     }
   };
 }

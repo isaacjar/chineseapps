@@ -17,23 +17,18 @@ export const UI = {
     [...container.children].forEach((b, i) => {
       b.innerHTML = "";
       const w = words[i] || "";
-
       if(!w) return;
-
       const lines = w.split("\n");
-
       const chSpan = document.createElement("span");
       chSpan.className = "ch";
       chSpan.textContent = lines[0];
       b.appendChild(chSpan);
-
       if(lines[1]){
         const pinSpan = document.createElement("span");
         pinSpan.className = "pin";
         pinSpan.textContent = lines[1];
         b.appendChild(pinSpan);
       }
-
       b.classList.add("fade-in");
       setTimeout(() => b.classList.remove("fade-in"), 300);
     });
@@ -48,7 +43,6 @@ export const UI = {
 
   markCorrect(button, word, showPinyin = true, vocabRaw = []){
     if(!button) return;
-
     button.classList.add("correct", "disabled");
     button.innerHTML = `
       <span class="ch">${word}</span>
@@ -80,7 +74,6 @@ export const UI = {
   celebrate(buttons){
     buttons.forEach(b => b.classList.add("jump"));
     setTimeout(() => buttons.forEach(b => b.classList.remove("jump")), 300);
-
     const confettiCount = 30;
     for(let i = 0; i < confettiCount; i++){
       const c = document.createElement("div");
@@ -96,7 +89,6 @@ export const UI = {
   showVictoryPopup(score, onReplay){
     const modal = document.createElement("div");
     modal.className = "modal";
-
     const box = document.createElement("div");
     box.className = "modal-content";
     box.innerHTML = `
@@ -104,10 +96,8 @@ export const UI = {
       <p>Puntuación: <b>${score}</b></p>
       <button id="btnReplay">Otra partida</button>
     `;
-
     modal.appendChild(box);
     document.body.appendChild(modal);
-
     box.querySelector("#btnReplay").onclick = () => {
       modal.remove();
       onReplay?.();
@@ -121,24 +111,23 @@ export const UI = {
     if(audio) audio.play();
   },
 
-  /* =========================
-     Barra de progreso dinámica
-     phase: "mem" o "round"
-     value: segundos transcurridos
-     total: total de segundos de la fase
-  ========================= */
-  updateProgress(barEl, phase, value, total){
-    if(!barEl) return;
-    const percent = Math.min(100, Math.max(0, (value/total)*100));
-    barEl.style.width = percent + "%";
+  updateProgress(bar, type, value, total){
+    if(!bar) return;
+    const pct = Math.max(0, Math.min(100, (value / total) * 100));
+    bar.classList.remove("mem-phase","round-phase");
+    bar.classList.add(type === "mem" ? "mem-phase" : "round-phase");
+    bar.style.transition = "width 0.3s linear";
+    bar.style.width = pct + "%";
+  },
 
-    if(phase === "mem"){
-      barEl.classList.add("mem-phase");
-      barEl.classList.remove("round-phase");
-    } else {
-      barEl.classList.add("round-phase");
-      barEl.classList.remove("mem-phase");
-    }
+  resetProgress(bar, callback){
+    if(!bar) return;
+    bar.style.transition = "width 0.5s linear";
+    bar.style.width = "0%";
+    setTimeout(() => {
+      bar.classList.remove("mem-phase","round-phase");
+      callback?.();
+    }, 500);
   }
 };
 
@@ -147,12 +136,9 @@ export const UI = {
 ========================= */
 export function formatWord(word, vocabRaw = [], showPinyin = Settings.data.showPinyin){
   if(!word) return "";
-
   if(Settings.data.lang !== "zh") return word;
-
   const obj = vocabRaw.find(w => w.ch === word);
   if(!obj) return word;
-
   return showPinyin ? `${obj.ch}\n${obj.pin}` : obj.ch;
 }
 
@@ -162,13 +148,10 @@ export function formatWord(word, vocabRaw = [], showPinyin = Settings.data.showP
 export function showVoclistPopup(lists, onSelect){
   const modal = document.createElement("div");
   modal.className = "modal";
-
   const box = document.createElement("div");
   box.className = "modal-content";
   box.innerHTML = `<h2>📚 Selecciona vocabulario</h2><div class="voclist-container"></div>`;
-
   const listContainer = box.querySelector(".voclist-container");
-
   lists.forEach(l => {
     const btn = document.createElement("button");
     btn.className = "card-btn";
@@ -179,7 +162,6 @@ export function showVoclistPopup(lists, onSelect){
     };
     listContainer.appendChild(btn);
   });
-
   modal.appendChild(box);
   document.body.appendChild(modal);
 }
@@ -190,19 +172,16 @@ export function showVoclistPopup(lists, onSelect){
 export function showSettingsPopup(onClose){
   const modal = document.createElement("div");
   modal.className = "modal";
-
   const box = document.createElement("div");
   box.className = "modal-content";
   box.innerHTML = `
     <h2>⚙️ Opciones</h2>
-
     <label>Idioma de juego</label>
     <select id="optLang">
       <option value="es">Español</option>
       <option value="en">English</option>
       <option value="zh">中文</option>
     </select>
-
     <div id="pinyin-option">
       <span>拼音 (Pinyin)</span>
       <label class="switch">
@@ -210,33 +189,26 @@ export function showSettingsPopup(onClose){
         <span class="slider"></span>
       </label>
     </div>
-
     <label>Número de palabras: <span id="nwVal"></span></label>
     <input type="range" id="optNumWords" min="4" max="25">
-
     <label>Segundos memorización: <span id="tmVal"></span></label>
     <input type="range" id="optTimeMem" min="5" max="60">
-
     <label><input type="checkbox" id="optOrderRandom"> Orden aleatorio</label>
-
     <label>Tiempo de juego</label>
     <div class="time-row">
       <input type="number" id="minGame" min="0" max="10"> :
       <input type="number" id="secGame" min="0" max="59">
     </div>
-
     <hr>
     <h3>📊 Estadísticas</h3>
     <p>Partidas jugadas: <b>${Settings.data.stats.played}</b></p>
     <p>Partidas ganadas: <b>${Settings.data.stats.won}</b></p>
-
     <div class="actions">
       <button id="btnSave">💾 Guardar</button>
       <button id="btnReset">🔄 Reset</button>
       <button id="btnCancel">❌ Cancelar</button>
     </div>
   `;
-
   modal.appendChild(box);
   document.body.appendChild(modal);
 
@@ -244,7 +216,7 @@ export function showSettingsPopup(onClose){
   const pinyinRow = box.querySelector("#pinyin-option");
   const pinyinToggle = box.querySelector("#togglePinyin");
 
-  function updatePinyinVisibility(){
+    function updatePinyinVisibility(){
     if(langSelect.value === "zh"){
       pinyinRow.style.display = "flex";
       pinyinToggle.checked = Settings.data.showPinyin ?? true;
@@ -269,6 +241,9 @@ export function showSettingsPopup(onClose){
   const secs = Settings.data.time % 60;
   box.querySelector("#minGame").value = mins;
   box.querySelector("#secGame").value = secs;
+
+  nw.oninput = () => box.querySelector("#nwVal").textContent = nw.value;
+  tm.oninput = () => box.querySelector("#tmVal").textContent = tm.value;
 
   box.querySelector("#btnSave").onclick = () => {
     Settings.data.lang = langSelect.value;

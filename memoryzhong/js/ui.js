@@ -4,7 +4,7 @@ import { Settings } from "./settings.js";
 
 export const UI = {
   renderBoard(container,count){container.innerHTML="";for(let i=0;i<count;i++){const b=document.createElement("button");b.className="card-btn fade-in";b.dataset.index=i;container.appendChild(b);}},
-  showWords(container,words){[...container.children].forEach((b,i)=>{b.textContent=words[i];});},
+  showWords(container,words){ [...container.children].forEach((b,i)=>{ const w=words[i]; if(typeof w==="string"){ b.innerHTML=w.replace(/\n(.+)/,'<span class="pinyin">$1</span>'); } }); },
   showNumbers(container){[...container.children].forEach((b,i)=>{b.textContent=i+1;});},
   toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000);},
   celebrate(buttons){buttons.forEach(b=>b.classList.add("jump"));setTimeout(()=>buttons.forEach(b=>b.classList.remove("jump")),300);const confettiCount=30;for(let i=0;i<confettiCount;i++){const c=document.createElement("div");c.className="confetti";c.style.left=Math.random()*100+"%";c.style.background=`hsl(${Math.random()*360},70%,70%)`;c.style.animationDuration=0.6+Math.random()*0.4+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),1000);}}

@@ -26,7 +26,7 @@ export const UI = {
       b.classList.add("fade-in");
       setTimeout(()=>b.classList.remove("fade-in"),300);
     });
-  }
+  },
   
   showNumbers(container){[...container.children].forEach((b,i)=>{b.textContent=i+1;});},
   toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000);},

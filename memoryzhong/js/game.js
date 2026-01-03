@@ -1,34 +1,81 @@
 // game.js
 
 export const Game = {
-  active: [],          // lista de palabras activas en la partida
-  targetIndex: null,   // índice actual a adivinar
+  active: [],            // palabras activas (orden del tablero)
+  targetIndex: null,     // índice actual que hay que acertar
+  solved: [],            // índices ya acertados (orden de la secuencia)
+  sequence: [],          // secuencia de índices a preguntar
+  seqPos: 0,             // posición actual en la secuencia
 
+  /* =========================
+     INICIO DE PARTIDA
+  ========================= */
   start(vocab, num){
-    // Copiar vocab y tomar num palabras
     this.active = [...vocab].slice(0, num);
-    this.targetIndex = null; // se asignará al iniciar la ronda
+    this.resetProgress();
   },
 
-  pickRandomTarget(exclude = []){
-    // Devuelve un índice aleatorio de las palabras no acertadas
-    const available = this.active.map((_, i) => i).filter(i => !exclude.includes(i));
-    if(available.length === 0) return null;
-    return available[Math.floor(Math.random() * available.length)];
+  /* =========================
+     SECUENCIA DE PREGUNTAS
+     random => solo afecta al orden
+  ========================= */
+  buildSequence(random = false){
+    this.sequence = this.active.map((_, i) => i);
+
+    if(random){
+      for(let i = this.sequence.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.sequence[i], this.sequence[j]] =
+        [this.sequence[j], this.sequence[i]];
+      }
+    }
+
+    this.seqPos = 0;
+    this.targetIndex = this.sequence[0] ?? null;
   },
 
+  /* =========================
+     SIGUIENTE PREGUNTA
+  ========================= */
+  nextTarget(){
+    if(this.seqPos >= this.sequence.length){
+      this.targetIndex = null;
+      return null;
+    }
+
+    this.targetIndex = this.sequence[this.seqPos];
+    return this.targetIndex;
+  },
+
+  /* =========================
+     COMPROBACIÓN
+  ========================= */
   check(buttonIndex){
-    // Comprobación estricta por índice
     if(buttonIndex === this.targetIndex){
-      this.targetIndex = null; // reseteamos target tras acierto
+      this.solved.push(this.targetIndex);
+      this.seqPos++;
+      this.nextTarget();
       return true;
     }
     return false;
   },
 
-  isFinished(correctIndices = []){
-    // Termina si todas las palabras han sido acertadas
-    return correctIndices.length >= this.active.length;
+  /* =========================
+     ESTADO
+  ========================= */
+  isFinished(){
+    return this.solved.length >= this.active.length;
+  },
+
+  /* =========================
+     REINICIO TRAS FALLO
+     (sin tocar tablero)
+  ========================= */
+  resetProgress(){
+    this.solved = [];
+    this.sequence = [];
+    this.seqPos = 0;
+    this.targetIndex = null;
   }
 };
 

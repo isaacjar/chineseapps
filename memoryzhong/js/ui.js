@@ -63,11 +63,19 @@ export const UI = {
     UI.playSound("wrong");
   },
 
-  showNumbers(container){
-    [...container.children].forEach((b, i) => {
-      b.innerHTML = i + 1;
-      b.classList.remove("wrong","correct","disabled","jump");
-    });
+  markSingleWrong(button, word, showPinyin = true, vocabRaw = []){
+    if(!button) return;
+  
+    button.classList.add("wrong", "disabled");
+    button.innerHTML = `
+      <span class="ch">${word}</span>
+      ${
+        Settings.data.lang === "zh" && showPinyin
+          ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
+          : ""
+      }
+    `;
+    UI.playSound("wrong");
   },
 
   toast(msg){
@@ -275,21 +283,6 @@ export function showSettingsPopup(onClose){
   };
 
   box.querySelector("#btnCancel").onclick = () => modal.remove();
-}
-
-markSingleWrong(button, word, showPinyin = true, vocabRaw = []){
-  if(!button) return;
-
-  button.classList.add("wrong", "disabled");
-  button.innerHTML = `
-    <span class="ch">${word}</span>
-    ${
-      Settings.data.lang === "zh" && showPinyin
-        ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
-        : ""
-    }
-  `;
-  UI.playSound("wrong");
 }
 
 /* =========================

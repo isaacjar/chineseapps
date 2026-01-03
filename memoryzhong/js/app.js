@@ -229,8 +229,9 @@ function nextQuestion(){
   if(Game.isFinished()) return endGame(true);
 
   const remaining = Game.getRemainingIndices(orderRandom);
+  if(!remaining.length) return;
   const idx = remaining[0];
-
+   
   Game.targetIndex = idx;
   wordBox.textContent = formatWord(Game.active[idx]);
 
@@ -248,14 +249,16 @@ function handleAnswer(index){
     UI.markCorrect(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
     nextQuestion();
   } else {
-    UI.markWrong(board);
+     UI.markWrong(board);
+   
+     setTimeout(() => {
+       UI.showNumbers(board);
+       Game.resetProgress();
+       Game.buildSequence(orderRandom);
+       nextQuestion();
+     }, 700);
+   }
 
-    setTimeout(() => {
-      UI.showNumbers(board);
-      Game.resetProgress();
-      nextQuestion();
-    }, 700);
-  }
 }
 
 function endGame(victory){

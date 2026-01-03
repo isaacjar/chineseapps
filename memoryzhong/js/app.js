@@ -25,7 +25,6 @@ const wordBox = document.getElementById("wordBox");
 const timerEl = document.getElementById("timer");
 const btnStart = document.getElementById("btnStart");
 const memBar = document.querySelector(".mem-bar");
-const memProgress = document.querySelector(".mem-progress");
 
 /* =========================
    STATE
@@ -33,17 +32,22 @@ const memProgress = document.querySelector(".mem-progress");
 let vocab = [];
 let vocabRaw = [];
 let currentLang = Settings.data.lang || "zh";
-let disableKeyboard = null;
-let memPhase = false;
+
 let running = false;
-let orderRandom = Settings.data.showOrdered !== true;
+let memPhase = false;
+
+let disableKeyboard = null;
+
 let memInterval = null;
 let roundInterval = null;
 
 let memTimeLeft = Settings.data.timemem;
 let roundTimeLeft = Settings.data.time;
-let roundStartTime = null;
+
 let score = 0;
+
+// 🔀 solo afecta a preguntas
+const orderRandom = Settings.data.orderRandom === true;
 
 /* =========================
    VOCABULARY SOURCES
@@ -130,10 +134,10 @@ function adjustBoardLayout(){
 
   const rows = Math.ceil(n / cols);
   const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
-  const btnHeight = Math.floor(maxHeight / rows * 1.75); // 75% más alto
+  const btnHeight = Math.floor(maxHeight / rows * 1.75);
 
   [...board.children].forEach(btn => {
-    btn.style.height = `${Math.min(btnHeight,350)}px`; // máximo 350px
+    btn.style.height = `${Math.min(btnHeight,350)}px`;
   });
 }
 
@@ -144,51 +148,53 @@ function resetGame(){
   running = false;
   memPhase = false;
   score = 0;
+
   memTimeLeft = Settings.data.timemem;
   roundTimeLeft = Settings.data.time;
-  roundStartTime = null;
+
+  clearInterval(memInterval);
+  clearInterval(roundInterval);
+  memInterval = null;
+  roundInterval = null;
 
   UI.renderBoard(board, Settings.data.numwords);
   adjustBoardLayout();
 
   wordBox.textContent = "";
   timerEl.textContent = "";
-  if(memBar) UI.updateProgress(memBar,"mem",0,1);
-  if(btnStart) btnStart.textContent = "START";
-  if(disableKeyboard){ disableKeyboard(); disableKeyboard = null; }
+  if(memBar) memBar.style.width = "0%";
+
+  btnStart.textContent = "START";
+
+  if(disableKeyboard){
+    disableKeyboard();
+    disableKeyboard = null;
+  }
 }
 
-function startMemPhase(resumeTime){
+function startMemPhase(){
   memPhase = true;
   btnStart.textContent = "PAUSE";
 
-  if(!memInterval){
-    Game.start(vocab, Settings.data.numwords);
+  Game.start(vocab, Settings.data.numwords);
 
-    let words = [...Game.active];
-    if(orderRandom) words.sort(() => Math.random() - 0.5);
+  UI.renderBoard(board, Settings.data.numwords);
+  adjustBoardLayout();
+  UI.showWords(board, Game.active.map(formatWord));
 
-    UI.renderBoard(board, Settings.data.numwords);
-    adjustBoardLayout();
-    UI.showWords(board, words.map(formatWord));
-  }
-
-  memTimeLeft = resumeTime ?? memTimeLeft;
   const total = Settings.data.timemem;
 
   memInterval = setInterval(() => {
     if(!running) return;
+
     memTimeLeft--;
     timerEl.textContent = `Mem: ${memTimeLeft}s`;
-    if(memBar) UI.updateProgress(memBar,"mem",total-memTimeLeft,total);
+    if(memBar) memBar.style.width = `${((total - memTimeLeft)/total)*100}%`;
 
     if(memTimeLeft <= 0){
       clearInterval(memInterval);
       memInterval = null;
       memPhase = false;
-
-      // 🔹 reemplazo de UI.resetProgress
-      if(memBar) memBar.style.width = "0%";
 
       UI.showNumbers(board);
       adjustBoardLayout();
@@ -197,27 +203,23 @@ function startMemPhase(resumeTime){
   },1000);
 }
 
-function startRoundPhase(resumeTime){
+function startRoundPhase(){
   if(Game.active.length === 0) return;
 
-  roundTimeLeft = resumeTime ?? roundTimeLeft;
-  roundStartTime = Date.now();
-
   if(roundInterval) clearInterval(roundInterval);
+
   roundInterval = setInterval(() => {
     if(!running) return;
 
     roundTimeLeft--;
     if(roundTimeLeft <= 0){
       clearInterval(roundInterval);
-      roundInterval = null;
       endGame(false);
     }
 
     const mins = Math.floor(roundTimeLeft/60);
     const secs = roundTimeLeft % 60;
     timerEl.textContent = `${mins}:${secs.toString().padStart(2,"0")}`;
-    if(memBar) UI.updateProgress(memBar,"round",roundTimeLeft,Settings.data.time);
   },1000);
 
   nextQuestion();
@@ -226,14 +228,11 @@ function startRoundPhase(resumeTime){
 function nextQuestion(){
   if(Game.isFinished()) return endGame(true);
 
-  const remainingIndices = [...board.children].map((b,i)=>i).filter(i => !board.children[i].classList.contains("correct"));
-  if(remainingIndices.length === 0) return endGame(true);
+  const remaining = Game.getRemainingIndices(orderRandom);
+  const idx = remaining[0];
 
-  const idx = remainingIndices[Math.floor(Math.random()*remainingIndices.length)];
   Game.targetIndex = idx;
-
-  const word = Game.active[idx];
-  wordBox.textContent = formatWord(word);
+  wordBox.textContent = formatWord(Game.active[idx]);
 
   if(disableKeyboard) disableKeyboard();
   disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
@@ -245,17 +244,17 @@ function handleAnswer(index){
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn || btn.classList.contains("disabled")) return;
 
-  const targetWord = Game.active[Game.targetIndex];
-
   if(Game.check(index)){
-    UI.markCorrect(btn, targetWord, Settings.data.showPinyin, vocabRaw);
+    UI.markCorrect(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
     nextQuestion();
   } else {
     UI.markWrong(board);
+
     setTimeout(() => {
-      resetGame();
-      startMemPhase(memTimeLeft);
-    },900);
+      UI.showNumbers(board);
+      Game.resetProgress();
+      nextQuestion();
+    }, 700);
   }
 }
 
@@ -264,12 +263,11 @@ function endGame(victory){
   clearInterval(roundInterval);
 
   if(victory){
-    const timeLeft = roundTimeLeft;
-    score = Math.floor(timeLeft * 10); // ejemplo puntuación
+    score = Math.floor(roundTimeLeft * 10);
     Settings.data.stats.played++;
     Settings.data.stats.won++;
     Settings.save();
-    UI.showVictoryPopup(score, () => resetGame());
+    UI.showVictoryPopup(score, resetGame);
   } else {
     Settings.data.stats.played++;
     Settings.save();
@@ -288,21 +286,18 @@ board.onclick = e => {
 /* =========================
    START / PAUSE
 ========================= */
-if(btnStart){
-  btnStart.onclick = () => {
-    if(!running){
-      running = true;
-      btnStart.textContent = "PAUSE";
-
-      if(memPhase) startMemPhase(memTimeLeft);
-      else if(roundStartTime) startRoundPhase(roundTimeLeft);
-      else startMemPhase(memTimeLeft);
-    } else {
-      running = false;
-      btnStart.textContent = "RESUME";
-    }
-  };
-}
+btnStart.onclick = () => {
+  if(!running){
+    running = true;
+    btnStart.textContent = "PAUSE";
+    if(memPhase) return;
+    if(roundInterval) return;
+    startMemPhase();
+  } else {
+    running = false;
+    btnStart.textContent = "RESUME";
+  }
+};
 
 /* =========================
    INIT

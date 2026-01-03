@@ -277,6 +277,21 @@ export function showSettingsPopup(onClose){
   box.querySelector("#btnCancel").onclick = () => modal.remove();
 }
 
+markSingleWrong(button, word, showPinyin = true, vocabRaw = []){
+  if(!button) return;
+
+  button.classList.add("wrong", "disabled");
+  button.innerHTML = `
+    <span class="ch">${word}</span>
+    ${
+      Settings.data.lang === "zh" && showPinyin
+        ? `<span class="pin">${vocabRaw.find(w => w.ch === word)?.pin || ""}</span>`
+        : ""
+    }
+  `;
+  UI.playSound("wrong");
+}
+
 /* =========================
    TECLADO
 ========================= */

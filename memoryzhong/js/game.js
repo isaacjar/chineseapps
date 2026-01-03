@@ -11,13 +11,14 @@ export const Game = {
      INICIO DE PARTIDA
   ========================= */
   start(vocab, num){
+    // Elegir aleatoriamente 'num' palabras del vocabulario completo
     const shuffled = [...vocab].sort(() => Math.random() - 0.5);
     this.active = shuffled.slice(0, num);
     this.resetProgress();
   },
 
   /* =========================
-     SECUENCIA DE PREGUNTAS
+     CONSTRUIR SECUENCIA DE PREGUNTAS
      random => solo afecta al orden
   ========================= */
   buildSequence(random = false){
@@ -26,8 +27,7 @@ export const Game = {
     if(random){
       for(let i = this.sequence.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * (i + 1));
-        [this.sequence[i], this.sequence[j]] =
-        [this.sequence[j], this.sequence[i]];
+        [this.sequence[i], this.sequence[j]] = [this.sequence[j], this.sequence[i]];
       }
     }
 
@@ -77,6 +77,18 @@ export const Game = {
     this.sequence = [];
     this.seqPos = 0;
     this.targetIndex = null;
+  },
+
+  /* =========================
+     OBTENER ÍNDICES RESTANTES (para app.js)
+     random => si true devuelve en orden aleatorio
+  ========================= */
+  getRemainingIndices(random = false){
+    const remaining = this.sequence.slice(this.seqPos);
+    if(random){
+      return remaining.sort(() => Math.random() - 0.5);
+    }
+    return remaining;
   }
 };
 

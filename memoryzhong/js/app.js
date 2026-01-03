@@ -231,15 +231,21 @@ function startRoundPhase(){
 function nextQuestion(){
   if(Game.isFinished()) return endGame(true);
 
-  const remaining = Game.getRemainingIndices(orderRandom);
+  /*const remaining = Game.getRemainingIndices(orderRandom);
   if(!remaining.length) return;
   const idx = remaining[0];
+  Game.targetIndex = idx;*/
    
-  Game.targetIndex = idx;
+  const idx = Game.nextTarget();
+  if(idx == null) return;
+
   wordBox.textContent = formatWord(Game.active[idx]);
 
   if(disableKeyboard) disableKeyboard();
-  disableKeyboard = enableKeyboardInput(Settings.data.numwords, handleAnswer);
+  disableKeyboard = enableKeyboardInput(
+    Settings.data.numwords,
+    handleAnswer
+  );
 }
 
 function handleAnswer(index){
@@ -264,11 +270,7 @@ function handleAnswer(index){
      setTimeout(() => {
        UI.showNumbers(board);
        Game.resetProgress();
-   
-       if(orderRandom){
-         Game.buildSequence(); // 🔀 solo si está activado
-       }
-   
+       Game.buildSequence(orderRandom);
        nextQuestion(); // 🔁 empieza desde el principio
      }, 1000);
    }

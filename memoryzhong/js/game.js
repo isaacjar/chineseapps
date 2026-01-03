@@ -74,9 +74,8 @@ export const Game = {
   ========================= */
   resetProgress(){
     this.solved = [];
-    this.sequence = [];
     this.seqPos = 0;
-    this.targetIndex = null;
+    this.targetIndex = this.sequence[0] ?? null;
   },
 
   /* =========================

@@ -37,7 +37,7 @@ export const UI = {
   showNumbers(container){
     [...container.children].forEach((b, i) => {
       b.innerHTML = i + 1;
-      b.classList.remove("wrong","correct","disabled");
+      b.classList.remove("wrong","correct","disabled","jump");
     });
   },
 
@@ -61,6 +61,13 @@ export const UI = {
       b.textContent = i + 1;
     });
     UI.playSound("wrong");
+  },
+
+  showNumbers(container){
+    [...container.children].forEach((b, i) => {
+      b.innerHTML = i + 1;
+      b.classList.remove("wrong","correct","disabled","jump");
+    });
   },
 
   toast(msg){

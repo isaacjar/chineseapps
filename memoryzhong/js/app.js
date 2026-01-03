@@ -252,16 +252,26 @@ function handleAnswer(index){
     UI.markCorrect(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
     nextQuestion();
   } else {
-     UI.markWrong(board);
+     const wrongWord = Game.active[index];
+   
+     UI.markSingleWrong(
+       btn,
+       wrongWord,
+       Settings.data.showPinyin,
+       vocabRaw
+     );
    
      setTimeout(() => {
        UI.showNumbers(board);
        Game.resetProgress();
-       Game.buildSequence(orderRandom);
-       nextQuestion();
-     }, 700);
+   
+       if(orderRandom){
+         Game.buildSequence(); // 🔀 solo si está activado
+       }
+   
+       nextQuestion(); // 🔁 empieza desde el principio
+     }, 1000);
    }
-
 }
 
 function endGame(victory){

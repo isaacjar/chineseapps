@@ -206,6 +206,9 @@ function startMemPhase(){
 function startRoundPhase(){
   if(Game.active.length === 0) return;
 
+  // 🔹 construir secuencia de preguntas
+  Game.buildSequence(orderRandom);
+
   if(roundInterval) clearInterval(roundInterval);
 
   roundInterval = setInterval(() => {

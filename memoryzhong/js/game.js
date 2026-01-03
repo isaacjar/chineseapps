@@ -11,7 +11,8 @@ export const Game = {
      INICIO DE PARTIDA
   ========================= */
   start(vocab, num){
-    this.active = [...vocab].slice(0, num);
+    const shuffled = [...vocab].sort(() => Math.random() - 0.5);
+    this.active = shuffled.slice(0, num);
     this.resetProgress();
   },
 

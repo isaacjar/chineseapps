@@ -270,7 +270,7 @@ function handleAnswer(index){
      setTimeout(() => {
        UI.showNumbers(board);
        Game.resetProgress();
-       Game.buildSequence(orderRandom);
+       //Game.buildSequence(orderRandom);
        nextQuestion(); // 🔁 empieza desde el principio
      }, 1000);
    }

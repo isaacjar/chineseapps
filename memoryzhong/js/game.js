@@ -21,16 +21,16 @@ export const Game = {
      CONSTRUIR SECUENCIA DE PREGUNTAS
      random => solo afecta al orden
   ========================= */
-  buildSequence(random = false){
+  buildSequence(){
     this.sequence = this.active.map((_, i) => i);
-
-    if(random){
-      for(let i = this.sequence.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [this.sequence[i], this.sequence[j]] = [this.sequence[j], this.sequence[i]];
-      }
+  
+    // 🔀 siempre aleatoria al construir
+    for(let i = this.sequence.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.sequence[i], this.sequence[j]] =
+      [this.sequence[j], this.sequence[i]];
     }
-
+  
     this.seqPos = 0;
     this.targetIndex = this.sequence[0] ?? null;
   },

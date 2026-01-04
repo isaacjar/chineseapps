@@ -24,6 +24,7 @@ const board = document.getElementById("board");
 const wordBox = document.getElementById("wordBox");
 const timerEl = document.getElementById("timer");
 const btnStart = document.getElementById("btnStart");
+const btnNew = document.getElementById("btnNew");
 const memBar = document.querySelector(".mem-bar");
 
 /* =========================
@@ -35,6 +36,7 @@ let currentLang = Settings.data.lang || "zh";
 
 let running = false;
 let memPhase = false;
+let confirmNew = false;
 
 let disableKeyboard = null;
 
@@ -117,36 +119,12 @@ function formatWord(word){
 }
 
 /* =========================
-   BOARD AUTO LAYOUT
-========================= */
-function adjustBoardLayout(){
-  const n = Settings.data.numwords;
-
-  let cols;
-  if(n <= 6) cols = 3;
-  else if(n <= 9) cols = 3;
-  else if(n <= 12) cols = 4;
-  else if(n <= 16) cols = 4;
-  else if(n <= 20) cols = 5;
-  else cols = 6;
-
-  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-  const rows = Math.ceil(n / cols);
-  const maxHeight = Math.min(420, board.clientWidth / cols * 1.1);
-  const btnHeight = Math.floor(maxHeight / rows * 1.75);
-
-  [...board.children].forEach(btn => {
-    btn.style.height = `${Math.min(btnHeight,350)}px`;
-  });
-}
-
-/* =========================
    GAME FLOW
 ========================= */
 function resetGame(){
   running = false;
   memPhase = false;
+  confirmNew = false;
   score = 0;
 
   memTimeLeft = Settings.data.timemem;
@@ -158,9 +136,7 @@ function resetGame(){
   roundInterval = null;
 
   UI.renderBoard(board, Settings.data.numwords);
-  adjustBoardLayout();
-
-  wordBox.textContent = "";
+  wordBox.textContent = "Pulsa START para comenzar el juego...";
   timerEl.textContent = "";
   if(memBar) memBar.style.width = "0%";
 
@@ -176,10 +152,10 @@ function startMemPhase(){
   memPhase = true;
   btnStart.textContent = "PAUSE";
 
-  Game.start(vocab, Settings.data.numwords);
+  wordBox.textContent = "Memoriza estas palabras";
 
+  Game.start(vocab, Settings.data.numwords);
   UI.renderBoard(board, Settings.data.numwords);
-  adjustBoardLayout();
   UI.showWords(board, Game.active.map(formatWord));
 
   const total = Settings.data.timemem;
@@ -188,7 +164,7 @@ function startMemPhase(){
     if(!running) return;
 
     memTimeLeft--;
-    timerEl.textContent = `Mem: ${memTimeLeft}s`;
+    wordBox.textContent = `Memoriza estas palabras · ${memTimeLeft}s`;
     if(memBar) memBar.style.width = `${((total - memTimeLeft)/total)*100}%`;
 
     if(memTimeLeft <= 0){
@@ -196,8 +172,8 @@ function startMemPhase(){
       memInterval = null;
       memPhase = false;
 
+      wordBox.textContent = "";
       UI.showNumbers(board);
-      adjustBoardLayout();
       startRoundPhase();
     }
   },1000);
@@ -206,10 +182,7 @@ function startMemPhase(){
 function startRoundPhase(){
   if(Game.active.length === 0) return;
 
-  // 🔹 construir secuencia de preguntas
   Game.buildSequence(orderRandom);
-
-  if(roundInterval) clearInterval(roundInterval);
 
   roundInterval = setInterval(() => {
     if(!running) return;
@@ -231,11 +204,6 @@ function startRoundPhase(){
 function nextQuestion(){
   if(Game.isFinished()) return endGame(true);
 
-  /*const remaining = Game.getRemainingIndices(orderRandom);
-  if(!remaining.length) return;
-  const idx = remaining[0];
-  Game.targetIndex = idx;*/
-   
   const idx = Game.nextTarget();
   if(idx == null) return;
 
@@ -249,7 +217,7 @@ function nextQuestion(){
 }
 
 function handleAnswer(index){
-  if(memPhase || !running) return;
+  if(memPhase || !running || confirmNew) return;
 
   const btn = document.querySelector(`.card-btn[data-index="${index}"]`);
   if(!btn || btn.classList.contains("disabled")) return;
@@ -258,22 +226,13 @@ function handleAnswer(index){
     UI.markCorrect(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
     nextQuestion();
   } else {
-     const wrongWord = Game.active[index];
-   
-     UI.markSingleWrong(
-       btn,
-       wrongWord,
-       Settings.data.showPinyin,
-       vocabRaw
-     );
-   
-     setTimeout(() => {
-       UI.showNumbers(board);
-       Game.resetProgress();
-       //Game.buildSequence(orderRandom);
-       nextQuestion(); // 🔁 empieza desde el principio
-     }, 1000);
-   }
+    UI.markSingleWrong(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
+    setTimeout(() => {
+      UI.showNumbers(board);
+      Game.resetProgress();
+      nextQuestion();
+    }, 1000);
+  }
 }
 
 function endGame(victory){
@@ -294,6 +253,33 @@ function endGame(victory){
 }
 
 /* =========================
+   NUEVO BUTTON
+========================= */
+btnNew.onclick = () => {
+  if(!running) return;
+
+  confirmNew = true;
+  running = false;
+
+  wordBox.innerHTML = `
+    ¿Desea terminar la partida en curso?<br><br>
+    <button id="newYes">Sí</button>
+    <button id="newNo">No</button>
+  `;
+
+  document.getElementById("newYes").onclick = () => {
+    confirmNew = false;
+    resetGame();
+  };
+
+  document.getElementById("newNo").onclick = () => {
+    confirmNew = false;
+    running = true;
+    nextQuestion();
+  };
+};
+
+/* =========================
    CLICK HANDLER
 ========================= */
 board.onclick = e => {
@@ -308,8 +294,7 @@ btnStart.onclick = () => {
   if(!running){
     running = true;
     btnStart.textContent = "PAUSE";
-    if(memPhase) return;
-    if(roundInterval) return;
+    if(memPhase || roundInterval) return;
     startMemPhase();
   } else {
     running = false;
@@ -320,4 +305,5 @@ btnStart.onclick = () => {
 /* =========================
    INIT
 ========================= */
+resetGame();
 selectVocabulary();

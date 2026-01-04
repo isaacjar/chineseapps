@@ -136,7 +136,7 @@ function resetGame(){
   roundInterval = null;
 
   UI.renderBoard(board, Settings.data.numwords);
-  wordBox.textContent = "Pulsa START para comenzar el juego...";
+  wordBox.textContent = "START para comenzar...";
   timerEl.textContent = "";
   if(memBar) memBar.style.width = "0%";
 

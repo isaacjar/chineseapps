@@ -45,27 +45,44 @@ const orderRandom = Settings.data.orderRandom === true;
    VOCAB SOURCES
 ========================= */
 const VOC_SOURCES = {
-  zh:{index:"https://isaacjar.github.io/chineseapps/voclists/index.js",base:"https://isaacjar.github.io/chineseapps/voclists/"},
-  es:{index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/"},
-  en:{index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/"}
+  zh:{
+    index:"https://isaacjar.github.io/chineseapps/voclists/index.js",
+    base:"https://isaacjar.github.io/chineseapps/voclists/",
+    type:"js"
+  },
+  es:{
+    index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",
+    base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/",
+    type:"js"
+  },
+  en:{
+    index:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/index.js",
+    base:"https://isaacjar.github.io/spanishapps/spanishvoc/voclists/",
+    type:"js"
+  }
 };
 
 /* =========================
    LOAD VOCAB
 ========================= */
 async function loadIndex(lang){
-  const url = VOC_SOURCES[lang].index;
-  const txt = await fetch(url).then(r => r.text());
+  const src = VOC_SOURCES[lang];
+  if(!src) throw new Error("Idioma no soportado: " + lang);
 
-  // index.js con export
-  if(txt.includes("export")){
+  // index.js (JS real)
+  if(src.type === "js"){
+    const txt = await fetch(src.index).then(r => r.text());
+
     return Function(
-      txt.replace("export const", "const") + "; return voclists;"
+      txt
+        .replace(/export\s+const\s+/g, "const ")
+        .replace(/export\s+default\s+/g, "") +
+      "; return voclists;"
     )();
   }
 
-  // fallback si algún día es JSON real
-  return JSON.parse(txt);
+  // JSON puro (por si algún día lo usas)
+  return await fetch(src.index).then(r => r.json());
 }
 
 async function loadVoclist(lang, filename){
@@ -74,7 +91,10 @@ async function loadVoclist(lang, filename){
     ? `${base}${filename}.json`
     : `${base}${filename}`;
 
-  const list = await fetch(url).then(r => r.json());
+  const res = await fetch(url);
+  if(!res.ok) throw new Error("No se pudo cargar vocabulario");
+  const list = await res.json();
+   
   vocabRaw = list;
 
   return lang === "zh"

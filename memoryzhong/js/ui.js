@@ -120,23 +120,36 @@ export const UI = {
   },
 
   showLosePopup(message, onClose, buttonText = "Otra partida") {
+    // overlay
     const popup = document.createElement("div");
     popup.className = "popup-overlay";
+    Object.assign(popup.style, { position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999 });
   
-    popup.innerHTML = `
-      <div class="popup">
-        <h2>😢 Tiempo agotado</h2>
-        <p>${message}</p>
-        <button id="popupBtn">${buttonText}</button>
-      </div>
+    // contenido
+    const box = document.createElement("div");
+    box.className = "popup";
+    Object.assign(box.style, { background: "#fff", borderRadius: "14px", padding: "30px 20px", maxWidth: "320px", width: "90%", textAlign: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.2)", fontFamily: "sans-serif" });
+  
+    box.innerHTML = `
+      <h2 style="margin-bottom: 15px;">😢 Tiempo agotado</h2>
+      <p style="margin-bottom: 25px;">${message}</p>
     `;
   
-    document.body.appendChild(popup);
+    // botón bonito
+    const btn = document.createElement("button");
+    btn.textContent = buttonText;
+    Object.assign(btn.style, { padding: "10px 25px", border: "none", borderRadius: "10px", backgroundColor: "#a5b4fc", color: "#fff", fontWeight: "bold", cursor: "pointer", fontSize: "16px", transition: "all 0.2s" });
+    btn.onmouseover = () => btn.style.backgroundColor = "#818cf8";
+    btn.onmouseleave = () => btn.style.backgroundColor = "#a5b4fc";
   
-    document.getElementById("popupBtn").onclick = () => {
+    btn.onclick = () => {
       popup.remove();
       onClose?.();
     };
+  
+    box.appendChild(btn);
+    popup.appendChild(box);
+    document.body.appendChild(popup);
   }, 
  
   playSound(type){

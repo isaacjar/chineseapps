@@ -269,12 +269,17 @@ function handleAnswer(index){
   } else {
     UI.markSingleWrong(btn, Game.active[index], Settings.data.showPinyin, vocabRaw);
 
-    setTimeout(() => {
-      UI.showNumbers(board);
-      Game.resetProgress();
-      if(orderRandom) Game.buildSequence(true);
-      nextQuestion();
-    }, 1000);
+     if(disableKeyboard){
+       disableKeyboard();
+       disableKeyboard = null;
+     }
+   
+     setTimeout(() => {
+       UI.showNumbers(board);
+       Game.resetProgress();
+       if(orderRandom) Game.buildSequence(true);
+       nextQuestion();
+     }, 1000);
   }
 }
 
@@ -282,14 +287,16 @@ function handleAnswer(index){
    END GAME
 ========================= */
 function endGame(victory){
+  if(!running) return;    
   running = false;
   clearInterval(roundInterval);
+  roundInterval = null;
 
   if(victory){
     const score = Math.floor(roundTimeLeft * 10);
     UI.showVictoryPopup(score, resetGame);
   } else {
-    UI.showLosePopup("¡Se acabó el tiempo!", resetGame, "Otra partida");
+    UI.showLosePopup("⏰ Tiempo agotado", resetGame, "Otra partida");
   }
 }
 

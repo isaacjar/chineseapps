@@ -104,6 +104,12 @@ function formatWord(word){
   return Settings.data.showPinyin ? `${obj.ch}\n${obj.pin}` : obj.ch;
 }
 
+function formatTime(sec){
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s.toString().padStart(2,"0")}`;
+}
+
 /* =========================
    BOARD LAYOUT
 ========================= */
@@ -139,10 +145,9 @@ function resetGame(){
   board.style.visibility = "hidden";
 
   wordBox.textContent = "";
-  timerEl.textContent = "";
+  timerEl.textContent = "Pulsa START para comenzar el juego...";
   if(memBar) memBar.style.width = "0%";
 
-  timerEl.textContent = "Pulsa START para comenzar el juego...";
   btnStart.textContent = "START";
 
   if(disableKeyboard){
@@ -164,13 +169,14 @@ function startMemPhase(){
   UI.showWords(board, Game.active.map(formatWord));
   adjustBoardLayout();
 
-  timerEl.textContent = "Memoriza estas palabras y el tiempo";
   btnStart.textContent = "PAUSE";
 
   memInterval = setInterval(() => {
     if(!running) return;
 
     memTimeLeft--;
+    timerEl.textContent = `Memoriza estas palabras (${formatTime(memTimeLeft)})`;
+
     if(memBar){
       const total = Settings.data.timemem;
       memBar.style.width = `${((total - memTimeLeft)/total)*100}%`;
@@ -183,7 +189,9 @@ function startMemPhase(){
 
       UI.showNumbers(board);
       requestAnimationFrame(adjustBoardLayout);
-      startRoundPhase();
+
+      timerEl.textContent = "¡Comenzamos! Selecciona el número de la palabra...";
+      setTimeout(startRoundPhase, 2000);
     }
   },1000);
 }
@@ -198,13 +206,11 @@ function startRoundPhase(){
     if(!running) return;
 
     roundTimeLeft--;
+    timerEl.textContent = formatTime(roundTimeLeft);
+
     if(roundTimeLeft <= 0){
       endGame(false);
     }
-
-    const m = Math.floor(roundTimeLeft/60);
-    const s = roundTimeLeft % 60;
-    timerEl.textContent = `${m}:${s.toString().padStart(2,"0")}`;
   },1000);
 
   nextQuestion();
@@ -248,7 +254,7 @@ function handleAnswer(index){
 }
 
 /* =========================
-   END
+   END GAME
 ========================= */
 function endGame(victory){
   running = false;
@@ -258,7 +264,7 @@ function endGame(victory){
     const score = Math.floor(roundTimeLeft * 10);
     UI.showVictoryPopup(score, resetGame);
   } else {
-    resetGame();
+    UI.showVictoryPopup("😢 ¡Tiempo agotado!", resetGame, "Otra partida");
   }
 }
 

@@ -2,7 +2,7 @@
 
 import { Settings } from "./settings.js";
 import { Game, enableKeyboardInput } from "./game.js";
-import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
+import { UI, showVoclistPopup, showSettingsPopup, showLosePopup } from "./ui.js";
 
 /* =========================
    SETTINGS
@@ -264,7 +264,7 @@ function endGame(victory){
     const score = Math.floor(roundTimeLeft * 10);
     UI.showVictoryPopup(score, resetGame);
   } else {
-    UI.showVictoryPopup("😢 ¡Tiempo agotado!", resetGame, "Otra partida");
+    UI.showLosePopup("¡Se acabó el tiempo!", resetGame, "Otra partida");
   }
 }
 

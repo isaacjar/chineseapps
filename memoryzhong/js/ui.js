@@ -119,6 +119,26 @@ export const UI = {
     };
   },
 
+  export function showLosePopup(message, onClose, buttonText = "Otra partida") {
+    const popup = document.createElement("div");
+    popup.className = "popup-overlay";
+  
+    popup.innerHTML = `
+      <div class="popup">
+        <h2>😢 Tiempo agotado</h2>
+        <p>${message}</p>
+        <button id="popupBtn">${buttonText}</button>
+      </div>
+    `;
+  
+    document.body.appendChild(popup);
+  
+    document.getElementById("popupBtn").onclick = () => {
+      popup.remove();
+      onClose?.();
+    };
+  }, 
+ 
   playSound(type){
     let audio;
     if(type === "correct") audio = new Audio("sounds/correct.mp3");

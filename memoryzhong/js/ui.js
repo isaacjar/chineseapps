@@ -119,7 +119,7 @@ export const UI = {
     };
   },
 
-  export function showLosePopup(message, onClose, buttonText = "Otra partida") {
+  showLosePopup(message, onClose, buttonText = "Otra partida") {
     const popup = document.createElement("div");
     popup.className = "popup-overlay";
   

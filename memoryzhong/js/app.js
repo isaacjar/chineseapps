@@ -55,12 +55,17 @@ const VOC_SOURCES = {
 ========================= */
 async function loadIndex(lang){
   const url = VOC_SOURCES[lang].index;
-  if(lang === "zh"){
-    const txt = await fetch(url).then(r => r.text());
-    return Function(txt + "; return voclists;")();
-  } else {
-    return await fetch(url).then(r => r.json());
+  const txt = await fetch(url).then(r => r.text());
+
+  // index.js con export
+  if(txt.includes("export")){
+    return Function(
+      txt.replace("export const", "const") + "; return voclists;"
+    )();
   }
+
+  // fallback si algún día es JSON real
+  return JSON.parse(txt);
 }
 
 async function loadVoclist(lang, filename){

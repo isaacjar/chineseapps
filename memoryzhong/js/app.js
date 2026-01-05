@@ -2,7 +2,7 @@
 
 import { Settings } from "./settings.js";
 import { Game, enableKeyboardInput } from "./game.js";
-import { UI, showVoclistPopup, showSettingsPopup, showLosePopup } from "./ui.js";
+import { UI, showVoclistPopup, showSettingsPopup } from "./ui.js";
 
 /* =========================
    SETTINGS

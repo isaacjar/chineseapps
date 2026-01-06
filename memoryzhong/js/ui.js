@@ -241,7 +241,7 @@ export function showSettingsPopup(onClose){
     <input type="range" id="optNumWords" min="4" max="25">
     <label>Segundos memorización: <span id="tmVal"></span></label>
     <input type="range" id="optTimeMem" min="5" max="60">
-    <label hidden><input type="checkbox" id="optOrderRandom" hidden> Orden aleatorio</label>
+    <!--<label hidden><input type="checkbox" id="optOrderRandom" hidden> Orden aleatorio</label>-->
     <label>Tiempo de juego</label>
     <div class="time-row">
       <input type="number" id="minGame" min="0" max="10" style="width: 100px;"> min.

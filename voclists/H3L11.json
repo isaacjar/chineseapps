@@ -1,12 +1,12 @@
 [
   { "ch": "词典", "pin": "cídiǎn", "en": "dictionary" },
   { "ch": "筷子", "pin": "kuàizi", "en": "chopsticks" },
-  { "ch": "空调", "pin": "kòngtiáo", "en": "air conditioner" },
+  { "ch": "空调", "pin": "kōngtiáo", "en": "air conditioner" },
   { "ch": "地铁", "pin": "dìtiě", "en": "subway" },
   { "ch": "灯", "pin": "dēng", "en": "lamp" },
   { "ch": "瓶子", "pin": "píngzi", "en": "bottle" },
 
-  { "ch": "关空调", "pin": "guān kòngtiáo", "en": "turn off air conditioner" },
+  { "ch": "关空调", "pin": "guān kōngtiáo", "en": "turn off air conditioner" },
   { "ch": "洗衣服", "pin": "xǐ yīfu", "en": "wash clothes" },
   { "ch": "还书", "pin": "huán shū", "en": "return a book" },
   { "ch": "关灯", "pin": "guān dēng", "en": "turn off the light" },

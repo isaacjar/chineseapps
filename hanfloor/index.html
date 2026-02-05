@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧩 HanFloor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header class="app-header">
+  <div class="title">🧩 <strong>HanFloor</strong></div>
+  <div class="header-buttons">
+    <button id="btnStart" class="md-btn primary">START</button>
+    <button id="btnSettings" class="md-btn icon">⚙️</button>
+  </div>
+</header>
+
+<main id="gameBoard">
+  <div class="player active" id="player1">
+    <div class="top">
+      <span class="name" id="name1">Player 1</span>
+      <span class="time" id="time1">45</span>
+    </div>
+    <div class="question" id="question1">汉字</div>
+    <div class="options" id="options1"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="player inactive" id="player2">
+    <div class="top">
+      <span class="name" id="name2">Player 2</span>
+      <span class="time" id="time2">45</span>
+    </div>
+    <div class="question" id="question2">汉字</div>
+    <div class="options" id="options2"></div>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <strong>Hanfloor</strong> 🅰️ IJH 🅱️ Made for learning joy
+</footer>
+
+<!-- Popups -->
+<div id="popupContainer" class="hidden"></div>
+
+<audio id="soundOk" src="https://isaacjar.github.io/chineseapps/memoryzhong/sound/correct.mp3"></audio>
+<audio id="soundFail" src="https://isaacjar.github.io/chineseapps/memoryzhong/sound/wrong.mp3"></audio>
+
+<script src="js/settings.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game1.js"></script>
+<script src="js/game2.js"></script>
+<script src="js/game3.js"></script>
+<script src="js/game4.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

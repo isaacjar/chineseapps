@@ -4,7 +4,7 @@ let timerInterval;
 document.addEventListener("DOMContentLoaded", () => {
   Settings.load();
   UI.init();
-  Game1.init(); // por defecto
+  //Game1.init(); // por defecto
 });
 
 function startGame() {

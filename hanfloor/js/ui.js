@@ -63,6 +63,12 @@ const UI = {
     q.textContent = text;
     container.innerHTML = "";
 
+    // asegura visibilidad
+    container.style.display = "grid";
+    container.style.gridTemplateColumns = "1fr 1fr";
+    container.style.gap = "12px";
+    container.style.minHeight = "180px";
+
     options.forEach(o => {
       const btn = document.createElement("div");
       btn.className = "option-btn";
@@ -70,15 +76,12 @@ const UI = {
       btn.onclick = () => cb(o);
       container.appendChild(btn);
     });
+
+    console.log(`Jugador ${p} opciones:`, options);
   },
 
-  playOk() {
-    document.getElementById("soundOk").play();
-  },
-
-  playFail() {
-    document.getElementById("soundFail").play();
-  },
+  playOk() { document.getElementById("soundOk").play(); },
+  playFail() { document.getElementById("soundFail").play(); },
 
   showWinner(p) {
     alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} gana!`);

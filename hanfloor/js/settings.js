@@ -1,3 +1,4 @@
+// settings.js
 const DEFAULTS = {
   lang: "es",
   time: 45,
@@ -8,6 +9,8 @@ const DEFAULTS = {
 };
 
 const Settings = {
+  data: {},
+
   load() {
     const url = new URLSearchParams(window.location.search);
     const stored = JSON.parse(localStorage.getItem("hanfloorSettings") || "{}");
@@ -21,6 +24,8 @@ const Settings = {
     this.data.time = Number(this.data.time);
     this.data.penalty = Number(this.data.penalty);
     this.data.pinyin = this.data.pinyin !== "false";
+
+    console.log("Settings cargados:", this.data);
   },
 
   save() {

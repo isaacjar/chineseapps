@@ -2,7 +2,7 @@
 console.log("app.js cargado");
 
 let currentPlayer = 1;
-let timerInterval;
+let timerInterval=null;
 
 document.addEventListener("DOMContentLoaded", () => {
   Settings.load();

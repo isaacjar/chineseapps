@@ -1,14 +1,20 @@
 // app.js
+
 console.log("app.js cargado");
 
 let currentPlayer = 1;
 let timerInterval = null;
+let currentQuestion = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM listo");
   Settings.load();
   UI.init();
 });
+
+/* ======================
+   GAME FLOW
+====================== */
 
 function startGame() {
   console.log("START GAME");
@@ -19,14 +25,47 @@ function startGame() {
   currentPlayer = 1;
   UI.setActive(currentPlayer);
 
-  Game1.start();
-  tick();
+  loadQuestion();
+  startTimer();
 }
 
-function tick() {
+function loadQuestion() {
+  console.log("Cargando pregunta para jugador", currentPlayer);
+
+  currentQuestion = Game1.getQuestion();
+
+  UI.renderQuestion(
+    currentPlayer,
+    currentQuestion.text,
+    currentQuestion.options,
+    onAnswer
+  );
+}
+
+function onAnswer(optionSelected) {
+  console.log("Respuesta:", optionSelected);
+
+  if (optionSelected === currentQuestion.correct) {
+    UI.playOk();
+    switchPlayer();
+  } else {
+    UI.playFail();
+    UI.penalize(currentPlayer, Settings.data.penalty || 3);
+  }
+
+  loadQuestion();
+}
+
+/* ======================
+   TIMER
+====================== */
+
+function startTimer() {
   clearInterval(timerInterval);
+
   timerInterval = setInterval(() => {
     UI.decreaseTime(currentPlayer);
+
     if (UI.getTime(currentPlayer) <= 0) {
       endGame(currentPlayer === 1 ? 2 : 1);
     }
@@ -36,8 +75,12 @@ function tick() {
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
-  tick();
+  startTimer();
 }
+
+/* ======================
+   END GAME
+====================== */
 
 function endGame(winner) {
   clearInterval(timerInterval);

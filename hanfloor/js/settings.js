@@ -1,7 +1,7 @@
 const DEFAULTS = {
   lang: "es",
   time: 45,
-  penal: 3,
+  penalty: 3,
   pinyin: true,
   jugador1: "Player 1",
   jugador2: "Player 2"
@@ -19,7 +19,7 @@ const Settings = {
     };
 
     this.data.time = Number(this.data.time);
-    this.data.penal = Number(this.data.penal);
+    this.data.penalty = Number(this.data.penalty);
     this.data.pinyin = this.data.pinyin !== "false";
   },
 

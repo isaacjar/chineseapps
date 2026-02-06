@@ -2,17 +2,20 @@
 console.log("app.js cargado");
 
 let currentPlayer = 1;
-let timerInterval=null;
+let timerInterval = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM listo");
   Settings.load();
   UI.init();
 });
 
 function startGame() {
+  console.log("START GAME");
+
   UI.setNames(Settings.data);
   UI.resetTimers(Settings.data.time);
-  currentPlayer = 1;
+
   currentPlayer = 1;
   UI.setActive(currentPlayer);
 

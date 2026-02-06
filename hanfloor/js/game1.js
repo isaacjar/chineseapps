@@ -1,4 +1,4 @@
-console.log("game1.js cargado");
+// game1.js 
 
 const Game1 = {
   vocab: [
@@ -15,6 +15,8 @@ const Game1 = {
   },
 
   nextQuestion() {
+    console.log("nextQuestion jugador", currentPlayer);
+
     this.currentItem =
       this.vocab[Math.floor(Math.random() * this.vocab.length)];
 
@@ -31,7 +33,7 @@ const Game1 = {
       currentPlayer,
       this.currentItem.hanzi,
       options,
-      this.checkAnswer.bind(this)
+      (answer) => this.checkAnswer(answer)
     );
   },
 
@@ -43,6 +45,7 @@ const Game1 = {
       UI.playFail();
       UI.penalize(currentPlayer, Settings.data.penal);
     }
+
     this.nextQuestion();
   }
 };

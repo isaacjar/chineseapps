@@ -1,3 +1,6 @@
+// ui.js
+console.log("ui.js cargado");
+
 const UI = {
   init() {
     // cache DOM

@@ -1,4 +1,4 @@
-// game1.js 
+// game1.js
 
 const Game1 = {
   vocab: [
@@ -7,20 +7,11 @@ const Game1 = {
     { hanzi: "再见", pinyin: "zài jiàn" }
   ],
 
-  currentItem: null,
-
-  start() {
-    console.log("Game1.start()");
-    this.nextQuestion();
-  },
-
-  nextQuestion() {
-    console.log("nextQuestion jugador", currentPlayer);
-
-    this.currentItem =
+  getQuestion() {
+    const item =
       this.vocab[Math.floor(Math.random() * this.vocab.length)];
 
-    const correct = this.currentItem.pinyin;
+    const correct = item.pinyin;
     const options = [correct];
 
     while (options.length < 4) {
@@ -29,23 +20,13 @@ const Game1 = {
       if (!options.includes(rnd)) options.push(rnd);
     }
 
-    UI.renderQuestion(
-      currentPlayer,
-      this.currentItem.hanzi,
+    // mezclar opciones
+    options.sort(() => Math.random() - 0.5);
+
+    return {
+      text: item.hanzi,
       options,
-      (answer) => this.checkAnswer(answer)
-    );
-  },
-
-  checkAnswer(answer) {
-    if (answer === this.currentItem.pinyin) {
-      UI.playOk();
-      switchPlayer();
-    } else {
-      UI.playFail();
-      UI.penalize(currentPlayer, Settings.data.penal);
-    }
-
-    this.nextQuestion();
+      correct
+    };
   }
 };

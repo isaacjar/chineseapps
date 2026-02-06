@@ -25,8 +25,8 @@ function startGame() {
   currentPlayer = 1;
   UI.setActive(currentPlayer);
 
-  loadQuestion();
-  startTimer();
+  startTimer();   // cronómetro continuo
+  loadQuestion(); // carga primera pregunta
 }
 
 function loadQuestion() {
@@ -47,13 +47,12 @@ function onAnswer(optionSelected) {
 
   if (optionSelected === currentQuestion.correct) {
     UI.playOk();
-    switchPlayer();
+    switchPlayer(); // cambia jugador y carga nueva pregunta
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
+    loadQuestion(); // misma pregunta nuevo intento o siguiente
   }
-
-  loadQuestion();
 }
 
 /* ======================
@@ -75,7 +74,7 @@ function startTimer() {
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
-  startTimer();
+  loadQuestion(); // solo ahora se carga pregunta para el nuevo jugador
 }
 
 /* ======================

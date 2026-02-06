@@ -1,12 +1,16 @@
+console.log("game1.js cargado");
+
 const Game1 = {
   vocab: [
     { hanzi: "你好", pinyin: "nǐ hǎo" },
     { hanzi: "谢谢", pinyin: "xièxie" },
     { hanzi: "再见", pinyin: "zài jiàn" }
   ],
+
   currentItem: null,
 
   start() {
+    console.log("Game1.start()");
     this.nextQuestion();
   },
 
@@ -26,7 +30,7 @@ const Game1 = {
     UI.renderQuestion(
       currentPlayer,
       this.currentItem.hanzi,
-      options.sort(),
+      options,
       this.checkAnswer.bind(this)
     );
   },
@@ -35,11 +39,10 @@ const Game1 = {
     if (answer === this.currentItem.pinyin) {
       UI.playOk();
       switchPlayer();
-      this.nextQuestion(); // ✅ CLAVE
     } else {
       UI.playFail();
       UI.penalize(currentPlayer, Settings.data.penal);
-      this.nextQuestion(); // sigue jugando el mismo
     }
+    this.nextQuestion();
   }
 };

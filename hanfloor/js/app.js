@@ -50,7 +50,7 @@ function onAnswer(optionSelected) {
     switchPlayer();
   } else {
     UI.playFail();
-    UI.penalize(currentPlayer, Settings.data.penalty || 3);
+    UI.penalize(currentPlayer, Settings.data.penalty);
   }
 
   loadQuestion();

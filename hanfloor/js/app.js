@@ -4,13 +4,16 @@ let timerInterval;
 document.addEventListener("DOMContentLoaded", () => {
   Settings.load();
   UI.init();
-  //Game1.init(); // por defecto
 });
 
 function startGame() {
   UI.setNames(Settings.data);
   UI.resetTimers(Settings.data.time);
   currentPlayer = 1;
+  currentPlayer = 1;
+  UI.setActive(currentPlayer);
+
+  Game1.start();
   tick();
 }
 

@@ -20,6 +20,8 @@ const UI = {
     this.options2 = document.getElementById("options2");
 
     document.getElementById("btnStart").onclick = startGame;
+
+    console.log("UI listo");
   },
 
   setNames(s) {

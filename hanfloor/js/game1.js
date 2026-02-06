@@ -1,5 +1,4 @@
 // game1.js
-
 const Game1 = {
   vocab: [
     { hanzi: "你好", pinyin: "nǐ hǎo" },
@@ -8,15 +7,12 @@ const Game1 = {
   ],
 
   getQuestion() {
-    const item =
-      this.vocab[Math.floor(Math.random() * this.vocab.length)];
-
+    const item = this.vocab[Math.floor(Math.random() * this.vocab.length)];
     const correct = item.pinyin;
     const options = [correct];
 
     while (options.length < 4) {
-      const rnd =
-        this.vocab[Math.floor(Math.random() * this.vocab.length)].pinyin;
+      const rnd = this.vocab[Math.floor(Math.random() * this.vocab.length)].pinyin;
       if (!options.includes(rnd)) options.push(rnd);
     }
 

@@ -1,3 +1,6 @@
+// app.js
+console.log("app.js cargado");
+
 let currentPlayer = 1;
 let timerInterval;
 

@@ -3,7 +3,7 @@ console.log("ui.js cargado");
 
 const UI = {
   init() {
-    // cache DOM
+    // Cache DOM
     this.player1 = document.getElementById("player1");
     this.player2 = document.getElementById("player2");
 
@@ -21,12 +21,19 @@ const UI = {
 
     document.getElementById("btnStart").onclick = startGame;
 
+    // Pinta nombres iniciales (URL / defaults)
+    if (window.Settings?.data) {
+      this.setNames(Settings.data);
+      this.resetTimers(Settings.data.time);
+    }
+
     console.log("UI listo");
   },
 
   setNames(s) {
-    this.name1.textContent = s.jugador1;
-    this.name2.textContent = s.jugador2;
+    if (!s) return;
+    this.name1.textContent = s.jugador1 || "Player 1";
+    this.name2.textContent = s.jugador2 || "Player 2";
   },
 
   resetTimers(t) {
@@ -56,36 +63,32 @@ const UI = {
     this.player2.classList.toggle("inactive", p !== 2);
   },
 
-  renderQuestion(p, text, options, cb) {
+  renderQuestion(p, text, options, onSelect) {
     const q = p === 1 ? this.question1 : this.question2;
     const container = p === 1 ? this.options1 : this.options2;
 
     q.textContent = text;
     container.innerHTML = "";
 
-    // asegura visibilidad
-    container.style.display = "grid";
-    container.style.gridTemplateColumns = "1fr 1fr";
-    container.style.gap = "12px";
-    container.style.minHeight = "180px";
-
-    options.forEach(o => {
+    options.forEach(option => {
       const btn = document.createElement("div");
       btn.className = "option-btn";
-      btn.textContent = o;
-      btn.onclick = () => cb(o);
+      btn.textContent = option;
+      btn.onclick = () => onSelect(option);
       container.appendChild(btn);
     });
-    console.log("Botones creados:", container.children.length);
-    console.log("Renderizando en:", container);
-    console.log("HTML antes:", container.innerHTML);
-    console.log(`Jugador ${p} opciones:`, options);
   },
 
-  playOk() { document.getElementById("soundOk").play(); },
-  playFail() { document.getElementById("soundFail").play(); },
+  playOk() {
+    document.getElementById("soundOk")?.play();
+  },
+
+  playFail() {
+    document.getElementById("soundFail")?.play();
+  },
 
   showWinner(p) {
-    alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} gana!`);
+    const name = p === 1 ? this.name1.textContent : this.name2.textContent;
+    alert(`🎉 ${name} gana!`);
   }
 };

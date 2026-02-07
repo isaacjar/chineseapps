@@ -23,7 +23,7 @@ const UI = {
     const btnStart = document.getElementById("btnStart");
     if (btnStart) btnStart.onclick = startGame;
 
-    // Contenedor popup menú
+    // Contenedor menú
     this.menuOverlay = document.getElementById("menuOverlay");
     this.menuBox = document.getElementById("menuBox");
     this.menuTitle = document.getElementById("menuTitle");
@@ -65,7 +65,6 @@ const UI = {
   setActive(p) {
     this.player1.classList.toggle("active", p === 1);
     this.player2.classList.toggle("active", p === 2);
-
     this.player1.classList.toggle("inactive", p !== 1);
     this.player2.classList.toggle("inactive", p !== 2);
   },
@@ -79,7 +78,6 @@ const UI = {
 
     q.textContent = text;
     container.innerHTML = "";
-
     container.style.display = "grid";
     container.style.gridTemplateColumns = "1fr 1fr";
     container.style.gap = "12px";
@@ -107,8 +105,8 @@ const UI = {
 
     options.forEach((label, index) => {
       const btn = document.createElement("button");
-      btn.className = "md-btn primary";
-      btn.textContent = `${index + 1}. ${label}`;
+      btn.className = "menu-btn"; // usar clase CSS del menú
+      btn.textContent = `${index + 1} - ${label}`;
       btn.onclick = () => {
         this.hideMenu();
         onSelect(index + 1, label);
@@ -120,9 +118,7 @@ const UI = {
   },
 
   hideMenu() {
-    if (this.menuOverlay) {
-      this.menuOverlay.classList.add("hidden");
-    }
+    if (this.menuOverlay) this.menuOverlay.classList.add("hidden");
   },
 
   /* ======================

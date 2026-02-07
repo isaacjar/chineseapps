@@ -1,76 +1,80 @@
+// app.js
 console.log("app.js cargado");
 
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
-
-// Detectar parámetros URL
-const urlParams = new URLSearchParams(window.location.search);
-const selectedGame = urlParams.get("game"); // número de juego opcional
-const vocabParam = urlParams.get("vocab"); // lista de vocabulario opcional
+let currentGame = 1; // por defecto juego 1
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM listo");
   Settings.load();
   UI.init();
-
-  // mostrar nombres según settings
   UI.setNames(Settings.data);
 
-  if (selectedGame) {
-    // Si viene parámetro ?game=, arrancamos directo
-    startGame();
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameParam = urlParams.get("game");
+  const vocabParam = urlParams.get("vocab"); // opcional: lista de vocabularios
+
+  if (gameParam) {
+    currentGame = Number(gameParam);
+    startGame(currentGame, vocabParam);
   } else {
-    // mostrar menú de selección
     showMenu();
   }
 });
 
 /* ======================
-   MENÚ DE SELECCIÓN
+   MENÚ INICIAL
 ====================== */
 function showMenu() {
-  const popup = document.getElementById("popupContainer");
-  popup.classList.remove("hidden");
-  popup.innerHTML = `
-    <div class="menu-overlay">
-      <div class="menu-box">
-        <h2>Selecciona un juego</h2>
-        <div class="menu-options">
-          <button class="menu-btn" onclick="startGame(1)">1 - Elige el pinyin</button>
-          <button class="menu-btn" onclick="startGame(2)">2 - Elige el significado</button>
-          <button class="menu-btn" onclick="startGame(3)">3 - Elige la palabra</button>
-          <button class="menu-btn" onclick="startGame(4)">4 - Elige la imagen</button>
-        </div>
-      </div>
-    </div>
-  `;
+  const overlay = document.getElementById("menuOverlay");
+  overlay.classList.remove("hidden");
+
+  const buttons = overlay.querySelectorAll(".menu-btn");
+  buttons.forEach(btn => {
+    btn.onclick = () => {
+      overlay.classList.add("hidden");
+      currentGame = Number(btn.dataset.game);
+      startGame(currentGame);
+    };
+  });
 }
 
 /* ======================
    START GAME
-   gameNumber opcional desde menú
 ====================== */
-function startGame(gameNumber) {
-  console.log("START GAME", gameNumber || selectedGame);
+function startGame(gameNumber = 1, vocabList = null) {
+  console.log("START GAME", gameNumber);
 
-  // ocultar popup si estaba abierto
-  const popup = document.getElementById("popupContainer");
-  popup.classList.add("hidden");
-  popup.innerHTML = "";
-
-  UI.resetTimers(Settings.data.time);
   currentPlayer = 1;
+  UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
 
-  // Cargar vocab si viene por URL
-  if (vocabParam) {
+  // Seleccionar el juego correspondiente
+  switch (gameNumber) {
+    case 1: window.Game = Game1; break;
+    case 2: window.Game = Game2; break;
+    case 3: window.Game = Game3; break;
+    case 4: window.Game = Game4; break;
+    default: window.Game = Game1; break;
+  }
+
+  // Sobrescribir vocabulario si se pasa por URL
+  if (vocabList) {
     try {
-      const vocabList = JSON.parse(decodeURIComponent(vocabParam));
-      if (vocabList.length >= 4) Game1.vocab = vocabList;
+      const parsed = JSON.parse(decodeURIComponent(vocabList));
+      if (Array.isArray(parsed) && parsed.length >= 4) window.Game.vocab = parsed;
+      else console.warn("Vocabulario insuficiente, mínimo 4 palabras");
     } catch (e) {
-      console.warn("Error parseando vocab de URL", e);
+      console.error("Error parseando vocabulario URL", e);
     }
+  }
+
+  // Comprobar mínimo 4 palabras
+  if (!window.Game.vocab || window.Game.vocab.length < 4) {
+    alert("El juego necesita al menos 4 palabras para funcionar");
+    return;
   }
 
   startTimer();
@@ -83,7 +87,7 @@ function startGame(gameNumber) {
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
 
-  currentQuestion = Game1.getQuestion();
+  currentQuestion = window.Game.getQuestion();
 
   UI.renderQuestion(
     currentPlayer,
@@ -99,7 +103,6 @@ function loadQuestion() {
 function onAnswer(selected) {
   console.log("Respuesta jugador", currentPlayer, ":", selected);
 
-  // Desactivar botones mientras procesamos
   const container = currentPlayer === 1 ? UI.options1 : UI.options2;
   Array.from(container.children).forEach(btn => btn.disabled = true);
 
@@ -129,9 +132,7 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     UI.decreaseTime(currentPlayer);
-    if (UI.getTime(currentPlayer) <= 0) {
-      endGame(currentPlayer === 1 ? 2 : 1);
-    }
+    if (UI.getTime(currentPlayer) <= 0) endGame(currentPlayer === 1 ? 2 : 1);
   }, 1000);
 }
 

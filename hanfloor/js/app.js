@@ -4,7 +4,7 @@ console.log("app.js cargado");
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
-let currentGame = 1; // por defecto juego 1
+let currentGame = 1; // juego seleccionado, por defecto 1
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM listo");
@@ -14,48 +14,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const gameParam = urlParams.get("game");
-  const vocabParam = urlParams.get("vocab"); // opcional: lista de vocabularios
+  const vocabParam = urlParams.get("vocab"); // opcional: lista de vocabulario
 
   if (gameParam) {
     currentGame = Number(gameParam);
     startGame(currentGame, vocabParam);
   } else {
+    // mostrar popup de selección de juego
     showMenu();
   }
+
+  // START button arranca el juego con la selección actual
+  const btnStart = document.getElementById("btnStart");
+  if (btnStart) btnStart.onclick = () => startGame(currentGame);
 });
 
 /* ======================
    MENÚ INICIAL
-===================== */
+====================== */
 function showMenu() {
-  UI.showMenu(
-    "Selecciona un juego",
-    [
-      "Elige el pinyin",
-      "Elige el significado",
-      "Elige la palabra",
-      "Elige la imagen"
-    ],
-    (gameNumber, label) => {
-      console.log("Juego seleccionado:", gameNumber, label);
-      currentGame = gameNumber;
-      startGame(currentGame);
-    }
-  );
+  UI.showMenu("Selecciona un juego", [
+    "Elige el pinyin",
+    "Elige el significado",
+    "Elige la palabra",
+    "Elige la imagen"
+  ], (gameNumber, label) => {
+    currentGame = gameNumber;       // guardamos elección
+    UI.hideMenu();                  // ocultamos popup
+    console.log("Juego seleccionado:", gameNumber, label);
+    // ¡No arrancamos aún! Esperamos botón START
+  });
 }
 
 /* ======================
    START GAME
-===================== */
+====================== */
 function startGame(gameNumber = 1, vocabList = null) {
   console.log("START GAME", gameNumber);
 
   currentPlayer = 1;
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
-  UI.hideMenu(); // ocultamos el menú al arrancar
 
-  // Seleccionar el juego correspondiente
+  // Seleccionar juego correspondiente
   switch (gameNumber) {
     case 1: window.Game = Game1; break;
     case 2: window.Game = Game2; break;
@@ -87,7 +88,7 @@ function startGame(gameNumber = 1, vocabList = null) {
 
 /* ======================
    LOAD QUESTIONS
-===================== */
+====================== */
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
 
@@ -103,7 +104,7 @@ function loadQuestion() {
 
 /* ======================
    HANDLE ANSWER
-===================== */
+====================== */
 function onAnswer(selected) {
   console.log("Respuesta jugador", currentPlayer, ":", selected);
 
@@ -122,7 +123,7 @@ function onAnswer(selected) {
 
 /* ======================
    SWITCH PLAYER
-===================== */
+====================== */
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
@@ -131,7 +132,7 @@ function switchPlayer() {
 
 /* ======================
    TIMER
-===================== */
+====================== */
 function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -142,7 +143,7 @@ function startTimer() {
 
 /* ======================
    END GAME
-===================== */
+====================== */
 function endGame(winner) {
   clearInterval(timerInterval);
   UI.showWinner(winner);

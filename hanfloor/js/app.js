@@ -1,5 +1,4 @@
 // app.js
-
 console.log("app.js cargado");
 
 let currentPlayer = 1;
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ======================
-   GAME FLOW
+   START GAME
 ====================== */
 
 function startGame() {
@@ -25,9 +24,13 @@ function startGame() {
   currentPlayer = 1;
   UI.setActive(currentPlayer);
 
-  startTimer();   // cronómetro continuo
-  loadQuestion(); // carga primera pregunta
+  startTimer();
+  loadQuestion();
 }
+
+/* ======================
+   QUESTIONS
+====================== */
 
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
@@ -42,17 +45,27 @@ function loadQuestion() {
   );
 }
 
-function onAnswer(optionSelected) {
-  console.log("Respuesta:", optionSelected);
+function onAnswer(selected) {
+  console.log("Respuesta jugador", currentPlayer, ":", selected);
 
-  if (optionSelected === currentQuestion.correct) {
+  if (selected === currentQuestion.correct) {
     UI.playOk();
-    switchPlayer(); // cambia jugador y carga nueva pregunta
+    switchPlayer();
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    loadQuestion(); // misma pregunta nuevo intento o siguiente
+    loadQuestion(); // sigue el mismo jugador
   }
+}
+
+/* ======================
+   PLAYER SWITCH
+====================== */
+
+function switchPlayer() {
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+  UI.setActive(currentPlayer);
+  loadQuestion();
 }
 
 /* ======================
@@ -69,12 +82,6 @@ function startTimer() {
       endGame(currentPlayer === 1 ? 2 : 1);
     }
   }, 1000);
-}
-
-function switchPlayer() {
-  currentPlayer = currentPlayer === 1 ? 2 : 1;
-  UI.setActive(currentPlayer);
-  loadQuestion(); // solo ahora se carga pregunta para el nuevo jugador
 }
 
 /* ======================

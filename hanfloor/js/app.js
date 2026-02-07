@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   Settings.load();
   UI.init();
 
-  // inicializar START button
-  document.getElementById("btnStart").onclick = startGame;
+  // mostrar nombres según settings
+  UI.setNames(Settings.data);
 });
 
 /* ======================
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function startGame() {
   console.log("START GAME");
 
-  UI.setNames(Settings.data);
   UI.resetTimers(Settings.data.time);
 
   currentPlayer = 1;
@@ -31,7 +30,7 @@ function startGame() {
 }
 
 /* ======================
-   QUESTIONS
+   LOAD QUESTIONS
 ====================== */
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
@@ -46,21 +45,30 @@ function loadQuestion() {
   );
 }
 
+/* ======================
+   HANDLE ANSWER
+====================== */
 function onAnswer(selected) {
   console.log("Respuesta jugador", currentPlayer, ":", selected);
 
+  // Desactivar botones mientras procesamos
+  const container = currentPlayer === 1 ? UI.options1 : UI.options2;
+  Array.from(container.children).forEach(btn => btn.disabled = true);
+
   if (selected === currentQuestion.correct) {
     UI.playOk();
-    switchPlayer();
+    // mini-retardo antes de cambiar de jugador
+    setTimeout(() => switchPlayer(), 200);
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    loadQuestion(); // mismo jugador sigue
+    // mini-retardo antes de recargar pregunta para mismo jugador
+    setTimeout(() => loadQuestion(), 300);
   }
 }
 
 /* ======================
-   PLAYER SWITCH
+   SWITCH PLAYER
 ====================== */
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;

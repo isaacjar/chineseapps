@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap'); 
 :root { --bg: #f6f7fb; --pastel-yellow: #fff4c2; --pastel-blue: #dce9ff; --pastel-pink: #f9dce3; --text: #333; --shadow: 0 4px 10px rgba(0,0,0,.08); }
 * { box-sizing: border-box; font-family: 'Nunito', sans-serif; }
 body { margin: 0; background: var(--bg); display: flex; flex-direction: column; height: 100vh; }

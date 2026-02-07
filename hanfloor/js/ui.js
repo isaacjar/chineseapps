@@ -19,21 +19,12 @@ const UI = {
     this.options1 = document.getElementById("options1");
     this.options2 = document.getElementById("options2");
 
-    document.getElementById("btnStart").onclick = startGame;
-
-    // Pinta nombres iniciales (URL / defaults)
-    if (window.Settings?.data) {
-      this.setNames(Settings.data);
-      this.resetTimers(Settings.data.time);
-    }
-
     console.log("UI listo");
   },
 
   setNames(s) {
-    if (!s) return;
-    this.name1.textContent = s.jugador1 || "Player 1";
-    this.name2.textContent = s.jugador2 || "Player 2";
+    this.name1.textContent = s.jugador1;
+    this.name2.textContent = s.jugador2;
   },
 
   resetTimers(t) {
@@ -63,32 +54,33 @@ const UI = {
     this.player2.classList.toggle("inactive", p !== 2);
   },
 
-  renderQuestion(p, text, options, onSelect) {
+  renderQuestion(p, text, options, cb) {
     const q = p === 1 ? this.question1 : this.question2;
     const container = p === 1 ? this.options1 : this.options2;
 
     q.textContent = text;
     container.innerHTML = "";
 
-    options.forEach(option => {
-      const btn = document.createElement("div");
+    container.style.display = "grid";
+    container.style.gridTemplateColumns = "1fr 1fr";
+    container.style.gap = "12px";
+    container.style.minHeight = "180px";
+
+    options.forEach(o => {
+      const btn = document.createElement("button"); // <button> para interactividad
       btn.className = "option-btn";
-      btn.textContent = option;
-      btn.onclick = () => onSelect(option);
+      btn.textContent = o;
+      btn.onclick = () => cb(o);
       container.appendChild(btn);
     });
+
+    console.log(`Jugador ${p} opciones renderizadas:`, container.children.length);
   },
 
-  playOk() {
-    document.getElementById("soundOk")?.play();
-  },
-
-  playFail() {
-    document.getElementById("soundFail")?.play();
-  },
+  playOk() { document.getElementById("soundOk").play(); },
+  playFail() { document.getElementById("soundFail").play(); },
 
   showWinner(p) {
-    const name = p === 1 ? this.name1.textContent : this.name2.textContent;
-    alert(`🎉 ${name} gana!`);
+    alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} gana!`);
   }
 };

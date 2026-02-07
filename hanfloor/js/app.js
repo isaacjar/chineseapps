@@ -26,13 +26,6 @@ function startGame() {
 
   startTimer();
   loadQuestion();
-  UI.options1.innerHTML = `
-  <div class="option-btn">TEST 1</div>
-  <div class="option-btn">TEST 2</div>
-  <div class="option-btn">TEST 3</div>
-  <div class="option-btn">TEST 4</div>
-`;
-
 }
 
 /* ======================
@@ -61,7 +54,7 @@ function onAnswer(selected) {
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    loadQuestion(); // sigue el mismo jugador
+    loadQuestion(); // mismo jugador
   }
 }
 

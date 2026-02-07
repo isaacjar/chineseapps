@@ -20,3 +20,8 @@ body { margin: 0; background: var(--bg); display: flex; flex-direction: column; 
 .option-btn:hover { transform: scale(1.05); background: #fff9d6; }
 .app-footer { text-align: center; padding: 6px; font-size: .85rem; background: white; box-shadow: var(--shadow); }
 .hidden { display: none; }
+.player {
+  display: flex;
+  flex-direction: column;
+}
+

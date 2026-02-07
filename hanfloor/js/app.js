@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM listo");
   Settings.load();
   UI.init();
+
+  // inicializar START button
+  document.getElementById("btnStart").onclick = startGame;
 });
 
 /* ======================
    START GAME
 ====================== */
-
 function startGame() {
   console.log("START GAME");
 
@@ -31,7 +33,6 @@ function startGame() {
 /* ======================
    QUESTIONS
 ====================== */
-
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
 
@@ -54,14 +55,13 @@ function onAnswer(selected) {
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    loadQuestion(); // mismo jugador
+    loadQuestion(); // mismo jugador sigue
   }
 }
 
 /* ======================
    PLAYER SWITCH
 ====================== */
-
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
@@ -71,7 +71,6 @@ function switchPlayer() {
 /* ======================
    TIMER
 ====================== */
-
 function startTimer() {
   clearInterval(timerInterval);
 
@@ -87,7 +86,6 @@ function startTimer() {
 /* ======================
    END GAME
 ====================== */
-
 function endGame(winner) {
   clearInterval(timerInterval);
   UI.showWinner(winner);

@@ -19,12 +19,16 @@ const UI = {
     this.options1 = document.getElementById("options1");
     this.options2 = document.getElementById("options2");
 
+    // Asignar startGame al botón de inicio
+    const btnStart = document.getElementById("btnStart");
+    if (btnStart) btnStart.onclick = startGame;
+
     console.log("UI listo");
   },
 
   setNames(s) {
-    this.name1.textContent = s.jugador1;
-    this.name2.textContent = s.jugador2;
+    this.name1.textContent = s.jugador1 || "Player 1";
+    this.name2.textContent = s.jugador2 || "Player 2";
   },
 
   resetTimers(t) {
@@ -61,13 +65,15 @@ const UI = {
     q.textContent = text;
     container.innerHTML = "";
 
+    // Estilos directos para asegurar visibilidad
     container.style.display = "grid";
     container.style.gridTemplateColumns = "1fr 1fr";
     container.style.gap = "12px";
     container.style.minHeight = "180px";
 
+    // Crear botones de opciones
     options.forEach(o => {
-      const btn = document.createElement("button"); // <button> para interactividad
+      const btn = document.createElement("button");
       btn.className = "option-btn";
       btn.textContent = o;
       btn.onclick = () => cb(o);
@@ -77,8 +83,15 @@ const UI = {
     console.log(`Jugador ${p} opciones renderizadas:`, container.children.length);
   },
 
-  playOk() { document.getElementById("soundOk").play(); },
-  playFail() { document.getElementById("soundFail").play(); },
+  playOk() {
+    const sound = document.getElementById("soundOk");
+    if (sound) sound.play();
+  },
+
+  playFail() {
+    const sound = document.getElementById("soundFail");
+    if (sound) sound.play();
+  },
 
   showWinner(p) {
     alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} gana!`);

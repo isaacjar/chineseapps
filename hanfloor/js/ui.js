@@ -76,7 +76,9 @@ const UI = {
       btn.onclick = () => cb(o);
       container.appendChild(btn);
     });
-
+    console.log("Botones creados:", container.children.length);
+    console.log("Renderizando en:", container);
+    console.log("HTML antes:", container.innerHTML);
     console.log(`Jugador ${p} opciones:`, options);
   },
 

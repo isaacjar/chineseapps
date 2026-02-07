@@ -97,23 +97,25 @@ const UI = {
   /* ======================
      MENÚ POPUP
   ====================== */
-  showMenu(title, options, onSelect) {
+   showMenu(title, options, onSelect) {
     if (!this.menuOverlay) return;
-
+  
     this.menuTitle.textContent = title;
     this.menuOptions.innerHTML = "";
-
+  
     options.forEach((label, index) => {
       const btn = document.createElement("button");
-      btn.className = "menu-btn"; // usar clase CSS del menú
+      btn.className = "menu-btn";
       btn.textContent = `${index + 1} - ${label}`;
       btn.onclick = () => {
-        this.hideMenu();
-        onSelect(index + 1, label);
+        this.hideMenu();          // primero ocultamos el popup
+        setTimeout(() => {        // luego ejecutamos la función de selección
+          onSelect(index + 1, label);
+        }, 10);
       };
       this.menuOptions.appendChild(btn);
     });
-
+  
     this.menuOverlay.classList.remove("hidden");
   },
 

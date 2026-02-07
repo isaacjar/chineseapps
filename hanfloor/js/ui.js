@@ -3,7 +3,7 @@ console.log("ui.js cargado");
 
 const UI = {
   init() {
-    // Cache DOM
+    // Cache DOM jugadores
     this.player1 = document.getElementById("player1");
     this.player2 = document.getElementById("player2");
 
@@ -19,13 +19,22 @@ const UI = {
     this.options1 = document.getElementById("options1");
     this.options2 = document.getElementById("options2");
 
-    // Asignar startGame al botón de inicio
+    // Botón start
     const btnStart = document.getElementById("btnStart");
     if (btnStart) btnStart.onclick = startGame;
+
+    // Contenedor popup menú
+    this.menuOverlay = document.getElementById("menuOverlay");
+    this.menuBox = document.getElementById("menuBox");
+    this.menuTitle = document.getElementById("menuTitle");
+    this.menuOptions = document.getElementById("menuOptions");
 
     console.log("UI listo");
   },
 
+  /* ======================
+     NOMBRES Y TIEMPOS
+  ====================== */
   setNames(s) {
     this.name1.textContent = s.jugador1 || "Player 1";
     this.name2.textContent = s.jugador2 || "Player 2";
@@ -50,6 +59,9 @@ const UI = {
     el.textContent = Math.max(0, Number(el.textContent) - sec);
   },
 
+  /* ======================
+     JUGADOR ACTIVO
+  ====================== */
   setActive(p) {
     this.player1.classList.toggle("active", p === 1);
     this.player2.classList.toggle("active", p === 2);
@@ -58,6 +70,9 @@ const UI = {
     this.player2.classList.toggle("inactive", p !== 2);
   },
 
+  /* ======================
+     PREGUNTAS
+  ====================== */
   renderQuestion(p, text, options, cb) {
     const q = p === 1 ? this.question1 : this.question2;
     const container = p === 1 ? this.options1 : this.options2;
@@ -65,13 +80,11 @@ const UI = {
     q.textContent = text;
     container.innerHTML = "";
 
-    // Estilos directos para asegurar visibilidad
     container.style.display = "grid";
     container.style.gridTemplateColumns = "1fr 1fr";
     container.style.gap = "12px";
     container.style.minHeight = "180px";
 
-    // Crear botones de opciones
     options.forEach(o => {
       const btn = document.createElement("button");
       btn.className = "option-btn";
@@ -83,14 +96,46 @@ const UI = {
     console.log(`Jugador ${p} opciones renderizadas:`, container.children.length);
   },
 
+  /* ======================
+     MENÚ POPUP
+  ====================== */
+  showMenu(title, options, onSelect) {
+    if (!this.menuOverlay) return;
+
+    this.menuTitle.textContent = title;
+    this.menuOptions.innerHTML = "";
+
+    options.forEach((label, index) => {
+      const btn = document.createElement("button");
+      btn.className = "md-btn primary";
+      btn.textContent = `${index + 1}. ${label}`;
+      btn.onclick = () => {
+        this.hideMenu();
+        onSelect(index + 1, label);
+      };
+      this.menuOptions.appendChild(btn);
+    });
+
+    this.menuOverlay.classList.remove("hidden");
+  },
+
+  hideMenu() {
+    if (this.menuOverlay) {
+      this.menuOverlay.classList.add("hidden");
+    }
+  },
+
+  /* ======================
+     SONIDO Y FINAL
+  ====================== */
   playOk() {
-    const sound = document.getElementById("soundOk");
-    if (sound) sound.play();
+    const s = document.getElementById("soundOk");
+    if (s) s.play();
   },
 
   playFail() {
-    const sound = document.getElementById("soundFail");
-    if (sound) sound.play();
+    const s = document.getElementById("soundFail");
+    if (s) s.play();
   },
 
   showWinner(p) {

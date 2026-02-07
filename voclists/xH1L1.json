@@ -1,0 +1,17 @@
+[
+  { "ch": "你好", "pin": "nǐ hǎo", "en": "hello", "es": "hola" },
+  { "ch": "你", "pin": "nǐ", "en": "you", "es": "tú" },
+  { "ch": "王", "pin": "Wáng", "en": "Wang (surname)", "es": "Wang (apellido)" },
+  { "ch": "老师", "pin": "lǎoshī", "en": "teacher", "es": "profesor/a" },
+  { "ch": "大家", "pin": "dàjiā", "en": "everyone", "es": "todos" },
+  { "ch": "好", "pin": "hǎo", "en": "good", "es": "bien" },
+  { "ch": "们", "pin": "men", "en": "plural marker", "es": "marcador de plural" },
+  { "ch": "您", "pin": "nín", "en": "you (formal)", "es": "usted" },
+  { "ch": "你们", "pin": "nǐmen", "en": "you (plural)", "es": "vosotros" },
+  { "ch": "谢谢", "pin": "xièxie", "en": "thank you", "es": "gracias" },
+  { "ch": "不客气", "pin": "bú kèqi", "en": "you're welcome", "es": "de nada" },
+  { "ch": "同学", "pin": "tóngxué", "en": "classmate", "es": "compañero de clase" },
+  { "ch": "再见", "pin": "zàijiàn", "en": "goodbye", "es": "adiós" },
+  { "ch": "小语", "pin": "Xiǎoyǔ", "en": "Xiaoyu (name)", "es": "Xiaoyu (nombre)" },
+  { "ch": "学生", "pin": "xuésheng", "en": "student", "es": "estudiante" }
+]

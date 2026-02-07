@@ -21,9 +21,11 @@ const UI = {
 
     // Botón start
     const btnStart = document.getElementById("btnStart");
-    if (btnStart) btnStart.onclick = startGame;
+    if (btnStart) btnStart.onclick = () => {
+      document.getElementById("menuOverlay").classList.remove("hidden");
+    };
 
-    // Contenedor menú
+    // Contenedor popup menú
     this.menuOverlay = document.getElementById("menuOverlay");
     this.menuBox = document.getElementById("menuBox");
     this.menuTitle = document.getElementById("menuTitle");
@@ -65,6 +67,7 @@ const UI = {
   setActive(p) {
     this.player1.classList.toggle("active", p === 1);
     this.player2.classList.toggle("active", p === 2);
+
     this.player1.classList.toggle("inactive", p !== 1);
     this.player2.classList.toggle("inactive", p !== 2);
   },
@@ -78,10 +81,6 @@ const UI = {
 
     q.textContent = text;
     container.innerHTML = "";
-    container.style.display = "grid";
-    container.style.gridTemplateColumns = "1fr 1fr";
-    container.style.gap = "12px";
-    container.style.minHeight = "180px";
 
     options.forEach(o => {
       const btn = document.createElement("button");
@@ -97,25 +96,23 @@ const UI = {
   /* ======================
      MENÚ POPUP
   ====================== */
-   showMenu(title, options, onSelect) {
+  showMenu(title, options, onSelect) {
     if (!this.menuOverlay) return;
-  
+
     this.menuTitle.textContent = title;
     this.menuOptions.innerHTML = "";
-  
+
     options.forEach((label, index) => {
       const btn = document.createElement("button");
       btn.className = "menu-btn";
-      btn.textContent = `${index + 1} - ${label}`;
+      btn.textContent = `${index + 1}. ${label}`;
       btn.onclick = () => {
-        this.hideMenu();          // primero ocultamos el popup
-        setTimeout(() => {        // luego ejecutamos la función de selección
-          onSelect(index + 1, label);
-        }, 10);
+        this.hideMenu();
+        onSelect(index + 1, label);
       };
       this.menuOptions.appendChild(btn);
     });
-  
+
     this.menuOverlay.classList.remove("hidden");
   },
 

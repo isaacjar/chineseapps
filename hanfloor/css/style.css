@@ -21,3 +21,11 @@ body { margin: 0; background: var(--bg); display: flex; flex-direction: column; 
 .option-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .app-footer { text-align: center; padding: 6px; font-size: .85rem; background: white; box-shadow: var(--shadow); }
 .hidden { display: none; }
+
+/* 🔹 Menú de selección de juego */
+.menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.menu-box { background: white; padding: 24px; border-radius: 16px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,.2); max-width: 320px; width: 90%; }
+.menu-box h2 { margin-bottom: 16px; font-size: 1.4rem; }
+.menu-options { display: flex; flex-direction: column; gap: 8px; }
+.menu-btn { display: block; width: 100%; padding: 12px; border-radius: 12px; border: none; background: var(--pastel-blue); cursor: pointer; font-size: 1.1rem; transition: background .2s; }
+.menu-btn:hover { background: var(--pastel-pink); }

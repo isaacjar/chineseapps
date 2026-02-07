@@ -26,30 +26,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ======================
    MENÚ INICIAL
-====================== */
+===================== */
 function showMenu() {
-  const overlay = document.getElementById("menuOverlay");
-  overlay.classList.remove("hidden");
-
-  const buttons = overlay.querySelectorAll(".menu-btn");
-  buttons.forEach(btn => {
-    btn.onclick = () => {
-      overlay.classList.add("hidden");
-      currentGame = Number(btn.dataset.game);
+  UI.showMenu(
+    "Selecciona un juego",
+    [
+      "Elige el pinyin",
+      "Elige el significado",
+      "Elige la palabra",
+      "Elige la imagen"
+    ],
+    (gameNumber, label) => {
+      console.log("Juego seleccionado:", gameNumber, label);
+      currentGame = gameNumber;
       startGame(currentGame);
-    };
-  });
+    }
+  );
 }
 
 /* ======================
    START GAME
-====================== */
+===================== */
 function startGame(gameNumber = 1, vocabList = null) {
   console.log("START GAME", gameNumber);
 
   currentPlayer = 1;
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
+  UI.hideMenu(); // ocultamos el menú al arrancar
 
   // Seleccionar el juego correspondiente
   switch (gameNumber) {
@@ -83,7 +87,7 @@ function startGame(gameNumber = 1, vocabList = null) {
 
 /* ======================
    LOAD QUESTIONS
-====================== */
+===================== */
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
 
@@ -99,7 +103,7 @@ function loadQuestion() {
 
 /* ======================
    HANDLE ANSWER
-====================== */
+===================== */
 function onAnswer(selected) {
   console.log("Respuesta jugador", currentPlayer, ":", selected);
 
@@ -118,7 +122,7 @@ function onAnswer(selected) {
 
 /* ======================
    SWITCH PLAYER
-====================== */
+===================== */
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
@@ -127,7 +131,7 @@ function switchPlayer() {
 
 /* ======================
    TIMER
-====================== */
+===================== */
 function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -138,7 +142,7 @@ function startTimer() {
 
 /* ======================
    END GAME
-====================== */
+===================== */
 function endGame(winner) {
   clearInterval(timerInterval);
   UI.showWinner(winner);

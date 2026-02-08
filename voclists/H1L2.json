@@ -1,13 +1,13 @@
 [
-  { "ch": "谢谢", "pin": "xièxie", "en": "thank you" },
-  { "ch": "你", "pin": "nǐ", "en": "you" },
-  { "ch": "再见", "pin": "zài jiàn", "en": "goodbye" },
-  { "ch": "没关系", "pin": "méi guānxi", "en": "it doesn't matter" },
-  { "ch": "对不起", "pin": "duìbuqǐ", "en": "sorry" },
-  { "ch": "不客气", "pin": "bú kèqi", "en": "you're welcome" },
-  { "ch": "口", "pin": "kǒu", "en": "mouth" },
-  { "ch": "见", "pin": "jiàn", "en": "to see" },
-  { "ch": "山", "pin": "shān", "en": "mountain" },
-  { "ch": "小", "pin": "xiǎo", "en": "small" },
-  { "ch": "不", "pin": "bù", "en": "not" }
+  { "ch": "谢谢", "pin": "xièxie", "en": "thank you", "es": "gracias" },
+  { "ch": "你", "pin": "nǐ", "en": "you", "es": "tú" },
+  { "ch": "再见", "pin": "zài jiàn", "en": "goodbye", "es": "adiós" },
+  { "ch": "没关系", "pin": "méi guānxi", "en": "it doesn't matter", "es": "no pasa nada" },
+  { "ch": "对不起", "pin": "duìbuqǐ", "en": "sorry", "es": "lo siento" },
+  { "ch": "不客气", "pin": "bú kèqi", "en": "you're welcome", "es": "de nada" },
+  { "ch": "口", "pin": "kǒu", "en": "mouth", "es": "boca" },
+  { "ch": "见", "pin": "jiàn", "en": "to see", "es": "ver" },
+  { "ch": "山", "pin": "shān", "en": "mountain", "es": "montaña" },
+  { "ch": "小", "pin": "xiǎo", "en": "small", "es": "pequeño" },
+  { "ch": "不", "pin": "bù", "en": "not", "es": "no" }
 ]

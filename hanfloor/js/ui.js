@@ -19,16 +19,21 @@ const UI = {
     this.options1 = document.getElementById("options1");
     this.options2 = document.getElementById("options2");
 
-    // Menú popup
+    // Popup y secciones
     this.menuOverlay = document.getElementById("menuOverlay");
+    this.menuBox = document.getElementById("menuBox");
     this.menuTitle = document.getElementById("menuTitle");
-    this.menuOptions = document.getElementById("menuOptions");
+    this.gameTypeBtns = document.querySelectorAll(".menu-btn");
+    this.vocabSelect = document.getElementById("vocabSelect");
+    this.player1Input = document.getElementById("player1Name");
+    this.player2Input = document.getElementById("player2Name");
+    this.btnStartGame = document.getElementById("btnStartGame");
 
-    console.log("UI listo", {
-      menuOverlay: this.menuOverlay,
-      menuTitle: this.menuTitle,
-      menuOptions: this.menuOptions
-    });
+    // Mostrar popup al pulsar START principal
+    const btnStart = document.getElementById("btnStart");
+    if (btnStart) btnStart.onclick = () => this.menuOverlay.classList.remove("hidden");
+
+    console.log("UI listo");
   },
 
   /* ======================
@@ -64,7 +69,6 @@ const UI = {
   setActive(p) {
     this.player1.classList.toggle("active", p === 1);
     this.player2.classList.toggle("active", p === 2);
-
     this.player1.classList.toggle("inactive", p !== 1);
     this.player2.classList.toggle("inactive", p !== 2);
   },
@@ -89,32 +93,18 @@ const UI = {
   },
 
   /* ======================
-     MENÚ POPUP
+     POPUP AVANZADO
   ====================== */
-  showMenu(title, options, onSelect) {
+  showMenu() {
     if (!this.menuOverlay) return;
-
-    this.menuTitle.textContent = title;
-    this.menuOptions.innerHTML = "";
-
-    options.forEach((label, index) => {
-      const btn = document.createElement("button");
-      btn.className = "menu-btn";
-      btn.textContent = `${index + 1} - ${label}`;
-      btn.onclick = () => onSelect(index + 1, label);
-      this.menuOptions.appendChild(btn);
-    });
-
     this.menuOverlay.classList.remove("hidden");
   },
 
   hideMenu() {
-    if (this.menuOverlay) this.menuOverlay.classList.add("hidden");
+    if (!this.menuOverlay) return;
+    this.menuOverlay.classList.add("hidden");
   },
 
-  /* ======================
-     SONIDO Y FINAL
-  ====================== */
   playOk() {
     const s = document.getElementById("soundOk");
     if (s) s.play();

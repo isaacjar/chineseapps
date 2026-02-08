@@ -1,28 +1,24 @@
-// app.js 
+// app.js
 
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
 let currentGame = null;
 let selectedVocab = null;
+let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
 
 // ---------------------
 // DOMContentLoaded
 // ---------------------
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    Settings.load();
+    Settings.load(); // Solo log de settings cargados
     UI.init();
     UI.setNames(Settings.data);
 
-    // ---------------------
-    // Cargar listado de vocabularios
-    // ---------------------
     await loadVocabList();
 
-    // ---------------------
-    // Restaurar últimas opciones y parámetros URL
-    // ---------------------
+    // Parámetros URL y persistencia
     const urlParams = new URLSearchParams(window.location.search);
     const paramGame = Number(urlParams.get("game"));
     const paramVocab = urlParams.get("vocab");
@@ -50,9 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       UI.setNames({ jugador1: p1, jugador2: p2 });
     }
 
-    // ---------------------
     // Toggle tipo de juego
-    // ---------------------
     UI.gameTypeBtns.forEach(btn => {
       btn.onclick = () => {
         currentGame = Number(btn.dataset.game);
@@ -60,9 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
     });
 
-    // ---------------------
     // START desde popup
-    // ---------------------
     UI.btnStartGame.onclick = async () => {
       if (!currentGame) {
         alert("Please select a game type");
@@ -82,18 +74,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       UI.setNames({ jugador1: p1, jugador2: p2 });
 
-      // Persistencia
       localStorage.setItem("lastGame", currentGame);
       localStorage.setItem("lastVocab", vocabKey);
+      localStorage.setItem("lastPlayer1", p1);
+      localStorage.setItem("lastPlayer2", p2);
 
+      usedWords.clear();
       startGame(currentGame, selectedVocab);
     };
 
-    // ---------------------
     // Si se pasó game por URL
-    // ---------------------
     if (paramGame) {
-      currentGame = paramGame;
+      usedWords.clear();
       startGame(currentGame, selectedVocab);
     } else {
       UI.showMenu();
@@ -203,14 +195,7 @@ function startGame(gameNumber, vocabList = null) {
 function loadQuestion() {
   currentQuestion = window.Game.getQuestion();
 
-  // Filtrar opciones por longitud de caracteres
-  const wordLength = currentQuestion.text.length;
-  let options = currentQuestion.options.slice();
-
-  const sameLength = options.filter(o => o.length === wordLength);
-  if (sameLength.length >= 4) {
-    options = sameLength;
-  }
+  const options = generateOptions(currentQuestion);
 
   UI.renderQuestion(
     currentPlayer,
@@ -218,6 +203,55 @@ function loadQuestion() {
     options,
     onAnswer
   );
+}
+
+// ---------------------
+// Generar opciones
+// ---------------------
+function generateOptions(word) {
+  const wordLength = word.hanzi.length;
+
+  // Reiniciar usedWords si todas las palabras se han usado
+  if (usedWords.size >= window.Game.vocab.length) {
+    usedWords.clear();
+  }
+
+  usedWords.add(word.hanzi);
+
+  // Filtrar candidatos de la misma longitud y no usados
+  let candidates = window.Game.vocab
+    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi && !usedWords.has(w.hanzi))
+    .map(w => w.hanzi);
+
+  shuffleArray(candidates);
+
+  const opts = [word.hanzi];
+
+  // Añadir hasta 3 opciones
+  for (let i = 0; i < 3 && i < candidates.length; i++) opts.push(candidates[i]);
+
+  // Rellenar con otras palabras si no hay suficientes
+  if (opts.length < 4) {
+    const remaining = window.Game.vocab
+      .map(w => w.hanzi)
+      .filter(h => !opts.includes(h));
+
+    shuffleArray(remaining);
+    for (let i = 0; opts.length < 4 && i < remaining.length; i++) opts.push(remaining[i]);
+  }
+
+  return shuffleArray(opts);
+}
+
+// ---------------------
+// Mezclar array
+// ---------------------
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 // ---------------------

@@ -14,7 +14,7 @@
 
   { "ch": "来", "pin": "lái", "en": "to come", "es": "venir" },
   { "ch": "飞", "pin": "fēi", "en": "to fly", "es": "volar" },
-  { "ch": "有", "pin": "yǒu", "en": "to have, there is", "es": "tener, haber" },
+  { "ch": "有", "pin": "yǒu", "en": "to have, there is/are", "es": "tener, haber" },
   { "ch": "雪", "pin": "xuě", "en": "snow", "es": "nieve" },
   { "ch": "过", "pin": "guò", "en": "to pass, to cross, to experience", "es": "pasar, cruzar, experimentar" },
   { "ch": "个", "pin": "ge", "en": "general measure word", "es": "clasificador genérico" },

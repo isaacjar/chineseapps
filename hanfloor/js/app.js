@@ -99,30 +99,48 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ---------------------
 // Cargar index.js (voclists)
 // ---------------------
-async function loadVocabList() {
+async function loadVocabList(retries = 5, delay = 500) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
+    script.async = true;
 
-    script.onload = () => {
-      if (!window.voclists || !UI.vocabSelect) {
-        reject("voclists not found");
-        return;
-      }
+    script.onload = async () => {
+      let attempt = 0;
 
-      UI.vocabSelect.innerHTML = "";
-
-      window.voclists.forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v.filename;
-        opt.textContent = v.title;
-        UI.vocabSelect.appendChild(opt);
+      const waitForVoclists = () => new Promise((res, rej) => {
+        const check = () => {
+          if (window.voclists && UI.vocabSelect) {
+            // Llenar el select
+            UI.vocabSelect.innerHTML = "";
+            window.voclists.forEach(v => {
+              const opt = document.createElement("option");
+              opt.value = v.filename;
+              opt.textContent = v.title;
+              UI.vocabSelect.appendChild(opt);
+            });
+            res();
+          } else {
+            attempt++;
+            if (attempt > retries) {
+              rej("voclists not found after multiple attempts");
+            } else {
+              setTimeout(check, delay);
+            }
+          }
+        };
+        check();
       });
 
-      resolve();
+      try {
+        await waitForVoclists();
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
     };
 
-    script.onerror = () => reject("Error loading vocab index");
+    script.onerror = () => reject("Failed to load index.js");
     document.body.appendChild(script);
   });
 }

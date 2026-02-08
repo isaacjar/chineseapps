@@ -1,4 +1,3 @@
-// ui.js
 console.log("ui.js cargado");
 
 const UI = {
@@ -22,8 +21,7 @@ const UI = {
     // Popup y secciones
     this.menuOverlay = document.getElementById("menuOverlay");
     this.menuBox = document.getElementById("menuBox");
-    this.menuTitle = document.getElementById("menuTitle");
-    this.gameTypeBtns = document.querySelectorAll(".menu-btn");
+    this.gameTypeBtns = document.querySelectorAll("#gameTypeSection .menu-btn");
     this.vocabSelect = document.getElementById("vocabSelect");
     this.player1Input = document.getElementById("player1Name");
     this.player2Input = document.getElementById("player2Name");
@@ -32,6 +30,10 @@ const UI = {
     // Mostrar popup al pulsar START principal
     const btnStart = document.getElementById("btnStart");
     if (btnStart) btnStart.onclick = () => this.menuOverlay.classList.remove("hidden");
+
+    // Restaurar último juego seleccionado en UI
+    const lastGame = localStorage.getItem("lastGame");
+    if (lastGame) this.setActiveGameBtn(Number(lastGame));
 
     console.log("UI listo");
   },
@@ -105,6 +107,12 @@ const UI = {
     this.menuOverlay.classList.add("hidden");
   },
 
+  setActiveGameBtn(gameNumber) {
+    this.gameTypeBtns.forEach(btn => {
+      btn.classList.toggle("active", Number(btn.dataset.game) === gameNumber);
+    });
+  },
+
   playOk() {
     const s = document.getElementById("soundOk");
     if (s) s.play();
@@ -116,6 +124,6 @@ const UI = {
   },
 
   showWinner(p) {
-    alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} gana!`);
+    alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} wins!`);
   }
 };

@@ -31,9 +31,17 @@ const UI = {
     const btnStart = document.getElementById("btnStart");
     if (btnStart) btnStart.onclick = () => this.menuOverlay.classList.remove("hidden");
 
-    // Restaurar último juego seleccionado en UI
+    // Restaurar últimas opciones guardadas
     const lastGame = localStorage.getItem("lastGame");
     if (lastGame) this.setActiveGameBtn(Number(lastGame));
+
+    const lastVocab = localStorage.getItem("lastVocab");
+    if (lastVocab && this.vocabSelect) this.vocabSelect.value = lastVocab;
+
+    const lastP1 = localStorage.getItem("lastPlayer1");
+    const lastP2 = localStorage.getItem("lastPlayer2");
+    if (lastP1) this.player1Input.value = lastP1;
+    if (lastP2) this.player2Input.value = lastP2;
 
     console.log("UI listo");
   },
@@ -113,6 +121,9 @@ const UI = {
     });
   },
 
+  /* ======================
+     SONIDO Y FINAL
+  ====================== */
   playOk() {
     const s = document.getElementById("soundOk");
     if (s) s.play();
@@ -125,5 +136,15 @@ const UI = {
 
   showWinner(p) {
     alert(`🎉 ${p === 1 ? this.name1.textContent : this.name2.textContent} wins!`);
+  },
+
+  /* ======================
+     GUARDAR OPCIONES
+  ====================== */
+  saveSettings(gameNumber, vocabKey, player1, player2) {
+    localStorage.setItem("lastGame", gameNumber);
+    localStorage.setItem("lastVocab", vocabKey);
+    localStorage.setItem("lastPlayer1", player1);
+    localStorage.setItem("lastPlayer2", player2);
   }
 };

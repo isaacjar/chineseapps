@@ -27,26 +27,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     const paramP1 = urlParams.get("p1");
     const paramP2 = urlParams.get("p2");
 
-    // Últimos guardados
+    // Últimos valores guardados
     const lastGame = paramGame || Number(localStorage.getItem("lastGame"));
-    const lastVocab = paramVocab || localStorage.getItem("lastVocab");
+    let lastVocab = paramVocab || localStorage.getItem("lastVocab");
 
     // ---------------------
-    // Setear valores en popup
+    // Setear vocabulario
+    // ---------------------
+    if (UI.vocabSelect && UI.vocabSelect.options.length > 0) {
+      // Comprobar si el vocab pasado existe
+      const exists = Array.from(UI.vocabSelect.options).some(opt => opt.value === lastVocab);
+      if (!exists) {
+        // Si no existe, usar el último o el primero
+        lastVocab = localStorage.getItem("lastVocab") || UI.vocabSelect.options[0].value;
+      }
+      UI.vocabSelect.value = lastVocab;
+      try {
+        selectedVocab = await loadVocabFile(lastVocab);
+        localStorage.setItem("lastVocab", lastVocab);
+      } catch (err) {
+        console.error("Error loading vocab file:", err);
+        alert("Failed to load vocabulary. Please check your internet connection.");
+        UI.showMenu();
+        return;
+      }
+    }
+
+    // ---------------------
+    // Setear tipo de juego
     // ---------------------
     if (lastGame) {
       currentGame = lastGame;
       UI.setActiveGameBtn(currentGame);
     }
 
-    if (lastVocab && UI.vocabSelect) {
-      const exists = Array.from(UI.vocabSelect.options).some(opt => opt.value === lastVocab);
-      const vocabToLoad = exists ? lastVocab : UI.vocabSelect.options[0]?.value;
-      UI.vocabSelect.value = vocabToLoad;
-      selectedVocab = await loadVocabFile(vocabToLoad);
-      localStorage.setItem("lastVocab", vocabToLoad);
-    }
-
+    // ---------------------
+    // Setear nombres de jugadores
+    // ---------------------
     const p1 = paramP1 || localStorage.getItem("lastPlayer1") || "Player 1";
     const p2 = paramP2 || localStorage.getItem("lastPlayer2") || "Player 2";
     UI.player1Input.value = p1;
@@ -81,7 +98,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      selectedVocab = await loadVocabFile(vocabKey);
+      try {
+        selectedVocab = await loadVocabFile(vocabKey);
+      } catch (err) {
+        console.error("Error loading vocab file:", err);
+        alert("Failed to load vocabulary. Please check your internet connection.");
+        return;
+      }
 
       UI.setNames({ jugador1: p1, jugador2: p2 });
 
@@ -98,6 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Mostrar popup o lanzar juego
     // ---------------------
     if (paramGame || paramVocab || paramP1 || paramP2) {
+      // Si se pasó algo por URL, arrancar juego directamente
       usedWords.clear();
       startGame(currentGame, selectedVocab);
     } else {
@@ -105,6 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
   } catch (e) {
+    console.error(e);
     alert("Failed to load vocabulary. Please check your internet connection.");
   }
 });
@@ -226,9 +251,6 @@ function startGame(gameNumber, vocabList = null) {
 function loadQuestion() {
   currentQuestion = window.Game.getQuestion();
 
-  // Marcar palabra como usada globalmente
-  usedWords.add(currentQuestion.hanzi);
-
   const options = generateOptions(currentQuestion);
 
   UI.renderQuestion(
@@ -245,13 +267,12 @@ function loadQuestion() {
 function generateOptions(word) {
   const wordLength = word.hanzi.length;
 
-  // Reiniciar usedWords si todas las palabras se han usado
   if (usedWords.size >= window.Game.vocab.length) {
     usedWords.clear();
-    usedWords.add(word.hanzi); // mantener la actual
   }
 
-  // Filtrar candidatos de la misma longitud y no usados
+  usedWords.add(word.hanzi);
+
   let candidates = window.Game.vocab
     .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi && !usedWords.has(w.hanzi))
     .map(w => w.hanzi);
@@ -260,15 +281,12 @@ function generateOptions(word) {
 
   const opts = [word.hanzi];
 
-  // Añadir hasta 3 opciones
   for (let i = 0; i < 3 && i < candidates.length; i++) opts.push(candidates[i]);
 
-  // Rellenar con otras palabras si no hay suficientes
   if (opts.length < 4) {
     const remaining = window.Game.vocab
       .map(w => w.hanzi)
       .filter(h => !opts.includes(h));
-
     shuffleArray(remaining);
     for (let i = 0; opts.length < 4 && i < remaining.length; i++) opts.push(remaining[i]);
   }

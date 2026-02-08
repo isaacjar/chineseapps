@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-:root { --bg:#f6f7fb; --pastel-yellow:#fff4c2; --pastel-blue:#dce9ff; --pastel-pink:#f9dce3; --pastel-green:#d0f0c0; --text:#333; --shadow:0 4px 10px rgba(0,0,0,.08); }
+:root { --bg:#f6f7fb; --pastel-yellow:#fff4c2; --pastel-blue:#dce9ff; --pastel-pink:#f9dce3; --text:#333; --shadow:0 4px 10px rgba(0,0,0,.08); }
+
 * { box-sizing:border-box; font-family:'Nunito', sans-serif; }
+
 body { margin:0; background:var(--bg); display:flex; flex-direction:column; height:100vh; }
 
 /* ======================
@@ -25,7 +27,7 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .time { font-size:2rem; }
 .question { background:var(--pastel-yellow); margin:16px auto; padding:24px; border-radius:24px; box-shadow:var(--shadow); text-align:center; font-size:2rem; }
 .options { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:12px; min-height:180px; align-items:stretch; }
-.option-btn { background:var(--pastel-pink); border-radius:20px; padding:16px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:1.2rem; border:none; transition:transform .15s, background .2s; }
+.option-btn { background:#f0f0f0; border-radius:20px; padding:16px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:1.2rem; border:none; transition:transform .15s, background .2s; }
 .option-btn:hover { transform:scale(1.05); background:#fff9d6; }
 .option-btn:disabled { opacity:.6; cursor:not-allowed; }
 
@@ -40,32 +42,34 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .hidden { display:none !important; }
 
 /* ======================
-   MENU DE CONFIGURACIÓN
+   MENU SELECCIÓN JUEGO / CONFIGURACIÓN
 ====================== */
 .menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.55); display:flex; justify-content:center; align-items:center; z-index:1000; }
-.menu-box { background:white; padding:24px; border-radius:20px; text-align:center; box-shadow:0 6px 30px rgba(0,0,0,.25); max-width:360px; width:90%; animation:popup .25s ease-out; }
-.menu-box h2 { margin-bottom:20px; font-size:1.5rem; font-weight:700; }
+.menu-box { background:white; padding:24px; border-radius:20px; text-align:center; box-shadow:0 6px 30px rgba(0,0,0,.25); max-width:400px; width:90%; animation:popup .25s ease-out; display:flex; flex-direction:column; gap:16px; }
+.menu-box h2 { margin-bottom:8px; font-size:1.5rem; }
+.menu-section { display:flex; flex-direction:column; gap:8px; text-align:left; }
+.menu-section h3 { margin:0 0 4px 0; font-size:1.1rem; }
 
-/* Secciones */
-.menu-section { margin-bottom:20px; text-align:left; }
-.menu-section h3 { margin-bottom:12px; font-size:1.2rem; font-weight:600; color:#333; }
+/* Tipo de juego: botones en línea */
+#gameTypeSection .menu-options { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+#gameTypeSection .menu-btn { flex:1 1 calc(50% - 8px); min-width:100px; }
 
-/* Botones de tipo de juego */
-.menu-options { display:flex; flex-direction:column; gap:10px; }
-.menu-btn { width:100%; padding:14px; border-radius:14px; border:none; background:var(--pastel-blue); cursor:pointer; font-size:1.1rem; font-weight:600; color:#333; transition:transform .15s, background .2s; }
-.menu-btn:hover { background:var(--pastel-pink); transform:scale(1.03); }
+/* Selección vocabulario */
+#vocabSection select { width:100%; padding:8px 12px; border-radius:12px; border:1px solid #ccc; font-size:1rem; }
 
-/* Select de vocabulario */
-#vocabSelect { width:100%; padding:10px 12px; border-radius:12px; border:1px solid #ccc; font-size:1rem; background:#fff; color:#222; }
+/* Nombres jugadores: inputs en línea */
+#playerNamesSection { display:flex; gap:8px; justify-content:center; }
+#playerNamesSection input { flex:1; padding:8px 12px; border-radius:12px; border:1px solid #ccc; font-size:1rem; text-align:center; }
 
-/* Inputs de nombres de jugadores */
-#player1Name, #player2Name { display:block; width:100%; padding:10px 12px; border-radius:12px; border:1px solid #ccc; font-size:1rem; background:#fff; color:#222; margin-bottom:8px; }
+/* Botón START */
+#btnStartGame { margin-top:12px; padding:12px 24px; border-radius:16px; background:var(--pastel-blue); font-size:1.2rem; cursor:pointer; border:none; transition:transform .15s, background .2s; }
+#btnStartGame:hover { background:var(--pastel-pink); transform:scale(1.03); }
 
-/* Botón START del popup */
-#btnStartGame { width:100%; padding:14px; border-radius:14px; border:none; font-size:1.2rem; font-weight:700; cursor:pointer; background:var(--pastel-green); color:#000; transition:background .2s, transform .15s; }
-#btnStartGame:hover { background:var(--pastel-pink); transform:scale(1.02); }
+/* Botones de opciones del juego */
+.option-btn.correct { background:var(--pastel-yellow); }
+.option-btn.incorrect { background:var(--pastel-pink); }
 
 /* ======================
-   ANIMACIONES
+   ANIMATIONS
 ====================== */
 @keyframes popup { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }

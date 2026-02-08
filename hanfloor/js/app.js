@@ -33,23 +33,28 @@ document.addEventListener("DOMContentLoaded", () => {
    MENÚ INICIAL
 ====================== */
 function showMenu() {
-  UI.showMenu("Selecciona un juego", [
-    "Elige el pinyin",
-    "Elige el significado",
-    "Elige la palabra",
-    "Elige la imagen"
-  ], (gameNumber, label) => {
-    currentGame = gameNumber;       // guardamos elección
-    UI.hideMenu();                  // ocultamos popup
-    console.log("Juego seleccionado:", gameNumber, label);
-    // ¡No arrancamos aún! Esperamos botón START
-  });
+  UI.showMenu(
+    "Selecciona un juego",
+    [
+      "Elige el pinyin",
+      "Elige el significado",
+      "Elige la palabra",
+      "Elige la imagen"
+    ],
+    (gameNumber) => {
+      currentGame = gameNumber;
+      console.log("Juego seleccionado:", currentGame);
+      // ❗ NO arrancamos aquí
+    }
+  );
 }
 
 /* ======================
    START GAME
 ====================== */
 function startGame(gameNumber = 1, vocabList = null) {
+  UI.hideMenu(); // 🔒 por si acaso
+
   console.log("START GAME", gameNumber);
 
   currentPlayer = 1;

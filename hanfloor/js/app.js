@@ -97,30 +97,52 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ---------------------
 // Cargar index.js (voclists)
 // ---------------------
+// ---------------------
+// Cargar index.js (voclists) de forma robusta
+// ---------------------
 async function loadVocabList() {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
+    script.async = true;
 
     script.onload = () => {
-      if (!window.voclists || !UI.vocabSelect) {
-        reject("voclists not found");
-        return;
+      try {
+        if (typeof voclists === "undefined") {
+          reject("voclists is undefined after loading index.js");
+          return;
+        }
+
+        if (!UI.vocabSelect) {
+          reject("UI.vocabSelect not found in DOM");
+          return;
+        }
+
+        // Limpiar select
+        UI.vocabSelect.innerHTML = "";
+
+        // Añadir opciones
+        voclists.forEach(v => {
+          if (v.filename && v.title) {
+            const opt = document.createElement("option");
+            opt.value = v.filename;    // ej: H1L1a4
+            opt.textContent = v.title; // ej: HSK 1 01-04
+            UI.vocabSelect.appendChild(opt);
+          } else {
+            console.warn("Invalid vocablist entry:", v);
+          }
+        });
+
+        console.log(`Loaded ${voclists.length} vocab lists`);
+        resolve();
+      } catch (err) {
+        reject("Error processing voclists: " + err);
       }
-
-      UI.vocabSelect.innerHTML = "";
-
-      window.voclists.forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v.filename;      // ej: H1L1a4
-        opt.textContent = v.title;   // ej: HSK 1 01-04
-        UI.vocabSelect.appendChild(opt);
-      });
-
-      resolve();
     };
 
-    script.onerror = () => reject("Error loading vocab index");
+    script.onerror = () => reject("Failed to load vocab index.js from server");
+
+    // Agregar al body para cargar
     document.body.appendChild(script);
   });
 }

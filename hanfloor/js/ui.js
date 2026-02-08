@@ -1,4 +1,4 @@
-console.log("ui.js cargado");
+// ui.js 
 
 const UI = {
   init() {
@@ -43,7 +43,6 @@ const UI = {
     if (lastP1) this.player1Input.value = lastP1;
     if (lastP2) this.player2Input.value = lastP2;
 
-    console.log("UI listo");
   },
 
   /* ======================

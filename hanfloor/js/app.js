@@ -17,10 +17,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     UI.init();
     UI.setNames(Settings.data);
 
-    // Cargar vocabulario remoto
+    // Cargar listado de vocabularios
     await loadVocabList();
 
+    // ---------------------
     // Restaurar últimas opciones
+    // ---------------------
     const lastGame = Number(localStorage.getItem("lastGame"));
     const lastVocab = localStorage.getItem("lastVocab");
 
@@ -31,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (lastVocab && UI.vocabSelect) {
       UI.vocabSelect.value = lastVocab;
-      selectedVocab = window.Voc?.[lastVocab] || null;
     }
 
     // ---------------------
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ---------------------
     // START desde popup
     // ---------------------
-    UI.btnStartGame.onclick = () => {
+    UI.btnStartGame.onclick = async () => {
       if (!currentGame) {
         alert("Please select a game type");
         return;
@@ -57,12 +58,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const p2 = UI.player2Input.value.trim() || "Player 2";
       const vocabKey = UI.vocabSelect.value;
 
-      selectedVocab = vocabKey && window.Voc ? window.Voc[vocabKey] : null;
+      if (!vocabKey) {
+        alert("Please select a vocabulary list");
+        return;
+      }
+
+      // Cargar vocabulario real
+      selectedVocab = await loadVocabFile(vocabKey);
 
       UI.setNames({ jugador1: p1, jugador2: p2 });
 
       // Persistencia
-      UI.saveSettings(currentGame, vocabKey, p1, p2);
+      localStorage.setItem("lastGame", currentGame);
+      localStorage.setItem("lastVocab", vocabKey);
 
       startGame(currentGame, selectedVocab);
     };
@@ -87,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // ---------------------
-// Cargar vocabulario remoto
+// Cargar index.js (voclits)
 // ---------------------
 async function loadVocabList() {
   return new Promise((resolve, reject) => {
@@ -95,21 +103,56 @@ async function loadVocabList() {
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
 
     script.onload = () => {
-      if (window.Voc && UI.vocabSelect) {
-        UI.vocabSelect.innerHTML = "";
-        Object.keys(window.Voc).forEach(key => {
-          const opt = document.createElement("option");
-          opt.value = key;
-          opt.textContent = key;
-          UI.vocabSelect.appendChild(opt);
-        });
-        resolve();
-      } else reject("Voc vacío");
+      if (!window.voclits || !UI.vocabSelect) {
+        reject("voclits not found");
+        return;
+      }
+
+      UI.vocabSelect.innerHTML = "";
+
+      window.voclits.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.filename;      // ej: H1L1a4
+        opt.textContent = v.title;   // ej: HSK 1 01-04
+        UI.vocabSelect.appendChild(opt);
+      });
+
+      resolve();
     };
 
-    script.onerror = () => reject("Error cargando vocabulario");
+    script.onerror = () => reject("Error loading vocab index");
     document.body.appendChild(script);
   });
+}
+
+// ---------------------
+// Cargar JSON real del vocabulario
+// ---------------------
+async function loadVocabFile(filename) {
+  const url = `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}full.json`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Vocabulary file not found");
+
+  const data = await res.json();
+
+  if (!Array.isArray(data) || data.length < 4) {
+    throw new Error("Vocabulary list invalid or too small");
+  }
+
+  return normalizeVocab(data);
+}
+
+// ---------------------
+// Normalizar vocabulario
+// ---------------------
+function normalizeVocab(list) {
+  return list.map(w => ({
+    hanzi: w.ch,
+    pinyin: w.pin,
+    meaning: w.en,
+    meaning_es: w.es
+  }));
 }
 
 // ---------------------
@@ -117,7 +160,6 @@ async function loadVocabList() {
 // ---------------------
 function startGame(gameNumber, vocabList = null) {
   UI.hideMenu();
-
   console.log("START GAME", gameNumber);
 
   currentPlayer = 1;
@@ -132,7 +174,7 @@ function startGame(gameNumber, vocabList = null) {
     default: window.Game = Game1;
   }
 
-  if (vocabList && Array.isArray(vocabList) && vocabList.length >= 4) {
+  if (vocabList) {
     window.Game.vocab = vocabList;
   }
 

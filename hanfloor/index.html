@@ -43,11 +43,36 @@
   <strong>Hanfloor</strong> 🧩 IJH 🧩 Made for learning joy
 </footer>
 
-<!-- MENÚ SELECCIÓN DE JUEGO -->
+<!-- MENÚ DE CONFIGURACIÓN DE JUEGO -->
 <div id="menuOverlay" class="menu-overlay hidden">
   <div class="menu-box">
-    <h2 id="menuTitle">Select game...</h2>
-    <div id="menuOptions" class="menu-options"></div>
+
+    <h2>Configuración del juego</h2>
+
+    <!-- Sección 1: Tipo de juego -->
+    <div class="menu-section">
+      <h3>Tipo de juego</h3>
+      <div id="gameTypeOptions" class="menu-options"></div>
+    </div>
+
+    <!-- Sección 2: Listado de vocabulario -->
+    <div class="menu-section">
+      <h3>Listado de vocabulario</h3>
+      <select id="vocabSelect">
+        <option value="">Cargando...</option>
+      </select>
+    </div>
+
+    <!-- Sección 3: Nombres de los jugadores -->
+    <div class="menu-section">
+      <h3>Nombres de los jugadores</h3>
+      <input type="text" id="player1Name" placeholder="Player 1" value="Player 1">
+      <input type="text" id="player2Name" placeholder="Player 2" value="Player 2">
+    </div>
+
+    <!-- Botón START -->
+    <button id="btnStartGame" class="md-btn primary">START</button>
+
   </div>
 </div>
 

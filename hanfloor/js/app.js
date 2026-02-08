@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // ---------------------
-// Cargar index.js (voclits)
+// Cargar index.js (voclists)
 // ---------------------
 async function loadVocabList() {
   return new Promise((resolve, reject) => {
@@ -103,14 +103,14 @@ async function loadVocabList() {
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
 
     script.onload = () => {
-      if (!window.voclits || !UI.vocabSelect) {
-        reject("voclits not found");
+      if (!window.voclists || !UI.vocabSelect) {
+        reject("voclists not found");
         return;
       }
 
       UI.vocabSelect.innerHTML = "";
 
-      window.voclits.forEach(v => {
+      window.voclists.forEach(v => {
         const opt = document.createElement("option");
         opt.value = v.filename;      // ej: H1L1a4
         opt.textContent = v.title;   // ej: HSK 1 01-04

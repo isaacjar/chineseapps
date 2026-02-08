@@ -1,4 +1,4 @@
-console.log("app.js cargado");
+// app.js 
 
 let currentPlayer = 1;
 let timerInterval = null;
@@ -17,8 +17,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     UI.init();
     UI.setNames(Settings.data);
 
-    // Cargar listado de vocabularios
-    await loadVocabList();
+    // ---------------------
+    // Cargar listado de vocabularios solo si no existe
+    // ---------------------
+    await ensureVocabIndex();
 
     // ---------------------
     // Restaurar últimas opciones
@@ -63,8 +65,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // Cargar vocabulario real
-      selectedVocab = await loadVocabFile(vocabKey);
+      try {
+        selectedVocab = await loadVocabFile(vocabKey);
+        if (!selectedVocab.length) throw new Error("Empty vocabulary list");
+      } catch (err) {
+        console.error("Error loading vocabulary file:", err);
+        alert("Failed to load vocabulary file. Check your internet or filename.");
+        return;
+      }
 
       UI.setNames({ jugador1: p1, jugador2: p2 });
 
@@ -90,17 +98,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (e) {
     console.error("Error inicializando app:", e);
-    alert("Failed to load vocabulary.");
+    alert("Failed to initialize app.");
   }
 });
 
 // ---------------------
-// Cargar index.js (voclists)
+// Garantizar que voclists está disponible
 // ---------------------
-// ---------------------
-// Cargar index.js (voclists) de forma robusta
-// ---------------------
-async function loadVocabList() {
+async function ensureVocabIndex() {
+  if (window.voclists && Array.isArray(window.voclists)) {
+    console.log("voclists already loaded");
+    populateVocabSelect(window.voclists);
+    return;
+  }
+
+  console.log("Loading voclists index.js...");
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
@@ -108,32 +120,12 @@ async function loadVocabList() {
 
     script.onload = () => {
       try {
-        if (typeof voclists === "undefined") {
-          reject("voclists is undefined after loading index.js");
+        if (!window.voclists || !Array.isArray(window.voclists)) {
+          reject("voclists not found or invalid");
           return;
         }
-
-        if (!UI.vocabSelect) {
-          reject("UI.vocabSelect not found in DOM");
-          return;
-        }
-
-        // Limpiar select
-        UI.vocabSelect.innerHTML = "";
-
-        // Añadir opciones
-        voclists.forEach(v => {
-          if (v.filename && v.title) {
-            const opt = document.createElement("option");
-            opt.value = v.filename;    // ej: H1L1a4
-            opt.textContent = v.title; // ej: HSK 1 01-04
-            UI.vocabSelect.appendChild(opt);
-          } else {
-            console.warn("Invalid vocablist entry:", v);
-          }
-        });
-
-        console.log(`Loaded ${voclists.length} vocab lists`);
+        populateVocabSelect(window.voclists);
+        console.log(`Loaded ${window.voclists.length} vocab lists`);
         resolve();
       } catch (err) {
         reject("Error processing voclists: " + err);
@@ -142,8 +134,23 @@ async function loadVocabList() {
 
     script.onerror = () => reject("Failed to load vocab index.js from server");
 
-    // Agregar al body para cargar
     document.body.appendChild(script);
+  });
+}
+
+// ---------------------
+// Población select vocabulario
+// ---------------------
+function populateVocabSelect(voclists) {
+  if (!UI.vocabSelect) return;
+  UI.vocabSelect.innerHTML = "";
+  voclists.forEach(v => {
+    if (v.filename && v.title) {
+      const opt = document.createElement("option");
+      opt.value = v.filename;
+      opt.textContent = v.title;
+      UI.vocabSelect.appendChild(opt);
+    }
   });
 }
 
@@ -153,16 +160,20 @@ async function loadVocabList() {
 async function loadVocabFile(filename) {
   const url = `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}full.json`;
 
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Vocabulary file not found");
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Vocabulary file not found");
 
-  const data = await res.json();
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length < 4) {
+      throw new Error("Vocabulary list invalid or too small");
+    }
 
-  if (!Array.isArray(data) || data.length < 4) {
-    throw new Error("Vocabulary list invalid or too small");
+    return normalizeVocab(data);
+  } catch (err) {
+    console.error("Error fetching vocab file:", url, err);
+    return [];
   }
-
-  return normalizeVocab(data);
 }
 
 // ---------------------
@@ -196,11 +207,9 @@ function startGame(gameNumber, vocabList = null) {
     default: window.Game = Game1;
   }
 
-  if (vocabList) {
+  if (vocabList && vocabList.length >= 4) {
     window.Game.vocab = vocabList;
-  }
-
-  if (!window.Game.vocab || window.Game.vocab.length < 4) {
+  } else if (!window.Game.vocab || window.Game.vocab.length < 4) {
     alert("The game needs at least 4 words");
     UI.showMenu();
     return;

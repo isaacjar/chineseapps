@@ -111,7 +111,6 @@ async function loadVocabList(retries = 5, delay = 500) {
       const waitForVoclists = () => new Promise((res, rej) => {
         const check = () => {
           if (window.voclists && UI.vocabSelect) {
-            // Llenar el select
             UI.vocabSelect.innerHTML = "";
             window.voclists.forEach(v => {
               const opt = document.createElement("option");
@@ -208,16 +207,32 @@ function startGame(gameNumber, vocabList = null) {
 }
 
 // ---------------------
+// GET NEXT WORD (única hasta agotar vocabulario)
+// ---------------------
+function getNextWord() {
+  let remaining = window.Game.vocab.filter(w => !usedWords.has(w.hanzi));
+
+  if (remaining.length === 0) {
+    usedWords.clear();
+    remaining = [...window.Game.vocab];
+  }
+
+  const word = remaining[Math.floor(Math.random() * remaining.length)];
+  usedWords.add(word.hanzi);
+  return word;
+}
+
+// ---------------------
 // LOAD QUESTION
 // ---------------------
 function loadQuestion() {
-  currentQuestion = window.Game.getQuestion();
+  currentQuestion = getNextWord();
 
   const options = generateOptions(currentQuestion);
 
   UI.renderQuestion(
     currentPlayer,
-    currentQuestion.text,
+    currentQuestion.hanzi,
     options,
     onAnswer
   );
@@ -229,26 +244,16 @@ function loadQuestion() {
 function generateOptions(word) {
   const wordLength = word.hanzi.length;
 
-  // Reiniciar usedWords si todas las palabras se han usado
-  if (usedWords.size >= window.Game.vocab.length) {
-    usedWords.clear();
-  }
-
-  usedWords.add(word.hanzi);
-
-  // Filtrar candidatos de la misma longitud y no usados
   let candidates = window.Game.vocab
-    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi && !usedWords.has(w.hanzi))
+    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi)
     .map(w => w.hanzi);
 
   shuffleArray(candidates);
 
   const opts = [word.hanzi];
 
-  // Añadir hasta 3 opciones
   for (let i = 0; i < 3 && i < candidates.length; i++) opts.push(candidates[i]);
 
-  // Rellenar con otras palabras si no hay suficientes
   if (opts.length < 4) {
     const remaining = window.Game.vocab
       .map(w => w.hanzi)
@@ -279,7 +284,7 @@ function onAnswer(selected) {
   const container = currentPlayer === 1 ? UI.options1 : UI.options2;
   [...container.children].forEach(btn => btn.disabled = true);
 
-  if (selected === currentQuestion.correct) {
+  if (selected === currentQuestion.hanzi) {
     UI.playOk();
     setTimeout(switchPlayer, 200);
   } else {

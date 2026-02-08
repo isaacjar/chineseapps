@@ -1,59 +1,87 @@
-// app.js
 console.log("app.js cargado");
 
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
 let currentGame = 1; // juego seleccionado, por defecto 1
+let selectedVocab = null;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM listo");
   Settings.load();
   UI.init();
   UI.setNames(Settings.data);
 
+  // Cargar vocabulario remoto
+  await loadVocabList();
+
   const urlParams = new URLSearchParams(window.location.search);
   const gameParam = urlParams.get("game");
-  const vocabParam = urlParams.get("vocab"); // opcional: lista de vocabulario
+  const vocabParam = urlParams.get("vocab");
 
   if (gameParam) {
     currentGame = Number(gameParam);
     startGame(currentGame, vocabParam);
   } else {
     // mostrar popup de selección de juego
-    showMenu();
+    UI.showMenu();
   }
 
   // START button arranca el juego con la selección actual
-  const btnStart = document.getElementById("btnStart");
-  if (btnStart) btnStart.onclick = () => startGame(currentGame);
+  const btnStart = document.getElementById("btnStartGame");
+  if (btnStart) btnStart.onclick = () => {
+    // Guardar nombres
+    const p1 = UI.player1Input.value.trim() || "Player 1";
+    const p2 = UI.player2Input.value.trim() || "Player 2";
+    UI.setNames({ jugador1: p1, jugador2: p2 });
+
+    // Guardar vocabulario seleccionado
+    const sel = UI.vocabSelect.value;
+    selectedVocab = sel ? window.Voc[sel] : null;
+
+    UI.hideMenu();
+    startGame(currentGame, selectedVocab);
+  };
+
+  // Botones de selección de juego
+  UI.gameTypeBtns.forEach(btn => {
+    btn.onclick = () => {
+      currentGame = Number(btn.dataset.game);
+      UI.gameTypeBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
+  });
 });
 
-/* ======================
-   MENÚ INICIAL
-====================== */
-function showMenu() {
-  UI.showMenu(
-    "Selecciona un juego",
-    [
-      "Elige el pinyin",
-      "Elige el significado",
-      "Elige la palabra",
-      "Elige la imagen"
-    ],
-    (gameNumber) => {
-      currentGame = gameNumber;
-      console.log("Juego seleccionado:", currentGame);
-      // ❗ NO arrancamos aquí
-    }
-  );
-}
+// ======================
+// Cargar vocabulario remoto
+// ======================
+async function loadVocabList() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
+    script.onload = () => {
+      if (window.Voc && UI.vocabSelect) {
+        UI.vocabSelect.innerHTML = "";
+        for (const key in window.Voc) {
+          const opt = document.createElement("option");
+          opt.value = key;
+          opt.textContent = key;
+          UI.vocabSelect.appendChild(opt);
+        }
+        resolve();
+      } else reject("No se cargó 'Voc'");
+    };
+    script.onerror = () => reject("Error cargando script remoto");
+    document.body.appendChild(script);
+  });
+};
 
-/* ======================
-   START GAME
-====================== */
+// ======================
+// START GAME
+// ======================
 function startGame(gameNumber = 1, vocabList = null) {
-  UI.hideMenu(); // 🔒 por si acaso
+  UI.hideMenu();
 
   console.log("START GAME", gameNumber);
 
@@ -61,7 +89,6 @@ function startGame(gameNumber = 1, vocabList = null) {
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
 
-  // Seleccionar juego correspondiente
   switch (gameNumber) {
     case 1: window.Game = Game1; break;
     case 2: window.Game = Game2; break;
@@ -70,18 +97,11 @@ function startGame(gameNumber = 1, vocabList = null) {
     default: window.Game = Game1; break;
   }
 
-  // Sobrescribir vocabulario si se pasa por URL
   if (vocabList) {
-    try {
-      const parsed = JSON.parse(decodeURIComponent(vocabList));
-      if (Array.isArray(parsed) && parsed.length >= 4) window.Game.vocab = parsed;
-      else console.warn("Vocabulario insuficiente, mínimo 4 palabras");
-    } catch (e) {
-      console.error("Error parseando vocabulario URL", e);
-    }
+    if (Array.isArray(vocabList) && vocabList.length >= 4) window.Game.vocab = vocabList;
+    else console.warn("Vocabulario insuficiente, mínimo 4 palabras");
   }
 
-  // Comprobar mínimo 4 palabras
   if (!window.Game.vocab || window.Game.vocab.length < 4) {
     alert("El juego necesita al menos 4 palabras para funcionar");
     return;
@@ -91,25 +111,18 @@ function startGame(gameNumber = 1, vocabList = null) {
   loadQuestion();
 }
 
-/* ======================
-   LOAD QUESTIONS
-====================== */
+// ======================
+// LOAD QUESTIONS
+// ======================
 function loadQuestion() {
   console.log("Cargando pregunta para jugador", currentPlayer);
-
   currentQuestion = window.Game.getQuestion();
-
-  UI.renderQuestion(
-    currentPlayer,
-    currentQuestion.text,
-    currentQuestion.options,
-    onAnswer
-  );
+  UI.renderQuestion(currentPlayer, currentQuestion.text, currentQuestion.options, onAnswer);
 }
 
-/* ======================
-   HANDLE ANSWER
-====================== */
+// ======================
+// HANDLE ANSWER
+// ======================
 function onAnswer(selected) {
   console.log("Respuesta jugador", currentPlayer, ":", selected);
 
@@ -126,18 +139,18 @@ function onAnswer(selected) {
   }
 }
 
-/* ======================
-   SWITCH PLAYER
-====================== */
+// ======================
+// SWITCH PLAYER
+// ======================
 function switchPlayer() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   UI.setActive(currentPlayer);
   loadQuestion();
 }
 
-/* ======================
-   TIMER
-====================== */
+// ======================
+// TIMER
+// ======================
 function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -146,9 +159,9 @@ function startTimer() {
   }, 1000);
 }
 
-/* ======================
-   END GAME
-====================== */
+// ======================
+// END GAME
+// ======================
 function endGame(winner) {
   clearInterval(timerInterval);
   UI.showWinner(winner);

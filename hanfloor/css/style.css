@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-
 :root { --bg:#f6f7fb; --pastel-yellow:#fff4c2; --pastel-blue:#dce9ff; --pastel-pink:#f9dce3; --text:#333; --shadow:0 4px 10px rgba(0,0,0,.08); }
-
 * { box-sizing:border-box; font-family:'Nunito', sans-serif; }
-
 body { margin:0; background:var(--bg); display:flex; flex-direction:column; height:100vh; }
 
 /* ======================
@@ -30,6 +27,8 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .option-btn { background:#f0f0f0; border-radius:20px; padding:16px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:1.2rem; border:none; transition:transform .15s, background .2s; }
 .option-btn:hover { transform:scale(1.05); background:#fff9d6; }
 .option-btn:disabled { opacity:.6; cursor:not-allowed; }
+.option-btn.correct { background:var(--pastel-yellow); }
+.option-btn.incorrect { background:var(--pastel-pink); }
 
 /* ======================
    FOOTER
@@ -50,9 +49,10 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .menu-section { display:flex; flex-direction:column; gap:8px; text-align:left; }
 .menu-section h3 { margin:0 0 4px 0; font-size:1.1rem; }
 
-/* Tipo de juego: botones en línea */
+/* Tipo de juego: botones en línea tipo toggle */
 #gameTypeSection .menu-options { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-#gameTypeSection .menu-btn { flex:1 1 calc(50% - 8px); min-width:100px; }
+#gameTypeSection .menu-btn { flex:1 1 calc(50% - 8px); min-width:100px; background:var(--pastel-blue); color:var(--text); font-weight:600; border-radius:16px; border:2px solid transparent; transition:all .2s; }
+#gameTypeSection .menu-btn.active { background:var(--pastel-yellow); border-color:var(--pastel-blue); transform:scale(1.05); }
 
 /* Selección vocabulario */
 #vocabSection select { width:100%; padding:8px 12px; border-radius:12px; border:1px solid #ccc; font-size:1rem; }
@@ -64,10 +64,6 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 /* Botón START */
 #btnStartGame { margin-top:12px; padding:12px 24px; border-radius:16px; background:var(--pastel-blue); font-size:1.2rem; cursor:pointer; border:none; transition:transform .15s, background .2s; }
 #btnStartGame:hover { background:var(--pastel-pink); transform:scale(1.03); }
-
-/* Botones de opciones del juego */
-.option-btn.correct { background:var(--pastel-yellow); }
-.option-btn.incorrect { background:var(--pastel-pink); }
 
 /* ======================
    ANIMATIONS

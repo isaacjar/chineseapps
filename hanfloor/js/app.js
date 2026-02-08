@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await loadVocabList();
 
+    // ---------------------
     // Parámetros URL y persistencia
+    // ---------------------
     const urlParams = new URLSearchParams(window.location.search);
     const paramGame = Number(urlParams.get("game"));
     const paramVocab = urlParams.get("vocab");
@@ -26,8 +28,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const paramP2 = urlParams.get("p2");
 
     const lastGame = paramGame || Number(localStorage.getItem("lastGame"));
-    const lastVocab = paramVocab || localStorage.getItem("lastVocab");
+    const lastVocab = paramVocab || localStorage.getItem("lastVocab"));
 
+    // ---------------------
+    // Setear valores en popup
+    // ---------------------
     if (lastGame) {
       currentGame = lastGame;
       UI.setActiveGameBtn(currentGame);
@@ -38,15 +43,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       selectedVocab = await loadVocabFile(lastVocab);
     }
 
-    if (paramP1 || paramP2) {
-      const p1 = paramP1 || "Player 1";
-      const p2 = paramP2 || "Player 2";
-      UI.player1Input.value = p1;
-      UI.player2Input.value = p2;
-      UI.setNames({ jugador1: p1, jugador2: p2 });
-    }
+    const p1 = paramP1 || localStorage.getItem("lastPlayer1") || "Player 1";
+    const p2 = paramP2 || localStorage.getItem("lastPlayer2") || "Player 2";
+    UI.player1Input.value = p1;
+    UI.player2Input.value = p2;
+    UI.setNames({ jugador1: p1, jugador2: p2 });
 
+    // ---------------------
     // Toggle tipo de juego
+    // ---------------------
     UI.gameTypeBtns.forEach(btn => {
       btn.onclick = () => {
         currentGame = Number(btn.dataset.game);
@@ -54,7 +59,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
     });
 
+    // ---------------------
     // START desde popup
+    // ---------------------
     UI.btnStartGame.onclick = async () => {
       if (!currentGame) {
         alert("Please select a game type");
@@ -83,8 +90,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       startGame(currentGame, selectedVocab);
     };
 
-    // Si se pasó game por URL
-    if (paramGame) {
+    // ---------------------
+    // Mostrar popup o lanzar juego
+    // ---------------------
+    if (paramGame || paramVocab || paramP1 || paramP2) {
       usedWords.clear();
       startGame(currentGame, selectedVocab);
     } else {
@@ -111,6 +120,7 @@ async function loadVocabList(retries = 5, delay = 500) {
       const waitForVoclists = () => new Promise((res, rej) => {
         const check = () => {
           if (window.voclists && UI.vocabSelect) {
+            // Llenar el select
             UI.vocabSelect.innerHTML = "";
             window.voclists.forEach(v => {
               const opt = document.createElement("option");
@@ -207,26 +217,10 @@ function startGame(gameNumber, vocabList = null) {
 }
 
 // ---------------------
-// GET NEXT WORD (única hasta agotar vocabulario)
-// ---------------------
-function getNextWord() {
-  let remaining = window.Game.vocab.filter(w => !usedWords.has(w.hanzi));
-
-  if (remaining.length === 0) {
-    usedWords.clear();
-    remaining = [...window.Game.vocab];
-  }
-
-  const word = remaining[Math.floor(Math.random() * remaining.length)];
-  usedWords.add(word.hanzi);
-  return word;
-}
-
-// ---------------------
 // LOAD QUESTION
 // ---------------------
 function loadQuestion() {
-  currentQuestion = getNextWord();
+  currentQuestion = window.Game.getQuestion();
 
   const options = generateOptions(currentQuestion);
 
@@ -244,16 +238,26 @@ function loadQuestion() {
 function generateOptions(word) {
   const wordLength = word.hanzi.length;
 
+  // Reiniciar usedWords si todas las palabras se han usado
+  if (usedWords.size >= window.Game.vocab.length) {
+    usedWords.clear();
+  }
+
+  usedWords.add(word.hanzi);
+
+  // Filtrar candidatos de la misma longitud y no usados
   let candidates = window.Game.vocab
-    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi)
+    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi && !usedWords.has(w.hanzi))
     .map(w => w.hanzi);
 
   shuffleArray(candidates);
 
   const opts = [word.hanzi];
 
+  // Añadir hasta 3 opciones
   for (let i = 0; i < 3 && i < candidates.length; i++) opts.push(candidates[i]);
 
+  // Rellenar con otras palabras si no hay suficientes
   if (opts.length < 4) {
     const remaining = window.Game.vocab
       .map(w => w.hanzi)

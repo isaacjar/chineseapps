@@ -3,7 +3,7 @@ console.log("app.js cargado");
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
-let currentGame = 1; // juego seleccionado
+let currentGame = null;
 let selectedVocab = null;
 
 // ---------------------
@@ -12,6 +12,7 @@ let selectedVocab = null;
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     console.log("DOM listo");
+
     Settings.load();
     UI.init();
     UI.setNames(Settings.data);
@@ -19,59 +20,69 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Cargar vocabulario remoto
     await loadVocabList();
 
-    // Restaurar último tipo de juego usado
-    const lastGame = localStorage.getItem("lastGame");
+    // Restaurar últimas opciones
+    const lastGame = Number(localStorage.getItem("lastGame"));
+    const lastVocab = localStorage.getItem("lastVocab");
+
     if (lastGame) {
-      currentGame = Number(lastGame);
+      currentGame = lastGame;
       UI.setActiveGameBtn(currentGame);
     }
 
-    // START button
-    const btnStart = document.getElementById("btnStartGame");
-    if (btnStart) btnStart.onclick = () => {
-      if (!currentGame) {
-        alert("Please select a game type!");
-        return;
-      }
+    if (lastVocab && UI.vocabSelect) {
+      UI.vocabSelect.value = lastVocab;
+      selectedVocab = window.Voc?.[lastVocab] || null;
+    }
 
-      // Guardar nombres
-      const p1 = UI.player1Input.value.trim() || "Player 1";
-      const p2 = UI.player2Input.value.trim() || "Player 2";
-      UI.setNames({ jugador1: p1, jugador2: p2 });
-
-      // Guardar vocabulario seleccionado
-      const sel = UI.vocabSelect.value;
-      selectedVocab = sel && window.Voc ? window.Voc[sel] : null;
-
-      UI.hideMenu();
-      localStorage.setItem("lastGame", currentGame);
-      startGame(currentGame, selectedVocab);
-    };
-
-    // Botones tipo de juego
+    // ---------------------
+    // Toggle tipo de juego
+    // ---------------------
     UI.gameTypeBtns.forEach(btn => {
       btn.onclick = () => {
         currentGame = Number(btn.dataset.game);
-        UI.gameTypeBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+        UI.setActiveGameBtn(currentGame);
       };
     });
 
-    // Mostrar popup si no se pasó game por URL
+    // ---------------------
+    // START desde popup
+    // ---------------------
+    UI.btnStartGame.onclick = () => {
+      if (!currentGame) {
+        alert("Please select a game type");
+        return;
+      }
+
+      const p1 = UI.player1Input.value.trim() || "Player 1";
+      const p2 = UI.player2Input.value.trim() || "Player 2";
+      const vocabKey = UI.vocabSelect.value;
+
+      selectedVocab = vocabKey && window.Voc ? window.Voc[vocabKey] : null;
+
+      UI.setNames({ jugador1: p1, jugador2: p2 });
+
+      // Persistencia
+      UI.saveSettings(currentGame, vocabKey, p1, p2);
+
+      startGame(currentGame, selectedVocab);
+    };
+
+    // ---------------------
+    // URL params (opcional)
+    // ---------------------
     const urlParams = new URLSearchParams(window.location.search);
-    const gameParam = urlParams.get("game");
-    const vocabParam = urlParams.get("vocab");
+    const gameParam = Number(urlParams.get("game"));
 
     if (gameParam) {
-      currentGame = Number(gameParam);
-      startGame(currentGame, vocabParam ? JSON.parse(decodeURIComponent(vocabParam)) : null);
+      currentGame = gameParam;
+      startGame(currentGame);
     } else {
       UI.showMenu();
     }
 
   } catch (e) {
     console.error("Error inicializando app:", e);
-    alert("Failed to load vocabulary. Check your internet or script URL.");
+    alert("Failed to load vocabulary.");
   }
 });
 
@@ -82,22 +93,21 @@ async function loadVocabList() {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = "https://isaacjar.github.io/chineseapps/hanfloor/voc/index.js";
+
     script.onload = () => {
-      if (window.Voc && Object.keys(window.Voc).length > 0 && UI.vocabSelect) {
+      if (window.Voc && UI.vocabSelect) {
         UI.vocabSelect.innerHTML = "";
-        for (const key in window.Voc) {
+        Object.keys(window.Voc).forEach(key => {
           const opt = document.createElement("option");
           opt.value = key;
           opt.textContent = key;
           UI.vocabSelect.appendChild(opt);
-        }
+        });
         resolve();
-      } else {
-        console.warn("window.Voc no tiene datos", window.Voc);
-        reject("No se cargó 'Voc'");
-      }
+      } else reject("Voc vacío");
     };
-    script.onerror = () => reject("Error cargando script remoto");
+
+    script.onerror = () => reject("Error cargando vocabulario");
     document.body.appendChild(script);
   });
 }
@@ -105,8 +115,9 @@ async function loadVocabList() {
 // ---------------------
 // START GAME
 // ---------------------
-function startGame(gameNumber = 1, vocabList = null) {
+function startGame(gameNumber, vocabList = null) {
   UI.hideMenu();
+
   console.log("START GAME", gameNumber);
 
   currentPlayer = 1;
@@ -118,16 +129,16 @@ function startGame(gameNumber = 1, vocabList = null) {
     case 2: window.Game = Game2; break;
     case 3: window.Game = Game3; break;
     case 4: window.Game = Game4; break;
-    default: window.Game = Game1; break;
+    default: window.Game = Game1;
   }
 
-  if (vocabList) {
-    if (Array.isArray(vocabList) && vocabList.length >= 4) window.Game.vocab = vocabList;
-    else console.warn("Vocabulario insuficiente, mínimo 4 palabras");
+  if (vocabList && Array.isArray(vocabList) && vocabList.length >= 4) {
+    window.Game.vocab = vocabList;
   }
 
   if (!window.Game.vocab || window.Game.vocab.length < 4) {
-    alert("The game needs at least 4 words!");
+    alert("The game needs at least 4 words");
+    UI.showMenu();
     return;
   }
 
@@ -136,30 +147,32 @@ function startGame(gameNumber = 1, vocabList = null) {
 }
 
 // ---------------------
-// LOAD QUESTIONS
+// LOAD QUESTION
 // ---------------------
 function loadQuestion() {
-  console.log("Cargando pregunta para jugador", currentPlayer);
   currentQuestion = window.Game.getQuestion();
-  UI.renderQuestion(currentPlayer, currentQuestion.text, currentQuestion.options, onAnswer);
+  UI.renderQuestion(
+    currentPlayer,
+    currentQuestion.text,
+    currentQuestion.options,
+    onAnswer
+  );
 }
 
 // ---------------------
 // HANDLE ANSWER
 // ---------------------
 function onAnswer(selected) {
-  console.log("Respuesta jugador", currentPlayer, ":", selected);
-
   const container = currentPlayer === 1 ? UI.options1 : UI.options2;
-  Array.from(container.children).forEach(btn => btn.disabled = true);
+  [...container.children].forEach(btn => btn.disabled = true);
 
   if (selected === currentQuestion.correct) {
     UI.playOk();
-    setTimeout(() => switchPlayer(), 200);
+    setTimeout(switchPlayer, 200);
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    setTimeout(() => loadQuestion(), 300);
+    setTimeout(loadQuestion, 300);
   }
 }
 
@@ -179,7 +192,9 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     UI.decreaseTime(currentPlayer);
-    if (UI.getTime(currentPlayer) <= 0) endGame(currentPlayer === 1 ? 2 : 1);
+    if (UI.getTime(currentPlayer) <= 0) {
+      endGame(currentPlayer === 1 ? 2 : 1);
+    }
   }, 1000);
 }
 

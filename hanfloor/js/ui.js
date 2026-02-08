@@ -98,26 +98,27 @@ const UI = {
   ====================== */
   showMenu(title, options, onSelect) {
     if (!this.menuOverlay) return;
-
+  
     this.menuTitle.textContent = title;
     this.menuOptions.innerHTML = "";
-
+  
     options.forEach((label, index) => {
       const btn = document.createElement("button");
       btn.className = "menu-btn";
-      btn.textContent = `${index + 1}. ${label}`;
+      btn.textContent = `${index + 1} - ${label}`;
       btn.onclick = () => {
-        this.hideMenu();
-        onSelect(index + 1, label);
+        this.hideMenu();              // 🔴 cerrar SIEMPRE
+        onSelect(index + 1, label);   // solo selecciona
       };
       this.menuOptions.appendChild(btn);
     });
-
+  
     this.menuOverlay.classList.remove("hidden");
   },
 
   hideMenu() {
-    if (this.menuOverlay) this.menuOverlay.classList.add("hidden");
+    if (!this.menuOverlay) return;
+    this.menuOverlay.classList.add("hidden");
   },
 
   /* ======================

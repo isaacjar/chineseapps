@@ -19,19 +19,16 @@ const UI = {
     this.options1 = document.getElementById("options1");
     this.options2 = document.getElementById("options2");
 
-    // Botón start
-    const btnStart = document.getElementById("btnStart");
-    if (btnStart) btnStart.onclick = () => {
-      document.getElementById("menuOverlay").classList.remove("hidden");
-    };
-
-    // Contenedor popup menú
+    // Menú popup
     this.menuOverlay = document.getElementById("menuOverlay");
-    this.menuBox = document.getElementById("menuBox");
     this.menuTitle = document.getElementById("menuTitle");
     this.menuOptions = document.getElementById("menuOptions");
 
-    console.log("UI listo");
+    console.log("UI listo", {
+      menuOverlay: this.menuOverlay,
+      menuTitle: this.menuTitle,
+      menuOptions: this.menuOptions
+    });
   },
 
   /* ======================
@@ -89,8 +86,6 @@ const UI = {
       btn.onclick = () => cb(o);
       container.appendChild(btn);
     });
-
-    console.log(`Jugador ${p} opciones renderizadas:`, container.children.length);
   },
 
   /* ======================
@@ -98,27 +93,23 @@ const UI = {
   ====================== */
   showMenu(title, options, onSelect) {
     if (!this.menuOverlay) return;
-  
+
     this.menuTitle.textContent = title;
     this.menuOptions.innerHTML = "";
-  
+
     options.forEach((label, index) => {
       const btn = document.createElement("button");
       btn.className = "menu-btn";
       btn.textContent = `${index + 1} - ${label}`;
-      btn.onclick = () => {
-        this.hideMenu();              // 🔴 cerrar SIEMPRE
-        onSelect(index + 1, label);   // solo selecciona
-      };
+      btn.onclick = () => onSelect(index + 1, label);
       this.menuOptions.appendChild(btn);
     });
-  
+
     this.menuOverlay.classList.remove("hidden");
   },
 
   hideMenu() {
-    if (!this.menuOverlay) return;
-    this.menuOverlay.classList.add("hidden");
+    if (this.menuOverlay) this.menuOverlay.classList.add("hidden");
   },
 
   /* ======================

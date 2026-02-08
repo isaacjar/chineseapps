@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const paramP1 = urlParams.get("p1");
     const paramP2 = urlParams.get("p2");
 
+    // Últimos guardados
     const lastGame = paramGame || Number(localStorage.getItem("lastGame"));
-    const lastVocab = paramVocab || localStorage.getItem("lastVocab"));
+    const lastVocab = paramVocab || localStorage.getItem("lastVocab");
 
     // ---------------------
     // Setear valores en popup
@@ -39,8 +40,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (lastVocab && UI.vocabSelect) {
-      UI.vocabSelect.value = lastVocab;
-      selectedVocab = await loadVocabFile(lastVocab);
+      const exists = Array.from(UI.vocabSelect.options).some(opt => opt.value === lastVocab);
+      const vocabToLoad = exists ? lastVocab : UI.vocabSelect.options[0]?.value;
+      UI.vocabSelect.value = vocabToLoad;
+      selectedVocab = await loadVocabFile(vocabToLoad);
+      localStorage.setItem("lastVocab", vocabToLoad);
     }
 
     const p1 = paramP1 || localStorage.getItem("lastPlayer1") || "Player 1";
@@ -222,6 +226,9 @@ function startGame(gameNumber, vocabList = null) {
 function loadQuestion() {
   currentQuestion = window.Game.getQuestion();
 
+  // Marcar palabra como usada globalmente
+  usedWords.add(currentQuestion.hanzi);
+
   const options = generateOptions(currentQuestion);
 
   UI.renderQuestion(
@@ -241,9 +248,8 @@ function generateOptions(word) {
   // Reiniciar usedWords si todas las palabras se han usado
   if (usedWords.size >= window.Game.vocab.length) {
     usedWords.clear();
+    usedWords.add(word.hanzi); // mantener la actual
   }
-
-  usedWords.add(word.hanzi);
 
   // Filtrar candidatos de la misma longitud y no usados
   let candidates = window.Game.vocab

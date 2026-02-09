@@ -95,12 +95,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
+      // 🔹 Leer nombres actuales de los inputs
+      const p1 = UI.player1Input.value.trim() || "Player 1";
+      const p2 = UI.player2Input.value.trim() || "Player 2";
+
+      // 🔹 Guardar en localStorage
+      localStorage.setItem("lastPlayer1", p1);
+      localStorage.setItem("lastPlayer2", p2);
+    
+      // 🔹 Actualizar nombres visibles
+      UI.setNames({ jugador1: p1, jugador2: p2 });
+          
       selectedVocab = await loadVocabFile(vocabKey);
 
       localStorage.setItem("lastGame", currentGame);
       localStorage.setItem("lastVocab", vocabKey);
-      localStorage.setItem("lastPlayer1", p1);
-      localStorage.setItem("lastPlayer2", p2);
 
       usedWords.clear();
       startGame(currentGame, selectedVocab);

@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     Settings.load(); // Solo log de settings cargados
     UI.init();
-    UI.setNames(Settings.data);
 
     await loadVocabList();
 

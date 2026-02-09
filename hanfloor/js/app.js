@@ -235,25 +235,42 @@ function loadQuestion() {
 function generateHanziOptions(word) {
   usedWords.add(word.hanzi);
 
-  const sameLength = window.Game.vocab
-    .filter(w => w.hanzi.length === word.hanzi.length && w.hanzi !== word.hanzi)
+  // 1️⃣ candidatos misma longitud
+  let candidates = window.Game.vocab
+    .filter(w => w.hanzi !== word.hanzi && w.hanzi.length === word.hanzi.length)
     .map(w => w.hanzi);
 
-  shuffleArray(sameLength);
+  // 2️⃣ si no hay suficientes, relajar condición
+  if (candidates.length < 3) {
+    candidates = window.Game.vocab
+      .filter(w => w.hanzi !== word.hanzi)
+      .map(w => w.hanzi);
+  }
 
-  return shuffleArray([word.hanzi, ...sameLength.slice(0, 3)]);
+  shuffleArray(candidates);
+
+  return shuffleArray([word.hanzi, ...candidates.slice(0, 3)]);
 }
 
 // ---------------------
 // Opciones PINYIN
 // ---------------------
 function generatePinyinOptions(word) {
-  const others = window.Game.vocab
-    .filter(w => w.hanzi !== word.hanzi)
+  // 1️⃣ candidatos de hanzi misma longitud
+  let candidates = window.Game.vocab
+    .filter(w => w.hanzi !== word.hanzi && w.hanzi.length === word.hanzi.length)
     .map(w => w.pinyin);
 
-  shuffleArray(others);
-  return shuffleArray([word.pinyin, ...others.slice(0, 3)]);
+  // 2️⃣ fallback si no hay suficientes
+  if (candidates.length < 3) {
+    candidates = window.Game.vocab
+      .filter(w => w.hanzi !== word.hanzi)
+      .map(w => w.pinyin);
+  }
+
+  shuffleArray(candidates);
+
+  return shuffleArray([word.pinyin, ...candidates.slice(0, 3)]);
 }
 
 // ---------------------

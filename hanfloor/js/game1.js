@@ -9,7 +9,7 @@ const Game1 = {
     { hanzi: "对不起", pinyin: "duìbuqǐ" },
     { hanzi: "没关系", pinyin: "méi guānxi" }
   ],
- 
+
   getQuestion() {
     return this.vocab[Math.floor(Math.random() * this.vocab.length)];
   }

@@ -221,12 +221,21 @@ function loadQuestion() {
     correct = currentQuestion.hanzi;
   }
 
+  // Renderizar solo para el jugador activo
   UI.renderQuestion(
     currentPlayer,
     currentQuestion.hanzi,
     options,
     sel => onAnswer(sel, correct)
   );
+
+  // Deshabilitar los botones del jugador inactivo
+  const inactiveContainer = currentPlayer === 1 ? UI.options2 : UI.options1;
+  [...inactiveContainer.children].forEach(btn => btn.disabled = true);
+
+  // Habilitar los botones del jugador activo
+  const activeContainer = currentPlayer === 1 ? UI.options1 : UI.options2;
+  [...activeContainer.children].forEach(btn => btn.disabled = false);
 }
 
 // ---------------------
@@ -284,6 +293,16 @@ function shuffleArray(arr) {
 // RESPUESTA
 // ---------------------
 function onAnswer(selected, correct) {
+  const activeContainer = currentPlayer === 1 ? UI.options1 : UI.options2;
+
+  // Ignorar si el botón pulsado no pertenece al jugador activo
+  if (![...activeContainer.children].some(btn => btn.textContent === selected)) {
+    return;
+  }
+
+  // Deshabilitar botones del jugador activo inmediatamente
+  [...activeContainer.children].forEach(btn => btn.disabled = true);
+
   if (selected === correct) {
     UI.playOk();
     setTimeout(switchPlayer, 200);

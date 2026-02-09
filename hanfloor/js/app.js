@@ -303,13 +303,22 @@ function onAnswer(selected, correct) {
   // Deshabilitar botones del jugador activo inmediatamente
   [...activeContainer.children].forEach(btn => btn.disabled = true);
 
+  // Pintar botones: correcto en verde primavera, incorrecto en rojo pastel
+  [...activeContainer.children].forEach(btn => {
+    if (btn.textContent === correct) {
+      btn.classList.add("correct");
+    } else if (btn.textContent === selected) {
+      btn.classList.add("incorrect");
+    }
+  });
+
   if (selected === correct) {
     UI.playOk();
-    setTimeout(switchPlayer, 200);
+    setTimeout(switchPlayer, 500); // un poco más de tiempo para ver el verde
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
-    setTimeout(loadQuestion, 300);
+    setTimeout(loadQuestion, 800); // tiempo para ver el rojo
   }
 }
 

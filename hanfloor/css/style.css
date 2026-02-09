@@ -39,6 +39,20 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
    UTILITIES
 ====================== */
 .hidden { display:none !important; }
+.time.penalty {
+  color: #e53935;
+  font-weight: bold;
+  transform: scale(1.15);
+  transition: transform 0.1s ease;
+}
+.time.penalty {
+  animation: penaltyShake 0.12s infinite alternate;
+}
+
+@keyframes penaltyShake {
+  from { transform: translateX(-1px) scale(1.15); }
+  to   { transform: translateX(1px) scale(1.15); }
+}
 
 /* ======================
    MENU SELECCIÓN JUEGO / CONFIGURACIÓN

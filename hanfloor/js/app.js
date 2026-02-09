@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const paramP1 = urlParams.get("p1");
     const paramP2 = urlParams.get("p2");
 
-    // Últimos valores guardados
     const lastGame = paramGame || Number(localStorage.getItem("lastGame"));
     let lastVocab = paramVocab || localStorage.getItem("lastVocab");
 
@@ -35,26 +34,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Setear vocabulario
     // ---------------------
     if (UI.vocabSelect && UI.vocabSelect.options.length > 0) {
-      // Comprobar si el vocab pasado existe
-      const exists = Array.from(UI.vocabSelect.options).some(opt => opt.value === lastVocab);
+      const exists = Array.from(UI.vocabSelect.options)
+        .some(opt => opt.value === lastVocab);
+
       if (!exists) {
-        // Si no existe, usar el último o el primero
-        lastVocab = localStorage.getItem("lastVocab") || UI.vocabSelect.options[0].value;
+        lastVocab = localStorage.getItem("lastVocab") ||
+                    UI.vocabSelect.options[0].value;
       }
+
       UI.vocabSelect.value = lastVocab;
+
       try {
         selectedVocab = await loadVocabFile(lastVocab);
         localStorage.setItem("lastVocab", lastVocab);
-      } catch (err) {
-        console.error("Error loading vocab file:", err);
-        alert("Failed to load vocabulary. Please check your internet connection.");
+      } catch {
         UI.showMenu();
         return;
       }
     }
 
     // ---------------------
-    // Setear tipo de juego
+    // Tipo de juego
     // ---------------------
     if (lastGame) {
       currentGame = lastGame;
@@ -62,10 +62,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ---------------------
-    // Setear nombres de jugadores
+    // Nombres
     // ---------------------
     const p1 = paramP1 || localStorage.getItem("lastPlayer1") || "Player 1";
     const p2 = paramP2 || localStorage.getItem("lastPlayer2") || "Player 2";
+
     UI.player1Input.value = p1;
     UI.player2Input.value = p2;
     UI.setNames({ jugador1: p1, jugador2: p2 });
@@ -89,24 +90,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      const p1 = UI.player1Input.value.trim() || "Player 1";
-      const p2 = UI.player2Input.value.trim() || "Player 2";
       const vocabKey = UI.vocabSelect.value;
-
       if (!vocabKey) {
         alert("Please select a vocabulary list");
         return;
       }
 
-      try {
-        selectedVocab = await loadVocabFile(vocabKey);
-      } catch (err) {
-        console.error("Error loading vocab file:", err);
-        alert("Failed to load vocabulary. Please check your internet connection.");
-        return;
-      }
-
-      UI.setNames({ jugador1: p1, jugador2: p2 });
+      selectedVocab = await loadVocabFile(vocabKey);
 
       localStorage.setItem("lastGame", currentGame);
       localStorage.setItem("lastVocab", vocabKey);
@@ -117,19 +107,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       startGame(currentGame, selectedVocab);
     };
 
-    // ---------------------
-    // Mostrar popup o lanzar juego
-    // ---------------------
     if (paramGame || paramVocab || paramP1 || paramP2) {
-      // Si se pasó algo por URL, arrancar juego directamente
       usedWords.clear();
       startGame(currentGame, selectedVocab);
     } else {
       UI.showMenu();
     }
 
-  } catch (e) {
-    console.error(e);
+  } catch {
     alert("Failed to load vocabulary. Please check your internet connection.");
   }
 });
@@ -147,57 +132,43 @@ async function loadVocabList(retries = 10, delay = 300) {
       let attempt = 0;
 
       const check = () => {
-        // 👇 CLAVE: NO window.voclists
-        if (typeof voclists !== "undefined" && Array.isArray(voclists) && UI.vocabSelect) {
+        if (typeof voclists !== "undefined" && Array.isArray(voclists)) {
           UI.vocabSelect.innerHTML = "";
-
           voclists.forEach(v => {
             const opt = document.createElement("option");
             opt.value = v.filename;
             opt.textContent = v.title;
             UI.vocabSelect.appendChild(opt);
           });
-
           resolve();
           return;
         }
 
         attempt++;
-        if (attempt >= retries) {
-          reject("voclists not found after multiple attempts");
-        } else {
-          setTimeout(check, delay);
-        }
+        attempt >= retries ? reject() : setTimeout(check, delay);
       };
 
       check();
     };
 
-    script.onerror = () => reject("Failed to load index.js");
+    script.onerror = () => reject();
     document.body.appendChild(script);
   });
 }
 
 // ---------------------
-// Cargar JSON real del vocabulario
+// Cargar vocab JSON
 // ---------------------
 async function loadVocabFile(filename) {
-  const url = `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}full.json`;
-
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Vocabulary file not found");
-
+  const res = await fetch(
+    `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}full.json`
+  );
   const data = await res.json();
-
-  if (!Array.isArray(data) || data.length < 4) {
-    throw new Error("Vocabulary list invalid or too small");
-  }
-
   return normalizeVocab(data);
 }
 
 // ---------------------
-// Normalizar vocabulario
+// Normalizar
 // ---------------------
 function normalizeVocab(list) {
   return list.map(w => ({
@@ -211,30 +182,18 @@ function normalizeVocab(list) {
 // ---------------------
 // START GAME
 // ---------------------
-function startGame(gameNumber, vocabList = null) {
+function startGame(gameNumber, vocabList) {
   UI.hideMenu();
-
   currentPlayer = 1;
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
 
-  switch (gameNumber) {
-    case 1: window.Game = Game1; break;
-    case 2: window.Game = Game2; break;
-    case 3: window.Game = Game3; break;
-    case 4: window.Game = Game4; break;
-    default: window.Game = Game1;
-  }
+  window.Game =
+    gameNumber === 1 ? Game1 :
+    gameNumber === 2 ? Game2 :
+    gameNumber === 3 ? Game3 : Game4;
 
-  if (vocabList) {
-    window.Game.vocab = vocabList;
-  }
-
-  if (!window.Game.vocab || window.Game.vocab.length < 4) {
-    alert("The game needs at least 4 words");
-    UI.showMenu();
-    return;
-  }
+  window.Game.vocab = vocabList;
 
   startTimer();
   loadQuestion();
@@ -244,84 +203,72 @@ function startGame(gameNumber, vocabList = null) {
 // LOAD QUESTION
 // ---------------------
 function loadQuestion() {
-  let q = window.Game.getQuestion?.();
+  currentQuestion = window.Game.getQuestion();
 
-  if (!q || !q.hanzi) {
-    console.warn("getQuestion() returned invalid value, resetting usedWords");
+  if (!currentQuestion || !currentQuestion.hanzi) {
     usedWords.clear();
-    q = window.Game.getQuestion?.();
+    currentQuestion = window.Game.getQuestion();
   }
 
-  if (!q || !q.hanzi) {
-    alert("No more words available in this vocabulary.");
-    endGame(currentPlayer === 1 ? 2 : 1);
-    return;
+  if (!currentQuestion) return;
+
+  let options, correct;
+
+  if (window.Game.mode === "hanzi-to-pinyin") {
+    options = generatePinyinOptions(currentQuestion);
+    correct = currentQuestion.pinyin;
+  } else {
+    options = generateHanziOptions(currentQuestion);
+    correct = currentQuestion.hanzi;
   }
-
-  currentQuestion = q;
-
-  const options = generateOptions(currentQuestion);
 
   UI.renderQuestion(
     currentPlayer,
     currentQuestion.hanzi,
     options,
-    onAnswer
+    sel => onAnswer(sel, correct)
   );
 }
 
 // ---------------------
-// Generar opciones
+// Opciones HANZI
 // ---------------------
-function generateOptions(word) {
-  const wordLength = word.hanzi.length;
-
-  if (usedWords.size >= window.Game.vocab.length) {
-    usedWords.clear();
-  }
-
+function generateHanziOptions(word) {
   usedWords.add(word.hanzi);
 
-  let candidates = window.Game.vocab
-    .filter(w => w.hanzi.length === wordLength && w.hanzi !== word.hanzi && !usedWords.has(w.hanzi))
+  const sameLength = window.Game.vocab
+    .filter(w => w.hanzi.length === word.hanzi.length && w.hanzi !== word.hanzi)
     .map(w => w.hanzi);
 
-  shuffleArray(candidates);
+  shuffleArray(sameLength);
 
-  const opts = [word.hanzi];
-
-  for (let i = 0; i < 3 && i < candidates.length; i++) opts.push(candidates[i]);
-
-  if (opts.length < 4) {
-    const remaining = window.Game.vocab
-      .map(w => w.hanzi)
-      .filter(h => !opts.includes(h));
-    shuffleArray(remaining);
-    for (let i = 0; opts.length < 4 && i < remaining.length; i++) opts.push(remaining[i]);
-  }
-
-  return shuffleArray(opts);
+  return shuffleArray([word.hanzi, ...sameLength.slice(0, 3)]);
 }
 
 // ---------------------
-// Mezclar array
+// Opciones PINYIN
 // ---------------------
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+function generatePinyinOptions(word) {
+  const others = window.Game.vocab
+    .filter(w => w.hanzi !== word.hanzi)
+    .map(w => w.pinyin);
+
+  shuffleArray(others);
+  return shuffleArray([word.pinyin, ...others.slice(0, 3)]);
 }
 
 // ---------------------
-// HANDLE ANSWER
+// Mezclar
 // ---------------------
-function onAnswer(selected) {
-  const container = currentPlayer === 1 ? UI.options1 : UI.options2;
-  [...container.children].forEach(btn => btn.disabled = true);
+function shuffleArray(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
 
-  if (selected === currentQuestion.hanzi) {
+// ---------------------
+// RESPUESTA
+// ---------------------
+function onAnswer(selected, correct) {
+  if (selected === correct) {
     UI.playOk();
     setTimeout(switchPlayer, 200);
   } else {

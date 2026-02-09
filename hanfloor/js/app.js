@@ -243,8 +243,27 @@ function startGame(gameNumber, vocabList = null) {
 // ---------------------
 // LOAD QUESTION
 // ---------------------
+// ---------------------
+// LOAD QUESTION
+// ---------------------
 function loadQuestion() {
-  currentQuestion = window.Game.getQuestion();
+  let q = window.Game.getQuestion();
+
+  // Blindaje: evitar undefined
+  if (!q || !q.hanzi) {
+    console.warn("getQuestion() returned invalid value, resetting usedWords");
+
+    usedWords.clear();
+    q = window.Game.getQuestion();
+
+    if (!q || !q.hanzi) {
+      alert("No more words available in this vocabulary.");
+      UI.showMenu();
+      return;
+    }
+  }
+
+  currentQuestion = q;
 
   const options = generateOptions(currentQuestion);
 

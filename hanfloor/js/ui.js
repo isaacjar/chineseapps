@@ -69,7 +69,29 @@ const UI = {
 
   penalize(p, sec) {
     const el = p === 1 ? this.time1 : this.time2;
-    el.textContent = Math.max(0, Number(el.textContent) - sec);
+  
+    let current = Number(el.textContent);
+    const target = Math.max(0, current - sec);
+  
+    // Clase visual de penalización
+    el.classList.add("penalty");
+  
+    let steps = 0;
+    const anim = setInterval(() => {
+      current--;
+      el.textContent = Math.max(0, current);
+      steps++;
+  
+      if (current <= target || steps >= sec) {
+        clearInterval(anim);
+  
+        // Asegurar valor final correcto
+        el.textContent = target;
+  
+        // Volver a estado normal
+        el.classList.remove("penalty");
+      }
+    }, 120); // velocidad del “tic tic tic”
   },
 
   /* ======================

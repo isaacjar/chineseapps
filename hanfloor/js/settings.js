@@ -3,9 +3,7 @@ const DEFAULTS = {
   lang: "es",
   time: 45,
   penalty: 3,
-  pinyin: true,
-  jugador1: "Player 1",
-  jugador2: "Player 2"
+  pinyin: true
 };
 
 const Settings = {
@@ -34,9 +32,6 @@ const Settings = {
     }
   
     this.data.pinyin = this.data.pinyin !== "false";
-  
-    this.data.jugador1 = String(this.data.jugador1 || DEFAULTS.jugador1);
-    this.data.jugador2 = String(this.data.jugador2 || DEFAULTS.jugador2);
   
     console.log("Settings cargados:", this.data);
   },

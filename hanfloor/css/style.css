@@ -39,15 +39,8 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
    UTILITIES
 ====================== */
 .hidden { display:none !important; }
-.time.penalty {
-  color: #e53935;
-  font-weight: bold;
-  transform: scale(1.15);
-  transition: transform 0.1s ease;
-}
-.time.penalty {
-  animation: penaltyShake 0.12s infinite alternate;
-}
+.time.penalty { color: #e53935; font-weight: bold; transform: scale(1.15); transition: transform 0.1s ease; }
+.time.penalty { animation: penaltyShake 0.12s infinite alternate; }
 
 @keyframes penaltyShake {
   from { transform: translateX(-1px) scale(1.15); }
@@ -62,6 +55,8 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .menu-box h2 { margin-bottom:8px; font-size:1.5rem; }
 .menu-section { display:flex; flex-direction:column; gap:8px; text-align:left; }
 .menu-section h3 { margin:0 0 4px 0; font-size:1.1rem; }
+.menu-section .flex-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; } 
+.menu-section .flex-row h3 { margin: 0; font-size: 1rem; }
 
 /* Tipo de juego: botones en línea tipo toggle */
 #gameTypeSection .menu-options { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }

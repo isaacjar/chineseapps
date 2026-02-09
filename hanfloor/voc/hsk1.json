@@ -96,7 +96,7 @@
   { "ch": "您", "pin": "nín", "en": "you (polite)", "es": "usted" },
   { "ch": "您们", "pin": "nínmen", "en": "you (polite, plural)", "es": "ustedes" },
   { "ch": "年", "pin": "nián", "en": "year", "es": "año" },
-  { "ch": "女儿", "pin": "nǚ’ér", "en": "daughter", "es": "hija" },
+  { "ch": "女儿", "pin": "nǚ'ér", "en": "daughter", "es": "hija" },
   { "ch": "朋友", "pin": "péngyou", "en": "friend", "es": "amigo" },
   { "ch": "漂亮", "pin": "piàoliang", "en": "beautiful", "es": "bonito, guapa" },
   { "ch": "苹果", "pin": "píngguǒ", "en": "apple", "es": "manzana" },
@@ -190,3 +190,4 @@
   { "ch": "做", "pin": "zuò", "en": "to do", "es": "hacer" },
   { "ch": "幺", "pin": "yāo", "en": "one (phone numbers)", "es": "uno (números de teléfono)" }
 ]   
+

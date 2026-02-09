@@ -22,13 +22,13 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .divider { width:4px; background:#ddd; }
 .top { display:flex; justify-content:space-between; font-size:1.3rem; }
 .time { font-size:2rem; }
-.question { background:var(--pastel-yellow); margin:16px auto; padding:24px; border-radius:24px; box-shadow:var(--shadow); text-align:center; font-size:2rem; }
+.question { background:var(--pastel-yellow); margin:16px auto; padding:24px; border-radius:24px; box-shadow:var(--shadow); text-align:center; font-size:3rem; min-width: 200px; }
 .options { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:12px; min-height:180px; align-items:stretch; }
-.option-btn { background:#f0f0f0; border-radius:20px; padding:16px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:1.2rem; border:none; transition:transform .15s, background .2s; }
+.option-btn { background:#f0f0f0; border-radius:16px; padding:12px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:2rem; border:none; transition:transform .15s, background .2s; margin: 10px;}
 .option-btn:hover { transform:scale(1.05); background:#fff9d6; }
 .option-btn:disabled { opacity:.6; cursor:not-allowed; }
-.option-btn.correct { background:var(--pastel-yellow); }
-.option-btn.incorrect { background:var(--pastel-pink); }
+.option-btn.correct { background: #77dd77; color: white; }
+.option-btn.incorrect {  background: #f4a6a6; color: white; }
 
 /* ======================
    FOOTER

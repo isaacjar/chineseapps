@@ -74,6 +74,15 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 #btnStartGame { margin-top:12px; padding:12px 24px; border-radius:16px; background:var(--pastel-blue); font-size:1.2rem; cursor:pointer; border:none; transition:transform .15s, background .2s; }
 #btnStartGame:hover { background:var(--pastel-pink); transform:scale(1.03); }
 
+/* ====================== SWITCH Y TIME INLINE ====================== */
+
+#pinyinSection .flex-row { display:flex; align-items:center; gap:10px; }
+#pinyinSection h3 { margin:0; font-size:1rem; white-space:nowrap; }
+
+#timeSection .flex-row { display:flex; align-items:center; gap:10px; }
+#timeSection h3 { margin:0; font-size:1rem; white-space:nowrap; }
+#timeSection .menu-options { display:flex; gap:5px; }
+
 /* ======================
    ANIMATIONS
 ====================== */

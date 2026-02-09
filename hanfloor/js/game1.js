@@ -9,22 +9,8 @@ const Game1 = {
   ],
 
   getQuestion() {
-    const item = this.vocab[Math.floor(Math.random() * this.vocab.length)];
-    const correct = item.pinyin;
+    if (!this.vocab || this.vocab.length === 0) return null;
 
-    // obtener opciones distintas posibles
-    const otherOptions = this.vocab
-      .filter(v => v.pinyin !== correct)
-      .map(v => v.pinyin);
-
-    // mezclar y tomar hasta 3 alternativas + la correcta
-    const shuffled = otherOptions.sort(() => Math.random() - 0.5).slice(0, 3);
-    const options = [...shuffled, correct].sort(() => Math.random() - 0.5);
-
-    return {
-      text: item.hanzi,
-      options,
-      correct
-    };
+    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
   }
 };

@@ -30,6 +30,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     let lastVocab = paramVocab || localStorage.getItem("lastVocab");
 
     // ---------------------
+    // Time selection
+    // ---------------------
+    if (UI.timeBtns) {
+      UI.timeBtns.forEach(btn => {
+        btn.onclick = () => {
+          const t = Number(btn.dataset.time);
+    
+          Settings.data.time = t;
+          Settings.save();
+    
+          UI.setActiveTimeBtn(t);
+        };
+      });
+    
+      // Activar el tiempo guardado al abrir el menú
+      UI.setActiveTimeBtn(Settings.data.time);
+    }
+    
+    // ---------------------
     // Setear vocabulario
     // ---------------------
     if (UI.vocabSelect && UI.vocabSelect.options.length > 0) {

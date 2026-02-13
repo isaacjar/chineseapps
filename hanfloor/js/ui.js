@@ -174,6 +174,16 @@ const UI = {
     document.body.appendChild(overlay);
   }, 
 
+  /* ============= RESALTAR JUGADOR ACTIVO CON CUADRO ================ */ 
+  markFail(p, duration = 800) {
+    const el = p === 1 ? this.player1 : this.player2;
+    el.classList.add("fail");
+  
+    setTimeout(() => {
+      el.classList.remove("fail");
+    }, duration);
+  }, 
+
   /* ======================
      SONIDO Y FINAL
   ====================== */

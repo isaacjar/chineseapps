@@ -11,6 +11,7 @@ const UI = {
 
     this.time1 = document.getElementById("time1");
     this.time2 = document.getElementById("time2");
+    this.timeBtns = document.querySelectorAll(".time-btn");
 
     this.question1 = document.getElementById("question1");
     this.question2 = document.getElementById("question2");
@@ -58,6 +59,13 @@ const UI = {
     this.time2.textContent = t;
   },
 
+  setActiveTimeBtn(time) {
+    if (!this.timeBtns) return;
+    this.timeBtns.forEach(btn => {
+      btn.classList.toggle("active", Number(btn.dataset.time) === Number(time));
+    });
+  },
+  
   decreaseTime(p) {
     const el = p === 1 ? this.time1 : this.time2;
     el.textContent = Math.max(0, Number(el.textContent) - 1);

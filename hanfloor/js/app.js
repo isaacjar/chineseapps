@@ -321,7 +321,10 @@ function onAnswer(selected, correct) {
     }
   });
 
-  if (selected === correct) {
+  const normalize = s => s.trim().toLowerCase(); // Se acepta por válido el pinyin igual
+  
+  // if (selected === correct) {
+  if (normalize(selected) === normalize(correct)) {   
     UI.playOk();
     setTimeout(switchPlayer, 500); // un poco más de tiempo para ver el verde
   } else {

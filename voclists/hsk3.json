@@ -7,7 +7,7 @@
   { "ch": "安静", "pin": "ānjìng", "en": "quiet", "es": "tranquilo, silencioso" },
   { "ch": "八", "pin": "bā", "en": "eight", "es": "ocho" },
   { "ch": "把", "pin": "bǎ", "en": "to", "es": "partícula 'ba' (estructura de objeto adelantado)" },
-  { "ch": "爸爸", "pin": "bàbà", "en": "father, dad", "es": "papá" },
+  { "ch": "爸爸", "pin": "bàba", "en": "father, dad", "es": "papá" },
   { "ch": "吧", "pin": "ba", "en": "suggestion or rhetorical question", "es": "partícula modal (sugerencia)" },
   { "ch": "白", "pin": "bái", "en": "white", "es": "blanco" },
   { "ch": "百", "pin": "bǎi", "en": "hundred", "es": "cien" },
@@ -608,3 +608,4 @@
   { "ch": "作业", "pin": "zuòyè", "en": "homework", "es": "deberes" },
   { "ch": "作用", "pin": "zuòyòng", "en": "action, effect", "es": "función, efecto" }
 ]
+

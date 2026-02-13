@@ -276,7 +276,7 @@ function generateHanziOptions(word) {
 function generatePinyinOptions(word) {
   // 1️⃣ candidatos de hanzi misma longitud
   let candidates = window.Game.vocab
-    .filter(w => w.hanzi !== word.hanzi && w.hanzi.length === word.hanzi.length)
+    .filter(w => w.hanzi !== word.hanzi && w.hanzi.length === word.hanzi.length && w.pinyin !== word.pinyin)
     .map(w => w.pinyin);
 
   // 2️⃣ fallback si no hay suficientes

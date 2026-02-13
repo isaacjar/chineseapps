@@ -151,6 +151,30 @@ const UI = {
   },
 
   /* ======================
+     WIN POPUP
+  ====================== */
+  showWinPopup({ name, points }) {
+    const overlay = document.createElement("div");
+    overlay.className = "win-overlay";
+  
+    overlay.innerHTML = `
+      <div class="win-box">
+        <h2>🎉 Victory!</h2>
+        <p><strong>${name}</strong></p>
+        <p>Points: <strong>${points}</strong></p>
+        <button>Accept</button>
+      </div>
+    `;
+  
+    overlay.querySelector("button").onclick = () => {
+      overlay.remove();
+      this.showMenu(); // volver a configuración
+    };
+  
+    document.body.appendChild(overlay);
+  }, 
+
+  /* ======================
      SONIDO Y FINAL
   ====================== */
   playOk() {

@@ -22,7 +22,7 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 .divider { width:4px; background:#ddd; }
 .top { display:flex; justify-content:space-between; font-size:1.3rem; }
 .time { font-size:2rem; }
-.question { background:var(--pastel-orange); margin:16px auto; padding:24px; border-radius:24px; box-shadow:var(--shadow); text-align:center; font-size:3.5rem; min-width: 200px; min-height: 150px;}
+.question { background:var(--pastel-orange); margin:16px auto; padding:24px; border-radius:24px; box-shadow:var(--shadow); text-align:center; font-size:3.5rem; min-width: 250px; min-height: 150px;}
 .options { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:25px; min-height:180px; align-items:stretch; }
 .option-btn { background:#f0f0f0; border-radius:16px; padding:12px; box-shadow:var(--shadow); cursor:pointer; display:flex; justify-content:center; align-items:center; text-align:center; font-size:2rem; border:none; transition:transform .15s, background .2s; margin: 10px;}
 .option-btn:hover { transform:scale(1.05); background:#fff9d6; }
@@ -82,6 +82,10 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 #timeSection .flex-row { display:flex; align-items:center; gap:10px; }
 #timeSection h3 { margin:0; font-size:1rem; white-space:nowrap; }
 #timeSection .menu-options { display:flex; gap:5px; }
+
+/* ====================== TIME BUTTONS TOGGLE ====================== */ 
+#timeSection .menu-btn { background: var(--pastel-yellow); border: 2px solid transparent; font-weight: 600; transition: all 0.2s ease; } /* 🔥 Botón de tiempo activo */ 
+#timeSection .menu-btn.active { background: var(--pastel-orange); border-color: #f0b000; transform: scale(1.08); box-shadow: 0 0 0 2px rgba(240,176,0,0.35); }
 
 /* ======================
    ANIMATIONS

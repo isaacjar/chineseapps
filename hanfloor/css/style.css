@@ -88,6 +88,17 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 #timeSection .menu-btn.active { background: var(--pastel-orange); border-color: #f0b000; transform: scale(1.08); box-shadow: 0 0 0 2px rgba(240,176,0,0.35); }
 
 /* ======================
+   WIN POPUP
+====================== */
+.win-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.win-box { background: white; padding: 28px; border-radius: 24px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,.3); animation: popup .3s ease-out; max-width: 320px; width: 90%; }
+.win-box h2 { margin: 0 0 12px; font-size: 1.8rem; }
+.win-box p { font-size: 1.2rem; margin: 8px 0; }
+.win-box strong { font-size: 1.4rem; }
+.win-box button { margin-top: 16px; padding: 10px 22px; border-radius: 16px; border: none; cursor: pointer; background: var(--pastel-blue); font-size: 1.1rem; transition: transform .15s, background .2s; }
+.win-box button:hover { background: var(--pastel-pink); transform: scale(1.05); }
+
+/* ======================
    ANIMATIONS
 ====================== */
 @keyframes popup { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }

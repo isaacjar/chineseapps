@@ -406,5 +406,13 @@ function startTimer() {
 // ---------------------
 function endGame(winner) {
   clearInterval(timerInterval);
-  UI.showWinner(winner);
+
+  const secondsLeft = UI.getTime(winner);
+  const points = secondsLeft * 10;
+  const name = winner === 1
+    ? UI.name1.textContent
+    : UI.name2.textContent;
+
+  launchConfetti();
+  UI.showWinPopup({ name, points });
 }

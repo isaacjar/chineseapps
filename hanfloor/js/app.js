@@ -349,6 +349,7 @@ function onAnswer(selected, correct) {
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
+    UI.markFail(currentPlayer, 800);
     setTimeout(loadQuestion, 800); // tiempo para ver el rojo
   }
 }

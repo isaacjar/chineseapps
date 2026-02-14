@@ -1,21 +1,21 @@
 [
-  { "ch": "饮料", "pin": "yǐnliào", "en": "beverage" },
-  { "ch": "裤子", "pin": "kùzi", "en": "pants, trousers" },
-  { "ch": "衬衫", "pin": "chènshān", "en": "shirt" },
-  { "ch": "绿茶", "pin": "lǜchá", "en": "green tea" },
-  { "ch": "花茶", "pin": "huāchá", "en": "flower tea" },
-  { "ch": "元", "pin": "yuán", "en": "yuan (currency)" },
+{ "ch": "饮料", "pin": "yǐnliào", "en": "beverage", "es": "bebida" },
+{ "ch": "裤子", "pin": "kùzi", "en": "pants, trousers", "es": "pantalones" },
+{ "ch": "衬衫", "pin": "chènshān", "en": "shirt", "es": "camisa" },
+{ "ch": "绿茶", "pin": "lǜchá", "en": "green tea", "es": "té verde" },
+{ "ch": "花茶", "pin": "huāchá", "en": "flower tea", "es": "té de flores" },
+{ "ch": "元", "pin": "yuán", "en": "yuan (currency)", "es": "yuan (moneda china)" },
 
-  { "ch": "小心", "pin": "xiǎoxīn", "en": "be careful" },
-  { "ch": "记得", "pin": "jìde", "en": "to remember" },
-  { "ch": "爬山", "pin": "pá shān", "en": "to climb a mountain" },
-  { "ch": "舒服", "pin": "shūfu", "en": "comfortable" },
-  { "ch": "新鲜", "pin": "xīnxiān", "en": "fresh" },
-  { "ch": "甜", "pin": "tián", "en": "sweet" },
+{ "ch": "小心", "pin": "xiǎoxīn", "en": "be careful", "es": "tener cuidado" },
+{ "ch": "记得", "pin": "jìde", "en": "to remember", "es": "recordar" },
+{ "ch": "爬山", "pin": "pá shān", "en": "to climb a mountain", "es": "escalar una montaña" },
+{ "ch": "舒服", "pin": "shūfu", "en": "comfortable", "es": "cómodo" },
+{ "ch": "新鲜", "pin": "xīnxiān", "en": "fresh", "es": "fresco" },
+{ "ch": "甜", "pin": "tián", "en": "sweet", "es": "dulce" },
 
-  { "ch": "放", "pin": "fàng", "en": "to put" },
-  { "ch": "还是", "pin": "háishi", "en": "or, better" },
-  { "ch": "或者", "pin": "huòzhě", "en": "or" },
-  { "ch": "条", "pin": "tiáo", "en": "mw long, thin things" },
-  { "ch": "只", "pin": "zhǐ", "en": "only" }
+{ "ch": "放", "pin": "fàng", "en": "to put", "es": "poner" },
+{ "ch": "还是", "pin": "háishi", "en": "or, better", "es": "o, mejor" },
+{ "ch": "或者", "pin": "huòzhě", "en": "or", "es": "o (en afirmativas)" },
+{ "ch": "条", "pin": "tiáo", "en": "mw long, thin things", "es": "clasif. cosas largas y finas" },
+{ "ch": "只", "pin": "zhǐ", "en": "only", "es": "solo" }
 ]

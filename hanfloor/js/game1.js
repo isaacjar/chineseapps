@@ -8,8 +8,6 @@ const Game1 = {
     this.vocab = ctx.vocab;
 
     window.Game = this;
-    
-    this.nextTurn(1);
   },
 
   nextTurn(player) {

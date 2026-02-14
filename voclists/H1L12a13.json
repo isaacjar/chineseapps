@@ -1,0 +1,20 @@
+[
+  { "ch": "电视", "pin": "diànshì", "en": "television", "es": "televisión" },
+  { "ch": "也", "pin": "yě", "en": "also", "es": "también" },
+  { "ch": "睡觉", "pin": "shuìjiào", "en": "to sleep", "es": "dormir" },
+  { "ch": "水果", "pin": "shuǐguǒ", "en": "fruit", "es": "fruta" },
+  { "ch": "医生", "pin": "yīshēng", "en": "doctor", "es": "médico" },
+  { "ch": "喜欢", "pin": "xǐhuan", "en": "to like", "es": "gustar" },
+  { "ch": "打电话", "pin": "dǎ diànhuà", "en": "to make a phone call", "es": "llamar por teléfono" },
+  { "ch": "来", "pin": "lái", "en": "to come", "es": "venir" },
+  { "ch": "身体", "pin": "shēntǐ", "en": "body, health", "es": "cuerpo, salud" },
+  { "ch": "爱", "pin": "ài", "en": "to love", "es": "amar" },
+  { "ch": "你", "pin": "nǐ", "en": "you", "es": "tú" },
+  { "ch": "天", "pin": "tiān", "en": "day, sky", "es": "día, cielo" },
+  { "ch": "雨", "pin": "yǔ", "en": "rain", "es": "lluvia" },
+  { "ch": "上", "pin": "shàng", "en": "up, on", "es": "arriba, sobre" },
+  { "ch": "女", "pin": "nǚ", "en": "female", "es": "mujer, femenino" },
+  { "ch": "的", "pin": "de", "en": "(possessive particle)", "es": "(partícula posesivo)" },
+  { "ch": "日", "pin": "rì", "en": "sun, day", "es": "sol, día" },
+  { "ch": "看", "pin": "kàn", "en": "to see, to read", "es": "ver, leer" }
+]

@@ -3,7 +3,7 @@
 let currentPlayer = 1;
 let timerInterval = null;
 let currentQuestion = null;
-let currentGame = null;
+let currentGame = 2; // Meaning por defecto
 let selectedVocab = null;
 let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
 
@@ -31,7 +31,7 @@ const GameController = {
 
     switch (this.game) {
       case 1:
-        GamePinyin.start(this);
+        Game1.start(this); 
         break;
       case 2:
         GameMeaning.start(this);

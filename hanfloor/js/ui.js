@@ -89,6 +89,9 @@ const UI = {
       btn.classList.toggle("active", btn.dataset.lang === lang);
     });
     this.selectedLang = lang;
+  
+    // sincronizar con Settings
+    Settings.data.lang = lang;
   },
 
   resetTimers(t) {

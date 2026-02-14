@@ -1,18 +1,14 @@
 // game2.js
 const GameMeaning = {
-  mode: "meaning",
+  mode: "meaning", // app.js lo detecta
+  vocab: [],                // se llena desde app.js
 
   start(ctx) {
-    console.log("Game 2: Meaning");
-    this.ctx = ctx;
     this.vocab = ctx.vocab;
-
-    // 🔑 CRÍTICO
-    window.Game = this;
+    this.ctx = ctx;
   },
 
   getQuestion() {
-    if (!this.vocab || this.vocab.length === 0) return null;
     return this.vocab[Math.floor(Math.random() * this.vocab.length)];
   }
 };

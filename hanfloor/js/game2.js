@@ -1,6 +1,6 @@
 // game2.js
 const GameMeaning = {
-  mode: "hanzi-to-meaning",
+  mode: "meaning",
 
   start(ctx) {
     console.log("Game 2: Meaning");

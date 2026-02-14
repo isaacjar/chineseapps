@@ -137,16 +137,30 @@ const UI = {
     const q = p === 1 ? this.question1 : this.question2;
     const container = p === 1 ? this.options1 : this.options2;
 
-    q.textContent = text;
+    q.innerHTML = text;
     container.innerHTML = "";
 
     options.forEach(o => {
       const btn = document.createElement("button");
       btn.className = "option-btn";
-      btn.textContent = o;
+    
+      // Mostrar hanzi + pinyin solo si procede
+      if (
+        Settings.data.pinyin &&
+        typeof o === "string" &&
+        o.length <= 2 &&                 // hanzi normal
+        window.Game?.mode !== "hanzi-to-pinyin"
+      ) {
+        const word = window.Game.vocab.find(w => w.hanzi === o);
+        btn.innerHTML = word ? renderHanzi(word) : o;
+      } else {
+        btn.textContent = o;
+      }
+    
       btn.onclick = () => cb(o);
       container.appendChild(btn);
     });
+
   },
 
   /* ======================

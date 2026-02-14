@@ -42,7 +42,7 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 
 /* ======================    MENU SELECCIÓN JUEGO / CONFIGURACIÓN ====================== */
 .menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.55); display:flex; justify-content:center; align-items:center; z-index:1000; }
-.menu-box { background:white; padding:24px; border-radius:20px; text-align:center; box-shadow:0 6px 30px rgba(0,0,0,.25); max-width:450px; width:90%; animation:popup .25s ease-out; display:flex; flex-direction:column; gap:16px; }
+.menu-box { background:white; padding:24px; border-radius:20px; text-align:center; box-shadow:0 6px 30px rgba(0,0,0,.25); max-width:500px; width:90%; animation:popup .25s ease-out; display:flex; flex-direction:column; gap:16px; }
 .menu-box h2 { margin-bottom:8px; font-size:1.5rem; }
 .menu-section { display:flex; flex-direction:column; gap:8px; text-align:left; }
 .menu-section h3 { margin:0 0 4px 0; font-size:1.1rem; }

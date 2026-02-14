@@ -44,9 +44,8 @@ const GameController = {
     }
   },
 
-  getMeaning(word) {
-    return this.lang === "es" ? word.meaning_es : word.meaning;
-  }
+ getMeaning(word) { return word.meaning[this.lang]; }
+  
 };
 
 // ---------------------
@@ -276,8 +275,7 @@ function startGame(gameNumber, vocabList) {
   GameController.start(); // Esto asigna window.Game automáticamente
 
   startTimer();
-  console.log("Vocab length:", window.Game.vocab.length);
-  if (gameNumber === 1) loadQuestion();
+
 }
 
 // ---------------------
@@ -296,29 +294,47 @@ function loadQuestion() {
 
   if (!currentQuestion) return;
 
-  let options, correct;
+  const type = GAME_TYPES[window.Game.mode];
 
-  if (window.Game.mode === "hanzi-to-pinyin") {
-    options = generatePinyinOptions(currentQuestion);
-    correct = currentQuestion.pinyin;
-  } else {
-    options = generateHanziOptions(currentQuestion);
-    correct = currentQuestion.hanzi;
+  let options = [];
+  let correct;
+  
+  // Opciones
+  switch (type.options) {
+    case "pinyin":
+      options = generatePinyinOptions(currentQuestion);
+      correct = currentQuestion.pinyin;
+      break;
+  
+    case "hanzi":
+      options = generateHanziOptions(currentQuestion);
+      correct = currentQuestion.hanzi;
+      break;
+  
+    case "meaning":
+      options = generateMeaningOptions(currentQuestion);
+      correct = GameController.getMeaning(currentQuestion);
+      break;
   }
 
   // Renderizar solo para el jugador activo
-  const questionText =
-    window.Game.mode === "hanzi-to-pinyin"
-      ? currentQuestion.hanzi
-      : renderHanzi(currentQuestion);
+  let questionText;
+  switch (type.question) {
+    case "hanzi":
+      questionText = renderHanzi(currentQuestion);
+      break;
   
+    case "meaning":
+      questionText = GameController.getMeaning(currentQuestion);
+      break;
+  }
+
   UI.renderQuestion(
     currentPlayer,
     questionText,
     options,
     sel => onAnswer(sel, correct)
   );
-
 
   // Deshabilitar los botones del jugador inactivo
   const inactiveContainer = currentPlayer === 1 ? UI.options2 : UI.options1;
@@ -374,6 +390,18 @@ function generatePinyinOptions(word) {
   shuffleArray(candidates);
 
   return shuffleArray([word.pinyin, ...candidates.slice(0, 3)]);
+}
+
+function generateMeaningOptions(word) {
+  const correct = GameController.getMeaning(word);
+
+  let candidates = window.Game.vocab
+    .filter(w => GameController.getMeaning(w) !== correct)
+    .map(w => GameController.getMeaning(w));
+
+  shuffleArray(candidates);
+
+  return shuffleArray([correct, ...candidates.slice(0, 3)]);
 }
 
 // ---------------------

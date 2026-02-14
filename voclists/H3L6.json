@@ -1,14 +1,14 @@
 [
-  { "ch": "眼镜", "pin": "yǎnjìng", "en": "glasses" },
-  { "ch": "更", "pin": "gèng", "en": "more" },
-  { "ch": "离开", "pin": "líkāi", "en": "to leave" },
-  { "ch": "帮忙", "pin": "bāng máng", "en": "to help" },
-  { "ch": "聊天儿", "pin": "liáotiānr", "en": "to chat" },
-  { "ch": "突然", "pin": "tūrán", "en": "suddenly" },
-  { "ch": "清楚", "pin": "qīngchu", "en": "clear" },
-  { "ch": "锻炼", "pin": "duànliàn", "en": "to exercise" },
-  { "ch": "特别", "pin": "tèbié", "en": "especially, special" },
-  { "ch": "公园", "pin": "gōngyuán", "en": "park" },
-  { "ch": "音乐", "pin": "yīnyuè", "en": "music" },
-  { "ch": "明白", "pin": "míngbai", "en": "to understand" }
+{ "ch": "眼镜", "pin": "yǎnjìng", "en": "glasses", "es": "gafas" },
+{ "ch": "更", "pin": "gèng", "en": "more", "es": "más" },
+{ "ch": "离开", "pin": "líkāi", "en": "to leave", "es": "marcharse" },
+{ "ch": "帮忙", "pin": "bāng máng", "en": "to help", "es": "ayudar" },
+{ "ch": "聊天儿", "pin": "liáotiānr", "en": "to chat", "es": "charlar" },
+{ "ch": "突然", "pin": "tūrán", "en": "suddenly", "es": "de repente" },
+{ "ch": "清楚", "pin": "qīngchu", "en": "clear", "es": "claro" },
+{ "ch": "锻炼", "pin": "duànliàn", "en": "to exercise", "es": "hacer ejercicio" },
+{ "ch": "特别", "pin": "tèbié", "en": "especially, special", "es": "especialmente, especial" },
+{ "ch": "公园", "pin": "gōngyuán", "en": "park", "es": "parque" },
+{ "ch": "音乐", "pin": "yīnyuè", "en": "music", "es": "música" },
+{ "ch": "明白", "pin": "míngbai", "en": "to understand", "es": "entender" }
 ]

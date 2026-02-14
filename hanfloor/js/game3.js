@@ -1,8 +1,16 @@
 // game3.js
 const GameWord = {
+  mode: "meaning-to-hanzi", // necesario para app.js
+  vocab: [], // se llenará desde app.js
+
+  // Método requerido por app.js
+  getQuestion() {
+    if (!this.vocab || this.vocab.length === 0) return null;
+    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+  },
+
   start(ctx) {
     console.log("Game: Word");
-
     this.ctx = ctx;
     this.words = [...ctx.vocab];
     this.nextTurn(1);
@@ -14,19 +22,17 @@ const GameWord = {
 
     const options = this.buildOptions(correct);
 
-    UI.renderQuestion(
-      player,
-      this.ctx.getMeaning(word),
-      options,
-      (answer) => {
-        if (answer === correct) {
-          UI.playOk();
-        } else {
-          UI.playFail();
-          UI.markFail(player);
-        }
+    let question = this.ctx.getMeaning(word);
+
+    UI.renderQuestion(player, question, options, (answer) => {
+      if (answer === correct) {
+        UI.playOk();
+        // siguiente turno o sumar puntos
+      } else {
+        UI.playFail();
+        UI.markFail(player);
       }
-    );
+    });
   },
 
   randomWord() {
@@ -35,14 +41,10 @@ const GameWord = {
 
   buildOptions(correct) {
     const opts = new Set([correct]);
-    while (opts.size < 4) {
-      opts.add(this.randomWord().hanzi);
+    while (opts.size < 4 && this.words.length > 0) {
+      const w = this.randomWord();
+      opts.add(w.hanzi);
     }
-
-    return [...opts].map(h => {
-      if (!this.ctx.showPinyin) return h;
-      const w = this.words.find(x => x.hanzi === h);
-      return `${h} [${w.pinyin}]`;
-    }).sort(() => Math.random() - 0.5);
+    return [...opts].sort(() => Math.random() - 0.5);
   }
 };

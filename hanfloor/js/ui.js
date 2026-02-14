@@ -27,6 +27,17 @@ const UI = {
     this.player1Input = document.getElementById("player1Name");
     this.player2Input = document.getElementById("player2Name");
     this.btnStartGame = document.getElementById("btnStartGame");
+   
+    // Language selection
+    this.langBtns = document.querySelectorAll(".lang-btn");
+    
+    const lastLang = localStorage.getItem("lastLang") || "en";
+    this.setActiveLang(lastLang);
+    this.langBtns.forEach(btn => {
+      btn.onclick = () => {
+        this.setActiveLang(btn.dataset.lang);
+      };
+    });
 
     // Mostrar popup al pulsar START principal
     const btnStart = document.getElementById("btnStart");
@@ -52,6 +63,13 @@ const UI = {
   setNames(s) {
     this.name1.textContent = s.jugador1 || "Player 1";
     this.name2.textContent = s.jugador2 || "Player 2";
+  },
+
+  setActiveLang(lang) {
+    this.langBtns.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
+    this.selectedLang = lang;
   },
 
   resetTimers(t) {
@@ -204,10 +222,12 @@ const UI = {
   /* ======================
      GUARDAR OPCIONES
   ====================== */
-  saveSettings(gameNumber, vocabKey, player1, player2) {
+  saveSettings(gameNumber, vocabKey, player1, player2, lang) {
     localStorage.setItem("lastGame", gameNumber);
     localStorage.setItem("lastVocab", vocabKey);
     localStorage.setItem("lastPlayer1", player1);
     localStorage.setItem("lastPlayer2", player2);
+    localStorage.setItem("lastLang", lang || "en");
   }
+
 };

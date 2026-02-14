@@ -1,5 +1,5 @@
 const Game1 = {
-  mode: "hanzi-to-pinyin",
+  mode: "pinyin",
 
   start(ctx) {
     console.log("Game 1: Pinyin");

@@ -28,16 +28,35 @@ const UI = {
     this.player2Input = document.getElementById("player2Name");
     this.btnStartGame = document.getElementById("btnStartGame");
    
-    // Language selection
-    this.langBtns = document.querySelectorAll(".lang-btn");
-    
-    const lastLang = localStorage.getItem("lastLang") || "en";
-    this.setActiveLang(lastLang);
-    this.langBtns.forEach(btn => {
-      btn.onclick = () => {
-        this.setActiveLang(btn.dataset.lang);
-      };
-    });
+   // Language selection
+  this.langBtns = document.querySelectorAll(".lang-btn");
+  
+  // Leer idioma guardado en Settings o fallback a en
+  const lastLang = Settings.data.lang || localStorage.getItem("lastLang") || "en";
+  this.setActiveLang(lastLang);
+  Settings.data.lang = lastLang; // aseguramos que Settings tenga el valor correcto
+  
+  // Evento click para cada botón
+  this.langBtns.forEach(btn => {
+    btn.onclick = () => {
+      const lang = btn.dataset.lang;
+  
+      // Actualizar visual
+      this.setActiveLang(lang);
+  
+      // Guardar en Settings y localStorage
+      Settings.data.lang = lang;
+      Settings.save();
+  
+      // Guardar también en localStorage para persistencia directa
+      localStorage.setItem("lastLang", lang);
+  
+      // Recargar pregunta actual si hay juego en curso
+      if (window.Game) {
+        loadQuestion();
+      }
+    };
+  });
 
     // Mostrar popup al pulsar START principal
     const btnStart = document.getElementById("btnStart");

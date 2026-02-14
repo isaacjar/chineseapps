@@ -1,6 +1,6 @@
 // game3.js
 const GameWord = {
-  mode: "meaning-to-hanzi", // necesario para app.js
+  mode: "word", // necesario para app.js
   vocab: [], // se llenará desde app.js
 
   // Método requerido por app.js

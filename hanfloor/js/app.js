@@ -283,6 +283,9 @@ function startGame(gameNumber, vocabList) {
 // LOAD QUESTION
 // ---------------------
 function loadQuestion() {
+  console.log("🐛 Game:", window.Game);
+  console.log("🐛 getQuestion:", window.Game?.getQuestion);
+
   currentQuestion = window.Game.getQuestion();
 
   if (!currentQuestion || !currentQuestion.hanzi) {
@@ -323,6 +326,9 @@ function loadQuestion() {
   // Habilitar los botones del jugador activo
   const activeContainer = currentPlayer === 1 ? UI.options1 : UI.options2;
   [...activeContainer.children].forEach(btn => btn.disabled = false);
+
+  console.log("🐛 Question:", currentQuestion);
+
 }
 
 // ---------------------

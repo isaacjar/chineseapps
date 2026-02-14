@@ -1,6 +1,6 @@
 // settings.js
 const DEFAULTS = {
-  lang: "es",
+  lang: "en",
   time: 45,
   penalty: 3,
   pinyin: true
@@ -32,6 +32,12 @@ const Settings = {
     }
   
     this.data.pinyin = this.data.pinyin !== "false";
+
+    const lang = Settings.data.lang || "en";
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
   
     console.log("Settings cargados:", this.data);
   },

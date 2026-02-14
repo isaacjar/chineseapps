@@ -7,6 +7,8 @@ const Game1 = {
     this.ctx = ctx;
     this.vocab = ctx.vocab;
 
+    window.Game = this;
+    
     this.nextTurn(1);
   },
 

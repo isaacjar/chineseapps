@@ -1,15 +1,15 @@
 [
-    { "ch": "北方", "pin": "běifāng", "en": "north" },
-    { "ch": "着急", "pin": "zháojí", "en": "anxious; worried" },
-    { "ch": "打算", "pin": "dǎsuàn", "en": "to plan; to intend" },
-    { "ch": "地图", "pin": "dìtú", "en": "map" },
-    { "ch": "面包", "pin": "miànbāo", "en": "bread" },
-    { "ch": "南方", "pin": "nánfāng", "en": "south" },
-    { "ch": "作业", "pin": "zuòyè", "en": "homework" },
-    { "ch": "电脑游戏", "pin": "diànnǎo yóuxì", "en": "computer game" },
-    { "ch": "复习", "pin": "fùxí", "en": "to review" },
-    { "ch": "周末", "pin": "zhōumò", "en": "weekend" },
-    { "ch": "一直", "pin": "yìzhí", "en": "continuously; always" },
-    { "ch": "跟", "pin": "gēn", "en": "with; to follow" },
-    { "ch": "搬", "pin": "bān", "en": "to move (house or object)" }
-  ]
+{ "ch": "北方", "pin": "běifāng", "en": "north", "es": "norte" },
+{ "ch": "着急", "pin": "zháojí", "en": "worried, in a rush", "es": "preocupado, con prisa" },
+{ "ch": "打算", "pin": "dǎsuàn", "en": "to plan", "es": "planear, plan" },
+{ "ch": "地图", "pin": "dìtú", "en": "map", "es": "mapa" },
+{ "ch": "面包", "pin": "miànbāo", "en": "bread", "es": "pan" },
+{ "ch": "南方", "pin": "nánfāng", "en": "south", "es": "sur" },
+{ "ch": "作业", "pin": "zuòyè", "en": "homework", "es": "deberes" },
+{ "ch": "电脑游戏", "pin": "diànnǎo yóuxì", "en": "computer game", "es": "juego de ordenador" },
+{ "ch": "复习", "pin": "fùxí", "en": "to review", "es": "repasar" },
+{ "ch": "周末", "pin": "zhōumò", "en": "weekend", "es": "fin de semana" },
+{ "ch": "一直", "pin": "yìzhí", "en": "continuously, always", "es": "continuamente, siempre" },
+{ "ch": "跟", "pin": "gēn", "en": "with", "es": "con" },
+{ "ch": "搬", "pin": "bān", "en": "to move (house or object)", "es": "mudarse, mover" }
+]

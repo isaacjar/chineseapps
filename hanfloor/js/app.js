@@ -294,7 +294,7 @@ function loadQuestion() {
 
   if (!currentQuestion) return;
 
-  const type = GAME_TYPES[window.Game.mode];
+  const type = getGameTypeByMode(window.Game.mode);
 
   let options = [];
   let correct;
@@ -327,6 +327,10 @@ function loadQuestion() {
     case "meaning":
       questionText = GameController.getMeaning(currentQuestion);
       break;
+
+    case "pinyin":
+      questionText = currentQuestion.pinyin;
+      break;
   }
 
   UI.renderQuestion(
@@ -346,6 +350,15 @@ function loadQuestion() {
 
   console.log("🐛 Question:", currentQuestion);
 
+}
+
+function getGameTypeByMode(mode) {
+  switch(mode) {
+    case "hanzi-to-meaning": return GAME_TYPES.meaning;
+    case "hanzi-to-hanzi":    return GAME_TYPES.word;
+    case "hanzi-to-pinyin":   return GAME_TYPES.pinyin;
+    default: return GAME_TYPES.meaning;
+  }
 }
 
 // ---------------------

@@ -201,8 +201,10 @@ function normalizeVocab(list) {
   return list.map(w => ({
     hanzi: w.ch,
     pinyin: w.pin,
-    meaning: w.en,
-    meaning_es: w.es
+    meaning: {
+      en: w.en,
+      es: w.es
+    }
   }));
 }
 

@@ -1,21 +1,21 @@
 [
-  { "ch": "打扫", "pin": "dǎsǎo", "en": "to clean" },
-  { "ch": "干净", "pin": "gānjìng", "en": "clean" },
-  { "ch": "冰箱", "pin": "bīngxiāng", "en": "refrigerator" },
-  { "ch": "洗澡", "pin": "xǐ zǎo", "en": "to have a shower" },
-  { "ch": "节目", "pin": "jiémù", "en": "program" },
-  { "ch": "月亮", "pin": "yuèliàng", "en": "moon" },
+{ "ch": "打扫", "pin": "dǎsǎo", "en": "to clean", "es": "limpiar" },
+{ "ch": "干净", "pin": "gānjìng", "en": "clean", "es": "limpio" },
+{ "ch": "冰箱", "pin": "bīngxiāng", "en": "refrigerator", "es": "nevera" },
+{ "ch": "洗澡", "pin": "xǐ zǎo", "en": "to have a shower", "es": "ducharse" },
+{ "ch": "节目", "pin": "jiémù", "en": "program", "es": "programa" },
+{ "ch": "月亮", "pin": "yuèliàng", "en": "moon", "es": "luna" },
 
-  { "ch": "盘子", "pin": "pánzi", "en": "plate, dish" },
-  { "ch": "刮风", "pin": "guā fēng", "en": "to be windy" },
-  { "ch": "声音", "pin": "shēngyīn", "en": "sound, voice" },
-  { "ch": "菜单", "pin": "càidān", "en": "menu" },
-  { "ch": "简单", "pin": "jiǎndān", "en": "simple, easy" },
-  { "ch": "香蕉", "pin": "xiāngjiāo", "en": "banana" },
+{ "ch": "盘子", "pin": "pánzi", "en": "plate, dish", "es": "plato" },
+{ "ch": "刮风", "pin": "guā fēng", "en": "to be windy", "es": "hacer viento" },
+{ "ch": "声音", "pin": "shēngyīn", "en": "sound, voice", "es": "sonido, voz" },
+{ "ch": "菜单", "pin": "càidān", "en": "menu", "es": "menú" },
+{ "ch": "简单", "pin": "jiǎndān", "en": "simple, easy", "es": "sencillo, fácil" },
+{ "ch": "香蕉", "pin": "xiāngjiāo", "en": "banana", "es": "plátano" },
 
-  { "ch": "然后", "pin": "ránhòu", "en": "then, afterwards" },
-  { "ch": "像", "pin": "xiàng", "en": "to resemble, to be like" },
-  { "ch": "叔叔", "pin": "shūshu", "en": "uncle (father's younger brother)" },
-  { "ch": "阿姨", "pin": "āyí", "en": "aunt (mother's sister or polite address)" },
-  { "ch": "故事", "pin": "gùshì", "en": "story, tale" }
+{ "ch": "然后", "pin": "ránhòu", "en": "then, afterwards", "es": "después, luego" },
+{ "ch": "像", "pin": "xiàng", "en": "to be like", "es": "parecerse, ser como" },
+{ "ch": "叔叔", "pin": "shūshu", "en": "uncle", "es": "tío" },
+{ "ch": "阿姨", "pin": "āyí", "en": "aunt", "es": "tía" },
+{ "ch": "故事", "pin": "gùshì", "en": "story, tale", "es": "historia, cuento" }
 ]

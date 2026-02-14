@@ -7,10 +7,33 @@ let currentGame = null;
 let selectedVocab = null;
 let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
 
-const GAME_TYPES = {
-  meaning: { label: "Meaning", question: "hanzi", options: "meaning" },
-  word: { label: "Word", question: "meaning", options: "hanzi" },
-  pinyin: { label: "Pinyin", question: "hanzi", options: "pinyin" }
+// ---------------------
+// INTEGRACIÓN DE GAMES
+// ---------------------
+const Game1 = { 
+  mode: "hanzi-to-pinyin",
+
+  getQuestion() {
+    if (!this.vocab || this.vocab.length === 0) return null;
+    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+  }
+};
+const Game2 = {
+  mode: "hanzi-to-meaning", // pregunta hanzi, opciones significado (en/es según settings)
+
+  getQuestion() {
+    if (!this.vocab || this.vocab.length === 0) return null;
+    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+  }
+};
+
+const Game3 = {
+  mode: "meaning-to-hanzi", // pregunta significado (en/es según settings), opciones hanzi (con pinyin si show pinyin)
+
+  getQuestion() {
+    if (!this.vocab || this.vocab.length === 0) return null;
+    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+  }
 };
 
 // ---------------------
@@ -259,7 +282,10 @@ function loadQuestion() {
   if (window.Game.mode === "hanzi-to-pinyin") {
     options = generatePinyinOptions(currentQuestion);
     correct = currentQuestion.pinyin;
-  } else {
+  } else if (window.Game.mode === "hanzi-to-meaning") {
+    options = generateMeaningOptions(currentQuestion);
+    correct = currentQuestion.meaning[Settings.data.lang];
+  } else if (window.Game.mode === "meaning-to-hanzi") {
     options = generateHanziOptions(currentQuestion);
     correct = currentQuestion.hanzi;
   }
@@ -287,9 +313,7 @@ function loadQuestion() {
   [...activeContainer.children].forEach(btn => btn.disabled = false);
 }
 
-// ---------------------
-// Opciones HANZI
-// ---------------------
+// --------------------- Opciones HANZI ---------------------
 function generateHanziOptions(word) {
   usedWords.add(word.hanzi);
 
@@ -309,10 +333,7 @@ function generateHanziOptions(word) {
 
   return shuffleArray([word.hanzi, ...candidates.slice(0, 3)]);
 }
-
-// ---------------------
-// Opciones PINYIN
-// ---------------------
+// ---------------------  Opciones PINYIN  ---------------------
 function generatePinyinOptions(word) {
   // 1️⃣ candidatos de hanzi misma longitud
   let candidates = window.Game.vocab
@@ -329,6 +350,18 @@ function generatePinyinOptions(word) {
   shuffleArray(candidates);
 
   return shuffleArray([word.pinyin, ...candidates.slice(0, 3)]);
+}
+// ---------------------  Opciones MEANING  ---------------------
+function generateMeaningOptions(word) {
+  usedWords.add(word.meaning[Settings.data.lang]);
+
+  let candidates = window.Game.vocab
+    .filter(w => w !== word)
+    .map(w => w.meaning[Settings.data.lang]);
+
+  shuffleArray(candidates);
+
+  return shuffleArray([word.meaning[Settings.data.lang], ...candidates.slice(0, 3)]);
 }
 
 // ---------------------

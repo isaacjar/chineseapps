@@ -267,35 +267,51 @@ function startGame(gameNumber, vocabList) {
 // ---------------------
 // LOAD QUESTION
 // ---------------------
+// ---------------------
+// LOAD QUESTION
+// ---------------------
 function loadQuestion() {
   currentQuestion = window.Game.getQuestion();
 
-  if (!currentQuestion || !currentQuestion.hanzi) {
+  if (!currentQuestion || (!currentQuestion.hanzi && !currentQuestion.meaning)) {
     usedWords.clear();
     currentQuestion = window.Game.getQuestion();
   }
 
   if (!currentQuestion) return;
 
-  let options, correct;
+  let options, correct, questionText;
+  const lang = Settings.data.lang || "en"; // 'en' o 'es'
 
-  if (window.Game.mode === "hanzi-to-pinyin") {
-    options = generatePinyinOptions(currentQuestion);
-    correct = currentQuestion.pinyin;
-  } else if (window.Game.mode === "hanzi-to-meaning") {
-    options = generateMeaningOptions(currentQuestion);
-    correct = currentQuestion.meaning[Settings.data.lang];
-  } else if (window.Game.mode === "meaning-to-hanzi") {
-    options = generateHanziOptions(currentQuestion);
-    correct = currentQuestion.hanzi;
+  switch (window.Game.mode) {
+    case "hanzi-to-pinyin":
+      options = generatePinyinOptions(currentQuestion);
+      correct = currentQuestion.pinyin;
+      questionText = currentQuestion.hanzi;
+      break;
+
+    case "hanzi-to-meaning":
+      options = generateMeaningOptions(currentQuestion, lang);
+      correct = currentQuestion.meaning[lang];
+      questionText = Settings.data.pinyin
+        ? `${currentQuestion.hanzi} [${currentQuestion.pinyin}]`
+        : currentQuestion.hanzi;
+      break;
+
+    case "meaning-to-hanzi":
+      options = generateHanziOptions(currentQuestion);
+      correct = currentQuestion.hanzi;
+      questionText = currentQuestion.meaning[lang];
+      if (Settings.data.pinyin) {
+        questionText += ` [${currentQuestion.pinyin}]`; // opcional mostrar pinyin en pregunta
+      }
+      break;
+
+    default:
+      console.warn("Unknown game mode:", window.Game.mode);
+      return;
   }
 
-  // Renderizar solo para el jugador activo
-  const questionText =
-    window.Game.mode === "hanzi-to-pinyin"
-      ? currentQuestion.hanzi
-      : renderHanzi(currentQuestion);
-  
   UI.renderQuestion(
     currentPlayer,
     questionText,
@@ -303,14 +319,29 @@ function loadQuestion() {
     sel => onAnswer(sel, correct)
   );
 
-
-  // Deshabilitar los botones del jugador inactivo
+  // Deshabilitar botones del jugador inactivo
   const inactiveContainer = currentPlayer === 1 ? UI.options2 : UI.options1;
   [...inactiveContainer.children].forEach(btn => btn.disabled = true);
 
-  // Habilitar los botones del jugador activo
+  // Habilitar botones del jugador activo
   const activeContainer = currentPlayer === 1 ? UI.options1 : UI.options2;
   [...activeContainer.children].forEach(btn => btn.disabled = false);
+}
+
+// ---------------------
+// Opciones MEANING
+// ---------------------
+function generateMeaningOptions(word, lang) {
+  usedWords.add(word.meaning[lang]);
+
+  // Candidatos de la misma lista, excluyendo la correcta
+  let candidates = window.Game.vocab
+    .filter(w => w !== word)
+    .map(w => w.meaning[lang]);
+
+  shuffleArray(candidates);
+
+  return shuffleArray([word.meaning[lang], ...candidates.slice(0, 3)]);
 }
 
 // --------------------- Opciones HANZI ---------------------
@@ -350,18 +381,6 @@ function generatePinyinOptions(word) {
   shuffleArray(candidates);
 
   return shuffleArray([word.pinyin, ...candidates.slice(0, 3)]);
-}
-// ---------------------  Opciones MEANING  ---------------------
-function generateMeaningOptions(word) {
-  usedWords.add(word.meaning[Settings.data.lang]);
-
-  let candidates = window.Game.vocab
-    .filter(w => w !== word)
-    .map(w => w.meaning[Settings.data.lang]);
-
-  shuffleArray(candidates);
-
-  return shuffleArray([word.meaning[Settings.data.lang], ...candidates.slice(0, 3)]);
 }
 
 // ---------------------

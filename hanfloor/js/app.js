@@ -13,6 +13,42 @@ const GAME_TYPES = {
   pinyin: { label: "Pinyin", question: "hanzi", options: "pinyin" }
 };
 
+const GameController = {
+  game: 2, // Meaning por defecto
+  lang: "en",
+  showPinyin: true,
+  vocab: [],
+
+  init(settings, vocabList) {
+    this.game = Number(settings.game || 2);
+    this.lang = settings.lang || "en";
+    this.showPinyin = settings.pinyin;
+    this.vocab = normalizeVocab(vocabList);
+  },
+
+  start() {
+    console.log("Starting game:", this.game);
+
+    switch (this.game) {
+      case 1:
+        GamePinyin.start(this);
+        break;
+      case 2:
+        GameMeaning.start(this);
+        break;
+      case 3:
+        GameWord.start(this);
+        break;
+      default:
+        GameMeaning.start(this);
+    }
+  },
+
+  getMeaning(word) {
+    return this.lang === "es" ? word.meaning_es : word.meaning;
+  }
+};
+
 // ---------------------
 // DOMContentLoaded
 // ---------------------

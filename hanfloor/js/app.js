@@ -358,7 +358,9 @@ function getGameTypeByMode(mode) {
     case "hanzi-to-meaning": return GAME_TYPES.meaning;
     case "hanzi-to-hanzi":    return GAME_TYPES.word;
     case "hanzi-to-pinyin":   return GAME_TYPES.pinyin;
-    default: return GAME_TYPES.meaning;
+    default:
+      console.error("❌ Unknown game mode:", mode);
+      return GAME_TYPES.meaning;
   }
 }
 

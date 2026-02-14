@@ -76,9 +76,9 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 #pinyinSection .flex-row { display:flex; align-items:center; gap:10px; }
 #pinyinSection h3 { margin:0; font-size:1rem; white-space:nowrap; }
 
-#timeSection .flex-row { display:flex; align-items:center; gap:10px; }
+#timeSection .flex-row { display:flex; align-items:flex-start; gap:10px; }
 #timeSection h3 { margin:0; font-size:1rem; white-space:nowrap; }
-#timeSection .menu-options { display:flex; gap:5px; }
+#timeSection .menu-options { display:flex; gap:5px; white-space: nowrap; }
 
 /* ====================== TIME BUTTONS TOGGLE ====================== */ 
 #timeSection .menu-btn { background: var(--pastel-yellow); border: 2px solid transparent; font-weight: 600; transition: all 0.2s ease; } /* 🔥 Botón de tiempo activo */ 

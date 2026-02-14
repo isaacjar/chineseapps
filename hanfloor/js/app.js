@@ -293,8 +293,10 @@ function loadQuestion() {
     case "hanzi-to-meaning":
       options = generateMeaningOptions(currentQuestion, lang);
       correct = currentQuestion.meaning[lang];
+    
+      // Mostrar Hanzi + pinyin con estilo si está activado
       questionText = Settings.data.pinyin
-        ? `${currentQuestion.hanzi} [${currentQuestion.pinyin}]`
+        ? renderHanzi(currentQuestion)  // usa la función renderHanzi que aplica <span class="pinyin">
         : currentQuestion.hanzi;
       break;
 

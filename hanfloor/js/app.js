@@ -27,19 +27,21 @@ const GameController = {
   },
 
   start() {
-    console.log("Starting game:", this.game);
-
     switch (this.game) {
       case 1:
+        window.Game = Game1;
         Game1.start(this); 
         break;
       case 2:
+        window.Game = GameMeaning;
         GameMeaning.start(this);
         break;
       case 3:
+        window.Game = GameWord;
         GameWord.start(this);
         break;
       default:
+        window.Game = GameMeaning;
         GameMeaning.start(this);
     }
   },

@@ -7,6 +7,12 @@ let currentGame = null;
 let selectedVocab = null;
 let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
 
+const GAME_TYPES = {
+  meaning: { label: "Meaning", question: "hanzi", options: "meaning" },
+  word: { label: "Word", question: "meaning", options: "hanzi" },
+  pinyin: { label: "Pinyin", question: "hanzi", options: "pinyin" }
+};
+
 // ---------------------
 // DOMContentLoaded
 // ---------------------
@@ -208,6 +214,13 @@ function normalizeVocab(list) {
   }));
 }
 
+function renderHanzi(word) {
+  if (Settings.data.pinyin) {
+    return `${word.hanzi} <span class="pinyin">[${word.pinyin}]</span>`;
+  }
+  return word.hanzi;
+}
+
 // ---------------------
 // START GAME
 // ---------------------
@@ -252,12 +265,18 @@ function loadQuestion() {
   }
 
   // Renderizar solo para el jugador activo
+  const questionText =
+    window.Game.mode === "hanzi-to-pinyin"
+      ? currentQuestion.hanzi
+      : renderHanzi(currentQuestion);
+  
   UI.renderQuestion(
     currentPlayer,
-    currentQuestion.hanzi,
+    questionText,
     options,
     sel => onAnswer(sel, correct)
   );
+
 
   // Deshabilitar los botones del jugador inactivo
   const inactiveContainer = currentPlayer === 1 ? UI.options2 : UI.options1;

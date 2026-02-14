@@ -1,6 +1,6 @@
 // game3.js
 const GameWord = {
-  mode: "hanzi-to-word",      // coincide con GAME_TYPES en app.js
+  mode: "word",      // coincide con GAME_TYPES en app.js
   start(ctx) {
     console.log("Game 3: Word");
     this.ctx = ctx;

@@ -301,10 +301,8 @@ function loadQuestion() {
     case "meaning-to-hanzi":
       options = generateHanziOptions(currentQuestion);
       correct = currentQuestion.hanzi;
+      // Pregunta = significado según idioma (sin pinyin)
       questionText = currentQuestion.meaning[lang];
-      if (Settings.data.pinyin) {
-        questionText += ` [${currentQuestion.pinyin}]`; // opcional mostrar pinyin en pregunta
-      }
       break;
 
     default:

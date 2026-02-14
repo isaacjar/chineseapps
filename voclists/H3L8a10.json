@@ -18,7 +18,7 @@
   { "ch": "一样", "pin": "yíyàng", "en": "same, equal to", "es": "igual" },
   { "ch": "历史", "pin": "lìshǐ", "en": "History", "es": "Historia" },
   { "ch": "数学", "pin": "shùxué", "en": "Mathematics", "es": "Matemáticas" },
-  { "ch": "条", "pin": "tiáo", "en": "(measure word for pants)", "es": "(clasificador pantalones)" },
+  { "ch": "条", "pin": "tiáo", "en": "(mw for pants)", "es": "(clasificador pantalones)" },
   { "ch": "中文", "pin": "Zhōngwén", "en": "Chinese language", "es": "idioma chino" },
   { "ch": "昨天", "pin": "zuótiān", "en": "yesterday", "es": "ayer" },
   { "ch": "明天", "pin": "míngtiān", "en": "tomorrow", "es": "mañana" },
@@ -34,10 +34,10 @@
   { "ch": "怎么", "pin": "zěnme", "en": "how", "es": "cómo" }, 
   { "ch": "东西", "pin": "dōngxi", "en": "thing", "es": "cosa" }, 
   
-  { "ch": "车", "pin": "chē", "en": "vehicle, car" },
-  { "ch": "比", "pin": "bǐ", "en": "to compare" },
-  { "ch": "子", "pin": "zi", "en": "child, noun suffix" },
-  { "ch": "个", "pin": "ge", "en": "general classifier" },
-  { "ch": "中", "pin": "zhōng", "en": "middle" },
-  { "ch": "老", "pin": "lǎo", "en": "old" }
+  { "ch": "车", "pin": "chē", "en": "vehicle, car", "es": "vehículo, coche" },
+  { "ch": "比", "pin": "bǐ", "en": "to compare", "es": "comparar" },
+  { "ch": "子", "pin": "zi", "en": "child", "es": "hijo" },
+  { "ch": "个", "pin": "ge", "en": "generic classifier", "es": "clasificador genérico" },
+  { "ch": "中", "pin": "zhōng", "en": "middle", "es": "medio" },
+  { "ch": "老", "pin": "lǎo", "en": "old", "es": "viejo" }
 ]

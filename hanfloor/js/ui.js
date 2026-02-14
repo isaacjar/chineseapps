@@ -166,16 +166,17 @@ const UI = {
       const btn = document.createElement("button");
       btn.className = "option-btn";
     
-      // Mostrar hanzi + pinyin solo si corresponde
-      if (
-        window.Game?.mode === "meaning-to-hanzi" && 
-        Settings.data.pinyin
-      ) {
-        const word = window.Game.vocab.find(w => w.hanzi === o);
-        btn.innerHTML = word ? renderHanzi(word) : o;
-      } else {
-        btn.textContent = o;
-      }
+     // Mostrar hanzi + pinyin solo en Game3 si show pinyin está activado
+    if (window.Game?.mode === "meaning-to-hanzi") {
+      const word = window.Game.vocab.find(w => w.hanzi === o);
+      btn.innerHTML = word ? renderHanzi(word) : o; // renderHanzi añade <span class="pinyin">
+    } else if (window.Game?.mode === "hanzi-to-pinyin") {
+      // Game1: opciones solo pinyin, texto plano
+      btn.textContent = o;
+    } else {
+      // Game2: opciones significado, texto plano
+      btn.textContent = o;
+    }
     
       btn.onclick = () => cb(o);
       container.appendChild(btn);

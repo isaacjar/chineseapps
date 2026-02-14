@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const vocabKey = UI.vocabSelect.value;
       if (!vocabKey) {
-        alert("Please select a vocabulary list");
-        return;
+        currentGame = 2; // Meaning por defecto
+        UI.setActiveGameBtn(currentGame);
       }
 
       // 🔹 Leer nombres actuales de los inputs
@@ -266,12 +266,14 @@ function startGame(gameNumber, vocabList) {
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
 
-  window.Game =
-    gameNumber === 1 ? Game1 :
-    gameNumber === 2 ? Game2 :
-    gameNumber === 3 ? Game3 : Game4;
+  // 🔹 Inicializamos GameController
+  GameController.init({
+    game: gameNumber,
+    lang: Settings.data.lang,
+    pinyin: Settings.data.pinyin
+  }, vocabList);
 
-  window.Game.vocab = vocabList;
+  GameController.start(); // Esto asigna window.Game automáticamente
 
   startTimer();
   loadQuestion();

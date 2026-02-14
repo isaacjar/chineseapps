@@ -54,8 +54,8 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 #languageSection .menu-btn.active { background: var(--pastel-yellow); transform: scale(1.05); }
 
 /* Tipo de juego: botones en línea tipo toggle */
-#gameTypeSection .menu-options { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-#gameTypeSection .menu-btn { flex:1 1 calc(50% - 8px); min-width:100px; background:var(--pastel-blue); color:var(--text); font-weight:600; border-radius:16px; border:2px solid transparent; transition:all .2s; }
+#gameTypeSection .menu-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; justify-items: center; }
+#gameTypeSection .menu-btn { flex: none; min-width: auto; background: var(--pastel-blue); color: var(--text); font-weight: 600; border-radius: 16px; border: 2px solid transparent; transition: all 0.2s; }
 #gameTypeSection .menu-btn.active { background:var(--pastel-yellow); border-color:var(--pastel-blue); transform:scale(1.05); }
 
 /* Selección vocabulario */

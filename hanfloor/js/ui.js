@@ -166,12 +166,10 @@ const UI = {
       const btn = document.createElement("button");
       btn.className = "option-btn";
     
-      // Mostrar hanzi + pinyin solo si procede
+      // Mostrar hanzi + pinyin solo si corresponde
       if (
-        Settings.data.pinyin &&
-        typeof o === "string" &&
-        o.length <= 2 &&                 // hanzi normal
-        window.Game?.mode !== "hanzi-to-pinyin"
+        window.Game?.mode === "meaning-to-hanzi" && 
+        Settings.data.pinyin
       ) {
         const word = window.Game.vocab.find(w => w.hanzi === o);
         btn.innerHTML = word ? renderHanzi(word) : o;

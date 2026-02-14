@@ -274,10 +274,9 @@ function startGame(gameNumber, vocabList) {
     pinyin: Settings.data.pinyin
   }, vocabList);
 
-  GameController.start(); // Esto asigna window.Game automáticamente
-
+  GameController.start(); 
+  loadQuestion(); 
   startTimer();
-
 }
 
 // ---------------------

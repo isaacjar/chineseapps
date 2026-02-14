@@ -276,7 +276,7 @@ function startGame(gameNumber, vocabList) {
   GameController.start(); // Esto asigna window.Game automáticamente
 
   startTimer();
-  loadQuestion();
+  if (gameNumber === 1) loadQuestion();
 }
 
 // ---------------------

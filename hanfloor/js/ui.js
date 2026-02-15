@@ -173,6 +173,13 @@ const UI = {
         // Game3: mostrar hanzi + opcional pinyin
         const word = window.Game.vocab.find(w => w.hanzi === o);
         btn.innerHTML = word ? renderHanzi(word) : o;
+         if (word) {
+          btn.dataset.value = word.hanzi;        // 🔹 solo caracteres
+          btn.innerHTML = renderHanzi(word);     // 🔹 muestra pinyin si está activado
+        } else {
+          btn.dataset.value = o;
+          btn.textContent = o;
+        }
       } else if (window.Game?.mode === "hanzi-to-pinyin") {
         // Game1: mostrar solo pinyin, texto plano
         btn.textContent = o;

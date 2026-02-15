@@ -241,10 +241,23 @@ async function loadVocabList(retries = 10, delay = 300) {
 // Cargar vocab JSON
 // ---------------------
 async function loadVocabFile(filename) {
-  const res = await fetch(
-    `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}full.json`
-  );
-  const data = await res.json();
+  const url = `https://isaacjar.github.io/chineseapps/hanfloor/voc/${filename}.json`;
+
+  const res = await fetch(url);
+
+  // 🔹 Caso 404 / 500 / etc.
+  if (!res.ok) {
+    throw new Error("VOCAB_NOT_FOUND");
+  }
+
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    // 🔹 Caso HTML en vez de JSON
+    throw new Error("VOCAB_INVALID_JSON");
+  }
+
   return normalizeVocab(data);
 }
 

@@ -220,6 +220,19 @@ const UI = {
   },
 
   /* ======================
+     FULL SCREEN
+   ====================== */
+   goFullscreen() {
+    const el = document.documentElement;
+  
+    if (el.requestFullscreen) {
+      el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    }
+  }, 
+
+  /* ======================
      POPUP AVANZADO
   ====================== */
   showMenu() {

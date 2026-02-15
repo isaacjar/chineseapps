@@ -1,0 +1,63 @@
+[
+  // 🔢 1) Números
+  { "ch": "一", "pin": "yī", "en": "one", "es": "uno" },
+  { "ch": "二", "pin": "èr", "en": "two", "es": "dos" },
+  { "ch": "三", "pin": "sān", "en": "three", "es": "tres" },
+  { "ch": "四", "pin": "sì", "en": "four", "es": "cuatro" },
+  { "ch": "五", "pin": "wǔ", "en": "five", "es": "cinco" },
+  { "ch": "六", "pin": "liù", "en": "six", "es": "seis" },
+  { "ch": "七", "pin": "qī", "en": "seven", "es": "siete" },
+  { "ch": "八", "pin": "bā", "en": "eight", "es": "ocho" },
+  { "ch": "九", "pin": "jiǔ", "en": "nine", "es": "nueve" },
+  { "ch": "十", "pin": "shí", "en": "ten", "es": "diez" },
+
+  // 👤 2) Pronombres y personas
+  { "ch": "人", "pin": "rén", "en": "person", "es": "persona" },
+  { "ch": "我", "pin": "wǒ", "en": "I / me", "es": "yo" },
+  { "ch": "你", "pin": "nǐ", "en": "you", "es": "tú" },
+  { "ch": "他", "pin": "tā", "en": "he / him", "es": "él" },
+  { "ch": "她", "pin": "tā", "en": "she / her", "es": "ella" },
+  { "ch": "们", "pin": "men", "en": "plural marker", "es": "marcador plural" },
+  { "ch": "大", "pin": "dà", "en": "big", "es": "grande" },
+  { "ch": "小", "pin": "xiǎo", "en": "small", "es": "pequeño" },
+
+  // 👪 3) Familia y relaciones básicas
+  { "ch": "爸", "pin": "bà", "en": "dad", "es": "papá" },
+  { "ch": "妈", "pin": "mā", "en": "mom", "es": "mamá" },
+  { "ch": "女", "pin": "nǚ", "en": "woman / female", "es": "mujer" },
+  { "ch": "子", "pin": "zǐ", "en": "child / son", "es": "hijo / niño" },
+  { "ch": "好", "pin": "hǎo", "en": "good", "es": "bueno" },
+
+  // 🏠 4) Entorno inmediato
+  { "ch": "山", "pin": "shān", "en": "mountain", "es": "montaña" },
+  { "ch": "水", "pin": "shuǐ", "en": "water", "es": "agua" },
+  { "ch": "火", "pin": "huǒ", "en": "fire", "es": "fuego" },
+  { "ch": "土", "pin": "tǔ", "en": "earth / soil", "es": "tierra" },
+  { "ch": "日", "pin": "rì", "en": "sun / day", "es": "sol / día" },
+  { "ch": "月", "pin": "yuè", "en": "moon / month", "es": "luna / mes" },
+  { "ch": "木", "pin": "mù", "en": "wood", "es": "madera" },
+  { "ch": "口", "pin": "kǒu", "en": "mouth", "es": "boca" },
+  { "ch": "目", "pin": "mù", "en": "eye", "es": "ojo" },
+  { "ch": "手", "pin": "shǒu", "en": "hand", "es": "mano" },
+
+  // ⏰ 5) Tiempo y vida cotidiana
+  { "ch": "年", "pin": "nián", "en": "year", "es": "año" },
+  { "ch": "天", "pin": "tiān", "en": "day / sky", "es": "día / cielo" },
+  { "ch": "上", "pin": "shàng", "en": "up / above", "es": "arriba" },
+  { "ch": "下", "pin": "xià", "en": "down / below", "es": "abajo" },
+  { "ch": "中", "pin": "zhōng", "en": "middle / center", "es": "centro" },
+  { "ch": "来", "pin": "lái", "en": "to come", "es": "venir" },
+  { "ch": "去", "pin": "qù", "en": "to go", "es": "ir" },
+  { "ch": "看", "pin": "kàn", "en": "to look / to watch", "es": "mirar" },
+  { "ch": "吃", "pin": "chī", "en": "to eat", "es": "comer" },
+  { "ch": "喝", "pin": "hē", "en": "to drink", "es": "beber" },
+
+  // 📚 6) Básicos comunicativos
+  { "ch": "是", "pin": "shì", "en": "to be", "es": "ser" },
+  { "ch": "不", "pin": "bù", "en": "not / no", "es": "no" },
+  { "ch": "有", "pin": "yǒu", "en": "to have / there is", "es": "tener / haber" },
+  { "ch": "在", "pin": "zài", "en": "to be at / in", "es": "estar" },
+  { "ch": "这", "pin": "zhè", "en": "this", "es": "este" },
+  { "ch": "那", "pin": "nà", "en": "that", "es": "ese" },
+  { "ch": "了", "pin": "le", "en": "completed action particle", "es": "partícula de aspecto" }
+]

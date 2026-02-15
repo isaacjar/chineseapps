@@ -7,6 +7,6 @@ const voclists = [
   { filename: "han01", title: "Basic Hanzis", level: "H1", misc: "MIT" },
   { filename: "han02", title: "First 100 Characters", level: "H2", misc: "MIT" },
   { filename: "han02b", title: "150 Most Common Characters", level: "H2", misc: "MIT" },
-  { filename: "han03", title: "250 Characters", level: "H3", misc: "MIT" }  
+  { filename: "han03", title: "New HSK 1 300 Characters", level: "H3", misc: "MIT" }  
   // más listados...
 ];

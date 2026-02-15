@@ -155,33 +155,40 @@ const UI = {
   /* ======================
      PREGUNTAS
   ====================== */
-  renderQuestion(p, text, options, cb) {
+   renderQuestion(p, text, options, cb) {
     const q = p === 1 ? this.question1 : this.question2;
     const container = p === 1 ? this.options1 : this.options2;
-
-    q.innerHTML = text;
-    container.innerHTML = "";
-
+  
+    q.innerHTML = text; // pregunta
+    container.innerHTML = ""; // limpiar opciones previas
+  
     options.forEach(o => {
       const btn = document.createElement("button");
       btn.className = "option-btn";
-    
-     // Mostrar hanzi + pinyin solo en Game3 si show pinyin está activado
-    if (window.Game?.mode === "meaning-to-hanzi") {
-      const word = window.Game.vocab.find(w => w.hanzi === o);
-      btn.innerHTML = word ? renderHanzi(word) : o; // renderHanzi añade <span class="pinyin">
-    } else if (window.Game?.mode === "hanzi-to-pinyin") {
-      // Game1: opciones solo pinyin, texto plano
-      btn.textContent = o;
-    } else {
-      // Game2: opciones significado, texto plano
-      btn.textContent = o;
-    }
-    
-      btn.onclick = () => cb(o);
+  
+      // ⚡ Guardar valor real para comparación
+      btn.dataset.value = o;
+  
+      if (window.Game?.mode === "meaning-to-hanzi") {
+        // Game3: mostrar hanzi + opcional pinyin
+        const word = window.Game.vocab.find(w => w.hanzi === o);
+        btn.innerHTML = word ? renderHanzi(word) : o;
+      } else if (window.Game?.mode === "hanzi-to-pinyin") {
+        // Game1: mostrar solo pinyin, texto plano
+        btn.textContent = o;
+      } else if (window.Game?.mode === "hanzi-to-meaning") {
+        // Game2: mostrar significado, texto plano
+        btn.textContent = o;
+      } else {
+        // fallback: mostrar texto plano
+        btn.textContent = o;
+      }
+  
+      // ⚡ Al hacer click enviamos el valor real, no el HTML
+      btn.onclick = () => cb(btn.dataset.value);
+  
       container.appendChild(btn);
     });
-
   },
 
   /* ======================

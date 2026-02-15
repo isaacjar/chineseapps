@@ -31,7 +31,11 @@ const Settings = {
       this.data.penalty = DEFAULTS.penalty;
     }
   
-    this.data.pinyin = this.data.pinyin !== "false";
+    if (typeof this.data.pinyin === "string") {
+      this.data.pinyin = this.data.pinyin.toLowerCase() === "true";
+    } else {
+      this.data.pinyin = !!this.data.pinyin; // asegura booleano
+    }
 
     const lang = Settings.data.lang || "en";
 

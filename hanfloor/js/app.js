@@ -409,16 +409,24 @@ function onAnswer(selected, correct) {
     }
   });
 
-  const normalize = s => s.trim().toLowerCase(); // para comparación pinyin/strings
+  // 🔹 Comparación mínima según modo
+  let isCorrect;
+  if (window.Game.mode === "hanzi-to-pinyin") {
+    const normalize = s => s.trim().toLowerCase();
+    isCorrect = normalize(selected) === normalize(correct);
+  } else {
+    // Game2 y Game3: comparar literalmente
+    isCorrect = selected === correct;
+  }
 
-  if (normalize(selected) === normalize(correct)) {
+  if (isCorrect) {
     UI.playOk();
-    setTimeout(switchPlayer, 500); // un poco más de tiempo para ver verde
+    setTimeout(switchPlayer, 500);
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
     UI.markFail(currentPlayer, 800);
-    setTimeout(loadQuestion, 800); // tiempo para ver rojo
+    setTimeout(loadQuestion, 800);
   }
 }
 

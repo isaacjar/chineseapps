@@ -277,7 +277,7 @@ function normalizeVocab(list) {
 
 function renderHanzi(word) {
   if (Settings.data.pinyin) {
-    return `${word.hanzi} <span class="pinyin">[${word.pinyin}]</span>`;
+    return `${word.hanzi}  <span class="pinyin">[ ${word.pinyin} ]</span>`;
   }
   return word.hanzi;
 }

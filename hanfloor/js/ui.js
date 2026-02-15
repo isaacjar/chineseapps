@@ -175,7 +175,7 @@ const UI = {
         btn.innerHTML = word ? renderHanzi(word) : o;
          if (word) {
           btn.dataset.value = word.hanzi;        // 🔹 solo caracteres
-          btn.innerHTML = renderHanzi(word);     // 🔹 muestra pinyin si está activado
+          btn.innerHTML = Settings.data.pinyin ? renderHanzi(word) : word.hanzi; // 🔹 muestra pinyin si está activado
         } else {
           btn.dataset.value = o;
           btn.textContent = o;

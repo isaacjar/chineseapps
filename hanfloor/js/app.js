@@ -267,9 +267,6 @@ function startGame(gameNumber, vocabList) {
 // ---------------------
 // LOAD QUESTION
 // ---------------------
-// ---------------------
-// LOAD QUESTION
-// ---------------------
 function loadQuestion() {
   currentQuestion = window.Game.getQuestion();
 
@@ -293,18 +290,16 @@ function loadQuestion() {
     case "hanzi-to-meaning":
       options = generateMeaningOptions(currentQuestion, lang);
       correct = currentQuestion.meaning[lang];
-    
       // Mostrar Hanzi + pinyin con estilo si está activado
       questionText = Settings.data.pinyin
-        ? renderHanzi(currentQuestion)  // usa la función renderHanzi que aplica <span class="pinyin">
+        ? renderHanzi(currentQuestion)
         : currentQuestion.hanzi;
       break;
 
     case "meaning-to-hanzi":
       options = generateHanziOptions(currentQuestion);
-      correct = currentQuestion.hanzi;
-      // Pregunta = significado según idioma (sin pinyin)
-      questionText = currentQuestion.meaning[lang];
+      correct = currentQuestion.hanzi;        // solo valor puro
+      questionText = currentQuestion.meaning[lang]; // pregunta = significado según idioma
       break;
 
     default:
@@ -312,6 +307,7 @@ function loadQuestion() {
       return;
   }
 
+  // 🔹 Renderizar opciones usando btn.dataset.value en vez de innerHTML
   UI.renderQuestion(
     currentPlayer,
     questionText,
@@ -396,34 +392,33 @@ function shuffleArray(arr) {
 function onAnswer(selected, correct) {
   const activeContainer = currentPlayer === 1 ? UI.options1 : UI.options2;
 
-  // Ignorar si el botón pulsado no pertenece al jugador activo
-  if (![...activeContainer.children].some(btn => btn.textContent === selected)) {
+  // ⚡ Comprobar si el botón pulsado pertenece al jugador activo
+  if (![...activeContainer.children].some(btn => btn.dataset.value === selected)) {
     return;
   }
 
   // Deshabilitar botones del jugador activo inmediatamente
   [...activeContainer.children].forEach(btn => btn.disabled = true);
 
-  // Pintar botones: correcto en verde primavera, incorrecto en rojo pastel
+  // Pintar botones: correcto en verde, incorrecto en rojo
   [...activeContainer.children].forEach(btn => {
-    if (btn.textContent === correct) {
+    if (btn.dataset.value === correct) {
       btn.classList.add("correct");
-    } else if (btn.textContent === selected) {
+    } else if (btn.dataset.value === selected) {
       btn.classList.add("incorrect");
     }
   });
 
-  const normalize = s => s.trim().toLowerCase(); // Se acepta por válido el pinyin igual
-  
-  // if (selected === correct) {
-  if (normalize(selected) === normalize(correct)) {   
+  const normalize = s => s.trim().toLowerCase(); // para comparación pinyin/strings
+
+  if (normalize(selected) === normalize(correct)) {
     UI.playOk();
-    setTimeout(switchPlayer, 500); // un poco más de tiempo para ver el verde
+    setTimeout(switchPlayer, 500); // un poco más de tiempo para ver verde
   } else {
     UI.playFail();
     UI.penalize(currentPlayer, Settings.data.penalty);
     UI.markFail(currentPlayer, 800);
-    setTimeout(loadQuestion, 800); // tiempo para ver el rojo
+    setTimeout(loadQuestion, 800); // tiempo para ver rojo
   }
 }
 

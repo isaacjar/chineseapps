@@ -1,5 +1,4 @@
 [
-  // 🔢 1) Números
   { "ch": "一", "pin": "yī", "en": "one", "es": "uno" },
   { "ch": "二", "pin": "èr", "en": "two", "es": "dos" },
   { "ch": "三", "pin": "sān", "en": "three", "es": "tres" },
@@ -11,7 +10,6 @@
   { "ch": "九", "pin": "jiǔ", "en": "nine", "es": "nueve" },
   { "ch": "十", "pin": "shí", "en": "ten", "es": "diez" },
 
-  // 👤 2) Pronombres y personas
   { "ch": "人", "pin": "rén", "en": "person", "es": "persona" },
   { "ch": "我", "pin": "wǒ", "en": "I / me", "es": "yo" },
   { "ch": "你", "pin": "nǐ", "en": "you", "es": "tú" },
@@ -21,14 +19,12 @@
   { "ch": "大", "pin": "dà", "en": "big", "es": "grande" },
   { "ch": "小", "pin": "xiǎo", "en": "small", "es": "pequeño" },
 
-  // 👪 3) Familia y relaciones básicas
   { "ch": "爸", "pin": "bà", "en": "dad", "es": "papá" },
   { "ch": "妈", "pin": "mā", "en": "mom", "es": "mamá" },
   { "ch": "女", "pin": "nǚ", "en": "woman / female", "es": "mujer" },
   { "ch": "子", "pin": "zǐ", "en": "child / son", "es": "hijo / niño" },
   { "ch": "好", "pin": "hǎo", "en": "good", "es": "bueno" },
 
-  // 🏠 4) Entorno inmediato
   { "ch": "山", "pin": "shān", "en": "mountain", "es": "montaña" },
   { "ch": "水", "pin": "shuǐ", "en": "water", "es": "agua" },
   { "ch": "火", "pin": "huǒ", "en": "fire", "es": "fuego" },
@@ -40,7 +36,6 @@
   { "ch": "目", "pin": "mù", "en": "eye", "es": "ojo" },
   { "ch": "手", "pin": "shǒu", "en": "hand", "es": "mano" },
 
-  // ⏰ 5) Tiempo y vida cotidiana
   { "ch": "年", "pin": "nián", "en": "year", "es": "año" },
   { "ch": "天", "pin": "tiān", "en": "day / sky", "es": "día / cielo" },
   { "ch": "上", "pin": "shàng", "en": "up / above", "es": "arriba" },
@@ -52,7 +47,6 @@
   { "ch": "吃", "pin": "chī", "en": "to eat", "es": "comer" },
   { "ch": "喝", "pin": "hē", "en": "to drink", "es": "beber" },
 
-  // 📚 6) Básicos comunicativos
   { "ch": "是", "pin": "shì", "en": "to be", "es": "ser" },
   { "ch": "不", "pin": "bù", "en": "not / no", "es": "no" },
   { "ch": "有", "pin": "yǒu", "en": "to have / there is", "es": "tener / haber" },

@@ -157,6 +157,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // START desde popup
     // ---------------------
     UI.btnStartGame.onclick = async () => {
+      
+      UI.goFullscreen(); // Pantalla completa
+      
       if (!currentGame) {
         alert("Please select a game type");
         return;

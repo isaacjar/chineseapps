@@ -15,24 +15,49 @@ const Game1 = {
 
   getQuestion() {
     if (!this.vocab || this.vocab.length === 0) return null;
-    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+
+    // 🔹 Filtrar vocab no usado aún
+    let candidates = this.vocab.filter(w => !usedWords.has(w.pinyin));
+    if (candidates.length === 0) {
+      usedWords.clear(); // reset si se acaban todas
+      candidates = this.vocab.slice();
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 };
+
 const Game2 = {
-  mode: "hanzi-to-meaning", // pregunta hanzi, opciones significado (en/es según settings)
+  mode: "hanzi-to-meaning",
 
   getQuestion() {
     if (!this.vocab || this.vocab.length === 0) return null;
-    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+
+    const lang = Settings.data.lang || "en";
+
+    let candidates = this.vocab.filter(w => !usedWords.has(w.meaning[lang]));
+    if (candidates.length === 0) {
+      usedWords.clear();
+      candidates = this.vocab.slice();
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 };
 
 const Game3 = {
-  mode: "meaning-to-hanzi", // pregunta significado (en/es según settings), opciones hanzi (con pinyin si show pinyin)
+  mode: "meaning-to-hanzi",
 
   getQuestion() {
     if (!this.vocab || this.vocab.length === 0) return null;
-    return this.vocab[Math.floor(Math.random() * this.vocab.length)];
+
+    let candidates = this.vocab.filter(w => !usedWords.has(w.hanzi));
+    if (candidates.length === 0) {
+      usedWords.clear();
+      candidates = this.vocab.slice();
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 };
 

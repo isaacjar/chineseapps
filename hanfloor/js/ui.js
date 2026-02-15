@@ -58,6 +58,27 @@ const UI = {
     };
   });
 
+  // ---------------------
+  // Show Pinyin toggle
+  // ---------------------
+  this.togglePinyin = document.getElementById("togglePinyin");
+  
+  if (this.togglePinyin) {
+    // Estado inicial desde Settings
+    this.togglePinyin.checked = !!Settings.data.pinyin;
+  
+    // Evento cambio
+    this.togglePinyin.onchange = () => {
+      Settings.data.pinyin = this.togglePinyin.checked;
+      Settings.save();
+  
+      // Recargar pregunta si hay juego activo
+      if (window.Game) {
+        loadQuestion();
+      }
+    };
+  }
+
     // Mostrar popup al pulsar START principal
     const btnStart = document.getElementById("btnStart");
     if (btnStart) btnStart.onclick = () => this.menuOverlay.classList.remove("hidden");

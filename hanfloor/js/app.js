@@ -326,6 +326,7 @@ function startGame(gameNumber, vocabList) {
     gameNumber === 3 ? Game3 : Game4;
 
   window.Game.vocab = vocabList;
+  window.Game.correctCount = 0;
 
   UI.showCountdown(() => {
     startTimer();
@@ -474,7 +475,7 @@ function onAnswer(selected, correct) {
   [...activeContainer.children].forEach(btn => {
     if (btn.dataset.value === correct) {
       btn.classList.add("correct");
-      Game.correctCount = (Game.correctCount || 0) + 1;
+      window.Game.correctCount++;
     } else if (btn.dataset.value === selected) {
       btn.classList.add("incorrect");
     }
@@ -508,13 +509,15 @@ function saveGameResult({ name, points, correct }) {
   const key = "hanfloorHistory";
   const list = JSON.parse(localStorage.getItem(key) || "[]");
 
-  list.unshift({
-    name,
-    points,
-    correct,
-    date: Date.now()
-  });
+  list.push({ name, points, answers: correct, date: Date.now() });
 
+  list.sort((a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    return b.answers - a.answers;
+  });
+  
+  list.splice(20); // solo top 20
+  
   localStorage.setItem(key, JSON.stringify(list));
 }
 

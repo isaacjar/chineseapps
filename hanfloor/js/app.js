@@ -474,6 +474,7 @@ function onAnswer(selected, correct) {
   [...activeContainer.children].forEach(btn => {
     if (btn.dataset.value === correct) {
       btn.classList.add("correct");
+      Game.correctCount = (Game.correctCount || 0) + 1;
     } else if (btn.dataset.value === selected) {
       btn.classList.add("incorrect");
     }
@@ -498,6 +499,23 @@ function onAnswer(selected, correct) {
     UI.markFail(currentPlayer, 800);
     setTimeout(loadQuestion, 800);
   }
+}
+
+// ---------------------
+// GUARDAR ESTADISTICAS
+// ---------------------
+function saveGameResult({ name, points, correct }) {
+  const key = "hanfloorHistory";
+  const list = JSON.parse(localStorage.getItem(key) || "[]");
+
+  list.unshift({
+    name,
+    points,
+    correct,
+    date: Date.now()
+  });
+
+  localStorage.setItem(key, JSON.stringify(list));
 }
 
 // ---------------------
@@ -561,5 +579,6 @@ function endGame(winner) {
     : UI.name2.textContent;
 
   launchConfetti();
+  saveGameResult({ name, points, correct: Game.correctCount || 0 });
   UI.showWinPopup({ name, points });
 }

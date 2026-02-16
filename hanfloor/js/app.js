@@ -6,7 +6,7 @@ let currentQuestion = null;
 let currentGame = null;
 let selectedVocab = null;
 let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
-let correctByPlayer = { 1: 0, 2: 0 };
+let correctAnswers = { 1: 0, 2: 0 };
 
 // ---------------------
 // INTEGRACIÓN DE GAMES
@@ -319,8 +319,8 @@ function startGame(gameNumber, vocabList) {
   UI.hideMenu();
   
   currentPlayer = 1;
-  correctByPlayer[1] = 0;
-  correctByPlayer[2] = 0;
+  correctAnswers[1] = 0;
+  correctAnswers[2] = 0;
   
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
@@ -480,7 +480,7 @@ function onAnswer(selected, correct) {
   [...activeContainer.children].forEach(btn => {
     if (btn.dataset.value === correct) {
       btn.classList.add("correct");
-      correctByPlayer[currentPlayer]++;
+      correctAnswers[currentPlayer]++;
     } else if (btn.dataset.value === selected) {
       btn.classList.add("incorrect");
     }
@@ -592,6 +592,6 @@ function endGame(winner) {
     : UI.name2.textContent;
 
   launchConfetti();
-  saveGameResult({ name, points, correct: Game.correctCount || 0 });
+  saveGameResult({ name, points, correct: correctAnswers[winner] });
   UI.showWinPopup({ name, points });
 }

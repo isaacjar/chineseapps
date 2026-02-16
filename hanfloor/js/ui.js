@@ -396,8 +396,7 @@ const UI = {
       localStorage.removeItem(key);
       overlay.remove();
     };
-  }
-  
+  },  
     
   /* ======================
      SONIDO Y FINAL

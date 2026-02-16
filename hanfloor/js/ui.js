@@ -92,7 +92,12 @@ const UI = {
 
     // Restaurar últimas opciones guardadas
     const lastGame = localStorage.getItem("lastGame");
-    if (lastGame) this.setActiveGameBtn(Number(lastGame));
+    if (lastGame) {
+      this.setActiveGameBtn(Number(lastGame));
+    } else {  // 🔹 Primera vez: Game 2 por defecto (hanzi-to-meaning)
+      this.setActiveGameBtn(2);
+      localStorage.setItem("lastGame", 2);
+    }
 
     const lastVocab = localStorage.getItem("lastVocab");
     if (lastVocab && this.vocabSelect) this.vocabSelect.value = lastVocab;

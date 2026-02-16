@@ -37,13 +37,13 @@ const Settings = {
       this.data.pinyin = !!this.data.pinyin; // asegura booleano
     }
 
-    const lang = Settings.data.lang || "en";
+    /*const lang = Settings.data.lang || "en";
 
     document.querySelectorAll(".lang-btn").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === lang);
     });
   
-    console.log("Settings cargados:", this.data);
+    console.log("Settings cargados:", this.data);*/ 
   },
 
   save() {

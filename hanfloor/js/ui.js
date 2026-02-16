@@ -107,6 +107,14 @@ const UI = {
     if (lastP1) this.player1Input.value = lastP1;
     if (lastP2) this.player2Input.value = lastP2;
 
+    // BOTON ESTADÍSTICAS
+    const btnHistory = document.getElementById("btnHistory");
+    if (btnHistory) {
+      btnHistory.onclick = () => {
+        this.showHistoryPopup();
+      };
+    }
+
   },
 
   /* ======================
@@ -347,6 +355,50 @@ const UI = {
     }, duration);
   }, 
 
+   /* ============= MOSTRAR ESTADÍSTICAS ================ */ 
+  showHistoryPopup() {
+    const key = "hanfloorHistory";
+    const data = JSON.parse(localStorage.getItem(key) || "[]");
+  
+    const overlay = document.createElement("div");
+    overlay.className = "history-overlay";
+  
+    const items = data.length
+      ? data.map(d => `
+          <div class="history-item">
+            <strong>${d.name}</strong><br>
+            Points: ${d.points}<br>
+            Correct: ${d.correct}
+          </div>
+        `).join("")
+      : `<p>No games played yet.</p>`;
+  
+    overlay.innerHTML = `
+      <div class="history-box">
+        <h2>Game History</h2>
+  
+        <div class="history-list">
+          ${items}
+        </div>
+  
+        <div class="history-actions">
+          <button id="btnResetHistory">Reset</button>
+          <button id="btnCloseHistory">Close</button>
+        </div>
+      </div>
+    `;
+  
+    document.body.appendChild(overlay);
+  
+    overlay.querySelector("#btnCloseHistory").onclick = () => overlay.remove();
+  
+    overlay.querySelector("#btnResetHistory").onclick = () => {
+      localStorage.removeItem(key);
+      overlay.remove();
+    };
+  }
+  
+    
   /* ======================
      SONIDO Y FINAL
   ====================== */

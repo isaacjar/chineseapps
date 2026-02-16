@@ -301,8 +301,11 @@ function startGame(gameNumber, vocabList) {
 
   window.Game.vocab = vocabList;
 
-  startTimer();
-  loadQuestion();
+  UI.showCountdown(() => {
+    startTimer();
+    loadQuestion();
+  });
+
 }
 
 // ---------------------

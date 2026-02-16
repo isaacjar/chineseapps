@@ -233,6 +233,38 @@ const UI = {
   }, 
 
   /* ======================
+     COUNT DOWN
+   ====================== */
+  showCountdown(onFinish) {
+  const overlay = document.createElement("div");
+  overlay.className = "countdown-overlay";
+
+  const box = document.createElement("div");
+  box.className = "countdown-box";
+  overlay.appendChild(box);
+
+  document.body.appendChild(overlay);
+
+  const steps = ["3", "2", "1", "GO!"];
+  let i = 0;
+
+  box.textContent = steps[i];
+
+  const interval = setInterval(() => {
+    i++;
+
+    if (i >= steps.length) {
+      clearInterval(interval);
+      overlay.remove();
+      if (typeof onFinish === "function") onFinish();
+      return;
+    }
+
+    box.textContent = steps[i];
+  }, 800); // ritmo agradable
+},
+
+  /* ======================
      POPUP AVANZADO
   ====================== */
   showMenu() {

@@ -41,7 +41,7 @@ body { margin:0; background:var(--bg); display:flex; flex-direction:column; heig
 }
 /* ====================== COUNTDOWN SCREEN ====================== */
 .countdown-overlay { position: fixed; top: 0; left: 0; width: 50vw; height: 100vh; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 9999; } 
-.countdown-box { font-size: 96px; font-weight: bold; color: #ffd400; text-shadow: 0 0 20px rgba(0,0,0,0.4); }
+.countdown-box { font-size: 96px; font-weight: bold; color: #121211; text-shadow: 0 0 20px rgba(0,0,0,0.4); }
 @keyframes countdownPop {
   0% { transform: scale(0.5); opacity: 0; }
   40% { transform: scale(1.2); opacity: 1; }

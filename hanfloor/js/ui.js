@@ -355,10 +355,19 @@ const UI = {
     }, duration);
   }, 
 
-   /* ============= MOSTRAR ESTADÍSTICAS ================ */ 
+  /* ============= MOSTRAR ESTADÍSTICAS ================ */ 
   showHistoryPopup() {
     const key = "hanfloorHistory";
-    const data = JSON.parse(localStorage.getItem(key) || "[]");
+    let data = JSON.parse(localStorage.getItem(key) || "[]");
+  
+    // ordenar: puntos ↓, respuestas ↓
+    data.sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      return b.answers - a.answers;
+    });
+  
+    // top 10
+    data = data.slice(0, 10);
   
     const overlay = document.createElement("div");
     overlay.className = "history-overlay";
@@ -366,16 +375,14 @@ const UI = {
     const items = data.length
       ? data.map(d => `
           <div class="history-item">
-            <strong>${d.name}</strong><br>
-            Points: ${d.points}<br>
-            Correct: ${d.correct}
+            <strong>${d.name}</strong> ${d.points} pts. (ans: ${d.answers})
           </div>
         `).join("")
       : `<p>No games played yet.</p>`;
   
     overlay.innerHTML = `
       <div class="history-box">
-        <h2>Game History</h2>
+        <h2>👥 Best players</h2>
   
         <div class="history-list">
           ${items}

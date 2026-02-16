@@ -236,33 +236,51 @@ const UI = {
      COUNT DOWN
    ====================== */
   showCountdown(onFinish) {
-  const overlay = document.createElement("div");
-  overlay.className = "countdown-overlay";
-
-  const box = document.createElement("div");
-  box.className = "countdown-box";
-  overlay.appendChild(box);
-
-  document.body.appendChild(overlay);
-
-  const steps = ["3", "2", "1", "GO!"];
-  let i = 0;
-
-  box.textContent = steps[i];
-
-  const interval = setInterval(() => {
-    i++;
-
-    if (i >= steps.length) {
-      clearInterval(interval);
-      overlay.remove();
-      if (typeof onFinish === "function") onFinish();
-      return;
-    }
-
-    box.textContent = steps[i];
-  }, 800); // ritmo agradable
-},
+    const overlay = document.createElement("div");
+    overlay.className = "countdown-overlay";
+  
+    const box = document.createElement("div");
+    box.className = "countdown-box";
+    overlay.appendChild(box);
+  
+    document.body.appendChild(overlay);
+  
+    const steps = ["3", "2", "1", "GO!"];
+    let i = 0;
+  
+    const beep = document.getElementById("soundBeep");
+    const go = document.getElementById("soundGo");
+  
+    const showStep = () => {
+      // reiniciar animación
+      box.classList.remove("countdown-box");
+      void box.offsetWidth; // fuerza reflow
+      box.classList.add("countdown-box");
+  
+      box.textContent = steps[i];
+  
+      if (steps[i] === "GO!") {
+        go && (go.currentTime = 0, go.play());
+      } else {
+        beep && (beep.currentTime = 0, beep.play());
+      }
+    };
+  
+    showStep();
+  
+    const interval = setInterval(() => {
+      i++;
+  
+      if (i >= steps.length) {
+        clearInterval(interval);
+        overlay.remove();
+        if (typeof onFinish === "function") onFinish();
+        return;
+      }
+  
+      showStep();
+    }, 800);
+  },
 
   /* ======================
      POPUP AVANZADO

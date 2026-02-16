@@ -325,6 +325,10 @@ const UI = {
      WIN POPUP
   ====================== */
   showWinPopup({ name, points }) {
+    
+    const victory = document.getElementById("soundVictory");
+    if (victory) { victory.currentTime = 0; victory.play(); }
+
     const overlay = document.createElement("div");
     overlay.className = "win-overlay";
   

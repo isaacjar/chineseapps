@@ -286,6 +286,32 @@ function renderHanzi(word) {
 }
 
 // ---------------------
+// STOP GAME
+// ---------------------
+function stopGame() {
+  // ⏱️ parar temporizador
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  // 🔄 limpiar estado de juego
+  currentQuestion = null;
+  window.Game = null;
+  usedWords.clear();
+
+  // 🧼 limpiar UI de preguntas y opciones
+  UI.question1.innerHTML = "";
+  UI.question2.innerHTML = "";
+  UI.options1.innerHTML = "";
+  UI.options2.innerHTML = "";
+
+  // 🔁 reset jugadores a estado neutro
+  UI.player1.classList.remove("active", "inactive", "fail");
+  UI.player2.classList.remove("active", "inactive", "fail");
+}
+
+// ---------------------
 // START GAME
 // ---------------------
 function startGame(gameNumber, vocabList) {

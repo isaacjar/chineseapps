@@ -6,6 +6,7 @@ let currentQuestion = null;
 let currentGame = null;
 let selectedVocab = null;
 let usedWords = new Set(); // Palabras ya usadas globalmente en el juego
+let correctByPlayer = { 1: 0, 2: 0 };
 
 // ---------------------
 // INTEGRACIÓN DE GAMES
@@ -316,7 +317,11 @@ function stopGame() {
 // ---------------------
 function startGame(gameNumber, vocabList) {
   UI.hideMenu();
+  
   currentPlayer = 1;
+  correctByPlayer[1] = 0;
+  correctByPlayer[2] = 0;
+  
   UI.resetTimers(Settings.data.time);
   UI.setActive(currentPlayer);
 
@@ -475,7 +480,7 @@ function onAnswer(selected, correct) {
   [...activeContainer.children].forEach(btn => {
     if (btn.dataset.value === correct) {
       btn.classList.add("correct");
-      window.Game.correctCount++;
+      correctByPlayer[currentPlayer]++;
     } else if (btn.dataset.value === selected) {
       btn.classList.add("incorrect");
     }
@@ -509,15 +514,20 @@ function saveGameResult({ name, points, correct }) {
   const key = "hanfloorHistory";
   const list = JSON.parse(localStorage.getItem(key) || "[]");
 
-  list.push({ name, points, answers: correct, date: Date.now() });
+  list.push({
+    name,
+    points,
+    answers: correct,
+    date: Date.now()
+  });
 
   list.sort((a, b) => {
     if (b.points !== a.points) return b.points - a.points;
     return b.answers - a.answers;
   });
-  
+
   list.splice(20); // solo top 20
-  
+
   localStorage.setItem(key, JSON.stringify(list));
 }
 

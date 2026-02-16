@@ -81,7 +81,14 @@ const UI = {
 
     // Mostrar popup al pulsar START principal
     const btnStart = document.getElementById("btnStart");
-    if (btnStart) btnStart.onclick = () => this.menuOverlay.classList.remove("hidden");
+    if (btnStart) {
+      btnStart.onclick = () => {
+        if (window.Game) {
+          stopGame(); // 🔥 cortar partida en curso
+        }
+        this.menuOverlay.classList.remove("hidden");
+      };
+    }
 
     // Restaurar últimas opciones guardadas
     const lastGame = localStorage.getItem("lastGame");

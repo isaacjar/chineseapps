@@ -34,7 +34,7 @@ const UI = {
   // Leer idioma guardado en Settings o fallback a en
   const lastLang = Settings.data.lang || localStorage.getItem("lastLang") || "en";
   this.setActiveLang(lastLang);
-  Settings.data.lang = lastLang; // aseguramos que Settings tenga el valor correcto
+  Settings.data.lang = lastLang;  
   
   // Evento click para cada botón
   this.langBtns.forEach(btn => {

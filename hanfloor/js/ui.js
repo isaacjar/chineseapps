@@ -379,7 +379,7 @@ const UI = {
     const items = data.length
       ? data.map(d => `
           <div class="history-item">
-            <strong>${d.name}</strong> ${d.points} pts. (ans: ${d.answers})
+            <strong>${d.name}</strong>:  ${d.points}  <em>(ans: ${d.answers}</em>)
           </div>
         `).join("")
       : `<p>No games played yet.</p>`;

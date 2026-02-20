@@ -316,6 +316,7 @@ function stopGame() {
 // START GAME
 // ---------------------
 function startGame(gameNumber, vocabList) {
+  stopGame();
   UI.hideMenu();
   
   currentPlayer = 1;

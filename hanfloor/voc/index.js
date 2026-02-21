@@ -11,11 +11,12 @@ const voclists = [
   { filename: "han01", title: "Basic Hanzis (50 characters)", level: "H1", misc: "MIT" },
   { filename: "han02", title: "First 100 Characters", level: "H2", misc: "MIT" },
   { filename: "han02b", title: "150 Most Common Characters", level: "H2", misc: "MIT" },
-  { filename: "han02c", title: "200 Chinese Characters", level: "H2", misc: "MIT" },
+  { filename: "han02c", title: "200 Chinese Characters", level: "H3", misc: "MIT" },
   { filename: "han03", title: "New HSK 1 300 Characters", level: "H3", misc: "MIT" },
-  { filename: "han500", title: "500 Chinese Characters", level: "H3", misc: "MIT" },  
-  { filename: "han1000", title: "1000 Chinese Characters", level: "H3", misc: "MIT" },
-  { filename: "han1500", title: "1500 Chinese Characters", level: "H3", misc: "MIT" },
-  { filename: "han5000", title: "5000 Chinese Characters", level: "H3", misc: "MIT" }  
+  { filename: "han500", title: "500 Chinese Characters", level: "H4", misc: "MIT" },  
+  { filename: "han1000", title: "1000 Chinese Characters", level: "H4", misc: "MIT" },
+  { filename: "han1500", title: "1500 Chinese Characters", level: "H5", misc: "MIT" },
+  { filename: "han3000", title: "3000 Chinese Characters", level: "H5", misc: "MIT" },
+  { filename: "han5000", title: "5000 Chinese Characters", level: "H6", misc: "MIT" }  
   // más listados...
 ];

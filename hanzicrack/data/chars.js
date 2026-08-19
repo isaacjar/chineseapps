@@ -263,6 +263,7 @@ export const data = {
 "麻": {"p":"má","en":"hemp","es":"cáñamo","r":"麻","s":11,"f":15,"c":[]},
 "黃": {"p":"huáng","en":"yellow","es":"amarillo","r":"黃","s":12,"f":25,"c":[]},
 "黍": {"p":"shǔ","en":"millet","es":"mijo","r":"黍","s":12,"f":3,"c":[]},
+"风": {"p":"fēng","en":"wind","es":"viento","r":"风","s":4,"f":100,"c":[]},
 "黑": {"p":"hēi","en":"black","es":"negro","r":"黑","s":12,"f":50,"c":[]},
 "黹": {"p":"zhǐ","en":"embroidery","es":"bordado","r":"黹","s":12,"f":2,"c":[]},
 "黽": {"p":"mǐn","en":"frog","es":"rana","r":"黽","s":13,"f":2,"c":[]},

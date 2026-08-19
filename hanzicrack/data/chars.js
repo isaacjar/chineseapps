@@ -1457,5 +1457,14 @@ export const data = {
 "咳": {"p":"ké","en":"cough","es":"toser","r":"口","s":9,"c":["口","亥"]},
 "柿": {"p":"shì","en":"persimmon","es":"caqui (fruta)","r":"木","s":9,"c":["木","市"]},
 "袜": {"p":"wà","en":"socks","es":"calcetines","r":"衤","s":10,"c":["衤","末"]},
-"嗽": {"p":"sòu","en":"cough (in 咳嗽)","es":"tos (en 咳嗽)","r":"口","s":14,"c":[]}
+"嗽": {"p":"sòu","en":"cough (in 咳嗽)","es":"tos (en 咳嗽)","r":"口","s":14,"c":[]},
+"尧": {"p":"yáo","en":"high (component); legendary sage-king","es":"alto (componente); rey sabio legendario","r":"兀","s":6,"c":[]},
+"舍": {"p":"shě / shè","en":"give up; house, dwelling","es":"renunciar; casa, morada","r":"舌","s":8,"c":[]},
+"退": {"p":"tuì","en":"retreat; withdraw","es":"retroceder; retirarse","r":"辶","s":9,"c":["艮","辶"]},
+"唐": {"p":"táng","en":"Tang (dynasty); absurd","es":"Tang (dinastía); absurdo","r":"广","s":10,"c":[]},
+"宛": {"p":"wǎn","en":"as if; winding","es":"como si; sinuoso","r":"宀","s":8,"c":["宀","夗"]},
+"羔": {"p":"gāo","en":"lamb","es":"cordero","r":"羊","s":10,"c":["羊","灬"]},
+"喿": {"p":"zào","en":"chirping (component); noisy","es":"gorjeo (componente); ruidoso","r":"品","s":13,"c":["品","木"]},
+"委": {"p":"wěi","en":"entrust;委 (component)","es":"encomendar; delegar","r":"女","s":8,"c":["禾","女"]},
+"夷": {"p":"yí","en":"level; barbarian (archaic)","es":"llano; bárbaro (arcaico)","r":"大","s":6,"c":[]}
 };

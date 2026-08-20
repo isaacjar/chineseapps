@@ -83,6 +83,7 @@ export const data = {
 "䒑": {"p":"yáo","en":"sprout (屮)","es":"brote (屮)","r":"屮","s":5,"f":300,"c":[]},
 "山": {"p":"shān","en":"mountain","es":"montaña","r":"山","s":3,"f":400,"c":[]},
 "川": {"p":"chuān","en":"river","es":"río","r":"川","s":3,"f":140,"c":[]},
+"巛": {"p":"chuān","en":"river","es":"río","r":"川","s":3,"f":140,"c":[]},
 "工": {"p":"gōng","en":"work","es":"trabajo","r":"工","s":3,"f":150,"c":[]},
 "己": {"p":"jǐ","en":"self","es":"uno mismo","r":"己","s":3,"f":160,"c":[]},
 "巾": {"p":"jīn","en":"towel","es":"toalla","r":"巾","s":3,"f":100,"c":[]},

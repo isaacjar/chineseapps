@@ -1276,7 +1276,7 @@ export const data = {
 "桥": {"p":"qiáo","en":"bridge","es":"puente","r":"木","s":10,"c":["木","乔"]},
 "吸": {"p":"xī","en":"inhale; absorb","es":"inhalar; absorber","r":"口","s":6,"c":["口","及"]},
 "松": {"p":"sōng","en":"loose; pine","es":"suelto; pino","r":"木","s":8,"c":["木","公"]},
-"耶": {"p":"yé","en":"interrogative particle","es":"partícula interrogativa","r":"耳","s":8,"f":0,"c":["耳","⻏"]},
+"耶": {"p":"yé","en":"interrogative, exclamatory particle, phonetic character in transliterations","es":"partícula interrogativa, exclamativa, (carácter fonético en transliteraciones)","r":"耳","s":8,"f":0,"c":["耳","阝"]},
 "沙": {"p":"shā","en":"sand","es":"arena","r":"氵","s":7,"c":["氵","少"]},
 "币": {"p":"bì","en":"currency","es":"moneda","r":"巾","s":4,"c":[]},
 "缺": {"p":"quē","en":"lack; shortage","es":"faltar; escasez","r":"缶","s":10,"c":[]},

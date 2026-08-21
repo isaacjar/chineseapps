@@ -1287,7 +1287,7 @@ export const data = {
 "币": {"p":"bì","en":"currency","es":"moneda","r":"巾","s":4,"c":["丿","巾"]},
 "缺": {"p":"quē","en":"lack, shortage","es":"faltar, escasez","r":"缶","s":10,"c":["缶","夬"]},
 "码": {"p":"mǎ","en":"code, number","es":"código, número","r":"石","s":8,"c":["石","马"]},
-"毕": {"p":"bì","en":"finish, complete","es":"terminar, completo","r":"比","s":6,"c":["比","十"},
+"毕": {"p":"bì","en":"finish, complete","es":"terminar, completo","r":"比","s":6,"c":["比","十"]},
 "章": {"p":"zhāng","en":"chapter, seal","es":"capítulo, sello","r":"立","s":11,"c":["立","早"]},
 "授": {"p":"shòu","en":"teach, award","es":"enseñar, otorgar","r":"扌","s":11,"c":["扌","受"]},
 "微": {"p":"wēi","en":"tiny, micro","es":"diminuto, micro","r":"彳","s":13,"c":["彳","山","一","几","攵"]},

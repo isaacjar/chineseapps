@@ -2925,5 +2925,7 @@ export const data = {
 "蹋": {"p":"tà","en":"to step on","es":"(en 糟蹋, desperdiciar)","r":"足","s":17,"c":["足","塌"]},
 "锲": {"p":"qiè","en":"to cut, to carve","es":"tallar, perseverar","r":"钅","s":14,"c":["钅","契"]},
 "揍": {"p":"zòu","en":"to hit, to smash","es":"golpear","r":"扌","s":12,"c":["扌","奏"]},
+"罗": {"p":"luó","en":"net; to collect; to gather; to arrange","es":"red; recoger; reunir; disponer","r":"罒","s":8,"c":["罒","夕"]},
+"契": {"p":"qì, qiè","en":"contract; deed; to carve; to engrave","es":"contrato; escritura; tallar; grabar","r":"大","s":9,"c":["丰","刀","大"]},
 "啰": {"p":"luō","en":"used in 囉唆|啰唆[luo1 suo5] and 囉嗦|啰嗦[luo1 suo5]","es":"(partícula, en 啰嗦)","r":"口","s":11,"c":["口","罗"]}
 };

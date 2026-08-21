@@ -1863,7 +1863,7 @@ export const data = {
 "锅": {"p":"guō","en":"pot, pan","es":"olla, sartén","r":"钅","s":12,"c":["钅","呙"]},
 "肃": {"p":"sù","en":"solemn","es":"solemne","r":"聿","s":8,"c":["肀","丿","八","丨"]},
 "滚": {"p":"gǔn","en":"roll, boil","es":"rodar, hervir","r":"氵","s":12,"c":["氵","衮"]},
-"衮": {"p":"gǔn","en":"robe; flowing","es":"túnica; fluir","r":"衣","s":10,"c":["六","厶","衣"]},
+"衮": {"p":"gǔn","en":"robe, flowing","es":"túnica, fluir","r":"衣","s":10,"c":["六","厶","衣"]},
 "辈": {"p":"bèi","en":"generation","es":"generación","r":"车","s":12,"c":["非","车"]},
 "艳": {"p":"yàn","en":"gorgeous, bright-colored","es":"vistoso, de colores brillantes","r":"艹","s":10,"c":["丰","色"]},
 "摘": {"p":"zhāi","en":"pick, select","es":"recoger, seleccionar","r":"扌","s":14,"c":["扌","啇"]},
@@ -1877,7 +1877,7 @@ export const data = {
 "旬": {"p":"xún","en":"ten-day period","es":"período de diez días","r":"日","s":6,"c":["勹","日"]},
 "怒": {"p":"nù","en":"anger","es":"ira, enojo","r":"心","s":9,"c":["奴","心"]},
 "慰": {"p":"wèi","en":"comfort, console","es":"consolar","r":"心","s":15,"c":["尉","心"]},
-"尉": {"p":"wèi","en":"officer; military rank","es":"oficial; rango militar","r":"寸","s":11,"c":["尸","示","寸"]},
+"尉": {"p":"wèi","en":"officer, military rank","es":"oficial, rango militar","r":"寸","s":11,"c":["尸","示","寸"]},
 "憾": {"p":"hàn","en":"regret","es":"lamentar","r":"忄","s":16,"c":["忄","感"]},
 "颗": {"p":"kē","en":"measure word (small round things)","es":"(medida-cosas pequeñas y redondas)","r":"页","s":14,"c":["果","页"]},
 "腰": {"p":"yāo","en":"waist","es":"cintura","r":"月","s":13,"c":["月","要"]},
@@ -2926,4 +2926,4 @@ export const data = {
 "锲": {"p":"qiè","en":"to cut, to carve","es":"tallar, perseverar","r":"钅","s":14,"c":["钅","契"]},
 "揍": {"p":"zòu","en":"to hit, to smash","es":"golpear","r":"扌","s":12,"c":["扌","奏"]},
 "啰": {"p":"luō","en":"used in 囉唆|啰唆[luo1 suo5] and 囉嗦|啰嗦[luo1 suo5]","es":"(partícula, en 啰嗦)","r":"口","s":11,"c":["口","罗"]}
-},
+};

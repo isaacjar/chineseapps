@@ -1832,7 +1832,7 @@ export const data = {
 "脏": {"p":"zāng","en":"dirty","es":"sucio","r":"月","s":10,"c":["月","庄"]},
 "壁": {"p":"bì","en":"wall","es":"pared, muro","r":"土","s":16,"c":["辟","土"]},
 "挤": {"p":"jǐ","en":"squeeze, crowded","es":"apretar, abarrotado","r":"扌","s":10,"c":["扌","齐"]},
-"拜": {"p":"bài","en":"pay respect, worship","es":"rendir homenaje, venerar","r":"手","s":9,"c":["龵","一","丰")]},
+"拜": {"p":"bài","en":"pay respect, worship","es":"rendir homenaje, venerar","r":"手","s":9,"c":["龵","一","丰"]},
 "灰": {"p":"huī","en":"ash, gray","es":"ceniza, gris","r":"火","s":6,"c":["𠂇","火"]},
 "辩": {"p":"biàn","en":"argue, debate","es":"argumentar, debatir","r":"辛","s":16,"c":["辛","讠","辛"]},
 "摸": {"p":"mō","en":"touch, feel","es":"tocar, palpar","r":"扌","s":13,"c":["扌","莫"]},

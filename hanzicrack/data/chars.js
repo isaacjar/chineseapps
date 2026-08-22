@@ -2651,7 +2651,7 @@ export const data = {
 "篷": {"p":"péng","en":"sail","es":"toldo, carpa","r":"竹","s":16,"c":["竹","蓬(右)"]},
 "竖": {"p":"shù","en":"to erect, vertical","es":"vertical, erguir","r":"立","s":9,"c":["𰀡","立"]},
 "剖": {"p":"pōu","en":"to cut open, to analyze","es":"diseccionar, dividir","r":"刂","s":10,"c":["立","刂"]},
-"宵": {"p":"xiāo","en":"night","es":"noche","r":"宀","s":10,"c":["宀","肖]},
+"宵": {"p":"xiāo","en":"night","es":"noche","r":"宀","s":10,"c":["宀","肖"]},
 "魄": {"p":"pò","en":"soul","es":"alma, vigor","r":"鬼","s":14,"c":["白","鬼"]},
 "磅": {"p":"bàng","en":"scale, to weigh","es":"libra (peso), pesar","r":"石","s":15,"c":["石","旁"]},
 "奢": {"p":"shē","en":"extravagant","es":"lujoso, extravagante","r":"大","s":11,"c":["大","者"]},

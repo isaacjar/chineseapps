@@ -2695,7 +2695,7 @@ export const data = {
 "斩": {"p":"zhǎn","en":"to behead, to chop","es":"decapitar, cortar","r":"斤","s":8,"c":["车","斤"]},
 "泌": {"p":"bì","en":"used in 泌陽|泌阳[Bi4 yang2]","es":"secretar","r":"氵","s":8,"c":["氵","必"]},
 "萌": {"p":"méng","en":"to sprout, cute","es":"brotar, tierno","r":"艹","s":11,"c":["艹","明"]},
-"恭": {"p":"gōng","en":"respectful","es":"respetuoso","r":"心","s":10,"c":["共,"小","丶"]},
+"恭": {"p":"gōng","en":"respectful","es":"respetuoso","r":"心","s":10,"c":["共","小","丶"]},
 "坟": {"p":"fén","en":"grave, tomb","es":"tumba","r":"土","s":7,"c":["土","文"]},
 "拢": {"p":"lǒng","en":"to gather together, to approach","es":"reunir, acercar","r":"扌","s":8,"c":["扌","龙"]},
 "喇": {"p":"lā","en":"sound of wind, rain..., trumpet in 喇叭","es":"sonido del viento, lluvia, trompeta en 喇叭","r":"口","s":12,"c":["口","刺"]},

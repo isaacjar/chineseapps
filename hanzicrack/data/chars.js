@@ -218,6 +218,7 @@ export const data = {
 "车": {"p":"chē","en":"car (車)","es":"vehículo (車)","r":"車","s":7,"f":95,"c":[]},
 "辛": {"p":"xīn","en":"bitter","es":"amargo","r":"辛","s":7,"f":40,"c":[]},
 "辰": {"p":"chén","en":"morning","es":"mañana","r":"辰","s":7,"f":25,"c":[]},
+"冊": {"p":"cè","en":"book; volume; copy; to register","es":"libro; volumen; ejemplar; registrar","r":"冂","s":5,"c":["冂","廾"]},
 "辵": {"p":"chuò","en":"walk","es":"andar","r":"辵","s":7,"f":45,"c":[]},
 "邑": {"p":"yì","en":"city","es":"ciudad","r":"邑","s":7,"f":25,"c":[]},
 "酉": {"p":"yǒu","en":"wine","es":"vino","r":"酉","s":7,"f":30,"c":["西","一"]},

@@ -2920,12 +2920,16 @@ export const data = {
 "阂": {"p":"hé","en":"obstruct","es":"obstáculo (en 隔阂)","r":"门","s":9,"c":[]},
 "拄": {"p":"zhǔ","en":"to lean on, to prop on","es":"apoyarse (en bastón)","r":"扌","s":8,"c":["扌","主"]},
 "啬": {"p":"sè","en":"stingy","es":"tacaño","r":"口","s":11,"c":[]},
-"瘸": {"p":"qué","en":"lame","es":"cojo","r":"疒","s":16,"c":["疒","瘸(右)"]},
+"瘸": {"p":"qué","en":"lame","es":"cojo","r":"疒","s":16,"c":["疒","加","肉"]},
 "吩": {"p":"fēn","en":"used in 吩咐[fen1 fu5], used in transliteration of chemical compounds","es":"ordenar (en 吩咐)","r":"口","s":7,"c":["口","分"]},
 "蹋": {"p":"tà","en":"to step on","es":"(en 糟蹋, desperdiciar)","r":"足","s":17,"c":["足","塌"]},
 "锲": {"p":"qiè","en":"to cut, to carve","es":"tallar, perseverar","r":"钅","s":14,"c":["钅","契"]},
 "揍": {"p":"zòu","en":"to hit, to smash","es":"golpear","r":"扌","s":12,"c":["扌","奏"]},
-"罗": {"p":"luó","en":"net; to collect; to gather; to arrange","es":"red; recoger; reunir; disponer","r":"罒","s":8,"c":["罒","夕"]},
-"契": {"p":"qì, qiè","en":"contract; deed; to carve; to engrave","es":"contrato; escritura; tallar; grabar","r":"大","s":9,"c":["丰","刀","大"]},
-"啰": {"p":"luō","en":"used in 囉唆|啰唆[luo1 suo5] and 囉嗦|啰嗦[luo1 suo5]","es":"(partícula, en 啰嗦)","r":"口","s":11,"c":["口","罗"]}
+"罗": {"p":"luó","en":"net, to collect, to gather, to arrange","es":"red, recoger, reunir, disponer","r":"罒","s":8,"c":["罒","夕"]},
+"契": {"p":"qì, qiè","en":"contract, deed, to carve, to engrave","es":"contrato, escritura, tallar, grabar","r":"大","s":9,"c":["丰","刀","大"]},
+"隋": {"p":"suí","en":"Sui dynasty, (surname)","es":"dinastía Sui, (apellido)","r":"阝","s":11,"c":["阝","左","月"]},
+"忝": {"p":"tiǎn","en":"to be honored, to feel ashamed","es":"tener el honor de, sentirse avergonzado","r":"心","s":8,"c":["天","心"]},
+"刁": {"p":"diāo","en":"crafty, cunning, (surname)","es":"astuto, taimado, (apellido)","r":"刀","s":2,"c":["𠃌","一"]},
+"夋": {"p":"qūn","en":"(archaic character, phonetic component)","es":"(carácter arcaico, componente fonético)","r":"夂","s":7,"c":["厶","八","夂"]},
+"啰": {"p":"luō","en":"exclamatory final particle, to nag","es":"(partícula final exclamativa), regañar","r":"口","s":11,"c":["口","罗"]}
 };

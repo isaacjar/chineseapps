@@ -2640,7 +2640,7 @@ export const data = {
 "愚": {"p":"yú","en":"to be stupid, to cheat or deceive","es":"tonto","r":"心","s":13,"c":["禺","心"]},
 "锈": {"p":"xiù","en":"to rust","es":"óxido","r":"钅","s":12,"c":["钅","秀"]},
 "辜": {"p":"gū","en":"crime, sin","es":"culpa, injustamente","r":"辛","s":12,"c":["古","辛"]},
-"谣": {"p":"yáo","en":"popular ballad, rumor","es":"rumor, canción popular","r":"讠","s":12,"c":["讠","摇(右)"]},
+"谣": {"p":"yáo","en":"popular ballad, rumor","es":"rumor, canción popular","r":"讠","s":12,"c":["讠","爫","缶"]},
 "瞒": {"p":"mán","en":"to conceal from, to keep  in the dark","es":"ocultar (engañar)","r":"目","s":15,"c":["目","满"]},
 "芒": {"p":"máng","en":"awn, arista","es":"arista (planta), rayo de luz","r":"艹","s":6,"c":["艹","亡"]},
 "耍": {"p":"shuǎ","en":"to play with, to wield","es":"jugar, manipular","r":"而","s":9,"c":["而","女"]},
@@ -2649,7 +2649,7 @@ export const data = {
 "蹦": {"p":"bèng","en":"to jump","es":"saltar","r":"足","s":18,"c":["足","崩"]},
 "芦": {"p":"lú","en":"rush, reed","es":"junco, caña","r":"艹","s":7,"c":["艹","户"]},
 "蛮": {"p":"mán","en":"barbarian, bullying","es":"salvaje, bastante","r":"虫","s":12,"c":["亦","虫"]},
-"篷": {"p":"péng","en":"sail","es":"toldo, carpa","r":"竹","s":16,"c":["竹","蓬(右)"]},
+"篷": {"p":"péng","en":"sail","es":"toldo, carpa","r":"竹","s":16,"c":["竹","逢"]},
 "竖": {"p":"shù","en":"to erect, vertical","es":"vertical, erguir","r":"立","s":9,"c":["𰀡","立"]},
 "剖": {"p":"pōu","en":"to cut open, to analyze","es":"diseccionar, dividir","r":"刂","s":10,"c":["立","刂"]},
 "宵": {"p":"xiāo","en":"night","es":"noche","r":"宀","s":10,"c":["宀","肖"]},
@@ -2988,5 +2988,9 @@ export const data = {
 "坴": {"p":"lù","en":"to walk, mound of earth","es":"caminar, montículo de tierra","r":"土","s":8,"c":["土","儿","土",]},
 "遂": {"p":"suì","en":"to accomplish; to succeed; then; thereupon","es":"lograr; tener éxito; entonces; después","r":"辶","s":12,"c":["丷","豕","辶"]},
 "舀": {"p":"yǎo","en":"to ladle out; to scoop","es":"sacar con un cucharón; recoger","r":"臼","s":10,"c":["爫","臼"]},
+"臽": {"p":"xiàn","en":"pit; hole; to sink","es":"hoyo; cavidad; hundirse","r":"臼","s":8,"c":["⺈","臼"]},
+"畺": {"p":"jiāng","en":"boundary; border; variant of 疆","es":"frontera; límite; variante de 疆","r":"田","s":13,"c":["一","田","一","田","一"]},
+"阁": {"p":"gé","en":"pavilion; cabinet; compartment","es":"pabellón; gabinete; compartimento","r":"门","s":9,"c":["门","各"]},
+"亦": {"p":"yì","en":"also; too; likewise","es":"también; igualmente","r":"亠","s":6,"c":["亠","丿","亅","八"]},
 "啰": {"p":"luō","en":"exclamatory final particle, to nag","es":"(partícula final exclamativa), regañar","r":"口","s":11,"c":["口","罗"]}
 };

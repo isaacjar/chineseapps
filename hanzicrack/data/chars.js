@@ -3058,7 +3058,7 @@ export const data = {
 "巤": {"p":"liè","en":"hair; fur; mane","es":"pelo; pelaje; crin","r":"巛","s":15,"c":["巛","鼠"]},
 "孛": {"p":"bèi","en":"comet; to be angry; to rise suddenly","es":"cometa; enfadarse; surgir de repente","r":"子","s":7,"c":["十","冖","子"]},
 "咼": {"p":"guō","en":"crooked; awry, slanting, variant form of 呙","es":"torcido; desviado; variante de 呙","r":"口","s":9,"c":["ㄇ","𠃍","冂","口"]},
-"函": {"p":"hán","en":"letter; case; box; to contain","es":"carta; estuche; caja; contener","r":"凵","s":8,"c":["了","凵","丷","八")]},
+"函": {"p":"hán","en":"letter; case; box; to contain","es":"carta; estuche; caja; contener","r":"凵","s":8,"c":["了","凵","丷","八"]},
 "囷": {"p":"qūn","en":"granary; storehouse for grain","es":"granero; almacén de grano","r":"囗","s":8,"c":["囗","禾"]},
 "霸": {"p":"bà","en":"tyrant; hegemony; to dominate","es":"tirano; hegemonía; dominar","r":"雨","s":21,"c":["雨","革","月"]},
 "嵒": {"p":"yán","en":"cliff; mountain rock; variant of 岩","es":"acantilado; roca de montaña; variante de 岩","r":"山","s":12,"c":["品","山"]},

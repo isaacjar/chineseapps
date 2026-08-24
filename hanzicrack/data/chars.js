@@ -521,6 +521,7 @@ export const data = {
 "令": {"p":"lìng","en":"to command, to cause","es":"mandar, causar","r":"人","s":5,"f":500,"c":["人","丶","一","㇇"]},
 "々": {"p":"noma","en":"repetition mark","es":"signo de repetición","r":"々","s":1,"f":0,"c":[]},
 "予": {"p":"yǔ","en":"in advance","es":"de antemano","r":"亅","s":4,"f":500,"c":["マ","𠄐"]},
+"𠄐": {"p":"zhě","en":"archaic form of 者","es":"forma arcaica de 者","r":"日","s":7,"c":["乛","亅"]},
 "マ": {"p":"ma","en":"(component in derived characters above, not used on its own)","es":"(componente superior, no se utiliza por sí solo)","r":"—","s":2,"c":["㇇","丶"]}, 
 "采": {"p":"cǎi","en":"to pick","es":"recoger","r":"爫","s":8,"f":500,"c":["爫","木"]},
 "谢": {"p":"xiè","en":"to thank","es":"agradecer","r":"讠","s":12,"f":800,"c":["讠","身","寸"]},

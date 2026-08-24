@@ -3072,6 +3072,9 @@ export const data = {
 "𰕎": {"p":"chè","en":"to remove tableware after a meal, variant of 𬴲","es":"retirar los cubiertos después de una comida, variante de 𬴲","r":"攵","s":12,"c":["育","攵"]},
 "昍": {"p":"xuān","en":"bright; light; variant/rare form","es":"brillante; luminoso; forma rara/variante","r":"日","s":8,"c":["日","日"]},
 "𱅑": {"p":"téng","en":"to rise; to gallop","es":"elevarse; galopar","r":"马","s":9,"c":["龹","马"]},
+"疌": {"p":"jié","en":"quick; nimble; variant of 捷","es":"rápido; ágil; variante de 捷","r":"疋","s":8,"c":["一","彐","龰"]},
+"𬛸": {"p":"niē","en":"to fill, hole","es":"llenar,agujero","r":"𦥑","s":11,"c":["𦥑 ","工"]},
+"荅": {"p":"dá","en":"small bean, thick, (surname)","es":"frijol pequeño, grueso, (apellido)","r":"艹","s":9,"c":["艹","合"]},
 "嵒": {"p":"yán","en":"cliff; mountain rock; variant of 岩","es":"acantilado; roca de montaña; variante de 岩","r":"山","s":12,"c":["品","山"]},
 "翟": {"p":"dí","en":"pheasant; surname Di; also zhái as a surname","es":"faisán; apellido Di; también apellido Zhái","r":"羽","s":14,"c":["羽","隹"]},
 "啰": {"p":"luō","en":"exclamatory final particle, to nag","es":"(partícula final exclamativa), regañar","r":"口","s":11,"c":["口","罗"]}

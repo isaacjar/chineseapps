@@ -1100,7 +1100,7 @@ export const data = {
 "阳": {"p":"yáng","en":"sun, yang","es":"sol, yang","r":"阝","s":6,"c":["阝","日"]},
 "算": {"p":"suàn","en":"calculate","es":"calcular","r":"竹","s":14,"c":["⺮","目","廾"]},
 "阿": {"p":"ā","en":"(prefix)","es":"(prefijo)","r":"阝","s":7,"c":["阝","可"]},
-"讲": {"p":"jiǎng","en":"speak, explain","es":"hablar, explicar","r":"讠","s":6,"c":["讠","井"]},
+"讲": {"p":"jiǎng","en":"to tell, to relate, to explain","es":"contar, relatar, explicar","r":"讠","s":6,"c":["讠","井"]},
 "板": {"p":"bǎn","en":"board, plank","es":"tabla, plancha","r":"木","s":8,"c":["木","反"]},
 "突": {"p":"tū","en":"sudden","es":"repentino","r":"穴","s":9,"c":["穴","犬"]},
 "检": {"p":"jiǎn","en":"check, inspect","es":"revisar, inspeccionar","r":"木","s":11,"c":["木","佥"]},

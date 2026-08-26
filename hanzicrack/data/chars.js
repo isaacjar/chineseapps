@@ -189,7 +189,7 @@ export const data = {
 "肉": {"p":"ròu","en":"meat","es":"carne","r":"肉","s":6,"f":110,"c":[]},
 "臣": {"p":"chén","en":"official","es":"funcionario","r":"臣","s":6,"f":45,"c":[]},
 "自": {"p":"zì","en":"self","es":"uno mismo","r":"自","s":6,"f":140,"c":[]},
-"至": {"p":"zhì","en":"arrive","es":"llegar","r":"至","s":6,"f":85,"c":["一","厶","土"]},
+"至": {"p":"zhì","en":"arrive, to","es":"llegar, hasta","r":"至","s":6,"f":85,"c":["一","厶","土"]},
 "臼": {"p":"jiù","en":"mortar","es":"mortero","r":"臼","s":6,"f":18,"c":[]},
 "舌": {"p":"shé","en":"tongue","es":"lengua","r":"舌","s":6,"f":40,"c":["千","口"]},
 "舛": {"p":"chuǎn","en":"opposite","es":"opuesto","r":"舛","s":6,"f":15,"c":[]},

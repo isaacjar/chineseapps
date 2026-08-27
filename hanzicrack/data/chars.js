@@ -163,7 +163,7 @@ export const data = {
 "石": {"p":"shí","en":"stone","es":"piedra","r":"石","s":5,"f":280,"c":["丆","口"]},
 "丆": {"p":"hǎn","en":"cliff; habitable cave on a cliff, variant of 厂","es":"acantilado; cueva habitable en un acantilado, variante de 厂","r":"厂","s":2,"c":["一","丿"]},
 "示": {"p":"shì","en":"altar","es":"altar","r":"示","s":5,"f":210,"c":[]},
-"礻": {"p":"shì","en":"altar (示)","es":"altar (示)","r":"示","s":5,"f":210,"c":[]},
+"礻": {"p":"shì","en":"altar (示), 示字旁 (shìzìpáng)","es":"altar (示), 示字旁 (shìzìpáng)","r":"示","s":5,"f":210,"c":[]},
 "禸": {"p":"róu","en":"track, footprint","es":"huella","r":"禸","s":5,"f":0,"c":["冂","厶"]},
 "勺": {"p":"sháo","en":"spoon","es":"cuchara","r":"勺","s":3,"f":200,"c":[]},
 "禾": {"p":"hé","en":"grain","es":"cereal","r":"禾","s":5,"f":170,"c":["丿","木"]},

@@ -291,7 +291,7 @@ export const data = {
 "龍": {"p":"lóng","en":"dragon","es":"dragón","r":"龍","s":16,"f":8,"c":[]},
 "龜": {"p":"guī","en":"turtle","es":"tortuga","r":"龜","s":16,"f":5,"c":[]},
 "龠": {"p":"yuè","en":"flute","es":"flauta","r":"龠","s":17,"f":2,"c":["亼","口","冊"]},
-"亻": {"p":"rén","en":"person (人)","es":"persona (人)","r":"人","s":2,"f":120,"c":[]},
+"亻": {"p":"rén","en":"person (人), 单人旁 (dānrénpáng)","es":"persona (人), 单人旁 (dānrénpáng)","r":"人","s":2,"f":120,"c":[]},
 "𠂉": {"p":"rén","en":"person (人)","es":"persona (人)","r":"人","s":2,"f":120,"c":[]},
 "匕": {"p":"bǐ","en":"ladle","es":"cucharón","r":"匕","s":2,"f":98,"c":[]},
 "尔": {"p":"ěr","en":"you","es":"usted","r":"尔","s":5,"f":88,"c":["⺈","小"]},

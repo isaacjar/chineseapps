@@ -47,7 +47,7 @@ export const data = {
 "冖": {"p":"mì","en":"cover","es":"cubrir","r":"冖","s":2,"f":0,"c":["冖"]},
 "冫": {"p":"bīng","en":"ice","es":"hielo","r":"冫","s":2,"f":120,"c":[]},
 "⺀": {"p":"bīng","en":"ice (冫)","es":"hielo (冫)","r":"冫","s":2,"f":0,"c":["丶","丶"]},
-"几": {"p":"jī","en":"table","es":"mesa pequeña","r":"几","s":2,"f":100,"c":[]},
+"几": {"p":"jǐ","en":"small table, several, how many (<10)","es":"mesa pequeña, varios, cuántos (<10)","r":"几","s":2,"f":100,"c":[]},
 "凵": {"p":"qǔ","en":"container","es":"recipiente","r":"凵","s":2,"f":70,"c":[]},
 "刀": {"p":"dāo","en":"knife","es":"cuchillo","r":"刀","s":2,"f":200,"c":[]},
 "刂": {"p":"dāo","en":"knife (刀)","es":"cuchillo (刀)","r":"刀","s":2,"f":200,"c":[]},

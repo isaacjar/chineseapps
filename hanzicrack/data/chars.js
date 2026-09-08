@@ -3155,7 +3155,7 @@ export const data = {
 "𠂢": {"p":"pài","en":"to send; faction; branch; variant of 派","es":"enviar; facción; rama; variante de 派","r":"丿","s":4,"c":["𠂆","丿","𰀠"]},
 "卂": {"p":"xùn","en":"to fly fast; swift; variant of 迅","es":"volar rápidamente; veloz; variante de 迅","r":"十","s":3,"c":["⺄","十"]},
 "蜀": {"p":"shǔ","en":"Sichuan; Shu (ancient state); silkworm","es":"Sichuan; Shu (antiguo estado); gusano de seda","r":"虫","s":13,"c":["罒","勹","虫"]},
-"乑": {"p":"zhòng","en":"many; numerous; variant form","es":"muchos; numeroso; forma variante","r":"丿","s":6,"c":["丿","𰀪","丨","㇏","丿"]},
+"乑": {"p":"zhòng","en":"many; numerous; variant form","es":"muchos; numeroso; forma variante","r":"丿","s":6,"c":[""]},
 "叀": {"p":"zhuān","en":"concentrated; focused; variant of 專","es":"concentrado; enfocado; variante de 專","r":"厶","s":5,"c":["十","田","厶"]},
 "冘": {"p":"yín","en":"to walk slowly, to hesitate, doubtful","es":"caminar lentamente, vacilar, dudoso","r":"冖","s":4,"c":["冖","丿","乚"]},
 "荅": {"p":"dá","en":"small bean, thick, (surname)","es":"frijol pequeño, grueso, (apellido)","r":"艹","s":9,"c":["艹","合"]},

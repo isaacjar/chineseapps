@@ -1,0 +1,17 @@
+[
+  {"ch":"请问","pin":"qǐngwèn","en":"excuse me","es":"disculpe"},
+  {"ch":"你","pin":"nǐ","en":"you","es":"tú"},
+  {"ch":"叫","pin":"jiào","en":"to be called","es":"llamarse"},
+  {"ch":"什么","pin":"shénme","en":"what","es":"qué"},
+  {"ch":"名字","pin":"míngzi","en":"name","es":"nombre"},
+  {"ch":"我","pin":"wǒ","en":"I, me","es":"yo"},
+  {"ch":"不","pin":"bù","en":"not","es":"no"},
+  {"ch":"是","pin":"shì","en":"to be","es":"ser"},
+  {"ch":"对不起","pin":"duìbuqǐ","en":"sorry","es":"lo siento"},
+  {"ch":"没关系","pin":"méi guānxi","en":"it doesn't matter","es":"no pasa nada"},
+  {"ch":"没事","pin":"méishì","en":"it's nothing","es":"no es nada"},
+  {"ch":"很","pin":"hěn","en":"very","es":"muy"},
+  {"ch":"高兴","pin":"gāoxìng","en":"happy","es":"contento"},
+  {"ch":"认识","pin":"rènshi","en":"to know (someone)","es":"conocer"},
+  {"ch":"也","pin":"yě","en":"also","es":"también"}
+]

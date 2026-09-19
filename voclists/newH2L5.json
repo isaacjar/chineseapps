@@ -1,0 +1,20 @@
+[
+  { "ch": "等", "pin": "děng", "en": "to wait, etc.", "es": "esperar, etcétera" },
+  { "ch": "跟", "pin": "gēn", "en": "with, to follow", "es": "con, seguir" },
+  { "ch": "进来", "pin": "jìnlái", "en": "to come in", "es": "entrar (hacia acá)" },
+  { "ch": "酒店", "pin": "jiǔdiàn", "en": "hotel", "es": "hotel" },
+  { "ch": "快", "pin": "kuài", "en": "fast, quick", "es": "rápido" },
+  { "ch": "礼物", "pin": "lǐwù", "en": "gift", "es": "regalo" },
+  { "ch": "面", "pin": "miàn", "en": "face, surface, side", "es": "cara, superficie, lado" },
+  { "ch": "奶茶", "pin": "nǎichá", "en": "milk tea", "es": "té con leche" },
+  { "ch": "奶奶", "pin": "nǎinai", "en": "grandmother", "es": "abuela" },
+  { "ch": "上来", "pin": "shànglái", "en": "to come up", "es": "subir (hacia acá)" },
+  { "ch": "上去", "pin": "shàngqù", "en": "to go up", "es": "subir (hacia allá)" },
+  { "ch": "下来", "pin": "xiàlái", "en": "to come down", "es": "bajar (hacia acá)" },
+  { "ch": "下面", "pin": "xiàmiàn", "en": "below, under", "es": "debajo, abajo" },
+  { "ch": "下去", "pin": "xiàqù", "en": "to go down", "es": "bajar (hacia allá)" },
+  { "ch": "爷爷", "pin": "yéye", "en": "grandfather", "es": "abuelo" },
+  { "ch": "一会儿", "pin": "yíhuìr", "en": "a while, a moment", "es": "un rato, un momento" },
+  { "ch": "准备", "pin": "zhǔnbèi", "en": "to prepare, to get ready", "es": "preparar, prepararse" },
+  { "ch": "走", "pin": "zǒu", "en": "to walk, to go", "es": "caminar, ir" }
+]

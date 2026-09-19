@@ -1,7 +1,8 @@
 const voclists = [
   { filename: "newH1L1a4", title: "New HSK 1 01-04", level: "H1", misc: "MIT" },
   { filename: "newH1L1a8", title: "New HSK 1 01-08", level: "H1", misc: "MIT" },
-  { filename: "hsk1", title: "HSK 1 (full)", level: "H1", misc: "MIT" },
+  { filename: "newhsk1", title: "New HSK 1 (full)", level: "H1", misc: "MIT" },
+  { filename: "hsk1", title: "HSK 1 (old)", level: "H1", misc: "MIT" },
   { filename: "H2L1a4", title: "HSK 2 01-04", level: "H2", misc: "MIT" },
   { filename: "H2L1a8", title: "HSK 2 01-08", level: "H2", misc: "MIT" },
   { filename: "hsk2", title: "HSK 2 (full)", level: "H2", misc: "MIT" },

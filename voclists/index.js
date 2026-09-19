@@ -1,5 +1,13 @@
 const voclists = [
+  { filename: "newH1L1", title: "New HSK 1 Lesson 1", level: "NH1", misc: "MIT" },
+  { filename: "newH1L2", title: "New HSK 1 Lesson 2", level: "NH1", misc: "MIT" },
+  { filename: "newH1L3", title: "New HSK 1 Lesson 3", level: "NH1", misc: "MIT" },
+  { filename: "newH1L4", title: "New HSK 1 Lesson 4", level: "NH1", misc: "MIT" },
   { filename: "NH1L1a4", title: "New HSK 1 Lessons 1 to 4", level: "NH1", misc: "MIT" },
+  { filename: "newH1L5", title: "New HSK 1 Lesson 5", level: "NH1", misc: "MIT" },
+  { filename: "newH1L6", title: "New HSK 1 Lesson 6", level: "NH1", misc: "MIT" },
+  { filename: "newH1L7", title: "New HSK 1 Lesson 7", level: "NH1", misc: "MIT" },
+  { filename: "newH1L8", title: "New HSK 1 Lesson 8", level: "NH1", misc: "MIT" },
   { filename: "NH1L1a8", title: "New HSK 1 Lessons 1 to 8", level: "NH1", misc: "MIT" },
   { filename: "newhsk1", title: "New HSK 1 (2026)", level: "NH1", misc: "hsk" },
   { filename: "H1L1", title: "HSK 1 Lesson 1", level: "H1", misc: "MIT" },

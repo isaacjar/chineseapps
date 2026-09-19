@@ -1,0 +1,19 @@
+[
+  { "ch": "啊", "pin": "a", "en": "particle for exclamation", "es": "partícula exclamación", "leccion": 2 },
+  { "ch": "别", "pin": "bié", "en": "don't", "es": "no", "leccion": 2 },
+  { "ch": "车站", "pin": "chēzhàn", "en": "station", "es": "estación", "leccion": 2 },
+  { "ch": "打车", "pin": "dǎchē", "en": "take a taxi", "es": "coger un taxi", "leccion": 2 },
+  { "ch": "但", "pin": "dàn", "en": "but", "es": "pero", "leccion": 2 },
+  { "ch": "公交车", "pin": "gōngjiāochē", "en": "bus", "es": "autobús", "leccion": 2 },
+  { "ch": "过来", "pin": "guòlái", "en": "to come over", "es": "venir, acercarse", "leccion": 2 },
+  { "ch": "还是", "pin": "háishi", "en": "still, or", "es": "todavía, o", "leccion": 2 },
+  { "ch": "间", "pin": "jiān", "en": "between, room", "es": "entre, habitación", "leccion": 2 },
+  { "ch": "教室", "pin": "jiàoshì", "en": "classroom", "es": "aula, clase", "leccion": 2 },
+  { "ch": "名", "pin": "míng", "en": "name, measure word for people", "es": "nombre, clasificador para personas", "leccion": 2 },
+  { "ch": "票", "pin": "piào", "en": "ticket", "es": "billete, entrada", "leccion": 2 },
+  { "ch": "外国", "pin": "wàiguó", "en": "foreign country", "es": "extranjero, país extranjero", "leccion": 2 },
+  { "ch": "万", "pin": "wàn", "en": "ten thousand", "es": "diez mil", "leccion": 2 },
+  { "ch": "网上", "pin": "wǎngshang", "en": "online", "es": "en internet", "leccion": 2 },
+  { "ch": "远", "pin": "yuǎn", "en": "far", "es": "lejos", "leccion": 2 },
+  { "ch": "北京大学", "pin": "Běijīng Dàxué", "en": "Peking University", "es": "Universidad de Pekín", "leccion": 2 }
+]

@@ -1,0 +1,17 @@
+[
+  { "ch": "帮忙", "pin": "bāngmáng", "en": "to help", "es": "ayudar" },
+  { "ch": "不好意思", "pin": "bù hǎoyìsi", "en": "excuse me", "es": "perdón/disculpa" },
+  { "ch": "次", "pin": "cì", "en": "time (occurrence)", "es": "vez" },
+  { "ch": "懂", "pin": "dǒng", "en": "to understand", "es": "entender, saber" },
+  { "ch": "给", "pin": "gěi", "en": "to give", "es": "dar" },
+  { "ch": "接", "pin": "jiē", "en": "to receive, to pick up", "es": "recibir, recoger" },
+  { "ch": "介绍", "pin": "jièshào", "en": "to introduce", "es": "presentar, introducir" },
+  { "ch": "就", "pin": "jiù", "en": "just, at once", "es": "justo, ya, entonces" },
+  { "ch": "旅游", "pin": "lǚyóu", "en": "travel, tourism", "es": "viajar, turismo" },
+  { "ch": "那", "pin": "nà", "en": "that", "es": "ese, esa, aquel" },
+  { "ch": "让", "pin": "ràng", "en": "to let, to allow", "es": "dejar, permitir" },
+  { "ch": "已经", "pin": "yǐjīng", "en": "already", "es": "ya" },
+  { "ch": "意思", "pin": "yìsi", "en": "meaning", "es": "significado, sentido" },
+  { "ch": "有时", "pin": "yǒushí", "en": "sometimes", "es": "a veces" },
+  { "ch": "北京烤鸭", "pin": "Běijīng Kǎoyā", "en": "Peking duck", "es": "pato laqueado de Pekín" }
+]

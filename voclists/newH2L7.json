@@ -1,0 +1,17 @@
+[
+  { "ch": "爱好", "pin": "àihào", "en": "hobby", "es": "afición" },
+  { "ch": "从", "pin": "cóng", "en": "from", "es": "desde" },
+  { "ch": "打", "pin": "dǎ", "en": "hit/give (a call)", "es": "golpear/llamar" },
+  { "ch": "得", "pin": "de", "en": "particle (complement)", "es": "partícula (complemento)" },
+  { "ch": "开始", "pin": "kāishǐ", "en": "to start, beginning", "es": "empezar, comienzo" },
+  { "ch": "篮球", "pin": "lánqiú", "en": "basketball", "es": "baloncesto" },
+  { "ch": "跑", "pin": "pǎo", "en": "to run", "es": "correr" },
+  { "ch": "跑步", "pin": "pǎobù", "en": "to jog, running", "es": "correr, footing" },
+  { "ch": "球", "pin": "qiú", "en": "ball", "es": "pelota, balón" },
+  { "ch": "踢", "pin": "tī", "en": "to kick", "es": "patear" },
+  { "ch": "往", "pin": "wǎng", "en": "towards", "es": "hacia" },
+  { "ch": "游", "pin": "yóu", "en": "to swim", "es": "nadar" },
+  { "ch": "游泳", "pin": "yóuyǒng", "en": "to swim", "es": "nadar" },
+  { "ch": "运动", "pin": "yùndòng", "en": "sports, exercise", "es": "deporte, ejercicio" },
+  { "ch": "足球", "pin": "zúqiú", "en": "football, soccer", "es": "fútbol" }
+]

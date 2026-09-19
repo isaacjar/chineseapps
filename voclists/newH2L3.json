@@ -1,0 +1,17 @@
+[
+  { "ch": "不错", "pin": "búcuò", "en": "not bad", "es": "no está mal" },
+  { "ch": "出去", "pin": "chūqù", "en": "go out", "es": "salir" },
+  { "ch": "回来", "pin": "huílái", "en": "to come back", "es": "volver, regresar" },
+  { "ch": "回去", "pin": "huíqù", "en": "to go back", "es": "volver (allá), regresar" },
+  { "ch": "累", "pin": "lèi", "en": "tired", "es": "cansado" },
+  { "ch": "每", "pin": "měi", "en": "every, each", "es": "cada" },
+  { "ch": "拿", "pin": "ná", "en": "to take, to hold", "es": "tomar, agarrar" },
+  { "ch": "手", "pin": "shǒu", "en": "hand", "es": "mano" },
+  { "ch": "送", "pin": "sòng", "en": "to give, to deliver", "es": "regalar, enviar" },
+  { "ch": "完", "pin": "wán", "en": "to finish, complete", "es": "terminar, completo" },
+  { "ch": "为什么", "pin": "wèi shénme", "en": "why", "es": "por qué" },
+  { "ch": "洗", "pin": "xǐ", "en": "to wash", "es": "lavar" },
+  { "ch": "一起", "pin": "yìqǐ", "en": "together", "es": "juntos" },
+  { "ch": "这么", "pin": "zhème", "en": "so, this way", "es": "tan, así" },
+  { "ch": "自己", "pin": "zìjǐ", "en": "oneself", "es": "uno mismo" }
+]

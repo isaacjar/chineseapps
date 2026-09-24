@@ -25,6 +25,7 @@ const voclists = [
   { filename: "han3000", title: "3000 Chinese Characters", level: "H5", misc: "MIT" },
   { filename: "han5000", title: "5000 Chinese Characters", level: "H6", misc: "MIT" },
   { filename: "H1L1a4", title: "HSK 1 01-04 (old)", level: "H1", misc: "MIT" },
-  { filename: "H1L1a8", title: "HSK 1 01-08 (old)", level: "H1", misc: "MIT" }
+  { filename: "H1L1a8", title: "HSK 1 01-08 (old)", level: "H1", misc: "MIT" },
+  { filename: "newH3L1", title: "NEw HSK 3 Lesson 1", level: "H3", misc: "MIT" }
   // más listados...
 ];

@@ -1,6 +1,5 @@
 [
   {"ch":"你好","pin":"nǐ hǎo","en":"hello","es":"hola"},
-  {"ch":"王老师","pin":"Wáng lǎoshī","en":"Teacher Wang","es":"profesor Wang"},
   {"ch":"大家","pin":"dàjiā","en":"everyone","es":"todos"},
   {"ch":"好","pin":"hǎo","en":"good","es":"bien"},
   {"ch":"学生","pin":"xuéshēng","en":"student","es":"estudiante"},
@@ -12,6 +11,5 @@
   {"ch":"不客气","pin":"bú kèqi","en":"you're welcome","es":"de nada"},
   {"ch":"同学","pin":"tóngxué","en":"classmate","es":"compañero de clase"},
   {"ch":"再见","pin":"zàijiàn","en":"goodbye","es":"adiós"},
-  {"ch":"小语","pin":"Xiǎoyǔ","en":"Xiaoyu","es":"Xiaoyu"},
   {"ch":"飞","pin":"fēi","en":"fly","es":"volar"}
 ]

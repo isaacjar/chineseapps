@@ -1,0 +1,27 @@
+[
+  {"ch":"前边","pin":"qiánbian","en":"front, in front","es":"delante"},
+  {"ch":"边","pin":"biān","en":"side, edge","es":"lado, borde"},
+  {"ch":"家","pin":"jiā","en":"home, family","es":"casa, familia"},
+  {"ch":"那个","pin":"nàge","en":"that one","es":"ese, aquel"},
+  {"ch":"外边","pin":"wàibian","en":"outside","es":"fuera, exterior"},
+
+  {"ch":"椅子","pin":"yǐzi","en":"chair","es":"silla"},
+  {"ch":"上","pin":"shàng","en":"on, above, up","es":"encima de, sobre"},
+  {"ch":"本","pin":"běn","en":"measure word for books","es":"clasificador para libros"},
+  {"ch":"书","pin":"shū","en":"book","es":"libro"},
+  {"ch":"那","pin":"nà","en":"that","es":"ese, aquel"},
+  {"ch":"第","pin":"dì","en":"ordinal prefix (first, second...)","es":"prefijo ordinal"},
+  {"ch":"学习","pin":"xuéxí","en":"to study, to learn","es":"estudiar, aprender"},
+
+  {"ch":"做","pin":"zuò","en":"to do, to make","es":"hacer"},
+  {"ch":"白天","pin":"báitiān","en":"daytime","es":"de día, durante el día"},
+  {"ch":"读书","pin":"dúshū","en":"to read, to study","es":"leer, estudiar"},
+  {"ch":"和","pin":"hé","en":"and, with","es":"y, con"},
+  {"ch":"朋友","pin":"péngyou","en":"friend","es":"amigo"},
+  {"ch":"唱","pin":"chàng","en":"to sing","es":"cantar"},
+  {"ch":"歌","pin":"gē","en":"song","es":"canción"},
+  {"ch":"好听","pin":"hǎotīng","en":"pleasant to hear, nice-sounding","es":"agradable de escuchar"},
+  {"ch":"电视","pin":"diànshì","en":"television, TV","es":"televisión"},
+  {"ch":"狗","pin":"gǒu","en":"dog","es":"perro"},
+  {"ch":"玩","pin":"wán","en":"to play, to have fun","es":"jugar, divertirse"}
+]

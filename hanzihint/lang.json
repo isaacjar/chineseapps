@@ -1,0 +1,30 @@
+{
+  "en": {
+    "level": "Level", "sentence": "Sentence", "counter": "Sentence {n} of {total}",
+    "random": "Random sentence", "settings": "Settings", "settingsTitle": "Settings",
+    "interfaceLanguage": "Interface language", "langNameEn": "English", "langNameEs": "Español",
+    "save": "💾 Save", "reset": "🔄 Reset", "cancel": "Cancel",
+    "btnEn": "🇬🇧 English", "btnEs": "🇪🇸 Español",
+    "sentenceAria": "Chinese sentence", "pinAria": "Pinyin for {char}", "pinAriaShown": "Pinyin for {char}: {pin}",
+    "noPins": "Per-character pinyin isn't available for this sentence.",
+    "noTranslation": "No translation available for this sentence.",
+    "errCatalog": "No levels found. Check that data/index.js defines HANZIHINT_LEVELS.",
+    "errLoad": "Couldn't load this level. Check that its file exists, then reload the page.",
+    "errInvalid": "This level's file is not valid JSON or has the wrong format.",
+    "errEmpty": "This level has no sentences yet."
+  },
+  "es": {
+    "level": "Nivel", "sentence": "Frase", "counter": "Frase {n} de {total}",
+    "random": "Frase aleatoria", "settings": "Configuración", "settingsTitle": "Configuración",
+    "interfaceLanguage": "Idioma de la interfaz", "langNameEn": "English", "langNameEs": "Español",
+    "save": "💾 Guardar", "reset": "🔄 Restablecer", "cancel": "Cancelar",
+    "btnEn": "🇬🇧 English", "btnEs": "🇪🇸 Español",
+    "sentenceAria": "Frase en chino", "pinAria": "Pinyin de {char}", "pinAriaShown": "Pinyin de {char}: {pin}",
+    "noPins": "Esta frase no tiene pinyin por carácter.",
+    "noTranslation": "No hay traducción para esta frase.",
+    "errCatalog": "No hay niveles. Comprueba que data/index.js define HANZIHINT_LEVELS.",
+    "errLoad": "No se pudo cargar este nivel. Comprueba que existe su archivo y recarga la página.",
+    "errInvalid": "El archivo de este nivel no es un JSON válido o tiene un formato incorrecto.",
+    "errEmpty": "Este nivel todavía no tiene frases."
+  }
+}

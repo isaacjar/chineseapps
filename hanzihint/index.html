@@ -1,1 +1,63 @@
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HanziHint</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💬%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="app-bar">
+  <div class="brand"><span class="logo" aria-hidden="true">💬</span><h1>HanziHint</h1></div>
+  <p id="counter" class="counter" aria-live="polite"></p>
+  <div class="bar-actions">
+    <button id="btn-random" class="icon-btn mint" type="button" data-i18n-aria="random">🎲</button>
+    <button id="btn-settings" class="icon-btn" type="button" data-i18n-aria="settings">⚙️</button>
+  </div>
+</header>
+
+<div class="pickers">
+  <label class="field"><span data-i18n="level"></span><select id="level-select"></select></label>
+  <label class="field"><span data-i18n="sentence"></span><select id="sentence-select"></select></label>
+</div>
+
+<main class="stage">
+  <div id="play" class="play">
+    <div id="chars" class="chars" role="group" data-i18n-aria="sentenceAria"></div>
+    <p id="pin-notice" class="notice" hidden></p>
+    <div class="tr">
+      <div class="tr-btns">
+        <button class="chip" type="button" data-tr="en" aria-pressed="false" data-i18n="btnEn"></button>
+        <button class="chip" type="button" data-tr="sp" aria-pressed="false" data-i18n="btnEs"></button>
+      </div>
+      <p id="tr-text" class="tr-text" aria-live="polite"></p>
+    </div>
+  </div>
+  <p id="error" class="error" role="alert" hidden></p>
+</main>
+
+<footer class="footer"><strong>HanziHint</strong> 🗯️ IJH 🗯️ Made for learning joy</footer>
+
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <h2 id="settings-title" data-i18n="settingsTitle"></h2>
+  <label class="field"><span data-i18n="interfaceLanguage"></span>
+    <select id="lang-select">
+      <option value="en" data-i18n="langNameEn"></option>
+      <option value="es" data-i18n="langNameEs"></option>
+    </select>
+  </label>
+  <div class="dlg-actions">
+    <button id="btn-save" class="btn primary" type="button" data-i18n="save"></button>
+    <button id="btn-reset" class="btn" type="button" data-i18n="reset"></button>
+    <button id="btn-cancel" class="btn" type="button" data-i18n="cancel"></button>
+  </div>
+</dialog>
+
+<script src="data/index.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

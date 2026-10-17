@@ -1,4 +1,4 @@
-(function () {
+(function () { 
   'use strict';
   const HH = (window.HanziHint = window.HanziHint || {});
   const PUNCT = /^[\p{P}\p{S}\s]$/u;

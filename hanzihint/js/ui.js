@@ -9,7 +9,7 @@
     els: {}, strings: {}, lang: 'en', errorKey: null, counter: null, view: null,
 
     init() {
-      const ids = { counter: 'counter', random: 'btn-random', level: 'level-select', sentence: 'sentence-select',
+      const ids = { counter: 'counter', random: 'btn-random', allSentences: 'btn-all-sentences', level: 'level-select', sentence: 'sentence-select',
         play: 'play', chars: 'chars', notice: 'pin-notice', trText: 'tr-text', error: 'error' };
       for (const k in ids) this.els[k] = $(ids[k]);
       this.els.trBtns = Array.from(document.querySelectorAll('[data-tr]'));
@@ -21,6 +21,7 @@
       e.level.addEventListener('change', () => h.onLevel(e.level.value));
       e.sentence.addEventListener('change', () => h.onSentence(Number(e.sentence.value)));
       e.random.addEventListener('click', h.onRandom);
+      e.allSentences.addEventListener('click', h.onAllSentences);
       e.chars.addEventListener('click', (ev) => {
         const b = ev.target.closest('button.pin');
         if (b) h.onPin(Number(b.dataset.i));

@@ -1,3 +1,5 @@
+// app.js
+
 (function () {
   'use strict';
   const { Game, Settings, UI } = window.HanziHint;

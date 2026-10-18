@@ -1,3 +1,5 @@
+// ui.js
+
 (function () {
   'use strict';
   const HH = (window.HanziHint = window.HanziHint || {});

@@ -72,3 +72,7 @@ dialog h2{margin:0 0 14px;font-size:1.25rem}
 .dlg-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .btn{min-height:48px;padding:0 18px;border-radius:999px;border:2px solid var(--c-lav-strong);background:#fff;font-weight:700;cursor:pointer}
 .btn.primary{background:var(--c-mint);border-color:#4aa583;color:var(--c-mint-ink)}
+
+/* Vista de todas las frases */ 
+#play.all-sentences-view #chars { display: flex; flex-direction: column; align-items: stretch; gap: 12px; } 
+#play.all-sentences-view .sentence-item { padding: 12px 16px; border-radius: 12px; background: var(--surface, #fff); text-align: left; font-family: "Kaiti", serif; font-size: 1.4rem; line-height: 1.8; overflow-wrap: anywhere; }

@@ -58,6 +58,20 @@
       this.els.sentence.replaceChildren(...list.map((s, i) => new Option(String(s.n), String(i))));
       if (list.length) this.els.sentence.value = String(index);
     },
+    showAllSentences(list) {
+      const frag = document.createDocumentFragment();    
+      list.forEach((s) => {
+        const item = document.createElement('div');
+        item.className = 'sentence-item';
+        item.textContent = s.ch;
+        frag.appendChild(item);
+      });    
+      this.els.chars.replaceChildren(frag);
+      this.els.play.classList.add('all-sentences-view');
+    },
+    showSingleSentence(sentence, info, shown, translation) {
+      this.renderSentence(sentence, info, shown, translation);
+    },
     setSentenceIndex(i) { this.els.sentence.value = String(i); },
     setEnabled(on) {
       this.els.sentence.disabled = !on; this.els.random.disabled = !on;
@@ -72,6 +86,7 @@
 
     renderSentence(sentence, info, shown, translation) {
       this.errorKey = null; this.els.error.hidden = true; this.els.play.hidden = false;
+      this.els.play.classList.remove('all-sentences-view');
       this.view = { sentence, cells: info.cells, hasPins: info.hasPins, shown, translation };
       const frag = document.createDocumentFragment();
       info.cells.forEach((c, i) => {

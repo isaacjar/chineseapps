@@ -5,6 +5,7 @@
   const { Game, Settings, UI } = window.HanziHint;
   const FALLBACK = { errCatalog: 'No levels found. Check data/index.js.', errLoad: 'Could not load lang.json.' };
   let langs = { en: FALLBACK }, levels = [], levelId = null, token = 0, controller = null;
+  let showingAllSentences = false;
 
   class LoadError extends Error { constructor(key) { super(key); this.key = key; } }
 
@@ -45,6 +46,7 @@
       const list = Game.sanitize(raw);
       if (!list.length) throw new LoadError(raw.length ? 'errInvalid' : 'errEmpty');
       levelId = entry.level;
+      showingAllSentences = false;
       Game.setSentences(list);
       const idx = sentenceNum ? Game.indexByNumber(sentenceNum) : -1;
       Game.select(idx >= 0 ? idx : 0);
@@ -72,6 +74,15 @@
       onLevel: (id) => loadLevel(id, null),
       onSentence: (i) => { if (Game.select(i)) render(); },
       onRandom: () => { if (Game.random()) render(); },
+      onAllSentences: () => {
+        if (showingAllSentences) {
+          showingAllSentences = false;
+          render();
+        } else {
+          showingAllSentences = true;
+          UI.showAllSentences(Game.sentences);
+        }
+      },
       onPin: (i) => { Game.togglePin(i); UI.updatePin(i); },
       onTranslation: (k) => { Game.toggleTranslation(k); UI.setTranslation(Game.translation); }
     });

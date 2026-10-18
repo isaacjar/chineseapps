@@ -63,7 +63,7 @@
       list.forEach((s) => {
         const item = document.createElement('div');
         item.className = 'sentence-item';
-        item.textContent = s.ch;
+        item.textContent = `${s.n}. ${s.ch}`;
         frag.appendChild(item);
       });    
       this.els.chars.replaceChildren(frag);

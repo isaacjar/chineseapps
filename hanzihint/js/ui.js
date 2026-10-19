@@ -71,7 +71,7 @@
       this.els.play.classList.add('all-sentences-view');
     },
     showSingleSentence(sentence, info, shown, translation) {
-      this.renderSentence(sentence, info, shown, translation);
+      this.(sentence, info, shown, translation);
     },
     setSentenceIndex(i) { this.els.sentence.value = String(i); },
     setEnabled(on) {
@@ -85,54 +85,153 @@
     showError(key) { this.errorKey = key; this.view = null; this.els.play.hidden = true; this.els.error.hidden = false; this.renderError(); },
     renderError() { if (this.errorKey) this.els.error.textContent = this.t(this.errorKey); },
 
+    
     renderSentence(sentence, info, shown, translation) {
-      this.errorKey = null; this.els.error.hidden = true; this.els.play.hidden = false;
+      this.errorKey = null;
+      this.els.error.hidden = true;
+      this.els.play.hidden = false;
       this.els.play.classList.remove('all-sentences-view');
-      this.view = { sentence, cells: info.cells, hasPins: info.hasPins, shown, translation };
+    
+      const groupedReadings = {
+        '哪儿': 'nǎr',
+        '点儿': 'diǎnr'
+      };
+    
+      const displayCells = [];
+    
+      // Agrupa expresiones que deben ocupar una sola celda.
+      for (let i = 0; i < info.cells.length; i++) {
+        let match = null;
+    
+        for (const word of Object.keys(groupedReadings)) {
+          const part = info.cells.slice(i, i + word.length);
+          if (
+            part.length === word.length &&
+            part.every((item) => !item.punct) &&
+            part.map((item) => item.ch).join('') === word
+          ) {
+            match = word;
+            break;
+          }
+        }
+    
+        if (match) {
+          displayCells.push({
+            ch: match,
+            pin: groupedReadings[match],
+            punct: false,
+            originalIndices: Array.from(
+              { length: match.length },
+              (_, j) => i + j
+            )
+          });
+    
+          i += match.length - 1;
+        } else {
+          displayCells.push({
+            ...info.cells[i],
+            originalIndices: [i]
+          });
+        }
+      }
+    
+      // Conserva las celdas originales para mantener los índices de Game.
+      this.view = {
+        sentence,
+        cells: info.cells,
+        displayCells,
+        hasPins: info.hasPins,
+        shown,
+        translation
+      };
+    
       const frag = document.createDocumentFragment();
-      info.cells.forEach((c, i) => {
-        const cell = document.createElement('div'); cell.className = 'cell';
+      let charNumber = 0;
+    
+      displayCells.forEach((c) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+    
+        const originalIndex = c.originalIndices[0];
+    
         if (!c.punct && c.pin) {
           const b = document.createElement('button');
-          b.type = 'button'; b.className = 'pin' + (c.pin.length > 4 ? ' long' : '');
-          b.dataset.i = i; b.textContent = c.pin; cell.appendChild(b);
+          b.type = 'button';
+          b.className = 'pin' + (c.pin.length > 4 ? ' long' : '');
+          b.dataset.i = originalIndex;
+          b.textContent = c.pin;
+          cell.appendChild(b);
         } else {
-          const g = document.createElement('span'); g.className = 'pin-gap'; g.setAttribute('aria-hidden', 'true'); cell.appendChild(g);
+          const g = document.createElement('span');
+          g.className = 'pin-gap';
+          g.setAttribute('aria-hidden', 'true');
+          cell.appendChild(g);
         }
-        /*const h = document.createElement('span'); h.className = 'han'; h.lang = 'zh-Hans'; h.textContent = c.ch;
-        cell.appendChild(h); frag.appendChild(cell);*/
+    
         const h = document.createElement('span');
         h.className = 'han';
         h.lang = 'zh-Hans';
         h.textContent = c.ch;
         cell.appendChild(h);
-        
-        // Número secuencial debajo del carácter
+    
         if (!c.punct) {
+          charNumber++;
+    
           const num = document.createElement('span');
           num.className = 'char-number';
-          num.textContent = String(
-            info.cells.slice(0, i + 1).filter((item) => !item.punct).length
-          );
+          num.textContent = String(charNumber);
           num.setAttribute('aria-hidden', 'true');
           cell.appendChild(num);
         }
-        
+    
         frag.appendChild(cell);
       });
+    
       this.els.chars.replaceChildren(frag);
+    
       info.cells.forEach((c, i) => this.updatePin(i));
-      this.renderNotice(); this.layout(); this.renderTranslation();
-      this.els.chars.classList.remove('enter'); void this.els.chars.offsetWidth; this.els.chars.classList.add('enter');
+    
+      this.renderNotice();
+      this.layout();
+      this.renderTranslation();
+    
+      this.els.chars.classList.remove('enter');
+      void this.els.chars.offsetWidth;
+      this.els.chars.classList.add('enter');
     },
 
+
+    
     updatePin(i) {
-      const b = this.els.chars.querySelector('button.pin[data-i="' + i + '"]');
-      if (!b || !this.view) return;
-      const c = this.view.cells[i], on = this.view.shown.has(i);
+      if (!this.view) return;
+    
+      const displayCell = this.view.displayCells.find(
+        (c) => c.originalIndices.includes(i)
+      );
+    
+      if (!displayCell) return;
+    
+      const firstIndex = displayCell.originalIndices[0];
+      const b = this.els.chars.querySelector(
+        'button.pin[data-i="' + firstIndex + '"]'
+      );
+    
+      if (!b) return;
+    
+      const on = this.view.shown.has(firstIndex);
+    
       b.setAttribute('aria-pressed', String(on));
-      b.setAttribute('aria-label', on ? this.t('pinAriaShown', { char: c.ch, pin: c.pin }) : this.t('pinAria', { char: c.ch }));
+      b.setAttribute(
+        'aria-label',
+        on
+          ? this.t('pinAriaShown', {
+              char: displayCell.ch,
+              pin: displayCell.pin
+            })
+          : this.t('pinAria', { char: displayCell.ch })
+      );
     },
+
 
     renderNotice() {
       const show = !!this.view && !this.view.hasPins;
@@ -151,7 +250,7 @@
     /** Balances rows: e.g. 13 characters with max 12 per row become 2 rows of 7. */
     layout() {
       if (!this.view) return;
-      const n = this.view.cells.length;
+      const n = this.view.displayCells.length;
       const max = parseInt(getComputedStyle(this.els.play).getPropertyValue('--max-cols'), 10) || 8;
       const rows = Math.ceil(n / max);
       this.els.play.style.setProperty('--cols', String(Math.max(1, Math.ceil(n / rows))));

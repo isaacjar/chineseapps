@@ -102,5 +102,7 @@
   {"lev":"newh1","less":0,"n":101,"ch":"再见，明天见！","pin":"Zàijiàn, míngtiān jiàn!","pins":["Zài","jiàn","","míng","tiān","jiàn",""],"en":"Goodbye, see you tomorrow!","sp":"¡Adiós, hasta mañana!"},
   {"lev":"newh1","less":0,"n":102,"ch":"现在我们开始吧。","pin":"Xiànzài wǒmen kāishǐ ba.","pins":["Xiàn","zài","wǒ","men","kāi","shǐ","ba",""],"en":"Let's start now.","sp":"Empecemos ahora."},
   {"lev":"newh1","less":0,"n":103,"ch":"我不知道。","pin":"Wǒ bù zhīdào.","pins":["Wǒ","bù","zhī","dào",""],"en":"I don't know.","sp":"No lo sé。"},
-  {"lev":"newh1","less":0,"n":104,"ch":"我知道这个问题。","pin":"Wǒ zhīdào zhège wèntí.","pins":["Wǒ","zhī","dào","zhè","ge","wèn","tí",""],"en":"I know this question.","sp":"Conozco esta pregunta."}
+  {"lev":"newh1","less":0,"n":104,"ch":"我知道这个问题。","pin":"Wǒ zhīdào zhège wèntí.","pins":["Wǒ","zhī","dào","zhè","ge","wèn","tí",""],"en":"I know this question.","sp":"Conozco esta pregunta."},
+  {"lev":"newh1","less":0,"n":105,"ch":"你去哪儿？","pin":"Nǐ qù nǎr?","pins":["Nǐ","qù","nǎr",""],"en":"Where are you going?","sp":"¿Adónde vas?"},
+  {"lev":"newh1","less":0,"n":106,"ch":"请你说慢点儿。","pin":"Qǐng nǐ shuō màn diǎnr.","pins":["Qǐng","nǐ","shuō","màn","diǎnr",""],"en":"Please speak a little slower.","sp":"Por favor, habla un poco más despacio."}
 ]

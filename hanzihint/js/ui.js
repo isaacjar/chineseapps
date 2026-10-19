@@ -95,7 +95,10 @@
     
       const groupedReadings = {
         '哪儿': 'nǎr',
-        '点儿': 'diǎnr'
+        '这儿': 'zhèr',
+        '那儿': 'nàr',
+        '点儿': 'diǎnr',
+        '玩儿': 'wánr'
       };
     
       const displayCells = [];

@@ -99,8 +99,26 @@
         } else {
           const g = document.createElement('span'); g.className = 'pin-gap'; g.setAttribute('aria-hidden', 'true'); cell.appendChild(g);
         }
-        const h = document.createElement('span'); h.className = 'han'; h.lang = 'zh-Hans'; h.textContent = c.ch;
-        cell.appendChild(h); frag.appendChild(cell);
+        /*const h = document.createElement('span'); h.className = 'han'; h.lang = 'zh-Hans'; h.textContent = c.ch;
+        cell.appendChild(h); frag.appendChild(cell);*/
+        const h = document.createElement('span');
+        h.className = 'han';
+        h.lang = 'zh-Hans';
+        h.textContent = c.ch;
+        cell.appendChild(h);
+        
+        // Número secuencial debajo del carácter
+        if (!c.punct) {
+          const num = document.createElement('span');
+          num.className = 'char-number';
+          num.textContent = String(
+            info.cells.slice(0, i + 1).filter((item) => !item.punct).length
+          );
+          num.setAttribute('aria-hidden', 'true');
+          cell.appendChild(num);
+        }
+        
+        frag.appendChild(cell);
       });
       this.els.chars.replaceChildren(frag);
       info.cells.forEach((c, i) => this.updatePin(i));

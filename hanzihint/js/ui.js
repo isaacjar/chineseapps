@@ -26,7 +26,8 @@
         const b = ev.target.closest('button.pin');
         if (b) h.onPin(Number(b.dataset.i));
       });
-      e.trBtns.forEach((b) => b.addEventListener('click', () => h.onTranslation(b.dataset.tr)));
+      // e.trBtns.forEach((b) => b.addEventListener('click', () => h.onTranslation(b.dataset.tr)));
+      e.trBtns.forEach((b) => b.addEventListener('click', () => h.onTranslation()));
       let raf = 0;
       window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => this.layout()); });
     },

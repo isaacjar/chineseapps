@@ -84,7 +84,12 @@
         }
       },
       onPin: (i) => { Game.togglePin(i); UI.updatePin(i); },
-      onTranslation: (k) => { Game.toggleTranslation(k); UI.setTranslation(Game.translation); }
+      //onTranslation: (k) => { Game.toggleTranslation(k); UI.setTranslation(Game.translation); }
+      onTranslation: () => {
+        const lang = Settings.current.lang === 'es' ? 'sp' : 'en';
+        Game.toggleTranslation(lang);
+        UI.setTranslation(Game.translation);
+      }
     });
     Settings.bindModal({
       getLang: () => Settings.current.lang,

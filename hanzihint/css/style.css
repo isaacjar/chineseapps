@@ -79,3 +79,4 @@ dialog h2{margin:0 0 14px;font-size:1.25rem}
 
 /* Botones de configuración centrados */ .dlg-actions { justify-content: center; margin-top: 24px; }
 /* Número de referencia debajo de cada carácter */ .char-number { display: block; text-align: center; color: #8b1e2d; font-size: 0.65rem; line-height: 1; margin-top: 2px; }
+.han { white-space: nowrap; writing-mode: horizontal-tb; text-orientation: mixed; }

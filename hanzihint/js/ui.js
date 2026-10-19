@@ -71,7 +71,7 @@
       this.els.play.classList.add('all-sentences-view');
     },
     showSingleSentence(sentence, info, shown, translation) {
-      this.(sentence, info, shown, translation);
+      this.renderSentence(sentence, info, shown, translation);
     },
     setSentenceIndex(i) { this.els.sentence.value = String(i); },
     setEnabled(on) {
@@ -86,6 +86,7 @@
     renderError() { if (this.errorKey) this.els.error.textContent = this.t(this.errorKey); },
 
     
+    
     renderSentence(sentence, info, shown, translation) {
       this.errorKey = null;
       this.els.error.hidden = true;
@@ -99,16 +100,16 @@
     
       const displayCells = [];
     
-      // Agrupa expresiones que deben ocupar una sola celda.
       for (let i = 0; i < info.cells.length; i++) {
         let match = null;
     
         for (const word of Object.keys(groupedReadings)) {
           const part = info.cells.slice(i, i + word.length);
+    
           if (
             part.length === word.length &&
-            part.every((item) => !item.punct) &&
-            part.map((item) => item.ch).join('') === word
+            part.every(item => !item.punct) &&
+            part.map(item => item.ch).join('') === word
           ) {
             match = word;
             break;
@@ -135,7 +136,6 @@
         }
       }
     
-      // Conserva las celdas originales para mantener los índices de Game.
       this.view = {
         sentence,
         cells: info.cells,
@@ -148,7 +148,7 @@
       const frag = document.createDocumentFragment();
       let charNumber = 0;
     
-      displayCells.forEach((c) => {
+      displayCells.forEach(c => {
         const cell = document.createElement('div');
         cell.className = 'cell';
     
@@ -162,10 +162,10 @@
           b.textContent = c.pin;
           cell.appendChild(b);
         } else {
-          const g = document.createElement('span');
-          g.className = 'pin-gap';
-          g.setAttribute('aria-hidden', 'true');
-          cell.appendChild(g);
+          const gap = document.createElement('span');
+          gap.className = 'pin-gap';
+          gap.setAttribute('aria-hidden', 'true');
+          cell.appendChild(gap);
         }
     
         const h = document.createElement('span');
@@ -199,19 +199,18 @@
       void this.els.chars.offsetWidth;
       this.els.chars.classList.add('enter');
     },
-
-
     
     updatePin(i) {
       if (!this.view) return;
     
       const displayCell = this.view.displayCells.find(
-        (c) => c.originalIndices.includes(i)
+        c => c.originalIndices.includes(i)
       );
     
       if (!displayCell) return;
     
       const firstIndex = displayCell.originalIndices[0];
+    
       const b = this.els.chars.querySelector(
         'button.pin[data-i="' + firstIndex + '"]'
       );
@@ -228,10 +227,11 @@
               char: displayCell.ch,
               pin: displayCell.pin
             })
-          : this.t('pinAria', { char: displayCell.ch })
+          : this.t('pinAria', {
+              char: displayCell.ch
+            })
       );
     },
-
 
     renderNotice() {
       const show = !!this.view && !this.view.hasPins;

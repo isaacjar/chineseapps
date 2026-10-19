@@ -37,16 +37,45 @@
      * Pinyin comes only from `pins` when its length matches; otherwise no pinyin is
      * attributed to any character (hasPins=false) and the UI says so.
      */
+    
     cells() {
       const s = this.current();
       if (!s) return { cells: [], hasPins: false };
-      const units = Array.from(s.ch);
-      const ok = Array.isArray(s.pins) && s.pins.length === units.length && s.pins.every((p) => typeof p === 'string');
+    
+      const chars = Array.from(s.ch);
+      const units = [];
+    
+      // Trata 哪儿 y 点儿 como unidades únicas.
+      for (let i = 0; i < chars.length; i++) {
+        const pair = chars[i] + (chars[i + 1] || '');
+    
+        if (
+          (pair === '哪儿' || pair === '点儿')
+        ) {
+          units.push(pair);
+          i++;
+        } else {
+          units.push(chars[i]);
+        }
+      }
+    
+      // Cada elemento de pins debe corresponder a una unidad,
+      // no necesariamente a un solo carácter chino.
+      const ok =
+        Array.isArray(s.pins) &&
+        s.pins.length === units.length &&
+        s.pins.every(p => typeof p === 'string');
+    
       return {
         hasPins: ok,
         cells: units.map((ch, i) => {
-          const punct = PUNCT.test(ch);
-          return { ch, punct, pin: ok && !punct ? s.pins[i] : '' };
+          const punct = Array.from(ch).length === 1 && PUNCT.test(ch);
+    
+          return {
+            ch,
+            punct,
+            pin: ok && !punct ? s.pins[i] : ''
+          };
         })
       };
     }

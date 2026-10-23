@@ -1,0 +1,13 @@
+{
+  "id": "./index2.html",
+  "name": "HanziClash",
+  "short_name": "Clash",
+  "description": "A Chinese character reading battle for Panda and Dragon teams.",
+  "lang": "en",
+  "start_url": "./index2.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fbf9ff",
+  "theme_color": "#7253b5"
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#7253b5">
+  <meta name="description" content="HanziClash — a Chinese character reading battle for Panda and Dragon teams.">
+  <title>🏆 HanziClash</title>
+  <link rel="manifest" href="./manifest2.json">
+  <link rel="stylesheet" href="./css/style2.css">
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">🏆</span><div><h1>HanziClash</h1><p id="subtitle">Chinese character battle</p></div></div>
+      <button id="restart-btn" class="small-btn" type="button" hidden>↻ <span data-i18n="newGame">New game</span></button>
+    </header>
+
+    <section id="setup-screen" class="setup-wrap">
+      <form id="setup-form" class="setup-card">
+        <div class="setup-heading"><span>🐼</span><span class="versus">VS</span><span>🐉</span></div>
+        <h2 data-i18n="setupTitle">Prepare for battle!</h2>
+        <p class="muted" data-i18n="setupIntro">Choose your lesson and teams.</p>
+        <label for="dataset-select" data-i18n="levelLesson">Level and lesson</label>
+        <select id="dataset-select" required><option value="">Loading lessons…</option></select>
+
+        <div class="two-col">
+          <div>
+            <label for="panda-name" data-i18n="pandaName">🐼 Panda team</label>
+            <input id="panda-name" maxlength="11" value="Panda" required autocomplete="off">
+          </div>
+          <div>
+            <label for="dragon-name" data-i18n="dragonName">🐉 Dragon team</label>
+            <input id="dragon-name" maxlength="11" value="Dragon" required autocomplete="off">
+          </div>
+        </div>
+        <label for="duration-select" data-i18n="timePerTeam">Time per team</label>
+        <select id="duration-select">
+          <option value="30">30 seconds</option><option value="60" selected>60 seconds</option>
+          <option value="90">90 seconds</option><option value="120">120 seconds</option>
+        </select>
+        <label for="language-select" data-i18n="language">Language</label>
+        <select id="language-select"><option value="en" selected>English</option><option value="es">Español</option></select>
+        <p id="setup-error" class="error" role="alert"></p>
+        <button class="primary-btn" type="submit" data-i18n="start">Start battle ⚔️</button>
+      </form>
+    </section>
+
+    <section id="game-screen" hidden>
+      <div class="scoreboard">
+        <article id="panda-panel" class="team-panel panda-panel">
+          <div class="team-name"><span>🐼</span><span id="panda-label">Panda</span></div>
+          <div id="panda-score" class="score">0</div>
+          <div class="time-label" data-i18n="timeLeft">Time left</div><div id="panda-time" class="clock">60</div>
+        </article>
+        <div class="versus-badge">VS</div>
+        <article id="dragon-panel" class="team-panel dragon-panel">
+          <div class="team-name"><span>🐉</span><span id="dragon-label">Dragon</span></div>
+          <div id="dragon-score" class="score">0</div>
+          <div class="time-label" data-i18n="timeLeft">Time left</div><div id="dragon-time" class="clock">60</div>
+        </article>
+      </div>
+
+      <div id="turn-banner" class="turn-banner panda-turn">🐼 Panda's turn!</div>
+      <section class="play-card">
+        <div class="sentence-meta"><span id="sentence-count"></span><span id="progress-label"></span></div>
+        <div id="sentence" class="sentence" aria-label="Chinese sentence"></div>
+        <p id="instruction" class="muted instruction">Select the next character to read.</p>
+        <div class="answer-row">
+          <div class="answer-box"><span id="selected-char" class="selected-char">?</span><span class="answer-arrow">→</span><span id="answer-preview" class="answer-preview"></span></div>
+          <button id="clear-btn" class="small-btn" type="button" data-i18n="clear">Clear</button>
+          <button id="ok-btn" class="primary-btn ok-btn" type="button" data-i18n="ok">OK ✓</button>
+        </div>
+        <div id="keyboard" class="keyboard" aria-label="Pinyin letter keyboard"></div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div class="bottom-actions"><button id="skip-btn" class="secondary-btn" type="button" data-i18n="skip">Skip character</button><button id="end-btn" class="secondary-btn" type="button" data-i18n="endGame">End game</button></div>
+      </section>
+    </section>
+
+    <section id="result-screen" class="result-wrap" hidden>
+      <div class="result-card"><div class="trophy">🏆</div><h2 id="winner-title">Battle complete!</h2><p id="winner-detail" class="muted"></p>
+        <div class="final-scores"><div class="final-team panda-panel"><span>🐼 <b id="final-panda-name">Panda</b></span><strong id="final-panda-score">0</strong></div><div class="final-team dragon-panel"><span>🐉 <b id="final-dragon-name">Dragon</b></span><strong id="final-dragon-score">0</strong></div></div>
+        <button id="play-again-btn" class="primary-btn" type="button" data-i18n="playAgain">Play again</button>
+      </div>
+    </section>
+    <footer>HanziClash 🏆 · Learn Chinese by playing</footer>
+  </main>
+  <script src="https://isaacjar.github.io/chineseapps/hanzihint/data/index.js"></script>
+  <script src="./js2/setup2.js"></script>
+  <script src="./js2/game2.js"></script>
+  <script src="./js2/ui2.js"></script>
+  <script src="./js2/app2.js"></script>
+</body>
+</html>

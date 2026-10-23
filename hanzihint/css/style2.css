@@ -89,3 +89,11 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 @media (max-width: 540px) { #app { padding: 7px 8px; } .brand-icon { font-size: 1.55rem; } .brand h1 { font-size: 1.35rem; } .brand p { font-size: .7rem; } .scoreboard { gap: 6px; margin-bottom: 7px; } .team-panel { padding: 6px 3px; } .team-name { font-size: .78rem; } .team-name span:first-child { font-size: 1rem; } .score { font-size: 1.6rem; } .time-label { font-size: .6rem; } .clock { font-size: .95rem; } .versus-badge { padding: 6px; font-size: .65rem; } .turn-banner { padding: 6px 8px; font-size: .88rem; margin-bottom: 7px; } .play-card { padding: 9px; } .sentence { gap: 3px; margin: 8px 0 5px; } .char-tile { min-width: 34px; min-height: 46px; padding: 3px; font-size: 1.45rem; } .char-tile .tile-pin { font-size: .56rem; } .instruction { font-size: .8rem; margin-bottom: 7px; } .keyboard { gap: 4px; margin-top: 7px; } .key { min-height: 34px; font-size: .88rem; } .feedback { min-height: 20px; margin-top: 4px; } }
 @media (max-width: 360px) { .char-tile { min-width: 29px; font-size: 1.3rem; } .key { min-height: 32px; } .answer-row { gap: 4px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+/* Reservar espacio para la respuesta desde el principio */
+.answer-box { box-sizing: border-box; height: 42px; min-height: 42px; flex-shrink: 0; display: flex; align-items: center; overflow: hidden; }
+/* El carácter seleccionado siempre ocupa el mismo espacio */
+.selected-char { display: inline-flex; align-items: center; justify-content: center; width: 28px; min-width: 28px; height: 30px; flex-shrink: 0; }
+/* El pinyin provisional (...) no modifica el ancho de la caja */
+.answer-preview { display: inline-block; width: 48px; min-width: 48px; max-width: 48px; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: clip; box-sizing: border-box; }
+/* Evitar cambios de tamaño en los botones */
+#clear-btn, #ok-btn { box-sizing: border-box; flex-shrink: 0; align-self: center; }

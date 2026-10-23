@@ -224,16 +224,24 @@
   async function nextPhrase() {
     currentPhrase = Game.choosePhrase(phrasePool, lastPhrase);
     lastPhrase = currentPhrase;
-
+  
     state.units = Game.getUnits(currentPhrase);
-    state.selected = null;
     state.input = "";
     state.solved = new Set();
     state.sentenceNo++;
-
+  
+    // Seleccionar el primer carácter chino pendiente.
+    state.selected = state.units.findIndex(
+      unit => unit.isHan
+    );
+  
+    if (state.selected === -1) {
+      state.selected = null;
+    }
+  
     $("sentence-count").textContent =
       (state.lang === "es" ? "Frase " : "Sentence ") + state.sentenceNo;
-
+  
     $("progress-label").textContent = "";
     UI.showFeedback("");
   }
@@ -297,12 +305,16 @@
   }
 
   function backspace() {
-    if (!state || state.finished) return;
-
+    if (
+      !state ||
+      state.finished ||
+      state.selected === null
+    ) return;
+  
     state.input = state.input.slice(0, -1);
     refresh();
   }
-
+  
   function submitAnswer() {
     if (
       !state ||
@@ -310,39 +322,76 @@
       state.selected === null ||
       !state.input
     ) return;
-
-    const unit = state.units[state.selected];
+  
+    const answeredIndex = state.selected;
+    const unit = state.units[answeredIndex];
     const expected = Game.normalize(unit.pinyin);
     const given = Game.normalize(state.input);
-
-    if (expected && expected === given) {
+    const isCorrect = expected && expected === given;
+  
+    if (isCorrect) {
       state.scores[state.active] += 20;
-      state.solved.add(state.selected);
+      state.solved.add(answeredIndex);
       UI.showFeedback(text.correct, "good");
     } else {
       state.scores[state.active] -= 10;
       UI.showFeedback(text.wrong, "bad");
     }
-
-    state.selected = null;
+  
     state.input = "";
-
+  
+    // Cambiar de equipo después de cada respuesta.
     state.active = state.active === "panda" ? "dragon" : "panda";
-
-    const hanziUnits = state.units.filter(unit => unit.isHan);
-
-    if (state.solved.size >= hanziUnits.length) {
+  
+    const totalCharacters = state.units.filter(
+      unit => unit.isHan
+    ).length;
+  
+    if (state.solved.size >= totalCharacters) {
+      state.selected = null;
+      refresh();
+  
       setTimeout(async () => {
         if (!state || state.finished) return;
-
+  
         await nextPhrase();
         refresh();
       }, 450);
-    } else {
-      refresh();
+  
+      return;
     }
+  
+    if (isCorrect) {
+      // Si acertó, buscar el siguiente carácter sin resolver,
+      // empezando desde la posición siguiente.
+      let nextIndex = null;
+  
+      for (let i = answeredIndex + 1; i < state.units.length; i++) {
+        if (state.units[i].isHan && !state.solved.has(i)) {
+          nextIndex = i;
+          break;
+        }
+      }
+  
+      // Si no hay ninguno después, buscar desde el principio.
+      if (nextIndex === null) {
+        for (let i = 0; i < answeredIndex; i++) {
+          if (state.units[i].isHan && !state.solved.has(i)) {
+            nextIndex = i;
+            break;
+          }
+        }
+      }
+  
+      state.selected = nextIndex;
+    } else {
+      // Si falló, el siguiente equipo recibe el mismo carácter.
+      state.selected = answeredIndex;
+    }
+  
+    refresh();
   }
-
+  
   function onKeydown(event) {
     if (!state || state.finished || $("game-screen").hidden) return;
 

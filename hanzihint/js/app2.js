@@ -246,15 +246,15 @@
     UI.showFeedback("");
     refresh();
   }
-
+  
   function addLetter(letter) {
     if (
       !state ||
       state.finished ||
       state.selected === null ||
-      state.input.length >= 8
+      state.input.length >= 6
     ) return;
-
+  
     state.input += letter;
     refresh();
   }

@@ -75,6 +75,16 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .final-team { border-radius: 12px; padding: 12px 6px; display: flex; flex-direction: column; gap: 6px; overflow-wrap: anywhere; }
 .final-team strong { font-size: 1.8rem; }
 .result-card .primary-btn { width: 100%; }
+/* Respuesta compacta en una sola línea */
+.answer-row { display: flex; align-items: center; flex-wrap: nowrap; gap: 7px; }
+.answer-box { flex: 0 1 125px; width: 125px; min-width: 85px; min-height: 40px; gap: 5px; padding: 5px 7px; }
+.selected-char { font-size: 1.4rem; flex-shrink: 0; }
+.answer-arrow { flex-shrink: 0; }
+.answer-preview { min-width: 0; font-size: 1rem; letter-spacing: 0; overflow: hidden; }
+#clear-btn { flex-shrink: 0; padding: 8px 9px; }
+.ok-btn { flex: 0 0 82px; min-height: 40px; padding: 9px 12px; font-size: 1rem; white-space: nowrap; }
+.feedback { flex: 1 1 0; min-width: 0; min-height: 0; margin: 0; text-align: left; font-size: .78rem; line-height: 1.2; overflow-wrap: anywhere; }
+@media (max-width: 400px) { .answer-row { gap: 4px; } .answer-box { flex-basis: 105px; width: 105px; min-width: 75px; padding: 4px; } #clear-btn { padding: 7px 6px; font-size: .8rem; } .ok-btn { flex-basis: 70px; padding: 8px 5px; font-size: .9rem; } .feedback { font-size: .7rem; } }
 footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2px; }
 @media (max-width: 540px) { #app { padding: 7px 8px; } .brand-icon { font-size: 1.55rem; } .brand h1 { font-size: 1.35rem; } .brand p { font-size: .7rem; } .scoreboard { gap: 6px; margin-bottom: 7px; } .team-panel { padding: 6px 3px; } .team-name { font-size: .78rem; } .team-name span:first-child { font-size: 1rem; } .score { font-size: 1.6rem; } .time-label { font-size: .6rem; } .clock { font-size: .95rem; } .versus-badge { padding: 6px; font-size: .65rem; } .turn-banner { padding: 6px 8px; font-size: .88rem; margin-bottom: 7px; } .play-card { padding: 9px; } .sentence { gap: 3px; margin: 8px 0 5px; } .char-tile { min-width: 34px; min-height: 46px; padding: 3px; font-size: 1.45rem; } .char-tile .tile-pin { font-size: .56rem; } .instruction { font-size: .8rem; margin-bottom: 7px; } .keyboard { gap: 4px; margin-top: 7px; } .key { min-height: 34px; font-size: .88rem; } .feedback { min-height: 20px; margin-top: 4px; } }
 @media (max-width: 360px) { .char-tile { min-width: 29px; font-size: 1.3rem; } .key { min-height: 32px; } .answer-row { gap: 4px; } }

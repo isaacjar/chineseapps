@@ -67,12 +67,16 @@
         <div id="sentence" class="sentence" aria-label="Chinese sentence"></div>
         <p id="instruction" class="muted instruction">Select the next character to read.</p>
         <div class="answer-row">
-          <div class="answer-box"><span id="selected-char" class="selected-char">?</span><span class="answer-arrow">→</span><span id="answer-preview" class="answer-preview"></span></div>
+          <div class="answer-box">
+            <span id="selected-char" class="selected-char">?</span>
+            <span class="answer-arrow">→</span>
+            <span id="answer-preview" class="answer-preview"></span>
+          </div>
           <button id="clear-btn" class="small-btn" type="button" data-i18n="clear">Clear</button>
           <button id="ok-btn" class="primary-btn ok-btn" type="button" data-i18n="ok">OK ✓</button>
+          <div id="feedback" class="feedback" aria-live="polite"></div>
         </div>
         <div id="keyboard" class="keyboard" aria-label="Pinyin letter keyboard"></div>
-        <div id="feedback" class="feedback" aria-live="polite"></div>
       </section>
     </section>
 

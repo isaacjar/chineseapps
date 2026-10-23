@@ -80,7 +80,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 /* ===== Instruction and answer controls ===== */
 .instruction { text-align: center; font-weight: 700; font-size: .86rem; margin: 0 0 8px; }
 .answer-row { display: flex; align-items: center; flex-wrap: nowrap; gap: 7px; min-width: 0; }
-.answer-box { display: grid; grid-template-columns: 35px 18px minmax(0, 1fr); align-items: center; justify-content: start; gap: 0; box-sizing: border-box; flex: 0 0 220px; width: 220px; min-width: 220px; height: 42px; min-height: 42px; padding: 0 6px; overflow: hidden; background: #f8f6fb; border: 1px solid #e8e2f0; border-radius: 10px; }
+.answer-box { display: grid; grid-template-columns: 35px 18px minmax(0, 1fr); align-items: center; justify-content: start; gap: 0; box-sizing: border-box; flex: 0 0 120px; width: 120px; min-width: 120px; height: 42px; min-height: 42px; padding: 0 6px; overflow: hidden; background: #f8f6fb; border: 1px solid #e8e2f0; border-radius: 10px; }
 .selected-char { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 32px; min-width: 32px; height: 32px; margin: 0; padding: 0; font-family: KaiTi, Kaiti, serif; font-size: 1.4rem; font-weight: 800; line-height: 1; white-space: nowrap; flex-shrink: 0; }
 .answer-arrow { display: flex; align-items: center; justify-content: center; width: 14px; height: 24px; color: #a49ab4; line-height: 1; }
 .answer-preview { display: block; box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 1rem; font-weight: 900; line-height: 24px; letter-spacing: 0; }

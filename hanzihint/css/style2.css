@@ -115,3 +115,10 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 .toggle-btn.active { background: #7650B8; border-color: #7650B8; color: #FFFFFF; box-shadow: 0 2px 5px rgba(70, 45, 110, 0.18); }
 #language-options .toggle-btn.active { background: #239B67; border-color: #239B67; box-shadow: 0 2px 5px rgba(25, 122, 80, 0.18); }
 .toggle-btn:focus-visible { outline: 3px solid #B9A4E8; outline-offset: 2px; }
+/* Evitar saltos al seleccionar un carácter */
+.answer-row { display: flex; align-items: center; flex-wrap: nowrap; }
+.answer-box { display: grid; grid-template-columns: 32px 14px 48px; align-items: center; justify-content: start; box-sizing: border-box; flex: 0 0 112px; width: 112px; min-width: 112px; height: 42px; min-height: 42px; padding: 0 6px; gap: 0; overflow: hidden; }
+.selected-char { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 32px; height: 32px; min-width: 32px; margin: 0; padding: 0; font-size: 1.4rem; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+.answer-arrow { display: flex; align-items: center; justify-content: center; width: 14px; height: 24px; line-height: 1; }
+.answer-preview { display: block; box-sizing: border-box; width: 48px; min-width: 48px; max-width: 48px; height: 24px; line-height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; font-size: 1rem; letter-spacing: 0; }
+#clear-btn, #ok-btn { flex-shrink: 0; align-self: center; }

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
 /* ===== Base ===== */
@@ -47,15 +48,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 
 /* ===== Scoreboard ===== */
 .scoreboard { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; margin-bottom: 8px; }
-.team-panel { border: 2px solid transparent; border-radius: 14px; text-align: center; padding: 7px 8px; min-width: 0; transition: box-shadow .15s, transform .15s; }
+.team-panel { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; align-items: center; column-gap: 8px; row-gap: 3px; border: 2px solid transparent; border-radius: 14px; text-align: left; padding: 7px 10px; min-width: 0; transition: box-shadow .15s, transform .15s; }
 .panda-panel { background: var(--purple-soft); color: #57378b; border-color: #d8c4f4; }
 .dragon-panel { background: var(--green-soft); color: #176b40; border-color: #b9e8ca; }
 .team-panel.active { box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor; transform: translateY(-1px); }
-.team-name { display: flex; align-items: center; justify-content: center; gap: 5px; font-weight: 900; font-size: .9rem; overflow-wrap: anywhere; }
-.team-name span:first-child { font-size: 1.15rem; }
-.score { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; line-height: 1.05; margin: 2px 0; }
-.time-label { font-size: .67rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; opacity: .75; }
-.clock { font-size: 1rem; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.team-name { grid-column: 1; grid-row: 1; display: flex; align-items: center; justify-content: flex-start; gap: 4px; min-width: 0; font-weight: 900; font-size: .9rem; overflow-wrap: anywhere; }
+.team-name span:first-child { font-size: 1.15rem; flex-shrink: 0; }
+.score { grid-column: 2; grid-row: 1; font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 900; line-height: 1; margin: 0; text-align: right; }
+.time-label { grid-column: 1; grid-row: 2; font-size: .67rem; text-transform: uppercase; letter-spacing: .04em; font-weight: 800; opacity: .75; }
+.clock { grid-column: 2; grid-row: 2; font-size: .95rem; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.1; text-align: right; }
 .versus-badge { font-size: .72rem; font-weight: 900; color: #9387a8; background: #fff; padding: 8px; border-radius: 50%; box-shadow: var(--shadow); }
 .turn-banner { text-align: center; border-radius: 10px; padding: 7px 10px; margin: 0 0 8px; font-weight: 900; font-size: .95rem; }
 .panda-turn { background: var(--purple); color: #fff; }
@@ -79,10 +80,10 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 /* ===== Instruction and answer controls ===== */
 .instruction { text-align: center; font-weight: 700; font-size: .86rem; margin: 0 0 8px; }
 .answer-row { display: flex; align-items: center; flex-wrap: nowrap; gap: 7px; min-width: 0; }
-.answer-box { display: grid; grid-template-columns: 35px 24px 96px; align-items: center; justify-content: start; gap: 0; box-sizing: border-box; flex: 0 0 220px; width: 220px; min-width: 220px; height: 42px; min-height: 42px; padding: 0 6px; overflow: hidden; background: #f8f6fb; border: 1px solid #e8e2f0; border-radius: 10px; }
+.answer-box { display: grid; grid-template-columns: 35px 18px minmax(0, 1fr); align-items: center; justify-content: start; gap: 0; box-sizing: border-box; flex: 0 0 220px; width: 220px; min-width: 220px; height: 42px; min-height: 42px; padding: 0 6px; overflow: hidden; background: #f8f6fb; border: 1px solid #e8e2f0; border-radius: 10px; }
 .selected-char { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 32px; min-width: 32px; height: 32px; margin: 0; padding: 0; font-family: KaiTi, Kaiti, serif; font-size: 1.4rem; font-weight: 800; line-height: 1; white-space: nowrap; flex-shrink: 0; }
 .answer-arrow { display: flex; align-items: center; justify-content: center; width: 14px; height: 24px; color: #a49ab4; line-height: 1; }
-.answer-preview { display: block; box-sizing: border-box; width: 48px; min-width: 48px; max-width: 48px; height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 1rem; font-weight: 900; line-height: 24px; letter-spacing: 0; }
+.answer-preview { display: block; box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 1rem; font-weight: 900; line-height: 24px; letter-spacing: 0; }
 #clear-btn { flex: 0 0 auto; padding: 8px 9px; white-space: nowrap; }
 #ok-btn { box-sizing: border-box; flex: 0 0 100px; min-width: 0; min-height: 42px; padding: 8px 10px; font-size: 1rem; font-weight: 900; white-space: nowrap; box-shadow: none; align-self: center; transition: background-color 180ms ease, border-color 180ms ease, transform 150ms ease; }
 #ok-btn.team-panda { background: #7c4dcc; border-color: #6939b5; color: #fff; }
@@ -123,12 +124,12 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   .brand h1 { font-size: 1.35rem; }
   .brand p { font-size: .7rem; }
   .scoreboard { gap: 6px; margin-bottom: 7px; }
-  .team-panel { padding: 6px 3px; }
-  .team-name { font-size: .78rem; }
-  .team-name span:first-child { font-size: 1rem; }
-  .score { font-size: 1.6rem; }
-  .time-label { font-size: .6rem; }
-  .clock { font-size: .95rem; }
+  .team-panel { padding: 5px 6px; column-gap: 4px; row-gap: 3px; }
+  .team-name { font-size: .76rem; gap: 3px; }
+  .team-name span:first-child { font-size: .95rem; }
+  .score { font-size: 1.35rem; }
+  .time-label { font-size: .55rem; letter-spacing: 0; }
+  .clock { font-size: .85rem; }
   .versus-badge { padding: 6px; font-size: .65rem; }
   .turn-banner { padding: 6px 8px; font-size: .88rem; margin-bottom: 7px; }
   .play-card { padding: 9px; }
@@ -159,9 +160,9 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* ===== Boton Saltar ===== */
+/* ===== Button Skip ===== */
 .skip-btn { background: #d6a629; color: #29243a; border: 2px solid #bd901b; border-radius: 12px; padding: 10px 16px; font: inherit; font-weight: 800; cursor: pointer; transition: background 180ms ease, transform 180ms ease; }
 .skip-btn:hover:not(:disabled) { background: #e5b83e; transform: translateY(-1px); }
-.skip-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.skip-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 .backspace-key { display: flex; align-items: center; justify-content: center; padding: 0; min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; }
 .backspace-key svg { display: block; width: 18px; height: 18px; max-width: 100%; max-height: 100%; flex: 0 0 auto; }

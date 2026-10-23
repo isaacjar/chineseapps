@@ -84,11 +84,17 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .selected-char { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 32px; min-width: 32px; height: 32px; margin: 0; padding: 0; font-family: KaiTi, Kaiti, serif; font-size: 1.4rem; font-weight: 800; line-height: 1; white-space: nowrap; flex-shrink: 0; }
 .answer-arrow { display: flex; align-items: center; justify-content: center; width: 14px; height: 24px; color: #a49ab4; line-height: 1; }
 .answer-preview { display: block; box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 1rem; font-weight: 900; line-height: 24px; letter-spacing: 0; }
+
+/* ===== OK button ===== */
+#ok-btn { box-sizing: border-box; flex: 0 0 112px; width: 112px; min-width: 112px; height: 46px; min-height: 46px; padding: 8px 12px; border: 2px solid transparent; border-radius: 12px; font-size: 1.08rem; font-weight: 900; white-space: nowrap; box-shadow: 0 3px 0 #0002; align-self: center; transition: background-color 180ms ease, border-color 180ms ease, transform 150ms ease, box-shadow 150ms ease; }
+#ok-btn.team-panda { background: #8056c7; border-color: #6941ad; color: #fff; }
+#ok-btn.team-dragon { background: #269765; border-color: #19794f; color: #fff; }
+#ok-btn:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 4px 0 #0002; }
+#ok-btn:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 1px 0 #0002; }
+#ok-btn:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+
+/* ===== Other answer controls ===== */
 #clear-btn { flex: 0 0 auto; padding: 8px 9px; white-space: nowrap; }
-#ok-btn { box-sizing: border-box; flex: 0 0 100px; min-width: 0; min-height: 42px; padding: 8px 10px; font-size: 1rem; font-weight: 900; white-space: nowrap; box-shadow: none; align-self: center; transition: background-color 180ms ease, border-color 180ms ease, transform 150ms ease; }
-#ok-btn.team-panda { background: #7c4dcc; border-color: #6939b5; color: #fff; }
-#ok-btn.team-dragon { background: #239b67; border-color: #197a50; color: #fff; }
-#ok-btn:disabled { opacity: .55; cursor: not-allowed; }
 #restart-btn { background: #f8d7da; color: #842029; border: 1px solid #f1bfc4; }
 #restart-btn:hover { background: #f1c2c7; }
 #restart-btn:disabled { opacity: .7; cursor: not-allowed; }
@@ -117,6 +123,16 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 /* ===== Footer ===== */
 footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2px; }
 
+/* ===== Skip button ===== */
+.skip-btn { box-sizing: border-box; flex: 0 0 auto; height: 46px; min-height: 46px; padding: 8px 12px; background: #f0edf5; color: #62596f; border: 1px solid #dcd5e7; border-radius: 12px; font: inherit; font-size: .88rem; font-weight: 800; cursor: pointer; box-shadow: none; transition: background-color 180ms ease, border-color 180ms ease, transform 150ms ease; }
+.skip-btn:hover:not(:disabled) { background: #e7e0f0; border-color: #c9bddc; transform: translateY(-1px); }
+.skip-btn:active:not(:disabled) { transform: translateY(1px); }
+.skip-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* ===== Backspace key ===== */
+.backspace-key { display: flex; align-items: center; justify-content: center; padding: 0; min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; }
+.backspace-key svg { display: block; width: 18px; height: 18px; max-width: 100%; max-height: 100%; flex: 0 0 auto; }
+
 /* ===== Tablet and mobile ===== */
 @media (max-width: 540px) {
   #app { padding: 7px 8px; }
@@ -139,7 +155,8 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   .instruction { font-size: .8rem; margin-bottom: 7px; }
   .answer-row { flex-wrap: wrap; gap: 6px; }
   .answer-box { flex: 0 0 112px; width: 112px; min-width: 112px; }
-  #ok-btn { flex-basis: 88px; min-height: 40px; padding: 7px 8px; font-size: .92rem; }
+  #ok-btn { flex-basis: 100px; width: 100px; min-width: 100px; height: 42px; min-height: 42px; padding: 7px 8px; font-size: .98rem; }
+  .skip-btn { height: 42px; min-height: 42px; padding: 7px 10px; font-size: .82rem; }
   .feedback { flex: 1 1 100%; min-height: 20px; margin-top: 2px; font-size: .78rem; text-align: center; }
   .keyboard { gap: 4px; margin-top: 7px; }
   .key { min-height: 34px; font-size: .88rem; }
@@ -152,17 +169,11 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   .answer-row { gap: 4px; }
   .answer-box { flex-basis: 108px; width: 108px; min-width: 108px; }
   #clear-btn { padding: 7px 6px; font-size: .8rem; }
-  #ok-btn { flex-basis: 76px; padding: 7px 5px; font-size: .88rem; }
+  #ok-btn { flex-basis: 88px; width: 88px; min-width: 88px; height: 40px; min-height: 40px; padding: 6px 5px; font-size: .9rem; }
+  .skip-btn { height: 40px; min-height: 40px; padding: 6px 8px; font-size: .78rem; }
 }
 
 /* ===== Accessibility ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
 }
-
-/* ===== Button Skip ===== */
-.skip-btn { background: #d6a629; color: #29243a; border: 2px solid #bd901b; border-radius: 12px; padding: 10px 16px; font: inherit; font-weight: 800; cursor: pointer; transition: background 180ms ease, transform 180ms ease; }
-.skip-btn:hover:not(:disabled) { background: #e5b83e; transform: translateY(-1px); }
-.skip-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
-.backspace-key { display: flex; align-items: center; justify-content: center; padding: 0; min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; }
-.backspace-key svg { display: block; width: 18px; height: 18px; max-width: 100%; max-height: 100%; flex: 0 0 auto; }

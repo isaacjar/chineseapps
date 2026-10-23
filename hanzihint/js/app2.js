@@ -289,11 +289,7 @@
       UI.showFeedback(text.correct, "good");
     } else {
       state.scores[state.active] -= 10;
-
-      UI.showFeedback(
-        text.wrong + (unit.pinyin ? ` (${unit.pinyin})` : ""),
-        "bad"
-      );
+      UI.showFeedback(text.wrong, "bad");
     }
 
     state.selected = null;

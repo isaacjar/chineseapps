@@ -157,6 +157,11 @@
       $("dragon-label").textContent = dragon;
 
       UI.showScreen("game");
+      const restartBtn = $("restart-btn");
+      restartBtn.hidden = false;
+      restartBtn.disabled = false;
+      restartBtn.style.pointerEvents = "auto";
+      restartBtn.style.opacity = "1";
       await nextPhrase();
       refresh();
       startTimer();

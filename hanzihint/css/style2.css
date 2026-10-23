@@ -97,3 +97,7 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 .answer-preview { display: inline-block; width: 48px; min-width: 48px; max-width: 48px; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: clip; box-sizing: border-box; }
 /* Evitar cambios de tamaño en los botones */
 #clear-btn, #ok-btn { box-sizing: border-box; flex-shrink: 0; align-self: center; }
+/* Botón New game: rojo suave */
+#restart-btn { background: #F8D7DA; color: #842029; border: 1px solid #F1BFC4; }
+#restart-btn:hover { background: #F1C2C7; }
+#restart-btn:disabled { opacity: 0.7; cursor: not-allowed; }

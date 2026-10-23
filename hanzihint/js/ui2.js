@@ -21,9 +21,11 @@
       button.dataset.index = String(idx);
       button.disabled = state.finished || !unit.isHan || state.solved.has(idx);
       if (unit.isHan) {
-        const char = document.createElement("span"); char.textContent = unit.char; button.appendChild(char);
         const pin = document.createElement("span"); pin.className = "tile-pin";
-        pin.textContent = state.solved.has(idx) ? (unit.pinyin || "") : (state.selected === idx ? (state.input || "…") : "");
+        // Reservar siempre el espacio del pinyin, incluso si está vacío.
+        pin.textContent = state.solved.has(idx)
+          ? (unit.pinyin || "\u00A0")
+          : (state.selected === idx ? (state.input || "…") : "\u00A0");
         button.appendChild(pin);
       } else button.textContent = unit.char;
       if (state.selected === idx) button.classList.add("selected");

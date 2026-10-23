@@ -108,3 +108,10 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 /* Turno del equipo Dragon: verde */
 #ok-btn.team-dragon { background: #239B67; border-color: #197A50; color: #FFFFFF; }
 #ok-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+/* Opciones seleccionables en forma de toggle */
+.toggle-group { display: flex; width: 100%; gap: 6px; margin-top: 6px; }
+.toggle-btn { flex: 1; min-width: 0; padding: 10px 6px; border: 1px solid #D8D5E2; border-radius: 10px; background: #F7F6FA; color: #514B60; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease; }
+.toggle-btn:hover { border-color: #A99ACB; transform: translateY(-1px); }
+.toggle-btn.active { background: #7650B8; border-color: #7650B8; color: #FFFFFF; box-shadow: 0 2px 5px rgba(70, 45, 110, 0.18); }
+#language-options .toggle-btn.active { background: #239B67; border-color: #239B67; box-shadow: 0 2px 5px rgba(25, 122, 80, 0.18); }
+.toggle-btn:focus-visible { outline: 3px solid #B9A4E8; outline-offset: 2px; }

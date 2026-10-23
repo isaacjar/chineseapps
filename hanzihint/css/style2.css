@@ -66,15 +66,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .sentence-meta { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: .75rem; font-weight: 800; }
 
 /* ===== Chinese character tiles ===== */
-.sentence { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 5px; margin: 10px 0 6px; min-height: 62px; }
-.char-tile { appearance: none; -webkit-appearance: none; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-width: 40px; min-height: 56px; padding: 3px 6px; border: 2px solid #e7e0ef; border-radius: 9px; background: #fff; color: #29243a; font-family: KaiTi, Kaiti, serif; font-size: clamp(1.55rem, 4vw, 2.2rem); line-height: 1.15; overflow: visible; }
+.sentence { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; min-height: 110px; }
+.char-tile { appearance: none; -webkit-appearance: none; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-width: 76px; min-height: 104px; padding: 8px 10px; border: 2px solid #e7e0ef; border-radius: 12px; background: #fff; color: #29243a; font-family: KaiTi, Kaiti, serif; font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1.15; overflow: visible; }
 .char-tile > span:first-child { display: block; flex: 0 0 auto; min-height: 1.15em; font-family: KaiTi, Kaiti, serif; font-size: 1em; line-height: 1.15; color: inherit; white-space: nowrap; }
-.char-tile .tile-pin { display: block; flex: 0 0 1.15em; width: 100%; height: 1.15em; min-height: 1.15em; font-family: Nunito, Arial, sans-serif; font-size: .61rem; font-weight: 800; line-height: 1.15em; text-align: center; color: #8e879b; white-space: nowrap; overflow: hidden; }
+.char-tile .tile-pin { display: block; flex: 0 0 1.3em; width: 100%; height: 1.3em; min-height: 1.3em; font-family: Nunito, Arial, sans-serif; font-size: 1.05rem; font-weight: 900; line-height: 1.3em; text-align: center; color: #8e879b; white-space: nowrap; overflow: visible; }
 .char-tile.done { opacity: .65; background: #f6f4f8; }
-.char-tile.selected { border-color: currentColor; box-shadow: 0 0 0 2px #f2edf9; }
+.char-tile.selected { border-color: currentColor; box-shadow: 0 0 0 3px #f2edf9; }
 .panda-theme .char-tile.selected { color: var(--purple); background: #f7f1ff; }
 .dragon-theme .char-tile.selected { color: var(--green); background: #effbf3; }
-.char-tile.punctuation { min-width: 14px; padding-left: 1px; padding-right: 1px; border-color: transparent; background: transparent; }
+.char-tile.punctuation { min-width: 22px; padding-left: 2px; padding-right: 2px; border-color: transparent; background: transparent; }
 
 /* ===== Instruction and answer controls ===== */
 .instruction { text-align: center; font-weight: 700; font-size: .86rem; margin: 0 0 8px; }
@@ -132,9 +132,9 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   .versus-badge { padding: 6px; font-size: .65rem; }
   .turn-banner { padding: 6px 8px; font-size: .88rem; margin-bottom: 7px; }
   .play-card { padding: 9px; }
-  .sentence { justify-content: center; gap: 3px; margin: 8px 0 5px; }
-  .char-tile { min-width: 34px; min-height: 52px; padding: 3px; font-size: 1.45rem; }
-  .char-tile .tile-pin { font-size: .56rem; }
+  .sentence { justify-content: center; gap: 5px; margin: 10px 0 7px; }
+  .char-tile { min-width: 54px; min-height: 82px; padding: 5px 6px; gap: 3px; font-size: 2.4rem; }
+  .char-tile .tile-pin { font-size: .85rem; }
   .instruction { font-size: .8rem; margin-bottom: 7px; }
   .answer-row { flex-wrap: wrap; gap: 6px; }
   .answer-box { flex: 0 0 112px; width: 112px; min-width: 112px; }
@@ -145,8 +145,8 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 }
 
 @media (max-width: 360px) {
-  .char-tile { min-width: 29px; min-height: 49px; font-size: 1.3rem; }
-  .char-tile .tile-pin { font-size: .53rem; }
+  .char-tile { min-width: 44px; min-height: 72px; font-size: 2rem; }
+  .char-tile .tile-pin { font-size: .75rem; }
   .key { min-height: 32px; }
   .answer-row { gap: 4px; }
   .answer-box { flex-basis: 108px; width: 108px; min-width: 108px; }

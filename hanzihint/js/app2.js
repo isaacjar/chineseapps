@@ -381,7 +381,7 @@
       pandaScore === dragonScore
         ? text.draw
         : state.names[pandaScore > dragonScore ? "panda" : "dragon"] +
-          text.wins;
+          " " + text.wins;
 
     $("winner-detail").textContent = endedTeam
       ? `${text.timeBonus} ${

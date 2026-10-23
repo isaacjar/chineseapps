@@ -44,6 +44,34 @@
     openSetup();
   }
 
+  function setupToggleGroup(groupId, inputId, onChange) {
+    const group = $(groupId);
+    const input = $(inputId);
+  
+    group.querySelectorAll(".toggle-btn").forEach(button => {
+      button.classList.toggle("active", button.dataset.value === input.value);
+  
+      button.addEventListener("click", () => {
+        input.value = button.dataset.value;
+  
+        group.querySelectorAll(".toggle-btn").forEach(option => {
+          const active = option === button;
+          option.classList.toggle("active", active);
+          option.setAttribute("aria-pressed", String(active));
+        });
+  
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+  
+        if (onChange) onChange(input.value);
+      });
+  
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.value === input.value)
+      );
+    });
+  }
+  
   async function init() {
     UI.showScreen("setup");
 
@@ -57,11 +85,12 @@
         `<option value="">${Setup.TEXT.en.loadError}</option>`;
     }
 
-    $("language-select").addEventListener("change", () => {
-      text = UI.setLanguage(getLang());
+    setupToggleGroup("duration-options", "duration-select");
 
+    setupToggleGroup("language-options", "language-select", () => {
+      text = UI.setLanguage(getLang());
       if (catalog.length) {
-        Setup.fillSelect(select, catalog, getLang());
+        Setup.fillSelect($("dataset-select"), catalog, getLang());
       }
     });
 

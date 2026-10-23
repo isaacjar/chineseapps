@@ -122,3 +122,6 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 .answer-arrow { display: flex; align-items: center; justify-content: center; width: 14px; height: 24px; line-height: 1; }
 .answer-preview { display: block; box-sizing: border-box; width: 48px; min-width: 48px; max-width: 48px; height: 24px; line-height: 24px; margin: 0; padding: 0; overflow: hidden; white-space: nowrap; font-size: 1rem; letter-spacing: 0; }
 #clear-btn, #ok-btn { flex-shrink: 0; align-self: center; }
+/* Reservar altura fija para el pinyin de cada carácter */
+.char-tile { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.char-tile .tile-pin { display: block; box-sizing: border-box; height: 1.15em; min-height: 1.15em; line-height: 1.15em; margin: 0; padding: 0; white-space: nowrap; overflow: hidden; flex-shrink: 0; }

@@ -231,7 +231,10 @@
 
     $("ok-btn").disabled =
       state.finished || state.selected === null || !state.input.length;
-
+      const okBtn = $("ok-btn");
+      okBtn.classList.toggle("team-panda", state.active === "panda");
+      okBtn.classList.toggle("team-dragon", state.active === "dragon");
+        
     $("clear-btn").disabled =
       state.finished || state.selected === null;
   }

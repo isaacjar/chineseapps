@@ -96,7 +96,7 @@
 
     $("setup-form").addEventListener("submit", startFromSetup);
     $("ok-btn").addEventListener("click", submitAnswer);
-
+    $("skip-btn").addEventListener("click", skipCharacter);
     $("clear-btn").addEventListener("click", () => {
       if (!state || state.finished) return;
       state.input = "";
@@ -271,7 +271,9 @@
       const okBtn = $("ok-btn");
       okBtn.classList.toggle("team-panda", state.active === "panda");
       okBtn.classList.toggle("team-dragon", state.active === "dragon");
-        
+    $("skip-btn").disabled =
+      state.finished || state.selected === null;
+    
     $("clear-btn").disabled =
       state.finished || state.selected === null;
   }
@@ -312,6 +314,69 @@
     ) return;
   
     state.input = state.input.slice(0, -1);
+    refresh();
+  }
+
+  function findNextUnsolved(fromIndex) {
+    // Buscar primero hacia delante.
+    for (let i = fromIndex + 1; i < state.units.length; i++) {
+      if (state.units[i].isHan && !state.solved.has(i)) {
+        return i;
+      }
+    }
+  
+    // Si no hay más, volver al principio.
+    for (let i = 0; i <= fromIndex; i++) {
+      if (state.units[i].isHan && !state.solved.has(i)) {
+        return i;
+      }
+    }
+  
+    return null;
+  }
+  
+  function skipCharacter() {
+    if (
+      !state ||
+      state.finished ||
+      state.selected === null
+    ) return;
+  
+    const skippedIndex = state.selected;
+  
+    // Penalización para el equipo que decide saltar.
+    state.scores[state.active] -= 5;
+  
+    // Marcar el carácter como resuelto para revelar su pinyin.
+    state.solved.add(skippedIndex);
+    state.input = "";
+  
+    UI.showFeedback(
+      state.lang === "es" ? "Carácter saltado (-5)" : "Character skipped (-5)",
+      "bad"
+    );
+  
+    const totalCharacters = state.units.filter(
+      unit => unit.isHan
+    ).length;
+  
+    if (state.solved.size >= totalCharacters) {
+      state.selected = null;
+      refresh();
+  
+      setTimeout(async () => {
+        if (!state || state.finished) return;
+  
+        await nextPhrase();
+        refresh();
+      }, 450);
+  
+      return;
+    }
+  
+    // El equipo activo no cambia: continúa jugando.
+    state.selected = findNextUnsolved(skippedIndex);
+  
     refresh();
   }
   

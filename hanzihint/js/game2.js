@@ -4,14 +4,23 @@
   const isHan = char => /\p{Script=Han}/u.test(char);
   const isPunctuation = char => !isHan(char) && !/[a-zA-Z0-9]/.test(char);
   function parsePinyin(phrase, index) {
-    const pins = Array.isArray(phrase.pins) ? phrase.pins : [];
-    const direct = pins[index];
-    if (typeof direct === "string" && direct.trim()) return direct.trim();
     const chars = Array.from(phrase.ch || "");
+    const char = chars[index];
+    if (!char || !isHan(char)) return "";
+    const pins = Array.isArray(phrase.pins) ? phrase.pins : [];
+    // Calcular la posición contando únicamente caracteres chinos.
+    let hanPos = 0;
+    for (let i = 0; i < index; i++) {
+      if (isHan(chars[i])) hanPos++;
+    }
+    // pins contiene una sílaba por cada carácter chino.
+    const direct = pins[hanPos];
+    if (typeof direct === "string" && direct.trim()) {
+      return direct.trim();
+    }
+    // Alternativa: recuperar las sílabas desde el pinyin completo.
     const syllables = String(phrase.pin || "").trim().split(/\s+/);
-    const hanIndices = chars.map((ch, i) => isHan(ch) ? i : -1).filter(i => i >= 0);
-    const hanPos = hanIndices.indexOf(index);
-    return hanPos >= 0 ? (syllables[hanPos] || "") : "";
+    return syllables[hanPos] || "";
   }
   function getUnits(phrase) {
     const chars = Array.from(String(phrase.ch || ""));

@@ -43,7 +43,6 @@
       button.disabled = disabled; button.addEventListener("click", () => onLetter(letter.toLowerCase())); root.appendChild(button);
     });
     const back = document.createElement("button"); back.type = "button"; back.className = "key special backspace-key"; back.setAttribute("aria-label", "Backspace"); back.title = "Backspace"; back.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4H21V20H9L2 12L9 4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 9L18 15M18 9L13 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`; back.disabled = disabled; back.addEventListener("click", onBackspace); root.appendChild(back);
-    back.disabled = disabled; back.addEventListener("click", onBackspace); root.appendChild(back);
   }
   function renderScore(state) {
     $("panda-label").textContent = state.names.panda; $("dragon-label").textContent = state.names.dragon;

@@ -124,6 +124,15 @@
       }
     });
 
+    $("toggle-team-names").addEventListener("click", () => {
+      const pandaInput = $("panda-name");
+      const dragonInput = $("dragon-name");
+      const unlock = pandaInput.disabled;
+      pandaInput.disabled = !unlock;
+      dragonInput.disabled = !unlock;
+      if (unlock) pandaInput.focus();
+    });
+    
     $("setup-form").addEventListener("submit", startFromSetup);
     $("ok-btn").addEventListener("click", submitAnswer);
     $("skip-btn").addEventListener("click", skipCharacter);

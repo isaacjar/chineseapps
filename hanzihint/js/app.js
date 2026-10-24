@@ -30,7 +30,7 @@
   }
 
   async function loadLevel(id, sentenceNum) {
-    const entry = levels.find((l) => l.level === id) || levels[0];
+    const entry = levels.find((l) => l.name === id) || levels[0];
     const mine = ++token;
     if (controller) controller.abort();          // a newer request cancels the older one
     controller = new AbortController();
@@ -45,7 +45,7 @@
       if (!Array.isArray(raw)) throw new LoadError('errInvalid');
       const list = Game.sanitize(raw);
       if (!list.length) throw new LoadError(raw.length ? 'errInvalid' : 'errEmpty');
-      levelId = entry.level;
+      levelId = entry.name;
       showingAllSentences = false;
       Game.setSentences(list);
       const idx = sentenceNum ? Game.indexByNumber(sentenceNum) : -1;
@@ -56,7 +56,7 @@
       render();
     } catch (e) {
       if (e.name === 'AbortError' || mine !== token) return;
-      levelId = entry.level;
+      levelId = entry.name;
       Game.setSentences([]);
       UI.fillLevels(levels, levelId); UI.fillSentences([], 0);
       UI.setEnabled(false); UI.setCounter(0, 0);
@@ -97,7 +97,8 @@
       onReset: () => { const d = Settings.reset(); setLang(d.lang); if (levels.length) loadLevel(levels[0].level, null); }
     });
     if (!levels.length) { UI.setEnabled(false); UI.showError('errCatalog'); return; }
-    await loadLevel(prefs.level, prefs.sentence);
+    const initial = levels.find((l) => l.name === prefs.level || l.level === prefs.level) || levels[0];
+    await loadLevel(initial.name, prefs.sentence);
   }
   boot();
 })();

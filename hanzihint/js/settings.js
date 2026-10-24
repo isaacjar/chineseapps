@@ -27,9 +27,17 @@
       let q = {};
       try { const p = new URLSearchParams(location.search); q = { lang: p.get('lang'), level: p.get('level'), sentence: p.get('sentence') }; } catch (e) { /* ignore */ }
       this.saved = store.read();
-      const ids = levels.map((l) => l.level);
-      const level = ids.includes(q.level) ? q.level : ids.includes(this.saved.level) ? this.saved.level : (ids[0] || null);
-      const sentence = num(q.sentence) || (this.saved.level === level ? num(this.saved.sentence) : null) || null;
+      const ids = levels.map((l) => l.name);
+      const level = ids.includes(q.level)
+        ? q.level
+        : ids.includes(this.saved.level)
+          ? this.saved.level
+          : (ids[0] || null);      
+      const sentence =
+        num(q.sentence) ||
+        (this.saved.level === level ? num(this.saved.sentence) : null) ||
+        null;
+      
       this.current = { lang: lang(q.lang) || lang(this.saved.lang) || DEFAULTS.lang, level, sentence };
       return this.current;
     },

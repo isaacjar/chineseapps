@@ -13,7 +13,11 @@
   <main id="app">
     <header class="topbar">
       <div class="brand"><span class="brand-icon">🏆</span><div><h1>HanziClash</h1><p id="subtitle">Chinese character battle</p></div></div>
-      <button id="restart-btn" class="small-btn" type="button" hidden>↻ <span data-i18n="newGame">New game</span></button>
+      <div class="topbar-actions">
+        <button id="sound-toggle" class="small-btn" type="button"
+          aria-pressed="true" aria-label="Sound on">🔊 </button>
+        <button id="restart-btn" class="small-btn" type="button" hidden>↻ <span data-i18n="newGame">New game</span></button>
+      </div>
     </header>
 
     <section id="setup-screen" class="setup-wrap">
@@ -107,6 +111,7 @@
   <script src="js/setup2.js"></script>
   <script src="js/game2.js"></script>
   <script src="js/ui2.js"></script>
+  <script src="js/audio2.js"></script>
   <script src="js/app2.js"></script>
 </body>
 </html>

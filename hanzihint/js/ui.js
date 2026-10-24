@@ -52,7 +52,9 @@
     },
 
     fillLevels(levels, current) {
-      this.els.level.replaceChildren(...levels.map((l) => new Option(l.title || l.name, l.level)));
+      this.els.level.replaceChildren(
+        ...levels.map((l) => new Option(l.title || l.name, l.name))
+      );
       this.els.level.value = current;
     },
     fillSentences(list, index) {

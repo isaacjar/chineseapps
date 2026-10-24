@@ -1,4 +1,4 @@
-
+// sw2.js
 const CACHE_NAME = "hanziclash-v2";
 
 const CORE_FILES = [
@@ -59,13 +59,18 @@ self.addEventListener("activate", event => {
   })());
 });
 
+
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
 
-  // Solo gestiona las peticiones del mismo dominio.
+  // Solo gestiona peticiones del mismo dominio.
   if (url.origin !== self.location.origin) return;
+
+  // No interceptar archivos de audio: dejar que el navegador
+  // los solicite directamente al servidor.
+  if (url.pathname.includes("/sounds/")) return;
 
   event.respondWith((async () => {
     try {
@@ -82,10 +87,13 @@ self.addEventListener("fetch", event => {
 
       if (cached) return cached;
 
-      return new Response("No hay conexión y el archivo no está en caché.", {
-        status: 503,
-        headers: { "Content-Type": "text/plain; charset=utf-8" }
-      });
+      return new Response(
+        "No hay conexión y el archivo no está en caché.",
+        {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" }
+        }
+      );
     }
   })());
 });

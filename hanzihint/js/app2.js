@@ -5,6 +5,7 @@
   const UI = window.HanziClashUI;
   const Game = window.HanziClashGame;
   const Setup = window.HanziClashSetup;
+  const AudioFX = window.HanziClashAudio;
   const $ = UI.$;
 
   let catalog = [];
@@ -22,6 +23,26 @@
 
   function getLang() {
     return $("language-select").value || "en";
+  }
+
+  function updateSoundButton() {
+    const button = $("sound-toggle");
+    if (!button || !AudioFX) return;
+  
+    const enabled = AudioFX.isEnabled();
+    const spanish = getLang() === "es";
+  
+    button.textContent = enabled
+      ? (spanish ? "🔊 Sonido" : "🔊 Sound on")
+      : (spanish ? "🔇 Sonido" : "🔇 Sound off");
+  
+    button.setAttribute("aria-pressed", String(enabled));
+    button.setAttribute(
+      "aria-label",
+      enabled
+        ? (spanish ? "Desactivar sonido" : "Turn sound off")
+        : (spanish ? "Activar sonido" : "Turn sound on")
+    );
   }
 
   function openSetup() {
@@ -75,6 +96,14 @@
   async function init() {
     UI.showScreen("setup");
 
+    AudioFX.init();
+    updateSoundButton();
+    
+    $("sound-toggle").addEventListener("click", () => {
+      AudioFX.setEnabled(!AudioFX.isEnabled());
+      updateSoundButton();
+    });
+
     const select = $("dataset-select");
 
     try {
@@ -89,6 +118,7 @@
 
     setupToggleGroup("language-options", "language-select", () => {
       text = UI.setLanguage(getLang());
+      updateSoundButton();
       if (catalog.length) {
         Setup.fillSelect($("dataset-select"), catalog, getLang());
       }
@@ -341,7 +371,9 @@
       state.finished ||
       state.selected === null
     ) return;
-  
+
+    AudioFX.play("skip");
+    
     const skippedIndex = state.selected;
   
     // Penalización para el equipo que decide saltar.
@@ -361,6 +393,7 @@
     ).length;
   
     if (state.solved.size >= totalCharacters) {
+      AudioFX.play("phraseComplete");
       state.selected = null;
       refresh();
   
@@ -411,6 +444,16 @@
     const totalCharacters = state.units.filter(
       unit => unit.isHan
     ).length;
+
+    if (isCorrect) {
+      AudioFX.play(
+        state.solved.size >= totalCharacters
+          ? "phraseComplete"
+          : "correct"
+      );
+    } else {
+      AudioFX.play("wrong");
+    }
   
     if (state.solved.size >= totalCharacters) {
       state.selected = null;
@@ -477,7 +520,8 @@
 
     stopTimer();
     state.finished = true;
-
+    AudioFX.play("victory");
+    
     const endedTeam =
       reason === "panda" || reason === "dragon" ? reason : null;
 

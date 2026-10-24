@@ -8,6 +8,7 @@
   const FILES = {
     correct: "correct.mp3",
     wrong: "wrong.mp3",
+    skip: "click.mp3",
     phraseComplete: "phrase-complete.mp3",
     victory: "victory.mp3"
   };
@@ -15,6 +16,7 @@
   const PRIORITY = {
     correct: 1,
     wrong: 1,
+    skip: 1,
     phraseComplete: 2,
     victory: 3
   };

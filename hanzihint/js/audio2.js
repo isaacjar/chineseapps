@@ -35,7 +35,7 @@
   function init() {
     Object.entries(FILES).forEach(([name, file]) => {
       const audio = new Audio(BASE_PATH + file);
-      audio.preload = "auto";
+      audio.preload = "none"; // audio.preload = "auto";
       audio.volume = name === "wrong" ? 0.65 : 0.75;
       sounds[name] = audio;
     });

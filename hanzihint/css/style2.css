@@ -67,10 +67,10 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .sentence-meta { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: .75rem; font-weight: 800; }
 
 /* ===== Chinese character tiles ===== */
-.sentence { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; min-height: 110px; }
-.char-tile { appearance: none; -webkit-appearance: none; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-width: 76px; min-height: 104px; padding: 8px 10px; border: 2px solid #e7e0ef; border-radius: 12px; background: #fff; color: #29243a; font-family: KaiTi, Kaiti, serif; font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1.15; overflow: visible; }
+.sentence { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 6px; margin: 12px 0 8px; min-height: 88px; }
+.char-tile { appearance: none; -webkit-appearance: none; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 61px; min-height: 83px; padding: 6px 8px; border: 2px solid #e7e0ef; border-radius: 10px; background: #fff; color: #29243a; font-family: KaiTi, Kaiti, serif; font-size: clamp(2.1rem, 4.8vw, 3rem); line-height: 1.15; overflow: visible; }
 .char-tile > span:first-child { display: block; flex: 0 0 auto; min-height: 1.15em; font-family: KaiTi, Kaiti, serif; font-size: 1em; line-height: 1.15; color: inherit; white-space: nowrap; }
-.char-tile .tile-pin { display: block; flex: 0 0 1.3em; width: 100%; height: 1.3em; min-height: 1.3em; font-family: Nunito, Arial, sans-serif; font-size: 1.05rem; font-weight: 900; line-height: 1.3em; text-align: center; color: #8e879b; white-space: nowrap; overflow: visible; }
+.char-tile .tile-pin { display: block; flex: 0 0 1.3em; width: 100%; height: 1.3em; min-height: 1.3em; font-family: Nunito, Arial, sans-serif; font-size: .85rem; font-weight: 900; line-height: 1.3em; text-align: center; color: #8e879b; white-space: nowrap; overflow: visible; }
 .char-tile.done { opacity: .65; background: #f6f4f8; }
 .char-tile.selected { border-color: currentColor; box-shadow: 0 0 0 3px #f2edf9; }
 .panda-theme .char-tile.selected { color: var(--purple); background: #f7f1ff; }
@@ -149,9 +149,9 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
   .versus-badge { padding: 6px; font-size: .65rem; }
   .turn-banner { padding: 6px 8px; font-size: .88rem; margin-bottom: 7px; }
   .play-card { padding: 9px; }
-  .sentence { justify-content: center; gap: 5px; margin: 10px 0 7px; }
-  .char-tile { min-width: 54px; min-height: 82px; padding: 5px 6px; gap: 3px; font-size: 2.4rem; }
-  .char-tile .tile-pin { font-size: .85rem; }
+  .sentence { justify-content: center; gap: 4px; margin: 8px 0 6px; }
+  .char-tile { min-width: 43px; min-height: 66px; padding: 4px 5px; gap: 3px; font-size: 1.9rem; }
+  .char-tile .tile-pin { font-size: .68rem; }
   .instruction { font-size: .8rem; margin-bottom: 7px; }
   .answer-row { flex-wrap: wrap; gap: 6px; }
   .answer-box { flex: 0 0 112px; width: 112px; min-width: 112px; }
@@ -163,8 +163,8 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 }
 
 @media (max-width: 360px) {
-  .char-tile { min-width: 44px; min-height: 72px; font-size: 2rem; }
-  .char-tile .tile-pin { font-size: .75rem; }
+  .char-tile { min-width: 35px; min-height: 58px; font-size: 1.6rem; }
+  .char-tile .tile-pin { font-size: .62rem; }
   .key { min-height: 32px; }
   .answer-row { gap: 4px; }
   .answer-box { flex-basis: 108px; width: 108px; min-width: 108px; }

@@ -112,8 +112,9 @@
 
       const ok =
         Array.isArray(s.pins) &&
-        s.pins.length === chineseUnits.length &&
-        s.pins.every((p) => typeof p === 'string');
+        s.pins.length === chineseUnits.length + 1 &&
+        s.pins.every((p) => typeof p === 'string') &&
+        s.pins[s.pins.length - 1] === '';
 
       let pinIndex = 0;
 

@@ -177,3 +177,5 @@ footer { text-align: center; color: #968da5; font-size: .7rem; padding: 10px 0 2
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Secret Easter egg: dragon icon in setup */ #toggle-team-names { cursor: inherit; user-select: none; }

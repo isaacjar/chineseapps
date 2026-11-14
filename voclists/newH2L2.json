@@ -15,5 +15,5 @@
   { "ch": "万", "pin": "wàn", "en": "ten thousand", "es": "diez mil", "leccion": 2 },
   { "ch": "网上", "pin": "wǎngshang", "en": "online", "es": "en internet", "leccion": 2 },
   { "ch": "远", "pin": "yuǎn", "en": "far", "es": "lejos", "leccion": 2 },
-  { "ch": "北京大学", "pin": "dàxué", "en": "university", "es": "universidad", "leccion": 2 }
+  { "ch": "大学", "pin": "dàxué", "en": "university", "es": "universidad", "leccion": 2 }
 ]

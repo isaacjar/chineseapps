@@ -6,14 +6,14 @@
   { "ch": "但", "pin": "dàn", "en": "but", "es": "pero", "leccion": 2 },
   { "ch": "公交车", "pin": "gōngjiāochē", "en": "bus", "es": "autobús", "leccion": 2 },
   { "ch": "过来", "pin": "guòlái", "en": "to come over", "es": "venir, acercarse", "leccion": 2 },
-  { "ch": "还是", "pin": "háishi", "en": "still, or", "es": "todavía, o", "leccion": 2 },
-  { "ch": "间", "pin": "jiān", "en": "space, room", "es": "espacio, habitación", "leccion": 2 },
+  { "ch": "还是", "pin": "háishi", "en": "we'd better, still", "es": "mejor..., todavía", "leccion": 2 },
+  { "ch": "间", "pin": "jiān", "en": "space", "es": "espacio", "leccion": 2 },
   { "ch": "教室", "pin": "jiàoshì", "en": "classroom", "es": "aula, clase", "leccion": 2 },
-  { "ch": "名", "pin": "míng", "en": "name, measure word for people", "es": "nombre, clasificador para personas", "leccion": 2 },
+  { "ch": "名", "pin": "míng", "en": "measure word for students,...", "es": "clasificador para alumnos,...", "leccion": 2 },
   { "ch": "票", "pin": "piào", "en": "ticket", "es": "billete, entrada", "leccion": 2 },
   { "ch": "外国", "pin": "wàiguó", "en": "foreign country", "es": "país extranjero", "leccion": 2 },
   { "ch": "万", "pin": "wàn", "en": "ten thousand", "es": "diez mil", "leccion": 2 },
   { "ch": "网上", "pin": "wǎngshang", "en": "online", "es": "en internet", "leccion": 2 },
   { "ch": "远", "pin": "yuǎn", "en": "far", "es": "lejos", "leccion": 2 },
-  { "ch": "北京大学", "pin": "Běijīng Dàxué", "en": "Peking University", "es": "Universidad de Pekín", "leccion": 2 }
+  { "ch": "北京大学", "pin": "dàxué", "en": "university", "es": "universidad", "leccion": 2 }
 ]

@@ -15,5 +15,9 @@
   { "ch": "万", "pin": "wàn", "en": "ten thousand", "es": "diez mil", "leccion": 2 },
   { "ch": "网上", "pin": "wǎngshang", "en": "online", "es": "en internet", "leccion": 2 },
   { "ch": "远", "pin": "yuǎn", "en": "far", "es": "lejos", "leccion": 2 },
-  { "ch": "大学", "pin": "dàxué", "en": "university", "es": "universidad", "leccion": 2 }
+  { "ch": "大学", "pin": "dàxué", "en": "university", "es": "universidad", "leccion": 2 },
+  { "ch": "时间", "pin": "shíjiān", "en": "time", "es": "tiempo", "leccion": 2 },
+  { "ch": "大", "pin": "dà", "en": "big", "es": "grande", "leccion": 2 },
+  { "ch": "漂亮", "pin": "piàoliang", "en": "beautiful", "es": "bonito, guapa", "leccion": 2 },
+  { "ch": "家", "pin": "jiā", "en": "home, family, measure word for businesses", "es": "casa, familia, clasif. establecimientos", "leccion": 2 }
 ]

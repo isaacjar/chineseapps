@@ -1,0 +1,28 @@
+[
+  { "ch": "天气", "pin": "tiānqì", "en": "weather", "es": "tiempo, clima" },
+  { "ch": "这里", "pin": "zhèlǐ", "en": "here, this place", "es": "aquí, este lugar" },
+  { "ch": "天", "pin": "tiān", "en": "day, sky", "es": "día, cielo" },
+  { "ch": "下雨", "pin": "xià yǔ", "en": "to rain", "es": "llover" },
+  { "ch": "了", "pin": "le", "en": "completed action particle, change of state particle", "es": "partícula de acción completada, partícula de cambio de estado" },
+  { "ch": "雨", "pin": "yǔ", "en": "rain", "es": "lluvia" },
+  { "ch": "有点儿", "pin": "yǒudiǎnr", "en": "a little, somewhat", "es": "un poco, algo" },
+  { "ch": "觉得", "pin": "juéde", "en": "to think, to feel", "es": "pensar, sentir" },
+  { "ch": "冷", "pin": "lěng", "en": "cold", "es": "frío" },
+
+  { "ch": "下", "pin": "xià", "en": "to fall, down, below, next", "es": "caer, abajo, debajo, siguiente" },
+  { "ch": "雪", "pin": "xuě", "en": "snow", "es": "nieve" },
+  { "ch": "来", "pin": "lái", "en": "to come", "es": "venir" },
+  { "ch": "公司", "pin": "gōngsī", "en": "company", "es": "empresa, compañía" },
+  { "ch": "生病", "pin": "shēngbìng", "en": "to get sick, to fall ill", "es": "ponerse enfermo, enfermar" },
+  { "ch": "看病", "pin": "kànbìng", "en": "to see a doctor, to receive medical treatment", "es": "ir al médico, recibir tratamiento médico" },
+
+  { "ch": "病", "pin": "bìng", "en": "illness, disease, sickness", "es": "enfermedad, dolencia" },
+  { "ch": "一点儿", "pin": "yìdiǎnr", "en": "a little, a bit", "es": "un poco, un poquito" },
+  { "ch": "药", "pin": "yào", "en": "medicine, drug", "es": "medicina, medicamento" },
+  { "ch": "天", "pin": "tiān", "en": "day, sky", "es": "día, cielo" },
+  { "ch": "回", "pin": "huí", "en": "to return, to go back", "es": "volver, regresar" },
+  { "ch": "再", "pin": "zài", "en": "again, then", "es": "otra vez, luego" },
+  { "ch": "喝", "pin": "hē", "en": "to drink", "es": "beber" },
+  { "ch": "热", "pin": "rè", "en": "hot, warm", "es": "caliente, cálido" },
+  { "ch": "水", "pin": "shuǐ", "en": "water", "es": "agua" }
+]

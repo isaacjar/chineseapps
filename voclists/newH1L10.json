@@ -1,0 +1,27 @@
+[
+  { "ch": "杯子", "pin": "běizi", "en": "cup, glass", "es": "taza, vaso" },
+  { "ch": "售货员", "pin": "shòuhuòyuán", "en": "salesperson, shop assistant", "es": "dependiente, vendedor" },
+  { "ch": "这边", "pin": "zhèbiān", "en": "this side, here", "es": "este lado, por aquí" },
+  { "ch": "钱", "pin": "qián", "en": "money", "es": "dinero" },
+  { "ch": "这些", "pin": "zhèxiē", "en": "these", "es": "estos, estas" },
+  { "ch": "块", "pin": "kuài", "en": "yuan (colloquial), piece, chunk", "es": "yuan (coloquial), trozo, pieza" },
+  { "ch": "那些", "pin": "nàxiē", "en": "those", "es": "esos, esas, aquellos, aquellas" },
+
+  { "ch": "这儿", "pin": "zhèr", "en": "here", "es": "aquí" },
+  { "ch": "水果", "pin": "shuǐguǒ", "en": "fruit", "es": "fruta" },
+  { "ch": "少", "pin": "shǎo", "en": "few, little, less, to lack", "es": "poco, escaso, menos, faltar" },
+  { "ch": "斤", "pin": "jīn", "en": "jin (Chinese unit of weight)", "es": "jin, unidad china de peso" },
+  { "ch": "苹果", "pin": "píngguǒ", "en": "apple", "es": "manzana" },
+  { "ch": "便宜", "pin": "piányi", "en": "cheap, inexpensive", "es": "barato, económico" },
+
+  { "ch": "商店", "pin": "shāngdiàn", "en": "shop, store", "es": "tienda, comercio" },
+  { "ch": "衣服", "pin": "yīfu", "en": "clothes, clothing", "es": "ropa, prendas de vestir" },
+  { "ch": "件", "pin": "jiàn", "en": "measure word for clothes, item", "es": "clasificador para ropa, prenda, artículo" },
+  { "ch": "元", "pin": "yuán", "en": "yuan, Chinese yuan", "es": "yuan, moneda china" },
+  { "ch": "怎么样", "pin": "zěnmeyàng", "en": "how, how about", "es": "cómo, qué tal" },
+  { "ch": "贵", "pin": "guì", "en": "expensive, costly", "es": "caro, costoso" },
+  { "ch": "穿", "pin": "chuān", "en": "to wear, to put on", "es": "llevar puesto, ponerse" },
+  { "ch": "女", "pin": "nǚ", "en": "female, woman", "es": "mujer, femenino" },
+  { "ch": "男", "pin": "nán", "en": "male, man", "es": "hombre, masculino" },
+  { "ch": "那儿", "pin": "nàr", "en": "there", "es": "allí, ahí" }
+]

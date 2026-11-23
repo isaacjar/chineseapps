@@ -1,0 +1,29 @@
+[
+  { "ch": "时候", "pin": "shíhou", "en": "time, moment", "es": "momento, tiempo" },
+  { "ch": "饭店", "pin": "fàndiàn", "en": "restaurant", "es": "restaurante" },
+  { "ch": "知道", "pin": "zhīdao", "en": "to know", "es": "saber, conocer" },
+  { "ch": "正在", "pin": "zhèngzài", "en": "in the process of, currently", "es": "estar haciendo, actualmente" },
+  { "ch": "找", "pin": "zhǎo", "en": "to look for, to find", "es": "buscar, encontrar" },
+  { "ch": "开车", "pin": "kāichē", "en": "to drive", "es": "conducir" },
+  { "ch": "车", "pin": "chē", "en": "car, vehicle", "es": "coche, vehículo" },
+
+  { "ch": "在", "pin": "zài", "en": "to be at, in, on", "es": "estar en, encontrarse en" },
+  { "ch": "读", "pin": "dú", "en": "to read, to study", "es": "leer, estudiar" },
+  { "ch": "大学", "pin": "dàxué", "en": "university", "es": "universidad" },
+  { "ch": "大学生", "pin": "dàxuéshēng", "en": "university student, college student", "es": "estudiante universitario" },
+  { "ch": "学", "pin": "xué", "en": "to study, to learn", "es": "estudiar, aprender" },
+  { "ch": "医", "pin": "yī", "en": "medicine, medical", "es": "medicina, médico" },
+
+  { "ch": "弟弟", "pin": "dìdi", "en": "younger brother", "es": "hermano menor" },
+  { "ch": "起床", "pin": "qǐchuáng", "en": "to get up, to get out of bed", "es": "levantarse" },
+  { "ch": "睡觉", "pin": "shuìjiào", "en": "to sleep, to go to bed", "es": "dormir, acostarse" },
+  { "ch": "睡", "pin": "shuì", "en": "to sleep", "es": "dormir" },
+  { "ch": "那里", "pin": "nàli", "en": "there, that place", "es": "allí, ese lugar" },
+  { "ch": "哪里", "pin": "nǎli", "en": "where", "es": "dónde" },
+  { "ch": "昨天", "pin": "zuótiān", "en": "yesterday", "es": "ayer" },
+  { "ch": "问", "pin": "wèn", "en": "to ask", "es": "preguntar" },
+  { "ch": "对", "pin": "duì", "en": "correct, right, to be toward", "es": "correcto, correcto, hacia" },
+  { "ch": "说", "pin": "shuō", "en": "to speak, to say", "es": "hablar, decir" },
+  { "ch": "要", "pin": "yào", "en": "to want, to need, will", "es": "querer, necesitar, ir a" },
+  { "ch": "小朋友", "pin": "xiǎopéngyou", "en": "child, young friend", "es": "niño, niña, pequeño amigo" }
+]

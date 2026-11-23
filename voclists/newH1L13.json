@@ -1,0 +1,24 @@
+[
+  { "ch": "可以", "pin": "kěyǐ", "en": "can, may, to be able to", "es": "poder, estar permitido" },
+  { "ch": "再", "pin": "zài", "en": "again, then", "es": "otra vez, luego" },
+  { "ch": "问题", "pin": "wèntí", "en": "question, problem", "es": "pregunta, problema" },
+  { "ch": "卖", "pin": "mài", "en": "to sell", "es": "vender" },
+  { "ch": "打电话", "pin": "dǎ diànhuà", "en": "to make a phone call, to call", "es": "llamar por teléfono, telefonear" },
+  { "ch": "一下", "pin": "yíxià", "en": "a bit, once, briefly", "es": "un poco, una vez, brevemente" },
+
+  { "ch": "服务员", "pin": "fúwùyuán", "en": "waiter, waitress, server, attendant", "es": "camarero, camarera, empleado de servicio" },
+  { "ch": "女士", "pin": "nǚshì", "en": "lady, madam, woman", "es": "señora, señorita, dama" },
+  { "ch": "请", "pin": "qǐng", "en": "please, to invite, to ask", "es": "por favor, invitar, pedir" },
+  { "ch": "坐", "pin": "zuò", "en": "to sit", "es": "sentarse" },
+  { "ch": "给", "pin": "gěi", "en": "to give, for, to", "es": "dar, para, a" },
+  { "ch": "杯", "pin": "bēi", "en": "cup, measure word for cups", "es": "taza, clasificador para tazas" },
+  { "ch": "要", "pin": "yào", "en": "to want, to need, will", "es": "querer, necesitar, ir a" },
+  { "ch": "早饭", "pin": "zǎofàn", "en": "breakfast", "es": "desayuno" },
+  { "ch": "这个", "pin": "zhège", "en": "this, this one", "es": "este, esta, esto" },
+  { "ch": "面包", "pin": "miànbāo", "en": "bread", "es": "pan" },
+  { "ch": "鸡蛋", "pin": "jīdàn", "en": "egg", "es": "huevo" },
+
+  { "ch": "先生", "pin": "xiānsheng", "en": "Mr., gentleman, sir", "es": "señor, caballero" },
+  { "ch": "一半", "pin": "yíbàn", "en": "half", "es": "mitad" },
+  { "ch": "茶", "pin": "chá", "en": "tea", "es": "té" }
+]
